@@ -26,7 +26,6 @@ package governance
 import (
 	"bytes"
 	"context"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/url"
