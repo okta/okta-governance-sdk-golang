@@ -1,0 +1,127 @@
+/*
+Okta Governance API
+
+Allows customers to easily access the Okta API
+
+Copyright 2018 - Present Okta, Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+API version: 3.2.0
+Contact: devex-public@okta.com
+*/
+
+package governance
+
+import (
+	"encoding/json"
+)
+
+// PredefinedInactiveUsersScopeSettings struct for PredefinedInactiveUsersScopeSettings
+type PredefinedInactiveUsersScopeSettings struct {
+	// The duration the users have not used single sign on (SSO) to access their account within the specific time frame. Minimum 30 days and maximum 365 days are supported.
+	InactiveDays *int32 `json:"inactiveDays,omitempty"`
+}
+
+// NewPredefinedInactiveUsersScopeSettings instantiates a new PredefinedInactiveUsersScopeSettings object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewPredefinedInactiveUsersScopeSettings() *PredefinedInactiveUsersScopeSettings {
+	this := PredefinedInactiveUsersScopeSettings{}
+	return &this
+}
+
+// NewPredefinedInactiveUsersScopeSettingsWithDefaults instantiates a new PredefinedInactiveUsersScopeSettings object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewPredefinedInactiveUsersScopeSettingsWithDefaults() *PredefinedInactiveUsersScopeSettings {
+	this := PredefinedInactiveUsersScopeSettings{}
+	return &this
+}
+
+// GetInactiveDays returns the InactiveDays field value if set, zero value otherwise.
+func (o *PredefinedInactiveUsersScopeSettings) GetInactiveDays() int32 {
+	if o == nil || o.InactiveDays == nil {
+		var ret int32
+		return ret
+	}
+	return *o.InactiveDays
+}
+
+// GetInactiveDaysOk returns a tuple with the InactiveDays field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PredefinedInactiveUsersScopeSettings) GetInactiveDaysOk() (*int32, bool) {
+	if o == nil || o.InactiveDays == nil {
+		return nil, false
+	}
+	return o.InactiveDays, true
+}
+
+// HasInactiveDays returns a boolean if a field has been set.
+func (o *PredefinedInactiveUsersScopeSettings) HasInactiveDays() bool {
+	if o != nil && o.InactiveDays != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetInactiveDays gets a reference to the given int32 and assigns it to the InactiveDays field.
+func (o *PredefinedInactiveUsersScopeSettings) SetInactiveDays(v int32) {
+	o.InactiveDays = &v
+}
+
+func (o PredefinedInactiveUsersScopeSettings) MarshalJSON() ([]byte, error) {
+	toSerialize := map[string]interface{}{}
+	if o.InactiveDays != nil {
+		toSerialize["inactiveDays"] = o.InactiveDays
+	}
+	return json.Marshal(toSerialize)
+}
+
+type NullablePredefinedInactiveUsersScopeSettings struct {
+	value *PredefinedInactiveUsersScopeSettings
+	isSet bool
+}
+
+func (v NullablePredefinedInactiveUsersScopeSettings) Get() *PredefinedInactiveUsersScopeSettings {
+	return v.value
+}
+
+func (v *NullablePredefinedInactiveUsersScopeSettings) Set(val *PredefinedInactiveUsersScopeSettings) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullablePredefinedInactiveUsersScopeSettings) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullablePredefinedInactiveUsersScopeSettings) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullablePredefinedInactiveUsersScopeSettings(val *PredefinedInactiveUsersScopeSettings) *NullablePredefinedInactiveUsersScopeSettings {
+	return &NullablePredefinedInactiveUsersScopeSettings{value: val, isSet: true}
+}
+
+func (v NullablePredefinedInactiveUsersScopeSettings) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullablePredefinedInactiveUsersScopeSettings) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}

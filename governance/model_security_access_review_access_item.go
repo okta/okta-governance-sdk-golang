@@ -1,0 +1,421 @@
+/*
+Okta Governance API
+
+Allows customers to easily access the Okta API
+
+Copyright 2018 - Present Okta, Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+API version: 3.2.0
+Contact: devex-public@okta.com
+*/
+
+package governance
+
+import (
+	"encoding/json"
+)
+
+// SecurityAccessReviewAccessItem struct for SecurityAccessReviewAccessItem
+type SecurityAccessReviewAccessItem struct {
+	// The ID of the access item
+	Id   string                             `json:"id"`
+	Type SecurityAccessReviewAccessItemType `json:"type"`
+	// The name of the access item
+	Name             string                                          `json:"name"`
+	Severity         SecurityAccessReviewAccessItemSeverity          `json:"severity"`
+	SupportedActions []SecurityAccessReviewAccessItemSupportedAction `json:"supportedActions"`
+	AppInfo          *SecurityAccessReviewAccessItemAppInfo          `json:"appInfo,omitempty"`
+	Summary          *ServerMessage                                  `json:"summary,omitempty"`
+	// A list of types of sub accesses the access item has
+	SubAccessTypes       []SecurityAccessReviewSubAccessItemType `json:"subAccessTypes,omitempty"`
+	Links                *map[string]Link                        `json:"_links,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _SecurityAccessReviewAccessItem SecurityAccessReviewAccessItem
+
+// NewSecurityAccessReviewAccessItem instantiates a new SecurityAccessReviewAccessItem object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewSecurityAccessReviewAccessItem(id string, type_ SecurityAccessReviewAccessItemType, name string, severity SecurityAccessReviewAccessItemSeverity, supportedActions []SecurityAccessReviewAccessItemSupportedAction) *SecurityAccessReviewAccessItem {
+	this := SecurityAccessReviewAccessItem{}
+	this.Id = id
+	this.Type = type_
+	this.Name = name
+	this.Severity = severity
+	this.SupportedActions = supportedActions
+	return &this
+}
+
+// NewSecurityAccessReviewAccessItemWithDefaults instantiates a new SecurityAccessReviewAccessItem object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewSecurityAccessReviewAccessItemWithDefaults() *SecurityAccessReviewAccessItem {
+	this := SecurityAccessReviewAccessItem{}
+	return &this
+}
+
+// GetId returns the Id field value
+func (o *SecurityAccessReviewAccessItem) GetId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *SecurityAccessReviewAccessItem) GetIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *SecurityAccessReviewAccessItem) SetId(v string) {
+	o.Id = v
+}
+
+// GetType returns the Type field value
+func (o *SecurityAccessReviewAccessItem) GetType() SecurityAccessReviewAccessItemType {
+	if o == nil {
+		var ret SecurityAccessReviewAccessItemType
+		return ret
+	}
+
+	return o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value
+// and a boolean to check if the value has been set.
+func (o *SecurityAccessReviewAccessItem) GetTypeOk() (*SecurityAccessReviewAccessItemType, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Type, true
+}
+
+// SetType sets field value
+func (o *SecurityAccessReviewAccessItem) SetType(v SecurityAccessReviewAccessItemType) {
+	o.Type = v
+}
+
+// GetName returns the Name field value
+func (o *SecurityAccessReviewAccessItem) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *SecurityAccessReviewAccessItem) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *SecurityAccessReviewAccessItem) SetName(v string) {
+	o.Name = v
+}
+
+// GetSeverity returns the Severity field value
+func (o *SecurityAccessReviewAccessItem) GetSeverity() SecurityAccessReviewAccessItemSeverity {
+	if o == nil {
+		var ret SecurityAccessReviewAccessItemSeverity
+		return ret
+	}
+
+	return o.Severity
+}
+
+// GetSeverityOk returns a tuple with the Severity field value
+// and a boolean to check if the value has been set.
+func (o *SecurityAccessReviewAccessItem) GetSeverityOk() (*SecurityAccessReviewAccessItemSeverity, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Severity, true
+}
+
+// SetSeverity sets field value
+func (o *SecurityAccessReviewAccessItem) SetSeverity(v SecurityAccessReviewAccessItemSeverity) {
+	o.Severity = v
+}
+
+// GetSupportedActions returns the SupportedActions field value
+func (o *SecurityAccessReviewAccessItem) GetSupportedActions() []SecurityAccessReviewAccessItemSupportedAction {
+	if o == nil {
+		var ret []SecurityAccessReviewAccessItemSupportedAction
+		return ret
+	}
+
+	return o.SupportedActions
+}
+
+// GetSupportedActionsOk returns a tuple with the SupportedActions field value
+// and a boolean to check if the value has been set.
+func (o *SecurityAccessReviewAccessItem) GetSupportedActionsOk() ([]SecurityAccessReviewAccessItemSupportedAction, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.SupportedActions, true
+}
+
+// SetSupportedActions sets field value
+func (o *SecurityAccessReviewAccessItem) SetSupportedActions(v []SecurityAccessReviewAccessItemSupportedAction) {
+	o.SupportedActions = v
+}
+
+// GetAppInfo returns the AppInfo field value if set, zero value otherwise.
+func (o *SecurityAccessReviewAccessItem) GetAppInfo() SecurityAccessReviewAccessItemAppInfo {
+	if o == nil || o.AppInfo == nil {
+		var ret SecurityAccessReviewAccessItemAppInfo
+		return ret
+	}
+	return *o.AppInfo
+}
+
+// GetAppInfoOk returns a tuple with the AppInfo field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SecurityAccessReviewAccessItem) GetAppInfoOk() (*SecurityAccessReviewAccessItemAppInfo, bool) {
+	if o == nil || o.AppInfo == nil {
+		return nil, false
+	}
+	return o.AppInfo, true
+}
+
+// HasAppInfo returns a boolean if a field has been set.
+func (o *SecurityAccessReviewAccessItem) HasAppInfo() bool {
+	if o != nil && o.AppInfo != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAppInfo gets a reference to the given SecurityAccessReviewAccessItemAppInfo and assigns it to the AppInfo field.
+func (o *SecurityAccessReviewAccessItem) SetAppInfo(v SecurityAccessReviewAccessItemAppInfo) {
+	o.AppInfo = &v
+}
+
+// GetSummary returns the Summary field value if set, zero value otherwise.
+func (o *SecurityAccessReviewAccessItem) GetSummary() ServerMessage {
+	if o == nil || o.Summary == nil {
+		var ret ServerMessage
+		return ret
+	}
+	return *o.Summary
+}
+
+// GetSummaryOk returns a tuple with the Summary field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SecurityAccessReviewAccessItem) GetSummaryOk() (*ServerMessage, bool) {
+	if o == nil || o.Summary == nil {
+		return nil, false
+	}
+	return o.Summary, true
+}
+
+// HasSummary returns a boolean if a field has been set.
+func (o *SecurityAccessReviewAccessItem) HasSummary() bool {
+	if o != nil && o.Summary != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSummary gets a reference to the given ServerMessage and assigns it to the Summary field.
+func (o *SecurityAccessReviewAccessItem) SetSummary(v ServerMessage) {
+	o.Summary = &v
+}
+
+// GetSubAccessTypes returns the SubAccessTypes field value if set, zero value otherwise.
+func (o *SecurityAccessReviewAccessItem) GetSubAccessTypes() []SecurityAccessReviewSubAccessItemType {
+	if o == nil || o.SubAccessTypes == nil {
+		var ret []SecurityAccessReviewSubAccessItemType
+		return ret
+	}
+	return o.SubAccessTypes
+}
+
+// GetSubAccessTypesOk returns a tuple with the SubAccessTypes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SecurityAccessReviewAccessItem) GetSubAccessTypesOk() ([]SecurityAccessReviewSubAccessItemType, bool) {
+	if o == nil || o.SubAccessTypes == nil {
+		return nil, false
+	}
+	return o.SubAccessTypes, true
+}
+
+// HasSubAccessTypes returns a boolean if a field has been set.
+func (o *SecurityAccessReviewAccessItem) HasSubAccessTypes() bool {
+	if o != nil && o.SubAccessTypes != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSubAccessTypes gets a reference to the given []SecurityAccessReviewSubAccessItemType and assigns it to the SubAccessTypes field.
+func (o *SecurityAccessReviewAccessItem) SetSubAccessTypes(v []SecurityAccessReviewSubAccessItemType) {
+	o.SubAccessTypes = v
+}
+
+// GetLinks returns the Links field value if set, zero value otherwise.
+func (o *SecurityAccessReviewAccessItem) GetLinks() map[string]Link {
+	if o == nil || o.Links == nil {
+		var ret map[string]Link
+		return ret
+	}
+	return *o.Links
+}
+
+// GetLinksOk returns a tuple with the Links field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SecurityAccessReviewAccessItem) GetLinksOk() (*map[string]Link, bool) {
+	if o == nil || o.Links == nil {
+		return nil, false
+	}
+	return o.Links, true
+}
+
+// HasLinks returns a boolean if a field has been set.
+func (o *SecurityAccessReviewAccessItem) HasLinks() bool {
+	if o != nil && o.Links != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLinks gets a reference to the given map[string]Link and assigns it to the Links field.
+func (o *SecurityAccessReviewAccessItem) SetLinks(v map[string]Link) {
+	o.Links = &v
+}
+
+func (o SecurityAccessReviewAccessItem) MarshalJSON() ([]byte, error) {
+	toSerialize := map[string]interface{}{}
+	if true {
+		toSerialize["id"] = o.Id
+	}
+	if true {
+		toSerialize["type"] = o.Type
+	}
+	if true {
+		toSerialize["name"] = o.Name
+	}
+	if true {
+		toSerialize["severity"] = o.Severity
+	}
+	if true {
+		toSerialize["supportedActions"] = o.SupportedActions
+	}
+	if o.AppInfo != nil {
+		toSerialize["appInfo"] = o.AppInfo
+	}
+	if o.Summary != nil {
+		toSerialize["summary"] = o.Summary
+	}
+	if o.SubAccessTypes != nil {
+		toSerialize["subAccessTypes"] = o.SubAccessTypes
+	}
+	if o.Links != nil {
+		toSerialize["_links"] = o.Links
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return json.Marshal(toSerialize)
+}
+
+func (o *SecurityAccessReviewAccessItem) UnmarshalJSON(bytes []byte) (err error) {
+	varSecurityAccessReviewAccessItem := _SecurityAccessReviewAccessItem{}
+
+	err = json.Unmarshal(bytes, &varSecurityAccessReviewAccessItem)
+	if err == nil {
+		*o = SecurityAccessReviewAccessItem(varSecurityAccessReviewAccessItem)
+	} else {
+		return err
+	}
+
+	additionalProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(bytes, &additionalProperties)
+	if err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "severity")
+		delete(additionalProperties, "supportedActions")
+		delete(additionalProperties, "appInfo")
+		delete(additionalProperties, "summary")
+		delete(additionalProperties, "subAccessTypes")
+		delete(additionalProperties, "_links")
+		o.AdditionalProperties = additionalProperties
+	} else {
+		return err
+	}
+
+	return err
+}
+
+type NullableSecurityAccessReviewAccessItem struct {
+	value *SecurityAccessReviewAccessItem
+	isSet bool
+}
+
+func (v NullableSecurityAccessReviewAccessItem) Get() *SecurityAccessReviewAccessItem {
+	return v.value
+}
+
+func (v *NullableSecurityAccessReviewAccessItem) Set(val *SecurityAccessReviewAccessItem) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableSecurityAccessReviewAccessItem) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableSecurityAccessReviewAccessItem) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableSecurityAccessReviewAccessItem(val *SecurityAccessReviewAccessItem) *NullableSecurityAccessReviewAccessItem {
+	return &NullableSecurityAccessReviewAccessItem{value: val, isSet: true}
+}
+
+func (v NullableSecurityAccessReviewAccessItem) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableSecurityAccessReviewAccessItem) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}

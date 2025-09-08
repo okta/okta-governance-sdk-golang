@@ -1,0 +1,72 @@
+# AccessScopeSettingsCreatableEntitlementBundleAccessScopeSettings
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**Type** | **string** |  | 
+**EntitlementBundles** | [**[]EntitlementBundlesArrayCreatableInner**](EntitlementBundlesArrayCreatableInner.md) | Entitlement bundles that are made requestable | 
+
+## Methods
+
+### NewAccessScopeSettingsCreatableEntitlementBundleAccessScopeSettings
+
+`func NewAccessScopeSettingsCreatableEntitlementBundleAccessScopeSettings(type_ string, entitlementBundles []EntitlementBundlesArrayCreatableInner, ) *AccessScopeSettingsCreatableEntitlementBundleAccessScopeSettings`
+
+NewAccessScopeSettingsCreatableEntitlementBundleAccessScopeSettings instantiates a new AccessScopeSettingsCreatableEntitlementBundleAccessScopeSettings object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed
+
+### NewAccessScopeSettingsCreatableEntitlementBundleAccessScopeSettingsWithDefaults
+
+`func NewAccessScopeSettingsCreatableEntitlementBundleAccessScopeSettingsWithDefaults() *AccessScopeSettingsCreatableEntitlementBundleAccessScopeSettings`
+
+NewAccessScopeSettingsCreatableEntitlementBundleAccessScopeSettingsWithDefaults instantiates a new AccessScopeSettingsCreatableEntitlementBundleAccessScopeSettings object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set
+
+### GetType
+
+`func (o *AccessScopeSettingsCreatableEntitlementBundleAccessScopeSettings) GetType() string`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *AccessScopeSettingsCreatableEntitlementBundleAccessScopeSettings) GetTypeOk() (*string, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *AccessScopeSettingsCreatableEntitlementBundleAccessScopeSettings) SetType(v string)`
+
+SetType sets Type field to given value.
+
+
+### GetEntitlementBundles
+
+`func (o *AccessScopeSettingsCreatableEntitlementBundleAccessScopeSettings) GetEntitlementBundles() []EntitlementBundlesArrayCreatableInner`
+
+GetEntitlementBundles returns the EntitlementBundles field if non-nil, zero value otherwise.
+
+### GetEntitlementBundlesOk
+
+`func (o *AccessScopeSettingsCreatableEntitlementBundleAccessScopeSettings) GetEntitlementBundlesOk() (*[]EntitlementBundlesArrayCreatableInner, bool)`
+
+GetEntitlementBundlesOk returns a tuple with the EntitlementBundles field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEntitlementBundles
+
+`func (o *AccessScopeSettingsCreatableEntitlementBundleAccessScopeSettings) SetEntitlementBundles(v []EntitlementBundlesArrayCreatableInner)`
+
+SetEntitlementBundles sets EntitlementBundles field to given value.
+
+
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

@@ -1,0 +1,28 @@
+generatorName: go
+templateDir: ./.generator/templates
+outputDir: ./governance/
+gitUserId: okta
+gitRepoId: okta-governance-sdk-golang
+versionName: v1
+additionalProperties:
+  enumClassPrefix: true
+  generateInterfaces: true
+  packageName: governance
+  packageVersion: 1.0.0
+  useOneOfDiscriminatorLookup: true
+  disallowAdditionalPropertiesIfNotPresent: false
+files:
+  asset/logo.png: {}
+  cache.go: {}
+  gocache.go: {}
+  noopcache.go: {}
+  user_agent.go: {}
+  api_campaigns_test.go: {}
+  api_collections_test.go: {}
+  api_entitlement_bundles_test.go: {}
+  api_entitlements_test.go: {}
+  api_grants_test.go: {}
+  api_principal_access_test.go: {}
+  api_reviews_test.go: {}
+
+

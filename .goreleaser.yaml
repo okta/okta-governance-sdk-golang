@@ -1,0 +1,13 @@
+builds:
+  -
+    skip: true
+checksum:
+  name_template: 'checksums.txt'
+  algorithm: sha256
+release:
+  github:
+    owner: okta
+    name: okta-sdk-golang
+  draft: true
+changelog:
+  skip: true

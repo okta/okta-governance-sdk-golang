@@ -1,0 +1,8 @@
+linters:
+  disable:
+    - unused
+
+exclude-rules:
+  - path: generated/.*\.go
+    linters:
+      - unused
