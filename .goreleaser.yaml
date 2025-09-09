@@ -7,7 +7,7 @@ checksum:
 release:
   github:
     owner: okta
-    name: okta-sdk-golang
+    name: okta-governance-sdk-golang
   draft: true
 changelog:
   skip: true

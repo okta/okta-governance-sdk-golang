@@ -72,7 +72,7 @@ check-goimports:
 		GO111MODULE=on go install golang.org/x/tools/cmd/goimports@latest; \
 	}
 test:
-	go test -failfast -race ./okta -test.v
+	go test -failfast -race ./governance -test.v
 
 generate:
 	npx @openapitools/openapi-generator-cli generate -c ./.generator/config.yaml -i .generator/governance-production-combined-reference-minimal.yaml
