@@ -33,7 +33,7 @@ type ResourceOwnerResource struct {
 	Id string `json:"id"`
 	// The resource type value from the orn. Examples:- apps, entitlement-bundles
 	Type string `json:"type"`
-	// The `id` of the resource in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format.  The resource can be an app, or a bundle. See [Supported resources](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
+	// The `id` of the resource in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format. The resource can be an app, or a bundle. See [Supported resources](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
 	Orn                  string                  `json:"orn"`
 	Profile              ExternalResourceProfile `json:"profile"`
 	AdditionalProperties map[string]interface{}

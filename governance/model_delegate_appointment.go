@@ -28,7 +28,7 @@ import (
 	"time"
 )
 
-// DelegateAppointment Delegate settings specify what delegates are associated with the user
+// DelegateAppointment Delegate appointment settings
 type DelegateAppointment struct {
 	Delegator DelegateAppointmentDelegator `json:"delegator"`
 	// Unique identifier for the delegate appointment

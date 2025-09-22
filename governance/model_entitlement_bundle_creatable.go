@@ -32,7 +32,7 @@ type EntitlementBundleCreatable struct {
 	Target TargetResource `json:"target"`
 	// Collection of entitlements and associated value identifiers
 	Entitlements []EntitlementCreatable `json:"entitlements"`
-	// The unique name of the entitlement bundle.
+	// The unique name of the entitlement bundle
 	Name string `json:"name"`
 	// The human-readable description
 	Description          *string `json:"description,omitempty"`

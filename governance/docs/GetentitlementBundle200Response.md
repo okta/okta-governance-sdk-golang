@@ -8,7 +8,6 @@ Name | Type | Description | Notes
 **Target** | [**TargetResource**](TargetResource.md) |  | 
 **Status** | [**EntitlementBundleStatus**](EntitlementBundleStatus.md) |  | 
 **Entitlements** | [**[]EntitlementFull**](EntitlementFull.md) | Collection of entitlements with associated values | 
-**EntitlementsObjectType** | **string** |  | [default to "entitlement-bundle-full-with-entitlements"]
 **Links** | [**map[string]Link**](Link.md) |  | 
 **Name** | **string** | The unique name of the entitlement bundle | 
 **Description** | Pointer to **string** | The human-readable description | [optional] 
@@ -22,7 +21,7 @@ Name | Type | Description | Notes
 
 ### NewGetentitlementBundle200Response
 
-`func NewGetentitlementBundle200Response(targetResourceOrn string, target TargetResource, status EntitlementBundleStatus, entitlements []EntitlementFull, entitlementsObjectType string, links map[string]Link, name string, id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, ) *GetentitlementBundle200Response`
+`func NewGetentitlementBundle200Response(targetResourceOrn string, target TargetResource, status EntitlementBundleStatus, entitlements []EntitlementFull, links map[string]Link, name string, id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, ) *GetentitlementBundle200Response`
 
 NewGetentitlementBundle200Response instantiates a new GetentitlementBundle200Response object
 This constructor will assign default values to properties that have it defined,
@@ -115,26 +114,6 @@ and a boolean to check if the value has been set.
 `func (o *GetentitlementBundle200Response) SetEntitlements(v []EntitlementFull)`
 
 SetEntitlements sets Entitlements field to given value.
-
-
-### GetEntitlementsObjectType
-
-`func (o *GetentitlementBundle200Response) GetEntitlementsObjectType() string`
-
-GetEntitlementsObjectType returns the EntitlementsObjectType field if non-nil, zero value otherwise.
-
-### GetEntitlementsObjectTypeOk
-
-`func (o *GetentitlementBundle200Response) GetEntitlementsObjectTypeOk() (*string, bool)`
-
-GetEntitlementsObjectTypeOk returns a tuple with the EntitlementsObjectType field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetEntitlementsObjectType
-
-`func (o *GetentitlementBundle200Response) SetEntitlementsObjectType(v string)`
-
-SetEntitlementsObjectType sets EntitlementsObjectType field to given value.
 
 
 ### GetLinks

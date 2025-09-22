@@ -32,7 +32,7 @@ import (
 type GrantFull struct {
 	GrantType GrantType `json:"grantType"`
 	// The entitlement bundle `id`
-	EntitlementBundleId *string `json:"entitlementBundleId,omitempty"`
+	EntitlementBundleId *string `json:"entitlementBundleId,omitempty" validate:"regexp=enb[0-9a-zA-Z]+"`
 	// The Okta user `id` in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format.  See [Supported resources](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
 	TargetPrincipalOrn string              `json:"targetPrincipalOrn"`
 	TargetPrincipal    TargetPrincipalFull `json:"targetPrincipal"`

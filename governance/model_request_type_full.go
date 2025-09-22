@@ -81,7 +81,6 @@ func NewRequestTypeFull(ownerId string, resourceSettings RequestTypeResourceSett
 // but it doesn't guarantee that properties required by API are set
 func NewRequestTypeFullWithDefaults() *RequestTypeFull {
 	this := RequestTypeFull{}
-
 	// Initialize RequestSettings with default "EVERYONE" requester
 	this.RequestSettings = RequestTypeRequestSettingsReadable{
 		RequestTypeRequesterEveryone: &RequestTypeRequesterEveryone{
@@ -89,7 +88,6 @@ func NewRequestTypeFullWithDefaults() *RequestTypeFull {
 			RequesterFields: []Field{},
 		},
 	}
-
 	return &this
 }
 

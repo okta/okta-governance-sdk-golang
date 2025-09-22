@@ -33,7 +33,7 @@ type NotificationSettings struct {
 	NotifyReviewerWhenReviewAssigned *bool `json:"notifyReviewerWhenReviewAssigned,omitempty"`
 	// A Boolean value to indicate whether a notification should be sent to the reviewers when campaign has come to an end.
 	NotifyReviewerAtCampaignEnd *bool `json:"notifyReviewerAtCampaignEnd,omitempty"`
-	// Specifies, in seconds, the time a reminder is sent to reviewers before the campaign closes. You can send up to three notifications.  For example, the following array, `[86400, 172800, 604800]`, sends reminder notifications 7 days, 2 days, and 1 day before the campaign closes.  By default, reminders are sent 2 days and 1 day before the campaign closes.
+	// Specifies, in seconds, the time a reminder is sent to reviewers before the campaign closes. You can send up to three notifications. For example, the following array, `[86400, 172800, 604800]`, sends reminder notifications 7 days, 2 days, and 1 day before the campaign closes. By default, reminders are sent 2 days and 1 day before the campaign closes.
 	RemindersReviewerBeforeCampaignCloseInSecs []int32 `json:"remindersReviewerBeforeCampaignCloseInSecs,omitempty"`
 	// A boolean value to indicate whether a notification should be sent to the reviewer when reviews are over due.
 	NotifyReviewerWhenOverdue NullableBool `json:"notifyReviewerWhenOverdue,omitempty"`

@@ -35,9 +35,8 @@ type EntitlementBundleFull struct {
 	Target            TargetResource          `json:"target"`
 	Status            EntitlementBundleStatus `json:"status"`
 	// Collection of entitlements and associated value identifiers
-	Entitlements           []EntitlementCreatable `json:"entitlements,omitempty"`
-	EntitlementsObjectType string                 `json:"entitlementsObjectType"`
-	Links                  EntitlementBundleLinks `json:"_links"`
+	Entitlements []EntitlementCreatable `json:"entitlements,omitempty"`
+	Links        EntitlementBundleLinks `json:"_links"`
 	// The unique name of the entitlement bundle
 	Name string `json:"name"`
 	// The human-readable description
@@ -61,7 +60,7 @@ type _EntitlementBundleFull EntitlementBundleFull
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEntitlementBundleFull(targetResourceOrn string, target TargetResource, status EntitlementBundleStatus, entitlementsObjectType string, links EntitlementBundleLinks, name string, id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string) *EntitlementBundleFull {
+func NewEntitlementBundleFull(targetResourceOrn string, target TargetResource, status EntitlementBundleStatus, links EntitlementBundleLinks, name string, id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string) *EntitlementBundleFull {
 	this := EntitlementBundleFull{}
 	this.Name = name
 	this.Id = id
@@ -78,8 +77,6 @@ func NewEntitlementBundleFull(targetResourceOrn string, target TargetResource, s
 // but it doesn't guarantee that properties required by API are set
 func NewEntitlementBundleFullWithDefaults() *EntitlementBundleFull {
 	this := EntitlementBundleFull{}
-	var entitlementsObjectType string = "entitlement-bundle-full"
-	this.EntitlementsObjectType = entitlementsObjectType
 	return &this
 }
 
@@ -185,30 +182,6 @@ func (o *EntitlementBundleFull) HasEntitlements() bool {
 // SetEntitlements gets a reference to the given []EntitlementCreatable and assigns it to the Entitlements field.
 func (o *EntitlementBundleFull) SetEntitlements(v []EntitlementCreatable) {
 	o.Entitlements = v
-}
-
-// GetEntitlementsObjectType returns the EntitlementsObjectType field value
-func (o *EntitlementBundleFull) GetEntitlementsObjectType() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.EntitlementsObjectType
-}
-
-// GetEntitlementsObjectTypeOk returns a tuple with the EntitlementsObjectType field value
-// and a boolean to check if the value has been set.
-func (o *EntitlementBundleFull) GetEntitlementsObjectTypeOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.EntitlementsObjectType, true
-}
-
-// SetEntitlementsObjectType sets field value
-func (o *EntitlementBundleFull) SetEntitlementsObjectType(v string) {
-	o.EntitlementsObjectType = v
 }
 
 // GetLinks returns the Links field value
@@ -426,9 +399,6 @@ func (o EntitlementBundleFull) MarshalJSON() ([]byte, error) {
 		toSerialize["entitlements"] = o.Entitlements
 	}
 	if true {
-		toSerialize["entitlementsObjectType"] = o.EntitlementsObjectType
-	}
-	if true {
 		toSerialize["_links"] = o.Links
 	}
 	if true {
@@ -478,7 +448,6 @@ func (o *EntitlementBundleFull) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "target")
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "entitlements")
-		delete(additionalProperties, "entitlementsObjectType")
 		delete(additionalProperties, "_links")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "description")

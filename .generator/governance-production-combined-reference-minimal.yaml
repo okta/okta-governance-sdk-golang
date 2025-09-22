@@ -20478,9 +20478,7 @@ components:
       content:
         application/json:
           schema:
-            oneOf:
-              - $ref: '#/components/schemas/entitlement-bundles-list'
-              - $ref: '#/components/schemas/entitlement-bundles-list-with-entitlements'
+            $ref: '#/components/schemas/entitlement-bundles-list-with-entitlements'
           examples:
             SuccessWithNoFilter:
               $ref: '#/components/examples/entitlement-bundles-list-no-filter'
@@ -20544,14 +20542,7 @@ components:
       content:
         application/json:
           schema:
-            oneOf:
-              - $ref: '#/components/schemas/entitlement-bundle-full'
-              - $ref: '#/components/schemas/entitlement-bundle-full-with-entitlements'
-            discriminator:
-              propertyName: entitlementsObjectType
-              mapping:
-                entitlement-bundle-full: '#/components/schemas/entitlement-bundle-full'
-                entitlement-bundle-full-with-entitlements: '#/components/schemas/entitlement-bundle-full-with-entitlements'
+            $ref: '#/components/schemas/entitlement-bundle-full-with-entitlements'
           examples:
             SingleValue:
               $ref: '#/components/examples/entitlement-bundle-creatable-00-single-value-full-example'
@@ -20821,13 +20812,6 @@ components:
             oneOf:
               - $ref: '#/components/schemas/grant-full'
               - $ref: '#/components/schemas/grant-full-with-entitlements'
-            discriminator:
-              propertyName: grantType
-              mapping:
-                  BundleNoExpiration: '#/components/schemas/grant-bundle-creatable-00-no-expiration-full'
-                  BundleExpiration: '#/components/schemas/grant-bundle-creatable-01-expiration-full'
-                  Policy: '#/components/schemas/grant-policy-full'
-                  Custom: '#/components/schemas/grant-custom-full'
           examples:
             BundleNoExpiration:
               $ref: '#/components/examples/grant-bundle-creatable-00-no-expiration-full-example'
@@ -25263,7 +25247,6 @@ components:
         - status
         - targetResourceOrn
         - target
-        - entitlementsObjectType
         - _links
       properties:
         targetResourceOrn:
@@ -25274,10 +25257,6 @@ components:
           $ref: '#/components/schemas/entitlement-bundle-status'
         entitlements:
           $ref: '#/components/schemas/entitlements-creatable'
-        entitlementsObjectType:
-          type: string
-          enum: [ entitlement-bundle-full ]
-          default: entitlement-bundle-full
         _links:
           $ref: '#/components/schemas/entitlement-bundle-links'
     entitlement-bundle-list-links:
@@ -25316,9 +25295,7 @@ components:
         - lastUpdatedBy
         - status
         - targetResourceOrn
-        - entitlements
         - target
-        - entitlementsObjectType
         - _links
       properties:
         targetResourceOrn:
@@ -25329,10 +25306,6 @@ components:
           $ref: '#/components/schemas/entitlement-bundle-status'
         entitlements:
           $ref: '#/components/schemas/entitlements-full'
-        entitlementsObjectType:
-          type: string
-          enum: [ entitlement-bundle-full-with-entitlements ]
-          default: entitlement-bundle-full-with-entitlements
         _links:
           $ref: '#/components/schemas/entitlement-bundle-links'
     entitlement-bundles-list-with-entitlements:
@@ -25382,10 +25355,6 @@ components:
           $ref: '#/components/schemas/entitlement-bundle-status'
         entitlements:
           $ref: '#/components/schemas/entitlements-creatable'
-        entitlementsObjectType:
-          type: string
-          enum: [ entitlement-bundle-full ]
-          default: entitlement-bundle-full
     entitlement-links:
       type: object
       description: Links available in list response

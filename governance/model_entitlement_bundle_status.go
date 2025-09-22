@@ -28,7 +28,7 @@ import (
 	"fmt"
 )
 
-// EntitlementBundleStatus An entitlement bundle has a status lifecycle described in our [entitlement bundle lifecycle documentation](/#entitlement-bundle-lifecycle).  An entitlement bundle has a status of `ACTIVE` after creation.  When the bundle is deleted, it transitions to a status of `DELETED`.  At some point in the future, the bundle will be purged entirely. At that point in time, the bundle will no longer be included in list operations, and get operations return a 404.
+// EntitlementBundleStatus The lifecycle status of an entitlement bundle:  * An entitlement bundle has a status of `ACTIVE` after creation. * When the bundle is deleted, it transitions to a status of `DELETED`.  When the entitlement bundle is purged, it isn't returned in a GET operation.
 type EntitlementBundleStatus string
 
 // List of entitlement-bundle-status

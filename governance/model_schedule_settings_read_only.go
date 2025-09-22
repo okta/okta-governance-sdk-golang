@@ -28,7 +28,7 @@ import (
 	"time"
 )
 
-// ScheduleSettingsReadOnly Scheduler specific settings.    A campaign can be a `ONE_OFF` or a `RECURRING` campaign.    You can't provide both in the campaign definition.
+// ScheduleSettingsReadOnly Scheduler specific settings.  A campaign can be a `ONE_OFF` or a `RECURRING` campaign.  You can't provide both in the campaign definition.
 type ScheduleSettingsReadOnly struct {
 	Type ScheduleType `json:"type"`
 	// The date on which the campaign is supposed to start. Accepts date in ISO 8601 format.

@@ -30,7 +30,7 @@ import (
 // GrantDetails struct for GrantDetails
 type GrantDetails struct {
 	// Grant `id`
-	Id                   *string            `json:"id,omitempty"`
+	Id                   *string            `json:"id,omitempty" validate:"regexp=gra[0-9a-zA-Z]+"`
 	Metadata             *GrantMetadata     `json:"metadata,omitempty"`
 	Links                *GrantDetailsLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}

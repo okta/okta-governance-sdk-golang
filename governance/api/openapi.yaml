@@ -3517,7 +3517,7 @@ paths:
                 SuccessWithFullEntitlementsNoFilter:
                   $ref: '#/components/examples/entitlement-bundles-list-with-entitlements-no-filter'
               schema:
-                $ref: '#/components/schemas/listEntitlementBundles_200_response'
+                $ref: '#/components/schemas/entitlement-bundles-list-with-entitlements'
           description: A successful entitlement bundle list response
           headers:
             Link:
@@ -3886,7 +3886,7 @@ paths:
                 MultiValueFull:
                   $ref: '#/components/examples/entitlement-bundle-multi-value-full-example'
               schema:
-                $ref: '#/components/schemas/getentitlementBundle_200_response'
+                $ref: '#/components/schemas/entitlement-bundle-full-with-entitlements'
           description: A successful entitlement bundle get response
           headers:
             Link:
@@ -30700,7 +30700,7 @@ components:
             SuccessWithFullEntitlementsNoFilter:
               $ref: '#/components/examples/entitlement-bundles-list-with-entitlements-no-filter'
           schema:
-            $ref: '#/components/schemas/listEntitlementBundles_200_response'
+            $ref: '#/components/schemas/entitlement-bundles-list-with-entitlements'
       description: A successful entitlement bundle list response
       headers:
         Link:
@@ -30768,7 +30768,7 @@ components:
             MultiValueFull:
               $ref: '#/components/examples/entitlement-bundle-multi-value-full-example'
           schema:
-            $ref: '#/components/schemas/getentitlementBundle_200_response'
+            $ref: '#/components/schemas/entitlement-bundle-full-with-entitlements'
       description: A successful entitlement bundle get response
       headers:
         Link:
@@ -36413,7 +36413,6 @@ components:
             href: href
             type: type
             title: title
-        entitlementsObjectType: entitlement-bundle-full
         target:
           externalId: externalId
           type: APPLICATION
@@ -36436,18 +36435,12 @@ components:
             $ref: '#/components/schemas/entitlement-creatable'
           nullable: false
           type: array
-        entitlementsObjectType:
-          default: entitlement-bundle-full
-          enum:
-          - entitlement-bundle-full
-          type: string
         _links:
           $ref: '#/components/schemas/entitlement-bundle-links'
       required:
       - _links
       - created
       - createdBy
-      - entitlementsObjectType
       - id
       - lastUpdated
       - lastUpdatedBy
@@ -36491,19 +36484,123 @@ components:
       - self
       type: object
     entitlement-bundles-list:
+      properties:
+        data:
+          description: All entitlement bundles on the current page
+          items:
+            $ref: '#/components/schemas/entitlement-bundle-full'
+          type: array
+        _links:
+          $ref: '#/components/schemas/entitlement-bundle-list-links'
+        metadata:
+          $ref: '#/components/schemas/list-metadata'
+      type: object
+    entitlement-bundle-full-with-entitlements:
+      allOf:
+      - $ref: '#/components/schemas/bundle-writable-standard-properties'
+      - $ref: '#/components/schemas/read-only-standard-properties'
+      description: Full representation of a entitlement bundle resource
+      example:
+        entitlements:
+        - values:
+          - name: name
+            externalId: externalId
+            description: description
+            id: id
+            externalValue: externalValue
+          - name: name
+            externalId: externalId
+            description: description
+            id: id
+            externalValue: externalValue
+        - values:
+          - name: name
+            externalId: externalId
+            description: description
+            id: id
+            externalValue: externalValue
+          - name: name
+            externalId: externalId
+            description: description
+            id: id
+            externalValue: externalValue
+        targetResourceOrn: targetResourceOrn
+        _links:
+          self:
+            method: method
+            templated: true
+            hints:
+              key:
+              - hints
+              - hints
+            name: name
+            rel: rel
+            href: href
+            type: type
+            title: title
+        target:
+          externalId: externalId
+          type: APPLICATION
+        status: ACTIVE
+      properties:
+        targetResourceOrn:
+          description: |-
+            The Okta app instance, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).
+
+            See the ORN format for a specific app in [Supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
+          format: okta-resource-orn
+          type: string
+        target:
+          $ref: '#/components/schemas/target-resource'
+        status:
+          $ref: '#/components/schemas/entitlement-bundle-status'
+        entitlements:
+          description: Collection of entitlements with associated values
+          items:
+            $ref: '#/components/schemas/entitlement-full'
+          nullable: false
+          type: array
+        _links:
+          $ref: '#/components/schemas/entitlement-bundle-links'
+      required:
+      - _links
+      - created
+      - createdBy
+      - id
+      - lastUpdated
+      - lastUpdatedBy
+      - name
+      - status
+      - target
+      - targetResourceOrn
+    entitlement-bundles-list-with-entitlements:
       example:
         metadata:
           total: 50
         data:
         - entitlements:
           - values:
-            - id: id
-            - id: id
-            id: id
+            - name: name
+              externalId: externalId
+              description: description
+              id: id
+              externalValue: externalValue
+            - name: name
+              externalId: externalId
+              description: description
+              id: id
+              externalValue: externalValue
           - values:
-            - id: id
-            - id: id
-            id: id
+            - name: name
+              externalId: externalId
+              description: description
+              id: id
+              externalValue: externalValue
+            - name: name
+              externalId: externalId
+              description: description
+              id: id
+              externalValue: externalValue
           targetResourceOrn: targetResourceOrn
           _links:
             self:
@@ -36518,20 +36615,33 @@ components:
               href: href
               type: type
               title: title
-          entitlementsObjectType: entitlement-bundle-full
           target:
             externalId: externalId
             type: APPLICATION
           status: ACTIVE
         - entitlements:
           - values:
-            - id: id
-            - id: id
-            id: id
+            - name: name
+              externalId: externalId
+              description: description
+              id: id
+              externalValue: externalValue
+            - name: name
+              externalId: externalId
+              description: description
+              id: id
+              externalValue: externalValue
           - values:
-            - id: id
-            - id: id
-            id: id
+            - name: name
+              externalId: externalId
+              description: description
+              id: id
+              externalValue: externalValue
+            - name: name
+              externalId: externalId
+              description: description
+              id: id
+              externalValue: externalValue
           targetResourceOrn: targetResourceOrn
           _links:
             self:
@@ -36546,7 +36656,6 @@ components:
               href: href
               type: type
               title: title
-          entitlementsObjectType: entitlement-bundle-full
           target:
             externalId: externalId
             type: APPLICATION
@@ -36576,61 +36685,6 @@ components:
             href: href
             type: type
             title: title
-      properties:
-        data:
-          description: All entitlement bundles on the current page
-          items:
-            $ref: '#/components/schemas/entitlement-bundle-full'
-          type: array
-        _links:
-          $ref: '#/components/schemas/entitlement-bundle-list-links'
-        metadata:
-          $ref: '#/components/schemas/list-metadata'
-      type: object
-    entitlement-bundle-full-with-entitlements:
-      allOf:
-      - $ref: '#/components/schemas/bundle-writable-standard-properties'
-      - $ref: '#/components/schemas/read-only-standard-properties'
-      description: Full representation of a entitlement bundle resource
-      properties:
-        targetResourceOrn:
-          description: |-
-            The Okta app instance, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).
-
-            See the ORN format for a specific app in [Supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
-          format: okta-resource-orn
-          type: string
-        target:
-          $ref: '#/components/schemas/target-resource'
-        status:
-          $ref: '#/components/schemas/entitlement-bundle-status'
-        entitlements:
-          description: Collection of entitlements with associated values
-          items:
-            $ref: '#/components/schemas/entitlement-full'
-          nullable: false
-          type: array
-        entitlementsObjectType:
-          default: entitlement-bundle-full-with-entitlements
-          enum:
-          - entitlement-bundle-full-with-entitlements
-          type: string
-        _links:
-          $ref: '#/components/schemas/entitlement-bundle-links'
-      required:
-      - _links
-      - created
-      - createdBy
-      - entitlements
-      - entitlementsObjectType
-      - id
-      - lastUpdated
-      - lastUpdatedBy
-      - name
-      - status
-      - target
-      - targetResourceOrn
-    entitlement-bundles-list-with-entitlements:
       properties:
         data:
           description: All entitlement bundles on the current page
@@ -36684,11 +36738,6 @@ components:
             $ref: '#/components/schemas/entitlement-creatable'
           nullable: false
           type: array
-        entitlementsObjectType:
-          default: entitlement-bundle-full
-          enum:
-          - entitlement-bundle-full
-          type: string
       required:
       - id
       - name
@@ -47066,19 +47115,6 @@ components:
       - reviewerSettings
       - securityAccessReviewName
       type: object
-    listEntitlementBundles_200_response:
-      oneOf:
-      - $ref: '#/components/schemas/entitlement-bundles-list'
-      - $ref: '#/components/schemas/entitlement-bundles-list-with-entitlements'
-    getentitlementBundle_200_response:
-      discriminator:
-        mapping:
-          entitlement-bundle-full: '#/components/schemas/entitlement-bundle-full'
-          entitlement-bundle-full-with-entitlements: '#/components/schemas/entitlement-bundle-full-with-entitlements'
-        propertyName: entitlementsObjectType
-      oneOf:
-      - $ref: '#/components/schemas/entitlement-bundle-full'
-      - $ref: '#/components/schemas/entitlement-bundle-full-with-entitlements'
     listGrants_200_response:
       oneOf:
       - $ref: '#/components/schemas/grants-list'

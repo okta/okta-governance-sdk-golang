@@ -30,7 +30,7 @@ import (
 // Bundle struct for Bundle
 type Bundle struct {
 	// The entitlement bundle `id`
-	Id string `json:"id"`
+	Id string `json:"id" validate:"regexp=enb[0-9a-zA-Z]+"`
 	// The unique name of the entitlement bundle
 	Name                 string `json:"name"`
 	AdditionalProperties map[string]interface{}

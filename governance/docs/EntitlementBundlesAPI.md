@@ -148,7 +148,7 @@ Name | Type | Description  | Notes
 
 ## GetentitlementBundle
 
-> GetentitlementBundle200Response GetentitlementBundle(ctx, entitlementBundleId).Include(include).Execute()
+> EntitlementBundleFullWithEntitlements GetentitlementBundle(ctx, entitlementBundleId).Include(include).Execute()
 
 Retrieve an entitlement bundle
 
@@ -177,7 +177,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `EntitlementBundlesAPI.GetentitlementBundle``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetentitlementBundle`: GetentitlementBundle200Response
+	// response from `GetentitlementBundle`: EntitlementBundleFullWithEntitlements
 	fmt.Fprintf(os.Stdout, "Response from `EntitlementBundlesAPI.GetentitlementBundle`: %v\n", resp)
 }
 ```
@@ -202,7 +202,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetentitlementBundle200Response**](GetentitlementBundle200Response.md)
+[**EntitlementBundleFullWithEntitlements**](EntitlementBundleFullWithEntitlements.md)
 
 ### Authorization
 
@@ -220,7 +220,7 @@ Name | Type | Description  | Notes
 
 ## ListEntitlementBundles
 
-> ListEntitlementBundles200Response ListEntitlementBundles(ctx).Filter(filter).After(after).Limit(limit).OrderBy(orderBy).Include(include).Execute()
+> EntitlementBundlesListWithEntitlements ListEntitlementBundles(ctx).Filter(filter).After(after).Limit(limit).OrderBy(orderBy).Include(include).Execute()
 
 List all entitlement bundles
 
@@ -252,7 +252,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `EntitlementBundlesAPI.ListEntitlementBundles``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListEntitlementBundles`: ListEntitlementBundles200Response
+	// response from `ListEntitlementBundles`: EntitlementBundlesListWithEntitlements
 	fmt.Fprintf(os.Stdout, "Response from `EntitlementBundlesAPI.ListEntitlementBundles`: %v\n", resp)
 }
 ```
@@ -276,7 +276,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListEntitlementBundles200Response**](ListEntitlementBundles200Response.md)
+[**EntitlementBundlesListWithEntitlements**](EntitlementBundlesListWithEntitlements.md)
 
 ### Authorization
 

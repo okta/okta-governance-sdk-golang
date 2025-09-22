@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** |  |
-**Duration** | **string** | The duration set by the admin for access durations. Use ISO8061 notation for duration values, see https://tc39.es/proposal-temporal/docs/duration.html. You can set up an access duration to a maximum of 72 hours (&#x60;PT72H&#x60;), 90 days (&#x60;90D&#x60;), or 12 weeks (&#x60;P12W&#x60;). For example:    - 24 hours (&#x60;PT24H&#x60;)   - 7 days (&#x60;P7D&#x60;)   - 2 weeks (&#x60;P2W&#x60;)  |
-**MaximumDuration** | **string** | The maximum duration set by the requester for access durations. Use ISO8061 notation for duration values, see https://tc39.es/proposal-temporal/docs/duration.html. The admin sets the maximum duration that can be requested and can&#39;t exceed 72 hours (&#x60;PT72H&#x60;), 90 days (&#x60;90D&#x60;), or 12 weeks (&#x60;P12W&#x60;). For example:    - 24 hours (&#x60;PT24H&#x60;)   - 7 days (&#x60;P7D&#x60;)   - 2 weeks (&#x60;P2W&#x60;)  |
+**Type** | **string** |  | 
+**Duration** | **string** | The duration set by the admin for access durations. Use ISO8061 notation for duration values, see https://tc39.es/proposal-temporal/docs/duration.html. You can set up an access duration to a maximum of 72 hours (&#x60;PT72H&#x60;), 90 days (&#x60;90D&#x60;), or 12 weeks (&#x60;P12W&#x60;). For example:    - 24 hours (&#x60;PT24H&#x60;)   - 7 days (&#x60;P7D&#x60;)   - 2 weeks (&#x60;P2W&#x60;)  | 
+**MaximumDuration** | **string** | The maximum duration set by the requester for access durations. Use ISO8061 notation for duration values, see https://tc39.es/proposal-temporal/docs/duration.html. The admin sets the maximum duration that can be requested and can&#39;t exceed 72 hours (&#x60;PT72H&#x60;), 90 days (&#x60;90D&#x60;), or 12 weeks (&#x60;P12W&#x60;). For example:    - 24 hours (&#x60;PT24H&#x60;)   - 7 days (&#x60;P7D&#x60;)   - 2 weeks (&#x60;P2W&#x60;)  | 
 
 ## Methods
 

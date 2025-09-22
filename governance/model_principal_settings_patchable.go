@@ -27,7 +27,7 @@ import (
 	"encoding/json"
 )
 
-// PrincipalSettingsPatchable Governance settings for a principal.
+// PrincipalSettingsPatchable Governance settings for a principal
 type PrincipalSettingsPatchable struct {
 	Delegates            *DelegatesPatchable `json:"delegates,omitempty"`
 	AdditionalProperties map[string]interface{}
