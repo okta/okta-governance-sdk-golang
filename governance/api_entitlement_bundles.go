@@ -38,7 +38,7 @@ import (
 
 type EntitlementBundlesAPI interface {
 	/*
-		CreateEntitlementBundle Create an Entitlement bundle
+		CreateEntitlementBundle Create an entitlement bundle
 
 		Creates an entitlement bundle
 
@@ -79,8 +79,8 @@ type EntitlementBundlesAPI interface {
 	GetentitlementBundle(ctx context.Context, entitlementBundleId string) ApiGetentitlementBundleRequest
 
 	// GetentitlementBundleExecute executes the request
-	//  @return GetentitlementBundle200Response
-	GetentitlementBundleExecute(r ApiGetentitlementBundleRequest) (*GetentitlementBundle200Response, *APIResponse, error)
+	//  @return EntitlementBundleFullWithEntitlements
+	GetentitlementBundleExecute(r ApiGetentitlementBundleRequest) (*EntitlementBundleFullWithEntitlements, *APIResponse, error)
 
 	/*
 		ListEntitlementBundles List all entitlement bundles
@@ -93,8 +93,8 @@ type EntitlementBundlesAPI interface {
 	ListEntitlementBundles(ctx context.Context) ApiListEntitlementBundlesRequest
 
 	// ListEntitlementBundlesExecute executes the request
-	//  @return ListEntitlementBundles200Response
-	ListEntitlementBundlesExecute(r ApiListEntitlementBundlesRequest) (*ListEntitlementBundles200Response, *APIResponse, error)
+	//  @return EntitlementBundlesListWithEntitlements
+	ListEntitlementBundlesExecute(r ApiListEntitlementBundlesRequest) (*EntitlementBundlesListWithEntitlements, *APIResponse, error)
 
 	/*
 			ReplaceEntitlementBundle Replace an entitlement bundle
@@ -136,7 +136,7 @@ func (r ApiCreateEntitlementBundleRequest) Execute() (*EntitlementBundleFull, *A
 }
 
 /*
-CreateEntitlementBundle Create an Entitlement bundle
+CreateEntitlementBundle Create an entitlement bundle
 
 # Creates an entitlement bundle
 
@@ -519,7 +519,7 @@ func (r ApiGetentitlementBundleRequest) Include(include []string) ApiGetentitlem
 	return r
 }
 
-func (r ApiGetentitlementBundleRequest) Execute() (*GetentitlementBundle200Response, *APIResponse, error) {
+func (r ApiGetentitlementBundleRequest) Execute() (*EntitlementBundleFullWithEntitlements, *APIResponse, error) {
 	return r.ApiService.GetentitlementBundleExecute(r)
 }
 
@@ -543,13 +543,13 @@ func (a *EntitlementBundlesAPIService) GetentitlementBundle(ctx context.Context,
 
 // Execute executes the request
 //
-//	@return GetentitlementBundle200Response
-func (a *EntitlementBundlesAPIService) GetentitlementBundleExecute(r ApiGetentitlementBundleRequest) (*GetentitlementBundle200Response, *APIResponse, error) {
+//	@return EntitlementBundleFullWithEntitlements
+func (a *EntitlementBundlesAPIService) GetentitlementBundleExecute(r ApiGetentitlementBundleRequest) (*EntitlementBundleFullWithEntitlements, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *GetentitlementBundle200Response
+		localVarReturnValue  *EntitlementBundleFullWithEntitlements
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error
@@ -754,7 +754,7 @@ func (r ApiListEntitlementBundlesRequest) Include(include []string) ApiListEntit
 	return r
 }
 
-func (r ApiListEntitlementBundlesRequest) Execute() (*ListEntitlementBundles200Response, *APIResponse, error) {
+func (r ApiListEntitlementBundlesRequest) Execute() (*EntitlementBundlesListWithEntitlements, *APIResponse, error) {
 	return r.ApiService.ListEntitlementBundlesExecute(r)
 }
 
@@ -776,13 +776,13 @@ func (a *EntitlementBundlesAPIService) ListEntitlementBundles(ctx context.Contex
 
 // Execute executes the request
 //
-//	@return ListEntitlementBundles200Response
-func (a *EntitlementBundlesAPIService) ListEntitlementBundlesExecute(r ApiListEntitlementBundlesRequest) (*ListEntitlementBundles200Response, *APIResponse, error) {
+//	@return EntitlementBundlesListWithEntitlements
+func (a *EntitlementBundlesAPIService) ListEntitlementBundlesExecute(r ApiListEntitlementBundlesRequest) (*EntitlementBundlesListWithEntitlements, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ListEntitlementBundles200Response
+		localVarReturnValue  *EntitlementBundlesListWithEntitlements
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error
@@ -1033,6 +1033,7 @@ func (a *EntitlementBundlesAPIService) ReplaceEntitlementBundleExecute(r ApiRepl
 
 	localVarPath := localBasePath + "/governance/api/v1/entitlement-bundles/{entitlementBundleId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"entitlementBundleId"+"}", url.PathEscape(parameterToString(r.entitlementBundleId, "")), -1)
+
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}

@@ -37,7 +37,7 @@ type AssignedPrincipal struct {
 	Principal *TargetPrincipalFull `json:"principal,omitempty"`
 	Actor     *GrantActor          `json:"actor,omitempty"`
 	// The resource collection `id`
-	CollectionId         *string `json:"collectionId,omitempty"`
+	CollectionId         *string `json:"collectionId,omitempty" validate:"regexp=col[0-9a-zA-Z]+"`
 	AdditionalProperties map[string]interface{}
 }
 

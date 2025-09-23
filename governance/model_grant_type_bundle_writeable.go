@@ -32,7 +32,7 @@ type GrantTypeBundleWriteable struct {
 	// Additive grant type for entitlement bundle.
 	GrantType string `json:"grantType"`
 	// The entitlement bundle `id`
-	EntitlementBundleId  string                     `json:"entitlementBundleId"`
+	EntitlementBundleId  string                     `json:"entitlementBundleId" validate:"regexp=enb[0-9a-zA-Z]+"`
 	TargetPrincipal      TargetPrincipal            `json:"targetPrincipal"`
 	ScheduleSettings     *ScheduleSettingsWriteable `json:"scheduleSettings,omitempty"`
 	Action               *GrantAction               `json:"action,omitempty"`

@@ -29,7 +29,7 @@ import (
 )
 
 // model_oneof.mustache
-// RiskSettingsDefaultPatchable - Default risk settings that are valid for an access request when a risk has been detected for the resource and requesting user. Request submission indicates whether users are allowed or restricted to submit a request when there is any risk conflict.  An approval sequence must be selected with optional access duration settings here for `ALLOWED_WITH_OVERRIDES`, while the  settings from the matching request condition would apply for `ALLOWED_WITH_NO_OVERRIDES`. For `RESTRICTED` and  `ALLOWED_WITH_NO_OVERRIDES`, access duration settings can only be present when there is an error.
+// RiskSettingsDefaultPatchable - Default risk settings that are valid for an access request when a risk has been detected for the resource and requesting user. Request submission indicates whether users are allowed or restricted to submit a request when there is any risk conflict. An approval sequence must be selected with optional access duration settings here for `ALLOWED_WITH_OVERRIDES`, while the settings from the matching request condition would apply for `ALLOWED_WITH_NO_OVERRIDES`. For `RESTRICTED` and `ALLOWED_WITH_NO_OVERRIDES`, access duration settings can only be present when there is an error.
 type RiskSettingsDefaultPatchable struct {
 	RiskSettingsDefaultAllowedWithNoOverridesPatchable *RiskSettingsDefaultAllowedWithNoOverridesPatchable
 	RiskSettingsDefaultAllowedWithOverridesPatchable   *RiskSettingsDefaultAllowedWithOverridesPatchable

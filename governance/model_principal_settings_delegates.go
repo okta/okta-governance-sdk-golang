@@ -27,9 +27,9 @@ import (
 	"encoding/json"
 )
 
-// PrincipalSettingsDelegates struct for PrincipalSettingsDelegates
+// PrincipalSettingsDelegates Delegates for the principal
 type PrincipalSettingsDelegates struct {
-	// All delegate appointments
+	// Delegate appointments
 	Appointments         []DelegateAppointment `json:"appointments,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

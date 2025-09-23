@@ -30,7 +30,7 @@ import (
 // DelegateAppointmentDelegate The appointed principal who performs delegated duties
 type DelegateAppointmentDelegate struct {
 	// The Okta user `id`
-	ExternalId           string        `json:"externalId"`
+	ExternalId           string        `json:"externalId" validate:"regexp=00u[0-9a-zA-Z]+"`
 	Type                 PrincipalType `json:"type"`
 	AdditionalProperties map[string]interface{}
 }

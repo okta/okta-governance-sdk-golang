@@ -52,38 +52,44 @@ func EntitlementBundleFullWithEntitlementsAsGetentitlementBundle200Response(v *E
 // Unmarshal JSON data into one of the pointers in the struct  CUSTOM
 func (dst *GetentitlementBundle200Response) UnmarshalJSON(data []byte) error {
 	var err error
-	// use discriminator value to speed up the lookup
-	var jsonDict map[string]interface{}
-	err = newStrictDecoder(data).Decode(&jsonDict)
-	if err != nil {
-		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
-	}
-
-	// check if the discriminator value is 'entitlement-bundle-full'
-	if jsonDict["entitlementsObjectType"] == "entitlement-bundle-full" {
-		// try to unmarshal JSON data into EntitlementBundleFull
-		err = json.Unmarshal(data, &dst.EntitlementBundleFull)
-		if err == nil {
-			return nil // data stored in dst.EntitlementBundleFull, return on the first match
-		} else {
+	match := 0
+	// try to unmarshal data into EntitlementBundleFull
+	err = json.Unmarshal(data, &dst.EntitlementBundleFull)
+	if err == nil {
+		jsonEntitlementBundleFull, _ := json.Marshal(dst.EntitlementBundleFull)
+		if string(jsonEntitlementBundleFull) == "{}" { // empty struct
 			dst.EntitlementBundleFull = nil
-			return fmt.Errorf("Failed to unmarshal GetentitlementBundle200Response as EntitlementBundleFull: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'entitlement-bundle-full-with-entitlements'
-	if jsonDict["entitlementsObjectType"] == "entitlement-bundle-full-with-entitlements" {
-		// try to unmarshal JSON data into EntitlementBundleFullWithEntitlements
-		err = json.Unmarshal(data, &dst.EntitlementBundleFullWithEntitlements)
-		if err == nil {
-			return nil // data stored in dst.EntitlementBundleFullWithEntitlements, return on the first match
 		} else {
-			dst.EntitlementBundleFullWithEntitlements = nil
-			return fmt.Errorf("Failed to unmarshal GetentitlementBundle200Response as EntitlementBundleFullWithEntitlements: %s", err.Error())
+			match++
 		}
+	} else {
+		dst.EntitlementBundleFull = nil
 	}
 
-	return nil
+	// try to unmarshal data into EntitlementBundleFullWithEntitlements
+	err = json.Unmarshal(data, &dst.EntitlementBundleFullWithEntitlements)
+	if err == nil {
+		jsonEntitlementBundleFullWithEntitlements, _ := json.Marshal(dst.EntitlementBundleFullWithEntitlements)
+		if string(jsonEntitlementBundleFullWithEntitlements) == "{}" { // empty struct
+			dst.EntitlementBundleFullWithEntitlements = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.EntitlementBundleFullWithEntitlements = nil
+	}
+
+	if match > 1 { // more than 1 match
+		// reset to nil
+		dst.EntitlementBundleFull = nil
+		dst.EntitlementBundleFullWithEntitlements = nil
+
+		return fmt.Errorf("Data matches more than one schema in oneOf(GetentitlementBundle200Response)")
+	} else if match == 1 {
+		return nil // exactly one match
+	} else { // no match
+		return fmt.Errorf("Data failed to match schemas in oneOf(GetentitlementBundle200Response)")
+	}
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON

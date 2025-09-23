@@ -30,7 +30,7 @@ import (
 // CollectionMetadata Collection metadata properties
 type CollectionMetadata struct {
 	// The resource collection `id`
-	Id *string `json:"id,omitempty"`
+	Id *string `json:"id,omitempty" validate:"regexp=col[0-9a-zA-Z]+"`
 	// The name of a resource collection
 	Name                 *string `json:"name,omitempty"`
 	AdditionalProperties map[string]interface{}

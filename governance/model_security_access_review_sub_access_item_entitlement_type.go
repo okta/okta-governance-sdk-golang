@@ -33,8 +33,8 @@ type SecurityAccessReviewSubAccessItemEntitlementType string
 
 // List of security-access-review-sub-access-item-entitlement-type
 const (
-	SECURITYACCESSREVIEWSUBACCESSITEMENTITLEMENTTYPE_VALUE  SecurityAccessReviewSubAccessItemEntitlementType = "ENTITLEMENT_VALUE"
-	SECURITYACCESSREVIEWSUBACCESSITEMENTITLEMENTTYPE_BUNDLE SecurityAccessReviewSubAccessItemEntitlementType = "ENTITLEMENT_BUNDLE"
+	SECURITYACCESSREVIEWSUBACCESSITEMENTITLEMENTTYPE_ENTITLEMENT_VALUE  SecurityAccessReviewSubAccessItemEntitlementType = "ENTITLEMENT_VALUE"
+	SECURITYACCESSREVIEWSUBACCESSITEMENTITLEMENTTYPE_ENTITLEMENT_BUNDLE SecurityAccessReviewSubAccessItemEntitlementType = "ENTITLEMENT_BUNDLE"
 )
 
 // All allowed values of SecurityAccessReviewSubAccessItemEntitlementType enum

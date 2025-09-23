@@ -29,7 +29,7 @@ import (
 )
 
 // model_oneof.mustache
-// RequestResourceCreatable - A representation of a resource that can be requested for access.   **Note:** The resources available for the request are subject to their permission settings. For example, the Okta Admin App  can only be requested by Super Admin users.
+// RequestResourceCreatable - A representation of a resource that can be requested for access.  **Note:** The resources available for the request are subject to their permission settings. For example, the Okta Admin App can only be requested by Super Admin users.
 type RequestResourceCreatable struct {
 	RequestResourceCatalogEntryCreatable *RequestResourceCatalogEntryCreatable
 }

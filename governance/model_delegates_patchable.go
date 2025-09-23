@@ -27,7 +27,7 @@ import (
 	"encoding/json"
 )
 
-// DelegatesPatchable struct for DelegatesPatchable
+// DelegatesPatchable Delegates for the principal
 type DelegatesPatchable struct {
 	// Delegate appointments
 	Appointments         []DelegatePatchable `json:"appointments"`

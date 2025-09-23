@@ -36,8 +36,7 @@ type EntitlementBundleUpdatable struct {
 	Target            TargetResource           `json:"target"`
 	Status            *EntitlementBundleStatus `json:"status,omitempty"`
 	// Collection of entitlements and associated value identifiers
-	Entitlements           []EntitlementCreatable `json:"entitlements,omitempty"`
-	EntitlementsObjectType *string                `json:"entitlementsObjectType,omitempty"`
+	Entitlements []EntitlementCreatable `json:"entitlements,omitempty"`
 	// The unique name of the entitlement bundle
 	Name string `json:"name"`
 	// The human-readable description
@@ -62,8 +61,6 @@ func NewEntitlementBundleUpdatable(id string, targetResourceOrn string, target T
 // but it doesn't guarantee that properties required by API are set
 func NewEntitlementBundleUpdatableWithDefaults() *EntitlementBundleUpdatable {
 	this := EntitlementBundleUpdatable{}
-	var entitlementsObjectType string = "entitlement-bundle-full"
-	this.EntitlementsObjectType = &entitlementsObjectType
 	return &this
 }
 
@@ -203,38 +200,6 @@ func (o *EntitlementBundleUpdatable) SetEntitlements(v []EntitlementCreatable) {
 	o.Entitlements = v
 }
 
-// GetEntitlementsObjectType returns the EntitlementsObjectType field value if set, zero value otherwise.
-func (o *EntitlementBundleUpdatable) GetEntitlementsObjectType() string {
-	if o == nil || o.EntitlementsObjectType == nil {
-		var ret string
-		return ret
-	}
-	return *o.EntitlementsObjectType
-}
-
-// GetEntitlementsObjectTypeOk returns a tuple with the EntitlementsObjectType field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *EntitlementBundleUpdatable) GetEntitlementsObjectTypeOk() (*string, bool) {
-	if o == nil || o.EntitlementsObjectType == nil {
-		return nil, false
-	}
-	return o.EntitlementsObjectType, true
-}
-
-// HasEntitlementsObjectType returns a boolean if a field has been set.
-func (o *EntitlementBundleUpdatable) HasEntitlementsObjectType() bool {
-	if o != nil && o.EntitlementsObjectType != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetEntitlementsObjectType gets a reference to the given string and assigns it to the EntitlementsObjectType field.
-func (o *EntitlementBundleUpdatable) SetEntitlementsObjectType(v string) {
-	o.EntitlementsObjectType = &v
-}
-
 // GetName returns the Name field value
 func (o *EntitlementBundleUpdatable) GetName() string {
 	if o == nil {
@@ -308,9 +273,6 @@ func (o EntitlementBundleUpdatable) MarshalJSON() ([]byte, error) {
 	if o.Entitlements != nil {
 		toSerialize["entitlements"] = o.Entitlements
 	}
-	if o.EntitlementsObjectType != nil {
-		toSerialize["entitlementsObjectType"] = o.EntitlementsObjectType
-	}
 	if true {
 		toSerialize["name"] = o.Name
 	}
@@ -344,7 +306,6 @@ func (o *EntitlementBundleUpdatable) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "target")
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "entitlements")
-		delete(additionalProperties, "entitlementsObjectType")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "description")
 		o.AdditionalProperties = additionalProperties

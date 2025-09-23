@@ -28,7 +28,7 @@ import (
 	"time"
 )
 
-// DelegateReadonly Delegate settings specify what delegates are associated with the user
+// DelegateReadonly Delegate appointment settings
 type DelegateReadonly struct {
 	// Unique identifier for the delegate appointment
 	Id       string                      `json:"id"`

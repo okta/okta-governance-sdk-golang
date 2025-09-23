@@ -4,16 +4,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**GrantType** | **string** | Base grant type for assigning entitlements driven by policy | 
+**EntitlementBundleId** | **string** | The entitlement bundle &#x60;id&#x60;  | 
 **TargetPrincipal** | [**TargetPrincipal**](TargetPrincipal.md) |  | 
 **ScheduleSettings** | Pointer to [**ScheduleSettingsWriteable**](ScheduleSettingsWriteable.md) |  | [optional] 
 **Action** | Pointer to [**GrantAction**](GrantAction.md) |  | [optional] [default to GRANTACTION_ALLOW]
 **Actor** | Pointer to [**GrantActor**](GrantActor.md) |  | [optional] [default to GRANTACTOR_API]
+**Target** | [**TargetResource**](TargetResource.md) |  | 
+**Entitlements** | Pointer to [**[]EntitlementCreatable**](EntitlementCreatable.md) | Collection of entitlements and associated value identifiers | [optional] 
 
 ## Methods
 
 ### NewGrantCreatable
 
-`func NewGrantCreatable(targetPrincipal TargetPrincipal, ) *GrantCreatable`
+`func NewGrantCreatable(grantType string, entitlementBundleId string, targetPrincipal TargetPrincipal, target TargetResource, ) *GrantCreatable`
 
 NewGrantCreatable instantiates a new GrantCreatable object
 This constructor will assign default values to properties that have it defined,
@@ -27,6 +31,46 @@ will change when the set of required properties is changed
 NewGrantCreatableWithDefaults instantiates a new GrantCreatable object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetGrantType
+
+`func (o *GrantCreatable) GetGrantType() string`
+
+GetGrantType returns the GrantType field if non-nil, zero value otherwise.
+
+### GetGrantTypeOk
+
+`func (o *GrantCreatable) GetGrantTypeOk() (*string, bool)`
+
+GetGrantTypeOk returns a tuple with the GrantType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGrantType
+
+`func (o *GrantCreatable) SetGrantType(v string)`
+
+SetGrantType sets GrantType field to given value.
+
+
+### GetEntitlementBundleId
+
+`func (o *GrantCreatable) GetEntitlementBundleId() string`
+
+GetEntitlementBundleId returns the EntitlementBundleId field if non-nil, zero value otherwise.
+
+### GetEntitlementBundleIdOk
+
+`func (o *GrantCreatable) GetEntitlementBundleIdOk() (*string, bool)`
+
+GetEntitlementBundleIdOk returns a tuple with the EntitlementBundleId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEntitlementBundleId
+
+`func (o *GrantCreatable) SetEntitlementBundleId(v string)`
+
+SetEntitlementBundleId sets EntitlementBundleId field to given value.
+
 
 ### GetTargetPrincipal
 
@@ -122,6 +166,51 @@ SetActor sets Actor field to given value.
 `func (o *GrantCreatable) HasActor() bool`
 
 HasActor returns a boolean if a field has been set.
+
+### GetTarget
+
+`func (o *GrantCreatable) GetTarget() TargetResource`
+
+GetTarget returns the Target field if non-nil, zero value otherwise.
+
+### GetTargetOk
+
+`func (o *GrantCreatable) GetTargetOk() (*TargetResource, bool)`
+
+GetTargetOk returns a tuple with the Target field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTarget
+
+`func (o *GrantCreatable) SetTarget(v TargetResource)`
+
+SetTarget sets Target field to given value.
+
+
+### GetEntitlements
+
+`func (o *GrantCreatable) GetEntitlements() []EntitlementCreatable`
+
+GetEntitlements returns the Entitlements field if non-nil, zero value otherwise.
+
+### GetEntitlementsOk
+
+`func (o *GrantCreatable) GetEntitlementsOk() (*[]EntitlementCreatable, bool)`
+
+GetEntitlementsOk returns a tuple with the Entitlements field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEntitlements
+
+`func (o *GrantCreatable) SetEntitlements(v []EntitlementCreatable)`
+
+SetEntitlements sets Entitlements field to given value.
+
+### HasEntitlements
+
+`func (o *GrantCreatable) HasEntitlements() bool`
+
+HasEntitlements returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

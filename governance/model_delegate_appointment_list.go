@@ -29,7 +29,7 @@ import (
 
 // DelegateAppointmentList struct for DelegateAppointmentList
 type DelegateAppointmentList struct {
-	// All delegate appointments
+	// Delegate appointments
 	Data                 []DelegateAppointment        `json:"data"`
 	Links                DelegateAppointmentListLinks `json:"_links"`
 	AdditionalProperties map[string]interface{}

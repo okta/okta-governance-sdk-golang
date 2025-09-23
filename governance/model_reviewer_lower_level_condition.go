@@ -33,8 +33,8 @@ type ReviewerLowerLevelCondition string
 
 // List of reviewer-lower-level-condition
 const (
-	REVIEWERLOWERLEVELCONDITION_APPROVES            ReviewerLowerLevelCondition = "LOWER_LEVEL_APPROVES"
-	REVIEWERLOWERLEVELCONDITION_APPROVES_OR_REJECTS ReviewerLowerLevelCondition = "LOWER_LEVEL_APPROVES_OR_REJECTS"
+	REVIEWERLOWERLEVELCONDITION_LOWER_LEVEL_APPROVES            ReviewerLowerLevelCondition = "LOWER_LEVEL_APPROVES"
+	REVIEWERLOWERLEVELCONDITION_LOWER_LEVEL_APPROVES_OR_REJECTS ReviewerLowerLevelCondition = "LOWER_LEVEL_APPROVES_OR_REJECTS"
 )
 
 // All allowed values of ReviewerLowerLevelCondition enum
