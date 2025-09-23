@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## v1.1.0
 
-- Fixes Entitlement Bundles API. Thanks [@aditya-okta](https://github.com/aditya-okta).
+- Fixes bug in Get and List Entitlement Bundles APIs. Thanks [@aditya-okta](https://github.com/aditya-okta).
 
 ## v1.0.0
 
