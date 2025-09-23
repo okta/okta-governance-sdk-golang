@@ -691,7 +691,7 @@ Class | Method | HTTP request | Description
 - **Type**: OAuth
 - **Flow**: accessCode
 - **Authorization URL**: /oauth2/v1/authorize
-- **Scopes**:
+- **Scopes**: 
  - **okta.governance.accessCertifications.manage**: Allows the app to create and manage Access Certification Campaigns
  - **okta.governance.accessCertifications.read**: Allows the app to read information about Access Certification Campaigns and Reviews in your Okta organization
  - **okta.governance.accessRequests.manage**: Allows the app to create and manage V1 Access Requests, Request Types, and Teams
