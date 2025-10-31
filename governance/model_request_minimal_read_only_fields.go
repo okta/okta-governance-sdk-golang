@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 	"time"
 )
+
+// checks if the RequestMinimalReadOnlyFields type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RequestMinimalReadOnlyFields{}
 
 // RequestMinimalReadOnlyFields Properties contained by default in sparse representation
 type RequestMinimalReadOnlyFields struct {
@@ -62,7 +65,7 @@ func NewRequestMinimalReadOnlyFieldsWithDefaults() *RequestMinimalReadOnlyFields
 
 // GetRequestStatus returns the RequestStatus field value if set, zero value otherwise.
 func (o *RequestMinimalReadOnlyFields) GetRequestStatus() RequestRequestStatus {
-	if o == nil || o.RequestStatus == nil {
+	if o == nil || IsNil(o.RequestStatus) {
 		var ret RequestRequestStatus
 		return ret
 	}
@@ -72,7 +75,7 @@ func (o *RequestMinimalReadOnlyFields) GetRequestStatus() RequestRequestStatus {
 // GetRequestStatusOk returns a tuple with the RequestStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestMinimalReadOnlyFields) GetRequestStatusOk() (*RequestRequestStatus, bool) {
-	if o == nil || o.RequestStatus == nil {
+	if o == nil || IsNil(o.RequestStatus) {
 		return nil, false
 	}
 	return o.RequestStatus, true
@@ -80,7 +83,7 @@ func (o *RequestMinimalReadOnlyFields) GetRequestStatusOk() (*RequestRequestStat
 
 // HasRequestStatus returns a boolean if a field has been set.
 func (o *RequestMinimalReadOnlyFields) HasRequestStatus() bool {
-	if o != nil && o.RequestStatus != nil {
+	if o != nil && !IsNil(o.RequestStatus) {
 		return true
 	}
 
@@ -94,7 +97,7 @@ func (o *RequestMinimalReadOnlyFields) SetRequestStatus(v RequestRequestStatus) 
 
 // GetRequestTypeId returns the RequestTypeId field value if set, zero value otherwise.
 func (o *RequestMinimalReadOnlyFields) GetRequestTypeId() string {
-	if o == nil || o.RequestTypeId == nil {
+	if o == nil || IsNil(o.RequestTypeId) {
 		var ret string
 		return ret
 	}
@@ -104,7 +107,7 @@ func (o *RequestMinimalReadOnlyFields) GetRequestTypeId() string {
 // GetRequestTypeIdOk returns a tuple with the RequestTypeId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestMinimalReadOnlyFields) GetRequestTypeIdOk() (*string, bool) {
-	if o == nil || o.RequestTypeId == nil {
+	if o == nil || IsNil(o.RequestTypeId) {
 		return nil, false
 	}
 	return o.RequestTypeId, true
@@ -112,7 +115,7 @@ func (o *RequestMinimalReadOnlyFields) GetRequestTypeIdOk() (*string, bool) {
 
 // HasRequestTypeId returns a boolean if a field has been set.
 func (o *RequestMinimalReadOnlyFields) HasRequestTypeId() bool {
-	if o != nil && o.RequestTypeId != nil {
+	if o != nil && !IsNil(o.RequestTypeId) {
 		return true
 	}
 
@@ -126,7 +129,7 @@ func (o *RequestMinimalReadOnlyFields) SetRequestTypeId(v string) {
 
 // GetResolved returns the Resolved field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *RequestMinimalReadOnlyFields) GetResolved() time.Time {
-	if o == nil || o.Resolved.Get() == nil {
+	if o == nil || IsNil(o.Resolved.Get()) {
 		var ret time.Time
 		return ret
 	}
@@ -180,7 +183,7 @@ func (o *RequestMinimalReadOnlyFields) GetRequesterFieldValues() []FieldValue {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *RequestMinimalReadOnlyFields) GetRequesterFieldValuesOk() ([]FieldValue, bool) {
-	if o == nil || o.RequesterFieldValues == nil {
+	if o == nil || IsNil(o.RequesterFieldValues) {
 		return nil, false
 	}
 	return o.RequesterFieldValues, true
@@ -188,7 +191,7 @@ func (o *RequestMinimalReadOnlyFields) GetRequesterFieldValuesOk() ([]FieldValue
 
 // HasRequesterFieldValues returns a boolean if a field has been set.
 func (o *RequestMinimalReadOnlyFields) HasRequesterFieldValues() bool {
-	if o != nil && o.RequesterFieldValues != nil {
+	if o != nil && !IsNil(o.RequesterFieldValues) {
 		return true
 	}
 
@@ -202,7 +205,7 @@ func (o *RequestMinimalReadOnlyFields) SetRequesterFieldValues(v []FieldValue) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *RequestMinimalReadOnlyFields) GetLinks() RequestLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret RequestLinks
 		return ret
 	}
@@ -212,7 +215,7 @@ func (o *RequestMinimalReadOnlyFields) GetLinks() RequestLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestMinimalReadOnlyFields) GetLinksOk() (*RequestLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -220,7 +223,7 @@ func (o *RequestMinimalReadOnlyFields) GetLinksOk() (*RequestLinks, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *RequestMinimalReadOnlyFields) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -233,11 +236,19 @@ func (o *RequestMinimalReadOnlyFields) SetLinks(v RequestLinks) {
 }
 
 func (o RequestMinimalReadOnlyFields) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RequestMinimalReadOnlyFields) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.RequestStatus != nil {
+	if !IsNil(o.RequestStatus) {
 		toSerialize["requestStatus"] = o.RequestStatus
 	}
-	if o.RequestTypeId != nil {
+	if !IsNil(o.RequestTypeId) {
 		toSerialize["requestTypeId"] = o.RequestTypeId
 	}
 	if o.Resolved.IsSet() {
@@ -246,7 +257,7 @@ func (o RequestMinimalReadOnlyFields) MarshalJSON() ([]byte, error) {
 	if o.RequesterFieldValues != nil {
 		toSerialize["requesterFieldValues"] = o.RequesterFieldValues
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -254,31 +265,29 @@ func (o RequestMinimalReadOnlyFields) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RequestMinimalReadOnlyFields) UnmarshalJSON(bytes []byte) (err error) {
+func (o *RequestMinimalReadOnlyFields) UnmarshalJSON(data []byte) (err error) {
 	varRequestMinimalReadOnlyFields := _RequestMinimalReadOnlyFields{}
 
-	err = json.Unmarshal(bytes, &varRequestMinimalReadOnlyFields)
-	if err == nil {
-		*o = RequestMinimalReadOnlyFields(varRequestMinimalReadOnlyFields)
-	} else {
+	err = json.Unmarshal(data, &varRequestMinimalReadOnlyFields)
+
+	if err != nil {
 		return err
 	}
 
+	*o = RequestMinimalReadOnlyFields(varRequestMinimalReadOnlyFields)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "requestStatus")
 		delete(additionalProperties, "requestTypeId")
 		delete(additionalProperties, "resolved")
 		delete(additionalProperties, "requesterFieldValues")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

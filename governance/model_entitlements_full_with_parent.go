@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the EntitlementsFullWithParent type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EntitlementsFullWithParent{}
 
 // EntitlementsFullWithParent Representation of all entitlement. Entitlement values are optional
 type EntitlementsFullWithParent struct {
@@ -150,7 +154,7 @@ func (o *EntitlementsFullWithParent) SetValues(v []EntitlementValueFull) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *EntitlementsFullWithParent) GetLinks() EntitlementLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret EntitlementLinks
 		return ret
 	}
@@ -160,7 +164,7 @@ func (o *EntitlementsFullWithParent) GetLinks() EntitlementLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntitlementsFullWithParent) GetLinksOk() (*EntitlementLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -168,7 +172,7 @@ func (o *EntitlementsFullWithParent) GetLinksOk() (*EntitlementLinks, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *EntitlementsFullWithParent) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -182,7 +186,7 @@ func (o *EntitlementsFullWithParent) SetLinks(v EntitlementLinks) {
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *EntitlementsFullWithParent) GetMetadata() ListMetadata {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		var ret ListMetadata
 		return ret
 	}
@@ -192,7 +196,7 @@ func (o *EntitlementsFullWithParent) GetMetadata() ListMetadata {
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntitlementsFullWithParent) GetMetadataOk() (*ListMetadata, bool) {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
 	return o.Metadata, true
@@ -200,7 +204,7 @@ func (o *EntitlementsFullWithParent) GetMetadataOk() (*ListMetadata, bool) {
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *EntitlementsFullWithParent) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
@@ -286,7 +290,7 @@ func (o *EntitlementsFullWithParent) SetExternalValue(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *EntitlementsFullWithParent) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -296,7 +300,7 @@ func (o *EntitlementsFullWithParent) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntitlementsFullWithParent) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -304,7 +308,7 @@ func (o *EntitlementsFullWithParent) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *EntitlementsFullWithParent) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -342,7 +346,7 @@ func (o *EntitlementsFullWithParent) SetMultiValue(v bool) {
 
 // GetRequired returns the Required field value if set, zero value otherwise.
 func (o *EntitlementsFullWithParent) GetRequired() bool {
-	if o == nil || o.Required == nil {
+	if o == nil || IsNil(o.Required) {
 		var ret bool
 		return ret
 	}
@@ -352,7 +356,7 @@ func (o *EntitlementsFullWithParent) GetRequired() bool {
 // GetRequiredOk returns a tuple with the Required field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntitlementsFullWithParent) GetRequiredOk() (*bool, bool) {
-	if o == nil || o.Required == nil {
+	if o == nil || IsNil(o.Required) {
 		return nil, false
 	}
 	return o.Required, true
@@ -360,7 +364,7 @@ func (o *EntitlementsFullWithParent) GetRequiredOk() (*bool, bool) {
 
 // HasRequired returns a boolean if a field has been set.
 func (o *EntitlementsFullWithParent) HasRequired() bool {
-	if o != nil && o.Required != nil {
+	if o != nil && !IsNil(o.Required) {
 		return true
 	}
 
@@ -397,65 +401,85 @@ func (o *EntitlementsFullWithParent) SetDataType(v EntitlementPropertyDatatype) 
 }
 
 func (o EntitlementsFullWithParent) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o EntitlementsFullWithParent) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["parentResourceOrn"] = o.ParentResourceOrn
-	}
-	if true {
-		toSerialize["parent"] = o.Parent
-	}
-	if true {
-		toSerialize["values"] = o.Values
-	}
-	if o.Links != nil {
+	toSerialize["parentResourceOrn"] = o.ParentResourceOrn
+	toSerialize["parent"] = o.Parent
+	toSerialize["values"] = o.Values
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
-	if o.Metadata != nil {
+	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["externalValue"] = o.ExternalValue
-	}
-	if o.Description != nil {
+	toSerialize["id"] = o.Id
+	toSerialize["name"] = o.Name
+	toSerialize["externalValue"] = o.ExternalValue
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if true {
-		toSerialize["multiValue"] = o.MultiValue
-	}
-	if o.Required != nil {
+	toSerialize["multiValue"] = o.MultiValue
+	if !IsNil(o.Required) {
 		toSerialize["required"] = o.Required
 	}
-	if true {
-		toSerialize["dataType"] = o.DataType
-	}
+	toSerialize["dataType"] = o.DataType
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *EntitlementsFullWithParent) UnmarshalJSON(bytes []byte) (err error) {
-	varEntitlementsFullWithParent := _EntitlementsFullWithParent{}
+func (o *EntitlementsFullWithParent) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"parentResourceOrn",
+		"parent",
+		"values",
+		"id",
+		"name",
+		"externalValue",
+		"multiValue",
+		"dataType",
+	}
 
-	err = json.Unmarshal(bytes, &varEntitlementsFullWithParent)
-	if err == nil {
-		*o = EntitlementsFullWithParent(varEntitlementsFullWithParent)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varEntitlementsFullWithParent := _EntitlementsFullWithParent{}
+
+	err = json.Unmarshal(data, &varEntitlementsFullWithParent)
+
+	if err != nil {
+		return err
+	}
+
+	*o = EntitlementsFullWithParent(varEntitlementsFullWithParent)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "parentResourceOrn")
 		delete(additionalProperties, "parent")
 		delete(additionalProperties, "values")
@@ -469,8 +493,6 @@ func (o *EntitlementsFullWithParent) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "required")
 		delete(additionalProperties, "dataType")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

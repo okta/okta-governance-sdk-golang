@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,8 +25,12 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the ScheduleSettingsMutable type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ScheduleSettingsMutable{}
 
 // ScheduleSettingsMutable Scheduler specific settings.  A campaign can be a `ONE_OFF` or a `RECURRING` campaign.  You can't provide both in the campaign definition.
 type ScheduleSettingsMutable struct {
@@ -162,7 +166,7 @@ func (o *ScheduleSettingsMutable) SetTimeZone(v string) {
 
 // GetRecurrence returns the Recurrence field value if set, zero value otherwise.
 func (o *ScheduleSettingsMutable) GetRecurrence() RecurrenceDefinitionMutable {
-	if o == nil || o.Recurrence == nil {
+	if o == nil || IsNil(o.Recurrence) {
 		var ret RecurrenceDefinitionMutable
 		return ret
 	}
@@ -172,7 +176,7 @@ func (o *ScheduleSettingsMutable) GetRecurrence() RecurrenceDefinitionMutable {
 // GetRecurrenceOk returns a tuple with the Recurrence field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ScheduleSettingsMutable) GetRecurrenceOk() (*RecurrenceDefinitionMutable, bool) {
-	if o == nil || o.Recurrence == nil {
+	if o == nil || IsNil(o.Recurrence) {
 		return nil, false
 	}
 	return o.Recurrence, true
@@ -180,7 +184,7 @@ func (o *ScheduleSettingsMutable) GetRecurrenceOk() (*RecurrenceDefinitionMutabl
 
 // HasRecurrence returns a boolean if a field has been set.
 func (o *ScheduleSettingsMutable) HasRecurrence() bool {
-	if o != nil && o.Recurrence != nil {
+	if o != nil && !IsNil(o.Recurrence) {
 		return true
 	}
 
@@ -193,20 +197,20 @@ func (o *ScheduleSettingsMutable) SetRecurrence(v RecurrenceDefinitionMutable) {
 }
 
 func (o ScheduleSettingsMutable) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ScheduleSettingsMutable) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if true {
-		toSerialize["startDate"] = o.StartDate
-	}
-	if true {
-		toSerialize["durationInDays"] = o.DurationInDays
-	}
-	if true {
-		toSerialize["timeZone"] = o.TimeZone
-	}
-	if o.Recurrence != nil {
+	toSerialize["type"] = o.Type
+	toSerialize["startDate"] = o.StartDate
+	toSerialize["durationInDays"] = o.DurationInDays
+	toSerialize["timeZone"] = o.TimeZone
+	if !IsNil(o.Recurrence) {
 		toSerialize["recurrence"] = o.Recurrence
 	}
 
@@ -214,31 +218,53 @@ func (o ScheduleSettingsMutable) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ScheduleSettingsMutable) UnmarshalJSON(bytes []byte) (err error) {
-	varScheduleSettingsMutable := _ScheduleSettingsMutable{}
+func (o *ScheduleSettingsMutable) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"type",
+		"startDate",
+		"durationInDays",
+		"timeZone",
+	}
 
-	err = json.Unmarshal(bytes, &varScheduleSettingsMutable)
-	if err == nil {
-		*o = ScheduleSettingsMutable(varScheduleSettingsMutable)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varScheduleSettingsMutable := _ScheduleSettingsMutable{}
+
+	err = json.Unmarshal(data, &varScheduleSettingsMutable)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ScheduleSettingsMutable(varScheduleSettingsMutable)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "startDate")
 		delete(additionalProperties, "durationInDays")
 		delete(additionalProperties, "timeZone")
 		delete(additionalProperties, "recurrence")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

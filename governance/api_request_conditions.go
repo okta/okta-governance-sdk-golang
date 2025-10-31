@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,16 +26,15 @@ package governance
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 	"time"
-
-	"github.com/okta/okta-sdk-golang/v5/okta"
 )
 
 type RequestConditionsAPI interface {
+
 	/*
 			ActivateResourceRequestConditionV2 Activate the request condition
 
@@ -252,7 +251,7 @@ func (a *RequestConditionsAPIService) ActivateResourceRequestConditionV2Execute(
 		return localVarReturnValue, nil, reportError("requestConditionId must have at least 20 elements")
 	}
 	if strlen(r.requestConditionId) > 20 {
-		return localVarReturnValue, nil, reportError("requestConditionId must have at most 20 elements")
+		return localVarReturnValue, nil, reportError("requestConditionId must have less than 20 elements")
 	}
 
 	// to determine the Content-Type header
@@ -282,9 +281,9 @@ func (a *RequestConditionsAPIService) ActivateResourceRequestConditionV2Execute(
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -484,7 +483,7 @@ func (a *RequestConditionsAPIService) CreateResourceRequestConditionV2Execute(r 
 	localVarPostBody = r.requestConditionCreatable
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(okta.ContextAPIKeys).(map[string]okta.APIKey); ok {
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["ApiKey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -506,9 +505,9 @@ func (a *RequestConditionsAPIService) CreateResourceRequestConditionV2Execute(r 
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -666,7 +665,7 @@ func (a *RequestConditionsAPIService) DeactivateResourceRequestConditionV2Execut
 		return localVarReturnValue, nil, reportError("requestConditionId must have at least 20 elements")
 	}
 	if strlen(r.requestConditionId) > 20 {
-		return localVarReturnValue, nil, reportError("requestConditionId must have at most 20 elements")
+		return localVarReturnValue, nil, reportError("requestConditionId must have less than 20 elements")
 	}
 
 	// to determine the Content-Type header
@@ -688,7 +687,7 @@ func (a *RequestConditionsAPIService) DeactivateResourceRequestConditionV2Execut
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(okta.ContextAPIKeys).(map[string]okta.APIKey); ok {
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["ApiKey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -710,9 +709,9 @@ func (a *RequestConditionsAPIService) DeactivateResourceRequestConditionV2Execut
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -875,7 +874,7 @@ func (a *RequestConditionsAPIService) DeleteResourceRequestConditionV2Execute(r 
 		return nil, reportError("requestConditionId must have at least 20 elements")
 	}
 	if strlen(r.requestConditionId) > 20 {
-		return nil, reportError("requestConditionId must have at most 20 elements")
+		return nil, reportError("requestConditionId must have less than 20 elements")
 	}
 
 	// to determine the Content-Type header
@@ -897,7 +896,7 @@ func (a *RequestConditionsAPIService) DeleteResourceRequestConditionV2Execute(r 
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(okta.ContextAPIKeys).(map[string]okta.APIKey); ok {
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["ApiKey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -919,9 +918,9 @@ func (a *RequestConditionsAPIService) DeleteResourceRequestConditionV2Execute(r 
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -1065,7 +1064,7 @@ func (a *RequestConditionsAPIService) GetResourceRequestConditionV2Execute(r Api
 		return localVarReturnValue, nil, reportError("requestConditionId must have at least 20 elements")
 	}
 	if strlen(r.requestConditionId) > 20 {
-		return localVarReturnValue, nil, reportError("requestConditionId must have at most 20 elements")
+		return localVarReturnValue, nil, reportError("requestConditionId must have less than 20 elements")
 	}
 
 	// to determine the Content-Type header
@@ -1087,7 +1086,7 @@ func (a *RequestConditionsAPIService) GetResourceRequestConditionV2Execute(r Api
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(okta.ContextAPIKeys).(map[string]okta.APIKey); ok {
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["ApiKey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1109,9 +1108,9 @@ func (a *RequestConditionsAPIService) GetResourceRequestConditionV2Execute(r Api
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1277,7 +1276,7 @@ func (a *RequestConditionsAPIService) ListResourceRequestConditionsV2Execute(r A
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(okta.ContextAPIKeys).(map[string]okta.APIKey); ok {
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["ApiKey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1299,9 +1298,9 @@ func (a *RequestConditionsAPIService) ListResourceRequestConditionsV2Execute(r A
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1469,7 +1468,7 @@ func (a *RequestConditionsAPIService) UpdateResourceRequestConditionV2Execute(r 
 		return localVarReturnValue, nil, reportError("requestConditionId must have at least 20 elements")
 	}
 	if strlen(r.requestConditionId) > 20 {
-		return localVarReturnValue, nil, reportError("requestConditionId must have at most 20 elements")
+		return localVarReturnValue, nil, reportError("requestConditionId must have less than 20 elements")
 	}
 	if r.requestConditionPatchable == nil {
 		return localVarReturnValue, nil, reportError("requestConditionPatchable is required and must be specified")
@@ -1496,7 +1495,7 @@ func (a *RequestConditionsAPIService) UpdateResourceRequestConditionV2Execute(r 
 	localVarPostBody = r.requestConditionPatchable
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(okta.ContextAPIKeys).(map[string]okta.APIKey); ok {
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["ApiKey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1518,9 +1517,9 @@ func (a *RequestConditionsAPIService) UpdateResourceRequestConditionV2Execute(r 
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err

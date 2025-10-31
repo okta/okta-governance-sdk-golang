@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the EntitlementValuesPatchOperation type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EntitlementValuesPatchOperation{}
 
 // EntitlementValuesPatchOperation The properties expected in an update entitlement value.
 type EntitlementValuesPatchOperation struct {
@@ -109,7 +113,7 @@ func (o *EntitlementValuesPatchOperation) SetPath(v string) {
 
 // GetValue returns the Value field value if set, zero value otherwise.
 func (o *EntitlementValuesPatchOperation) GetValue() EntitlementValuesPatchOperationValue {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		var ret EntitlementValuesPatchOperationValue
 		return ret
 	}
@@ -119,7 +123,7 @@ func (o *EntitlementValuesPatchOperation) GetValue() EntitlementValuesPatchOpera
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntitlementValuesPatchOperation) GetValueOk() (*EntitlementValuesPatchOperationValue, bool) {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
 	return o.Value, true
@@ -127,7 +131,7 @@ func (o *EntitlementValuesPatchOperation) GetValueOk() (*EntitlementValuesPatchO
 
 // HasValue returns a boolean if a field has been set.
 func (o *EntitlementValuesPatchOperation) HasValue() bool {
-	if o != nil && o.Value != nil {
+	if o != nil && !IsNil(o.Value) {
 		return true
 	}
 
@@ -164,48 +168,71 @@ func (o *EntitlementValuesPatchOperation) SetRefType(v string) {
 }
 
 func (o EntitlementValuesPatchOperation) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o EntitlementValuesPatchOperation) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["op"] = o.Op
-	}
-	if true {
-		toSerialize["path"] = o.Path
-	}
-	if o.Value != nil {
+	toSerialize["op"] = o.Op
+	toSerialize["path"] = o.Path
+	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
-	if true {
-		toSerialize["refType"] = o.RefType
-	}
+	toSerialize["refType"] = o.RefType
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *EntitlementValuesPatchOperation) UnmarshalJSON(bytes []byte) (err error) {
-	varEntitlementValuesPatchOperation := _EntitlementValuesPatchOperation{}
+func (o *EntitlementValuesPatchOperation) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"op",
+		"path",
+		"refType",
+	}
 
-	err = json.Unmarshal(bytes, &varEntitlementValuesPatchOperation)
-	if err == nil {
-		*o = EntitlementValuesPatchOperation(varEntitlementValuesPatchOperation)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varEntitlementValuesPatchOperation := _EntitlementValuesPatchOperation{}
+
+	err = json.Unmarshal(data, &varEntitlementValuesPatchOperation)
+
+	if err != nil {
+		return err
+	}
+
+	*o = EntitlementValuesPatchOperation(varEntitlementValuesPatchOperation)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "op")
 		delete(additionalProperties, "path")
 		delete(additionalProperties, "value")
 		delete(additionalProperties, "refType")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

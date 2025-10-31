@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,8 +25,12 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the RiskRuleResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RiskRuleResponse{}
 
 // RiskRuleResponse struct for RiskRuleResponse
 type RiskRuleResponse struct {
@@ -137,7 +141,7 @@ func (o *RiskRuleResponse) SetId(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *RiskRuleResponse) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -147,7 +151,7 @@ func (o *RiskRuleResponse) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskRuleResponse) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -155,7 +159,7 @@ func (o *RiskRuleResponse) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *RiskRuleResponse) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -337,7 +341,7 @@ func (o *RiskRuleResponse) SetName(v string) {
 
 // GetNotes returns the Notes field value if set, zero value otherwise.
 func (o *RiskRuleResponse) GetNotes() string {
-	if o == nil || o.Notes == nil {
+	if o == nil || IsNil(o.Notes) {
 		var ret string
 		return ret
 	}
@@ -347,7 +351,7 @@ func (o *RiskRuleResponse) GetNotes() string {
 // GetNotesOk returns a tuple with the Notes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskRuleResponse) GetNotesOk() (*string, bool) {
-	if o == nil || o.Notes == nil {
+	if o == nil || IsNil(o.Notes) {
 		return nil, false
 	}
 	return o.Notes, true
@@ -355,7 +359,7 @@ func (o *RiskRuleResponse) GetNotesOk() (*string, bool) {
 
 // HasNotes returns a boolean if a field has been set.
 func (o *RiskRuleResponse) HasNotes() bool {
-	if o != nil && o.Notes != nil {
+	if o != nil && !IsNil(o.Notes) {
 		return true
 	}
 
@@ -416,68 +420,85 @@ func (o *RiskRuleResponse) SetStatus(v string) {
 }
 
 func (o RiskRuleResponse) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RiskRuleResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["_links"] = o.Links
-	}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if o.Description != nil {
+	toSerialize["_links"] = o.Links
+	toSerialize["id"] = o.Id
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if true {
-		toSerialize["conflictCriteria"] = o.ConflictCriteria
-	}
-	if true {
-		toSerialize["createdBy"] = o.CreatedBy
-	}
-	if true {
-		toSerialize["created"] = o.Created
-	}
-	if true {
-		toSerialize["lastUpdated"] = o.LastUpdated
-	}
-	if true {
-		toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Notes != nil {
+	toSerialize["type"] = o.Type
+	toSerialize["conflictCriteria"] = o.ConflictCriteria
+	toSerialize["createdBy"] = o.CreatedBy
+	toSerialize["created"] = o.Created
+	toSerialize["lastUpdated"] = o.LastUpdated
+	toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Notes) {
 		toSerialize["notes"] = o.Notes
 	}
-	if true {
-		toSerialize["resources"] = o.Resources
-	}
-	if true {
-		toSerialize["status"] = o.Status
-	}
+	toSerialize["resources"] = o.Resources
+	toSerialize["status"] = o.Status
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RiskRuleResponse) UnmarshalJSON(bytes []byte) (err error) {
-	varRiskRuleResponse := _RiskRuleResponse{}
+func (o *RiskRuleResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"_links",
+		"id",
+		"type",
+		"conflictCriteria",
+		"createdBy",
+		"created",
+		"lastUpdated",
+		"lastUpdatedBy",
+		"name",
+		"resources",
+		"status",
+	}
 
-	err = json.Unmarshal(bytes, &varRiskRuleResponse)
-	if err == nil {
-		*o = RiskRuleResponse(varRiskRuleResponse)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRiskRuleResponse := _RiskRuleResponse{}
+
+	err = json.Unmarshal(data, &varRiskRuleResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RiskRuleResponse(varRiskRuleResponse)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "_links")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "description")
@@ -492,8 +513,6 @@ func (o *RiskRuleResponse) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "resources")
 		delete(additionalProperties, "status")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

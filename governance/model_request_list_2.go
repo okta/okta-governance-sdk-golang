@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package governance
 import (
 	"encoding/json"
 )
+
+// checks if the RequestList2 type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RequestList2{}
 
 // RequestList2 struct for RequestList2
 type RequestList2 struct {
@@ -56,7 +59,7 @@ func NewRequestList2WithDefaults() *RequestList2 {
 
 // GetData returns the Data field value if set, zero value otherwise.
 func (o *RequestList2) GetData() []RequestSparse2 {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		var ret []RequestSparse2
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *RequestList2) GetData() []RequestSparse2 {
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestList2) GetDataOk() ([]RequestSparse2, bool) {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		return nil, false
 	}
 	return o.Data, true
@@ -74,7 +77,7 @@ func (o *RequestList2) GetDataOk() ([]RequestSparse2, bool) {
 
 // HasData returns a boolean if a field has been set.
 func (o *RequestList2) HasData() bool {
-	if o != nil && o.Data != nil {
+	if o != nil && !IsNil(o.Data) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *RequestList2) SetData(v []RequestSparse2) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *RequestList2) GetLinks() RequestListLinks2 {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret RequestListLinks2
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *RequestList2) GetLinks() RequestListLinks2 {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestList2) GetLinksOk() (*RequestListLinks2, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -106,7 +109,7 @@ func (o *RequestList2) GetLinksOk() (*RequestListLinks2, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *RequestList2) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -119,11 +122,19 @@ func (o *RequestList2) SetLinks(v RequestListLinks2) {
 }
 
 func (o RequestList2) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RequestList2) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Data != nil {
+	if !IsNil(o.Data) {
 		toSerialize["data"] = o.Data
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -131,28 +142,26 @@ func (o RequestList2) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RequestList2) UnmarshalJSON(bytes []byte) (err error) {
+func (o *RequestList2) UnmarshalJSON(data []byte) (err error) {
 	varRequestList2 := _RequestList2{}
 
-	err = json.Unmarshal(bytes, &varRequestList2)
-	if err == nil {
-		*o = RequestList2(varRequestList2)
-	} else {
+	err = json.Unmarshal(data, &varRequestList2)
+
+	if err != nil {
 		return err
 	}
 
+	*o = RequestList2(varRequestList2)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "data")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,7 +28,6 @@ import (
 	"fmt"
 )
 
-// model_oneof.mustache
 // Field - The field to use when prompting the user
 type Field struct {
 	FieldDate   *FieldDate
@@ -57,14 +56,14 @@ func FieldTextAsField(v *FieldText) Field {
 	}
 }
 
-// Unmarshal JSON data into one of the pointers in the struct  CUSTOM
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *Field) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup
 	var jsonDict map[string]interface{}
 	err = newStrictDecoder(data).Decode(&jsonDict)
 	if err != nil {
-		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
 	// check if the discriminator value is 'DATE-TIME'
@@ -75,7 +74,7 @@ func (dst *Field) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.FieldDate, return on the first match
 		} else {
 			dst.FieldDate = nil
-			return fmt.Errorf("Failed to unmarshal Field as FieldDate: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal Field as FieldDate: %s", err.Error())
 		}
 	}
 
@@ -87,7 +86,7 @@ func (dst *Field) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.FieldSelect, return on the first match
 		} else {
 			dst.FieldSelect = nil
-			return fmt.Errorf("Failed to unmarshal Field as FieldSelect: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal Field as FieldSelect: %s", err.Error())
 		}
 	}
 
@@ -99,43 +98,7 @@ func (dst *Field) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.FieldText, return on the first match
 		} else {
 			dst.FieldText = nil
-			return fmt.Errorf("Failed to unmarshal Field as FieldText: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'field-date'
-	if jsonDict["type"] == "field-date" {
-		// try to unmarshal JSON data into FieldDate
-		err = json.Unmarshal(data, &dst.FieldDate)
-		if err == nil {
-			return nil // data stored in dst.FieldDate, return on the first match
-		} else {
-			dst.FieldDate = nil
-			return fmt.Errorf("Failed to unmarshal Field as FieldDate: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'field-select'
-	if jsonDict["type"] == "field-select" {
-		// try to unmarshal JSON data into FieldSelect
-		err = json.Unmarshal(data, &dst.FieldSelect)
-		if err == nil {
-			return nil // data stored in dst.FieldSelect, return on the first match
-		} else {
-			dst.FieldSelect = nil
-			return fmt.Errorf("Failed to unmarshal Field as FieldSelect: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'field-text'
-	if jsonDict["type"] == "field-text" {
-		// try to unmarshal JSON data into FieldText
-		err = json.Unmarshal(data, &dst.FieldText)
-		if err == nil {
-			return nil // data stored in dst.FieldText, return on the first match
-		} else {
-			dst.FieldText = nil
-			return fmt.Errorf("Failed to unmarshal Field as FieldText: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal Field as FieldText: %s", err.Error())
 		}
 	}
 
@@ -174,6 +137,24 @@ func (obj *Field) GetActualInstance() interface{} {
 
 	if obj.FieldText != nil {
 		return obj.FieldText
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj Field) GetActualInstanceValue() interface{} {
+	if obj.FieldDate != nil {
+		return *obj.FieldDate
+	}
+
+	if obj.FieldSelect != nil {
+		return *obj.FieldSelect
+	}
+
+	if obj.FieldText != nil {
+		return *obj.FieldText
 	}
 
 	// all schemas are nil

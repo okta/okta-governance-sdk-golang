@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package governance
 import (
 	"encoding/json"
 )
+
+// checks if the ValidAccessDurationSettingsDetails type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ValidAccessDurationSettingsDetails{}
 
 // ValidAccessDurationSettingsDetails Admin specified access duration settings added to a request condition or risk settings for the specified resource
 type ValidAccessDurationSettingsDetails struct {
@@ -63,7 +66,7 @@ func NewValidAccessDurationSettingsDetailsWithDefaults() *ValidAccessDurationSet
 
 // GetSupportedTypes returns the SupportedTypes field value if set, zero value otherwise.
 func (o *ValidAccessDurationSettingsDetails) GetSupportedTypes() []ValidAccessDurationType {
-	if o == nil || o.SupportedTypes == nil {
+	if o == nil || IsNil(o.SupportedTypes) {
 		var ret []ValidAccessDurationType
 		return ret
 	}
@@ -73,7 +76,7 @@ func (o *ValidAccessDurationSettingsDetails) GetSupportedTypes() []ValidAccessDu
 // GetSupportedTypesOk returns a tuple with the SupportedTypes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ValidAccessDurationSettingsDetails) GetSupportedTypesOk() ([]ValidAccessDurationType, bool) {
-	if o == nil || o.SupportedTypes == nil {
+	if o == nil || IsNil(o.SupportedTypes) {
 		return nil, false
 	}
 	return o.SupportedTypes, true
@@ -81,7 +84,7 @@ func (o *ValidAccessDurationSettingsDetails) GetSupportedTypesOk() ([]ValidAcces
 
 // HasSupportedTypes returns a boolean if a field has been set.
 func (o *ValidAccessDurationSettingsDetails) HasSupportedTypes() bool {
-	if o != nil && o.SupportedTypes != nil {
+	if o != nil && !IsNil(o.SupportedTypes) {
 		return true
 	}
 
@@ -95,7 +98,7 @@ func (o *ValidAccessDurationSettingsDetails) SetSupportedTypes(v []ValidAccessDu
 
 // GetRequired returns the Required field value if set, zero value otherwise.
 func (o *ValidAccessDurationSettingsDetails) GetRequired() bool {
-	if o == nil || o.Required == nil {
+	if o == nil || IsNil(o.Required) {
 		var ret bool
 		return ret
 	}
@@ -105,7 +108,7 @@ func (o *ValidAccessDurationSettingsDetails) GetRequired() bool {
 // GetRequiredOk returns a tuple with the Required field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ValidAccessDurationSettingsDetails) GetRequiredOk() (*bool, bool) {
-	if o == nil || o.Required == nil {
+	if o == nil || IsNil(o.Required) {
 		return nil, false
 	}
 	return o.Required, true
@@ -113,7 +116,7 @@ func (o *ValidAccessDurationSettingsDetails) GetRequiredOk() (*bool, bool) {
 
 // HasRequired returns a boolean if a field has been set.
 func (o *ValidAccessDurationSettingsDetails) HasRequired() bool {
-	if o != nil && o.Required != nil {
+	if o != nil && !IsNil(o.Required) {
 		return true
 	}
 
@@ -127,7 +130,7 @@ func (o *ValidAccessDurationSettingsDetails) SetRequired(v bool) {
 
 // GetMaximumDays returns the MaximumDays field value if set, zero value otherwise.
 func (o *ValidAccessDurationSettingsDetails) GetMaximumDays() float32 {
-	if o == nil || o.MaximumDays == nil {
+	if o == nil || IsNil(o.MaximumDays) {
 		var ret float32
 		return ret
 	}
@@ -137,7 +140,7 @@ func (o *ValidAccessDurationSettingsDetails) GetMaximumDays() float32 {
 // GetMaximumDaysOk returns a tuple with the MaximumDays field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ValidAccessDurationSettingsDetails) GetMaximumDaysOk() (*float32, bool) {
-	if o == nil || o.MaximumDays == nil {
+	if o == nil || IsNil(o.MaximumDays) {
 		return nil, false
 	}
 	return o.MaximumDays, true
@@ -145,7 +148,7 @@ func (o *ValidAccessDurationSettingsDetails) GetMaximumDaysOk() (*float32, bool)
 
 // HasMaximumDays returns a boolean if a field has been set.
 func (o *ValidAccessDurationSettingsDetails) HasMaximumDays() bool {
-	if o != nil && o.MaximumDays != nil {
+	if o != nil && !IsNil(o.MaximumDays) {
 		return true
 	}
 
@@ -159,7 +162,7 @@ func (o *ValidAccessDurationSettingsDetails) SetMaximumDays(v float32) {
 
 // GetMaximumHours returns the MaximumHours field value if set, zero value otherwise.
 func (o *ValidAccessDurationSettingsDetails) GetMaximumHours() float32 {
-	if o == nil || o.MaximumHours == nil {
+	if o == nil || IsNil(o.MaximumHours) {
 		var ret float32
 		return ret
 	}
@@ -169,7 +172,7 @@ func (o *ValidAccessDurationSettingsDetails) GetMaximumHours() float32 {
 // GetMaximumHoursOk returns a tuple with the MaximumHours field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ValidAccessDurationSettingsDetails) GetMaximumHoursOk() (*float32, bool) {
-	if o == nil || o.MaximumHours == nil {
+	if o == nil || IsNil(o.MaximumHours) {
 		return nil, false
 	}
 	return o.MaximumHours, true
@@ -177,7 +180,7 @@ func (o *ValidAccessDurationSettingsDetails) GetMaximumHoursOk() (*float32, bool
 
 // HasMaximumHours returns a boolean if a field has been set.
 func (o *ValidAccessDurationSettingsDetails) HasMaximumHours() bool {
-	if o != nil && o.MaximumHours != nil {
+	if o != nil && !IsNil(o.MaximumHours) {
 		return true
 	}
 
@@ -191,7 +194,7 @@ func (o *ValidAccessDurationSettingsDetails) SetMaximumHours(v float32) {
 
 // GetMaximumWeeks returns the MaximumWeeks field value if set, zero value otherwise.
 func (o *ValidAccessDurationSettingsDetails) GetMaximumWeeks() float32 {
-	if o == nil || o.MaximumWeeks == nil {
+	if o == nil || IsNil(o.MaximumWeeks) {
 		var ret float32
 		return ret
 	}
@@ -201,7 +204,7 @@ func (o *ValidAccessDurationSettingsDetails) GetMaximumWeeks() float32 {
 // GetMaximumWeeksOk returns a tuple with the MaximumWeeks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ValidAccessDurationSettingsDetails) GetMaximumWeeksOk() (*float32, bool) {
-	if o == nil || o.MaximumWeeks == nil {
+	if o == nil || IsNil(o.MaximumWeeks) {
 		return nil, false
 	}
 	return o.MaximumWeeks, true
@@ -209,7 +212,7 @@ func (o *ValidAccessDurationSettingsDetails) GetMaximumWeeksOk() (*float32, bool
 
 // HasMaximumWeeks returns a boolean if a field has been set.
 func (o *ValidAccessDurationSettingsDetails) HasMaximumWeeks() bool {
-	if o != nil && o.MaximumWeeks != nil {
+	if o != nil && !IsNil(o.MaximumWeeks) {
 		return true
 	}
 
@@ -222,20 +225,28 @@ func (o *ValidAccessDurationSettingsDetails) SetMaximumWeeks(v float32) {
 }
 
 func (o ValidAccessDurationSettingsDetails) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ValidAccessDurationSettingsDetails) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.SupportedTypes != nil {
+	if !IsNil(o.SupportedTypes) {
 		toSerialize["supportedTypes"] = o.SupportedTypes
 	}
-	if o.Required != nil {
+	if !IsNil(o.Required) {
 		toSerialize["required"] = o.Required
 	}
-	if o.MaximumDays != nil {
+	if !IsNil(o.MaximumDays) {
 		toSerialize["maximumDays"] = o.MaximumDays
 	}
-	if o.MaximumHours != nil {
+	if !IsNil(o.MaximumHours) {
 		toSerialize["maximumHours"] = o.MaximumHours
 	}
-	if o.MaximumWeeks != nil {
+	if !IsNil(o.MaximumWeeks) {
 		toSerialize["maximumWeeks"] = o.MaximumWeeks
 	}
 
@@ -243,31 +254,29 @@ func (o ValidAccessDurationSettingsDetails) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ValidAccessDurationSettingsDetails) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ValidAccessDurationSettingsDetails) UnmarshalJSON(data []byte) (err error) {
 	varValidAccessDurationSettingsDetails := _ValidAccessDurationSettingsDetails{}
 
-	err = json.Unmarshal(bytes, &varValidAccessDurationSettingsDetails)
-	if err == nil {
-		*o = ValidAccessDurationSettingsDetails(varValidAccessDurationSettingsDetails)
-	} else {
+	err = json.Unmarshal(data, &varValidAccessDurationSettingsDetails)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ValidAccessDurationSettingsDetails(varValidAccessDurationSettingsDetails)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "supportedTypes")
 		delete(additionalProperties, "required")
 		delete(additionalProperties, "maximumDays")
 		delete(additionalProperties, "maximumHours")
 		delete(additionalProperties, "maximumWeeks")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

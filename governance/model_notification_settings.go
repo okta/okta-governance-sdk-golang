@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package governance
 import (
 	"encoding/json"
 )
+
+// checks if the NotificationSettings type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NotificationSettings{}
 
 // NotificationSettings Settings for email notifications to be sent to the reviewers at different stages of a campaign. All properties are optional.
 type NotificationSettings struct {
@@ -85,7 +88,7 @@ func NewNotificationSettingsWithDefaults() *NotificationSettings {
 
 // GetNotifyReviewerWhenReviewAssigned returns the NotifyReviewerWhenReviewAssigned field value if set, zero value otherwise.
 func (o *NotificationSettings) GetNotifyReviewerWhenReviewAssigned() bool {
-	if o == nil || o.NotifyReviewerWhenReviewAssigned == nil {
+	if o == nil || IsNil(o.NotifyReviewerWhenReviewAssigned) {
 		var ret bool
 		return ret
 	}
@@ -95,7 +98,7 @@ func (o *NotificationSettings) GetNotifyReviewerWhenReviewAssigned() bool {
 // GetNotifyReviewerWhenReviewAssignedOk returns a tuple with the NotifyReviewerWhenReviewAssigned field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationSettings) GetNotifyReviewerWhenReviewAssignedOk() (*bool, bool) {
-	if o == nil || o.NotifyReviewerWhenReviewAssigned == nil {
+	if o == nil || IsNil(o.NotifyReviewerWhenReviewAssigned) {
 		return nil, false
 	}
 	return o.NotifyReviewerWhenReviewAssigned, true
@@ -103,7 +106,7 @@ func (o *NotificationSettings) GetNotifyReviewerWhenReviewAssignedOk() (*bool, b
 
 // HasNotifyReviewerWhenReviewAssigned returns a boolean if a field has been set.
 func (o *NotificationSettings) HasNotifyReviewerWhenReviewAssigned() bool {
-	if o != nil && o.NotifyReviewerWhenReviewAssigned != nil {
+	if o != nil && !IsNil(o.NotifyReviewerWhenReviewAssigned) {
 		return true
 	}
 
@@ -117,7 +120,7 @@ func (o *NotificationSettings) SetNotifyReviewerWhenReviewAssigned(v bool) {
 
 // GetNotifyReviewerAtCampaignEnd returns the NotifyReviewerAtCampaignEnd field value if set, zero value otherwise.
 func (o *NotificationSettings) GetNotifyReviewerAtCampaignEnd() bool {
-	if o == nil || o.NotifyReviewerAtCampaignEnd == nil {
+	if o == nil || IsNil(o.NotifyReviewerAtCampaignEnd) {
 		var ret bool
 		return ret
 	}
@@ -127,7 +130,7 @@ func (o *NotificationSettings) GetNotifyReviewerAtCampaignEnd() bool {
 // GetNotifyReviewerAtCampaignEndOk returns a tuple with the NotifyReviewerAtCampaignEnd field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationSettings) GetNotifyReviewerAtCampaignEndOk() (*bool, bool) {
-	if o == nil || o.NotifyReviewerAtCampaignEnd == nil {
+	if o == nil || IsNil(o.NotifyReviewerAtCampaignEnd) {
 		return nil, false
 	}
 	return o.NotifyReviewerAtCampaignEnd, true
@@ -135,7 +138,7 @@ func (o *NotificationSettings) GetNotifyReviewerAtCampaignEndOk() (*bool, bool) 
 
 // HasNotifyReviewerAtCampaignEnd returns a boolean if a field has been set.
 func (o *NotificationSettings) HasNotifyReviewerAtCampaignEnd() bool {
-	if o != nil && o.NotifyReviewerAtCampaignEnd != nil {
+	if o != nil && !IsNil(o.NotifyReviewerAtCampaignEnd) {
 		return true
 	}
 
@@ -149,7 +152,7 @@ func (o *NotificationSettings) SetNotifyReviewerAtCampaignEnd(v bool) {
 
 // GetRemindersReviewerBeforeCampaignCloseInSecs returns the RemindersReviewerBeforeCampaignCloseInSecs field value if set, zero value otherwise.
 func (o *NotificationSettings) GetRemindersReviewerBeforeCampaignCloseInSecs() []int32 {
-	if o == nil || o.RemindersReviewerBeforeCampaignCloseInSecs == nil {
+	if o == nil || IsNil(o.RemindersReviewerBeforeCampaignCloseInSecs) {
 		var ret []int32
 		return ret
 	}
@@ -159,7 +162,7 @@ func (o *NotificationSettings) GetRemindersReviewerBeforeCampaignCloseInSecs() [
 // GetRemindersReviewerBeforeCampaignCloseInSecsOk returns a tuple with the RemindersReviewerBeforeCampaignCloseInSecs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationSettings) GetRemindersReviewerBeforeCampaignCloseInSecsOk() ([]int32, bool) {
-	if o == nil || o.RemindersReviewerBeforeCampaignCloseInSecs == nil {
+	if o == nil || IsNil(o.RemindersReviewerBeforeCampaignCloseInSecs) {
 		return nil, false
 	}
 	return o.RemindersReviewerBeforeCampaignCloseInSecs, true
@@ -167,7 +170,7 @@ func (o *NotificationSettings) GetRemindersReviewerBeforeCampaignCloseInSecsOk()
 
 // HasRemindersReviewerBeforeCampaignCloseInSecs returns a boolean if a field has been set.
 func (o *NotificationSettings) HasRemindersReviewerBeforeCampaignCloseInSecs() bool {
-	if o != nil && o.RemindersReviewerBeforeCampaignCloseInSecs != nil {
+	if o != nil && !IsNil(o.RemindersReviewerBeforeCampaignCloseInSecs) {
 		return true
 	}
 
@@ -181,7 +184,7 @@ func (o *NotificationSettings) SetRemindersReviewerBeforeCampaignCloseInSecs(v [
 
 // GetNotifyReviewerWhenOverdue returns the NotifyReviewerWhenOverdue field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *NotificationSettings) GetNotifyReviewerWhenOverdue() bool {
-	if o == nil || o.NotifyReviewerWhenOverdue.Get() == nil {
+	if o == nil || IsNil(o.NotifyReviewerWhenOverdue.Get()) {
 		var ret bool
 		return ret
 	}
@@ -224,7 +227,7 @@ func (o *NotificationSettings) UnsetNotifyReviewerWhenOverdue() {
 
 // GetNotifyReviewerDuringMidpointOfReview returns the NotifyReviewerDuringMidpointOfReview field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *NotificationSettings) GetNotifyReviewerDuringMidpointOfReview() bool {
-	if o == nil || o.NotifyReviewerDuringMidpointOfReview.Get() == nil {
+	if o == nil || IsNil(o.NotifyReviewerDuringMidpointOfReview.Get()) {
 		var ret bool
 		return ret
 	}
@@ -267,7 +270,7 @@ func (o *NotificationSettings) UnsetNotifyReviewerDuringMidpointOfReview() {
 
 // GetNotifyReviewPeriodEnd returns the NotifyReviewPeriodEnd field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *NotificationSettings) GetNotifyReviewPeriodEnd() bool {
-	if o == nil || o.NotifyReviewPeriodEnd.Get() == nil {
+	if o == nil || IsNil(o.NotifyReviewPeriodEnd.Get()) {
 		var ret bool
 		return ret
 	}
@@ -309,14 +312,22 @@ func (o *NotificationSettings) UnsetNotifyReviewPeriodEnd() {
 }
 
 func (o NotificationSettings) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o NotificationSettings) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.NotifyReviewerWhenReviewAssigned != nil {
+	if !IsNil(o.NotifyReviewerWhenReviewAssigned) {
 		toSerialize["notifyReviewerWhenReviewAssigned"] = o.NotifyReviewerWhenReviewAssigned
 	}
-	if o.NotifyReviewerAtCampaignEnd != nil {
+	if !IsNil(o.NotifyReviewerAtCampaignEnd) {
 		toSerialize["notifyReviewerAtCampaignEnd"] = o.NotifyReviewerAtCampaignEnd
 	}
-	if o.RemindersReviewerBeforeCampaignCloseInSecs != nil {
+	if !IsNil(o.RemindersReviewerBeforeCampaignCloseInSecs) {
 		toSerialize["remindersReviewerBeforeCampaignCloseInSecs"] = o.RemindersReviewerBeforeCampaignCloseInSecs
 	}
 	if o.NotifyReviewerWhenOverdue.IsSet() {
@@ -333,23 +344,23 @@ func (o NotificationSettings) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *NotificationSettings) UnmarshalJSON(bytes []byte) (err error) {
+func (o *NotificationSettings) UnmarshalJSON(data []byte) (err error) {
 	varNotificationSettings := _NotificationSettings{}
 
-	err = json.Unmarshal(bytes, &varNotificationSettings)
-	if err == nil {
-		*o = NotificationSettings(varNotificationSettings)
-	} else {
+	err = json.Unmarshal(data, &varNotificationSettings)
+
+	if err != nil {
 		return err
 	}
 
+	*o = NotificationSettings(varNotificationSettings)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "notifyReviewerWhenReviewAssigned")
 		delete(additionalProperties, "notifyReviewerAtCampaignEnd")
 		delete(additionalProperties, "remindersReviewerBeforeCampaignCloseInSecs")
@@ -357,8 +368,6 @@ func (o *NotificationSettings) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "notifyReviewerDuringMidpointOfReview")
 		delete(additionalProperties, "notifyReviewPeriodEnd")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

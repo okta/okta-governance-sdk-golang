@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the CollectionResourceCreatable type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CollectionResourceCreatable{}
 
 // CollectionResourceCreatable The properties expected when adding a new resource to a collection
 type CollectionResourceCreatable struct {
@@ -58,7 +62,7 @@ func NewCollectionResourceCreatableWithDefaults() *CollectionResourceCreatable {
 
 // GetEntitlements returns the Entitlements field value if set, zero value otherwise.
 func (o *CollectionResourceCreatable) GetEntitlements() []EntitlementCreatable {
-	if o == nil || o.Entitlements == nil {
+	if o == nil || IsNil(o.Entitlements) {
 		var ret []EntitlementCreatable
 		return ret
 	}
@@ -68,7 +72,7 @@ func (o *CollectionResourceCreatable) GetEntitlements() []EntitlementCreatable {
 // GetEntitlementsOk returns a tuple with the Entitlements field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionResourceCreatable) GetEntitlementsOk() ([]EntitlementCreatable, bool) {
-	if o == nil || o.Entitlements == nil {
+	if o == nil || IsNil(o.Entitlements) {
 		return nil, false
 	}
 	return o.Entitlements, true
@@ -76,7 +80,7 @@ func (o *CollectionResourceCreatable) GetEntitlementsOk() ([]EntitlementCreatabl
 
 // HasEntitlements returns a boolean if a field has been set.
 func (o *CollectionResourceCreatable) HasEntitlements() bool {
-	if o != nil && o.Entitlements != nil {
+	if o != nil && !IsNil(o.Entitlements) {
 		return true
 	}
 
@@ -113,40 +117,65 @@ func (o *CollectionResourceCreatable) SetResourceOrn(v string) {
 }
 
 func (o CollectionResourceCreatable) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CollectionResourceCreatable) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Entitlements != nil {
+	if !IsNil(o.Entitlements) {
 		toSerialize["entitlements"] = o.Entitlements
 	}
-	if true {
-		toSerialize["resourceOrn"] = o.ResourceOrn
-	}
+	toSerialize["resourceOrn"] = o.ResourceOrn
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *CollectionResourceCreatable) UnmarshalJSON(bytes []byte) (err error) {
-	varCollectionResourceCreatable := _CollectionResourceCreatable{}
+func (o *CollectionResourceCreatable) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"resourceOrn",
+	}
 
-	err = json.Unmarshal(bytes, &varCollectionResourceCreatable)
-	if err == nil {
-		*o = CollectionResourceCreatable(varCollectionResourceCreatable)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varCollectionResourceCreatable := _CollectionResourceCreatable{}
+
+	err = json.Unmarshal(data, &varCollectionResourceCreatable)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CollectionResourceCreatable(varCollectionResourceCreatable)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "entitlements")
 		delete(additionalProperties, "resourceOrn")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

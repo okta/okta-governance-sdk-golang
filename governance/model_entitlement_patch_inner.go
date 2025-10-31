@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,7 +28,6 @@ import (
 	"fmt"
 )
 
-// model_oneof.mustache
 // EntitlementPatchInner - struct for EntitlementPatchInner
 type EntitlementPatchInner struct {
 	EntitlementPatchOperation       *EntitlementPatchOperation
@@ -49,14 +48,14 @@ func EntitlementValuesPatchOperationAsEntitlementPatchInner(v *EntitlementValues
 	}
 }
 
-// Unmarshal JSON data into one of the pointers in the struct  CUSTOM
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *EntitlementPatchInner) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup
 	var jsonDict map[string]interface{}
 	err = newStrictDecoder(data).Decode(&jsonDict)
 	if err != nil {
-		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
 	// check if the discriminator value is 'ENTITLEMENT'
@@ -67,7 +66,7 @@ func (dst *EntitlementPatchInner) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.EntitlementPatchOperation, return on the first match
 		} else {
 			dst.EntitlementPatchOperation = nil
-			return fmt.Errorf("Failed to unmarshal EntitlementPatchInner as EntitlementPatchOperation: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal EntitlementPatchInner as EntitlementPatchOperation: %s", err.Error())
 		}
 	}
 
@@ -79,31 +78,7 @@ func (dst *EntitlementPatchInner) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.EntitlementValuesPatchOperation, return on the first match
 		} else {
 			dst.EntitlementValuesPatchOperation = nil
-			return fmt.Errorf("Failed to unmarshal EntitlementPatchInner as EntitlementValuesPatchOperation: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'entitlement-patch-operation'
-	if jsonDict["refType"] == "entitlement-patch-operation" {
-		// try to unmarshal JSON data into EntitlementPatchOperation
-		err = json.Unmarshal(data, &dst.EntitlementPatchOperation)
-		if err == nil {
-			return nil // data stored in dst.EntitlementPatchOperation, return on the first match
-		} else {
-			dst.EntitlementPatchOperation = nil
-			return fmt.Errorf("Failed to unmarshal EntitlementPatchInner as EntitlementPatchOperation: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'entitlement-values-patch-operation'
-	if jsonDict["refType"] == "entitlement-values-patch-operation" {
-		// try to unmarshal JSON data into EntitlementValuesPatchOperation
-		err = json.Unmarshal(data, &dst.EntitlementValuesPatchOperation)
-		if err == nil {
-			return nil // data stored in dst.EntitlementValuesPatchOperation, return on the first match
-		} else {
-			dst.EntitlementValuesPatchOperation = nil
-			return fmt.Errorf("Failed to unmarshal EntitlementPatchInner as EntitlementValuesPatchOperation: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal EntitlementPatchInner as EntitlementValuesPatchOperation: %s", err.Error())
 		}
 	}
 
@@ -134,6 +109,20 @@ func (obj *EntitlementPatchInner) GetActualInstance() interface{} {
 
 	if obj.EntitlementValuesPatchOperation != nil {
 		return obj.EntitlementValuesPatchOperation
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj EntitlementPatchInner) GetActualInstanceValue() interface{} {
+	if obj.EntitlementPatchOperation != nil {
+		return *obj.EntitlementPatchOperation
+	}
+
+	if obj.EntitlementValuesPatchOperation != nil {
+		return *obj.EntitlementValuesPatchOperation
 	}
 
 	// all schemas are nil

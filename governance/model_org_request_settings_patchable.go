@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the OrgRequestSettingsPatchable type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OrgRequestSettingsPatchable{}
 
 // OrgRequestSettingsPatchable Request settings for the org for patch
 type OrgRequestSettingsPatchable struct {
@@ -79,36 +83,61 @@ func (o *OrgRequestSettingsPatchable) SetSubprocessorsAcknowledged(v bool) {
 }
 
 func (o OrgRequestSettingsPatchable) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["subprocessorsAcknowledged"] = o.SubprocessorsAcknowledged
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OrgRequestSettingsPatchable) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["subprocessorsAcknowledged"] = o.SubprocessorsAcknowledged
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OrgRequestSettingsPatchable) UnmarshalJSON(bytes []byte) (err error) {
-	varOrgRequestSettingsPatchable := _OrgRequestSettingsPatchable{}
+func (o *OrgRequestSettingsPatchable) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"subprocessorsAcknowledged",
+	}
 
-	err = json.Unmarshal(bytes, &varOrgRequestSettingsPatchable)
-	if err == nil {
-		*o = OrgRequestSettingsPatchable(varOrgRequestSettingsPatchable)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varOrgRequestSettingsPatchable := _OrgRequestSettingsPatchable{}
+
+	err = json.Unmarshal(data, &varOrgRequestSettingsPatchable)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OrgRequestSettingsPatchable(varOrgRequestSettingsPatchable)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "subprocessorsAcknowledged")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

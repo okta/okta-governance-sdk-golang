@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the TargetResourcesRequestInner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TargetResourcesRequestInner{}
 
 // TargetResourcesRequestInner Represents a resource that will be part of access certification
 type TargetResourcesRequestInner struct {
@@ -87,7 +91,7 @@ func (o *TargetResourcesRequestInner) SetResourceId(v string) {
 
 // GetResourceType returns the ResourceType field value if set, zero value otherwise.
 func (o *TargetResourcesRequestInner) GetResourceType() ResourceType {
-	if o == nil || o.ResourceType == nil {
+	if o == nil || IsNil(o.ResourceType) {
 		var ret ResourceType
 		return ret
 	}
@@ -97,7 +101,7 @@ func (o *TargetResourcesRequestInner) GetResourceType() ResourceType {
 // GetResourceTypeOk returns a tuple with the ResourceType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TargetResourcesRequestInner) GetResourceTypeOk() (*ResourceType, bool) {
-	if o == nil || o.ResourceType == nil {
+	if o == nil || IsNil(o.ResourceType) {
 		return nil, false
 	}
 	return o.ResourceType, true
@@ -105,7 +109,7 @@ func (o *TargetResourcesRequestInner) GetResourceTypeOk() (*ResourceType, bool) 
 
 // HasResourceType returns a boolean if a field has been set.
 func (o *TargetResourcesRequestInner) HasResourceType() bool {
-	if o != nil && o.ResourceType != nil {
+	if o != nil && !IsNil(o.ResourceType) {
 		return true
 	}
 
@@ -119,7 +123,7 @@ func (o *TargetResourcesRequestInner) SetResourceType(v ResourceType) {
 
 // GetIncludeAllEntitlementsAndBundles returns the IncludeAllEntitlementsAndBundles field value if set, zero value otherwise.
 func (o *TargetResourcesRequestInner) GetIncludeAllEntitlementsAndBundles() bool {
-	if o == nil || o.IncludeAllEntitlementsAndBundles == nil {
+	if o == nil || IsNil(o.IncludeAllEntitlementsAndBundles) {
 		var ret bool
 		return ret
 	}
@@ -129,7 +133,7 @@ func (o *TargetResourcesRequestInner) GetIncludeAllEntitlementsAndBundles() bool
 // GetIncludeAllEntitlementsAndBundlesOk returns a tuple with the IncludeAllEntitlementsAndBundles field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TargetResourcesRequestInner) GetIncludeAllEntitlementsAndBundlesOk() (*bool, bool) {
-	if o == nil || o.IncludeAllEntitlementsAndBundles == nil {
+	if o == nil || IsNil(o.IncludeAllEntitlementsAndBundles) {
 		return nil, false
 	}
 	return o.IncludeAllEntitlementsAndBundles, true
@@ -137,7 +141,7 @@ func (o *TargetResourcesRequestInner) GetIncludeAllEntitlementsAndBundlesOk() (*
 
 // HasIncludeAllEntitlementsAndBundles returns a boolean if a field has been set.
 func (o *TargetResourcesRequestInner) HasIncludeAllEntitlementsAndBundles() bool {
-	if o != nil && o.IncludeAllEntitlementsAndBundles != nil {
+	if o != nil && !IsNil(o.IncludeAllEntitlementsAndBundles) {
 		return true
 	}
 
@@ -151,7 +155,7 @@ func (o *TargetResourcesRequestInner) SetIncludeAllEntitlementsAndBundles(v bool
 
 // GetEntitlementBundles returns the EntitlementBundles field value if set, zero value otherwise.
 func (o *TargetResourcesRequestInner) GetEntitlementBundles() []EntitlementBundlesInner {
-	if o == nil || o.EntitlementBundles == nil {
+	if o == nil || IsNil(o.EntitlementBundles) {
 		var ret []EntitlementBundlesInner
 		return ret
 	}
@@ -161,7 +165,7 @@ func (o *TargetResourcesRequestInner) GetEntitlementBundles() []EntitlementBundl
 // GetEntitlementBundlesOk returns a tuple with the EntitlementBundles field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TargetResourcesRequestInner) GetEntitlementBundlesOk() ([]EntitlementBundlesInner, bool) {
-	if o == nil || o.EntitlementBundles == nil {
+	if o == nil || IsNil(o.EntitlementBundles) {
 		return nil, false
 	}
 	return o.EntitlementBundles, true
@@ -169,7 +173,7 @@ func (o *TargetResourcesRequestInner) GetEntitlementBundlesOk() ([]EntitlementBu
 
 // HasEntitlementBundles returns a boolean if a field has been set.
 func (o *TargetResourcesRequestInner) HasEntitlementBundles() bool {
-	if o != nil && o.EntitlementBundles != nil {
+	if o != nil && !IsNil(o.EntitlementBundles) {
 		return true
 	}
 
@@ -183,7 +187,7 @@ func (o *TargetResourcesRequestInner) SetEntitlementBundles(v []EntitlementBundl
 
 // GetEntitlements returns the Entitlements field value if set, zero value otherwise.
 func (o *TargetResourcesRequestInner) GetEntitlements() []EntitlementsInner {
-	if o == nil || o.Entitlements == nil {
+	if o == nil || IsNil(o.Entitlements) {
 		var ret []EntitlementsInner
 		return ret
 	}
@@ -193,7 +197,7 @@ func (o *TargetResourcesRequestInner) GetEntitlements() []EntitlementsInner {
 // GetEntitlementsOk returns a tuple with the Entitlements field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TargetResourcesRequestInner) GetEntitlementsOk() ([]EntitlementsInner, bool) {
-	if o == nil || o.Entitlements == nil {
+	if o == nil || IsNil(o.Entitlements) {
 		return nil, false
 	}
 	return o.Entitlements, true
@@ -201,7 +205,7 @@ func (o *TargetResourcesRequestInner) GetEntitlementsOk() ([]EntitlementsInner, 
 
 // HasEntitlements returns a boolean if a field has been set.
 func (o *TargetResourcesRequestInner) HasEntitlements() bool {
-	if o != nil && o.Entitlements != nil {
+	if o != nil && !IsNil(o.Entitlements) {
 		return true
 	}
 
@@ -214,20 +218,26 @@ func (o *TargetResourcesRequestInner) SetEntitlements(v []EntitlementsInner) {
 }
 
 func (o TargetResourcesRequestInner) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["resourceId"] = o.ResourceId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.ResourceType != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o TargetResourcesRequestInner) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["resourceId"] = o.ResourceId
+	if !IsNil(o.ResourceType) {
 		toSerialize["resourceType"] = o.ResourceType
 	}
-	if o.IncludeAllEntitlementsAndBundles != nil {
+	if !IsNil(o.IncludeAllEntitlementsAndBundles) {
 		toSerialize["includeAllEntitlementsAndBundles"] = o.IncludeAllEntitlementsAndBundles
 	}
-	if o.EntitlementBundles != nil {
+	if !IsNil(o.EntitlementBundles) {
 		toSerialize["entitlementBundles"] = o.EntitlementBundles
 	}
-	if o.Entitlements != nil {
+	if !IsNil(o.Entitlements) {
 		toSerialize["entitlements"] = o.Entitlements
 	}
 
@@ -235,31 +245,50 @@ func (o TargetResourcesRequestInner) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *TargetResourcesRequestInner) UnmarshalJSON(bytes []byte) (err error) {
-	varTargetResourcesRequestInner := _TargetResourcesRequestInner{}
+func (o *TargetResourcesRequestInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"resourceId",
+	}
 
-	err = json.Unmarshal(bytes, &varTargetResourcesRequestInner)
-	if err == nil {
-		*o = TargetResourcesRequestInner(varTargetResourcesRequestInner)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varTargetResourcesRequestInner := _TargetResourcesRequestInner{}
+
+	err = json.Unmarshal(data, &varTargetResourcesRequestInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = TargetResourcesRequestInner(varTargetResourcesRequestInner)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "resourceId")
 		delete(additionalProperties, "resourceType")
 		delete(additionalProperties, "includeAllEntitlementsAndBundles")
 		delete(additionalProperties, "entitlementBundles")
 		delete(additionalProperties, "entitlements")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

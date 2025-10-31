@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the RcarEntryLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RcarEntryLinks{}
 
 // RcarEntryLinks Links available for a resource catalog entry. * `createRequest`: returns the link to create the request only if the entry is requestable * `parent`: returns the parent entry only if a parent exists * `submittedRequest`: returns the submitted request only if the authenticated user has a submitted request for the entry and it's not available for approval * `pendingRequest`: returns the pending request only if the authenticated user has a submitted request for the entry and the request is available for approval * `relatedEntity`: returns the resource that's requested
 type RcarEntryLinks struct {
@@ -86,7 +90,7 @@ func (o *RcarEntryLinks) SetSelf(v Link) {
 
 // GetLogo returns the Logo field value if set, zero value otherwise.
 func (o *RcarEntryLinks) GetLogo() []Link {
-	if o == nil || o.Logo == nil {
+	if o == nil || IsNil(o.Logo) {
 		var ret []Link
 		return ret
 	}
@@ -96,7 +100,7 @@ func (o *RcarEntryLinks) GetLogo() []Link {
 // GetLogoOk returns a tuple with the Logo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RcarEntryLinks) GetLogoOk() ([]Link, bool) {
-	if o == nil || o.Logo == nil {
+	if o == nil || IsNil(o.Logo) {
 		return nil, false
 	}
 	return o.Logo, true
@@ -104,7 +108,7 @@ func (o *RcarEntryLinks) GetLogoOk() ([]Link, bool) {
 
 // HasLogo returns a boolean if a field has been set.
 func (o *RcarEntryLinks) HasLogo() bool {
-	if o != nil && o.Logo != nil {
+	if o != nil && !IsNil(o.Logo) {
 		return true
 	}
 
@@ -118,7 +122,7 @@ func (o *RcarEntryLinks) SetLogo(v []Link) {
 
 // GetParent returns the Parent field value if set, zero value otherwise.
 func (o *RcarEntryLinks) GetParent() Link {
-	if o == nil || o.Parent == nil {
+	if o == nil || IsNil(o.Parent) {
 		var ret Link
 		return ret
 	}
@@ -128,7 +132,7 @@ func (o *RcarEntryLinks) GetParent() Link {
 // GetParentOk returns a tuple with the Parent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RcarEntryLinks) GetParentOk() (*Link, bool) {
-	if o == nil || o.Parent == nil {
+	if o == nil || IsNil(o.Parent) {
 		return nil, false
 	}
 	return o.Parent, true
@@ -136,7 +140,7 @@ func (o *RcarEntryLinks) GetParentOk() (*Link, bool) {
 
 // HasParent returns a boolean if a field has been set.
 func (o *RcarEntryLinks) HasParent() bool {
-	if o != nil && o.Parent != nil {
+	if o != nil && !IsNil(o.Parent) {
 		return true
 	}
 
@@ -150,7 +154,7 @@ func (o *RcarEntryLinks) SetParent(v Link) {
 
 // GetCreateRequest returns the CreateRequest field value if set, zero value otherwise.
 func (o *RcarEntryLinks) GetCreateRequest() Link {
-	if o == nil || o.CreateRequest == nil {
+	if o == nil || IsNil(o.CreateRequest) {
 		var ret Link
 		return ret
 	}
@@ -160,7 +164,7 @@ func (o *RcarEntryLinks) GetCreateRequest() Link {
 // GetCreateRequestOk returns a tuple with the CreateRequest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RcarEntryLinks) GetCreateRequestOk() (*Link, bool) {
-	if o == nil || o.CreateRequest == nil {
+	if o == nil || IsNil(o.CreateRequest) {
 		return nil, false
 	}
 	return o.CreateRequest, true
@@ -168,7 +172,7 @@ func (o *RcarEntryLinks) GetCreateRequestOk() (*Link, bool) {
 
 // HasCreateRequest returns a boolean if a field has been set.
 func (o *RcarEntryLinks) HasCreateRequest() bool {
-	if o != nil && o.CreateRequest != nil {
+	if o != nil && !IsNil(o.CreateRequest) {
 		return true
 	}
 
@@ -182,7 +186,7 @@ func (o *RcarEntryLinks) SetCreateRequest(v Link) {
 
 // GetSubmittedRequest returns the SubmittedRequest field value if set, zero value otherwise.
 func (o *RcarEntryLinks) GetSubmittedRequest() Link {
-	if o == nil || o.SubmittedRequest == nil {
+	if o == nil || IsNil(o.SubmittedRequest) {
 		var ret Link
 		return ret
 	}
@@ -192,7 +196,7 @@ func (o *RcarEntryLinks) GetSubmittedRequest() Link {
 // GetSubmittedRequestOk returns a tuple with the SubmittedRequest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RcarEntryLinks) GetSubmittedRequestOk() (*Link, bool) {
-	if o == nil || o.SubmittedRequest == nil {
+	if o == nil || IsNil(o.SubmittedRequest) {
 		return nil, false
 	}
 	return o.SubmittedRequest, true
@@ -200,7 +204,7 @@ func (o *RcarEntryLinks) GetSubmittedRequestOk() (*Link, bool) {
 
 // HasSubmittedRequest returns a boolean if a field has been set.
 func (o *RcarEntryLinks) HasSubmittedRequest() bool {
-	if o != nil && o.SubmittedRequest != nil {
+	if o != nil && !IsNil(o.SubmittedRequest) {
 		return true
 	}
 
@@ -214,7 +218,7 @@ func (o *RcarEntryLinks) SetSubmittedRequest(v Link) {
 
 // GetPendingRequest returns the PendingRequest field value if set, zero value otherwise.
 func (o *RcarEntryLinks) GetPendingRequest() Link {
-	if o == nil || o.PendingRequest == nil {
+	if o == nil || IsNil(o.PendingRequest) {
 		var ret Link
 		return ret
 	}
@@ -224,7 +228,7 @@ func (o *RcarEntryLinks) GetPendingRequest() Link {
 // GetPendingRequestOk returns a tuple with the PendingRequest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RcarEntryLinks) GetPendingRequestOk() (*Link, bool) {
-	if o == nil || o.PendingRequest == nil {
+	if o == nil || IsNil(o.PendingRequest) {
 		return nil, false
 	}
 	return o.PendingRequest, true
@@ -232,7 +236,7 @@ func (o *RcarEntryLinks) GetPendingRequestOk() (*Link, bool) {
 
 // HasPendingRequest returns a boolean if a field has been set.
 func (o *RcarEntryLinks) HasPendingRequest() bool {
-	if o != nil && o.PendingRequest != nil {
+	if o != nil && !IsNil(o.PendingRequest) {
 		return true
 	}
 
@@ -246,7 +250,7 @@ func (o *RcarEntryLinks) SetPendingRequest(v Link) {
 
 // GetRelatedEntity returns the RelatedEntity field value if set, zero value otherwise.
 func (o *RcarEntryLinks) GetRelatedEntity() Link {
-	if o == nil || o.RelatedEntity == nil {
+	if o == nil || IsNil(o.RelatedEntity) {
 		var ret Link
 		return ret
 	}
@@ -256,7 +260,7 @@ func (o *RcarEntryLinks) GetRelatedEntity() Link {
 // GetRelatedEntityOk returns a tuple with the RelatedEntity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RcarEntryLinks) GetRelatedEntityOk() (*Link, bool) {
-	if o == nil || o.RelatedEntity == nil {
+	if o == nil || IsNil(o.RelatedEntity) {
 		return nil, false
 	}
 	return o.RelatedEntity, true
@@ -264,7 +268,7 @@ func (o *RcarEntryLinks) GetRelatedEntityOk() (*Link, bool) {
 
 // HasRelatedEntity returns a boolean if a field has been set.
 func (o *RcarEntryLinks) HasRelatedEntity() bool {
-	if o != nil && o.RelatedEntity != nil {
+	if o != nil && !IsNil(o.RelatedEntity) {
 		return true
 	}
 
@@ -277,26 +281,32 @@ func (o *RcarEntryLinks) SetRelatedEntity(v Link) {
 }
 
 func (o RcarEntryLinks) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["self"] = o.Self
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.Logo != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o RcarEntryLinks) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["self"] = o.Self
+	if !IsNil(o.Logo) {
 		toSerialize["logo"] = o.Logo
 	}
-	if o.Parent != nil {
+	if !IsNil(o.Parent) {
 		toSerialize["parent"] = o.Parent
 	}
-	if o.CreateRequest != nil {
+	if !IsNil(o.CreateRequest) {
 		toSerialize["createRequest"] = o.CreateRequest
 	}
-	if o.SubmittedRequest != nil {
+	if !IsNil(o.SubmittedRequest) {
 		toSerialize["submittedRequest"] = o.SubmittedRequest
 	}
-	if o.PendingRequest != nil {
+	if !IsNil(o.PendingRequest) {
 		toSerialize["pendingRequest"] = o.PendingRequest
 	}
-	if o.RelatedEntity != nil {
+	if !IsNil(o.RelatedEntity) {
 		toSerialize["relatedEntity"] = o.RelatedEntity
 	}
 
@@ -304,23 +314,44 @@ func (o RcarEntryLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RcarEntryLinks) UnmarshalJSON(bytes []byte) (err error) {
-	varRcarEntryLinks := _RcarEntryLinks{}
+func (o *RcarEntryLinks) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"self",
+	}
 
-	err = json.Unmarshal(bytes, &varRcarEntryLinks)
-	if err == nil {
-		*o = RcarEntryLinks(varRcarEntryLinks)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRcarEntryLinks := _RcarEntryLinks{}
+
+	err = json.Unmarshal(data, &varRcarEntryLinks)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RcarEntryLinks(varRcarEntryLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "self")
 		delete(additionalProperties, "logo")
 		delete(additionalProperties, "parent")
@@ -329,8 +360,6 @@ func (o *RcarEntryLinks) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "pendingRequest")
 		delete(additionalProperties, "relatedEntity")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

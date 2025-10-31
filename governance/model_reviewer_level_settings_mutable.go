@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the ReviewerLevelSettingsMutable type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ReviewerLevelSettingsMutable{}
 
 // ReviewerLevelSettingsMutable struct for ReviewerLevelSettingsMutable
 type ReviewerLevelSettingsMutable struct {
@@ -118,7 +122,7 @@ func (o *ReviewerLevelSettingsMutable) SetStartReview(v ReviewerLevelStartReview
 
 // GetReviewerId returns the ReviewerId field value if set, zero value otherwise.
 func (o *ReviewerLevelSettingsMutable) GetReviewerId() string {
-	if o == nil || o.ReviewerId == nil {
+	if o == nil || IsNil(o.ReviewerId) {
 		var ret string
 		return ret
 	}
@@ -128,7 +132,7 @@ func (o *ReviewerLevelSettingsMutable) GetReviewerId() string {
 // GetReviewerIdOk returns a tuple with the ReviewerId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReviewerLevelSettingsMutable) GetReviewerIdOk() (*string, bool) {
-	if o == nil || o.ReviewerId == nil {
+	if o == nil || IsNil(o.ReviewerId) {
 		return nil, false
 	}
 	return o.ReviewerId, true
@@ -136,7 +140,7 @@ func (o *ReviewerLevelSettingsMutable) GetReviewerIdOk() (*string, bool) {
 
 // HasReviewerId returns a boolean if a field has been set.
 func (o *ReviewerLevelSettingsMutable) HasReviewerId() bool {
-	if o != nil && o.ReviewerId != nil {
+	if o != nil && !IsNil(o.ReviewerId) {
 		return true
 	}
 
@@ -150,7 +154,7 @@ func (o *ReviewerLevelSettingsMutable) SetReviewerId(v string) {
 
 // GetReviewerScopeExpression returns the ReviewerScopeExpression field value if set, zero value otherwise.
 func (o *ReviewerLevelSettingsMutable) GetReviewerScopeExpression() string {
-	if o == nil || o.ReviewerScopeExpression == nil {
+	if o == nil || IsNil(o.ReviewerScopeExpression) {
 		var ret string
 		return ret
 	}
@@ -160,7 +164,7 @@ func (o *ReviewerLevelSettingsMutable) GetReviewerScopeExpression() string {
 // GetReviewerScopeExpressionOk returns a tuple with the ReviewerScopeExpression field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReviewerLevelSettingsMutable) GetReviewerScopeExpressionOk() (*string, bool) {
-	if o == nil || o.ReviewerScopeExpression == nil {
+	if o == nil || IsNil(o.ReviewerScopeExpression) {
 		return nil, false
 	}
 	return o.ReviewerScopeExpression, true
@@ -168,7 +172,7 @@ func (o *ReviewerLevelSettingsMutable) GetReviewerScopeExpressionOk() (*string, 
 
 // HasReviewerScopeExpression returns a boolean if a field has been set.
 func (o *ReviewerLevelSettingsMutable) HasReviewerScopeExpression() bool {
-	if o != nil && o.ReviewerScopeExpression != nil {
+	if o != nil && !IsNil(o.ReviewerScopeExpression) {
 		return true
 	}
 
@@ -182,7 +186,7 @@ func (o *ReviewerLevelSettingsMutable) SetReviewerScopeExpression(v string) {
 
 // GetFallBackReviewerId returns the FallBackReviewerId field value if set, zero value otherwise.
 func (o *ReviewerLevelSettingsMutable) GetFallBackReviewerId() string {
-	if o == nil || o.FallBackReviewerId == nil {
+	if o == nil || IsNil(o.FallBackReviewerId) {
 		var ret string
 		return ret
 	}
@@ -192,7 +196,7 @@ func (o *ReviewerLevelSettingsMutable) GetFallBackReviewerId() string {
 // GetFallBackReviewerIdOk returns a tuple with the FallBackReviewerId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReviewerLevelSettingsMutable) GetFallBackReviewerIdOk() (*string, bool) {
-	if o == nil || o.FallBackReviewerId == nil {
+	if o == nil || IsNil(o.FallBackReviewerId) {
 		return nil, false
 	}
 	return o.FallBackReviewerId, true
@@ -200,7 +204,7 @@ func (o *ReviewerLevelSettingsMutable) GetFallBackReviewerIdOk() (*string, bool)
 
 // HasFallBackReviewerId returns a boolean if a field has been set.
 func (o *ReviewerLevelSettingsMutable) HasFallBackReviewerId() bool {
-	if o != nil && o.FallBackReviewerId != nil {
+	if o != nil && !IsNil(o.FallBackReviewerId) {
 		return true
 	}
 
@@ -214,7 +218,7 @@ func (o *ReviewerLevelSettingsMutable) SetFallBackReviewerId(v string) {
 
 // GetReviewerGroupId returns the ReviewerGroupId field value if set, zero value otherwise.
 func (o *ReviewerLevelSettingsMutable) GetReviewerGroupId() string {
-	if o == nil || o.ReviewerGroupId == nil {
+	if o == nil || IsNil(o.ReviewerGroupId) {
 		var ret string
 		return ret
 	}
@@ -224,7 +228,7 @@ func (o *ReviewerLevelSettingsMutable) GetReviewerGroupId() string {
 // GetReviewerGroupIdOk returns a tuple with the ReviewerGroupId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReviewerLevelSettingsMutable) GetReviewerGroupIdOk() (*string, bool) {
-	if o == nil || o.ReviewerGroupId == nil {
+	if o == nil || IsNil(o.ReviewerGroupId) {
 		return nil, false
 	}
 	return o.ReviewerGroupId, true
@@ -232,7 +236,7 @@ func (o *ReviewerLevelSettingsMutable) GetReviewerGroupIdOk() (*string, bool) {
 
 // HasReviewerGroupId returns a boolean if a field has been set.
 func (o *ReviewerLevelSettingsMutable) HasReviewerGroupId() bool {
-	if o != nil && o.ReviewerGroupId != nil {
+	if o != nil && !IsNil(o.ReviewerGroupId) {
 		return true
 	}
 
@@ -247,7 +251,7 @@ func (o *ReviewerLevelSettingsMutable) SetReviewerGroupId(v string) {
 // GetIsSelfReviewDisabled returns the IsSelfReviewDisabled field value if set, zero value otherwise.
 // Deprecated
 func (o *ReviewerLevelSettingsMutable) GetIsSelfReviewDisabled() bool {
-	if o == nil || o.IsSelfReviewDisabled == nil {
+	if o == nil || IsNil(o.IsSelfReviewDisabled) {
 		var ret bool
 		return ret
 	}
@@ -258,7 +262,7 @@ func (o *ReviewerLevelSettingsMutable) GetIsSelfReviewDisabled() bool {
 // and a boolean to check if the value has been set.
 // Deprecated
 func (o *ReviewerLevelSettingsMutable) GetIsSelfReviewDisabledOk() (*bool, bool) {
-	if o == nil || o.IsSelfReviewDisabled == nil {
+	if o == nil || IsNil(o.IsSelfReviewDisabled) {
 		return nil, false
 	}
 	return o.IsSelfReviewDisabled, true
@@ -266,7 +270,7 @@ func (o *ReviewerLevelSettingsMutable) GetIsSelfReviewDisabledOk() (*bool, bool)
 
 // HasIsSelfReviewDisabled returns a boolean if a field has been set.
 func (o *ReviewerLevelSettingsMutable) HasIsSelfReviewDisabled() bool {
-	if o != nil && o.IsSelfReviewDisabled != nil {
+	if o != nil && !IsNil(o.IsSelfReviewDisabled) {
 		return true
 	}
 
@@ -281,7 +285,7 @@ func (o *ReviewerLevelSettingsMutable) SetIsSelfReviewDisabled(v bool) {
 
 // GetSelfReviewDisabled returns the SelfReviewDisabled field value if set, zero value otherwise.
 func (o *ReviewerLevelSettingsMutable) GetSelfReviewDisabled() bool {
-	if o == nil || o.SelfReviewDisabled == nil {
+	if o == nil || IsNil(o.SelfReviewDisabled) {
 		var ret bool
 		return ret
 	}
@@ -291,7 +295,7 @@ func (o *ReviewerLevelSettingsMutable) GetSelfReviewDisabled() bool {
 // GetSelfReviewDisabledOk returns a tuple with the SelfReviewDisabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReviewerLevelSettingsMutable) GetSelfReviewDisabledOk() (*bool, bool) {
-	if o == nil || o.SelfReviewDisabled == nil {
+	if o == nil || IsNil(o.SelfReviewDisabled) {
 		return nil, false
 	}
 	return o.SelfReviewDisabled, true
@@ -299,7 +303,7 @@ func (o *ReviewerLevelSettingsMutable) GetSelfReviewDisabledOk() (*bool, bool) {
 
 // HasSelfReviewDisabled returns a boolean if a field has been set.
 func (o *ReviewerLevelSettingsMutable) HasSelfReviewDisabled() bool {
-	if o != nil && o.SelfReviewDisabled != nil {
+	if o != nil && !IsNil(o.SelfReviewDisabled) {
 		return true
 	}
 
@@ -312,29 +316,33 @@ func (o *ReviewerLevelSettingsMutable) SetSelfReviewDisabled(v bool) {
 }
 
 func (o ReviewerLevelSettingsMutable) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ReviewerLevelSettingsMutable) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if true {
-		toSerialize["startReview"] = o.StartReview
-	}
-	if o.ReviewerId != nil {
+	toSerialize["type"] = o.Type
+	toSerialize["startReview"] = o.StartReview
+	if !IsNil(o.ReviewerId) {
 		toSerialize["reviewerId"] = o.ReviewerId
 	}
-	if o.ReviewerScopeExpression != nil {
+	if !IsNil(o.ReviewerScopeExpression) {
 		toSerialize["reviewerScopeExpression"] = o.ReviewerScopeExpression
 	}
-	if o.FallBackReviewerId != nil {
+	if !IsNil(o.FallBackReviewerId) {
 		toSerialize["fallBackReviewerId"] = o.FallBackReviewerId
 	}
-	if o.ReviewerGroupId != nil {
+	if !IsNil(o.ReviewerGroupId) {
 		toSerialize["reviewerGroupId"] = o.ReviewerGroupId
 	}
-	if o.IsSelfReviewDisabled != nil {
+	if !IsNil(o.IsSelfReviewDisabled) {
 		toSerialize["isSelfReviewDisabled"] = o.IsSelfReviewDisabled
 	}
-	if o.SelfReviewDisabled != nil {
+	if !IsNil(o.SelfReviewDisabled) {
 		toSerialize["selfReviewDisabled"] = o.SelfReviewDisabled
 	}
 
@@ -342,23 +350,45 @@ func (o ReviewerLevelSettingsMutable) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ReviewerLevelSettingsMutable) UnmarshalJSON(bytes []byte) (err error) {
-	varReviewerLevelSettingsMutable := _ReviewerLevelSettingsMutable{}
+func (o *ReviewerLevelSettingsMutable) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"type",
+		"startReview",
+	}
 
-	err = json.Unmarshal(bytes, &varReviewerLevelSettingsMutable)
-	if err == nil {
-		*o = ReviewerLevelSettingsMutable(varReviewerLevelSettingsMutable)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varReviewerLevelSettingsMutable := _ReviewerLevelSettingsMutable{}
+
+	err = json.Unmarshal(data, &varReviewerLevelSettingsMutable)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ReviewerLevelSettingsMutable(varReviewerLevelSettingsMutable)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "startReview")
 		delete(additionalProperties, "reviewerId")
@@ -368,8 +398,6 @@ func (o *ReviewerLevelSettingsMutable) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "isSelfReviewDisabled")
 		delete(additionalProperties, "selfReviewDisabled")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

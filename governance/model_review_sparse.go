@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,8 +25,12 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the ReviewSparse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ReviewSparse{}
 
 // ReviewSparse Sparse representation of a Review resource
 type ReviewSparse struct {
@@ -283,7 +287,7 @@ func (o *ReviewSparse) SetResourceId(v string) {
 
 // GetEntitlementValue returns the EntitlementValue field value if set, zero value otherwise.
 func (o *ReviewSparse) GetEntitlementValue() ReviewerEntitlementValue {
-	if o == nil || o.EntitlementValue == nil {
+	if o == nil || IsNil(o.EntitlementValue) {
 		var ret ReviewerEntitlementValue
 		return ret
 	}
@@ -293,7 +297,7 @@ func (o *ReviewSparse) GetEntitlementValue() ReviewerEntitlementValue {
 // GetEntitlementValueOk returns a tuple with the EntitlementValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReviewSparse) GetEntitlementValueOk() (*ReviewerEntitlementValue, bool) {
-	if o == nil || o.EntitlementValue == nil {
+	if o == nil || IsNil(o.EntitlementValue) {
 		return nil, false
 	}
 	return o.EntitlementValue, true
@@ -301,7 +305,7 @@ func (o *ReviewSparse) GetEntitlementValueOk() (*ReviewerEntitlementValue, bool)
 
 // HasEntitlementValue returns a boolean if a field has been set.
 func (o *ReviewSparse) HasEntitlementValue() bool {
-	if o != nil && o.EntitlementValue != nil {
+	if o != nil && !IsNil(o.EntitlementValue) {
 		return true
 	}
 
@@ -315,7 +319,7 @@ func (o *ReviewSparse) SetEntitlementValue(v ReviewerEntitlementValue) {
 
 // GetEntitlementBundle returns the EntitlementBundle field value if set, zero value otherwise.
 func (o *ReviewSparse) GetEntitlementBundle() ReviewerEntitlementBundle {
-	if o == nil || o.EntitlementBundle == nil {
+	if o == nil || IsNil(o.EntitlementBundle) {
 		var ret ReviewerEntitlementBundle
 		return ret
 	}
@@ -325,7 +329,7 @@ func (o *ReviewSparse) GetEntitlementBundle() ReviewerEntitlementBundle {
 // GetEntitlementBundleOk returns a tuple with the EntitlementBundle field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReviewSparse) GetEntitlementBundleOk() (*ReviewerEntitlementBundle, bool) {
-	if o == nil || o.EntitlementBundle == nil {
+	if o == nil || IsNil(o.EntitlementBundle) {
 		return nil, false
 	}
 	return o.EntitlementBundle, true
@@ -333,7 +337,7 @@ func (o *ReviewSparse) GetEntitlementBundleOk() (*ReviewerEntitlementBundle, boo
 
 // HasEntitlementBundle returns a boolean if a field has been set.
 func (o *ReviewSparse) HasEntitlementBundle() bool {
-	if o != nil && o.EntitlementBundle != nil {
+	if o != nil && !IsNil(o.EntitlementBundle) {
 		return true
 	}
 
@@ -371,7 +375,7 @@ func (o *ReviewSparse) SetDecision(v Decision) {
 
 // GetDecided returns the Decided field value if set, zero value otherwise.
 func (o *ReviewSparse) GetDecided() time.Time {
-	if o == nil || o.Decided == nil {
+	if o == nil || IsNil(o.Decided) {
 		var ret time.Time
 		return ret
 	}
@@ -381,7 +385,7 @@ func (o *ReviewSparse) GetDecided() time.Time {
 // GetDecidedOk returns a tuple with the Decided field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReviewSparse) GetDecidedOk() (*time.Time, bool) {
-	if o == nil || o.Decided == nil {
+	if o == nil || IsNil(o.Decided) {
 		return nil, false
 	}
 	return o.Decided, true
@@ -389,7 +393,7 @@ func (o *ReviewSparse) GetDecidedOk() (*time.Time, bool) {
 
 // HasDecided returns a boolean if a field has been set.
 func (o *ReviewSparse) HasDecided() bool {
-	if o != nil && o.Decided != nil {
+	if o != nil && !IsNil(o.Decided) {
 		return true
 	}
 
@@ -451,7 +455,7 @@ func (o *ReviewSparse) SetPrincipalProfile(v PrincipalProfile) {
 
 // GetReviewerProfile returns the ReviewerProfile field value if set, zero value otherwise.
 func (o *ReviewSparse) GetReviewerProfile() PrincipalProfile {
-	if o == nil || o.ReviewerProfile == nil {
+	if o == nil || IsNil(o.ReviewerProfile) {
 		var ret PrincipalProfile
 		return ret
 	}
@@ -461,7 +465,7 @@ func (o *ReviewSparse) GetReviewerProfile() PrincipalProfile {
 // GetReviewerProfileOk returns a tuple with the ReviewerProfile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReviewSparse) GetReviewerProfileOk() (*PrincipalProfile, bool) {
-	if o == nil || o.ReviewerProfile == nil {
+	if o == nil || IsNil(o.ReviewerProfile) {
 		return nil, false
 	}
 	return o.ReviewerProfile, true
@@ -469,7 +473,7 @@ func (o *ReviewSparse) GetReviewerProfileOk() (*PrincipalProfile, bool) {
 
 // HasReviewerProfile returns a boolean if a field has been set.
 func (o *ReviewSparse) HasReviewerProfile() bool {
-	if o != nil && o.ReviewerProfile != nil {
+	if o != nil && !IsNil(o.ReviewerProfile) {
 		return true
 	}
 
@@ -507,7 +511,7 @@ func (o *ReviewSparse) SetReviewerType(v ReviewersReviewerType) {
 
 // GetReviewerGroupProfile returns the ReviewerGroupProfile field value if set, zero value otherwise.
 func (o *ReviewSparse) GetReviewerGroupProfile() ReviewerGroupProfile {
-	if o == nil || o.ReviewerGroupProfile == nil {
+	if o == nil || IsNil(o.ReviewerGroupProfile) {
 		var ret ReviewerGroupProfile
 		return ret
 	}
@@ -517,7 +521,7 @@ func (o *ReviewSparse) GetReviewerGroupProfile() ReviewerGroupProfile {
 // GetReviewerGroupProfileOk returns a tuple with the ReviewerGroupProfile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReviewSparse) GetReviewerGroupProfileOk() (*ReviewerGroupProfile, bool) {
-	if o == nil || o.ReviewerGroupProfile == nil {
+	if o == nil || IsNil(o.ReviewerGroupProfile) {
 		return nil, false
 	}
 	return o.ReviewerGroupProfile, true
@@ -525,7 +529,7 @@ func (o *ReviewSparse) GetReviewerGroupProfileOk() (*ReviewerGroupProfile, bool)
 
 // HasReviewerGroupProfile returns a boolean if a field has been set.
 func (o *ReviewSparse) HasReviewerGroupProfile() bool {
-	if o != nil && o.ReviewerGroupProfile != nil {
+	if o != nil && !IsNil(o.ReviewerGroupProfile) {
 		return true
 	}
 
@@ -539,7 +543,7 @@ func (o *ReviewSparse) SetReviewerGroupProfile(v ReviewerGroupProfile) {
 
 // GetCurrentReviewerLevel returns the CurrentReviewerLevel field value if set, zero value otherwise.
 func (o *ReviewSparse) GetCurrentReviewerLevel() ReviewerLevelType {
-	if o == nil || o.CurrentReviewerLevel == nil {
+	if o == nil || IsNil(o.CurrentReviewerLevel) {
 		var ret ReviewerLevelType
 		return ret
 	}
@@ -549,7 +553,7 @@ func (o *ReviewSparse) GetCurrentReviewerLevel() ReviewerLevelType {
 // GetCurrentReviewerLevelOk returns a tuple with the CurrentReviewerLevel field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReviewSparse) GetCurrentReviewerLevelOk() (*ReviewerLevelType, bool) {
-	if o == nil || o.CurrentReviewerLevel == nil {
+	if o == nil || IsNil(o.CurrentReviewerLevel) {
 		return nil, false
 	}
 	return o.CurrentReviewerLevel, true
@@ -557,7 +561,7 @@ func (o *ReviewSparse) GetCurrentReviewerLevelOk() (*ReviewerLevelType, bool) {
 
 // HasCurrentReviewerLevel returns a boolean if a field has been set.
 func (o *ReviewSparse) HasCurrentReviewerLevel() bool {
-	if o != nil && o.CurrentReviewerLevel != nil {
+	if o != nil && !IsNil(o.CurrentReviewerLevel) {
 		return true
 	}
 
@@ -582,7 +586,7 @@ func (o *ReviewSparse) GetRiskRuleConflicts() []RiskRuleConflicts {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ReviewSparse) GetRiskRuleConflictsOk() ([]RiskRuleConflicts, bool) {
-	if o == nil || o.RiskRuleConflicts == nil {
+	if o == nil || IsNil(o.RiskRuleConflicts) {
 		return nil, false
 	}
 	return o.RiskRuleConflicts, true
@@ -590,7 +594,7 @@ func (o *ReviewSparse) GetRiskRuleConflictsOk() ([]RiskRuleConflicts, bool) {
 
 // HasRiskRuleConflicts returns a boolean if a field has been set.
 func (o *ReviewSparse) HasRiskRuleConflicts() bool {
-	if o != nil && o.RiskRuleConflicts != nil {
+	if o != nil && !IsNil(o.RiskRuleConflicts) {
 		return true
 	}
 
@@ -603,59 +607,43 @@ func (o *ReviewSparse) SetRiskRuleConflicts(v []RiskRuleConflicts) {
 }
 
 func (o ReviewSparse) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ReviewSparse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["_links"] = o.Links
-	}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["createdBy"] = o.CreatedBy
-	}
-	if true {
-		toSerialize["created"] = o.Created
-	}
-	if true {
-		toSerialize["lastUpdated"] = o.LastUpdated
-	}
-	if true {
-		toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
-	}
-	if true {
-		toSerialize["campaignId"] = o.CampaignId
-	}
-	if true {
-		toSerialize["resourceId"] = o.ResourceId
-	}
-	if o.EntitlementValue != nil {
+	toSerialize["_links"] = o.Links
+	toSerialize["id"] = o.Id
+	toSerialize["createdBy"] = o.CreatedBy
+	toSerialize["created"] = o.Created
+	toSerialize["lastUpdated"] = o.LastUpdated
+	toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
+	toSerialize["campaignId"] = o.CampaignId
+	toSerialize["resourceId"] = o.ResourceId
+	if !IsNil(o.EntitlementValue) {
 		toSerialize["entitlementValue"] = o.EntitlementValue
 	}
-	if o.EntitlementBundle != nil {
+	if !IsNil(o.EntitlementBundle) {
 		toSerialize["entitlementBundle"] = o.EntitlementBundle
 	}
-	if true {
-		toSerialize["decision"] = o.Decision
-	}
-	if o.Decided != nil {
+	toSerialize["decision"] = o.Decision
+	if !IsNil(o.Decided) {
 		toSerialize["decided"] = o.Decided
 	}
-	if true {
-		toSerialize["remediationStatus"] = o.RemediationStatus
-	}
-	if true {
-		toSerialize["principalProfile"] = o.PrincipalProfile
-	}
-	if o.ReviewerProfile != nil {
+	toSerialize["remediationStatus"] = o.RemediationStatus
+	toSerialize["principalProfile"] = o.PrincipalProfile
+	if !IsNil(o.ReviewerProfile) {
 		toSerialize["reviewerProfile"] = o.ReviewerProfile
 	}
-	if true {
-		toSerialize["reviewerType"] = o.ReviewerType
-	}
-	if o.ReviewerGroupProfile != nil {
+	toSerialize["reviewerType"] = o.ReviewerType
+	if !IsNil(o.ReviewerGroupProfile) {
 		toSerialize["reviewerGroupProfile"] = o.ReviewerGroupProfile
 	}
-	if o.CurrentReviewerLevel != nil {
+	if !IsNil(o.CurrentReviewerLevel) {
 		toSerialize["currentReviewerLevel"] = o.CurrentReviewerLevel
 	}
 	if o.RiskRuleConflicts != nil {
@@ -666,23 +654,55 @@ func (o ReviewSparse) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ReviewSparse) UnmarshalJSON(bytes []byte) (err error) {
-	varReviewSparse := _ReviewSparse{}
+func (o *ReviewSparse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"_links",
+		"id",
+		"createdBy",
+		"created",
+		"lastUpdated",
+		"lastUpdatedBy",
+		"campaignId",
+		"resourceId",
+		"decision",
+		"remediationStatus",
+		"principalProfile",
+		"reviewerType",
+	}
 
-	err = json.Unmarshal(bytes, &varReviewSparse)
-	if err == nil {
-		*o = ReviewSparse(varReviewSparse)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varReviewSparse := _ReviewSparse{}
+
+	err = json.Unmarshal(data, &varReviewSparse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ReviewSparse(varReviewSparse)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "_links")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "createdBy")
@@ -703,8 +723,6 @@ func (o *ReviewSparse) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "currentReviewerLevel")
 		delete(additionalProperties, "riskRuleConflicts")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

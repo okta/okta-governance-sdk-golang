@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,8 +25,12 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the DelegatePatchable type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DelegatePatchable{}
 
 // DelegatePatchable struct for DelegatePatchable
 type DelegatePatchable struct {
@@ -86,7 +90,7 @@ func (o *DelegatePatchable) SetDelegate(v DelegateAppointmentDelegate) {
 
 // GetNote returns the Note field value if set, zero value otherwise.
 func (o *DelegatePatchable) GetNote() string {
-	if o == nil || o.Note == nil {
+	if o == nil || IsNil(o.Note) {
 		var ret string
 		return ret
 	}
@@ -96,7 +100,7 @@ func (o *DelegatePatchable) GetNote() string {
 // GetNoteOk returns a tuple with the Note field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DelegatePatchable) GetNoteOk() (*string, bool) {
-	if o == nil || o.Note == nil {
+	if o == nil || IsNil(o.Note) {
 		return nil, false
 	}
 	return o.Note, true
@@ -104,7 +108,7 @@ func (o *DelegatePatchable) GetNoteOk() (*string, bool) {
 
 // HasNote returns a boolean if a field has been set.
 func (o *DelegatePatchable) HasNote() bool {
-	if o != nil && o.Note != nil {
+	if o != nil && !IsNil(o.Note) {
 		return true
 	}
 
@@ -118,7 +122,7 @@ func (o *DelegatePatchable) SetNote(v string) {
 
 // GetStartTime returns the StartTime field value if set, zero value otherwise.
 func (o *DelegatePatchable) GetStartTime() time.Time {
-	if o == nil || o.StartTime == nil {
+	if o == nil || IsNil(o.StartTime) {
 		var ret time.Time
 		return ret
 	}
@@ -128,7 +132,7 @@ func (o *DelegatePatchable) GetStartTime() time.Time {
 // GetStartTimeOk returns a tuple with the StartTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DelegatePatchable) GetStartTimeOk() (*time.Time, bool) {
-	if o == nil || o.StartTime == nil {
+	if o == nil || IsNil(o.StartTime) {
 		return nil, false
 	}
 	return o.StartTime, true
@@ -136,7 +140,7 @@ func (o *DelegatePatchable) GetStartTimeOk() (*time.Time, bool) {
 
 // HasStartTime returns a boolean if a field has been set.
 func (o *DelegatePatchable) HasStartTime() bool {
-	if o != nil && o.StartTime != nil {
+	if o != nil && !IsNil(o.StartTime) {
 		return true
 	}
 
@@ -150,7 +154,7 @@ func (o *DelegatePatchable) SetStartTime(v time.Time) {
 
 // GetEndTime returns the EndTime field value if set, zero value otherwise.
 func (o *DelegatePatchable) GetEndTime() time.Time {
-	if o == nil || o.EndTime == nil {
+	if o == nil || IsNil(o.EndTime) {
 		var ret time.Time
 		return ret
 	}
@@ -160,7 +164,7 @@ func (o *DelegatePatchable) GetEndTime() time.Time {
 // GetEndTimeOk returns a tuple with the EndTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DelegatePatchable) GetEndTimeOk() (*time.Time, bool) {
-	if o == nil || o.EndTime == nil {
+	if o == nil || IsNil(o.EndTime) {
 		return nil, false
 	}
 	return o.EndTime, true
@@ -168,7 +172,7 @@ func (o *DelegatePatchable) GetEndTimeOk() (*time.Time, bool) {
 
 // HasEndTime returns a boolean if a field has been set.
 func (o *DelegatePatchable) HasEndTime() bool {
-	if o != nil && o.EndTime != nil {
+	if o != nil && !IsNil(o.EndTime) {
 		return true
 	}
 
@@ -181,17 +185,23 @@ func (o *DelegatePatchable) SetEndTime(v time.Time) {
 }
 
 func (o DelegatePatchable) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["delegate"] = o.Delegate
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.Note != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o DelegatePatchable) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["delegate"] = o.Delegate
+	if !IsNil(o.Note) {
 		toSerialize["note"] = o.Note
 	}
-	if o.StartTime != nil {
+	if !IsNil(o.StartTime) {
 		toSerialize["startTime"] = o.StartTime
 	}
-	if o.EndTime != nil {
+	if !IsNil(o.EndTime) {
 		toSerialize["endTime"] = o.EndTime
 	}
 
@@ -199,30 +209,49 @@ func (o DelegatePatchable) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *DelegatePatchable) UnmarshalJSON(bytes []byte) (err error) {
-	varDelegatePatchable := _DelegatePatchable{}
+func (o *DelegatePatchable) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"delegate",
+	}
 
-	err = json.Unmarshal(bytes, &varDelegatePatchable)
-	if err == nil {
-		*o = DelegatePatchable(varDelegatePatchable)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varDelegatePatchable := _DelegatePatchable{}
+
+	err = json.Unmarshal(data, &varDelegatePatchable)
+
+	if err != nil {
+		return err
+	}
+
+	*o = DelegatePatchable(varDelegatePatchable)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "delegate")
 		delete(additionalProperties, "note")
 		delete(additionalProperties, "startTime")
 		delete(additionalProperties, "endTime")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

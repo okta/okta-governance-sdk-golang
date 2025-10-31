@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package governance
 import (
 	"encoding/json"
 )
+
+// checks if the ResourceOwnersPatchDataInner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ResourceOwnersPatchDataInner{}
 
 // ResourceOwnersPatchDataInner struct for ResourceOwnersPatchDataInner
 type ResourceOwnersPatchDataInner struct {
@@ -59,7 +62,7 @@ func NewResourceOwnersPatchDataInnerWithDefaults() *ResourceOwnersPatchDataInner
 
 // GetOp returns the Op field value if set, zero value otherwise.
 func (o *ResourceOwnersPatchDataInner) GetOp() string {
-	if o == nil || o.Op == nil {
+	if o == nil || IsNil(o.Op) {
 		var ret string
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *ResourceOwnersPatchDataInner) GetOp() string {
 // GetOpOk returns a tuple with the Op field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceOwnersPatchDataInner) GetOpOk() (*string, bool) {
-	if o == nil || o.Op == nil {
+	if o == nil || IsNil(o.Op) {
 		return nil, false
 	}
 	return o.Op, true
@@ -77,7 +80,7 @@ func (o *ResourceOwnersPatchDataInner) GetOpOk() (*string, bool) {
 
 // HasOp returns a boolean if a field has been set.
 func (o *ResourceOwnersPatchDataInner) HasOp() bool {
-	if o != nil && o.Op != nil {
+	if o != nil && !IsNil(o.Op) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *ResourceOwnersPatchDataInner) SetOp(v string) {
 
 // GetPath returns the Path field value if set, zero value otherwise.
 func (o *ResourceOwnersPatchDataInner) GetPath() string {
-	if o == nil || o.Path == nil {
+	if o == nil || IsNil(o.Path) {
 		var ret string
 		return ret
 	}
@@ -101,7 +104,7 @@ func (o *ResourceOwnersPatchDataInner) GetPath() string {
 // GetPathOk returns a tuple with the Path field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceOwnersPatchDataInner) GetPathOk() (*string, bool) {
-	if o == nil || o.Path == nil {
+	if o == nil || IsNil(o.Path) {
 		return nil, false
 	}
 	return o.Path, true
@@ -109,7 +112,7 @@ func (o *ResourceOwnersPatchDataInner) GetPathOk() (*string, bool) {
 
 // HasPath returns a boolean if a field has been set.
 func (o *ResourceOwnersPatchDataInner) HasPath() bool {
-	if o != nil && o.Path != nil {
+	if o != nil && !IsNil(o.Path) {
 		return true
 	}
 
@@ -123,7 +126,7 @@ func (o *ResourceOwnersPatchDataInner) SetPath(v string) {
 
 // GetValue returns the Value field value if set, zero value otherwise.
 func (o *ResourceOwnersPatchDataInner) GetValue() string {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		var ret string
 		return ret
 	}
@@ -133,7 +136,7 @@ func (o *ResourceOwnersPatchDataInner) GetValue() string {
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceOwnersPatchDataInner) GetValueOk() (*string, bool) {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
 	return o.Value, true
@@ -141,7 +144,7 @@ func (o *ResourceOwnersPatchDataInner) GetValueOk() (*string, bool) {
 
 // HasValue returns a boolean if a field has been set.
 func (o *ResourceOwnersPatchDataInner) HasValue() bool {
-	if o != nil && o.Value != nil {
+	if o != nil && !IsNil(o.Value) {
 		return true
 	}
 
@@ -154,14 +157,22 @@ func (o *ResourceOwnersPatchDataInner) SetValue(v string) {
 }
 
 func (o ResourceOwnersPatchDataInner) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ResourceOwnersPatchDataInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Op != nil {
+	if !IsNil(o.Op) {
 		toSerialize["op"] = o.Op
 	}
-	if o.Path != nil {
+	if !IsNil(o.Path) {
 		toSerialize["path"] = o.Path
 	}
-	if o.Value != nil {
+	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
 
@@ -169,29 +180,27 @@ func (o ResourceOwnersPatchDataInner) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ResourceOwnersPatchDataInner) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ResourceOwnersPatchDataInner) UnmarshalJSON(data []byte) (err error) {
 	varResourceOwnersPatchDataInner := _ResourceOwnersPatchDataInner{}
 
-	err = json.Unmarshal(bytes, &varResourceOwnersPatchDataInner)
-	if err == nil {
-		*o = ResourceOwnersPatchDataInner(varResourceOwnersPatchDataInner)
-	} else {
+	err = json.Unmarshal(data, &varResourceOwnersPatchDataInner)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ResourceOwnersPatchDataInner(varResourceOwnersPatchDataInner)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "op")
 		delete(additionalProperties, "path")
 		delete(additionalProperties, "value")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

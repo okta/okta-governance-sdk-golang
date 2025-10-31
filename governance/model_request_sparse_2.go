@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,8 +25,12 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the RequestSparse2 type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RequestSparse2{}
 
 // RequestSparse2 Sparse representation of a Request resource
 type RequestSparse2 struct {
@@ -255,7 +259,7 @@ func (o *RequestSparse2) SetStatus(v RequestStatus) {
 
 // GetResolved returns the Resolved field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *RequestSparse2) GetResolved() time.Time {
-	if o == nil || o.Resolved.Get() == nil {
+	if o == nil || IsNil(o.Resolved.Get()) {
 		var ret time.Time
 		return ret
 	}
@@ -298,7 +302,7 @@ func (o *RequestSparse2) UnsetResolved() {
 
 // GetGrantStatus returns the GrantStatus field value if set, zero value otherwise.
 func (o *RequestSparse2) GetGrantStatus() RequestGrantStatus {
-	if o == nil || o.GrantStatus == nil {
+	if o == nil || IsNil(o.GrantStatus) {
 		var ret RequestGrantStatus
 		return ret
 	}
@@ -308,7 +312,7 @@ func (o *RequestSparse2) GetGrantStatus() RequestGrantStatus {
 // GetGrantStatusOk returns a tuple with the GrantStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestSparse2) GetGrantStatusOk() (*RequestGrantStatus, bool) {
-	if o == nil || o.GrantStatus == nil {
+	if o == nil || IsNil(o.GrantStatus) {
 		return nil, false
 	}
 	return o.GrantStatus, true
@@ -316,7 +320,7 @@ func (o *RequestSparse2) GetGrantStatusOk() (*RequestGrantStatus, bool) {
 
 // HasGrantStatus returns a boolean if a field has been set.
 func (o *RequestSparse2) HasGrantStatus() bool {
-	if o != nil && o.GrantStatus != nil {
+	if o != nil && !IsNil(o.GrantStatus) {
 		return true
 	}
 
@@ -330,7 +334,7 @@ func (o *RequestSparse2) SetGrantStatus(v RequestGrantStatus) {
 
 // GetGranted returns the Granted field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *RequestSparse2) GetGranted() time.Time {
-	if o == nil || o.Granted.Get() == nil {
+	if o == nil || IsNil(o.Granted.Get()) {
 		var ret time.Time
 		return ret
 	}
@@ -373,7 +377,7 @@ func (o *RequestSparse2) UnsetGranted() {
 
 // GetRevocationStatus returns the RevocationStatus field value if set, zero value otherwise.
 func (o *RequestSparse2) GetRevocationStatus() RequestRevocationStatus {
-	if o == nil || o.RevocationStatus == nil {
+	if o == nil || IsNil(o.RevocationStatus) {
 		var ret RequestRevocationStatus
 		return ret
 	}
@@ -383,7 +387,7 @@ func (o *RequestSparse2) GetRevocationStatus() RequestRevocationStatus {
 // GetRevocationStatusOk returns a tuple with the RevocationStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestSparse2) GetRevocationStatusOk() (*RequestRevocationStatus, bool) {
-	if o == nil || o.RevocationStatus == nil {
+	if o == nil || IsNil(o.RevocationStatus) {
 		return nil, false
 	}
 	return o.RevocationStatus, true
@@ -391,7 +395,7 @@ func (o *RequestSparse2) GetRevocationStatusOk() (*RequestRevocationStatus, bool
 
 // HasRevocationStatus returns a boolean if a field has been set.
 func (o *RequestSparse2) HasRevocationStatus() bool {
-	if o != nil && o.RevocationStatus != nil {
+	if o != nil && !IsNil(o.RevocationStatus) {
 		return true
 	}
 
@@ -405,7 +409,7 @@ func (o *RequestSparse2) SetRevocationStatus(v RequestRevocationStatus) {
 
 // GetRevoked returns the Revoked field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *RequestSparse2) GetRevoked() time.Time {
-	if o == nil || o.Revoked.Get() == nil {
+	if o == nil || IsNil(o.Revoked.Get()) {
 		var ret time.Time
 		return ret
 	}
@@ -519,74 +523,92 @@ func (o *RequestSparse2) SetRequested(v Requested) {
 }
 
 func (o RequestSparse2) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RequestSparse2) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["createdBy"] = o.CreatedBy
-	}
-	if true {
-		toSerialize["created"] = o.Created
-	}
-	if true {
-		toSerialize["lastUpdated"] = o.LastUpdated
-	}
-	if true {
-		toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
-	}
-	if true {
-		toSerialize["_links"] = o.Links
-	}
-	if true {
-		toSerialize["status"] = o.Status
-	}
+	toSerialize["id"] = o.Id
+	toSerialize["createdBy"] = o.CreatedBy
+	toSerialize["created"] = o.Created
+	toSerialize["lastUpdated"] = o.LastUpdated
+	toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
+	toSerialize["_links"] = o.Links
+	toSerialize["status"] = o.Status
 	if o.Resolved.IsSet() {
 		toSerialize["resolved"] = o.Resolved.Get()
 	}
-	if o.GrantStatus != nil {
+	if !IsNil(o.GrantStatus) {
 		toSerialize["grantStatus"] = o.GrantStatus
 	}
 	if o.Granted.IsSet() {
 		toSerialize["granted"] = o.Granted.Get()
 	}
-	if o.RevocationStatus != nil {
+	if !IsNil(o.RevocationStatus) {
 		toSerialize["revocationStatus"] = o.RevocationStatus
 	}
 	if o.Revoked.IsSet() {
 		toSerialize["revoked"] = o.Revoked.Get()
 	}
-	if true {
-		toSerialize["requestedBy"] = o.RequestedBy
-	}
-	if true {
-		toSerialize["requestedFor"] = o.RequestedFor
-	}
-	if true {
-		toSerialize["requested"] = o.Requested
-	}
+	toSerialize["requestedBy"] = o.RequestedBy
+	toSerialize["requestedFor"] = o.RequestedFor
+	toSerialize["requested"] = o.Requested
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RequestSparse2) UnmarshalJSON(bytes []byte) (err error) {
-	varRequestSparse2 := _RequestSparse2{}
+func (o *RequestSparse2) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"createdBy",
+		"created",
+		"lastUpdated",
+		"lastUpdatedBy",
+		"_links",
+		"status",
+		"requestedBy",
+		"requestedFor",
+		"requested",
+	}
 
-	err = json.Unmarshal(bytes, &varRequestSparse2)
-	if err == nil {
-		*o = RequestSparse2(varRequestSparse2)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRequestSparse2 := _RequestSparse2{}
+
+	err = json.Unmarshal(data, &varRequestSparse2)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RequestSparse2(varRequestSparse2)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "createdBy")
 		delete(additionalProperties, "created")
@@ -603,8 +625,6 @@ func (o *RequestSparse2) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "requestedFor")
 		delete(additionalProperties, "requested")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

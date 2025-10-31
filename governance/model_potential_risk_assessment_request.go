@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the PotentialRiskAssessmentRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PotentialRiskAssessmentRequest{}
 
 // PotentialRiskAssessmentRequest struct for PotentialRiskAssessmentRequest
 type PotentialRiskAssessmentRequest struct {
@@ -106,40 +110,64 @@ func (o *PotentialRiskAssessmentRequest) SetResourceOrn(v string) {
 }
 
 func (o PotentialRiskAssessmentRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PotentialRiskAssessmentRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["principalOrn"] = o.PrincipalOrn
-	}
-	if true {
-		toSerialize["resourceOrn"] = o.ResourceOrn
-	}
+	toSerialize["principalOrn"] = o.PrincipalOrn
+	toSerialize["resourceOrn"] = o.ResourceOrn
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PotentialRiskAssessmentRequest) UnmarshalJSON(bytes []byte) (err error) {
-	varPotentialRiskAssessmentRequest := _PotentialRiskAssessmentRequest{}
+func (o *PotentialRiskAssessmentRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"principalOrn",
+		"resourceOrn",
+	}
 
-	err = json.Unmarshal(bytes, &varPotentialRiskAssessmentRequest)
-	if err == nil {
-		*o = PotentialRiskAssessmentRequest(varPotentialRiskAssessmentRequest)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPotentialRiskAssessmentRequest := _PotentialRiskAssessmentRequest{}
+
+	err = json.Unmarshal(data, &varPotentialRiskAssessmentRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PotentialRiskAssessmentRequest(varPotentialRiskAssessmentRequest)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "principalOrn")
 		delete(additionalProperties, "resourceOrn")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -38,7 +38,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"mime/multipart"
 	"net/http"
@@ -54,22 +53,19 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"github.com/okta/okta-sdk-golang/v5/okta"
-
 	"github.com/cenkalti/backoff/v4"
-	"github.com/go-jose/go-jose/v3"
-	"github.com/go-jose/go-jose/v3/jwt"
+	"github.com/go-jose/go-jose/v4"
+	"github.com/go-jose/go-jose/v4/jwt"
 	"github.com/google/uuid"
 	"github.com/lestrrat-go/jwx/jwk"
+	"github.com/okta/okta-sdk-golang/v6/okta"
 	goCache "github.com/patrickmn/go-cache"
 	"golang.org/x/oauth2"
 )
 
 var (
-	jsonCheck       = regexp.MustCompile(`(?i:(?:application|text)/(?:vnd\.[^;]+\+)?json)`)
-	xmlCheck        = regexp.MustCompile(`(?i:(?:application|text)/xml)`)
-	queryParamSplit = regexp.MustCompile(`(^|&)([^&]+)`)
-	queryDescape    = strings.NewReplacer("%5B", "[", "%5D", "]")
+	jsonCheck = regexp.MustCompile(`(?i:(?:application|text)/(?:vnd\.[^;]+\+)?json)`)
+	xmlCheck  = regexp.MustCompile(`(?i:(?:application|text)/xml)`)
 )
 
 const (
@@ -575,7 +571,7 @@ func createClientAssertion(orgURL, clientID string, privateKeySinger jose.Signer
 		ID:       uuid.New().String(),
 	}
 	jwtBuilder := jwt.Signed(privateKeySinger).Claims(claims)
-	return jwtBuilder.CompactSerialize()
+	return jwtBuilder.Serialize()
 }
 
 func getAccessTokenForPrivateKey(httpClient *http.Client, orgURL, clientAssertion, userAgent string, scopes []string, maxRetries int32, maxBackoff int64, clientID string, signer jose.Signer) (*RequestAccessToken, string, *rsa.PrivateKey, error) {
@@ -744,7 +740,6 @@ func NewAPIClient(cfg *okta.Configuration) *OktaGovernanceAPIClient {
 	c.RequestsAPI = (*RequestsAPIService)(&c.common)
 	c.ReviewsAPI = (*ReviewsAPIService)(&c.common)
 	c.RiskRulesAPI = (*RiskRulesAPIService)(&c.common)
-	c.MyRequestsAPI = (*MyRequestsAPIService)(&c.common)
 
 	return c
 }
@@ -875,8 +870,8 @@ func (c *OktaGovernanceAPIClient) prepareRequest(
 	headerParams map[string]string,
 	queryParams url.Values,
 	formParams url.Values,
-	formFiles []formFile,
-) (localVarRequest *http.Request, err error) {
+	formFiles []formFile) (localVarRequest *http.Request, err error) {
+
 	var body *bytes.Buffer
 
 	// Detect postBody type and post.
@@ -1098,7 +1093,7 @@ func (c *OktaGovernanceAPIClient) decode(v interface{}, b []byte, contentType st
 		return nil
 	}
 	if f, ok := v.(**os.File); ok {
-		*f, err = ioutil.TempFile("", "HttpClientFile")
+		*f, err = os.CreateTemp("", "HttpClientFile")
 		if err != nil {
 			return
 		}
@@ -1188,12 +1183,12 @@ func (c *OktaGovernanceAPIClient) do(ctx context.Context, req *http.Request) (*h
 func (c *OktaGovernanceAPIClient) doWithRetries(ctx context.Context, req *http.Request) (*http.Response, error) {
 	var bodyReader func() io.ReadCloser
 	if req.Body != nil {
-		buf, err := ioutil.ReadAll(req.Body)
+		buf, err := io.ReadAll(req.Body)
 		if err != nil {
 			return nil, err
 		}
 		bodyReader = func() io.ReadCloser {
-			return ioutil.NopCloser(bytes.NewReader(buf))
+			return io.NopCloser(bytes.NewReader(buf))
 		}
 	}
 	var (
@@ -1255,18 +1250,6 @@ func addFile(w *multipart.Writer, fieldName, path string) error {
 	_, err = io.Copy(part, file)
 
 	return err
-}
-
-// Prevent trying to import "fmt"
-func reportError(format string, a ...interface{}) error {
-	return fmt.Errorf(format, a...)
-}
-
-// A wrapper for strict JSON decoding
-func newStrictDecoder(data []byte) *json.Decoder {
-	dec := json.NewDecoder(bytes.NewBuffer(data))
-	dec.DisallowUnknownFields()
-	return dec
 }
 
 // Set request body from an interface{}
@@ -1429,7 +1412,7 @@ func tooManyRequests(resp *http.Response) bool {
 
 func tryDrainBody(body io.ReadCloser) error {
 	defer body.Close()
-	_, err := io.Copy(ioutil.Discard, io.LimitReader(body, 4096))
+	_, err := io.Copy(io.Discard, io.LimitReader(body, 4096))
 	return err
 }
 
@@ -1534,7 +1517,7 @@ func generateDpopJWT(privateKey *rsa.PrivateKey, httpMethod, URL, nonce, accessT
 		dpopClaims.AccessToken = base64.RawURLEncoding.EncodeToString(h.Sum(nil))
 	}
 	jwtBuilder := jwt.Signed(rsaSigner).Claims(dpopClaims)
-	return jwtBuilder.CompactSerialize()
+	return jwtBuilder.Serialize()
 }
 
 func StringToAsciiBytes(s string) []byte {

@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the UpdateRiskRuleRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UpdateRiskRuleRequest{}
 
 // UpdateRiskRuleRequest struct for UpdateRiskRuleRequest
 type UpdateRiskRuleRequest struct {
@@ -87,7 +91,7 @@ func (o *UpdateRiskRuleRequest) SetId(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UpdateRiskRuleRequest) GetName() string {
-	if o == nil || o.Name.Get() == nil {
+	if o == nil || IsNil(o.Name.Get()) {
 		var ret string
 		return ret
 	}
@@ -130,7 +134,7 @@ func (o *UpdateRiskRuleRequest) UnsetName() {
 
 // GetNotes returns the Notes field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UpdateRiskRuleRequest) GetNotes() string {
-	if o == nil || o.Notes.Get() == nil {
+	if o == nil || IsNil(o.Notes.Get()) {
 		var ret string
 		return ret
 	}
@@ -173,7 +177,7 @@ func (o *UpdateRiskRuleRequest) UnsetNotes() {
 
 // GetDescription returns the Description field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UpdateRiskRuleRequest) GetDescription() string {
-	if o == nil || o.Description.Get() == nil {
+	if o == nil || IsNil(o.Description.Get()) {
 		var ret string
 		return ret
 	}
@@ -216,7 +220,7 @@ func (o *UpdateRiskRuleRequest) UnsetDescription() {
 
 // GetConflictCriteria returns the ConflictCriteria field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UpdateRiskRuleRequest) GetConflictCriteria() ConflictCriteriaUpdatable {
-	if o == nil || o.ConflictCriteria.Get() == nil {
+	if o == nil || IsNil(o.ConflictCriteria.Get()) {
 		var ret ConflictCriteriaUpdatable
 		return ret
 	}
@@ -258,10 +262,16 @@ func (o *UpdateRiskRuleRequest) UnsetConflictCriteria() {
 }
 
 func (o UpdateRiskRuleRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UpdateRiskRuleRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
 	if o.Name.IsSet() {
 		toSerialize["name"] = o.Name.Get()
 	}
@@ -279,31 +289,50 @@ func (o UpdateRiskRuleRequest) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *UpdateRiskRuleRequest) UnmarshalJSON(bytes []byte) (err error) {
-	varUpdateRiskRuleRequest := _UpdateRiskRuleRequest{}
+func (o *UpdateRiskRuleRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+	}
 
-	err = json.Unmarshal(bytes, &varUpdateRiskRuleRequest)
-	if err == nil {
-		*o = UpdateRiskRuleRequest(varUpdateRiskRuleRequest)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varUpdateRiskRuleRequest := _UpdateRiskRuleRequest{}
+
+	err = json.Unmarshal(data, &varUpdateRiskRuleRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = UpdateRiskRuleRequest(varUpdateRiskRuleRequest)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "notes")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "conflictCriteria")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ package governance
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
@@ -34,6 +34,7 @@ import (
 )
 
 type MyRequestsAPI interface {
+
 	/*
 		CreateMyRequestV2 Create a request
 
@@ -139,7 +140,7 @@ func (a *MyRequestsAPIService) CreateMyRequestV2Execute(r ApiCreateMyRequestV2Re
 		return localVarReturnValue, nil, reportError("entryId must have at least 20 elements")
 	}
 	if strlen(r.entryId) > 20 {
-		return localVarReturnValue, nil, reportError("entryId must have at most 20 elements")
+		return localVarReturnValue, nil, reportError("entryId must have less than 20 elements")
 	}
 	if r.myRequestCreatable == nil {
 		return localVarReturnValue, nil, reportError("myRequestCreatable is required and must be specified")
@@ -174,9 +175,9 @@ func (a *MyRequestsAPIService) CreateMyRequestV2Execute(r ApiCreateMyRequestV2Re
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -306,13 +307,13 @@ func (a *MyRequestsAPIService) GetMyRequestV2Execute(r ApiGetMyRequestV2Request)
 		return localVarReturnValue, nil, reportError("entryId must have at least 20 elements")
 	}
 	if strlen(r.entryId) > 20 {
-		return localVarReturnValue, nil, reportError("entryId must have at most 20 elements")
+		return localVarReturnValue, nil, reportError("entryId must have less than 20 elements")
 	}
 	if strlen(r.requestId) < 20 {
 		return localVarReturnValue, nil, reportError("requestId must have at least 20 elements")
 	}
 	if strlen(r.requestId) > 20 {
-		return localVarReturnValue, nil, reportError("requestId must have at most 20 elements")
+		return localVarReturnValue, nil, reportError("requestId must have less than 20 elements")
 	}
 
 	// to determine the Content-Type header
@@ -342,9 +343,9 @@ func (a *MyRequestsAPIService) GetMyRequestV2Execute(r ApiGetMyRequestV2Request)
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err

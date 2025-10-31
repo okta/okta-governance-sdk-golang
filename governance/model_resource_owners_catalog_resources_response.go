@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the ResourceOwnersCatalogResourcesResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ResourceOwnersCatalogResourcesResponse{}
 
 // ResourceOwnersCatalogResourcesResponse struct for ResourceOwnersCatalogResourcesResponse
 type ResourceOwnersCatalogResourcesResponse struct {
@@ -84,7 +88,7 @@ func (o *ResourceOwnersCatalogResourcesResponse) SetParentResourceOrn(v string) 
 
 // GetData returns the Data field value if set, zero value otherwise.
 func (o *ResourceOwnersCatalogResourcesResponse) GetData() []ResourceOwnerResource {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		var ret []ResourceOwnerResource
 		return ret
 	}
@@ -94,7 +98,7 @@ func (o *ResourceOwnersCatalogResourcesResponse) GetData() []ResourceOwnerResour
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceOwnersCatalogResourcesResponse) GetDataOk() ([]ResourceOwnerResource, bool) {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		return nil, false
 	}
 	return o.Data, true
@@ -102,7 +106,7 @@ func (o *ResourceOwnersCatalogResourcesResponse) GetDataOk() ([]ResourceOwnerRes
 
 // HasData returns a boolean if a field has been set.
 func (o *ResourceOwnersCatalogResourcesResponse) HasData() bool {
-	if o != nil && o.Data != nil {
+	if o != nil && !IsNil(o.Data) {
 		return true
 	}
 
@@ -139,44 +143,68 @@ func (o *ResourceOwnersCatalogResourcesResponse) SetLinks(v ResourceOwnersListLi
 }
 
 func (o ResourceOwnersCatalogResourcesResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["parentResourceOrn"] = o.ParentResourceOrn
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.Data != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o ResourceOwnersCatalogResourcesResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["parentResourceOrn"] = o.ParentResourceOrn
+	if !IsNil(o.Data) {
 		toSerialize["data"] = o.Data
 	}
-	if true {
-		toSerialize["_links"] = o.Links
-	}
+	toSerialize["_links"] = o.Links
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ResourceOwnersCatalogResourcesResponse) UnmarshalJSON(bytes []byte) (err error) {
-	varResourceOwnersCatalogResourcesResponse := _ResourceOwnersCatalogResourcesResponse{}
+func (o *ResourceOwnersCatalogResourcesResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"parentResourceOrn",
+		"_links",
+	}
 
-	err = json.Unmarshal(bytes, &varResourceOwnersCatalogResourcesResponse)
-	if err == nil {
-		*o = ResourceOwnersCatalogResourcesResponse(varResourceOwnersCatalogResourcesResponse)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varResourceOwnersCatalogResourcesResponse := _ResourceOwnersCatalogResourcesResponse{}
+
+	err = json.Unmarshal(data, &varResourceOwnersCatalogResourcesResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ResourceOwnersCatalogResourcesResponse(varResourceOwnersCatalogResourcesResponse)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "parentResourceOrn")
 		delete(additionalProperties, "data")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

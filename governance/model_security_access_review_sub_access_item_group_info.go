@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 	"time"
 )
+
+// checks if the SecurityAccessReviewSubAccessItemGroupInfo type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SecurityAccessReviewSubAccessItemGroupInfo{}
 
 // SecurityAccessReviewSubAccessItemGroupInfo struct for SecurityAccessReviewSubAccessItemGroupInfo
 type SecurityAccessReviewSubAccessItemGroupInfo struct {
@@ -67,7 +70,7 @@ func NewSecurityAccessReviewSubAccessItemGroupInfoWithDefaults() *SecurityAccess
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *SecurityAccessReviewSubAccessItemGroupInfo) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -77,7 +80,7 @@ func (o *SecurityAccessReviewSubAccessItemGroupInfo) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityAccessReviewSubAccessItemGroupInfo) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -85,7 +88,7 @@ func (o *SecurityAccessReviewSubAccessItemGroupInfo) GetDescriptionOk() (*string
 
 // HasDescription returns a boolean if a field has been set.
 func (o *SecurityAccessReviewSubAccessItemGroupInfo) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -99,7 +102,7 @@ func (o *SecurityAccessReviewSubAccessItemGroupInfo) SetDescription(v string) {
 
 // GetAssignedDate returns the AssignedDate field value if set, zero value otherwise.
 func (o *SecurityAccessReviewSubAccessItemGroupInfo) GetAssignedDate() time.Time {
-	if o == nil || o.AssignedDate == nil {
+	if o == nil || IsNil(o.AssignedDate) {
 		var ret time.Time
 		return ret
 	}
@@ -109,7 +112,7 @@ func (o *SecurityAccessReviewSubAccessItemGroupInfo) GetAssignedDate() time.Time
 // GetAssignedDateOk returns a tuple with the AssignedDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityAccessReviewSubAccessItemGroupInfo) GetAssignedDateOk() (*time.Time, bool) {
-	if o == nil || o.AssignedDate == nil {
+	if o == nil || IsNil(o.AssignedDate) {
 		return nil, false
 	}
 	return o.AssignedDate, true
@@ -117,7 +120,7 @@ func (o *SecurityAccessReviewSubAccessItemGroupInfo) GetAssignedDateOk() (*time.
 
 // HasAssignedDate returns a boolean if a field has been set.
 func (o *SecurityAccessReviewSubAccessItemGroupInfo) HasAssignedDate() bool {
-	if o != nil && o.AssignedDate != nil {
+	if o != nil && !IsNil(o.AssignedDate) {
 		return true
 	}
 
@@ -131,7 +134,7 @@ func (o *SecurityAccessReviewSubAccessItemGroupInfo) SetAssignedDate(v time.Time
 
 // GetGroupOwner returns the GroupOwner field value if set, zero value otherwise.
 func (o *SecurityAccessReviewSubAccessItemGroupInfo) GetGroupOwner() string {
-	if o == nil || o.GroupOwner == nil {
+	if o == nil || IsNil(o.GroupOwner) {
 		var ret string
 		return ret
 	}
@@ -141,7 +144,7 @@ func (o *SecurityAccessReviewSubAccessItemGroupInfo) GetGroupOwner() string {
 // GetGroupOwnerOk returns a tuple with the GroupOwner field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityAccessReviewSubAccessItemGroupInfo) GetGroupOwnerOk() (*string, bool) {
-	if o == nil || o.GroupOwner == nil {
+	if o == nil || IsNil(o.GroupOwner) {
 		return nil, false
 	}
 	return o.GroupOwner, true
@@ -149,7 +152,7 @@ func (o *SecurityAccessReviewSubAccessItemGroupInfo) GetGroupOwnerOk() (*string,
 
 // HasGroupOwner returns a boolean if a field has been set.
 func (o *SecurityAccessReviewSubAccessItemGroupInfo) HasGroupOwner() bool {
-	if o != nil && o.GroupOwner != nil {
+	if o != nil && !IsNil(o.GroupOwner) {
 		return true
 	}
 
@@ -163,7 +166,7 @@ func (o *SecurityAccessReviewSubAccessItemGroupInfo) SetGroupOwner(v string) {
 
 // GetAssignmentType returns the AssignmentType field value if set, zero value otherwise.
 func (o *SecurityAccessReviewSubAccessItemGroupInfo) GetAssignmentType() AssignmentType {
-	if o == nil || o.AssignmentType == nil {
+	if o == nil || IsNil(o.AssignmentType) {
 		var ret AssignmentType
 		return ret
 	}
@@ -173,7 +176,7 @@ func (o *SecurityAccessReviewSubAccessItemGroupInfo) GetAssignmentType() Assignm
 // GetAssignmentTypeOk returns a tuple with the AssignmentType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityAccessReviewSubAccessItemGroupInfo) GetAssignmentTypeOk() (*AssignmentType, bool) {
-	if o == nil || o.AssignmentType == nil {
+	if o == nil || IsNil(o.AssignmentType) {
 		return nil, false
 	}
 	return o.AssignmentType, true
@@ -181,7 +184,7 @@ func (o *SecurityAccessReviewSubAccessItemGroupInfo) GetAssignmentTypeOk() (*Ass
 
 // HasAssignmentType returns a boolean if a field has been set.
 func (o *SecurityAccessReviewSubAccessItemGroupInfo) HasAssignmentType() bool {
-	if o != nil && o.AssignmentType != nil {
+	if o != nil && !IsNil(o.AssignmentType) {
 		return true
 	}
 
@@ -195,7 +198,7 @@ func (o *SecurityAccessReviewSubAccessItemGroupInfo) SetAssignmentType(v Assignm
 
 // GetLastAccessCertificationReviewedDate returns the LastAccessCertificationReviewedDate field value if set, zero value otherwise.
 func (o *SecurityAccessReviewSubAccessItemGroupInfo) GetLastAccessCertificationReviewedDate() time.Time {
-	if o == nil || o.LastAccessCertificationReviewedDate == nil {
+	if o == nil || IsNil(o.LastAccessCertificationReviewedDate) {
 		var ret time.Time
 		return ret
 	}
@@ -205,7 +208,7 @@ func (o *SecurityAccessReviewSubAccessItemGroupInfo) GetLastAccessCertificationR
 // GetLastAccessCertificationReviewedDateOk returns a tuple with the LastAccessCertificationReviewedDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityAccessReviewSubAccessItemGroupInfo) GetLastAccessCertificationReviewedDateOk() (*time.Time, bool) {
-	if o == nil || o.LastAccessCertificationReviewedDate == nil {
+	if o == nil || IsNil(o.LastAccessCertificationReviewedDate) {
 		return nil, false
 	}
 	return o.LastAccessCertificationReviewedDate, true
@@ -213,7 +216,7 @@ func (o *SecurityAccessReviewSubAccessItemGroupInfo) GetLastAccessCertificationR
 
 // HasLastAccessCertificationReviewedDate returns a boolean if a field has been set.
 func (o *SecurityAccessReviewSubAccessItemGroupInfo) HasLastAccessCertificationReviewedDate() bool {
-	if o != nil && o.LastAccessCertificationReviewedDate != nil {
+	if o != nil && !IsNil(o.LastAccessCertificationReviewedDate) {
 		return true
 	}
 
@@ -227,7 +230,7 @@ func (o *SecurityAccessReviewSubAccessItemGroupInfo) SetLastAccessCertificationR
 
 // GetLastSecurityAccessReviewDate returns the LastSecurityAccessReviewDate field value if set, zero value otherwise.
 func (o *SecurityAccessReviewSubAccessItemGroupInfo) GetLastSecurityAccessReviewDate() time.Time {
-	if o == nil || o.LastSecurityAccessReviewDate == nil {
+	if o == nil || IsNil(o.LastSecurityAccessReviewDate) {
 		var ret time.Time
 		return ret
 	}
@@ -237,7 +240,7 @@ func (o *SecurityAccessReviewSubAccessItemGroupInfo) GetLastSecurityAccessReview
 // GetLastSecurityAccessReviewDateOk returns a tuple with the LastSecurityAccessReviewDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityAccessReviewSubAccessItemGroupInfo) GetLastSecurityAccessReviewDateOk() (*time.Time, bool) {
-	if o == nil || o.LastSecurityAccessReviewDate == nil {
+	if o == nil || IsNil(o.LastSecurityAccessReviewDate) {
 		return nil, false
 	}
 	return o.LastSecurityAccessReviewDate, true
@@ -245,7 +248,7 @@ func (o *SecurityAccessReviewSubAccessItemGroupInfo) GetLastSecurityAccessReview
 
 // HasLastSecurityAccessReviewDate returns a boolean if a field has been set.
 func (o *SecurityAccessReviewSubAccessItemGroupInfo) HasLastSecurityAccessReviewDate() bool {
-	if o != nil && o.LastSecurityAccessReviewDate != nil {
+	if o != nil && !IsNil(o.LastSecurityAccessReviewDate) {
 		return true
 	}
 
@@ -259,7 +262,7 @@ func (o *SecurityAccessReviewSubAccessItemGroupInfo) SetLastSecurityAccessReview
 
 // GetGovernanceLabels returns the GovernanceLabels field value if set, zero value otherwise.
 func (o *SecurityAccessReviewSubAccessItemGroupInfo) GetGovernanceLabels() []GovernanceLabel {
-	if o == nil || o.GovernanceLabels == nil {
+	if o == nil || IsNil(o.GovernanceLabels) {
 		var ret []GovernanceLabel
 		return ret
 	}
@@ -269,7 +272,7 @@ func (o *SecurityAccessReviewSubAccessItemGroupInfo) GetGovernanceLabels() []Gov
 // GetGovernanceLabelsOk returns a tuple with the GovernanceLabels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityAccessReviewSubAccessItemGroupInfo) GetGovernanceLabelsOk() ([]GovernanceLabel, bool) {
-	if o == nil || o.GovernanceLabels == nil {
+	if o == nil || IsNil(o.GovernanceLabels) {
 		return nil, false
 	}
 	return o.GovernanceLabels, true
@@ -277,7 +280,7 @@ func (o *SecurityAccessReviewSubAccessItemGroupInfo) GetGovernanceLabelsOk() ([]
 
 // HasGovernanceLabels returns a boolean if a field has been set.
 func (o *SecurityAccessReviewSubAccessItemGroupInfo) HasGovernanceLabels() bool {
-	if o != nil && o.GovernanceLabels != nil {
+	if o != nil && !IsNil(o.GovernanceLabels) {
 		return true
 	}
 
@@ -290,26 +293,34 @@ func (o *SecurityAccessReviewSubAccessItemGroupInfo) SetGovernanceLabels(v []Gov
 }
 
 func (o SecurityAccessReviewSubAccessItemGroupInfo) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SecurityAccessReviewSubAccessItemGroupInfo) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Description != nil {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if o.AssignedDate != nil {
+	if !IsNil(o.AssignedDate) {
 		toSerialize["assignedDate"] = o.AssignedDate
 	}
-	if o.GroupOwner != nil {
+	if !IsNil(o.GroupOwner) {
 		toSerialize["groupOwner"] = o.GroupOwner
 	}
-	if o.AssignmentType != nil {
+	if !IsNil(o.AssignmentType) {
 		toSerialize["assignmentType"] = o.AssignmentType
 	}
-	if o.LastAccessCertificationReviewedDate != nil {
+	if !IsNil(o.LastAccessCertificationReviewedDate) {
 		toSerialize["lastAccessCertificationReviewedDate"] = o.LastAccessCertificationReviewedDate
 	}
-	if o.LastSecurityAccessReviewDate != nil {
+	if !IsNil(o.LastSecurityAccessReviewDate) {
 		toSerialize["lastSecurityAccessReviewDate"] = o.LastSecurityAccessReviewDate
 	}
-	if o.GovernanceLabels != nil {
+	if !IsNil(o.GovernanceLabels) {
 		toSerialize["governanceLabels"] = o.GovernanceLabels
 	}
 
@@ -317,23 +328,23 @@ func (o SecurityAccessReviewSubAccessItemGroupInfo) MarshalJSON() ([]byte, error
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SecurityAccessReviewSubAccessItemGroupInfo) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SecurityAccessReviewSubAccessItemGroupInfo) UnmarshalJSON(data []byte) (err error) {
 	varSecurityAccessReviewSubAccessItemGroupInfo := _SecurityAccessReviewSubAccessItemGroupInfo{}
 
-	err = json.Unmarshal(bytes, &varSecurityAccessReviewSubAccessItemGroupInfo)
-	if err == nil {
-		*o = SecurityAccessReviewSubAccessItemGroupInfo(varSecurityAccessReviewSubAccessItemGroupInfo)
-	} else {
+	err = json.Unmarshal(data, &varSecurityAccessReviewSubAccessItemGroupInfo)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SecurityAccessReviewSubAccessItemGroupInfo(varSecurityAccessReviewSubAccessItemGroupInfo)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "assignedDate")
 		delete(additionalProperties, "groupOwner")
@@ -342,8 +353,6 @@ func (o *SecurityAccessReviewSubAccessItemGroupInfo) UnmarshalJSON(bytes []byte)
 		delete(additionalProperties, "lastSecurityAccessReviewDate")
 		delete(additionalProperties, "governanceLabels")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

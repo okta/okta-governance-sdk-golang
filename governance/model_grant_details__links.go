@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package governance
 import (
 	"encoding/json"
 )
+
+// checks if the GrantDetailsLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GrantDetailsLinks{}
 
 // GrantDetailsLinks struct for GrantDetailsLinks
 type GrantDetailsLinks struct {
@@ -54,7 +57,7 @@ func NewGrantDetailsLinksWithDefaults() *GrantDetailsLinks {
 
 // GetSelf returns the Self field value if set, zero value otherwise.
 func (o *GrantDetailsLinks) GetSelf() Link {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		var ret Link
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *GrantDetailsLinks) GetSelf() Link {
 // GetSelfOk returns a tuple with the Self field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GrantDetailsLinks) GetSelfOk() (*Link, bool) {
-	if o == nil || o.Self == nil {
+	if o == nil || IsNil(o.Self) {
 		return nil, false
 	}
 	return o.Self, true
@@ -72,7 +75,7 @@ func (o *GrantDetailsLinks) GetSelfOk() (*Link, bool) {
 
 // HasSelf returns a boolean if a field has been set.
 func (o *GrantDetailsLinks) HasSelf() bool {
-	if o != nil && o.Self != nil {
+	if o != nil && !IsNil(o.Self) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *GrantDetailsLinks) SetSelf(v Link) {
 }
 
 func (o GrantDetailsLinks) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o GrantDetailsLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Self != nil {
+	if !IsNil(o.Self) {
 		toSerialize["self"] = o.Self
 	}
 
@@ -94,27 +105,25 @@ func (o GrantDetailsLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *GrantDetailsLinks) UnmarshalJSON(bytes []byte) (err error) {
+func (o *GrantDetailsLinks) UnmarshalJSON(data []byte) (err error) {
 	varGrantDetailsLinks := _GrantDetailsLinks{}
 
-	err = json.Unmarshal(bytes, &varGrantDetailsLinks)
-	if err == nil {
-		*o = GrantDetailsLinks(varGrantDetailsLinks)
-	} else {
+	err = json.Unmarshal(data, &varGrantDetailsLinks)
+
+	if err != nil {
 		return err
 	}
 
+	*o = GrantDetailsLinks(varGrantDetailsLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "self")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

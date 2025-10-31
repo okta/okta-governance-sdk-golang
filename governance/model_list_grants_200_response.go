@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,7 +28,6 @@ import (
 	"fmt"
 )
 
-// model_oneof.mustache
 // ListGrants200Response - struct for ListGrants200Response
 type ListGrants200Response struct {
 	GrantsList                 *GrantsList
@@ -49,7 +48,7 @@ func GrantsListWithEntitlementsAsListGrants200Response(v *GrantsListWithEntitlem
 	}
 }
 
-// Unmarshal JSON data into one of the pointers in the struct  CUSTOM
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *ListGrants200Response) UnmarshalJSON(data []byte) error {
 	var err error
 	match := 0
@@ -84,11 +83,11 @@ func (dst *ListGrants200Response) UnmarshalJSON(data []byte) error {
 		dst.GrantsList = nil
 		dst.GrantsListWithEntitlements = nil
 
-		return fmt.Errorf("Data matches more than one schema in oneOf(ListGrants200Response)")
+		return fmt.Errorf("data matches more than one schema in oneOf(ListGrants200Response)")
 	} else if match == 1 {
 		return nil // exactly one match
 	} else { // no match
-		return fmt.Errorf("Data failed to match schemas in oneOf(ListGrants200Response)")
+		return fmt.Errorf("data failed to match schemas in oneOf(ListGrants200Response)")
 	}
 }
 
@@ -116,6 +115,20 @@ func (obj *ListGrants200Response) GetActualInstance() interface{} {
 
 	if obj.GrantsListWithEntitlements != nil {
 		return obj.GrantsListWithEntitlements
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj ListGrants200Response) GetActualInstanceValue() interface{} {
+	if obj.GrantsList != nil {
+		return *obj.GrantsList
+	}
+
+	if obj.GrantsListWithEntitlements != nil {
+		return *obj.GrantsListWithEntitlements
 	}
 
 	// all schemas are nil

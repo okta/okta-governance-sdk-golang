@@ -1,6 +1,9 @@
 package governance
 
-import "testing"
+import (
+	apiClient "github.com/okta/okta-governance-sdk-golang"
+	"testing"
+)
 
 func TestCollectionsAPIService_CreateCollectionExecute(t *testing.T) {
 	execute, a, err := apiClient.CollectionsAPI.CreateCollection(apiClient.cfg.Context).CollectionCreatable(buildCollection()).Execute()

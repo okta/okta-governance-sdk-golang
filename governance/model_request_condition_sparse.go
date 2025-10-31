@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,8 +25,12 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the RequestConditionSparse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RequestConditionSparse{}
 
 // RequestConditionSparse A condition delineates the criteria governing access requests, specifying the requester's identity, the permitted access scope, and the manner in which access can be requested.
 type RequestConditionSparse struct {
@@ -134,7 +138,7 @@ func (o *RequestConditionSparse) SetAccessScopeSettings(v AccessScopeSettings) {
 
 // GetAccessDurationSettings returns the AccessDurationSettings field value if set, zero value otherwise.
 func (o *RequestConditionSparse) GetAccessDurationSettings() AccessDurationSettingsFull {
-	if o == nil || o.AccessDurationSettings == nil {
+	if o == nil || IsNil(o.AccessDurationSettings) {
 		var ret AccessDurationSettingsFull
 		return ret
 	}
@@ -144,7 +148,7 @@ func (o *RequestConditionSparse) GetAccessDurationSettings() AccessDurationSetti
 // GetAccessDurationSettingsOk returns a tuple with the AccessDurationSettings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestConditionSparse) GetAccessDurationSettingsOk() (*AccessDurationSettingsFull, bool) {
-	if o == nil || o.AccessDurationSettings == nil {
+	if o == nil || IsNil(o.AccessDurationSettings) {
 		return nil, false
 	}
 	return o.AccessDurationSettings, true
@@ -152,7 +156,7 @@ func (o *RequestConditionSparse) GetAccessDurationSettingsOk() (*AccessDurationS
 
 // HasAccessDurationSettings returns a boolean if a field has been set.
 func (o *RequestConditionSparse) HasAccessDurationSettings() bool {
-	if o != nil && o.AccessDurationSettings != nil {
+	if o != nil && !IsNil(o.AccessDurationSettings) {
 		return true
 	}
 
@@ -166,7 +170,7 @@ func (o *RequestConditionSparse) SetAccessDurationSettings(v AccessDurationSetti
 
 // GetApprovalSequenceId returns the ApprovalSequenceId field value if set, zero value otherwise.
 func (o *RequestConditionSparse) GetApprovalSequenceId() string {
-	if o == nil || o.ApprovalSequenceId == nil {
+	if o == nil || IsNil(o.ApprovalSequenceId) {
 		var ret string
 		return ret
 	}
@@ -176,7 +180,7 @@ func (o *RequestConditionSparse) GetApprovalSequenceId() string {
 // GetApprovalSequenceIdOk returns a tuple with the ApprovalSequenceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestConditionSparse) GetApprovalSequenceIdOk() (*string, bool) {
-	if o == nil || o.ApprovalSequenceId == nil {
+	if o == nil || IsNil(o.ApprovalSequenceId) {
 		return nil, false
 	}
 	return o.ApprovalSequenceId, true
@@ -184,7 +188,7 @@ func (o *RequestConditionSparse) GetApprovalSequenceIdOk() (*string, bool) {
 
 // HasApprovalSequenceId returns a boolean if a field has been set.
 func (o *RequestConditionSparse) HasApprovalSequenceId() bool {
-	if o != nil && o.ApprovalSequenceId != nil {
+	if o != nil && !IsNil(o.ApprovalSequenceId) {
 		return true
 	}
 
@@ -222,7 +226,7 @@ func (o *RequestConditionSparse) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *RequestConditionSparse) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -232,7 +236,7 @@ func (o *RequestConditionSparse) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestConditionSparse) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -240,7 +244,7 @@ func (o *RequestConditionSparse) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *RequestConditionSparse) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -445,71 +449,88 @@ func (o *RequestConditionSparse) SetPriority(v int32) {
 }
 
 func (o RequestConditionSparse) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RequestConditionSparse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["requesterSettings"] = o.RequesterSettings
-	}
-	if true {
-		toSerialize["accessScopeSettings"] = o.AccessScopeSettings
-	}
-	if o.AccessDurationSettings != nil {
+	toSerialize["requesterSettings"] = o.RequesterSettings
+	toSerialize["accessScopeSettings"] = o.AccessScopeSettings
+	if !IsNil(o.AccessDurationSettings) {
 		toSerialize["accessDurationSettings"] = o.AccessDurationSettings
 	}
-	if o.ApprovalSequenceId != nil {
+	if !IsNil(o.ApprovalSequenceId) {
 		toSerialize["approvalSequenceId"] = o.ApprovalSequenceId
 	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Description != nil {
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["createdBy"] = o.CreatedBy
-	}
-	if true {
-		toSerialize["created"] = o.Created
-	}
-	if true {
-		toSerialize["lastUpdated"] = o.LastUpdated
-	}
-	if true {
-		toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
-	}
-	if true {
-		toSerialize["_links"] = o.Links
-	}
-	if true {
-		toSerialize["status"] = o.Status
-	}
-	if true {
-		toSerialize["priority"] = o.Priority
-	}
+	toSerialize["id"] = o.Id
+	toSerialize["createdBy"] = o.CreatedBy
+	toSerialize["created"] = o.Created
+	toSerialize["lastUpdated"] = o.LastUpdated
+	toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
+	toSerialize["_links"] = o.Links
+	toSerialize["status"] = o.Status
+	toSerialize["priority"] = o.Priority
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RequestConditionSparse) UnmarshalJSON(bytes []byte) (err error) {
-	varRequestConditionSparse := _RequestConditionSparse{}
+func (o *RequestConditionSparse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"requesterSettings",
+		"accessScopeSettings",
+		"name",
+		"id",
+		"createdBy",
+		"created",
+		"lastUpdated",
+		"lastUpdatedBy",
+		"_links",
+		"status",
+		"priority",
+	}
 
-	err = json.Unmarshal(bytes, &varRequestConditionSparse)
-	if err == nil {
-		*o = RequestConditionSparse(varRequestConditionSparse)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRequestConditionSparse := _RequestConditionSparse{}
+
+	err = json.Unmarshal(data, &varRequestConditionSparse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RequestConditionSparse(varRequestConditionSparse)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "requesterSettings")
 		delete(additionalProperties, "accessScopeSettings")
 		delete(additionalProperties, "accessDurationSettings")
@@ -525,8 +546,6 @@ func (o *RequestConditionSparse) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "priority")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

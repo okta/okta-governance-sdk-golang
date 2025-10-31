@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package governance
 import (
 	"encoding/json"
 )
+
+// checks if the CatalogEntryRequestFields type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CatalogEntryRequestFields{}
 
 // CatalogEntryRequestFields struct for CatalogEntryRequestFields
 type CatalogEntryRequestFields struct {
@@ -55,7 +58,7 @@ func NewCatalogEntryRequestFieldsWithDefaults() *CatalogEntryRequestFields {
 
 // GetData returns the Data field value if set, zero value otherwise.
 func (o *CatalogEntryRequestFields) GetData() []RequestField {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		var ret []RequestField
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *CatalogEntryRequestFields) GetData() []RequestField {
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CatalogEntryRequestFields) GetDataOk() ([]RequestField, bool) {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		return nil, false
 	}
 	return o.Data, true
@@ -73,7 +76,7 @@ func (o *CatalogEntryRequestFields) GetDataOk() ([]RequestField, bool) {
 
 // HasData returns a boolean if a field has been set.
 func (o *CatalogEntryRequestFields) HasData() bool {
-	if o != nil && o.Data != nil {
+	if o != nil && !IsNil(o.Data) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *CatalogEntryRequestFields) SetData(v []RequestField) {
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *CatalogEntryRequestFields) GetMetadata() CatalogEntryRequestFieldsMetadata {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		var ret CatalogEntryRequestFieldsMetadata
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *CatalogEntryRequestFields) GetMetadata() CatalogEntryRequestFieldsMetad
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CatalogEntryRequestFields) GetMetadataOk() (*CatalogEntryRequestFieldsMetadata, bool) {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
 	return o.Metadata, true
@@ -105,7 +108,7 @@ func (o *CatalogEntryRequestFields) GetMetadataOk() (*CatalogEntryRequestFieldsM
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *CatalogEntryRequestFields) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *CatalogEntryRequestFields) SetMetadata(v CatalogEntryRequestFieldsMetad
 }
 
 func (o CatalogEntryRequestFields) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CatalogEntryRequestFields) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Data != nil {
+	if !IsNil(o.Data) {
 		toSerialize["data"] = o.Data
 	}
-	if o.Metadata != nil {
+	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
 
@@ -130,28 +141,26 @@ func (o CatalogEntryRequestFields) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *CatalogEntryRequestFields) UnmarshalJSON(bytes []byte) (err error) {
+func (o *CatalogEntryRequestFields) UnmarshalJSON(data []byte) (err error) {
 	varCatalogEntryRequestFields := _CatalogEntryRequestFields{}
 
-	err = json.Unmarshal(bytes, &varCatalogEntryRequestFields)
-	if err == nil {
-		*o = CatalogEntryRequestFields(varCatalogEntryRequestFields)
-	} else {
+	err = json.Unmarshal(data, &varCatalogEntryRequestFields)
+
+	if err != nil {
 		return err
 	}
 
+	*o = CatalogEntryRequestFields(varCatalogEntryRequestFields)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "data")
 		delete(additionalProperties, "metadata")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

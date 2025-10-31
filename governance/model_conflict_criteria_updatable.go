@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package governance
 import (
 	"encoding/json"
 )
+
+// checks if the ConflictCriteriaUpdatable type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ConflictCriteriaUpdatable{}
 
 // ConflictCriteriaUpdatable Conflict criteria for the risk rule
 type ConflictCriteriaUpdatable struct {
@@ -55,7 +58,7 @@ func NewConflictCriteriaUpdatableWithDefaults() *ConflictCriteriaUpdatable {
 
 // GetAnd returns the And field value if set, zero value otherwise.
 func (o *ConflictCriteriaUpdatable) GetAnd() []CriteriaCreatable {
-	if o == nil || o.And == nil {
+	if o == nil || IsNil(o.And) {
 		var ret []CriteriaCreatable
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *ConflictCriteriaUpdatable) GetAnd() []CriteriaCreatable {
 // GetAndOk returns a tuple with the And field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ConflictCriteriaUpdatable) GetAndOk() ([]CriteriaCreatable, bool) {
-	if o == nil || o.And == nil {
+	if o == nil || IsNil(o.And) {
 		return nil, false
 	}
 	return o.And, true
@@ -73,7 +76,7 @@ func (o *ConflictCriteriaUpdatable) GetAndOk() ([]CriteriaCreatable, bool) {
 
 // HasAnd returns a boolean if a field has been set.
 func (o *ConflictCriteriaUpdatable) HasAnd() bool {
-	if o != nil && o.And != nil {
+	if o != nil && !IsNil(o.And) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *ConflictCriteriaUpdatable) SetAnd(v []CriteriaCreatable) {
 }
 
 func (o ConflictCriteriaUpdatable) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ConflictCriteriaUpdatable) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.And != nil {
+	if !IsNil(o.And) {
 		toSerialize["and"] = o.And
 	}
 
@@ -95,27 +106,25 @@ func (o ConflictCriteriaUpdatable) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ConflictCriteriaUpdatable) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ConflictCriteriaUpdatable) UnmarshalJSON(data []byte) (err error) {
 	varConflictCriteriaUpdatable := _ConflictCriteriaUpdatable{}
 
-	err = json.Unmarshal(bytes, &varConflictCriteriaUpdatable)
-	if err == nil {
-		*o = ConflictCriteriaUpdatable(varConflictCriteriaUpdatable)
-	} else {
+	err = json.Unmarshal(data, &varConflictCriteriaUpdatable)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ConflictCriteriaUpdatable(varConflictCriteriaUpdatable)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "and")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

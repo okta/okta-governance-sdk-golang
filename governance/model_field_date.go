@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the FieldDate type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &FieldDate{}
 
 // FieldDate A date field
 type FieldDate struct {
@@ -114,7 +118,7 @@ func (o *FieldDate) SetPrompt(v string) {
 
 // GetRequired returns the Required field value if set, zero value otherwise.
 func (o *FieldDate) GetRequired() bool {
-	if o == nil || o.Required == nil {
+	if o == nil || IsNil(o.Required) {
 		var ret bool
 		return ret
 	}
@@ -124,7 +128,7 @@ func (o *FieldDate) GetRequired() bool {
 // GetRequiredOk returns a tuple with the Required field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FieldDate) GetRequiredOk() (*bool, bool) {
-	if o == nil || o.Required == nil {
+	if o == nil || IsNil(o.Required) {
 		return nil, false
 	}
 	return o.Required, true
@@ -132,7 +136,7 @@ func (o *FieldDate) GetRequiredOk() (*bool, bool) {
 
 // HasRequired returns a boolean if a field has been set.
 func (o *FieldDate) HasRequired() bool {
-	if o != nil && o.Required != nil {
+	if o != nil && !IsNil(o.Required) {
 		return true
 	}
 
@@ -169,48 +173,71 @@ func (o *FieldDate) SetId(v string) {
 }
 
 func (o FieldDate) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o FieldDate) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if true {
-		toSerialize["prompt"] = o.Prompt
-	}
-	if o.Required != nil {
+	toSerialize["type"] = o.Type
+	toSerialize["prompt"] = o.Prompt
+	if !IsNil(o.Required) {
 		toSerialize["required"] = o.Required
 	}
-	if true {
-		toSerialize["id"] = o.Id
-	}
+	toSerialize["id"] = o.Id
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *FieldDate) UnmarshalJSON(bytes []byte) (err error) {
-	varFieldDate := _FieldDate{}
+func (o *FieldDate) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"type",
+		"prompt",
+		"id",
+	}
 
-	err = json.Unmarshal(bytes, &varFieldDate)
-	if err == nil {
-		*o = FieldDate(varFieldDate)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFieldDate := _FieldDate{}
+
+	err = json.Unmarshal(data, &varFieldDate)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FieldDate(varFieldDate)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "prompt")
 		delete(additionalProperties, "required")
 		delete(additionalProperties, "id")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,7 +28,6 @@ import (
 	"fmt"
 )
 
-// model_oneof.mustache
 // FieldValue - The field value provided by the user
 type FieldValue struct {
 	FieldValueDate   *FieldValueDate
@@ -57,14 +56,14 @@ func FieldValueTextAsFieldValue(v *FieldValueText) FieldValue {
 	}
 }
 
-// Unmarshal JSON data into one of the pointers in the struct  CUSTOM
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *FieldValue) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup
 	var jsonDict map[string]interface{}
 	err = newStrictDecoder(data).Decode(&jsonDict)
 	if err != nil {
-		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
 	// check if the discriminator value is 'DATE-TIME'
@@ -75,7 +74,7 @@ func (dst *FieldValue) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.FieldValueDate, return on the first match
 		} else {
 			dst.FieldValueDate = nil
-			return fmt.Errorf("Failed to unmarshal FieldValue as FieldValueDate: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal FieldValue as FieldValueDate: %s", err.Error())
 		}
 	}
 
@@ -87,7 +86,7 @@ func (dst *FieldValue) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.FieldValueSelect, return on the first match
 		} else {
 			dst.FieldValueSelect = nil
-			return fmt.Errorf("Failed to unmarshal FieldValue as FieldValueSelect: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal FieldValue as FieldValueSelect: %s", err.Error())
 		}
 	}
 
@@ -99,43 +98,7 @@ func (dst *FieldValue) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.FieldValueText, return on the first match
 		} else {
 			dst.FieldValueText = nil
-			return fmt.Errorf("Failed to unmarshal FieldValue as FieldValueText: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'field-value-date'
-	if jsonDict["type"] == "field-value-date" {
-		// try to unmarshal JSON data into FieldValueDate
-		err = json.Unmarshal(data, &dst.FieldValueDate)
-		if err == nil {
-			return nil // data stored in dst.FieldValueDate, return on the first match
-		} else {
-			dst.FieldValueDate = nil
-			return fmt.Errorf("Failed to unmarshal FieldValue as FieldValueDate: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'field-value-select'
-	if jsonDict["type"] == "field-value-select" {
-		// try to unmarshal JSON data into FieldValueSelect
-		err = json.Unmarshal(data, &dst.FieldValueSelect)
-		if err == nil {
-			return nil // data stored in dst.FieldValueSelect, return on the first match
-		} else {
-			dst.FieldValueSelect = nil
-			return fmt.Errorf("Failed to unmarshal FieldValue as FieldValueSelect: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'field-value-text'
-	if jsonDict["type"] == "field-value-text" {
-		// try to unmarshal JSON data into FieldValueText
-		err = json.Unmarshal(data, &dst.FieldValueText)
-		if err == nil {
-			return nil // data stored in dst.FieldValueText, return on the first match
-		} else {
-			dst.FieldValueText = nil
-			return fmt.Errorf("Failed to unmarshal FieldValue as FieldValueText: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal FieldValue as FieldValueText: %s", err.Error())
 		}
 	}
 
@@ -174,6 +137,24 @@ func (obj *FieldValue) GetActualInstance() interface{} {
 
 	if obj.FieldValueText != nil {
 		return obj.FieldValueText
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj FieldValue) GetActualInstanceValue() interface{} {
+	if obj.FieldValueDate != nil {
+		return *obj.FieldValueDate
+	}
+
+	if obj.FieldValueSelect != nil {
+		return *obj.FieldValueSelect
+	}
+
+	if obj.FieldValueText != nil {
+		return *obj.FieldValueText
 	}
 
 	// all schemas are nil

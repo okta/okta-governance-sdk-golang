@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package governance
 import (
 	"encoding/json"
 )
+
+// checks if the SecurityAccessReviewPrincipalLocation type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SecurityAccessReviewPrincipalLocation{}
 
 // SecurityAccessReviewPrincipalLocation struct for SecurityAccessReviewPrincipalLocation
 type SecurityAccessReviewPrincipalLocation struct {
@@ -59,7 +62,7 @@ func NewSecurityAccessReviewPrincipalLocationWithDefaults() *SecurityAccessRevie
 
 // GetCity returns the City field value if set, zero value otherwise.
 func (o *SecurityAccessReviewPrincipalLocation) GetCity() string {
-	if o == nil || o.City == nil {
+	if o == nil || IsNil(o.City) {
 		var ret string
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *SecurityAccessReviewPrincipalLocation) GetCity() string {
 // GetCityOk returns a tuple with the City field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityAccessReviewPrincipalLocation) GetCityOk() (*string, bool) {
-	if o == nil || o.City == nil {
+	if o == nil || IsNil(o.City) {
 		return nil, false
 	}
 	return o.City, true
@@ -77,7 +80,7 @@ func (o *SecurityAccessReviewPrincipalLocation) GetCityOk() (*string, bool) {
 
 // HasCity returns a boolean if a field has been set.
 func (o *SecurityAccessReviewPrincipalLocation) HasCity() bool {
-	if o != nil && o.City != nil {
+	if o != nil && !IsNil(o.City) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *SecurityAccessReviewPrincipalLocation) SetCity(v string) {
 
 // GetState returns the State field value if set, zero value otherwise.
 func (o *SecurityAccessReviewPrincipalLocation) GetState() string {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		var ret string
 		return ret
 	}
@@ -101,7 +104,7 @@ func (o *SecurityAccessReviewPrincipalLocation) GetState() string {
 // GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityAccessReviewPrincipalLocation) GetStateOk() (*string, bool) {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		return nil, false
 	}
 	return o.State, true
@@ -109,7 +112,7 @@ func (o *SecurityAccessReviewPrincipalLocation) GetStateOk() (*string, bool) {
 
 // HasState returns a boolean if a field has been set.
 func (o *SecurityAccessReviewPrincipalLocation) HasState() bool {
-	if o != nil && o.State != nil {
+	if o != nil && !IsNil(o.State) {
 		return true
 	}
 
@@ -123,7 +126,7 @@ func (o *SecurityAccessReviewPrincipalLocation) SetState(v string) {
 
 // GetCountry returns the Country field value if set, zero value otherwise.
 func (o *SecurityAccessReviewPrincipalLocation) GetCountry() string {
-	if o == nil || o.Country == nil {
+	if o == nil || IsNil(o.Country) {
 		var ret string
 		return ret
 	}
@@ -133,7 +136,7 @@ func (o *SecurityAccessReviewPrincipalLocation) GetCountry() string {
 // GetCountryOk returns a tuple with the Country field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityAccessReviewPrincipalLocation) GetCountryOk() (*string, bool) {
-	if o == nil || o.Country == nil {
+	if o == nil || IsNil(o.Country) {
 		return nil, false
 	}
 	return o.Country, true
@@ -141,7 +144,7 @@ func (o *SecurityAccessReviewPrincipalLocation) GetCountryOk() (*string, bool) {
 
 // HasCountry returns a boolean if a field has been set.
 func (o *SecurityAccessReviewPrincipalLocation) HasCountry() bool {
-	if o != nil && o.Country != nil {
+	if o != nil && !IsNil(o.Country) {
 		return true
 	}
 
@@ -154,14 +157,22 @@ func (o *SecurityAccessReviewPrincipalLocation) SetCountry(v string) {
 }
 
 func (o SecurityAccessReviewPrincipalLocation) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SecurityAccessReviewPrincipalLocation) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.City != nil {
+	if !IsNil(o.City) {
 		toSerialize["city"] = o.City
 	}
-	if o.State != nil {
+	if !IsNil(o.State) {
 		toSerialize["state"] = o.State
 	}
-	if o.Country != nil {
+	if !IsNil(o.Country) {
 		toSerialize["country"] = o.Country
 	}
 
@@ -169,29 +180,27 @@ func (o SecurityAccessReviewPrincipalLocation) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SecurityAccessReviewPrincipalLocation) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SecurityAccessReviewPrincipalLocation) UnmarshalJSON(data []byte) (err error) {
 	varSecurityAccessReviewPrincipalLocation := _SecurityAccessReviewPrincipalLocation{}
 
-	err = json.Unmarshal(bytes, &varSecurityAccessReviewPrincipalLocation)
-	if err == nil {
-		*o = SecurityAccessReviewPrincipalLocation(varSecurityAccessReviewPrincipalLocation)
-	} else {
+	err = json.Unmarshal(data, &varSecurityAccessReviewPrincipalLocation)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SecurityAccessReviewPrincipalLocation(varSecurityAccessReviewPrincipalLocation)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "city")
 		delete(additionalProperties, "state")
 		delete(additionalProperties, "country")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

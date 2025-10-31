@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the ReviewerSettingsMutable type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ReviewerSettingsMutable{}
 
 // ReviewerSettingsMutable Identifies the kind of reviewer for Access Certification.  1) `type = USER`: a single reviewer reviews the whole campaign. The property `reviewerId` is required for this type.  2) `type = REVIEWER_EXPRESSION`: specifies an expression to derive a reviewer for the whole campaign. The property `fallBackReviewerId` is required for this type. Specify `fallBackReviewerId`, if the system can't determine the reviewer using the expression. In such a case, the fallback reviewer specified through `fallBackReviewerId` becomes the automatic reviewer of the campaign. This type can represent reviews based on the user manager as well. In such a case, the reviewer expression is framed to indicate the user manager.  3) `type = GROUP`: All the members of an Okta group specified through `reviewerGroupId` become reviewers of the campaign. The property `reviewerGroupId` is required for this type. Note that if the group is specified through `reviewerGroupId` and has only one member, then that reviewer is assigned as a reviewer to all reviewers and `type` in those reviews changes to `USER`.  4) `type = RESOURCE_OWNER`: All the owners of an Okta group become reviewers of the campaign. The property `fallBackReviewerId` is required for this type. For `RESOURCE_OWNER` to work, set the property `resourceSettings.type` to `GROUP` and `resourceSettings.targetResources` to an Okta group ID. Access Certifications derives all the owners of the groups specified through`resourceSettings.targetResources.resourceId` and assigns them as reviewers to respective reviews of the campaign. Note that, if there is only one owner for such group(s) then that owner is assigned as a reviewer to respective reviews and `type` in those reviews changes to `USER`. Specify `fallBackReviewerId`, if the system can't determine the reviewer using the group(s) specified through `resourceSettings.targetResources.resourceId`. In such a case, the fallback reviewer specified through `fallBackReviewerId` becomes automatic reviewer of the campaign. Note that, if the provided Okta group has more than 10 members, when the campaign gets launched, only a maximum of 10 members are pulled from the group. Those 10 members become the reviewers of the campaign. When fetching members of the group, there's no order guaranteed. Additionally, if the Okta group specified has only one member, then that member is assigned as a reviewer to all reviewers and `type` for those reviews changes to `USER`.  5) `type = MULTI_LEVEL`: a campaign that can be composed of more than one reviewer level. The property `reviewerLevels` is required. The campaign can be reviewed and passed on from reviewer at one level to the reviewer defined in the next level. This setting provides more than one reviewer who can decide on the reviews before making the final decision. A maximum of two reviewer levels are supported. One has the flexibility to choose a combination of reviewers when defining the campaign. When a campaign is defined as multi level, only the property `reviewerLevels` is required. All other properties are ignored. Note that, if the provided Okta group has more than 10 owners, when the campaign gets launched, only a maximum of 10 owners are pulled from the group. Those 10 owners become the reviewers of the campaign. When fetching owners of the group, there's no order guaranteed. Additionally, if the Okta group specified has only one owner, then that owner is assigned as a reviewer to all reviewers and `type` for those reviews changes to `USER`.
 type ReviewerSettingsMutable struct {
@@ -100,7 +104,7 @@ func (o *ReviewerSettingsMutable) SetType(v CampaignReviewerType) {
 
 // GetReviewerId returns the ReviewerId field value if set, zero value otherwise.
 func (o *ReviewerSettingsMutable) GetReviewerId() string {
-	if o == nil || o.ReviewerId == nil {
+	if o == nil || IsNil(o.ReviewerId) {
 		var ret string
 		return ret
 	}
@@ -110,7 +114,7 @@ func (o *ReviewerSettingsMutable) GetReviewerId() string {
 // GetReviewerIdOk returns a tuple with the ReviewerId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReviewerSettingsMutable) GetReviewerIdOk() (*string, bool) {
-	if o == nil || o.ReviewerId == nil {
+	if o == nil || IsNil(o.ReviewerId) {
 		return nil, false
 	}
 	return o.ReviewerId, true
@@ -118,7 +122,7 @@ func (o *ReviewerSettingsMutable) GetReviewerIdOk() (*string, bool) {
 
 // HasReviewerId returns a boolean if a field has been set.
 func (o *ReviewerSettingsMutable) HasReviewerId() bool {
-	if o != nil && o.ReviewerId != nil {
+	if o != nil && !IsNil(o.ReviewerId) {
 		return true
 	}
 
@@ -132,7 +136,7 @@ func (o *ReviewerSettingsMutable) SetReviewerId(v string) {
 
 // GetReviewerScopeExpression returns the ReviewerScopeExpression field value if set, zero value otherwise.
 func (o *ReviewerSettingsMutable) GetReviewerScopeExpression() string {
-	if o == nil || o.ReviewerScopeExpression == nil {
+	if o == nil || IsNil(o.ReviewerScopeExpression) {
 		var ret string
 		return ret
 	}
@@ -142,7 +146,7 @@ func (o *ReviewerSettingsMutable) GetReviewerScopeExpression() string {
 // GetReviewerScopeExpressionOk returns a tuple with the ReviewerScopeExpression field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReviewerSettingsMutable) GetReviewerScopeExpressionOk() (*string, bool) {
-	if o == nil || o.ReviewerScopeExpression == nil {
+	if o == nil || IsNil(o.ReviewerScopeExpression) {
 		return nil, false
 	}
 	return o.ReviewerScopeExpression, true
@@ -150,7 +154,7 @@ func (o *ReviewerSettingsMutable) GetReviewerScopeExpressionOk() (*string, bool)
 
 // HasReviewerScopeExpression returns a boolean if a field has been set.
 func (o *ReviewerSettingsMutable) HasReviewerScopeExpression() bool {
-	if o != nil && o.ReviewerScopeExpression != nil {
+	if o != nil && !IsNil(o.ReviewerScopeExpression) {
 		return true
 	}
 
@@ -164,7 +168,7 @@ func (o *ReviewerSettingsMutable) SetReviewerScopeExpression(v string) {
 
 // GetFallBackReviewerId returns the FallBackReviewerId field value if set, zero value otherwise.
 func (o *ReviewerSettingsMutable) GetFallBackReviewerId() string {
-	if o == nil || o.FallBackReviewerId == nil {
+	if o == nil || IsNil(o.FallBackReviewerId) {
 		var ret string
 		return ret
 	}
@@ -174,7 +178,7 @@ func (o *ReviewerSettingsMutable) GetFallBackReviewerId() string {
 // GetFallBackReviewerIdOk returns a tuple with the FallBackReviewerId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReviewerSettingsMutable) GetFallBackReviewerIdOk() (*string, bool) {
-	if o == nil || o.FallBackReviewerId == nil {
+	if o == nil || IsNil(o.FallBackReviewerId) {
 		return nil, false
 	}
 	return o.FallBackReviewerId, true
@@ -182,7 +186,7 @@ func (o *ReviewerSettingsMutable) GetFallBackReviewerIdOk() (*string, bool) {
 
 // HasFallBackReviewerId returns a boolean if a field has been set.
 func (o *ReviewerSettingsMutable) HasFallBackReviewerId() bool {
-	if o != nil && o.FallBackReviewerId != nil {
+	if o != nil && !IsNil(o.FallBackReviewerId) {
 		return true
 	}
 
@@ -196,7 +200,7 @@ func (o *ReviewerSettingsMutable) SetFallBackReviewerId(v string) {
 
 // GetReviewerGroupId returns the ReviewerGroupId field value if set, zero value otherwise.
 func (o *ReviewerSettingsMutable) GetReviewerGroupId() string {
-	if o == nil || o.ReviewerGroupId == nil {
+	if o == nil || IsNil(o.ReviewerGroupId) {
 		var ret string
 		return ret
 	}
@@ -206,7 +210,7 @@ func (o *ReviewerSettingsMutable) GetReviewerGroupId() string {
 // GetReviewerGroupIdOk returns a tuple with the ReviewerGroupId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReviewerSettingsMutable) GetReviewerGroupIdOk() (*string, bool) {
-	if o == nil || o.ReviewerGroupId == nil {
+	if o == nil || IsNil(o.ReviewerGroupId) {
 		return nil, false
 	}
 	return o.ReviewerGroupId, true
@@ -214,7 +218,7 @@ func (o *ReviewerSettingsMutable) GetReviewerGroupIdOk() (*string, bool) {
 
 // HasReviewerGroupId returns a boolean if a field has been set.
 func (o *ReviewerSettingsMutable) HasReviewerGroupId() bool {
-	if o != nil && o.ReviewerGroupId != nil {
+	if o != nil && !IsNil(o.ReviewerGroupId) {
 		return true
 	}
 
@@ -229,7 +233,7 @@ func (o *ReviewerSettingsMutable) SetReviewerGroupId(v string) {
 // GetIsSelfReviewDisabled returns the IsSelfReviewDisabled field value if set, zero value otherwise.
 // Deprecated
 func (o *ReviewerSettingsMutable) GetIsSelfReviewDisabled() bool {
-	if o == nil || o.IsSelfReviewDisabled == nil {
+	if o == nil || IsNil(o.IsSelfReviewDisabled) {
 		var ret bool
 		return ret
 	}
@@ -240,7 +244,7 @@ func (o *ReviewerSettingsMutable) GetIsSelfReviewDisabled() bool {
 // and a boolean to check if the value has been set.
 // Deprecated
 func (o *ReviewerSettingsMutable) GetIsSelfReviewDisabledOk() (*bool, bool) {
-	if o == nil || o.IsSelfReviewDisabled == nil {
+	if o == nil || IsNil(o.IsSelfReviewDisabled) {
 		return nil, false
 	}
 	return o.IsSelfReviewDisabled, true
@@ -248,7 +252,7 @@ func (o *ReviewerSettingsMutable) GetIsSelfReviewDisabledOk() (*bool, bool) {
 
 // HasIsSelfReviewDisabled returns a boolean if a field has been set.
 func (o *ReviewerSettingsMutable) HasIsSelfReviewDisabled() bool {
-	if o != nil && o.IsSelfReviewDisabled != nil {
+	if o != nil && !IsNil(o.IsSelfReviewDisabled) {
 		return true
 	}
 
@@ -263,7 +267,7 @@ func (o *ReviewerSettingsMutable) SetIsSelfReviewDisabled(v bool) {
 
 // GetSelfReviewDisabled returns the SelfReviewDisabled field value if set, zero value otherwise.
 func (o *ReviewerSettingsMutable) GetSelfReviewDisabled() bool {
-	if o == nil || o.SelfReviewDisabled == nil {
+	if o == nil || IsNil(o.SelfReviewDisabled) {
 		var ret bool
 		return ret
 	}
@@ -273,7 +277,7 @@ func (o *ReviewerSettingsMutable) GetSelfReviewDisabled() bool {
 // GetSelfReviewDisabledOk returns a tuple with the SelfReviewDisabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReviewerSettingsMutable) GetSelfReviewDisabledOk() (*bool, bool) {
-	if o == nil || o.SelfReviewDisabled == nil {
+	if o == nil || IsNil(o.SelfReviewDisabled) {
 		return nil, false
 	}
 	return o.SelfReviewDisabled, true
@@ -281,7 +285,7 @@ func (o *ReviewerSettingsMutable) GetSelfReviewDisabledOk() (*bool, bool) {
 
 // HasSelfReviewDisabled returns a boolean if a field has been set.
 func (o *ReviewerSettingsMutable) HasSelfReviewDisabled() bool {
-	if o != nil && o.SelfReviewDisabled != nil {
+	if o != nil && !IsNil(o.SelfReviewDisabled) {
 		return true
 	}
 
@@ -295,7 +299,7 @@ func (o *ReviewerSettingsMutable) SetSelfReviewDisabled(v bool) {
 
 // GetJustificationRequired returns the JustificationRequired field value if set, zero value otherwise.
 func (o *ReviewerSettingsMutable) GetJustificationRequired() bool {
-	if o == nil || o.JustificationRequired == nil {
+	if o == nil || IsNil(o.JustificationRequired) {
 		var ret bool
 		return ret
 	}
@@ -305,7 +309,7 @@ func (o *ReviewerSettingsMutable) GetJustificationRequired() bool {
 // GetJustificationRequiredOk returns a tuple with the JustificationRequired field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReviewerSettingsMutable) GetJustificationRequiredOk() (*bool, bool) {
-	if o == nil || o.JustificationRequired == nil {
+	if o == nil || IsNil(o.JustificationRequired) {
 		return nil, false
 	}
 	return o.JustificationRequired, true
@@ -313,7 +317,7 @@ func (o *ReviewerSettingsMutable) GetJustificationRequiredOk() (*bool, bool) {
 
 // HasJustificationRequired returns a boolean if a field has been set.
 func (o *ReviewerSettingsMutable) HasJustificationRequired() bool {
-	if o != nil && o.JustificationRequired != nil {
+	if o != nil && !IsNil(o.JustificationRequired) {
 		return true
 	}
 
@@ -327,7 +331,7 @@ func (o *ReviewerSettingsMutable) SetJustificationRequired(v bool) {
 
 // GetBulkDecisionDisabled returns the BulkDecisionDisabled field value if set, zero value otherwise.
 func (o *ReviewerSettingsMutable) GetBulkDecisionDisabled() bool {
-	if o == nil || o.BulkDecisionDisabled == nil {
+	if o == nil || IsNil(o.BulkDecisionDisabled) {
 		var ret bool
 		return ret
 	}
@@ -337,7 +341,7 @@ func (o *ReviewerSettingsMutable) GetBulkDecisionDisabled() bool {
 // GetBulkDecisionDisabledOk returns a tuple with the BulkDecisionDisabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReviewerSettingsMutable) GetBulkDecisionDisabledOk() (*bool, bool) {
-	if o == nil || o.BulkDecisionDisabled == nil {
+	if o == nil || IsNil(o.BulkDecisionDisabled) {
 		return nil, false
 	}
 	return o.BulkDecisionDisabled, true
@@ -345,7 +349,7 @@ func (o *ReviewerSettingsMutable) GetBulkDecisionDisabledOk() (*bool, bool) {
 
 // HasBulkDecisionDisabled returns a boolean if a field has been set.
 func (o *ReviewerSettingsMutable) HasBulkDecisionDisabled() bool {
-	if o != nil && o.BulkDecisionDisabled != nil {
+	if o != nil && !IsNil(o.BulkDecisionDisabled) {
 		return true
 	}
 
@@ -359,7 +363,7 @@ func (o *ReviewerSettingsMutable) SetBulkDecisionDisabled(v bool) {
 
 // GetReassignmentDisabled returns the ReassignmentDisabled field value if set, zero value otherwise.
 func (o *ReviewerSettingsMutable) GetReassignmentDisabled() bool {
-	if o == nil || o.ReassignmentDisabled == nil {
+	if o == nil || IsNil(o.ReassignmentDisabled) {
 		var ret bool
 		return ret
 	}
@@ -369,7 +373,7 @@ func (o *ReviewerSettingsMutable) GetReassignmentDisabled() bool {
 // GetReassignmentDisabledOk returns a tuple with the ReassignmentDisabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReviewerSettingsMutable) GetReassignmentDisabledOk() (*bool, bool) {
-	if o == nil || o.ReassignmentDisabled == nil {
+	if o == nil || IsNil(o.ReassignmentDisabled) {
 		return nil, false
 	}
 	return o.ReassignmentDisabled, true
@@ -377,7 +381,7 @@ func (o *ReviewerSettingsMutable) GetReassignmentDisabledOk() (*bool, bool) {
 
 // HasReassignmentDisabled returns a boolean if a field has been set.
 func (o *ReviewerSettingsMutable) HasReassignmentDisabled() bool {
-	if o != nil && o.ReassignmentDisabled != nil {
+	if o != nil && !IsNil(o.ReassignmentDisabled) {
 		return true
 	}
 
@@ -391,7 +395,7 @@ func (o *ReviewerSettingsMutable) SetReassignmentDisabled(v bool) {
 
 // GetReviewerLevels returns the ReviewerLevels field value if set, zero value otherwise.
 func (o *ReviewerSettingsMutable) GetReviewerLevels() []ReviewerLevelSettingsMutable {
-	if o == nil || o.ReviewerLevels == nil {
+	if o == nil || IsNil(o.ReviewerLevels) {
 		var ret []ReviewerLevelSettingsMutable
 		return ret
 	}
@@ -401,7 +405,7 @@ func (o *ReviewerSettingsMutable) GetReviewerLevels() []ReviewerLevelSettingsMut
 // GetReviewerLevelsOk returns a tuple with the ReviewerLevels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReviewerSettingsMutable) GetReviewerLevelsOk() ([]ReviewerLevelSettingsMutable, bool) {
-	if o == nil || o.ReviewerLevels == nil {
+	if o == nil || IsNil(o.ReviewerLevels) {
 		return nil, false
 	}
 	return o.ReviewerLevels, true
@@ -409,7 +413,7 @@ func (o *ReviewerSettingsMutable) GetReviewerLevelsOk() ([]ReviewerLevelSettings
 
 // HasReviewerLevels returns a boolean if a field has been set.
 func (o *ReviewerSettingsMutable) HasReviewerLevels() bool {
-	if o != nil && o.ReviewerLevels != nil {
+	if o != nil && !IsNil(o.ReviewerLevels) {
 		return true
 	}
 
@@ -422,38 +426,44 @@ func (o *ReviewerSettingsMutable) SetReviewerLevels(v []ReviewerLevelSettingsMut
 }
 
 func (o ReviewerSettingsMutable) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["type"] = o.Type
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.ReviewerId != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o ReviewerSettingsMutable) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["type"] = o.Type
+	if !IsNil(o.ReviewerId) {
 		toSerialize["reviewerId"] = o.ReviewerId
 	}
-	if o.ReviewerScopeExpression != nil {
+	if !IsNil(o.ReviewerScopeExpression) {
 		toSerialize["reviewerScopeExpression"] = o.ReviewerScopeExpression
 	}
-	if o.FallBackReviewerId != nil {
+	if !IsNil(o.FallBackReviewerId) {
 		toSerialize["fallBackReviewerId"] = o.FallBackReviewerId
 	}
-	if o.ReviewerGroupId != nil {
+	if !IsNil(o.ReviewerGroupId) {
 		toSerialize["reviewerGroupId"] = o.ReviewerGroupId
 	}
-	if o.IsSelfReviewDisabled != nil {
+	if !IsNil(o.IsSelfReviewDisabled) {
 		toSerialize["isSelfReviewDisabled"] = o.IsSelfReviewDisabled
 	}
-	if o.SelfReviewDisabled != nil {
+	if !IsNil(o.SelfReviewDisabled) {
 		toSerialize["selfReviewDisabled"] = o.SelfReviewDisabled
 	}
-	if o.JustificationRequired != nil {
+	if !IsNil(o.JustificationRequired) {
 		toSerialize["justificationRequired"] = o.JustificationRequired
 	}
-	if o.BulkDecisionDisabled != nil {
+	if !IsNil(o.BulkDecisionDisabled) {
 		toSerialize["bulkDecisionDisabled"] = o.BulkDecisionDisabled
 	}
-	if o.ReassignmentDisabled != nil {
+	if !IsNil(o.ReassignmentDisabled) {
 		toSerialize["reassignmentDisabled"] = o.ReassignmentDisabled
 	}
-	if o.ReviewerLevels != nil {
+	if !IsNil(o.ReviewerLevels) {
 		toSerialize["reviewerLevels"] = o.ReviewerLevels
 	}
 
@@ -461,23 +471,44 @@ func (o ReviewerSettingsMutable) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ReviewerSettingsMutable) UnmarshalJSON(bytes []byte) (err error) {
-	varReviewerSettingsMutable := _ReviewerSettingsMutable{}
+func (o *ReviewerSettingsMutable) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"type",
+	}
 
-	err = json.Unmarshal(bytes, &varReviewerSettingsMutable)
-	if err == nil {
-		*o = ReviewerSettingsMutable(varReviewerSettingsMutable)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varReviewerSettingsMutable := _ReviewerSettingsMutable{}
+
+	err = json.Unmarshal(data, &varReviewerSettingsMutable)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ReviewerSettingsMutable(varReviewerSettingsMutable)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "reviewerId")
 		delete(additionalProperties, "reviewerScopeExpression")
@@ -490,8 +521,6 @@ func (o *ReviewerSettingsMutable) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "reassignmentDisabled")
 		delete(additionalProperties, "reviewerLevels")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

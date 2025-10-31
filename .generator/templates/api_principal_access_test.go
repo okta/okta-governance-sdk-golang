@@ -1,6 +1,9 @@
 package governance
 
-import "testing"
+import (
+	apiClient "github.com/okta/okta-governance-sdk-golang"
+	"testing"
+)
 
 func TestApiGetPrincipalAccessRequest_Execute(t *testing.T) {
 	filter := `parent.externalId eq "0oao01ardu8rdw8qUP91d7" AND parent.type eq "APPLICATION" AND targetPrincipal.externalId eq "00unkw1sfbTw08c0g1d7" AND targetPrincipal.type eq "OKTA_USER"` // Replace with a valid principal ID

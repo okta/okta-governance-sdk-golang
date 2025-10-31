@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the ExternalPrincipalProfile type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ExternalPrincipalProfile{}
 
 // ExternalPrincipalProfile A limited set of properties from the principal's profile
 type ExternalPrincipalProfile struct {
@@ -113,7 +117,7 @@ func (o *ExternalPrincipalProfile) SetName(v string) {
 
 // GetEmail returns the Email field value if set, zero value otherwise.
 func (o *ExternalPrincipalProfile) GetEmail() string {
-	if o == nil || o.Email == nil {
+	if o == nil || IsNil(o.Email) {
 		var ret string
 		return ret
 	}
@@ -123,7 +127,7 @@ func (o *ExternalPrincipalProfile) GetEmail() string {
 // GetEmailOk returns a tuple with the Email field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExternalPrincipalProfile) GetEmailOk() (*string, bool) {
-	if o == nil || o.Email == nil {
+	if o == nil || IsNil(o.Email) {
 		return nil, false
 	}
 	return o.Email, true
@@ -131,7 +135,7 @@ func (o *ExternalPrincipalProfile) GetEmailOk() (*string, bool) {
 
 // HasEmail returns a boolean if a field has been set.
 func (o *ExternalPrincipalProfile) HasEmail() bool {
-	if o != nil && o.Email != nil {
+	if o != nil && !IsNil(o.Email) {
 		return true
 	}
 
@@ -145,7 +149,7 @@ func (o *ExternalPrincipalProfile) SetEmail(v string) {
 
 // GetLogo returns the Logo field value if set, zero value otherwise.
 func (o *ExternalPrincipalProfile) GetLogo() []Link {
-	if o == nil || o.Logo == nil {
+	if o == nil || IsNil(o.Logo) {
 		var ret []Link
 		return ret
 	}
@@ -155,7 +159,7 @@ func (o *ExternalPrincipalProfile) GetLogo() []Link {
 // GetLogoOk returns a tuple with the Logo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExternalPrincipalProfile) GetLogoOk() ([]Link, bool) {
-	if o == nil || o.Logo == nil {
+	if o == nil || IsNil(o.Logo) {
 		return nil, false
 	}
 	return o.Logo, true
@@ -163,7 +167,7 @@ func (o *ExternalPrincipalProfile) GetLogoOk() ([]Link, bool) {
 
 // HasLogo returns a boolean if a field has been set.
 func (o *ExternalPrincipalProfile) HasLogo() bool {
-	if o != nil && o.Logo != nil {
+	if o != nil && !IsNil(o.Logo) {
 		return true
 	}
 
@@ -200,52 +204,75 @@ func (o *ExternalPrincipalProfile) SetLinks(v LinkSelf) {
 }
 
 func (o ExternalPrincipalProfile) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ExternalPrincipalProfile) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Email != nil {
+	toSerialize["id"] = o.Id
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Email) {
 		toSerialize["email"] = o.Email
 	}
-	if o.Logo != nil {
+	if !IsNil(o.Logo) {
 		toSerialize["logo"] = o.Logo
 	}
-	if true {
-		toSerialize["_links"] = o.Links
-	}
+	toSerialize["_links"] = o.Links
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ExternalPrincipalProfile) UnmarshalJSON(bytes []byte) (err error) {
-	varExternalPrincipalProfile := _ExternalPrincipalProfile{}
+func (o *ExternalPrincipalProfile) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"name",
+		"_links",
+	}
 
-	err = json.Unmarshal(bytes, &varExternalPrincipalProfile)
-	if err == nil {
-		*o = ExternalPrincipalProfile(varExternalPrincipalProfile)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varExternalPrincipalProfile := _ExternalPrincipalProfile{}
+
+	err = json.Unmarshal(data, &varExternalPrincipalProfile)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ExternalPrincipalProfile(varExternalPrincipalProfile)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "email")
 		delete(additionalProperties, "logo")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

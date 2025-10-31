@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the ResourceOwnersUpdatable type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ResourceOwnersUpdatable{}
 
 // ResourceOwnersUpdatable The properties expected in create or update request for a resource owner.
 type ResourceOwnersUpdatable struct {
@@ -58,7 +62,7 @@ func NewResourceOwnersUpdatableWithDefaults() *ResourceOwnersUpdatable {
 
 // GetPrincipalOrns returns the PrincipalOrns field value if set, zero value otherwise.
 func (o *ResourceOwnersUpdatable) GetPrincipalOrns() []string {
-	if o == nil || o.PrincipalOrns == nil {
+	if o == nil || IsNil(o.PrincipalOrns) {
 		var ret []string
 		return ret
 	}
@@ -68,7 +72,7 @@ func (o *ResourceOwnersUpdatable) GetPrincipalOrns() []string {
 // GetPrincipalOrnsOk returns a tuple with the PrincipalOrns field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceOwnersUpdatable) GetPrincipalOrnsOk() ([]string, bool) {
-	if o == nil || o.PrincipalOrns == nil {
+	if o == nil || IsNil(o.PrincipalOrns) {
 		return nil, false
 	}
 	return o.PrincipalOrns, true
@@ -76,7 +80,7 @@ func (o *ResourceOwnersUpdatable) GetPrincipalOrnsOk() ([]string, bool) {
 
 // HasPrincipalOrns returns a boolean if a field has been set.
 func (o *ResourceOwnersUpdatable) HasPrincipalOrns() bool {
-	if o != nil && o.PrincipalOrns != nil {
+	if o != nil && !IsNil(o.PrincipalOrns) {
 		return true
 	}
 
@@ -113,40 +117,65 @@ func (o *ResourceOwnersUpdatable) SetResourceOrns(v []string) {
 }
 
 func (o ResourceOwnersUpdatable) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ResourceOwnersUpdatable) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.PrincipalOrns != nil {
+	if !IsNil(o.PrincipalOrns) {
 		toSerialize["principalOrns"] = o.PrincipalOrns
 	}
-	if true {
-		toSerialize["resourceOrns"] = o.ResourceOrns
-	}
+	toSerialize["resourceOrns"] = o.ResourceOrns
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ResourceOwnersUpdatable) UnmarshalJSON(bytes []byte) (err error) {
-	varResourceOwnersUpdatable := _ResourceOwnersUpdatable{}
+func (o *ResourceOwnersUpdatable) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"resourceOrns",
+	}
 
-	err = json.Unmarshal(bytes, &varResourceOwnersUpdatable)
-	if err == nil {
-		*o = ResourceOwnersUpdatable(varResourceOwnersUpdatable)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varResourceOwnersUpdatable := _ResourceOwnersUpdatable{}
+
+	err = json.Unmarshal(data, &varResourceOwnersUpdatable)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ResourceOwnersUpdatable(varResourceOwnersUpdatable)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "principalOrns")
 		delete(additionalProperties, "resourceOrns")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

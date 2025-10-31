@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,7 +28,6 @@ import (
 	"fmt"
 )
 
-// model_oneof.mustache
 // RequestTypeResourceSettingsReadable - Which resource(s) are requestable
 type RequestTypeResourceSettingsReadable struct {
 	RequestTypeResourceSettingsApps               *RequestTypeResourceSettingsApps
@@ -65,14 +64,14 @@ func RequestTypeResourceSettingsGroupsAsRequestTypeResourceSettingsReadable(v *R
 	}
 }
 
-// Unmarshal JSON data into one of the pointers in the struct  CUSTOM
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *RequestTypeResourceSettingsReadable) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup
 	var jsonDict map[string]interface{}
 	err = newStrictDecoder(data).Decode(&jsonDict)
 	if err != nil {
-		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
 	// check if the discriminator value is 'APPS'
@@ -83,7 +82,7 @@ func (dst *RequestTypeResourceSettingsReadable) UnmarshalJSON(data []byte) error
 			return nil // data stored in dst.RequestTypeResourceSettingsApps, return on the first match
 		} else {
 			dst.RequestTypeResourceSettingsApps = nil
-			return fmt.Errorf("Failed to unmarshal RequestTypeResourceSettingsReadable as RequestTypeResourceSettingsApps: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal RequestTypeResourceSettingsReadable as RequestTypeResourceSettingsApps: %s", err.Error())
 		}
 	}
 
@@ -95,7 +94,7 @@ func (dst *RequestTypeResourceSettingsReadable) UnmarshalJSON(data []byte) error
 			return nil // data stored in dst.RequestTypeResourceSettingsCustom, return on the first match
 		} else {
 			dst.RequestTypeResourceSettingsCustom = nil
-			return fmt.Errorf("Failed to unmarshal RequestTypeResourceSettingsReadable as RequestTypeResourceSettingsCustom: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal RequestTypeResourceSettingsReadable as RequestTypeResourceSettingsCustom: %s", err.Error())
 		}
 	}
 
@@ -107,7 +106,7 @@ func (dst *RequestTypeResourceSettingsReadable) UnmarshalJSON(data []byte) error
 			return nil // data stored in dst.RequestTypeResourceSettingsEntitlementBundles, return on the first match
 		} else {
 			dst.RequestTypeResourceSettingsEntitlementBundles = nil
-			return fmt.Errorf("Failed to unmarshal RequestTypeResourceSettingsReadable as RequestTypeResourceSettingsEntitlementBundles: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal RequestTypeResourceSettingsReadable as RequestTypeResourceSettingsEntitlementBundles: %s", err.Error())
 		}
 	}
 
@@ -119,55 +118,7 @@ func (dst *RequestTypeResourceSettingsReadable) UnmarshalJSON(data []byte) error
 			return nil // data stored in dst.RequestTypeResourceSettingsGroups, return on the first match
 		} else {
 			dst.RequestTypeResourceSettingsGroups = nil
-			return fmt.Errorf("Failed to unmarshal RequestTypeResourceSettingsReadable as RequestTypeResourceSettingsGroups: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'request-type-resource-settings-apps'
-	if jsonDict["type"] == "request-type-resource-settings-apps" {
-		// try to unmarshal JSON data into RequestTypeResourceSettingsApps
-		err = json.Unmarshal(data, &dst.RequestTypeResourceSettingsApps)
-		if err == nil {
-			return nil // data stored in dst.RequestTypeResourceSettingsApps, return on the first match
-		} else {
-			dst.RequestTypeResourceSettingsApps = nil
-			return fmt.Errorf("Failed to unmarshal RequestTypeResourceSettingsReadable as RequestTypeResourceSettingsApps: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'request-type-resource-settings-custom'
-	if jsonDict["type"] == "request-type-resource-settings-custom" {
-		// try to unmarshal JSON data into RequestTypeResourceSettingsCustom
-		err = json.Unmarshal(data, &dst.RequestTypeResourceSettingsCustom)
-		if err == nil {
-			return nil // data stored in dst.RequestTypeResourceSettingsCustom, return on the first match
-		} else {
-			dst.RequestTypeResourceSettingsCustom = nil
-			return fmt.Errorf("Failed to unmarshal RequestTypeResourceSettingsReadable as RequestTypeResourceSettingsCustom: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'request-type-resource-settings-entitlement-bundles'
-	if jsonDict["type"] == "request-type-resource-settings-entitlement-bundles" {
-		// try to unmarshal JSON data into RequestTypeResourceSettingsEntitlementBundles
-		err = json.Unmarshal(data, &dst.RequestTypeResourceSettingsEntitlementBundles)
-		if err == nil {
-			return nil // data stored in dst.RequestTypeResourceSettingsEntitlementBundles, return on the first match
-		} else {
-			dst.RequestTypeResourceSettingsEntitlementBundles = nil
-			return fmt.Errorf("Failed to unmarshal RequestTypeResourceSettingsReadable as RequestTypeResourceSettingsEntitlementBundles: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'request-type-resource-settings-groups'
-	if jsonDict["type"] == "request-type-resource-settings-groups" {
-		// try to unmarshal JSON data into RequestTypeResourceSettingsGroups
-		err = json.Unmarshal(data, &dst.RequestTypeResourceSettingsGroups)
-		if err == nil {
-			return nil // data stored in dst.RequestTypeResourceSettingsGroups, return on the first match
-		} else {
-			dst.RequestTypeResourceSettingsGroups = nil
-			return fmt.Errorf("Failed to unmarshal RequestTypeResourceSettingsReadable as RequestTypeResourceSettingsGroups: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal RequestTypeResourceSettingsReadable as RequestTypeResourceSettingsGroups: %s", err.Error())
 		}
 	}
 
@@ -214,6 +165,28 @@ func (obj *RequestTypeResourceSettingsReadable) GetActualInstance() interface{} 
 
 	if obj.RequestTypeResourceSettingsGroups != nil {
 		return obj.RequestTypeResourceSettingsGroups
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj RequestTypeResourceSettingsReadable) GetActualInstanceValue() interface{} {
+	if obj.RequestTypeResourceSettingsApps != nil {
+		return *obj.RequestTypeResourceSettingsApps
+	}
+
+	if obj.RequestTypeResourceSettingsCustom != nil {
+		return *obj.RequestTypeResourceSettingsCustom
+	}
+
+	if obj.RequestTypeResourceSettingsEntitlementBundles != nil {
+		return *obj.RequestTypeResourceSettingsEntitlementBundles
+	}
+
+	if obj.RequestTypeResourceSettingsGroups != nil {
+		return *obj.RequestTypeResourceSettingsGroups
 	}
 
 	// all schemas are nil

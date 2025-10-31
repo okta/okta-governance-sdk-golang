@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,8 +25,12 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the SecurityAccessReviewHistoryItem type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SecurityAccessReviewHistoryItem{}
 
 // SecurityAccessReviewHistoryItem struct for SecurityAccessReviewHistoryItem
 type SecurityAccessReviewHistoryItem struct {
@@ -161,7 +165,7 @@ func (o *SecurityAccessReviewHistoryItem) SetMessage(v string) {
 
 // GetPrincipalProfile returns the PrincipalProfile field value if set, zero value otherwise.
 func (o *SecurityAccessReviewHistoryItem) GetPrincipalProfile() PrincipalProfile {
-	if o == nil || o.PrincipalProfile == nil {
+	if o == nil || IsNil(o.PrincipalProfile) {
 		var ret PrincipalProfile
 		return ret
 	}
@@ -171,7 +175,7 @@ func (o *SecurityAccessReviewHistoryItem) GetPrincipalProfile() PrincipalProfile
 // GetPrincipalProfileOk returns a tuple with the PrincipalProfile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityAccessReviewHistoryItem) GetPrincipalProfileOk() (*PrincipalProfile, bool) {
-	if o == nil || o.PrincipalProfile == nil {
+	if o == nil || IsNil(o.PrincipalProfile) {
 		return nil, false
 	}
 	return o.PrincipalProfile, true
@@ -179,7 +183,7 @@ func (o *SecurityAccessReviewHistoryItem) GetPrincipalProfileOk() (*PrincipalPro
 
 // HasPrincipalProfile returns a boolean if a field has been set.
 func (o *SecurityAccessReviewHistoryItem) HasPrincipalProfile() bool {
-	if o != nil && o.PrincipalProfile != nil {
+	if o != nil && !IsNil(o.PrincipalProfile) {
 		return true
 	}
 
@@ -192,20 +196,20 @@ func (o *SecurityAccessReviewHistoryItem) SetPrincipalProfile(v PrincipalProfile
 }
 
 func (o SecurityAccessReviewHistoryItem) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SecurityAccessReviewHistoryItem) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["systemGenerated"] = o.SystemGenerated
-	}
-	if true {
-		toSerialize["timestamp"] = o.Timestamp
-	}
-	if true {
-		toSerialize["message"] = o.Message
-	}
-	if o.PrincipalProfile != nil {
+	toSerialize["id"] = o.Id
+	toSerialize["systemGenerated"] = o.SystemGenerated
+	toSerialize["timestamp"] = o.Timestamp
+	toSerialize["message"] = o.Message
+	if !IsNil(o.PrincipalProfile) {
 		toSerialize["principalProfile"] = o.PrincipalProfile
 	}
 
@@ -213,31 +217,53 @@ func (o SecurityAccessReviewHistoryItem) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SecurityAccessReviewHistoryItem) UnmarshalJSON(bytes []byte) (err error) {
-	varSecurityAccessReviewHistoryItem := _SecurityAccessReviewHistoryItem{}
+func (o *SecurityAccessReviewHistoryItem) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"systemGenerated",
+		"timestamp",
+		"message",
+	}
 
-	err = json.Unmarshal(bytes, &varSecurityAccessReviewHistoryItem)
-	if err == nil {
-		*o = SecurityAccessReviewHistoryItem(varSecurityAccessReviewHistoryItem)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSecurityAccessReviewHistoryItem := _SecurityAccessReviewHistoryItem{}
+
+	err = json.Unmarshal(data, &varSecurityAccessReviewHistoryItem)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SecurityAccessReviewHistoryItem(varSecurityAccessReviewHistoryItem)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "systemGenerated")
 		delete(additionalProperties, "timestamp")
 		delete(additionalProperties, "message")
 		delete(additionalProperties, "principalProfile")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

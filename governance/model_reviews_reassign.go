@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the ReviewsReassign type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ReviewsReassign{}
 
 // ReviewsReassign struct for ReviewsReassign
 type ReviewsReassign struct {
@@ -111,7 +115,7 @@ func (o *ReviewsReassign) SetReviewIds(v []string) {
 
 // GetReviewerLevel returns the ReviewerLevel field value if set, zero value otherwise.
 func (o *ReviewsReassign) GetReviewerLevel() ReviewerLevelType {
-	if o == nil || o.ReviewerLevel == nil {
+	if o == nil || IsNil(o.ReviewerLevel) {
 		var ret ReviewerLevelType
 		return ret
 	}
@@ -121,7 +125,7 @@ func (o *ReviewsReassign) GetReviewerLevel() ReviewerLevelType {
 // GetReviewerLevelOk returns a tuple with the ReviewerLevel field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReviewsReassign) GetReviewerLevelOk() (*ReviewerLevelType, bool) {
-	if o == nil || o.ReviewerLevel == nil {
+	if o == nil || IsNil(o.ReviewerLevel) {
 		return nil, false
 	}
 	return o.ReviewerLevel, true
@@ -129,7 +133,7 @@ func (o *ReviewsReassign) GetReviewerLevelOk() (*ReviewerLevelType, bool) {
 
 // HasReviewerLevel returns a boolean if a field has been set.
 func (o *ReviewsReassign) HasReviewerLevel() bool {
-	if o != nil && o.ReviewerLevel != nil {
+	if o != nil && !IsNil(o.ReviewerLevel) {
 		return true
 	}
 
@@ -166,48 +170,71 @@ func (o *ReviewsReassign) SetNote(v string) {
 }
 
 func (o ReviewsReassign) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ReviewsReassign) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["reviewerId"] = o.ReviewerId
-	}
-	if true {
-		toSerialize["reviewIds"] = o.ReviewIds
-	}
-	if o.ReviewerLevel != nil {
+	toSerialize["reviewerId"] = o.ReviewerId
+	toSerialize["reviewIds"] = o.ReviewIds
+	if !IsNil(o.ReviewerLevel) {
 		toSerialize["reviewerLevel"] = o.ReviewerLevel
 	}
-	if true {
-		toSerialize["note"] = o.Note
-	}
+	toSerialize["note"] = o.Note
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ReviewsReassign) UnmarshalJSON(bytes []byte) (err error) {
-	varReviewsReassign := _ReviewsReassign{}
+func (o *ReviewsReassign) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"reviewerId",
+		"reviewIds",
+		"note",
+	}
 
-	err = json.Unmarshal(bytes, &varReviewsReassign)
-	if err == nil {
-		*o = ReviewsReassign(varReviewsReassign)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varReviewsReassign := _ReviewsReassign{}
+
+	err = json.Unmarshal(data, &varReviewsReassign)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ReviewsReassign(varReviewsReassign)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "reviewerId")
 		delete(additionalProperties, "reviewIds")
 		delete(additionalProperties, "reviewerLevel")
 		delete(additionalProperties, "note")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

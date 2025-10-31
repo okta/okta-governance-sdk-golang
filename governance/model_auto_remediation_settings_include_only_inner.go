@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package governance
 import (
 	"encoding/json"
 )
+
+// checks if the AutoRemediationSettingsIncludeOnlyInner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AutoRemediationSettingsIncludeOnlyInner{}
 
 // AutoRemediationSettingsIncludeOnlyInner Represents a list of resources that will be automatically remediated
 type AutoRemediationSettingsIncludeOnlyInner struct {
@@ -56,7 +59,7 @@ func NewAutoRemediationSettingsIncludeOnlyInnerWithDefaults() *AutoRemediationSe
 
 // GetResourceType returns the ResourceType field value if set, zero value otherwise.
 func (o *AutoRemediationSettingsIncludeOnlyInner) GetResourceType() AutoRemediationResourceType {
-	if o == nil || o.ResourceType == nil {
+	if o == nil || IsNil(o.ResourceType) {
 		var ret AutoRemediationResourceType
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *AutoRemediationSettingsIncludeOnlyInner) GetResourceType() AutoRemediat
 // GetResourceTypeOk returns a tuple with the ResourceType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AutoRemediationSettingsIncludeOnlyInner) GetResourceTypeOk() (*AutoRemediationResourceType, bool) {
-	if o == nil || o.ResourceType == nil {
+	if o == nil || IsNil(o.ResourceType) {
 		return nil, false
 	}
 	return o.ResourceType, true
@@ -74,7 +77,7 @@ func (o *AutoRemediationSettingsIncludeOnlyInner) GetResourceTypeOk() (*AutoReme
 
 // HasResourceType returns a boolean if a field has been set.
 func (o *AutoRemediationSettingsIncludeOnlyInner) HasResourceType() bool {
-	if o != nil && o.ResourceType != nil {
+	if o != nil && !IsNil(o.ResourceType) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *AutoRemediationSettingsIncludeOnlyInner) SetResourceType(v AutoRemediat
 
 // GetResourceId returns the ResourceId field value if set, zero value otherwise.
 func (o *AutoRemediationSettingsIncludeOnlyInner) GetResourceId() string {
-	if o == nil || o.ResourceId == nil {
+	if o == nil || IsNil(o.ResourceId) {
 		var ret string
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *AutoRemediationSettingsIncludeOnlyInner) GetResourceId() string {
 // GetResourceIdOk returns a tuple with the ResourceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AutoRemediationSettingsIncludeOnlyInner) GetResourceIdOk() (*string, bool) {
-	if o == nil || o.ResourceId == nil {
+	if o == nil || IsNil(o.ResourceId) {
 		return nil, false
 	}
 	return o.ResourceId, true
@@ -106,7 +109,7 @@ func (o *AutoRemediationSettingsIncludeOnlyInner) GetResourceIdOk() (*string, bo
 
 // HasResourceId returns a boolean if a field has been set.
 func (o *AutoRemediationSettingsIncludeOnlyInner) HasResourceId() bool {
-	if o != nil && o.ResourceId != nil {
+	if o != nil && !IsNil(o.ResourceId) {
 		return true
 	}
 
@@ -119,11 +122,19 @@ func (o *AutoRemediationSettingsIncludeOnlyInner) SetResourceId(v string) {
 }
 
 func (o AutoRemediationSettingsIncludeOnlyInner) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AutoRemediationSettingsIncludeOnlyInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ResourceType != nil {
+	if !IsNil(o.ResourceType) {
 		toSerialize["resourceType"] = o.ResourceType
 	}
-	if o.ResourceId != nil {
+	if !IsNil(o.ResourceId) {
 		toSerialize["resourceId"] = o.ResourceId
 	}
 
@@ -131,28 +142,26 @@ func (o AutoRemediationSettingsIncludeOnlyInner) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AutoRemediationSettingsIncludeOnlyInner) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AutoRemediationSettingsIncludeOnlyInner) UnmarshalJSON(data []byte) (err error) {
 	varAutoRemediationSettingsIncludeOnlyInner := _AutoRemediationSettingsIncludeOnlyInner{}
 
-	err = json.Unmarshal(bytes, &varAutoRemediationSettingsIncludeOnlyInner)
-	if err == nil {
-		*o = AutoRemediationSettingsIncludeOnlyInner(varAutoRemediationSettingsIncludeOnlyInner)
-	} else {
+	err = json.Unmarshal(data, &varAutoRemediationSettingsIncludeOnlyInner)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AutoRemediationSettingsIncludeOnlyInner(varAutoRemediationSettingsIncludeOnlyInner)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "resourceType")
 		delete(additionalProperties, "resourceId")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

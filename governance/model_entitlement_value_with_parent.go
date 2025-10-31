@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the EntitlementValueWithParent type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EntitlementValueWithParent{}
 
 // EntitlementValueWithParent Attributes related to an entitlement value
 type EntitlementValueWithParent struct {
@@ -146,7 +150,7 @@ func (o *EntitlementValueWithParent) SetExternalValue(v string) {
 
 // GetExternalId returns the ExternalId field value if set, zero value otherwise.
 func (o *EntitlementValueWithParent) GetExternalId() string {
-	if o == nil || o.ExternalId == nil {
+	if o == nil || IsNil(o.ExternalId) {
 		var ret string
 		return ret
 	}
@@ -156,7 +160,7 @@ func (o *EntitlementValueWithParent) GetExternalId() string {
 // GetExternalIdOk returns a tuple with the ExternalId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntitlementValueWithParent) GetExternalIdOk() (*string, bool) {
-	if o == nil || o.ExternalId == nil {
+	if o == nil || IsNil(o.ExternalId) {
 		return nil, false
 	}
 	return o.ExternalId, true
@@ -164,7 +168,7 @@ func (o *EntitlementValueWithParent) GetExternalIdOk() (*string, bool) {
 
 // HasExternalId returns a boolean if a field has been set.
 func (o *EntitlementValueWithParent) HasExternalId() bool {
-	if o != nil && o.ExternalId != nil {
+	if o != nil && !IsNil(o.ExternalId) {
 		return true
 	}
 
@@ -178,7 +182,7 @@ func (o *EntitlementValueWithParent) SetExternalId(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *EntitlementValueWithParent) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -188,7 +192,7 @@ func (o *EntitlementValueWithParent) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntitlementValueWithParent) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -196,7 +200,7 @@ func (o *EntitlementValueWithParent) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *EntitlementValueWithParent) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -281,53 +285,75 @@ func (o *EntitlementValueWithParent) SetParent(v TargetResource) {
 }
 
 func (o EntitlementValueWithParent) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o EntitlementValueWithParent) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["externalValue"] = o.ExternalValue
-	}
-	if o.ExternalId != nil {
+	toSerialize["id"] = o.Id
+	toSerialize["name"] = o.Name
+	toSerialize["externalValue"] = o.ExternalValue
+	if !IsNil(o.ExternalId) {
 		toSerialize["externalId"] = o.ExternalId
 	}
-	if o.Description != nil {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if true {
-		toSerialize["entitlementId"] = o.EntitlementId
-	}
-	if true {
-		toSerialize["parentResourceOrn"] = o.ParentResourceOrn
-	}
-	if true {
-		toSerialize["parent"] = o.Parent
-	}
+	toSerialize["entitlementId"] = o.EntitlementId
+	toSerialize["parentResourceOrn"] = o.ParentResourceOrn
+	toSerialize["parent"] = o.Parent
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *EntitlementValueWithParent) UnmarshalJSON(bytes []byte) (err error) {
-	varEntitlementValueWithParent := _EntitlementValueWithParent{}
+func (o *EntitlementValueWithParent) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"name",
+		"externalValue",
+		"entitlementId",
+		"parentResourceOrn",
+		"parent",
+	}
 
-	err = json.Unmarshal(bytes, &varEntitlementValueWithParent)
-	if err == nil {
-		*o = EntitlementValueWithParent(varEntitlementValueWithParent)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varEntitlementValueWithParent := _EntitlementValueWithParent{}
+
+	err = json.Unmarshal(data, &varEntitlementValueWithParent)
+
+	if err != nil {
+		return err
+	}
+
+	*o = EntitlementValueWithParent(varEntitlementValueWithParent)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "externalValue")
@@ -337,8 +363,6 @@ func (o *EntitlementValueWithParent) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "parentResourceOrn")
 		delete(additionalProperties, "parent")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

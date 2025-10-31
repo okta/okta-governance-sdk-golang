@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the SecurityAccessReviewConflictedEntitlementValue type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SecurityAccessReviewConflictedEntitlementValue{}
 
 // SecurityAccessReviewConflictedEntitlementValue struct for SecurityAccessReviewConflictedEntitlementValue
 type SecurityAccessReviewConflictedEntitlementValue struct {
@@ -133,44 +137,67 @@ func (o *SecurityAccessReviewConflictedEntitlementValue) SetSourceOfConflict(v b
 }
 
 func (o SecurityAccessReviewConflictedEntitlementValue) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SecurityAccessReviewConflictedEntitlementValue) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["sourceOfConflict"] = o.SourceOfConflict
-	}
+	toSerialize["id"] = o.Id
+	toSerialize["name"] = o.Name
+	toSerialize["sourceOfConflict"] = o.SourceOfConflict
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SecurityAccessReviewConflictedEntitlementValue) UnmarshalJSON(bytes []byte) (err error) {
-	varSecurityAccessReviewConflictedEntitlementValue := _SecurityAccessReviewConflictedEntitlementValue{}
+func (o *SecurityAccessReviewConflictedEntitlementValue) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"name",
+		"sourceOfConflict",
+	}
 
-	err = json.Unmarshal(bytes, &varSecurityAccessReviewConflictedEntitlementValue)
-	if err == nil {
-		*o = SecurityAccessReviewConflictedEntitlementValue(varSecurityAccessReviewConflictedEntitlementValue)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSecurityAccessReviewConflictedEntitlementValue := _SecurityAccessReviewConflictedEntitlementValue{}
+
+	err = json.Unmarshal(data, &varSecurityAccessReviewConflictedEntitlementValue)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SecurityAccessReviewConflictedEntitlementValue(varSecurityAccessReviewConflictedEntitlementValue)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "sourceOfConflict")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,8 +25,12 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the GrantFullWithEntitlements type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GrantFullWithEntitlements{}
 
 // GrantFullWithEntitlements Grant response with entitlements
 type GrantFullWithEntitlements struct {
@@ -115,7 +119,7 @@ func (o *GrantFullWithEntitlements) SetGrantType(v GrantType) {
 
 // GetEntitlementBundleId returns the EntitlementBundleId field value if set, zero value otherwise.
 func (o *GrantFullWithEntitlements) GetEntitlementBundleId() string {
-	if o == nil || o.EntitlementBundleId == nil {
+	if o == nil || IsNil(o.EntitlementBundleId) {
 		var ret string
 		return ret
 	}
@@ -125,7 +129,7 @@ func (o *GrantFullWithEntitlements) GetEntitlementBundleId() string {
 // GetEntitlementBundleIdOk returns a tuple with the EntitlementBundleId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GrantFullWithEntitlements) GetEntitlementBundleIdOk() (*string, bool) {
-	if o == nil || o.EntitlementBundleId == nil {
+	if o == nil || IsNil(o.EntitlementBundleId) {
 		return nil, false
 	}
 	return o.EntitlementBundleId, true
@@ -133,7 +137,7 @@ func (o *GrantFullWithEntitlements) GetEntitlementBundleIdOk() (*string, bool) {
 
 // HasEntitlementBundleId returns a boolean if a field has been set.
 func (o *GrantFullWithEntitlements) HasEntitlementBundleId() bool {
-	if o != nil && o.EntitlementBundleId != nil {
+	if o != nil && !IsNil(o.EntitlementBundleId) {
 		return true
 	}
 
@@ -315,7 +319,7 @@ func (o *GrantFullWithEntitlements) SetEntitlements(v []EntitlementFull) {
 
 // GetScheduleSettings returns the ScheduleSettings field value if set, zero value otherwise.
 func (o *GrantFullWithEntitlements) GetScheduleSettings() ScheduleSettingsWriteable {
-	if o == nil || o.ScheduleSettings == nil {
+	if o == nil || IsNil(o.ScheduleSettings) {
 		var ret ScheduleSettingsWriteable
 		return ret
 	}
@@ -325,7 +329,7 @@ func (o *GrantFullWithEntitlements) GetScheduleSettings() ScheduleSettingsWritea
 // GetScheduleSettingsOk returns a tuple with the ScheduleSettings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GrantFullWithEntitlements) GetScheduleSettingsOk() (*ScheduleSettingsWriteable, bool) {
-	if o == nil || o.ScheduleSettings == nil {
+	if o == nil || IsNil(o.ScheduleSettings) {
 		return nil, false
 	}
 	return o.ScheduleSettings, true
@@ -333,7 +337,7 @@ func (o *GrantFullWithEntitlements) GetScheduleSettingsOk() (*ScheduleSettingsWr
 
 // HasScheduleSettings returns a boolean if a field has been set.
 func (o *GrantFullWithEntitlements) HasScheduleSettings() bool {
-	if o != nil && o.ScheduleSettings != nil {
+	if o != nil && !IsNil(o.ScheduleSettings) {
 		return true
 	}
 
@@ -395,7 +399,7 @@ func (o *GrantFullWithEntitlements) SetStatus(v GrantStatus) {
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *GrantFullWithEntitlements) GetMetadata() GrantMetadata {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		var ret GrantMetadata
 		return ret
 	}
@@ -405,7 +409,7 @@ func (o *GrantFullWithEntitlements) GetMetadata() GrantMetadata {
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GrantFullWithEntitlements) GetMetadataOk() (*GrantMetadata, bool) {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
 	return o.Metadata, true
@@ -413,7 +417,7 @@ func (o *GrantFullWithEntitlements) GetMetadataOk() (*GrantMetadata, bool) {
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *GrantFullWithEntitlements) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
@@ -546,83 +550,96 @@ func (o *GrantFullWithEntitlements) SetLastUpdatedBy(v string) {
 }
 
 func (o GrantFullWithEntitlements) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["grantType"] = o.GrantType
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.EntitlementBundleId != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o GrantFullWithEntitlements) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["grantType"] = o.GrantType
+	if !IsNil(o.EntitlementBundleId) {
 		toSerialize["entitlementBundleId"] = o.EntitlementBundleId
 	}
-	if true {
-		toSerialize["targetPrincipalOrn"] = o.TargetPrincipalOrn
-	}
-	if true {
-		toSerialize["targetPrincipal"] = o.TargetPrincipal
-	}
-	if true {
-		toSerialize["action"] = o.Action
-	}
-	if true {
-		toSerialize["actor"] = o.Actor
-	}
-	if true {
-		toSerialize["targetResourceOrn"] = o.TargetResourceOrn
-	}
-	if true {
-		toSerialize["target"] = o.Target
-	}
-	if true {
-		toSerialize["entitlements"] = o.Entitlements
-	}
-	if o.ScheduleSettings != nil {
+	toSerialize["targetPrincipalOrn"] = o.TargetPrincipalOrn
+	toSerialize["targetPrincipal"] = o.TargetPrincipal
+	toSerialize["action"] = o.Action
+	toSerialize["actor"] = o.Actor
+	toSerialize["targetResourceOrn"] = o.TargetResourceOrn
+	toSerialize["target"] = o.Target
+	toSerialize["entitlements"] = o.Entitlements
+	if !IsNil(o.ScheduleSettings) {
 		toSerialize["scheduleSettings"] = o.ScheduleSettings
 	}
-	if true {
-		toSerialize["_links"] = o.Links
-	}
-	if true {
-		toSerialize["status"] = o.Status
-	}
-	if o.Metadata != nil {
+	toSerialize["_links"] = o.Links
+	toSerialize["status"] = o.Status
+	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["createdBy"] = o.CreatedBy
-	}
-	if true {
-		toSerialize["created"] = o.Created
-	}
-	if true {
-		toSerialize["lastUpdated"] = o.LastUpdated
-	}
-	if true {
-		toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
-	}
+	toSerialize["id"] = o.Id
+	toSerialize["createdBy"] = o.CreatedBy
+	toSerialize["created"] = o.Created
+	toSerialize["lastUpdated"] = o.LastUpdated
+	toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *GrantFullWithEntitlements) UnmarshalJSON(bytes []byte) (err error) {
-	varGrantFullWithEntitlements := _GrantFullWithEntitlements{}
+func (o *GrantFullWithEntitlements) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"grantType",
+		"targetPrincipalOrn",
+		"targetPrincipal",
+		"action",
+		"actor",
+		"targetResourceOrn",
+		"target",
+		"entitlements",
+		"_links",
+		"status",
+		"id",
+		"createdBy",
+		"created",
+		"lastUpdated",
+		"lastUpdatedBy",
+	}
 
-	err = json.Unmarshal(bytes, &varGrantFullWithEntitlements)
-	if err == nil {
-		*o = GrantFullWithEntitlements(varGrantFullWithEntitlements)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varGrantFullWithEntitlements := _GrantFullWithEntitlements{}
+
+	err = json.Unmarshal(data, &varGrantFullWithEntitlements)
+
+	if err != nil {
+		return err
+	}
+
+	*o = GrantFullWithEntitlements(varGrantFullWithEntitlements)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "grantType")
 		delete(additionalProperties, "entitlementBundleId")
 		delete(additionalProperties, "targetPrincipalOrn")
@@ -642,8 +659,6 @@ func (o *GrantFullWithEntitlements) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "lastUpdated")
 		delete(additionalProperties, "lastUpdatedBy")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

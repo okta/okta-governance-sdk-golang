@@ -1,4 +1,5 @@
 .gitignore
+.openapi-generator-ignore
 .travis.yml
 README.md
 api/openapi.yaml
@@ -343,7 +344,6 @@ docs/RequestRequestStatus.md
 docs/RequestResolutionCreatable.md
 docs/RequestResolutionTerminalState.md
 docs/RequestResourceCatalogEntryCreatable.md
-docs/RequestResourceCreatable.md
 docs/RequestRevocationStatus.md
 docs/RequestSequence.md
 docs/RequestSequencesAPI.md
@@ -849,7 +849,6 @@ model_request_request_status.go
 model_request_resolution_creatable.go
 model_request_resolution_terminal_state.go
 model_request_resource_catalog_entry_creatable.go
-model_request_resource_creatable.go
 model_request_revocation_status.go
 model_request_sequence.go
 model_request_sequences_list.go

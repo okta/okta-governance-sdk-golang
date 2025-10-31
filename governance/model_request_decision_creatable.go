@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,8 +25,12 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the RequestDecisionCreatable type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RequestDecisionCreatable{}
 
 // RequestDecisionCreatable A completed access request approval decision
 type RequestDecisionCreatable struct {
@@ -196,7 +200,7 @@ func (o *RequestDecisionCreatable) SetDecided(v time.Time) {
 
 // GetOriginalDeciderId returns the OriginalDeciderId field value if set, zero value otherwise.
 func (o *RequestDecisionCreatable) GetOriginalDeciderId() string {
-	if o == nil || o.OriginalDeciderId == nil {
+	if o == nil || IsNil(o.OriginalDeciderId) {
 		var ret string
 		return ret
 	}
@@ -206,7 +210,7 @@ func (o *RequestDecisionCreatable) GetOriginalDeciderId() string {
 // GetOriginalDeciderIdOk returns a tuple with the OriginalDeciderId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestDecisionCreatable) GetOriginalDeciderIdOk() (*string, bool) {
-	if o == nil || o.OriginalDeciderId == nil {
+	if o == nil || IsNil(o.OriginalDeciderId) {
 		return nil, false
 	}
 	return o.OriginalDeciderId, true
@@ -214,7 +218,7 @@ func (o *RequestDecisionCreatable) GetOriginalDeciderIdOk() (*string, bool) {
 
 // HasOriginalDeciderId returns a boolean if a field has been set.
 func (o *RequestDecisionCreatable) HasOriginalDeciderId() bool {
-	if o != nil && o.OriginalDeciderId != nil {
+	if o != nil && !IsNil(o.OriginalDeciderId) {
 		return true
 	}
 
@@ -228,7 +232,7 @@ func (o *RequestDecisionCreatable) SetOriginalDeciderId(v string) {
 
 // GetOriginalDeciderFullName returns the OriginalDeciderFullName field value if set, zero value otherwise.
 func (o *RequestDecisionCreatable) GetOriginalDeciderFullName() string {
-	if o == nil || o.OriginalDeciderFullName == nil {
+	if o == nil || IsNil(o.OriginalDeciderFullName) {
 		var ret string
 		return ret
 	}
@@ -238,7 +242,7 @@ func (o *RequestDecisionCreatable) GetOriginalDeciderFullName() string {
 // GetOriginalDeciderFullNameOk returns a tuple with the OriginalDeciderFullName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestDecisionCreatable) GetOriginalDeciderFullNameOk() (*string, bool) {
-	if o == nil || o.OriginalDeciderFullName == nil {
+	if o == nil || IsNil(o.OriginalDeciderFullName) {
 		return nil, false
 	}
 	return o.OriginalDeciderFullName, true
@@ -246,7 +250,7 @@ func (o *RequestDecisionCreatable) GetOriginalDeciderFullNameOk() (*string, bool
 
 // HasOriginalDeciderFullName returns a boolean if a field has been set.
 func (o *RequestDecisionCreatable) HasOriginalDeciderFullName() bool {
-	if o != nil && o.OriginalDeciderFullName != nil {
+	if o != nil && !IsNil(o.OriginalDeciderFullName) {
 		return true
 	}
 
@@ -260,7 +264,7 @@ func (o *RequestDecisionCreatable) SetOriginalDeciderFullName(v string) {
 
 // GetOriginalDeciderEmail returns the OriginalDeciderEmail field value if set, zero value otherwise.
 func (o *RequestDecisionCreatable) GetOriginalDeciderEmail() string {
-	if o == nil || o.OriginalDeciderEmail == nil {
+	if o == nil || IsNil(o.OriginalDeciderEmail) {
 		var ret string
 		return ret
 	}
@@ -270,7 +274,7 @@ func (o *RequestDecisionCreatable) GetOriginalDeciderEmail() string {
 // GetOriginalDeciderEmailOk returns a tuple with the OriginalDeciderEmail field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestDecisionCreatable) GetOriginalDeciderEmailOk() (*string, bool) {
-	if o == nil || o.OriginalDeciderEmail == nil {
+	if o == nil || IsNil(o.OriginalDeciderEmail) {
 		return nil, false
 	}
 	return o.OriginalDeciderEmail, true
@@ -278,7 +282,7 @@ func (o *RequestDecisionCreatable) GetOriginalDeciderEmailOk() (*string, bool) {
 
 // HasOriginalDeciderEmail returns a boolean if a field has been set.
 func (o *RequestDecisionCreatable) HasOriginalDeciderEmail() bool {
-	if o != nil && o.OriginalDeciderEmail != nil {
+	if o != nil && !IsNil(o.OriginalDeciderEmail) {
 		return true
 	}
 
@@ -292,7 +296,7 @@ func (o *RequestDecisionCreatable) SetOriginalDeciderEmail(v string) {
 
 // GetDeciderDelegated returns the DeciderDelegated field value if set, zero value otherwise.
 func (o *RequestDecisionCreatable) GetDeciderDelegated() bool {
-	if o == nil || o.DeciderDelegated == nil {
+	if o == nil || IsNil(o.DeciderDelegated) {
 		var ret bool
 		return ret
 	}
@@ -302,7 +306,7 @@ func (o *RequestDecisionCreatable) GetDeciderDelegated() bool {
 // GetDeciderDelegatedOk returns a tuple with the DeciderDelegated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestDecisionCreatable) GetDeciderDelegatedOk() (*bool, bool) {
-	if o == nil || o.DeciderDelegated == nil {
+	if o == nil || IsNil(o.DeciderDelegated) {
 		return nil, false
 	}
 	return o.DeciderDelegated, true
@@ -310,7 +314,7 @@ func (o *RequestDecisionCreatable) GetDeciderDelegatedOk() (*bool, bool) {
 
 // HasDeciderDelegated returns a boolean if a field has been set.
 func (o *RequestDecisionCreatable) HasDeciderDelegated() bool {
-	if o != nil && o.DeciderDelegated != nil {
+	if o != nil && !IsNil(o.DeciderDelegated) {
 		return true
 	}
 
@@ -323,32 +327,30 @@ func (o *RequestDecisionCreatable) SetDeciderDelegated(v bool) {
 }
 
 func (o RequestDecisionCreatable) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RequestDecisionCreatable) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["userId"] = o.UserId
-	}
-	if true {
-		toSerialize["userEmail"] = o.UserEmail
-	}
-	if true {
-		toSerialize["userName"] = o.UserName
-	}
-	if true {
-		toSerialize["decision"] = o.Decision
-	}
-	if true {
-		toSerialize["decided"] = o.Decided
-	}
-	if o.OriginalDeciderId != nil {
+	toSerialize["userId"] = o.UserId
+	toSerialize["userEmail"] = o.UserEmail
+	toSerialize["userName"] = o.UserName
+	toSerialize["decision"] = o.Decision
+	toSerialize["decided"] = o.Decided
+	if !IsNil(o.OriginalDeciderId) {
 		toSerialize["originalDeciderId"] = o.OriginalDeciderId
 	}
-	if o.OriginalDeciderFullName != nil {
+	if !IsNil(o.OriginalDeciderFullName) {
 		toSerialize["originalDeciderFullName"] = o.OriginalDeciderFullName
 	}
-	if o.OriginalDeciderEmail != nil {
+	if !IsNil(o.OriginalDeciderEmail) {
 		toSerialize["originalDeciderEmail"] = o.OriginalDeciderEmail
 	}
-	if o.DeciderDelegated != nil {
+	if !IsNil(o.DeciderDelegated) {
 		toSerialize["deciderDelegated"] = o.DeciderDelegated
 	}
 
@@ -356,23 +358,48 @@ func (o RequestDecisionCreatable) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RequestDecisionCreatable) UnmarshalJSON(bytes []byte) (err error) {
-	varRequestDecisionCreatable := _RequestDecisionCreatable{}
+func (o *RequestDecisionCreatable) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"userId",
+		"userEmail",
+		"userName",
+		"decision",
+		"decided",
+	}
 
-	err = json.Unmarshal(bytes, &varRequestDecisionCreatable)
-	if err == nil {
-		*o = RequestDecisionCreatable(varRequestDecisionCreatable)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRequestDecisionCreatable := _RequestDecisionCreatable{}
+
+	err = json.Unmarshal(data, &varRequestDecisionCreatable)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RequestDecisionCreatable(varRequestDecisionCreatable)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "userId")
 		delete(additionalProperties, "userEmail")
 		delete(additionalProperties, "userName")
@@ -383,8 +410,6 @@ func (o *RequestDecisionCreatable) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "originalDeciderEmail")
 		delete(additionalProperties, "deciderDelegated")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the GrantedEntitlementValue type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GrantedEntitlementValue{}
 
 // GrantedEntitlementValue struct for GrantedEntitlementValue
 type GrantedEntitlementValue struct {
@@ -136,7 +140,7 @@ func (o *GrantedEntitlementValue) SetExternalValue(v string) {
 
 // GetEffective returns the Effective field value if set, zero value otherwise.
 func (o *GrantedEntitlementValue) GetEffective() bool {
-	if o == nil || o.Effective == nil {
+	if o == nil || IsNil(o.Effective) {
 		var ret bool
 		return ret
 	}
@@ -146,7 +150,7 @@ func (o *GrantedEntitlementValue) GetEffective() bool {
 // GetEffectiveOk returns a tuple with the Effective field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GrantedEntitlementValue) GetEffectiveOk() (*bool, bool) {
-	if o == nil || o.Effective == nil {
+	if o == nil || IsNil(o.Effective) {
 		return nil, false
 	}
 	return o.Effective, true
@@ -154,7 +158,7 @@ func (o *GrantedEntitlementValue) GetEffectiveOk() (*bool, bool) {
 
 // HasEffective returns a boolean if a field has been set.
 func (o *GrantedEntitlementValue) HasEffective() bool {
-	if o != nil && o.Effective != nil {
+	if o != nil && !IsNil(o.Effective) {
 		return true
 	}
 
@@ -167,17 +171,19 @@ func (o *GrantedEntitlementValue) SetEffective(v bool) {
 }
 
 func (o GrantedEntitlementValue) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o GrantedEntitlementValue) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["externalValue"] = o.ExternalValue
-	}
-	if o.Effective != nil {
+	toSerialize["id"] = o.Id
+	toSerialize["name"] = o.Name
+	toSerialize["externalValue"] = o.ExternalValue
+	if !IsNil(o.Effective) {
 		toSerialize["effective"] = o.Effective
 	}
 
@@ -185,30 +191,51 @@ func (o GrantedEntitlementValue) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *GrantedEntitlementValue) UnmarshalJSON(bytes []byte) (err error) {
-	varGrantedEntitlementValue := _GrantedEntitlementValue{}
+func (o *GrantedEntitlementValue) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"name",
+		"externalValue",
+	}
 
-	err = json.Unmarshal(bytes, &varGrantedEntitlementValue)
-	if err == nil {
-		*o = GrantedEntitlementValue(varGrantedEntitlementValue)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varGrantedEntitlementValue := _GrantedEntitlementValue{}
+
+	err = json.Unmarshal(data, &varGrantedEntitlementValue)
+
+	if err != nil {
+		return err
+	}
+
+	*o = GrantedEntitlementValue(varGrantedEntitlementValue)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "externalValue")
 		delete(additionalProperties, "effective")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 	"time"
 )
+
+// checks if the EntitlementHistoryRecord type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EntitlementHistoryRecord{}
 
 // EntitlementHistoryRecord A single entry in the entitlement history, showing all effective entitlements at a specific point in time.
 type EntitlementHistoryRecord struct {
@@ -62,7 +65,7 @@ func NewEntitlementHistoryRecordWithDefaults() *EntitlementHistoryRecord {
 
 // GetStartDate returns the StartDate field value if set, zero value otherwise.
 func (o *EntitlementHistoryRecord) GetStartDate() time.Time {
-	if o == nil || o.StartDate == nil {
+	if o == nil || IsNil(o.StartDate) {
 		var ret time.Time
 		return ret
 	}
@@ -72,7 +75,7 @@ func (o *EntitlementHistoryRecord) GetStartDate() time.Time {
 // GetStartDateOk returns a tuple with the StartDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntitlementHistoryRecord) GetStartDateOk() (*time.Time, bool) {
-	if o == nil || o.StartDate == nil {
+	if o == nil || IsNil(o.StartDate) {
 		return nil, false
 	}
 	return o.StartDate, true
@@ -80,7 +83,7 @@ func (o *EntitlementHistoryRecord) GetStartDateOk() (*time.Time, bool) {
 
 // HasStartDate returns a boolean if a field has been set.
 func (o *EntitlementHistoryRecord) HasStartDate() bool {
-	if o != nil && o.StartDate != nil {
+	if o != nil && !IsNil(o.StartDate) {
 		return true
 	}
 
@@ -94,7 +97,7 @@ func (o *EntitlementHistoryRecord) SetStartDate(v time.Time) {
 
 // GetEndDate returns the EndDate field value if set, zero value otherwise.
 func (o *EntitlementHistoryRecord) GetEndDate() time.Time {
-	if o == nil || o.EndDate == nil {
+	if o == nil || IsNil(o.EndDate) {
 		var ret time.Time
 		return ret
 	}
@@ -104,7 +107,7 @@ func (o *EntitlementHistoryRecord) GetEndDate() time.Time {
 // GetEndDateOk returns a tuple with the EndDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntitlementHistoryRecord) GetEndDateOk() (*time.Time, bool) {
-	if o == nil || o.EndDate == nil {
+	if o == nil || IsNil(o.EndDate) {
 		return nil, false
 	}
 	return o.EndDate, true
@@ -112,7 +115,7 @@ func (o *EntitlementHistoryRecord) GetEndDateOk() (*time.Time, bool) {
 
 // HasEndDate returns a boolean if a field has been set.
 func (o *EntitlementHistoryRecord) HasEndDate() bool {
-	if o != nil && o.EndDate != nil {
+	if o != nil && !IsNil(o.EndDate) {
 		return true
 	}
 
@@ -126,7 +129,7 @@ func (o *EntitlementHistoryRecord) SetEndDate(v time.Time) {
 
 // GetLifecycle returns the Lifecycle field value if set, zero value otherwise.
 func (o *EntitlementHistoryRecord) GetLifecycle() string {
-	if o == nil || o.Lifecycle == nil {
+	if o == nil || IsNil(o.Lifecycle) {
 		var ret string
 		return ret
 	}
@@ -136,7 +139,7 @@ func (o *EntitlementHistoryRecord) GetLifecycle() string {
 // GetLifecycleOk returns a tuple with the Lifecycle field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntitlementHistoryRecord) GetLifecycleOk() (*string, bool) {
-	if o == nil || o.Lifecycle == nil {
+	if o == nil || IsNil(o.Lifecycle) {
 		return nil, false
 	}
 	return o.Lifecycle, true
@@ -144,7 +147,7 @@ func (o *EntitlementHistoryRecord) GetLifecycleOk() (*string, bool) {
 
 // HasLifecycle returns a boolean if a field has been set.
 func (o *EntitlementHistoryRecord) HasLifecycle() bool {
-	if o != nil && o.Lifecycle != nil {
+	if o != nil && !IsNil(o.Lifecycle) {
 		return true
 	}
 
@@ -158,7 +161,7 @@ func (o *EntitlementHistoryRecord) SetLifecycle(v string) {
 
 // GetEntitlements returns the Entitlements field value if set, zero value otherwise.
 func (o *EntitlementHistoryRecord) GetEntitlements() []EntitlementDetail {
-	if o == nil || o.Entitlements == nil {
+	if o == nil || IsNil(o.Entitlements) {
 		var ret []EntitlementDetail
 		return ret
 	}
@@ -168,7 +171,7 @@ func (o *EntitlementHistoryRecord) GetEntitlements() []EntitlementDetail {
 // GetEntitlementsOk returns a tuple with the Entitlements field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntitlementHistoryRecord) GetEntitlementsOk() ([]EntitlementDetail, bool) {
-	if o == nil || o.Entitlements == nil {
+	if o == nil || IsNil(o.Entitlements) {
 		return nil, false
 	}
 	return o.Entitlements, true
@@ -176,7 +179,7 @@ func (o *EntitlementHistoryRecord) GetEntitlementsOk() ([]EntitlementDetail, boo
 
 // HasEntitlements returns a boolean if a field has been set.
 func (o *EntitlementHistoryRecord) HasEntitlements() bool {
-	if o != nil && o.Entitlements != nil {
+	if o != nil && !IsNil(o.Entitlements) {
 		return true
 	}
 
@@ -189,17 +192,25 @@ func (o *EntitlementHistoryRecord) SetEntitlements(v []EntitlementDetail) {
 }
 
 func (o EntitlementHistoryRecord) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o EntitlementHistoryRecord) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.StartDate != nil {
+	if !IsNil(o.StartDate) {
 		toSerialize["startDate"] = o.StartDate
 	}
-	if o.EndDate != nil {
+	if !IsNil(o.EndDate) {
 		toSerialize["endDate"] = o.EndDate
 	}
-	if o.Lifecycle != nil {
+	if !IsNil(o.Lifecycle) {
 		toSerialize["lifecycle"] = o.Lifecycle
 	}
-	if o.Entitlements != nil {
+	if !IsNil(o.Entitlements) {
 		toSerialize["entitlements"] = o.Entitlements
 	}
 
@@ -207,30 +218,28 @@ func (o EntitlementHistoryRecord) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *EntitlementHistoryRecord) UnmarshalJSON(bytes []byte) (err error) {
+func (o *EntitlementHistoryRecord) UnmarshalJSON(data []byte) (err error) {
 	varEntitlementHistoryRecord := _EntitlementHistoryRecord{}
 
-	err = json.Unmarshal(bytes, &varEntitlementHistoryRecord)
-	if err == nil {
-		*o = EntitlementHistoryRecord(varEntitlementHistoryRecord)
-	} else {
+	err = json.Unmarshal(data, &varEntitlementHistoryRecord)
+
+	if err != nil {
 		return err
 	}
 
+	*o = EntitlementHistoryRecord(varEntitlementHistoryRecord)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "startDate")
 		delete(additionalProperties, "endDate")
 		delete(additionalProperties, "lifecycle")
 		delete(additionalProperties, "entitlements")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

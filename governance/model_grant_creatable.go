@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,7 +28,6 @@ import (
 	"fmt"
 )
 
-// model_oneof.mustache
 // GrantCreatable - The properties expected in an initial add entitlement bundle
 type GrantCreatable struct {
 	GrantTypeBundleWriteable *GrantTypeBundleWriteable
@@ -57,14 +56,14 @@ func GrantTypePolicyWriteableAsGrantCreatable(v *GrantTypePolicyWriteable) Grant
 	}
 }
 
-// Unmarshal JSON data into one of the pointers in the struct  CUSTOM
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *GrantCreatable) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup
 	var jsonDict map[string]interface{}
 	err = newStrictDecoder(data).Decode(&jsonDict)
 	if err != nil {
-		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
 	// check if the discriminator value is 'CUSTOM'
@@ -75,7 +74,7 @@ func (dst *GrantCreatable) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.GrantTypeCustomWriteable, return on the first match
 		} else {
 			dst.GrantTypeCustomWriteable = nil
-			return fmt.Errorf("Failed to unmarshal GrantCreatable as GrantTypeCustomWriteable: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal GrantCreatable as GrantTypeCustomWriteable: %s", err.Error())
 		}
 	}
 
@@ -87,7 +86,7 @@ func (dst *GrantCreatable) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.GrantTypeBundleWriteable, return on the first match
 		} else {
 			dst.GrantTypeBundleWriteable = nil
-			return fmt.Errorf("Failed to unmarshal GrantCreatable as GrantTypeBundleWriteable: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal GrantCreatable as GrantTypeBundleWriteable: %s", err.Error())
 		}
 	}
 
@@ -99,43 +98,7 @@ func (dst *GrantCreatable) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.GrantTypePolicyWriteable, return on the first match
 		} else {
 			dst.GrantTypePolicyWriteable = nil
-			return fmt.Errorf("Failed to unmarshal GrantCreatable as GrantTypePolicyWriteable: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'grant-type-bundle-writeable'
-	if jsonDict["grantType"] == "grant-type-bundle-writeable" {
-		// try to unmarshal JSON data into GrantTypeBundleWriteable
-		err = json.Unmarshal(data, &dst.GrantTypeBundleWriteable)
-		if err == nil {
-			return nil // data stored in dst.GrantTypeBundleWriteable, return on the first match
-		} else {
-			dst.GrantTypeBundleWriteable = nil
-			return fmt.Errorf("Failed to unmarshal GrantCreatable as GrantTypeBundleWriteable: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'grant-type-custom-writeable'
-	if jsonDict["grantType"] == "grant-type-custom-writeable" {
-		// try to unmarshal JSON data into GrantTypeCustomWriteable
-		err = json.Unmarshal(data, &dst.GrantTypeCustomWriteable)
-		if err == nil {
-			return nil // data stored in dst.GrantTypeCustomWriteable, return on the first match
-		} else {
-			dst.GrantTypeCustomWriteable = nil
-			return fmt.Errorf("Failed to unmarshal GrantCreatable as GrantTypeCustomWriteable: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'grant-type-policy-writeable'
-	if jsonDict["grantType"] == "grant-type-policy-writeable" {
-		// try to unmarshal JSON data into GrantTypePolicyWriteable
-		err = json.Unmarshal(data, &dst.GrantTypePolicyWriteable)
-		if err == nil {
-			return nil // data stored in dst.GrantTypePolicyWriteable, return on the first match
-		} else {
-			dst.GrantTypePolicyWriteable = nil
-			return fmt.Errorf("Failed to unmarshal GrantCreatable as GrantTypePolicyWriteable: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal GrantCreatable as GrantTypePolicyWriteable: %s", err.Error())
 		}
 	}
 
@@ -174,6 +137,24 @@ func (obj *GrantCreatable) GetActualInstance() interface{} {
 
 	if obj.GrantTypePolicyWriteable != nil {
 		return obj.GrantTypePolicyWriteable
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj GrantCreatable) GetActualInstanceValue() interface{} {
+	if obj.GrantTypeBundleWriteable != nil {
+		return *obj.GrantTypeBundleWriteable
+	}
+
+	if obj.GrantTypeCustomWriteable != nil {
+		return *obj.GrantTypeCustomWriteable
+	}
+
+	if obj.GrantTypePolicyWriteable != nil {
+		return *obj.GrantTypePolicyWriteable
 	}
 
 	// all schemas are nil

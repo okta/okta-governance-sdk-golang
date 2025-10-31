@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,8 +25,12 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the ReviewMinimalReadOnlyFields type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ReviewMinimalReadOnlyFields{}
 
 // ReviewMinimalReadOnlyFields Properties contained by default in sparse representation.
 type ReviewMinimalReadOnlyFields struct {
@@ -124,7 +128,7 @@ func (o *ReviewMinimalReadOnlyFields) SetResourceId(v string) {
 
 // GetEntitlementValue returns the EntitlementValue field value if set, zero value otherwise.
 func (o *ReviewMinimalReadOnlyFields) GetEntitlementValue() ReviewerEntitlementValue {
-	if o == nil || o.EntitlementValue == nil {
+	if o == nil || IsNil(o.EntitlementValue) {
 		var ret ReviewerEntitlementValue
 		return ret
 	}
@@ -134,7 +138,7 @@ func (o *ReviewMinimalReadOnlyFields) GetEntitlementValue() ReviewerEntitlementV
 // GetEntitlementValueOk returns a tuple with the EntitlementValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReviewMinimalReadOnlyFields) GetEntitlementValueOk() (*ReviewerEntitlementValue, bool) {
-	if o == nil || o.EntitlementValue == nil {
+	if o == nil || IsNil(o.EntitlementValue) {
 		return nil, false
 	}
 	return o.EntitlementValue, true
@@ -142,7 +146,7 @@ func (o *ReviewMinimalReadOnlyFields) GetEntitlementValueOk() (*ReviewerEntitlem
 
 // HasEntitlementValue returns a boolean if a field has been set.
 func (o *ReviewMinimalReadOnlyFields) HasEntitlementValue() bool {
-	if o != nil && o.EntitlementValue != nil {
+	if o != nil && !IsNil(o.EntitlementValue) {
 		return true
 	}
 
@@ -156,7 +160,7 @@ func (o *ReviewMinimalReadOnlyFields) SetEntitlementValue(v ReviewerEntitlementV
 
 // GetEntitlementBundle returns the EntitlementBundle field value if set, zero value otherwise.
 func (o *ReviewMinimalReadOnlyFields) GetEntitlementBundle() ReviewerEntitlementBundle {
-	if o == nil || o.EntitlementBundle == nil {
+	if o == nil || IsNil(o.EntitlementBundle) {
 		var ret ReviewerEntitlementBundle
 		return ret
 	}
@@ -166,7 +170,7 @@ func (o *ReviewMinimalReadOnlyFields) GetEntitlementBundle() ReviewerEntitlement
 // GetEntitlementBundleOk returns a tuple with the EntitlementBundle field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReviewMinimalReadOnlyFields) GetEntitlementBundleOk() (*ReviewerEntitlementBundle, bool) {
-	if o == nil || o.EntitlementBundle == nil {
+	if o == nil || IsNil(o.EntitlementBundle) {
 		return nil, false
 	}
 	return o.EntitlementBundle, true
@@ -174,7 +178,7 @@ func (o *ReviewMinimalReadOnlyFields) GetEntitlementBundleOk() (*ReviewerEntitle
 
 // HasEntitlementBundle returns a boolean if a field has been set.
 func (o *ReviewMinimalReadOnlyFields) HasEntitlementBundle() bool {
-	if o != nil && o.EntitlementBundle != nil {
+	if o != nil && !IsNil(o.EntitlementBundle) {
 		return true
 	}
 
@@ -212,7 +216,7 @@ func (o *ReviewMinimalReadOnlyFields) SetDecision(v Decision) {
 
 // GetDecided returns the Decided field value if set, zero value otherwise.
 func (o *ReviewMinimalReadOnlyFields) GetDecided() time.Time {
-	if o == nil || o.Decided == nil {
+	if o == nil || IsNil(o.Decided) {
 		var ret time.Time
 		return ret
 	}
@@ -222,7 +226,7 @@ func (o *ReviewMinimalReadOnlyFields) GetDecided() time.Time {
 // GetDecidedOk returns a tuple with the Decided field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReviewMinimalReadOnlyFields) GetDecidedOk() (*time.Time, bool) {
-	if o == nil || o.Decided == nil {
+	if o == nil || IsNil(o.Decided) {
 		return nil, false
 	}
 	return o.Decided, true
@@ -230,7 +234,7 @@ func (o *ReviewMinimalReadOnlyFields) GetDecidedOk() (*time.Time, bool) {
 
 // HasDecided returns a boolean if a field has been set.
 func (o *ReviewMinimalReadOnlyFields) HasDecided() bool {
-	if o != nil && o.Decided != nil {
+	if o != nil && !IsNil(o.Decided) {
 		return true
 	}
 
@@ -292,7 +296,7 @@ func (o *ReviewMinimalReadOnlyFields) SetPrincipalProfile(v PrincipalProfile) {
 
 // GetReviewerProfile returns the ReviewerProfile field value if set, zero value otherwise.
 func (o *ReviewMinimalReadOnlyFields) GetReviewerProfile() PrincipalProfile {
-	if o == nil || o.ReviewerProfile == nil {
+	if o == nil || IsNil(o.ReviewerProfile) {
 		var ret PrincipalProfile
 		return ret
 	}
@@ -302,7 +306,7 @@ func (o *ReviewMinimalReadOnlyFields) GetReviewerProfile() PrincipalProfile {
 // GetReviewerProfileOk returns a tuple with the ReviewerProfile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReviewMinimalReadOnlyFields) GetReviewerProfileOk() (*PrincipalProfile, bool) {
-	if o == nil || o.ReviewerProfile == nil {
+	if o == nil || IsNil(o.ReviewerProfile) {
 		return nil, false
 	}
 	return o.ReviewerProfile, true
@@ -310,7 +314,7 @@ func (o *ReviewMinimalReadOnlyFields) GetReviewerProfileOk() (*PrincipalProfile,
 
 // HasReviewerProfile returns a boolean if a field has been set.
 func (o *ReviewMinimalReadOnlyFields) HasReviewerProfile() bool {
-	if o != nil && o.ReviewerProfile != nil {
+	if o != nil && !IsNil(o.ReviewerProfile) {
 		return true
 	}
 
@@ -348,7 +352,7 @@ func (o *ReviewMinimalReadOnlyFields) SetReviewerType(v ReviewersReviewerType) {
 
 // GetReviewerGroupProfile returns the ReviewerGroupProfile field value if set, zero value otherwise.
 func (o *ReviewMinimalReadOnlyFields) GetReviewerGroupProfile() ReviewerGroupProfile {
-	if o == nil || o.ReviewerGroupProfile == nil {
+	if o == nil || IsNil(o.ReviewerGroupProfile) {
 		var ret ReviewerGroupProfile
 		return ret
 	}
@@ -358,7 +362,7 @@ func (o *ReviewMinimalReadOnlyFields) GetReviewerGroupProfile() ReviewerGroupPro
 // GetReviewerGroupProfileOk returns a tuple with the ReviewerGroupProfile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReviewMinimalReadOnlyFields) GetReviewerGroupProfileOk() (*ReviewerGroupProfile, bool) {
-	if o == nil || o.ReviewerGroupProfile == nil {
+	if o == nil || IsNil(o.ReviewerGroupProfile) {
 		return nil, false
 	}
 	return o.ReviewerGroupProfile, true
@@ -366,7 +370,7 @@ func (o *ReviewMinimalReadOnlyFields) GetReviewerGroupProfileOk() (*ReviewerGrou
 
 // HasReviewerGroupProfile returns a boolean if a field has been set.
 func (o *ReviewMinimalReadOnlyFields) HasReviewerGroupProfile() bool {
-	if o != nil && o.ReviewerGroupProfile != nil {
+	if o != nil && !IsNil(o.ReviewerGroupProfile) {
 		return true
 	}
 
@@ -380,7 +384,7 @@ func (o *ReviewMinimalReadOnlyFields) SetReviewerGroupProfile(v ReviewerGroupPro
 
 // GetCurrentReviewerLevel returns the CurrentReviewerLevel field value if set, zero value otherwise.
 func (o *ReviewMinimalReadOnlyFields) GetCurrentReviewerLevel() ReviewerLevelType {
-	if o == nil || o.CurrentReviewerLevel == nil {
+	if o == nil || IsNil(o.CurrentReviewerLevel) {
 		var ret ReviewerLevelType
 		return ret
 	}
@@ -390,7 +394,7 @@ func (o *ReviewMinimalReadOnlyFields) GetCurrentReviewerLevel() ReviewerLevelTyp
 // GetCurrentReviewerLevelOk returns a tuple with the CurrentReviewerLevel field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReviewMinimalReadOnlyFields) GetCurrentReviewerLevelOk() (*ReviewerLevelType, bool) {
-	if o == nil || o.CurrentReviewerLevel == nil {
+	if o == nil || IsNil(o.CurrentReviewerLevel) {
 		return nil, false
 	}
 	return o.CurrentReviewerLevel, true
@@ -398,7 +402,7 @@ func (o *ReviewMinimalReadOnlyFields) GetCurrentReviewerLevelOk() (*ReviewerLeve
 
 // HasCurrentReviewerLevel returns a boolean if a field has been set.
 func (o *ReviewMinimalReadOnlyFields) HasCurrentReviewerLevel() bool {
-	if o != nil && o.CurrentReviewerLevel != nil {
+	if o != nil && !IsNil(o.CurrentReviewerLevel) {
 		return true
 	}
 
@@ -447,7 +451,7 @@ func (o *ReviewMinimalReadOnlyFields) GetRiskRuleConflicts() []RiskRuleConflicts
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ReviewMinimalReadOnlyFields) GetRiskRuleConflictsOk() ([]RiskRuleConflicts, bool) {
-	if o == nil || o.RiskRuleConflicts == nil {
+	if o == nil || IsNil(o.RiskRuleConflicts) {
 		return nil, false
 	}
 	return o.RiskRuleConflicts, true
@@ -455,7 +459,7 @@ func (o *ReviewMinimalReadOnlyFields) GetRiskRuleConflictsOk() ([]RiskRuleConfli
 
 // HasRiskRuleConflicts returns a boolean if a field has been set.
 func (o *ReviewMinimalReadOnlyFields) HasRiskRuleConflicts() bool {
-	if o != nil && o.RiskRuleConflicts != nil {
+	if o != nil && !IsNil(o.RiskRuleConflicts) {
 		return true
 	}
 
@@ -468,46 +472,40 @@ func (o *ReviewMinimalReadOnlyFields) SetRiskRuleConflicts(v []RiskRuleConflicts
 }
 
 func (o ReviewMinimalReadOnlyFields) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ReviewMinimalReadOnlyFields) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["campaignId"] = o.CampaignId
-	}
-	if true {
-		toSerialize["resourceId"] = o.ResourceId
-	}
-	if o.EntitlementValue != nil {
+	toSerialize["campaignId"] = o.CampaignId
+	toSerialize["resourceId"] = o.ResourceId
+	if !IsNil(o.EntitlementValue) {
 		toSerialize["entitlementValue"] = o.EntitlementValue
 	}
-	if o.EntitlementBundle != nil {
+	if !IsNil(o.EntitlementBundle) {
 		toSerialize["entitlementBundle"] = o.EntitlementBundle
 	}
-	if true {
-		toSerialize["decision"] = o.Decision
-	}
-	if o.Decided != nil {
+	toSerialize["decision"] = o.Decision
+	if !IsNil(o.Decided) {
 		toSerialize["decided"] = o.Decided
 	}
-	if true {
-		toSerialize["remediationStatus"] = o.RemediationStatus
-	}
-	if true {
-		toSerialize["principalProfile"] = o.PrincipalProfile
-	}
-	if o.ReviewerProfile != nil {
+	toSerialize["remediationStatus"] = o.RemediationStatus
+	toSerialize["principalProfile"] = o.PrincipalProfile
+	if !IsNil(o.ReviewerProfile) {
 		toSerialize["reviewerProfile"] = o.ReviewerProfile
 	}
-	if true {
-		toSerialize["reviewerType"] = o.ReviewerType
-	}
-	if o.ReviewerGroupProfile != nil {
+	toSerialize["reviewerType"] = o.ReviewerType
+	if !IsNil(o.ReviewerGroupProfile) {
 		toSerialize["reviewerGroupProfile"] = o.ReviewerGroupProfile
 	}
-	if o.CurrentReviewerLevel != nil {
+	if !IsNil(o.CurrentReviewerLevel) {
 		toSerialize["currentReviewerLevel"] = o.CurrentReviewerLevel
 	}
-	if true {
-		toSerialize["_links"] = o.Links
-	}
+	toSerialize["_links"] = o.Links
 	if o.RiskRuleConflicts != nil {
 		toSerialize["riskRuleConflicts"] = o.RiskRuleConflicts
 	}
@@ -516,23 +514,50 @@ func (o ReviewMinimalReadOnlyFields) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ReviewMinimalReadOnlyFields) UnmarshalJSON(bytes []byte) (err error) {
-	varReviewMinimalReadOnlyFields := _ReviewMinimalReadOnlyFields{}
+func (o *ReviewMinimalReadOnlyFields) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"campaignId",
+		"resourceId",
+		"decision",
+		"remediationStatus",
+		"principalProfile",
+		"reviewerType",
+		"_links",
+	}
 
-	err = json.Unmarshal(bytes, &varReviewMinimalReadOnlyFields)
-	if err == nil {
-		*o = ReviewMinimalReadOnlyFields(varReviewMinimalReadOnlyFields)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varReviewMinimalReadOnlyFields := _ReviewMinimalReadOnlyFields{}
+
+	err = json.Unmarshal(data, &varReviewMinimalReadOnlyFields)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ReviewMinimalReadOnlyFields(varReviewMinimalReadOnlyFields)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "campaignId")
 		delete(additionalProperties, "resourceId")
 		delete(additionalProperties, "entitlementValue")
@@ -548,8 +573,6 @@ func (o *ReviewMinimalReadOnlyFields) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "_links")
 		delete(additionalProperties, "riskRuleConflicts")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

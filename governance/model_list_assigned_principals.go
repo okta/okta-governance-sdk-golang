@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package governance
 import (
 	"encoding/json"
 )
+
+// checks if the ListAssignedPrincipals type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ListAssignedPrincipals{}
 
 // ListAssignedPrincipals struct for ListAssignedPrincipals
 type ListAssignedPrincipals struct {
@@ -55,7 +58,7 @@ func NewListAssignedPrincipalsWithDefaults() *ListAssignedPrincipals {
 
 // GetData returns the Data field value if set, zero value otherwise.
 func (o *ListAssignedPrincipals) GetData() []AssignedPrincipalDetails {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		var ret []AssignedPrincipalDetails
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *ListAssignedPrincipals) GetData() []AssignedPrincipalDetails {
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ListAssignedPrincipals) GetDataOk() ([]AssignedPrincipalDetails, bool) {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		return nil, false
 	}
 	return o.Data, true
@@ -73,7 +76,7 @@ func (o *ListAssignedPrincipals) GetDataOk() ([]AssignedPrincipalDetails, bool) 
 
 // HasData returns a boolean if a field has been set.
 func (o *ListAssignedPrincipals) HasData() bool {
-	if o != nil && o.Data != nil {
+	if o != nil && !IsNil(o.Data) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *ListAssignedPrincipals) SetData(v []AssignedPrincipalDetails) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *ListAssignedPrincipals) GetLinks() PaginationLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret PaginationLinks
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *ListAssignedPrincipals) GetLinks() PaginationLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ListAssignedPrincipals) GetLinksOk() (*PaginationLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -105,7 +108,7 @@ func (o *ListAssignedPrincipals) GetLinksOk() (*PaginationLinks, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *ListAssignedPrincipals) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *ListAssignedPrincipals) SetLinks(v PaginationLinks) {
 }
 
 func (o ListAssignedPrincipals) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ListAssignedPrincipals) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Data != nil {
+	if !IsNil(o.Data) {
 		toSerialize["data"] = o.Data
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -130,28 +141,26 @@ func (o ListAssignedPrincipals) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ListAssignedPrincipals) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ListAssignedPrincipals) UnmarshalJSON(data []byte) (err error) {
 	varListAssignedPrincipals := _ListAssignedPrincipals{}
 
-	err = json.Unmarshal(bytes, &varListAssignedPrincipals)
-	if err == nil {
-		*o = ListAssignedPrincipals(varListAssignedPrincipals)
-	} else {
+	err = json.Unmarshal(data, &varListAssignedPrincipals)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ListAssignedPrincipals(varListAssignedPrincipals)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "data")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

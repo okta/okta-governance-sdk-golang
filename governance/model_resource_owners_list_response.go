@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package governance
 import (
 	"encoding/json"
 )
+
+// checks if the ResourceOwnersListResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ResourceOwnersListResponse{}
 
 // ResourceOwnersListResponse struct for ResourceOwnersListResponse
 type ResourceOwnersListResponse struct {
@@ -57,7 +60,7 @@ func NewResourceOwnersListResponseWithDefaults() *ResourceOwnersListResponse {
 
 // GetData returns the Data field value if set, zero value otherwise.
 func (o *ResourceOwnersListResponse) GetData() []ResourceOwner {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		var ret []ResourceOwner
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *ResourceOwnersListResponse) GetData() []ResourceOwner {
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceOwnersListResponse) GetDataOk() ([]ResourceOwner, bool) {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		return nil, false
 	}
 	return o.Data, true
@@ -75,7 +78,7 @@ func (o *ResourceOwnersListResponse) GetDataOk() ([]ResourceOwner, bool) {
 
 // HasData returns a boolean if a field has been set.
 func (o *ResourceOwnersListResponse) HasData() bool {
-	if o != nil && o.Data != nil {
+	if o != nil && !IsNil(o.Data) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *ResourceOwnersListResponse) SetData(v []ResourceOwner) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *ResourceOwnersListResponse) GetLinks() ResourceOwnersListLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret ResourceOwnersListLinks
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *ResourceOwnersListResponse) GetLinks() ResourceOwnersListLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceOwnersListResponse) GetLinksOk() (*ResourceOwnersListLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -107,7 +110,7 @@ func (o *ResourceOwnersListResponse) GetLinksOk() (*ResourceOwnersListLinks, boo
 
 // HasLinks returns a boolean if a field has been set.
 func (o *ResourceOwnersListResponse) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -121,7 +124,7 @@ func (o *ResourceOwnersListResponse) SetLinks(v ResourceOwnersListLinks) {
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *ResourceOwnersListResponse) GetMetadata() ListMetadata {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		var ret ListMetadata
 		return ret
 	}
@@ -131,7 +134,7 @@ func (o *ResourceOwnersListResponse) GetMetadata() ListMetadata {
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceOwnersListResponse) GetMetadataOk() (*ListMetadata, bool) {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
 	return o.Metadata, true
@@ -139,7 +142,7 @@ func (o *ResourceOwnersListResponse) GetMetadataOk() (*ListMetadata, bool) {
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *ResourceOwnersListResponse) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
@@ -152,14 +155,22 @@ func (o *ResourceOwnersListResponse) SetMetadata(v ListMetadata) {
 }
 
 func (o ResourceOwnersListResponse) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ResourceOwnersListResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Data != nil {
+	if !IsNil(o.Data) {
 		toSerialize["data"] = o.Data
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
-	if o.Metadata != nil {
+	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
 
@@ -167,29 +178,27 @@ func (o ResourceOwnersListResponse) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ResourceOwnersListResponse) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ResourceOwnersListResponse) UnmarshalJSON(data []byte) (err error) {
 	varResourceOwnersListResponse := _ResourceOwnersListResponse{}
 
-	err = json.Unmarshal(bytes, &varResourceOwnersListResponse)
-	if err == nil {
-		*o = ResourceOwnersListResponse(varResourceOwnersListResponse)
-	} else {
+	err = json.Unmarshal(data, &varResourceOwnersListResponse)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ResourceOwnersListResponse(varResourceOwnersListResponse)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "data")
 		delete(additionalProperties, "_links")
 		delete(additionalProperties, "metadata")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

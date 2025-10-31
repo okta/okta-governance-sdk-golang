@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,20 +26,24 @@ package governance
 import (
 	"encoding/json"
 	"time"
+	"fmt"
 )
+
+// checks if the RequestTypeFull type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RequestTypeFull{}
 
 // RequestTypeFull Full representation of a request type resource
 type RequestTypeFull struct {
 	// The ID of the team that administers this request type.
-	OwnerId          string                              `json:"ownerId" validate:"regexp=^[a-fA-F\\\\d]{24}$"`
+	OwnerId string `json:"ownerId" validate:"regexp=^[a-fA-F\\\\d]{24}$"`
 	ResourceSettings RequestTypeResourceSettingsReadable `json:"resourceSettings"`
-	RequestSettings  RequestTypeRequestSettingsReadable  `json:"requestSettings"`
+	RequestSettings RequestTypeRequestSettingsReadable `json:"requestSettings"`
 	ApprovalSettings RequestTypeApprovalSettingsReadable `json:"approvalSettings"`
 	// How long the requester retains access after their request is approved and fulfilled.  Specified in [ISO 8601 duration format](https://en.wikipedia.org/wiki/ISO_8601#Durations).  #### Known limitation  Only single time unit ISO 8601 duration formats (D, H, M) are supported, for units (days, hours, minutes).  ##### Supported  | Unit       | Example | | ---------- | ------- | | D, days    | P40D    | | H, hours   | PT65H   | | M, minutes | PT90M   |  > **Note:** Mixes of units, as well as month/year/week designations, are not supported. For example, `P40DT65H`, `P40M`, `P1W` and `P1Y` are not supported.
-	AccessDuration   NullableString              `json:"accessDuration"`
-	Status           RequestTypeStatus           `json:"status"`
+	AccessDuration NullableString `json:"accessDuration"`
+	Status RequestTypeStatus `json:"status"`
 	LastUpdateSource RequestTypeLastUpdateSource `json:"lastUpdateSource"`
-	Links            RequestTypeLinks            `json:"_links"`
+	Links RequestTypeLinks `json:"_links"`
 	// Writable unique key on Create. Not modifiable on update.
 	Name string `json:"name"`
 	// Human readable description.
@@ -53,7 +57,7 @@ type RequestTypeFull struct {
 	// The ISO 8601 formatted date and time when the object was last updated
 	LastUpdated time.Time `json:"lastUpdated"`
 	// The `id` of the Okta user who last updated the object
-	LastUpdatedBy        string `json:"lastUpdatedBy"`
+	LastUpdatedBy string `json:"lastUpdatedBy"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -81,13 +85,8 @@ func NewRequestTypeFull(ownerId string, resourceSettings RequestTypeResourceSett
 // but it doesn't guarantee that properties required by API are set
 func NewRequestTypeFullWithDefaults() *RequestTypeFull {
 	this := RequestTypeFull{}
-	// Initialize RequestSettings with default "EVERYONE" requester
-	this.RequestSettings = RequestTypeRequestSettingsReadable{
-		RequestTypeRequesterEveryone: &RequestTypeRequesterEveryone{
-			Type:            "EVERYONE",
-			RequesterFields: []Field{},
-		},
-	}
+	var requestSettings RequestTypeRequestSettingsReadable = {"type":"EVERYONE","requesterFields":[]}
+	this.RequestSettings = requestSettings
 	return &this
 }
 
@@ -454,74 +453,87 @@ func (o *RequestTypeFull) SetLastUpdatedBy(v string) {
 }
 
 func (o RequestTypeFull) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RequestTypeFull) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["ownerId"] = o.OwnerId
-	}
-	if true {
-		toSerialize["resourceSettings"] = o.ResourceSettings
-	}
-	if true {
-		toSerialize["requestSettings"] = o.RequestSettings
-	}
-	if true {
-		toSerialize["approvalSettings"] = o.ApprovalSettings
-	}
-	if true {
-		toSerialize["accessDuration"] = o.AccessDuration.Get()
-	}
-	if true {
-		toSerialize["status"] = o.Status
-	}
-	if true {
-		toSerialize["lastUpdateSource"] = o.LastUpdateSource
-	}
-	if true {
-		toSerialize["_links"] = o.Links
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["description"] = o.Description
-	}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["createdBy"] = o.CreatedBy
-	}
-	if true {
-		toSerialize["created"] = o.Created
-	}
-	if true {
-		toSerialize["lastUpdated"] = o.LastUpdated
-	}
-	if true {
-		toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
-	}
+	toSerialize["ownerId"] = o.OwnerId
+	toSerialize["resourceSettings"] = o.ResourceSettings
+	toSerialize["requestSettings"] = o.RequestSettings
+	toSerialize["approvalSettings"] = o.ApprovalSettings
+	toSerialize["accessDuration"] = o.AccessDuration.Get()
+	toSerialize["status"] = o.Status
+	toSerialize["lastUpdateSource"] = o.LastUpdateSource
+	toSerialize["_links"] = o.Links
+	toSerialize["name"] = o.Name
+	toSerialize["description"] = o.Description
+	toSerialize["id"] = o.Id
+	toSerialize["createdBy"] = o.CreatedBy
+	toSerialize["created"] = o.Created
+	toSerialize["lastUpdated"] = o.LastUpdated
+	toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RequestTypeFull) UnmarshalJSON(bytes []byte) (err error) {
+func (o *RequestTypeFull) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"ownerId",
+		"resourceSettings",
+		"requestSettings",
+		"approvalSettings",
+		"accessDuration",
+		"status",
+		"lastUpdateSource",
+		"_links",
+		"name",
+		"description",
+		"id",
+		"createdBy",
+		"created",
+		"lastUpdated",
+		"lastUpdatedBy",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varRequestTypeFull := _RequestTypeFull{}
 
-	err = json.Unmarshal(bytes, &varRequestTypeFull)
-	if err == nil {
-		*o = RequestTypeFull(varRequestTypeFull)
-	} else {
+	err = json.Unmarshal(data, &varRequestTypeFull)
+
+	if err != nil {
 		return err
 	}
 
+	*o = RequestTypeFull(varRequestTypeFull)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "ownerId")
 		delete(additionalProperties, "resourceSettings")
 		delete(additionalProperties, "requestSettings")
@@ -538,8 +550,6 @@ func (o *RequestTypeFull) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "lastUpdated")
 		delete(additionalProperties, "lastUpdatedBy")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -580,3 +590,5 @@ func (v *NullableRequestTypeFull) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

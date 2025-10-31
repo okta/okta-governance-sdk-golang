@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,7 +27,10 @@ import (
 	"encoding/json"
 )
 
-// AutoRemediationSettings When a group is selected to be automatically remediated, if a user is assigned to an app through this group,  the user will be automatically removed from the group if their access to the app is revoked in the Access Certification Campaign. Group is currently the only supported type of resources that can be automatically remediated.
+// checks if the AutoRemediationSettings type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AutoRemediationSettings{}
+
+// AutoRemediationSettings When a group is selected to be automatically remediated, if a user is assigned to an app through this group, the user will be automatically removed from the group if their access to the app is revoked in the Access Certification Campaign. Group is currently the only supported type of resources that can be automatically remediated.
 type AutoRemediationSettings struct {
 	// An array of resources to be automatically remediated
 	IncludeOnly []AutoRemediationSettingsIncludeOnlyInner `json:"includeOnly,omitempty"`
@@ -57,7 +60,7 @@ func NewAutoRemediationSettingsWithDefaults() *AutoRemediationSettings {
 
 // GetIncludeOnly returns the IncludeOnly field value if set, zero value otherwise.
 func (o *AutoRemediationSettings) GetIncludeOnly() []AutoRemediationSettingsIncludeOnlyInner {
-	if o == nil || o.IncludeOnly == nil {
+	if o == nil || IsNil(o.IncludeOnly) {
 		var ret []AutoRemediationSettingsIncludeOnlyInner
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *AutoRemediationSettings) GetIncludeOnly() []AutoRemediationSettingsIncl
 // GetIncludeOnlyOk returns a tuple with the IncludeOnly field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AutoRemediationSettings) GetIncludeOnlyOk() ([]AutoRemediationSettingsIncludeOnlyInner, bool) {
-	if o == nil || o.IncludeOnly == nil {
+	if o == nil || IsNil(o.IncludeOnly) {
 		return nil, false
 	}
 	return o.IncludeOnly, true
@@ -75,7 +78,7 @@ func (o *AutoRemediationSettings) GetIncludeOnlyOk() ([]AutoRemediationSettingsI
 
 // HasIncludeOnly returns a boolean if a field has been set.
 func (o *AutoRemediationSettings) HasIncludeOnly() bool {
-	if o != nil && o.IncludeOnly != nil {
+	if o != nil && !IsNil(o.IncludeOnly) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *AutoRemediationSettings) SetIncludeOnly(v []AutoRemediationSettingsIncl
 
 // GetIncludeAllIndirectAssignments returns the IncludeAllIndirectAssignments field value if set, zero value otherwise.
 func (o *AutoRemediationSettings) GetIncludeAllIndirectAssignments() bool {
-	if o == nil || o.IncludeAllIndirectAssignments == nil {
+	if o == nil || IsNil(o.IncludeAllIndirectAssignments) {
 		var ret bool
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *AutoRemediationSettings) GetIncludeAllIndirectAssignments() bool {
 // GetIncludeAllIndirectAssignmentsOk returns a tuple with the IncludeAllIndirectAssignments field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AutoRemediationSettings) GetIncludeAllIndirectAssignmentsOk() (*bool, bool) {
-	if o == nil || o.IncludeAllIndirectAssignments == nil {
+	if o == nil || IsNil(o.IncludeAllIndirectAssignments) {
 		return nil, false
 	}
 	return o.IncludeAllIndirectAssignments, true
@@ -107,7 +110,7 @@ func (o *AutoRemediationSettings) GetIncludeAllIndirectAssignmentsOk() (*bool, b
 
 // HasIncludeAllIndirectAssignments returns a boolean if a field has been set.
 func (o *AutoRemediationSettings) HasIncludeAllIndirectAssignments() bool {
-	if o != nil && o.IncludeAllIndirectAssignments != nil {
+	if o != nil && !IsNil(o.IncludeAllIndirectAssignments) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *AutoRemediationSettings) SetIncludeAllIndirectAssignments(v bool) {
 }
 
 func (o AutoRemediationSettings) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AutoRemediationSettings) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.IncludeOnly != nil {
+	if !IsNil(o.IncludeOnly) {
 		toSerialize["includeOnly"] = o.IncludeOnly
 	}
-	if o.IncludeAllIndirectAssignments != nil {
+	if !IsNil(o.IncludeAllIndirectAssignments) {
 		toSerialize["includeAllIndirectAssignments"] = o.IncludeAllIndirectAssignments
 	}
 
@@ -132,28 +143,26 @@ func (o AutoRemediationSettings) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AutoRemediationSettings) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AutoRemediationSettings) UnmarshalJSON(data []byte) (err error) {
 	varAutoRemediationSettings := _AutoRemediationSettings{}
 
-	err = json.Unmarshal(bytes, &varAutoRemediationSettings)
-	if err == nil {
-		*o = AutoRemediationSettings(varAutoRemediationSettings)
-	} else {
+	err = json.Unmarshal(data, &varAutoRemediationSettings)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AutoRemediationSettings(varAutoRemediationSettings)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "includeOnly")
 		delete(additionalProperties, "includeAllIndirectAssignments")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,8 +25,12 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the PrincipalAccess type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PrincipalAccess{}
 
 // PrincipalAccess Full representation of a principal access
 type PrincipalAccess struct {
@@ -166,7 +170,7 @@ func (o *PrincipalAccess) SetTargetPrincipal(v TargetPrincipalFull) {
 
 // GetExpirationTime returns the ExpirationTime field value if set, zero value otherwise.
 func (o *PrincipalAccess) GetExpirationTime() time.Time {
-	if o == nil || o.ExpirationTime == nil {
+	if o == nil || IsNil(o.ExpirationTime) {
 		var ret time.Time
 		return ret
 	}
@@ -176,7 +180,7 @@ func (o *PrincipalAccess) GetExpirationTime() time.Time {
 // GetExpirationTimeOk returns a tuple with the ExpirationTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalAccess) GetExpirationTimeOk() (*time.Time, bool) {
-	if o == nil || o.ExpirationTime == nil {
+	if o == nil || IsNil(o.ExpirationTime) {
 		return nil, false
 	}
 	return o.ExpirationTime, true
@@ -184,7 +188,7 @@ func (o *PrincipalAccess) GetExpirationTimeOk() (*time.Time, bool) {
 
 // HasExpirationTime returns a boolean if a field has been set.
 func (o *PrincipalAccess) HasExpirationTime() bool {
-	if o != nil && o.ExpirationTime != nil {
+	if o != nil && !IsNil(o.ExpirationTime) {
 		return true
 	}
 
@@ -198,7 +202,7 @@ func (o *PrincipalAccess) SetExpirationTime(v time.Time) {
 
 // GetTimeZone returns the TimeZone field value if set, zero value otherwise.
 func (o *PrincipalAccess) GetTimeZone() string {
-	if o == nil || o.TimeZone == nil {
+	if o == nil || IsNil(o.TimeZone) {
 		var ret string
 		return ret
 	}
@@ -208,7 +212,7 @@ func (o *PrincipalAccess) GetTimeZone() string {
 // GetTimeZoneOk returns a tuple with the TimeZone field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalAccess) GetTimeZoneOk() (*string, bool) {
-	if o == nil || o.TimeZone == nil {
+	if o == nil || IsNil(o.TimeZone) {
 		return nil, false
 	}
 	return o.TimeZone, true
@@ -216,7 +220,7 @@ func (o *PrincipalAccess) GetTimeZoneOk() (*string, bool) {
 
 // HasTimeZone returns a boolean if a field has been set.
 func (o *PrincipalAccess) HasTimeZone() bool {
-	if o != nil && o.TimeZone != nil {
+	if o != nil && !IsNil(o.TimeZone) {
 		return true
 	}
 
@@ -230,7 +234,7 @@ func (o *PrincipalAccess) SetTimeZone(v string) {
 
 // GetBase returns the Base field value if set, zero value otherwise.
 func (o *PrincipalAccess) GetBase() Grant {
-	if o == nil || o.Base == nil {
+	if o == nil || IsNil(o.Base) {
 		var ret Grant
 		return ret
 	}
@@ -240,7 +244,7 @@ func (o *PrincipalAccess) GetBase() Grant {
 // GetBaseOk returns a tuple with the Base field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalAccess) GetBaseOk() (*Grant, bool) {
-	if o == nil || o.Base == nil {
+	if o == nil || IsNil(o.Base) {
 		return nil, false
 	}
 	return o.Base, true
@@ -248,7 +252,7 @@ func (o *PrincipalAccess) GetBaseOk() (*Grant, bool) {
 
 // HasBase returns a boolean if a field has been set.
 func (o *PrincipalAccess) HasBase() bool {
-	if o != nil && o.Base != nil {
+	if o != nil && !IsNil(o.Base) {
 		return true
 	}
 
@@ -262,7 +266,7 @@ func (o *PrincipalAccess) SetBase(v Grant) {
 
 // GetAdditional returns the Additional field value if set, zero value otherwise.
 func (o *PrincipalAccess) GetAdditional() []Grant {
-	if o == nil || o.Additional == nil {
+	if o == nil || IsNil(o.Additional) {
 		var ret []Grant
 		return ret
 	}
@@ -272,7 +276,7 @@ func (o *PrincipalAccess) GetAdditional() []Grant {
 // GetAdditionalOk returns a tuple with the Additional field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalAccess) GetAdditionalOk() ([]Grant, bool) {
-	if o == nil || o.Additional == nil {
+	if o == nil || IsNil(o.Additional) {
 		return nil, false
 	}
 	return o.Additional, true
@@ -280,7 +284,7 @@ func (o *PrincipalAccess) GetAdditionalOk() ([]Grant, bool) {
 
 // HasAdditional returns a boolean if a field has been set.
 func (o *PrincipalAccess) HasAdditional() bool {
-	if o != nil && o.Additional != nil {
+	if o != nil && !IsNil(o.Additional) {
 		return true
 	}
 
@@ -293,29 +297,29 @@ func (o *PrincipalAccess) SetAdditional(v []Grant) {
 }
 
 func (o PrincipalAccess) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PrincipalAccess) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["parentResourceOrn"] = o.ParentResourceOrn
-	}
-	if true {
-		toSerialize["parent"] = o.Parent
-	}
-	if true {
-		toSerialize["targetPrincipalOrn"] = o.TargetPrincipalOrn
-	}
-	if true {
-		toSerialize["targetPrincipal"] = o.TargetPrincipal
-	}
-	if o.ExpirationTime != nil {
+	toSerialize["parentResourceOrn"] = o.ParentResourceOrn
+	toSerialize["parent"] = o.Parent
+	toSerialize["targetPrincipalOrn"] = o.TargetPrincipalOrn
+	toSerialize["targetPrincipal"] = o.TargetPrincipal
+	if !IsNil(o.ExpirationTime) {
 		toSerialize["expirationTime"] = o.ExpirationTime
 	}
-	if o.TimeZone != nil {
+	if !IsNil(o.TimeZone) {
 		toSerialize["timeZone"] = o.TimeZone
 	}
-	if o.Base != nil {
+	if !IsNil(o.Base) {
 		toSerialize["base"] = o.Base
 	}
-	if o.Additional != nil {
+	if !IsNil(o.Additional) {
 		toSerialize["additional"] = o.Additional
 	}
 
@@ -323,23 +327,47 @@ func (o PrincipalAccess) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PrincipalAccess) UnmarshalJSON(bytes []byte) (err error) {
-	varPrincipalAccess := _PrincipalAccess{}
+func (o *PrincipalAccess) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"parentResourceOrn",
+		"parent",
+		"targetPrincipalOrn",
+		"targetPrincipal",
+	}
 
-	err = json.Unmarshal(bytes, &varPrincipalAccess)
-	if err == nil {
-		*o = PrincipalAccess(varPrincipalAccess)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPrincipalAccess := _PrincipalAccess{}
+
+	err = json.Unmarshal(data, &varPrincipalAccess)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PrincipalAccess(varPrincipalAccess)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "parentResourceOrn")
 		delete(additionalProperties, "parent")
 		delete(additionalProperties, "targetPrincipalOrn")
@@ -349,8 +377,6 @@ func (o *PrincipalAccess) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "base")
 		delete(additionalProperties, "additional")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

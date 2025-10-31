@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,8 +25,12 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the CampaignFull type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CampaignFull{}
 
 // CampaignFull Full representation of a Campaign resource
 type CampaignFull struct {
@@ -259,7 +263,7 @@ func (o *CampaignFull) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *CampaignFull) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -269,7 +273,7 @@ func (o *CampaignFull) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CampaignFull) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -277,7 +281,7 @@ func (o *CampaignFull) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *CampaignFull) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -291,7 +295,7 @@ func (o *CampaignFull) SetDescription(v string) {
 
 // GetCampaignType returns the CampaignType field value if set, zero value otherwise.
 func (o *CampaignFull) GetCampaignType() CampaignType {
-	if o == nil || o.CampaignType == nil {
+	if o == nil || IsNil(o.CampaignType) {
 		var ret CampaignType
 		return ret
 	}
@@ -301,7 +305,7 @@ func (o *CampaignFull) GetCampaignType() CampaignType {
 // GetCampaignTypeOk returns a tuple with the CampaignType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CampaignFull) GetCampaignTypeOk() (*CampaignType, bool) {
-	if o == nil || o.CampaignType == nil {
+	if o == nil || IsNil(o.CampaignType) {
 		return nil, false
 	}
 	return o.CampaignType, true
@@ -309,7 +313,7 @@ func (o *CampaignFull) GetCampaignTypeOk() (*CampaignType, bool) {
 
 // HasCampaignType returns a boolean if a field has been set.
 func (o *CampaignFull) HasCampaignType() bool {
-	if o != nil && o.CampaignType != nil {
+	if o != nil && !IsNil(o.CampaignType) {
 		return true
 	}
 
@@ -371,7 +375,7 @@ func (o *CampaignFull) SetResourceSettings(v ResourceSettingsMutable) {
 
 // GetPrincipalScopeSettings returns the PrincipalScopeSettings field value if set, zero value otherwise.
 func (o *CampaignFull) GetPrincipalScopeSettings() PrincipalScopeSettingsMutable {
-	if o == nil || o.PrincipalScopeSettings == nil {
+	if o == nil || IsNil(o.PrincipalScopeSettings) {
 		var ret PrincipalScopeSettingsMutable
 		return ret
 	}
@@ -381,7 +385,7 @@ func (o *CampaignFull) GetPrincipalScopeSettings() PrincipalScopeSettingsMutable
 // GetPrincipalScopeSettingsOk returns a tuple with the PrincipalScopeSettings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CampaignFull) GetPrincipalScopeSettingsOk() (*PrincipalScopeSettingsMutable, bool) {
-	if o == nil || o.PrincipalScopeSettings == nil {
+	if o == nil || IsNil(o.PrincipalScopeSettings) {
 		return nil, false
 	}
 	return o.PrincipalScopeSettings, true
@@ -389,7 +393,7 @@ func (o *CampaignFull) GetPrincipalScopeSettingsOk() (*PrincipalScopeSettingsMut
 
 // HasPrincipalScopeSettings returns a boolean if a field has been set.
 func (o *CampaignFull) HasPrincipalScopeSettings() bool {
-	if o != nil && o.PrincipalScopeSettings != nil {
+	if o != nil && !IsNil(o.PrincipalScopeSettings) {
 		return true
 	}
 
@@ -427,7 +431,7 @@ func (o *CampaignFull) SetReviewerSettings(v ReviewerSettingsMutable) {
 
 // GetNotificationSettings returns the NotificationSettings field value if set, zero value otherwise.
 func (o *CampaignFull) GetNotificationSettings() NotificationSettings {
-	if o == nil || o.NotificationSettings == nil {
+	if o == nil || IsNil(o.NotificationSettings) {
 		var ret NotificationSettings
 		return ret
 	}
@@ -437,7 +441,7 @@ func (o *CampaignFull) GetNotificationSettings() NotificationSettings {
 // GetNotificationSettingsOk returns a tuple with the NotificationSettings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CampaignFull) GetNotificationSettingsOk() (*NotificationSettings, bool) {
-	if o == nil || o.NotificationSettings == nil {
+	if o == nil || IsNil(o.NotificationSettings) {
 		return nil, false
 	}
 	return o.NotificationSettings, true
@@ -445,7 +449,7 @@ func (o *CampaignFull) GetNotificationSettingsOk() (*NotificationSettings, bool)
 
 // HasNotificationSettings returns a boolean if a field has been set.
 func (o *CampaignFull) HasNotificationSettings() bool {
-	if o != nil && o.NotificationSettings != nil {
+	if o != nil && !IsNil(o.NotificationSettings) {
 		return true
 	}
 
@@ -483,7 +487,7 @@ func (o *CampaignFull) SetRemediationSettings(v RemediationSettings) {
 
 // GetRecurringCampaignId returns the RecurringCampaignId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CampaignFull) GetRecurringCampaignId() string {
-	if o == nil || o.RecurringCampaignId.Get() == nil {
+	if o == nil || IsNil(o.RecurringCampaignId.Get()) {
 		var ret string
 		return ret
 	}
@@ -549,80 +553,96 @@ func (o *CampaignFull) SetStatus(v CampaignStatus) {
 }
 
 func (o CampaignFull) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CampaignFull) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["_links"] = o.Links
-	}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["createdBy"] = o.CreatedBy
-	}
-	if true {
-		toSerialize["created"] = o.Created
-	}
-	if true {
-		toSerialize["lastUpdated"] = o.LastUpdated
-	}
-	if true {
-		toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Description != nil {
+	toSerialize["_links"] = o.Links
+	toSerialize["id"] = o.Id
+	toSerialize["createdBy"] = o.CreatedBy
+	toSerialize["created"] = o.Created
+	toSerialize["lastUpdated"] = o.LastUpdated
+	toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if o.CampaignType != nil {
+	if !IsNil(o.CampaignType) {
 		toSerialize["campaignType"] = o.CampaignType
 	}
-	if true {
-		toSerialize["scheduleSettings"] = o.ScheduleSettings
-	}
-	if true {
-		toSerialize["resourceSettings"] = o.ResourceSettings
-	}
-	if o.PrincipalScopeSettings != nil {
+	toSerialize["scheduleSettings"] = o.ScheduleSettings
+	toSerialize["resourceSettings"] = o.ResourceSettings
+	if !IsNil(o.PrincipalScopeSettings) {
 		toSerialize["principalScopeSettings"] = o.PrincipalScopeSettings
 	}
-	if true {
-		toSerialize["reviewerSettings"] = o.ReviewerSettings
-	}
-	if o.NotificationSettings != nil {
+	toSerialize["reviewerSettings"] = o.ReviewerSettings
+	if !IsNil(o.NotificationSettings) {
 		toSerialize["notificationSettings"] = o.NotificationSettings
 	}
-	if true {
-		toSerialize["remediationSettings"] = o.RemediationSettings
-	}
+	toSerialize["remediationSettings"] = o.RemediationSettings
 	if o.RecurringCampaignId.IsSet() {
 		toSerialize["recurringCampaignId"] = o.RecurringCampaignId.Get()
 	}
-	if true {
-		toSerialize["status"] = o.Status
-	}
+	toSerialize["status"] = o.Status
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *CampaignFull) UnmarshalJSON(bytes []byte) (err error) {
-	varCampaignFull := _CampaignFull{}
+func (o *CampaignFull) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"_links",
+		"id",
+		"createdBy",
+		"created",
+		"lastUpdated",
+		"lastUpdatedBy",
+		"name",
+		"scheduleSettings",
+		"resourceSettings",
+		"reviewerSettings",
+		"remediationSettings",
+		"status",
+	}
 
-	err = json.Unmarshal(bytes, &varCampaignFull)
-	if err == nil {
-		*o = CampaignFull(varCampaignFull)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varCampaignFull := _CampaignFull{}
+
+	err = json.Unmarshal(data, &varCampaignFull)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CampaignFull(varCampaignFull)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "_links")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "createdBy")
@@ -641,8 +661,6 @@ func (o *CampaignFull) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "recurringCampaignId")
 		delete(additionalProperties, "status")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

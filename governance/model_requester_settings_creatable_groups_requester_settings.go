@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -24,14 +24,21 @@ Contact: devex-public@okta.com
 package governance
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the RequesterSettingsCreatableGroupsRequesterSettings type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RequesterSettingsCreatableGroupsRequesterSettings{}
 
 // RequesterSettingsCreatableGroupsRequesterSettings A requester settings indicating that access request can be submitted by specific groups.
 type RequesterSettingsCreatableGroupsRequesterSettings struct {
 	Type   string                      `json:"type"`
 	Groups []GroupsArrayCreatableInner `json:"groups"`
 }
+
+type _RequesterSettingsCreatableGroupsRequesterSettings RequesterSettingsCreatableGroupsRequesterSettings
 
 // NewRequesterSettingsCreatableGroupsRequesterSettings instantiates a new RequesterSettingsCreatableGroupsRequesterSettings object
 // This constructor will assign default values to properties that have it defined,
@@ -101,14 +108,56 @@ func (o *RequesterSettingsCreatableGroupsRequesterSettings) SetGroups(v []Groups
 }
 
 func (o RequesterSettingsCreatableGroupsRequesterSettings) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if true {
-		toSerialize["groups"] = o.Groups
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o RequesterSettingsCreatableGroupsRequesterSettings) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["type"] = o.Type
+	toSerialize["groups"] = o.Groups
+	return toSerialize, nil
+}
+
+func (o *RequesterSettingsCreatableGroupsRequesterSettings) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"type",
+		"groups",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRequesterSettingsCreatableGroupsRequesterSettings := _RequesterSettingsCreatableGroupsRequesterSettings{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varRequesterSettingsCreatableGroupsRequesterSettings)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RequesterSettingsCreatableGroupsRequesterSettings(varRequesterSettingsCreatableGroupsRequesterSettings)
+
+	return err
 }
 
 type NullableRequesterSettingsCreatableGroupsRequesterSettings struct {

@@ -485,7 +485,6 @@ Class | Method | HTTP request | Description
  - [RequestResolutionCreatable](docs/RequestResolutionCreatable.md)
  - [RequestResolutionTerminalState](docs/RequestResolutionTerminalState.md)
  - [RequestResourceCatalogEntryCreatable](docs/RequestResourceCatalogEntryCreatable.md)
- - [RequestResourceCreatable](docs/RequestResourceCreatable.md)
  - [RequestRevocationStatus](docs/RequestRevocationStatus.md)
  - [RequestSequence](docs/RequestSequence.md)
  - [RequestSequencesList](docs/RequestSequencesList.md)

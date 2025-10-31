@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,22 +25,26 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the RequestTypeCreatable type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RequestTypeCreatable{}
 
 // RequestTypeCreatable The properties expected in an initial Add request
 type RequestTypeCreatable struct {
 	Status *RequestTypeCreatableStatus `json:"status,omitempty"`
 	// The ID of the team that administers this request type.
-	OwnerId          string                             `json:"ownerId" validate:"regexp=^[a-fA-F\\\\d]{24}$"`
+	OwnerId string `json:"ownerId" validate:"regexp=^[a-fA-F\\\\d]{24}$"`
 	ResourceSettings RequestTypeResourceSettingsMutable `json:"resourceSettings"`
-	RequestSettings  *RequestTypeRequestSettingsMutable `json:"requestSettings,omitempty"`
+	RequestSettings *RequestTypeRequestSettingsMutable `json:"requestSettings,omitempty"`
 	ApprovalSettings RequestTypeApprovalSettingsMutable `json:"approvalSettings"`
 	// How long the requester retains access after their request is approved and fulfilled.  Specified in [ISO 8601 duration format](https://en.wikipedia.org/wiki/ISO_8601#Durations).  #### Known limitation  Only single time unit ISO 8601 duration formats (D, H, M) are supported, for units (days, hours, minutes).  ##### Supported  | Unit       | Example | | ---------- | ------- | | D, days    | P40D    | | H, hours   | PT65H   | | M, minutes | PT90M   |  > **Note:** Mixes of units, as well as month/year/week designations, are not supported. For example, `P40DT65H`, `P40M`, `P1W` and `P1Y` are not supported.
 	AccessDuration NullableString `json:"accessDuration,omitempty"`
 	// Writable unique key on Create. Not modifiable on update.
 	Name string `json:"name"`
 	// Human readable description.
-	Description          *string `json:"description,omitempty"`
+	Description *string `json:"description,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -63,14 +67,14 @@ func NewRequestTypeCreatableWithDefaults() *RequestTypeCreatable {
 	this := RequestTypeCreatable{}
 	var status RequestTypeCreatableStatus = REQUESTTYPECREATABLESTATUS_DRAFT
 	this.Status = &status
-	var requestSettings RequestTypeRequestSettingsMutable
+	var requestSettings RequestTypeRequestSettingsMutable = {"type":"EVERYONE","requesterFields":[]}
 	this.RequestSettings = &requestSettings
 	return &this
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *RequestTypeCreatable) GetStatus() RequestTypeCreatableStatus {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret RequestTypeCreatableStatus
 		return ret
 	}
@@ -80,7 +84,7 @@ func (o *RequestTypeCreatable) GetStatus() RequestTypeCreatableStatus {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestTypeCreatable) GetStatusOk() (*RequestTypeCreatableStatus, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -88,7 +92,7 @@ func (o *RequestTypeCreatable) GetStatusOk() (*RequestTypeCreatableStatus, bool)
 
 // HasStatus returns a boolean if a field has been set.
 func (o *RequestTypeCreatable) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -150,7 +154,7 @@ func (o *RequestTypeCreatable) SetResourceSettings(v RequestTypeResourceSettings
 
 // GetRequestSettings returns the RequestSettings field value if set, zero value otherwise.
 func (o *RequestTypeCreatable) GetRequestSettings() RequestTypeRequestSettingsMutable {
-	if o == nil || o.RequestSettings == nil {
+	if o == nil || IsNil(o.RequestSettings) {
 		var ret RequestTypeRequestSettingsMutable
 		return ret
 	}
@@ -160,7 +164,7 @@ func (o *RequestTypeCreatable) GetRequestSettings() RequestTypeRequestSettingsMu
 // GetRequestSettingsOk returns a tuple with the RequestSettings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestTypeCreatable) GetRequestSettingsOk() (*RequestTypeRequestSettingsMutable, bool) {
-	if o == nil || o.RequestSettings == nil {
+	if o == nil || IsNil(o.RequestSettings) {
 		return nil, false
 	}
 	return o.RequestSettings, true
@@ -168,7 +172,7 @@ func (o *RequestTypeCreatable) GetRequestSettingsOk() (*RequestTypeRequestSettin
 
 // HasRequestSettings returns a boolean if a field has been set.
 func (o *RequestTypeCreatable) HasRequestSettings() bool {
-	if o != nil && o.RequestSettings != nil {
+	if o != nil && !IsNil(o.RequestSettings) {
 		return true
 	}
 
@@ -206,7 +210,7 @@ func (o *RequestTypeCreatable) SetApprovalSettings(v RequestTypeApprovalSettings
 
 // GetAccessDuration returns the AccessDuration field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *RequestTypeCreatable) GetAccessDuration() string {
-	if o == nil || o.AccessDuration.Get() == nil {
+	if o == nil || IsNil(o.AccessDuration.Get()) {
 		var ret string
 		return ret
 	}
@@ -236,7 +240,6 @@ func (o *RequestTypeCreatable) HasAccessDuration() bool {
 func (o *RequestTypeCreatable) SetAccessDuration(v string) {
 	o.AccessDuration.Set(&v)
 }
-
 // SetAccessDurationNil sets the value for AccessDuration to be an explicit nil
 func (o *RequestTypeCreatable) SetAccessDurationNil() {
 	o.AccessDuration.Set(nil)
@@ -273,7 +276,7 @@ func (o *RequestTypeCreatable) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *RequestTypeCreatable) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -283,7 +286,7 @@ func (o *RequestTypeCreatable) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestTypeCreatable) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -291,7 +294,7 @@ func (o *RequestTypeCreatable) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *RequestTypeCreatable) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -304,29 +307,29 @@ func (o *RequestTypeCreatable) SetDescription(v string) {
 }
 
 func (o RequestTypeCreatable) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RequestTypeCreatable) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if true {
-		toSerialize["ownerId"] = o.OwnerId
-	}
-	if true {
-		toSerialize["resourceSettings"] = o.ResourceSettings
-	}
-	if o.RequestSettings != nil {
+	toSerialize["ownerId"] = o.OwnerId
+	toSerialize["resourceSettings"] = o.ResourceSettings
+	if !IsNil(o.RequestSettings) {
 		toSerialize["requestSettings"] = o.RequestSettings
 	}
-	if true {
-		toSerialize["approvalSettings"] = o.ApprovalSettings
-	}
+	toSerialize["approvalSettings"] = o.ApprovalSettings
 	if o.AccessDuration.IsSet() {
 		toSerialize["accessDuration"] = o.AccessDuration.Get()
 	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Description != nil {
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
 
@@ -334,23 +337,47 @@ func (o RequestTypeCreatable) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RequestTypeCreatable) UnmarshalJSON(bytes []byte) (err error) {
+func (o *RequestTypeCreatable) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"ownerId",
+		"resourceSettings",
+		"approvalSettings",
+		"name",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varRequestTypeCreatable := _RequestTypeCreatable{}
 
-	err = json.Unmarshal(bytes, &varRequestTypeCreatable)
-	if err == nil {
-		*o = RequestTypeCreatable(varRequestTypeCreatable)
-	} else {
+	err = json.Unmarshal(data, &varRequestTypeCreatable)
+
+	if err != nil {
 		return err
 	}
 
+	*o = RequestTypeCreatable(varRequestTypeCreatable)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "ownerId")
 		delete(additionalProperties, "resourceSettings")
@@ -360,8 +387,6 @@ func (o *RequestTypeCreatable) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "description")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
@@ -402,3 +427,5 @@ func (v *NullableRequestTypeCreatable) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

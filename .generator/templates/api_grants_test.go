@@ -1,6 +1,9 @@
 package governance
 
-import "testing"
+import (
+	apiClient "github.com/okta/okta-governance-sdk-golang"
+	"testing"
+)
 
 func TestGrantsAPIService_CreateGrant(t *testing.T) {
 	_, a, err := apiClient.GrantsAPI.CreateGrant(apiClient.cfg.Context).GrantCreatable(buildGrant()).Execute()

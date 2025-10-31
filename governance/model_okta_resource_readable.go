@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package governance
 import (
 	"encoding/json"
 )
+
+// checks if the OktaResourceReadable type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OktaResourceReadable{}
 
 // OktaResourceReadable Identifies a unique Okta resource
 type OktaResourceReadable struct {
@@ -59,7 +62,7 @@ func NewOktaResourceReadableWithDefaults() *OktaResourceReadable {
 
 // GetResourceName returns the ResourceName field value if set, zero value otherwise.
 func (o *OktaResourceReadable) GetResourceName() string {
-	if o == nil || o.ResourceName == nil {
+	if o == nil || IsNil(o.ResourceName) {
 		var ret string
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *OktaResourceReadable) GetResourceName() string {
 // GetResourceNameOk returns a tuple with the ResourceName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OktaResourceReadable) GetResourceNameOk() (*string, bool) {
-	if o == nil || o.ResourceName == nil {
+	if o == nil || IsNil(o.ResourceName) {
 		return nil, false
 	}
 	return o.ResourceName, true
@@ -77,7 +80,7 @@ func (o *OktaResourceReadable) GetResourceNameOk() (*string, bool) {
 
 // HasResourceName returns a boolean if a field has been set.
 func (o *OktaResourceReadable) HasResourceName() bool {
-	if o != nil && o.ResourceName != nil {
+	if o != nil && !IsNil(o.ResourceName) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *OktaResourceReadable) SetResourceName(v string) {
 
 // GetResourceId returns the ResourceId field value if set, zero value otherwise.
 func (o *OktaResourceReadable) GetResourceId() string {
-	if o == nil || o.ResourceId == nil {
+	if o == nil || IsNil(o.ResourceId) {
 		var ret string
 		return ret
 	}
@@ -101,7 +104,7 @@ func (o *OktaResourceReadable) GetResourceId() string {
 // GetResourceIdOk returns a tuple with the ResourceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OktaResourceReadable) GetResourceIdOk() (*string, bool) {
-	if o == nil || o.ResourceId == nil {
+	if o == nil || IsNil(o.ResourceId) {
 		return nil, false
 	}
 	return o.ResourceId, true
@@ -109,7 +112,7 @@ func (o *OktaResourceReadable) GetResourceIdOk() (*string, bool) {
 
 // HasResourceId returns a boolean if a field has been set.
 func (o *OktaResourceReadable) HasResourceId() bool {
-	if o != nil && o.ResourceId != nil {
+	if o != nil && !IsNil(o.ResourceId) {
 		return true
 	}
 
@@ -123,7 +126,7 @@ func (o *OktaResourceReadable) SetResourceId(v string) {
 
 // GetResourceType returns the ResourceType field value if set, zero value otherwise.
 func (o *OktaResourceReadable) GetResourceType() string {
-	if o == nil || o.ResourceType == nil {
+	if o == nil || IsNil(o.ResourceType) {
 		var ret string
 		return ret
 	}
@@ -133,7 +136,7 @@ func (o *OktaResourceReadable) GetResourceType() string {
 // GetResourceTypeOk returns a tuple with the ResourceType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OktaResourceReadable) GetResourceTypeOk() (*string, bool) {
-	if o == nil || o.ResourceType == nil {
+	if o == nil || IsNil(o.ResourceType) {
 		return nil, false
 	}
 	return o.ResourceType, true
@@ -141,7 +144,7 @@ func (o *OktaResourceReadable) GetResourceTypeOk() (*string, bool) {
 
 // HasResourceType returns a boolean if a field has been set.
 func (o *OktaResourceReadable) HasResourceType() bool {
-	if o != nil && o.ResourceType != nil {
+	if o != nil && !IsNil(o.ResourceType) {
 		return true
 	}
 
@@ -154,14 +157,22 @@ func (o *OktaResourceReadable) SetResourceType(v string) {
 }
 
 func (o OktaResourceReadable) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OktaResourceReadable) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ResourceName != nil {
+	if !IsNil(o.ResourceName) {
 		toSerialize["resourceName"] = o.ResourceName
 	}
-	if o.ResourceId != nil {
+	if !IsNil(o.ResourceId) {
 		toSerialize["resourceId"] = o.ResourceId
 	}
-	if o.ResourceType != nil {
+	if !IsNil(o.ResourceType) {
 		toSerialize["resourceType"] = o.ResourceType
 	}
 
@@ -169,29 +180,27 @@ func (o OktaResourceReadable) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *OktaResourceReadable) UnmarshalJSON(bytes []byte) (err error) {
+func (o *OktaResourceReadable) UnmarshalJSON(data []byte) (err error) {
 	varOktaResourceReadable := _OktaResourceReadable{}
 
-	err = json.Unmarshal(bytes, &varOktaResourceReadable)
-	if err == nil {
-		*o = OktaResourceReadable(varOktaResourceReadable)
-	} else {
+	err = json.Unmarshal(data, &varOktaResourceReadable)
+
+	if err != nil {
 		return err
 	}
 
+	*o = OktaResourceReadable(varOktaResourceReadable)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "resourceName")
 		delete(additionalProperties, "resourceId")
 		delete(additionalProperties, "resourceType")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

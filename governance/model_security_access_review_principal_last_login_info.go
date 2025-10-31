@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 	"time"
 )
+
+// checks if the SecurityAccessReviewPrincipalLastLoginInfo type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SecurityAccessReviewPrincipalLastLoginInfo{}
 
 // SecurityAccessReviewPrincipalLastLoginInfo struct for SecurityAccessReviewPrincipalLastLoginInfo
 type SecurityAccessReviewPrincipalLastLoginInfo struct {
@@ -61,7 +64,7 @@ func NewSecurityAccessReviewPrincipalLastLoginInfoWithDefaults() *SecurityAccess
 
 // GetDate returns the Date field value if set, zero value otherwise.
 func (o *SecurityAccessReviewPrincipalLastLoginInfo) GetDate() time.Time {
-	if o == nil || o.Date == nil {
+	if o == nil || IsNil(o.Date) {
 		var ret time.Time
 		return ret
 	}
@@ -71,7 +74,7 @@ func (o *SecurityAccessReviewPrincipalLastLoginInfo) GetDate() time.Time {
 // GetDateOk returns a tuple with the Date field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityAccessReviewPrincipalLastLoginInfo) GetDateOk() (*time.Time, bool) {
-	if o == nil || o.Date == nil {
+	if o == nil || IsNil(o.Date) {
 		return nil, false
 	}
 	return o.Date, true
@@ -79,7 +82,7 @@ func (o *SecurityAccessReviewPrincipalLastLoginInfo) GetDateOk() (*time.Time, bo
 
 // HasDate returns a boolean if a field has been set.
 func (o *SecurityAccessReviewPrincipalLastLoginInfo) HasDate() bool {
-	if o != nil && o.Date != nil {
+	if o != nil && !IsNil(o.Date) {
 		return true
 	}
 
@@ -93,7 +96,7 @@ func (o *SecurityAccessReviewPrincipalLastLoginInfo) SetDate(v time.Time) {
 
 // GetLocation returns the Location field value if set, zero value otherwise.
 func (o *SecurityAccessReviewPrincipalLastLoginInfo) GetLocation() SecurityAccessReviewPrincipalLocation {
-	if o == nil || o.Location == nil {
+	if o == nil || IsNil(o.Location) {
 		var ret SecurityAccessReviewPrincipalLocation
 		return ret
 	}
@@ -103,7 +106,7 @@ func (o *SecurityAccessReviewPrincipalLastLoginInfo) GetLocation() SecurityAcces
 // GetLocationOk returns a tuple with the Location field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityAccessReviewPrincipalLastLoginInfo) GetLocationOk() (*SecurityAccessReviewPrincipalLocation, bool) {
-	if o == nil || o.Location == nil {
+	if o == nil || IsNil(o.Location) {
 		return nil, false
 	}
 	return o.Location, true
@@ -111,7 +114,7 @@ func (o *SecurityAccessReviewPrincipalLastLoginInfo) GetLocationOk() (*SecurityA
 
 // HasLocation returns a boolean if a field has been set.
 func (o *SecurityAccessReviewPrincipalLastLoginInfo) HasLocation() bool {
-	if o != nil && o.Location != nil {
+	if o != nil && !IsNil(o.Location) {
 		return true
 	}
 
@@ -125,7 +128,7 @@ func (o *SecurityAccessReviewPrincipalLastLoginInfo) SetLocation(v SecurityAcces
 
 // GetDevice returns the Device field value if set, zero value otherwise.
 func (o *SecurityAccessReviewPrincipalLastLoginInfo) GetDevice() string {
-	if o == nil || o.Device == nil {
+	if o == nil || IsNil(o.Device) {
 		var ret string
 		return ret
 	}
@@ -135,7 +138,7 @@ func (o *SecurityAccessReviewPrincipalLastLoginInfo) GetDevice() string {
 // GetDeviceOk returns a tuple with the Device field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityAccessReviewPrincipalLastLoginInfo) GetDeviceOk() (*string, bool) {
-	if o == nil || o.Device == nil {
+	if o == nil || IsNil(o.Device) {
 		return nil, false
 	}
 	return o.Device, true
@@ -143,7 +146,7 @@ func (o *SecurityAccessReviewPrincipalLastLoginInfo) GetDeviceOk() (*string, boo
 
 // HasDevice returns a boolean if a field has been set.
 func (o *SecurityAccessReviewPrincipalLastLoginInfo) HasDevice() bool {
-	if o != nil && o.Device != nil {
+	if o != nil && !IsNil(o.Device) {
 		return true
 	}
 
@@ -157,7 +160,7 @@ func (o *SecurityAccessReviewPrincipalLastLoginInfo) SetDevice(v string) {
 
 // GetIpAddress returns the IpAddress field value if set, zero value otherwise.
 func (o *SecurityAccessReviewPrincipalLastLoginInfo) GetIpAddress() string {
-	if o == nil || o.IpAddress == nil {
+	if o == nil || IsNil(o.IpAddress) {
 		var ret string
 		return ret
 	}
@@ -167,7 +170,7 @@ func (o *SecurityAccessReviewPrincipalLastLoginInfo) GetIpAddress() string {
 // GetIpAddressOk returns a tuple with the IpAddress field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityAccessReviewPrincipalLastLoginInfo) GetIpAddressOk() (*string, bool) {
-	if o == nil || o.IpAddress == nil {
+	if o == nil || IsNil(o.IpAddress) {
 		return nil, false
 	}
 	return o.IpAddress, true
@@ -175,7 +178,7 @@ func (o *SecurityAccessReviewPrincipalLastLoginInfo) GetIpAddressOk() (*string, 
 
 // HasIpAddress returns a boolean if a field has been set.
 func (o *SecurityAccessReviewPrincipalLastLoginInfo) HasIpAddress() bool {
-	if o != nil && o.IpAddress != nil {
+	if o != nil && !IsNil(o.IpAddress) {
 		return true
 	}
 
@@ -188,17 +191,25 @@ func (o *SecurityAccessReviewPrincipalLastLoginInfo) SetIpAddress(v string) {
 }
 
 func (o SecurityAccessReviewPrincipalLastLoginInfo) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SecurityAccessReviewPrincipalLastLoginInfo) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Date != nil {
+	if !IsNil(o.Date) {
 		toSerialize["date"] = o.Date
 	}
-	if o.Location != nil {
+	if !IsNil(o.Location) {
 		toSerialize["location"] = o.Location
 	}
-	if o.Device != nil {
+	if !IsNil(o.Device) {
 		toSerialize["device"] = o.Device
 	}
-	if o.IpAddress != nil {
+	if !IsNil(o.IpAddress) {
 		toSerialize["ipAddress"] = o.IpAddress
 	}
 
@@ -206,30 +217,28 @@ func (o SecurityAccessReviewPrincipalLastLoginInfo) MarshalJSON() ([]byte, error
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SecurityAccessReviewPrincipalLastLoginInfo) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SecurityAccessReviewPrincipalLastLoginInfo) UnmarshalJSON(data []byte) (err error) {
 	varSecurityAccessReviewPrincipalLastLoginInfo := _SecurityAccessReviewPrincipalLastLoginInfo{}
 
-	err = json.Unmarshal(bytes, &varSecurityAccessReviewPrincipalLastLoginInfo)
-	if err == nil {
-		*o = SecurityAccessReviewPrincipalLastLoginInfo(varSecurityAccessReviewPrincipalLastLoginInfo)
-	} else {
+	err = json.Unmarshal(data, &varSecurityAccessReviewPrincipalLastLoginInfo)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SecurityAccessReviewPrincipalLastLoginInfo(varSecurityAccessReviewPrincipalLastLoginInfo)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "date")
 		delete(additionalProperties, "location")
 		delete(additionalProperties, "device")
 		delete(additionalProperties, "ipAddress")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

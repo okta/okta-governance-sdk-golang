@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the BaseFieldReadable type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BaseFieldReadable{}
 
 // BaseFieldReadable struct for BaseFieldReadable
 type BaseFieldReadable struct {
@@ -79,36 +83,61 @@ func (o *BaseFieldReadable) SetId(v string) {
 }
 
 func (o BaseFieldReadable) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
+	return json.Marshal(toSerialize)
+}
+
+func (o BaseFieldReadable) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *BaseFieldReadable) UnmarshalJSON(bytes []byte) (err error) {
-	varBaseFieldReadable := _BaseFieldReadable{}
+func (o *BaseFieldReadable) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+	}
 
-	err = json.Unmarshal(bytes, &varBaseFieldReadable)
-	if err == nil {
-		*o = BaseFieldReadable(varBaseFieldReadable)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varBaseFieldReadable := _BaseFieldReadable{}
+
+	err = json.Unmarshal(data, &varBaseFieldReadable)
+
+	if err != nil {
+		return err
+	}
+
+	*o = BaseFieldReadable(varBaseFieldReadable)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

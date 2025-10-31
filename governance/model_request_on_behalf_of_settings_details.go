@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the RequestOnBehalfOfSettingsDetails type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RequestOnBehalfOfSettingsDetails{}
 
 // RequestOnBehalfOfSettingsDetails Specifies if and for whom a requester may request the resource for.
 type RequestOnBehalfOfSettingsDetails struct {
@@ -82,7 +86,7 @@ func (o *RequestOnBehalfOfSettingsDetails) SetAllowed(v bool) {
 
 // GetOnlyFor returns the OnlyFor field value if set, zero value otherwise.
 func (o *RequestOnBehalfOfSettingsDetails) GetOnlyFor() []RequestOnBehalfOfType {
-	if o == nil || o.OnlyFor == nil {
+	if o == nil || IsNil(o.OnlyFor) {
 		var ret []RequestOnBehalfOfType
 		return ret
 	}
@@ -92,7 +96,7 @@ func (o *RequestOnBehalfOfSettingsDetails) GetOnlyFor() []RequestOnBehalfOfType 
 // GetOnlyForOk returns a tuple with the OnlyFor field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestOnBehalfOfSettingsDetails) GetOnlyForOk() ([]RequestOnBehalfOfType, bool) {
-	if o == nil || o.OnlyFor == nil {
+	if o == nil || IsNil(o.OnlyFor) {
 		return nil, false
 	}
 	return o.OnlyFor, true
@@ -100,7 +104,7 @@ func (o *RequestOnBehalfOfSettingsDetails) GetOnlyForOk() ([]RequestOnBehalfOfTy
 
 // HasOnlyFor returns a boolean if a field has been set.
 func (o *RequestOnBehalfOfSettingsDetails) HasOnlyFor() bool {
-	if o != nil && o.OnlyFor != nil {
+	if o != nil && !IsNil(o.OnlyFor) {
 		return true
 	}
 
@@ -113,11 +117,17 @@ func (o *RequestOnBehalfOfSettingsDetails) SetOnlyFor(v []RequestOnBehalfOfType)
 }
 
 func (o RequestOnBehalfOfSettingsDetails) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["allowed"] = o.Allowed
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.OnlyFor != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o RequestOnBehalfOfSettingsDetails) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["allowed"] = o.Allowed
+	if !IsNil(o.OnlyFor) {
 		toSerialize["onlyFor"] = o.OnlyFor
 	}
 
@@ -125,28 +135,47 @@ func (o RequestOnBehalfOfSettingsDetails) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RequestOnBehalfOfSettingsDetails) UnmarshalJSON(bytes []byte) (err error) {
-	varRequestOnBehalfOfSettingsDetails := _RequestOnBehalfOfSettingsDetails{}
+func (o *RequestOnBehalfOfSettingsDetails) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"allowed",
+	}
 
-	err = json.Unmarshal(bytes, &varRequestOnBehalfOfSettingsDetails)
-	if err == nil {
-		*o = RequestOnBehalfOfSettingsDetails(varRequestOnBehalfOfSettingsDetails)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRequestOnBehalfOfSettingsDetails := _RequestOnBehalfOfSettingsDetails{}
+
+	err = json.Unmarshal(data, &varRequestOnBehalfOfSettingsDetails)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RequestOnBehalfOfSettingsDetails(varRequestOnBehalfOfSettingsDetails)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "allowed")
 		delete(additionalProperties, "onlyFor")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,8 +25,12 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the SecurityAccessReviewSparse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SecurityAccessReviewSparse{}
 
 // SecurityAccessReviewSparse struct for SecurityAccessReviewSparse
 type SecurityAccessReviewSparse struct {
@@ -200,7 +204,7 @@ func (o *SecurityAccessReviewSparse) SetLastUpdatedBy(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *SecurityAccessReviewSparse) GetLinks() map[string]Link {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret map[string]Link
 		return ret
 	}
@@ -210,7 +214,7 @@ func (o *SecurityAccessReviewSparse) GetLinks() map[string]Link {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityAccessReviewSparse) GetLinksOk() (*map[string]Link, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -218,7 +222,7 @@ func (o *SecurityAccessReviewSparse) GetLinksOk() (*map[string]Link, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *SecurityAccessReviewSparse) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -327,59 +331,78 @@ func (o *SecurityAccessReviewSparse) SetReviewerSettings(v SecurityAccessReviewR
 }
 
 func (o SecurityAccessReviewSparse) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SecurityAccessReviewSparse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["createdBy"] = o.CreatedBy
-	}
-	if true {
-		toSerialize["created"] = o.Created
-	}
-	if true {
-		toSerialize["lastUpdated"] = o.LastUpdated
-	}
-	if true {
-		toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
-	}
-	if o.Links != nil {
+	toSerialize["id"] = o.Id
+	toSerialize["createdBy"] = o.CreatedBy
+	toSerialize["created"] = o.Created
+	toSerialize["lastUpdated"] = o.LastUpdated
+	toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
-	if true {
-		toSerialize["status"] = o.Status
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["endTime"] = o.EndTime
-	}
-	if true {
-		toSerialize["reviewerSettings"] = o.ReviewerSettings
-	}
+	toSerialize["status"] = o.Status
+	toSerialize["name"] = o.Name
+	toSerialize["endTime"] = o.EndTime
+	toSerialize["reviewerSettings"] = o.ReviewerSettings
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SecurityAccessReviewSparse) UnmarshalJSON(bytes []byte) (err error) {
-	varSecurityAccessReviewSparse := _SecurityAccessReviewSparse{}
+func (o *SecurityAccessReviewSparse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"createdBy",
+		"created",
+		"lastUpdated",
+		"lastUpdatedBy",
+		"status",
+		"name",
+		"endTime",
+		"reviewerSettings",
+	}
 
-	err = json.Unmarshal(bytes, &varSecurityAccessReviewSparse)
-	if err == nil {
-		*o = SecurityAccessReviewSparse(varSecurityAccessReviewSparse)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSecurityAccessReviewSparse := _SecurityAccessReviewSparse{}
+
+	err = json.Unmarshal(data, &varSecurityAccessReviewSparse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SecurityAccessReviewSparse(varSecurityAccessReviewSparse)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "createdBy")
 		delete(additionalProperties, "created")
@@ -391,8 +414,6 @@ func (o *SecurityAccessReviewSparse) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "endTime")
 		delete(additionalProperties, "reviewerSettings")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

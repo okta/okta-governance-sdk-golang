@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the RequestSequence type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RequestSequence{}
 
 // RequestSequence A sequence that decides what actions must be taken on a request
 type RequestSequence struct {
@@ -138,7 +142,7 @@ func (o *RequestSequence) SetDescription(v string) {
 
 // GetCompatibleResourceTypes returns the CompatibleResourceTypes field value if set, zero value otherwise.
 func (o *RequestSequence) GetCompatibleResourceTypes() []CompatibleResourceTypes {
-	if o == nil || o.CompatibleResourceTypes == nil {
+	if o == nil || IsNil(o.CompatibleResourceTypes) {
 		var ret []CompatibleResourceTypes
 		return ret
 	}
@@ -148,7 +152,7 @@ func (o *RequestSequence) GetCompatibleResourceTypes() []CompatibleResourceTypes
 // GetCompatibleResourceTypesOk returns a tuple with the CompatibleResourceTypes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestSequence) GetCompatibleResourceTypesOk() ([]CompatibleResourceTypes, bool) {
-	if o == nil || o.CompatibleResourceTypes == nil {
+	if o == nil || IsNil(o.CompatibleResourceTypes) {
 		return nil, false
 	}
 	return o.CompatibleResourceTypes, true
@@ -156,7 +160,7 @@ func (o *RequestSequence) GetCompatibleResourceTypesOk() ([]CompatibleResourceTy
 
 // HasCompatibleResourceTypes returns a boolean if a field has been set.
 func (o *RequestSequence) HasCompatibleResourceTypes() bool {
-	if o != nil && o.CompatibleResourceTypes != nil {
+	if o != nil && !IsNil(o.CompatibleResourceTypes) {
 		return true
 	}
 
@@ -193,52 +197,74 @@ func (o *RequestSequence) SetLink(v string) {
 }
 
 func (o RequestSequence) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RequestSequence) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["description"] = o.Description
-	}
-	if o.CompatibleResourceTypes != nil {
+	toSerialize["id"] = o.Id
+	toSerialize["name"] = o.Name
+	toSerialize["description"] = o.Description
+	if !IsNil(o.CompatibleResourceTypes) {
 		toSerialize["compatibleResourceTypes"] = o.CompatibleResourceTypes
 	}
-	if true {
-		toSerialize["link"] = o.Link
-	}
+	toSerialize["link"] = o.Link
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RequestSequence) UnmarshalJSON(bytes []byte) (err error) {
-	varRequestSequence := _RequestSequence{}
+func (o *RequestSequence) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"name",
+		"description",
+		"link",
+	}
 
-	err = json.Unmarshal(bytes, &varRequestSequence)
-	if err == nil {
-		*o = RequestSequence(varRequestSequence)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRequestSequence := _RequestSequence{}
+
+	err = json.Unmarshal(data, &varRequestSequence)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RequestSequence(varRequestSequence)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "compatibleResourceTypes")
 		delete(additionalProperties, "link")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
