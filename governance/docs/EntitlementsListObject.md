@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ParentResourceOrn** | **string** | The Okta app instance, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for a specific app in [Supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources). | 
+**ParentResourceOrn** | **string** | The Okta resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for [supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources). | 
 **Parent** | [**TargetResource**](TargetResource.md) |  | 
 **Links** | Pointer to [**EntitlementLinks**](EntitlementLinks.md) |  | [optional] 
 **Metadata** | Pointer to [**ListMetadata**](ListMetadata.md) |  | [optional] 
@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **Name** | **string** | The display name for an entitlement property | 
 **ExternalValue** | **string** | The value of an entitlement property | 
 **Description** | Pointer to **string** | The description of an entitlement property | [optional] 
-**MultiValue** | **bool** | The property that determines if the entitlement property can hold multiple values. If this is set to true, the data type is replaced with an array. | 
+**MultiValue** | **bool** | Indicate if the entitlement property can hold multiple values. If this property is &#x60;true&#x60;, then the &#x60;dataType&#x60; property is set to  &#x60;array&#x60;. | 
 **Required** | Pointer to **bool** | The property that determines if the entitlement property is a required attribute | [optional] 
 **DataType** | [**EntitlementPropertyDatatype**](EntitlementPropertyDatatype.md) |  | 
 

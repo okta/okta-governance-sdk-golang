@@ -4,11 +4,11 @@ All URIs are relative to *https://subdomain.okta.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetMyCatalogEntryRequestFieldsV2**](MyCatalogsAPI.md#GetMyCatalogEntryRequestFieldsV2) | **Get** /governance/api/v2/my/catalogs/default/entries/{entryId}/request-fields | Retrieve an entry&#39;s request fields
-[**GetMyCatalogEntryUserRequestFieldsV2**](MyCatalogsAPI.md#GetMyCatalogEntryUserRequestFieldsV2) | **Get** /governance/api/v2/my/catalogs/default/entries/{entryId}/users/{userId}/request-fields | Retrieve a users request-fields for an entry
-[**GetMyEntryV2**](MyCatalogsAPI.md#GetMyEntryV2) | **Get** /governance/api/v2/my/catalogs/default/entries/{entryId} | Retrieve an entry from my catalog
-[**ListMyDefaultEntriesV2**](MyCatalogsAPI.md#ListMyDefaultEntriesV2) | **Get** /governance/api/v2/my/catalogs/default/entries | List all of my entries for the default access request catalog
-[**ListMyEntryUsersV2**](MyCatalogsAPI.md#ListMyEntryUsersV2) | **Get** /governance/api/v2/my/catalogs/default/entries/{entryId}/users | List all of my catalog entry users
+[**GetMyCatalogEntryRequestFieldsV2**](MyCatalogsAPI.md#GetMyCatalogEntryRequestFieldsV2) | **Get** /governance/api/v2/my/catalogs/default/entries/{entryId}/request-fields | Retrieve the request fields for my catalog entry
+[**GetMyCatalogEntryUserRequestFieldsV2**](MyCatalogsAPI.md#GetMyCatalogEntryUserRequestFieldsV2) | **Get** /governance/api/v2/my/catalogs/default/entries/{entryId}/users/{userId}/request-fields | Retrieve the entry request fields for a user
+[**GetMyEntryV2**](MyCatalogsAPI.md#GetMyEntryV2) | **Get** /governance/api/v2/my/catalogs/default/entries/{entryId} | Retrieve my catalog entry
+[**ListMyDefaultEntriesV2**](MyCatalogsAPI.md#ListMyDefaultEntriesV2) | **Get** /governance/api/v2/my/catalogs/default/entries | List my entries for the default access request catalog
+[**ListMyEntryUsersV2**](MyCatalogsAPI.md#ListMyEntryUsersV2) | **Get** /governance/api/v2/my/catalogs/default/entries/{entryId}/users | List my catalog entry users
 
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > CatalogEntryRequestFields GetMyCatalogEntryRequestFieldsV2(ctx, entryId).Execute()
 
-Retrieve an entry's request fields
+Retrieve the request fields for my catalog entry
 
 
 
@@ -86,7 +86,7 @@ Name | Type | Description  | Notes
 
 > CatalogEntryRequestFields GetMyCatalogEntryUserRequestFieldsV2(ctx, entryId, userId).Execute()
 
-Retrieve a users request-fields for an entry
+Retrieve the entry request fields for a user
 
 
 
@@ -159,7 +159,7 @@ Name | Type | Description  | Notes
 
 > RcarEntryGet GetMyEntryV2(ctx, entryId).Execute()
 
-Retrieve an entry from my catalog
+Retrieve my catalog entry
 
 
 
@@ -229,7 +229,7 @@ Name | Type | Description  | Notes
 
 > RcarEntriesListV2 ListMyDefaultEntriesV2(ctx).Filter(filter).After(after).Match(match).Limit(limit).Execute()
 
-List all of my entries for the default access request catalog
+List my entries for the default access request catalog
 
 
 
@@ -246,7 +246,7 @@ import (
 )
 
 func main() {
-	filter := "not(parent pr)" // string | A required filter expression that returns entries based on the [`parent`](https://developer.okta.com/docs/api/iga/openapi/governance.requests.admin.v2/tag/Catalogs/#tag/Catalogs/operation/listAllDefaultEntriesV2!c=200&path=data/parent&t=response) property. This [filter](https://developer.okta.com/docs/api/#filter) expression supports the `eq` and `pr` [operators](https://developer.okta.com/docs/api/#operators).  **Note:** Query parameter percent encoding is required. See [Special characters]( https://developer.okta.com/docs/api/#special-characters ). 
+	filter := "not(parent pr)" // string | A required [filter](https://developer.okta.com/docs/api/#filter) expression that returns entries based on the [`parent`](https://developer.okta.com/docs/api/iga/openapi/governance.requests.admin.v2/tag/Catalogs/#tag/Catalogs/operation/listAllDefaultEntriesV2!c=200&path=data/parent&t=response) property: * This filter expression only supports the `parent` property and the `eq` and `pr` [operators](https://developer.okta.com/docs/api/#operators). * If you want the query to return child entries, then you must specify the `parent` ID with the `eq` operator.  > **Notes:** > * If you don't use the `parent` property in the filter expression, undesireable results are returned. > * Query parameter percent encoding is required. See [Special characters]( https://developer.okta.com/docs/api/#special-characters ). 
 	after := "after_example" // string | The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous response.  The maximum number of entries returned in a response is determined by the [`limit`](https://developer.okta.com/docs/api/iga/openapi/governance.requests.admin.v2/tag/Catalogs/#tag/Catalogs/operation/listAllDefaultEntriesV2!in=query&path=limit&t=request) query parameter. If there are more entries to return, the `_links.next.href` link contains the `after` cursor for the next page of results. (optional)
 	match := "figma" // string | Return catalog entries that match a substring value in the [`name`](https://developer.okta.com/docs/api/iga/openapi/governance.requests.enduser.v2/tag/My-Catalogs/#tag/My-Catalogs/operation/listMyDefaultEntriesV2!c=200&path=data/name&t=response) or [`description`](https://developer.okta.com/docs/api/iga/openapi/governance.requests.enduser.v2/tag/My-Catalogs/#tag/My-Catalogs/operation/listMyDefaultEntriesV2!c=200&path=data/description&t=response) properties. At least three characters are required for fuzzy search. (optional)
 	limit := int32(20) // int32 | The maximum number of records returned in a response (optional)
@@ -274,7 +274,7 @@ Other parameters are passed through a pointer to a apiListMyDefaultEntriesV2Requ
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **filter** | **string** | A required filter expression that returns entries based on the [&#x60;parent&#x60;](https://developer.okta.com/docs/api/iga/openapi/governance.requests.admin.v2/tag/Catalogs/#tag/Catalogs/operation/listAllDefaultEntriesV2!c&#x3D;200&amp;path&#x3D;data/parent&amp;t&#x3D;response) property. This [filter](https://developer.okta.com/docs/api/#filter) expression supports the &#x60;eq&#x60; and &#x60;pr&#x60; [operators](https://developer.okta.com/docs/api/#operators).  **Note:** Query parameter percent encoding is required. See [Special characters]( https://developer.okta.com/docs/api/#special-characters ).  | 
+ **filter** | **string** | A required [filter](https://developer.okta.com/docs/api/#filter) expression that returns entries based on the [&#x60;parent&#x60;](https://developer.okta.com/docs/api/iga/openapi/governance.requests.admin.v2/tag/Catalogs/#tag/Catalogs/operation/listAllDefaultEntriesV2!c&#x3D;200&amp;path&#x3D;data/parent&amp;t&#x3D;response) property: * This filter expression only supports the &#x60;parent&#x60; property and the &#x60;eq&#x60; and &#x60;pr&#x60; [operators](https://developer.okta.com/docs/api/#operators). * If you want the query to return child entries, then you must specify the &#x60;parent&#x60; ID with the &#x60;eq&#x60; operator.  &gt; **Notes:** &gt; * If you don&#39;t use the &#x60;parent&#x60; property in the filter expression, undesireable results are returned. &gt; * Query parameter percent encoding is required. See [Special characters]( https://developer.okta.com/docs/api/#special-characters ).  | 
  **after** | **string** | The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous response.  The maximum number of entries returned in a response is determined by the [&#x60;limit&#x60;](https://developer.okta.com/docs/api/iga/openapi/governance.requests.admin.v2/tag/Catalogs/#tag/Catalogs/operation/listAllDefaultEntriesV2!in&#x3D;query&amp;path&#x3D;limit&amp;t&#x3D;request) query parameter. If there are more entries to return, the &#x60;_links.next.href&#x60; link contains the &#x60;after&#x60; cursor for the next page of results. | 
  **match** | **string** | Return catalog entries that match a substring value in the [&#x60;name&#x60;](https://developer.okta.com/docs/api/iga/openapi/governance.requests.enduser.v2/tag/My-Catalogs/#tag/My-Catalogs/operation/listMyDefaultEntriesV2!c&#x3D;200&amp;path&#x3D;data/name&amp;t&#x3D;response) or [&#x60;description&#x60;](https://developer.okta.com/docs/api/iga/openapi/governance.requests.enduser.v2/tag/My-Catalogs/#tag/My-Catalogs/operation/listMyDefaultEntriesV2!c&#x3D;200&amp;path&#x3D;data/description&amp;t&#x3D;response) properties. At least three characters are required for fuzzy search. | 
  **limit** | **int32** | The maximum number of records returned in a response | 
@@ -301,7 +301,7 @@ Name | Type | Description  | Notes
 
 > EntryUsersList ListMyEntryUsersV2(ctx, entryId).Filter(filter).After(after).Limit(limit).Execute()
 
-List all of my catalog entry users
+List my catalog entry users
 
 
 

@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Created** | **time.Time** | The ISO 8601 formatted date and time when the resource was created | [readonly] 
 **LastUpdated** | **time.Time** | The ISO 8601 formatted date and time when the object was last updated | [readonly] 
 **LastUpdatedBy** | **string** | The &#x60;id&#x60; of the Okta user who last updated the object | [readonly] 
-**Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
+**Links** | Pointer to [**map[string]Link**](Link.md) | Links to related resources | [optional] 
 
 ## Methods
 

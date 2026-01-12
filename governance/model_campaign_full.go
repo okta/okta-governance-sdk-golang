@@ -47,7 +47,7 @@ type CampaignFull struct {
 	LastUpdatedBy string `json:"lastUpdatedBy"`
 	// Name of the campaign. Maintain some uniqueness when naming the campaign as it helps to identify and filter for campaigns when needed.
 	Name string `json:"name"`
-	// Human readable description.
+	// Human readable description
 	Description            *string                        `json:"description,omitempty"`
 	CampaignType           *CampaignType                  `json:"campaignType,omitempty"`
 	ScheduleSettings       ScheduleSettingsReadOnly       `json:"scheduleSettings"`
@@ -57,8 +57,9 @@ type CampaignFull struct {
 	NotificationSettings   *NotificationSettings          `json:"notificationSettings,omitempty"`
 	RemediationSettings    RemediationSettings            `json:"remediationSettings"`
 	// ID of the recurring campaign if this campaign was created as part of a recurring schedule.
-	RecurringCampaignId  NullableString `json:"recurringCampaignId,omitempty"`
-	Status               CampaignStatus `json:"status"`
+	RecurringCampaignId  NullableString            `json:"recurringCampaignId,omitempty"`
+	ReportingSettings    *ReportingSettingsMutable `json:"reportingSettings,omitempty"`
+	Status               CampaignStatus            `json:"status"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -77,6 +78,8 @@ func NewCampaignFull(links CampaignLinks, id string, createdBy string, created t
 	this.LastUpdatedBy = lastUpdatedBy
 	this.Links = links
 	this.Name = name
+	var campaignType CampaignType = CAMPAIGNTYPE_RESOURCE
+	this.CampaignType = &campaignType
 	this.ScheduleSettings = scheduleSettings
 	this.ResourceSettings = resourceSettings
 	this.ReviewerSettings = reviewerSettings
@@ -90,6 +93,8 @@ func NewCampaignFull(links CampaignLinks, id string, createdBy string, created t
 // but it doesn't guarantee that properties required by API are set
 func NewCampaignFullWithDefaults() *CampaignFull {
 	this := CampaignFull{}
+	var campaignType CampaignType = CAMPAIGNTYPE_RESOURCE
+	this.CampaignType = &campaignType
 	return &this
 }
 
@@ -528,6 +533,38 @@ func (o *CampaignFull) UnsetRecurringCampaignId() {
 	o.RecurringCampaignId.Unset()
 }
 
+// GetReportingSettings returns the ReportingSettings field value if set, zero value otherwise.
+func (o *CampaignFull) GetReportingSettings() ReportingSettingsMutable {
+	if o == nil || IsNil(o.ReportingSettings) {
+		var ret ReportingSettingsMutable
+		return ret
+	}
+	return *o.ReportingSettings
+}
+
+// GetReportingSettingsOk returns a tuple with the ReportingSettings field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CampaignFull) GetReportingSettingsOk() (*ReportingSettingsMutable, bool) {
+	if o == nil || IsNil(o.ReportingSettings) {
+		return nil, false
+	}
+	return o.ReportingSettings, true
+}
+
+// HasReportingSettings returns a boolean if a field has been set.
+func (o *CampaignFull) HasReportingSettings() bool {
+	if o != nil && !IsNil(o.ReportingSettings) {
+		return true
+	}
+
+	return false
+}
+
+// SetReportingSettings gets a reference to the given ReportingSettingsMutable and assigns it to the ReportingSettings field.
+func (o *CampaignFull) SetReportingSettings(v ReportingSettingsMutable) {
+	o.ReportingSettings = &v
+}
+
 // GetStatus returns the Status field value
 func (o *CampaignFull) GetStatus() CampaignStatus {
 	if o == nil {
@@ -587,6 +624,9 @@ func (o CampaignFull) ToMap() (map[string]interface{}, error) {
 	toSerialize["remediationSettings"] = o.RemediationSettings
 	if o.RecurringCampaignId.IsSet() {
 		toSerialize["recurringCampaignId"] = o.RecurringCampaignId.Get()
+	}
+	if !IsNil(o.ReportingSettings) {
+		toSerialize["reportingSettings"] = o.ReportingSettings
 	}
 	toSerialize["status"] = o.Status
 
@@ -659,6 +699,7 @@ func (o *CampaignFull) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "notificationSettings")
 		delete(additionalProperties, "remediationSettings")
 		delete(additionalProperties, "recurringCampaignId")
+		delete(additionalProperties, "reportingSettings")
 		delete(additionalProperties, "status")
 		o.AdditionalProperties = additionalProperties
 	}

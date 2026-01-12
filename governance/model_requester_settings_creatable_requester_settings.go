@@ -32,6 +32,7 @@ import (
 type RequesterSettingsCreatableRequesterSettings struct {
 	EveryoneRequesterSettings                         *EveryoneRequesterSettings
 	RequesterSettingsCreatableGroupsRequesterSettings *RequesterSettingsCreatableGroupsRequesterSettings
+	RequesterSettingsCreatableTeamsRequesterSettings  *RequesterSettingsCreatableTeamsRequesterSettings
 }
 
 // EveryoneRequesterSettingsAsRequesterSettingsCreatableRequesterSettings is a convenience function that returns EveryoneRequesterSettings wrapped in RequesterSettingsCreatableRequesterSettings
@@ -45,6 +46,13 @@ func EveryoneRequesterSettingsAsRequesterSettingsCreatableRequesterSettings(v *E
 func RequesterSettingsCreatableGroupsRequesterSettingsAsRequesterSettingsCreatableRequesterSettings(v *RequesterSettingsCreatableGroupsRequesterSettings) RequesterSettingsCreatableRequesterSettings {
 	return RequesterSettingsCreatableRequesterSettings{
 		RequesterSettingsCreatableGroupsRequesterSettings: v,
+	}
+}
+
+// RequesterSettingsCreatableTeamsRequesterSettingsAsRequesterSettingsCreatableRequesterSettings is a convenience function that returns RequesterSettingsCreatableTeamsRequesterSettings wrapped in RequesterSettingsCreatableRequesterSettings
+func RequesterSettingsCreatableTeamsRequesterSettingsAsRequesterSettingsCreatableRequesterSettings(v *RequesterSettingsCreatableTeamsRequesterSettings) RequesterSettingsCreatableRequesterSettings {
+	return RequesterSettingsCreatableRequesterSettings{
+		RequesterSettingsCreatableTeamsRequesterSettings: v,
 	}
 }
 
@@ -82,6 +90,18 @@ func (dst *RequesterSettingsCreatableRequesterSettings) UnmarshalJSON(data []byt
 		}
 	}
 
+	// check if the discriminator value is 'TEAMS'
+	if jsonDict["type"] == "TEAMS" {
+		// try to unmarshal JSON data into RequesterSettingsCreatableTeamsRequesterSettings
+		err = json.Unmarshal(data, &dst.RequesterSettingsCreatableTeamsRequesterSettings)
+		if err == nil {
+			return nil // data stored in dst.RequesterSettingsCreatableTeamsRequesterSettings, return on the first match
+		} else {
+			dst.RequesterSettingsCreatableTeamsRequesterSettings = nil
+			return fmt.Errorf("failed to unmarshal RequesterSettingsCreatableRequesterSettings as RequesterSettingsCreatableTeamsRequesterSettings: %s", err.Error())
+		}
+	}
+
 	return nil
 }
 
@@ -93,6 +113,10 @@ func (src RequesterSettingsCreatableRequesterSettings) MarshalJSON() ([]byte, er
 
 	if src.RequesterSettingsCreatableGroupsRequesterSettings != nil {
 		return json.Marshal(&src.RequesterSettingsCreatableGroupsRequesterSettings)
+	}
+
+	if src.RequesterSettingsCreatableTeamsRequesterSettings != nil {
+		return json.Marshal(&src.RequesterSettingsCreatableTeamsRequesterSettings)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -111,6 +135,10 @@ func (obj *RequesterSettingsCreatableRequesterSettings) GetActualInstance() inte
 		return obj.RequesterSettingsCreatableGroupsRequesterSettings
 	}
 
+	if obj.RequesterSettingsCreatableTeamsRequesterSettings != nil {
+		return obj.RequesterSettingsCreatableTeamsRequesterSettings
+	}
+
 	// all schemas are nil
 	return nil
 }
@@ -123,6 +151,10 @@ func (obj RequesterSettingsCreatableRequesterSettings) GetActualInstanceValue() 
 
 	if obj.RequesterSettingsCreatableGroupsRequesterSettings != nil {
 		return *obj.RequesterSettingsCreatableGroupsRequesterSettings
+	}
+
+	if obj.RequesterSettingsCreatableTeamsRequesterSettings != nil {
+		return *obj.RequesterSettingsCreatableTeamsRequesterSettings
 	}
 
 	// all schemas are nil

@@ -33,9 +33,9 @@ var _ MappedNullable = &ResourceOwnersCatalogResourcesResponse{}
 
 // ResourceOwnersCatalogResourcesResponse struct for ResourceOwnersCatalogResourcesResponse
 type ResourceOwnersCatalogResourcesResponse struct {
-	// The Okta app instance, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for a specific app in [Supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
+	// The Okta resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for [supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
 	ParentResourceOrn string `json:"parentResourceOrn"`
-	// Resource owner details.
+	// Resource owner details
 	Data                 []ResourceOwnerResource `json:"data,omitempty"`
 	Links                ResourceOwnersListLinks `json:"_links"`
 	AdditionalProperties map[string]interface{}

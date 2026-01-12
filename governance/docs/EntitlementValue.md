@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** | The entitlement value id | 
+**Id** | **string** | The entitlement value &#x60;id&#x60; | 
 
 ## Methods
 

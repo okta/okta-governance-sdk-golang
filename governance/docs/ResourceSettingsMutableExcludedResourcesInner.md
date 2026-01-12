@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ResourceId** | Pointer to **string** | Okta specific resource ID | [optional] 
-**ResourceType** | Pointer to [**ResourceType**](ResourceType.md) |  | [optional] 
+**ResourceType** | Pointer to [**ResourceTypeExclude**](ResourceTypeExclude.md) |  | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasResourceId returns a boolean if a field has been set.
 
 ### GetResourceType
 
-`func (o *ResourceSettingsMutableExcludedResourcesInner) GetResourceType() ResourceType`
+`func (o *ResourceSettingsMutableExcludedResourcesInner) GetResourceType() ResourceTypeExclude`
 
 GetResourceType returns the ResourceType field if non-nil, zero value otherwise.
 
 ### GetResourceTypeOk
 
-`func (o *ResourceSettingsMutableExcludedResourcesInner) GetResourceTypeOk() (*ResourceType, bool)`
+`func (o *ResourceSettingsMutableExcludedResourcesInner) GetResourceTypeOk() (*ResourceTypeExclude, bool)`
 
 GetResourceTypeOk returns a tuple with the ResourceType field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetResourceType
 
-`func (o *ResourceSettingsMutableExcludedResourcesInner) SetResourceType(v ResourceType)`
+`func (o *ResourceSettingsMutableExcludedResourcesInner) SetResourceType(v ResourceTypeExclude)`
 
 SetResourceType sets ResourceType field to given value.
 

@@ -506,7 +506,7 @@ type ApiGeneratePotentialRiskAssessmentsRequest struct {
 	retryCount                     int32
 }
 
-// Description of the requested access resource by user
+// Description of the requested access resource by user.
 func (r ApiGeneratePotentialRiskAssessmentsRequest) PotentialRiskAssessmentRequest(potentialRiskAssessmentRequest PotentialRiskAssessmentRequest) ApiGeneratePotentialRiskAssessmentsRequest {
 	r.potentialRiskAssessmentRequest = &potentialRiskAssessmentRequest
 	return r

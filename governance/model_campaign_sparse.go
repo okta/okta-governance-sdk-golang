@@ -36,7 +36,7 @@ var _ MappedNullable = &CampaignSparse{}
 type CampaignSparse struct {
 	// Name of the campaign. Maintain some uniqueness when naming the campaign as it helps to identify and filter for campaigns when needed.
 	Name string `json:"name"`
-	// Human readable description.
+	// Campaign description
 	Description *string `json:"description,omitempty"`
 	// The date on which the campaign is scheduled to start. Accepts date in ISO 8601 format.
 	StartDate time.Time `json:"startDate"`

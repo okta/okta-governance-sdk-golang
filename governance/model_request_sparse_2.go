@@ -53,10 +53,10 @@ type RequestSparse2 struct {
 	Granted          NullableTime             `json:"granted,omitempty"`
 	RevocationStatus *RequestRevocationStatus `json:"revocationStatus,omitempty"`
 	// The date the granted access was revoked. Only set if request.grantStatus is GRANTED and request.revocationStatus is REVOKED.
-	Revoked              NullableTime    `json:"revoked,omitempty"`
-	RequestedBy          TargetPrincipal `json:"requestedBy"`
-	RequestedFor         TargetPrincipal `json:"requestedFor"`
-	Requested            Requested       `json:"requested"`
+	Revoked              NullableTime              `json:"revoked,omitempty"`
+	RequestedBy          ClientCredentialPrincipal `json:"requestedBy"`
+	RequestedFor         TargetPrincipal           `json:"requestedFor"`
+	Requested            Requested                 `json:"requested"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -66,7 +66,7 @@ type _RequestSparse2 RequestSparse2
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRequestSparse2(id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, links RequestLinks2, status RequestStatus, requestedBy TargetPrincipal, requestedFor TargetPrincipal, requested Requested) *RequestSparse2 {
+func NewRequestSparse2(id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, links RequestLinks2, status RequestStatus, requestedBy ClientCredentialPrincipal, requestedFor TargetPrincipal, requested Requested) *RequestSparse2 {
 	this := RequestSparse2{}
 	this.Id = id
 	this.CreatedBy = createdBy
@@ -451,9 +451,9 @@ func (o *RequestSparse2) UnsetRevoked() {
 }
 
 // GetRequestedBy returns the RequestedBy field value
-func (o *RequestSparse2) GetRequestedBy() TargetPrincipal {
+func (o *RequestSparse2) GetRequestedBy() ClientCredentialPrincipal {
 	if o == nil {
-		var ret TargetPrincipal
+		var ret ClientCredentialPrincipal
 		return ret
 	}
 
@@ -462,7 +462,7 @@ func (o *RequestSparse2) GetRequestedBy() TargetPrincipal {
 
 // GetRequestedByOk returns a tuple with the RequestedBy field value
 // and a boolean to check if the value has been set.
-func (o *RequestSparse2) GetRequestedByOk() (*TargetPrincipal, bool) {
+func (o *RequestSparse2) GetRequestedByOk() (*ClientCredentialPrincipal, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -470,7 +470,7 @@ func (o *RequestSparse2) GetRequestedByOk() (*TargetPrincipal, bool) {
 }
 
 // SetRequestedBy sets field value
-func (o *RequestSparse2) SetRequestedBy(v TargetPrincipal) {
+func (o *RequestSparse2) SetRequestedBy(v ClientCredentialPrincipal) {
 	o.RequestedBy = v
 }
 

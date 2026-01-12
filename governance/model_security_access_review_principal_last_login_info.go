@@ -31,14 +31,14 @@ import (
 // checks if the SecurityAccessReviewPrincipalLastLoginInfo type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SecurityAccessReviewPrincipalLastLoginInfo{}
 
-// SecurityAccessReviewPrincipalLastLoginInfo struct for SecurityAccessReviewPrincipalLastLoginInfo
+// SecurityAccessReviewPrincipalLastLoginInfo The latest sign-in details for the Okta user
 type SecurityAccessReviewPrincipalLastLoginInfo struct {
-	// Last login date
+	// Last sign-in date
 	Date     *time.Time                             `json:"date,omitempty"`
 	Location *SecurityAccessReviewPrincipalLocation `json:"location,omitempty"`
-	// Last login device
+	// Last sign-in device
 	Device *string `json:"device,omitempty"`
-	// Last login IP address
+	// Last sign-in IP address
 	IpAddress            *string `json:"ipAddress,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

@@ -28,7 +28,7 @@ import (
 	"fmt"
 )
 
-// SecurityAccessReviewSubAccessItemEntitlementType the model 'SecurityAccessReviewSubAccessItemEntitlementType'
+// SecurityAccessReviewSubAccessItemEntitlementType The entitlement type
 type SecurityAccessReviewSubAccessItemEntitlementType string
 
 // List of security-access-review-sub-access-item-entitlement-type

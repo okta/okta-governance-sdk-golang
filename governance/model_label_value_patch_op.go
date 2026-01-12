@@ -28,7 +28,7 @@ import (
 	"fmt"
 )
 
-// LabelValuePatchOp The operation to perform a label value update
+// LabelValuePatchOp The operation to perform a label update
 type LabelValuePatchOp string
 
 // List of label-value-patch-op

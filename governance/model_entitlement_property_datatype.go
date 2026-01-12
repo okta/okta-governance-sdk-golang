@@ -28,7 +28,7 @@ import (
 	"fmt"
 )
 
-// EntitlementPropertyDatatype The data type of the entitlement property. If the entitlement property is multivalued, the data type is replaced with an array.
+// EntitlementPropertyDatatype The data type of the entitlement property
 type EntitlementPropertyDatatype string
 
 // List of entitlement-property-datatype

@@ -33,11 +33,11 @@ var _ MappedNullable = &EntitlementsInner{}
 
 // EntitlementsInner struct for EntitlementsInner
 type EntitlementsInner struct {
-	// The entitlement id
+	// The entitlement `id`
 	Id string `json:"id"`
-	// whether to include all entitlement values. If `false` we must provide the `values` property
+	// Indicates whether to include all entitlement values:   * If `true`, all entitlement values are included.   * If `false`, you must specify the `values` property.
 	IncludeAllValues *bool `json:"includeAllValues,omitempty"`
-	// entitlement value ids
+	// Entitlement value IDs
 	Values               []EntitlementValue `json:"values,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

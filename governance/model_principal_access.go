@@ -34,10 +34,10 @@ var _ MappedNullable = &PrincipalAccess{}
 
 // PrincipalAccess Full representation of a principal access
 type PrincipalAccess struct {
-	// The Okta app instance, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for a specific app in [Supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
+	// The Okta resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for [supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
 	ParentResourceOrn string         `json:"parentResourceOrn"`
 	Parent            TargetResource `json:"parent"`
-	// The Okta user `id` in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format.  See [Supported resources](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
+	// The Okta user, in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format.
 	TargetPrincipalOrn string              `json:"targetPrincipalOrn"`
 	TargetPrincipal    TargetPrincipalFull `json:"targetPrincipal"`
 	// The date on which the user access expires. Date in ISO 8601 format.

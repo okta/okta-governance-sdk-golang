@@ -33,10 +33,10 @@ var _ MappedNullable = &ResourceLabel{}
 
 // ResourceLabel struct for ResourceLabel
 type ResourceLabel struct {
-	// The Okta app instance, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for a specific app in [Supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
+	// The Okta resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for [supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
 	Orn     *string                  `json:"orn,omitempty"`
 	Profile *ExternalResourceProfile `json:"profile,omitempty"`
-	// List of assigned labels.
+	// List of assigned labels
 	Labels               []Label  `json:"labels,omitempty"`
 	Links                LinkSelf `json:"_links"`
 	AdditionalProperties map[string]interface{}

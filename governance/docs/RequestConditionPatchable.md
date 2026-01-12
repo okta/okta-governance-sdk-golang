@@ -9,8 +9,8 @@ Name | Type | Description | Notes
 **AccessDurationSettings** | Pointer to [**NullableAccessDurationSettingsPatchable**](AccessDurationSettingsPatchable.md) |  | [optional] 
 **ApprovalSequenceId** | Pointer to **string** | The ID of the approval sequence | [optional] 
 **Priority** | Pointer to **int32** | The priority of the condition. The smaller the number, the higher the priority. The highest priority is 0. A new condition will default to the lowest priority. | [optional] 
-**Name** | Pointer to **string** | Writable unique key on Create. Modifiable on update. | [optional] 
-**Description** | Pointer to **string** | Human readable description. | [optional] 
+**Name** | Pointer to **string** | Writable unique key on create. Modifiable on update. | [optional] 
+**Description** | Pointer to **string** | Human readable description | [optional] 
 
 ## Methods
 

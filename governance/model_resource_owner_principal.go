@@ -31,11 +31,11 @@ import (
 // checks if the ResourceOwnerPrincipal type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ResourceOwnerPrincipal{}
 
-// ResourceOwnerPrincipal Representation of a principal, which can be a user or a group, that is an owner of a resource.
+// ResourceOwnerPrincipal Details of the principal, which can be a user or a group, that is an owner of a resource
 type ResourceOwnerPrincipal struct {
-	// Id of the principal, which is a unique identifier for the principal in Okta.
+	// A unique identifier for the principal in Okta
 	Id string `json:"id"`
-	// The principal type value from the orn. Examples:- groups, users
+	// The principal type. This value is the `{objectType}` attribute from the [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) string.  Examples: `groups` or `users`
 	Type string `json:"type"`
 	// The Okta user or group `id` in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format. The resource can be an user id, or a group id. See [Supported resources](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
 	Orn                  string                   `json:"orn"`

@@ -36,25 +36,14 @@ import (
 type MyCatalogsAPI interface {
 
 	/*
-			GetMyCatalogEntryRequestFieldsV2 Retrieve an entry's request fields
+			GetMyCatalogEntryRequestFieldsV2 Retrieve the request fields for my catalog entry
 
-			Retrieves request fields for my catalog entry
+			Retrieves request fields for a catalog entry that you're allowed to request (as the authenticated requester):
 
-		Request fields are determined by evaluating the entry's associated
-		request conditions for the requester.
-
-		The highest priority matching
-		condition determines the approval sequence that will be used for the
-		requester.
-
-		If that approval sequence has requester fields, then they will
-		be returned as a request field.
-
-		If the request can lead to any separation of duty conflicts, then
-		the risk assessment is present. The risk assessment indicates whether
-		request submission is allowed or restricted and includes rules that
-		lead to the possible conflicts. If request submission is allowed, then
-		the request fields are determined by the associated approval sequence.
+		* Request fields are determined by evaluating the entry's associated request conditions for the requester.
+		* The highest priority matching condition determines the approval sequence that's used for the requester.
+		* If that approval sequence has requester fields, then they are returned as request fields.
+		* If the request can lead to any separation of duty conflicts, then the risk assessment (`metadata.riskAssessment`) is present. The risk assessment indicates whether the request submission is allowed or restricted, and includes rules that lead to the possible conflicts. If the request submission is allowed, then the request fields are determined by the associated approval sequence.
 
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -68,17 +57,15 @@ type MyCatalogsAPI interface {
 	GetMyCatalogEntryRequestFieldsV2Execute(r ApiGetMyCatalogEntryRequestFieldsV2Request) (*CatalogEntryRequestFields, *APIResponse, error)
 
 	/*
-			GetMyCatalogEntryUserRequestFieldsV2 Retrieve a users request-fields for an entry
+			GetMyCatalogEntryUserRequestFieldsV2 Retrieve the entry request fields for a user
 
 			Retrieves the entry's request fields for the specified requester.
-		Request fields for the entry are only returned if the entry has request on behalf of enabled, and the authorized user is able to request on behalf of other requesters.
 
-		If the request can lead to any separation of duty conflicts, then
-		the risk assessment is present. The risk assessment indicates whether
-		request submission is allowed or restricted and includes rules that
-		lead to the possible conflicts. If request submission is allowed, then
-		the request fields are determined by the associated approval sequence
-		for the risk level.
+		Request fields for the entry are only returned if the entry has "request on behalf of" (`requestOnBehalfOfSettings`) enabled, and the authorized user is able to request on behalf of other requesters.
+
+		If the request can lead to any separation of duty conflicts, then the risk assessment (`metadata.riskAssessment`) is returned.
+		The risk assessment indicates whether the request submission is allowed or restricted, and includes rules that lead to the possible conflicts.
+		If the request submission is allowed, then the request fields are determined by the associated approval sequence for the risk level.
 
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -93,7 +80,7 @@ type MyCatalogsAPI interface {
 	GetMyCatalogEntryUserRequestFieldsV2Execute(r ApiGetMyCatalogEntryUserRequestFieldsV2Request) (*CatalogEntryRequestFields, *APIResponse, error)
 
 	/*
-		GetMyEntryV2 Retrieve an entry from my catalog
+		GetMyEntryV2 Retrieve my catalog entry
 
 		Retrieves an entry from my catalog
 
@@ -108,11 +95,11 @@ type MyCatalogsAPI interface {
 	GetMyEntryV2Execute(r ApiGetMyEntryV2Request) (*RcarEntryGet, *APIResponse, error)
 
 	/*
-			ListMyDefaultEntriesV2 List all of my entries for the default access request catalog
+			ListMyDefaultEntriesV2 List my entries for the default access request catalog
 
-			Lists filtered entries for the default access request catalog that you're allowed to request (as the authenticated requestor).
+			Lists the filtered entries for the default access request catalog that you're allowed to request (as the authenticated requester).
 
-		The following are request examples with query parameters:
+		The following are request examples with a filter expression. In each example, the filter expression includes the mandatory `parent` property.
 
 		1. Lists at most 20 parent (top-level) entries
 		    ```
@@ -145,15 +132,17 @@ type MyCatalogsAPI interface {
 	ListMyDefaultEntriesV2Execute(r ApiListMyDefaultEntriesV2Request) (*RcarEntriesListV2, *APIResponse, error)
 
 	/*
-			ListMyEntryUsersV2 List all of my catalog entry users
+			ListMyEntryUsersV2 List my catalog entry users
 
 			Lists all users who match the filtered query and can also view and request the entry.
 
-		A list of users is only returned if the entry has the `requestOnBehalfOfSettings` enabled, a filter is specified, and the authorized user is able to request on behalf of other users.
+		The `filter` query parameter is mandatory for this operation. A list of users is returned if:
+		* the entry has the `requestOnBehalfOfSettings` enabled
+		* the authorized user is able to request on behalf of other users
 
 		**Examples**
 
-		Request examples with query parameters:
+		Request examples:
 
 		1. Filter users with a last name that starts with "Smi"
 		    ```
@@ -195,25 +184,14 @@ func (r ApiGetMyCatalogEntryRequestFieldsV2Request) Execute() (*CatalogEntryRequ
 }
 
 /*
-GetMyCatalogEntryRequestFieldsV2 Retrieve an entry's request fields
+GetMyCatalogEntryRequestFieldsV2 Retrieve the request fields for my catalog entry
 
-# Retrieves request fields for my catalog entry
+Retrieves request fields for a catalog entry that you're allowed to request (as the authenticated requester):
 
-Request fields are determined by evaluating the entry's associated
-request conditions for the requester.
-
-The highest priority matching
-condition determines the approval sequence that will be used for the
-requester.
-
-If that approval sequence has requester fields, then they will
-be returned as a request field.
-
-If the request can lead to any separation of duty conflicts, then
-the risk assessment is present. The risk assessment indicates whether
-request submission is allowed or restricted and includes rules that
-lead to the possible conflicts. If request submission is allowed, then
-the request fields are determined by the associated approval sequence.
+* Request fields are determined by evaluating the entry's associated request conditions for the requester.
+* The highest priority matching condition determines the approval sequence that's used for the requester.
+* If that approval sequence has requester fields, then they are returned as request fields.
+* If the request can lead to any separation of duty conflicts, then the risk assessment (`metadata.riskAssessment`) is present. The risk assessment indicates whether the request submission is allowed or restricted, and includes rules that lead to the possible conflicts. If the request submission is allowed, then the request fields are determined by the associated approval sequence.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param entryId The ID of the catalog entry
@@ -358,17 +336,15 @@ func (r ApiGetMyCatalogEntryUserRequestFieldsV2Request) Execute() (*CatalogEntry
 }
 
 /*
-GetMyCatalogEntryUserRequestFieldsV2 Retrieve a users request-fields for an entry
+GetMyCatalogEntryUserRequestFieldsV2 Retrieve the entry request fields for a user
 
 Retrieves the entry's request fields for the specified requester.
-Request fields for the entry are only returned if the entry has request on behalf of enabled, and the authorized user is able to request on behalf of other requesters.
 
-If the request can lead to any separation of duty conflicts, then
-the risk assessment is present. The risk assessment indicates whether
-request submission is allowed or restricted and includes rules that
-lead to the possible conflicts. If request submission is allowed, then
-the request fields are determined by the associated approval sequence
-for the risk level.
+Request fields for the entry are only returned if the entry has "request on behalf of" (`requestOnBehalfOfSettings`) enabled, and the authorized user is able to request on behalf of other requesters.
+
+If the request can lead to any separation of duty conflicts, then the risk assessment (`metadata.riskAssessment`) is returned.
+The risk assessment indicates whether the request submission is allowed or restricted, and includes rules that lead to the possible conflicts.
+If the request submission is allowed, then the request fields are determined by the associated approval sequence for the risk level.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param entryId The ID of the catalog entry
@@ -521,7 +497,7 @@ func (r ApiGetMyEntryV2Request) Execute() (*RcarEntryGet, *APIResponse, error) {
 }
 
 /*
-GetMyEntryV2 Retrieve an entry from my catalog
+GetMyEntryV2 Retrieve my catalog entry
 
 Retrieves an entry from my catalog
 
@@ -713,7 +689,7 @@ type ApiListMyDefaultEntriesV2Request struct {
 	retryCount int32
 }
 
-// A required filter expression that returns entries based on the [&#x60;parent&#x60;](https://developer.okta.com/docs/api/iga/openapi/governance.requests.admin.v2/tag/Catalogs/#tag/Catalogs/operation/listAllDefaultEntriesV2!c&#x3D;200&amp;path&#x3D;data/parent&amp;t&#x3D;response) property. This [filter](https://developer.okta.com/docs/api/#filter) expression supports the &#x60;eq&#x60; and &#x60;pr&#x60; [operators](https://developer.okta.com/docs/api/#operators).  **Note:** Query parameter percent encoding is required. See [Special characters]( https://developer.okta.com/docs/api/#special-characters ).
+// A required [filter](https://developer.okta.com/docs/api/#filter) expression that returns entries based on the [&#x60;parent&#x60;](https://developer.okta.com/docs/api/iga/openapi/governance.requests.admin.v2/tag/Catalogs/#tag/Catalogs/operation/listAllDefaultEntriesV2!c&#x3D;200&amp;path&#x3D;data/parent&amp;t&#x3D;response) property: * This filter expression only supports the &#x60;parent&#x60; property and the &#x60;eq&#x60; and &#x60;pr&#x60; [operators](https://developer.okta.com/docs/api/#operators). * If you want the query to return child entries, then you must specify the &#x60;parent&#x60; ID with the &#x60;eq&#x60; operator.  &gt; **Notes:** &gt; * If you don&#39;t use the &#x60;parent&#x60; property in the filter expression, undesireable results are returned. &gt; * Query parameter percent encoding is required. See [Special characters]( https://developer.okta.com/docs/api/#special-characters ).
 func (r ApiListMyDefaultEntriesV2Request) Filter(filter string) ApiListMyDefaultEntriesV2Request {
 	r.filter = &filter
 	return r
@@ -742,11 +718,11 @@ func (r ApiListMyDefaultEntriesV2Request) Execute() (*RcarEntriesListV2, *APIRes
 }
 
 /*
-ListMyDefaultEntriesV2 List all of my entries for the default access request catalog
+ListMyDefaultEntriesV2 List my entries for the default access request catalog
 
-Lists filtered entries for the default access request catalog that you're allowed to request (as the authenticated requestor).
+Lists the filtered entries for the default access request catalog that you're allowed to request (as the authenticated requester).
 
-The following are request examples with query parameters:
+The following are request examples with a filter expression. In each example, the filter expression includes the mandatory `parent` property.
 
  1. Lists at most 20 parent (top-level) entries
     ```
@@ -988,15 +964,17 @@ func (r ApiListMyEntryUsersV2Request) Execute() (*EntryUsersList, *APIResponse, 
 }
 
 /*
-ListMyEntryUsersV2 List all of my catalog entry users
+ListMyEntryUsersV2 List my catalog entry users
 
 Lists all users who match the filtered query and can also view and request the entry.
 
-A list of users is only returned if the entry has the `requestOnBehalfOfSettings` enabled, a filter is specified, and the authorized user is able to request on behalf of other users.
+The `filter` query parameter is mandatory for this operation. A list of users is returned if:
+* the entry has the `requestOnBehalfOfSettings` enabled
+* the authorized user is able to request on behalf of other users
 
 **Examples**
 
-Request examples with query parameters:
+Request examples:
 
  1. Filter users with a last name that starts with "Smi"
     ```

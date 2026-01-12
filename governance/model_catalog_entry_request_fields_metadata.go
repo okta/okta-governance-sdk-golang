@@ -30,7 +30,7 @@ import (
 // checks if the CatalogEntryRequestFieldsMetadata type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &CatalogEntryRequestFieldsMetadata{}
 
-// CatalogEntryRequestFieldsMetadata struct for CatalogEntryRequestFieldsMetadata
+// CatalogEntryRequestFieldsMetadata Additional information about the request fields
 type CatalogEntryRequestFieldsMetadata struct {
 	RiskAssessment       *RiskAssessment `json:"riskAssessment,omitempty"`
 	AdditionalProperties map[string]interface{}

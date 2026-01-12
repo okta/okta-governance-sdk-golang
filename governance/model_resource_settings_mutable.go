@@ -34,21 +34,23 @@ var _ MappedNullable = &ResourceSettingsMutable{}
 // ResourceSettingsMutable Resource specific properties
 type ResourceSettingsMutable struct {
 	Type CampaignResourceType `json:"type"`
-	//  Represents a resource that will be part of Access certifications. If the app is enabled for Access Certifications, it's possible to review entitlements and entitlement bundles.  You can review all entitlements by specifying `includeEntitlements: true` and/or restrict it by setting the property `onlyIncludeOutOfPolicyEntitlements: true`, both of which are `false` by default.  If `includeEntitlements: false`, you need to specify a list of `entitlementBundles` and/or `entitlements`.
+	//  Specific resources that are included in the access certification campaign:  * If `resourceSettings.targetResources.resourceType` is `APPLICATION` and the app is enabled with entitlement management, you can also review entitlements and entitlement bundles:     * Review all entitlements and bundles by setting `resourceSettings.targetResources.includeAllEntitlementsAndBundles` to `true` (`false` is set by default).     * Restrict the review to non-policy entitlement grants by setting `resourceSettings.onlyIncludeOutOfPolicyEntitlements` to `true` (`false` is set by default).     * If `resourceSettings.targetResources.includeAllEntitlementsAndBundles` is `false`, then you must specify a list of `resourceSettings.targetResources.entitlementBundles` and/or `resourceSettings.targetResources.entitlements`. * If `resourceSettings.type` is `OKTA_SERVICE_ACCOUNT`, then specify `OKTA_SERVICE_ACCOUNT` as `resourceSettings.targetResources.resourceType`, and `resourceId` as the ID of the Okta service account. * If `resourceSettings.type` is `APP_SERVICE_ACCOUNT`, then specify `APPLICATION` as the `resourceSettings.targetResources.resourceType`, `resourceSettings.targetResources.resourceId` as the ID of the Okta app instance, and add service account IDs into `resourceSettings.targetResources.appServiceAccounts`.
 	TargetResources []TargetResourcesRequestInner `json:"targetResources,omitempty"`
-	// An array of resources that are excluded from the review
+	// Only applicable if `campaignType` is `USER`.  A list of resources that are excluded from the review.
 	ExcludedResources []ResourceSettingsMutableExcludedResourcesInner `json:"excludedResources,omitempty"`
-	// Only include individually assigned apps. This is only applicable if campaign type is `USER`.
+	// Only applicable if `campaignType` is `USER`.  If `true`, only include individually assigned apps.
 	IndividuallyAssignedAppsOnly *bool `json:"individuallyAssignedAppsOnly,omitempty"`
-	// Only include individually assigned groups. This is only applicable if campaign type is `USER`.
+	// Only applicable if `campaignType` is `USER`.  If `true`, only include individually assigned groups.
 	IndividuallyAssignedGroupsOnly *bool `json:"individuallyAssignedGroupsOnly,omitempty"`
-	// Include entitlements for this application. This property is only applicable if `resourcetype = APPLICATION` and Entitlement Management is enabled.
+	// Only applicable if `resourceSettings.targetResources.resourceType` is `APPLICATION` and entitlement management is enabled.  If `true`, include entitlements for the app.
 	IncludeEntitlements *bool `json:"includeEntitlements,omitempty"`
-	// Only include out-of-policy entitlements. Only applicable if `resourcetype = APPLICATION` and Entitlement Management is enabled.
+	// Only applicable if `campaignType` is `USER`, `resourceSettings.targetResources.resourceType` is `APPLICATION`, and entitlement management is enabled:  If `true`, only include out-of-policy entitlements.
 	OnlyIncludeOutOfPolicyEntitlements *bool `json:"onlyIncludeOutOfPolicyEntitlements,omitempty"`
-	// Include admin roles.
-	IncludeAdminRoles    *bool `json:"includeAdminRoles,omitempty"`
-	AdditionalProperties map[string]interface{}
+	// Only applicable if `campaignType` is `USER`.  If `true`, include users assigned to admin roles in the campaign.
+	IncludeAdminRoles *bool `json:"includeAdminRoles,omitempty"`
+	// Only applicable when `resourceSettings.type` is `OKTA_SERVICE_ACCOUNT`: * If `true`, all Okta service accounts in the org are included as target resources in the campaign. * If `false`, only the Okta service accounts IDs specified in `resourceSettings.targetResources.resourceId` are included in the campaign.
+	IncludeAllOktaServiceAccounts *bool `json:"includeAllOktaServiceAccounts,omitempty"`
+	AdditionalProperties          map[string]interface{}
 }
 
 type _ResourceSettingsMutable ResourceSettingsMutable
@@ -60,6 +62,8 @@ type _ResourceSettingsMutable ResourceSettingsMutable
 func NewResourceSettingsMutable(type_ CampaignResourceType) *ResourceSettingsMutable {
 	this := ResourceSettingsMutable{}
 	this.Type = type_
+	var includeEntitlements bool = false
+	this.IncludeEntitlements = &includeEntitlements
 	return &this
 }
 
@@ -68,6 +72,8 @@ func NewResourceSettingsMutable(type_ CampaignResourceType) *ResourceSettingsMut
 // but it doesn't guarantee that properties required by API are set
 func NewResourceSettingsMutableWithDefaults() *ResourceSettingsMutable {
 	this := ResourceSettingsMutable{}
+	var includeEntitlements bool = false
+	this.IncludeEntitlements = &includeEntitlements
 	return &this
 }
 
@@ -319,6 +325,38 @@ func (o *ResourceSettingsMutable) SetIncludeAdminRoles(v bool) {
 	o.IncludeAdminRoles = &v
 }
 
+// GetIncludeAllOktaServiceAccounts returns the IncludeAllOktaServiceAccounts field value if set, zero value otherwise.
+func (o *ResourceSettingsMutable) GetIncludeAllOktaServiceAccounts() bool {
+	if o == nil || IsNil(o.IncludeAllOktaServiceAccounts) {
+		var ret bool
+		return ret
+	}
+	return *o.IncludeAllOktaServiceAccounts
+}
+
+// GetIncludeAllOktaServiceAccountsOk returns a tuple with the IncludeAllOktaServiceAccounts field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ResourceSettingsMutable) GetIncludeAllOktaServiceAccountsOk() (*bool, bool) {
+	if o == nil || IsNil(o.IncludeAllOktaServiceAccounts) {
+		return nil, false
+	}
+	return o.IncludeAllOktaServiceAccounts, true
+}
+
+// HasIncludeAllOktaServiceAccounts returns a boolean if a field has been set.
+func (o *ResourceSettingsMutable) HasIncludeAllOktaServiceAccounts() bool {
+	if o != nil && !IsNil(o.IncludeAllOktaServiceAccounts) {
+		return true
+	}
+
+	return false
+}
+
+// SetIncludeAllOktaServiceAccounts gets a reference to the given bool and assigns it to the IncludeAllOktaServiceAccounts field.
+func (o *ResourceSettingsMutable) SetIncludeAllOktaServiceAccounts(v bool) {
+	o.IncludeAllOktaServiceAccounts = &v
+}
+
 func (o ResourceSettingsMutable) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -350,6 +388,9 @@ func (o ResourceSettingsMutable) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.IncludeAdminRoles) {
 		toSerialize["includeAdminRoles"] = o.IncludeAdminRoles
+	}
+	if !IsNil(o.IncludeAllOktaServiceAccounts) {
+		toSerialize["includeAllOktaServiceAccounts"] = o.IncludeAllOktaServiceAccounts
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -402,6 +443,7 @@ func (o *ResourceSettingsMutable) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "includeEntitlements")
 		delete(additionalProperties, "onlyIncludeOutOfPolicyEntitlements")
 		delete(additionalProperties, "includeAdminRoles")
+		delete(additionalProperties, "includeAllOktaServiceAccounts")
 		o.AdditionalProperties = additionalProperties
 	}
 

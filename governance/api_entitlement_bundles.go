@@ -67,19 +67,19 @@ type EntitlementBundlesAPI interface {
 	DeleteEntitlementBundleExecute(r ApiDeleteEntitlementBundleRequest) (*APIResponse, error)
 
 	/*
-		GetentitlementBundle Retrieve an entitlement bundle
+		GetEntitlementBundle Retrieve an entitlement bundle
 
 		Retrieves the full representation of a entitlement bundle
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param entitlementBundleId The `id` of the entitlement bundle
-		@return ApiGetentitlementBundleRequest
+		@return ApiGetEntitlementBundleRequest
 	*/
-	GetentitlementBundle(ctx context.Context, entitlementBundleId string) ApiGetentitlementBundleRequest
+	GetEntitlementBundle(ctx context.Context, entitlementBundleId string) ApiGetEntitlementBundleRequest
 
-	// GetentitlementBundleExecute executes the request
+	// GetEntitlementBundleExecute executes the request
 	//  @return EntitlementBundleFullWithEntitlements
-	GetentitlementBundleExecute(r ApiGetentitlementBundleRequest) (*EntitlementBundleFullWithEntitlements, *APIResponse, error)
+	GetEntitlementBundleExecute(r ApiGetEntitlementBundleRequest) (*EntitlementBundleFullWithEntitlements, *APIResponse, error)
 
 	/*
 		ListEntitlementBundles List all entitlement bundles
@@ -504,7 +504,7 @@ func (a *EntitlementBundlesAPIService) DeleteEntitlementBundleExecute(r ApiDelet
 	return localAPIResponse, nil
 }
 
-type ApiGetentitlementBundleRequest struct {
+type ApiGetEntitlementBundleRequest struct {
 	ctx                 context.Context
 	ApiService          EntitlementBundlesAPI
 	entitlementBundleId string
@@ -513,26 +513,26 @@ type ApiGetentitlementBundleRequest struct {
 }
 
 // The &#x60;include&#x60; filter adds additional properties that are available in the retrieve an entitlement bundle operation, but are omitted from the list response normally.
-func (r ApiGetentitlementBundleRequest) Include(include []string) ApiGetentitlementBundleRequest {
+func (r ApiGetEntitlementBundleRequest) Include(include []string) ApiGetEntitlementBundleRequest {
 	r.include = &include
 	return r
 }
 
-func (r ApiGetentitlementBundleRequest) Execute() (*EntitlementBundleFullWithEntitlements, *APIResponse, error) {
-	return r.ApiService.GetentitlementBundleExecute(r)
+func (r ApiGetEntitlementBundleRequest) Execute() (*EntitlementBundleFullWithEntitlements, *APIResponse, error) {
+	return r.ApiService.GetEntitlementBundleExecute(r)
 }
 
 /*
-GetentitlementBundle Retrieve an entitlement bundle
+GetEntitlementBundle Retrieve an entitlement bundle
 
 Retrieves the full representation of a entitlement bundle
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param entitlementBundleId The `id` of the entitlement bundle
-	@return ApiGetentitlementBundleRequest
+	@return ApiGetEntitlementBundleRequest
 */
-func (a *EntitlementBundlesAPIService) GetentitlementBundle(ctx context.Context, entitlementBundleId string) ApiGetentitlementBundleRequest {
-	return ApiGetentitlementBundleRequest{
+func (a *EntitlementBundlesAPIService) GetEntitlementBundle(ctx context.Context, entitlementBundleId string) ApiGetEntitlementBundleRequest {
+	return ApiGetEntitlementBundleRequest{
 		ApiService:          a,
 		ctx:                 ctx,
 		entitlementBundleId: entitlementBundleId,
@@ -543,7 +543,7 @@ func (a *EntitlementBundlesAPIService) GetentitlementBundle(ctx context.Context,
 // Execute executes the request
 //
 //	@return EntitlementBundleFullWithEntitlements
-func (a *EntitlementBundlesAPIService) GetentitlementBundleExecute(r ApiGetentitlementBundleRequest) (*EntitlementBundleFullWithEntitlements, *APIResponse, error) {
+func (a *EntitlementBundlesAPIService) GetEntitlementBundleExecute(r ApiGetEntitlementBundleRequest) (*EntitlementBundleFullWithEntitlements, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -559,7 +559,7 @@ func (a *EntitlementBundlesAPIService) GetentitlementBundleExecute(r ApiGetentit
 		r.ctx = localctx
 		defer cancel()
 	}
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EntitlementBundlesAPIService.GetentitlementBundle")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EntitlementBundlesAPIService.GetEntitlementBundle")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}

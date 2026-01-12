@@ -4,9 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** | Okta resource &#x60;id&#x60; | 
-**Name** | **string** | The display name for the resource. | 
-**Description** | Pointer to **string** | The description of the resource. | [optional] 
+**Id** | **string** | Okta resource ID | 
+**Name** | **string** | The display name for the resource | 
+**Description** | Pointer to **string** | The description of the resource | [optional] 
+**Parent** | Pointer to [**ExternalResourceProfileParent**](ExternalResourceProfileParent.md) |  | [optional] 
 **Label** | Pointer to **string** | The label of the Okta resource | [optional] 
 **Logo** | Pointer to [**[]Link**](Link.md) | List of logo resources | [optional] 
 
@@ -93,6 +94,31 @@ SetDescription sets Description field to given value.
 `func (o *ExternalResourceProfile) HasDescription() bool`
 
 HasDescription returns a boolean if a field has been set.
+
+### GetParent
+
+`func (o *ExternalResourceProfile) GetParent() ExternalResourceProfileParent`
+
+GetParent returns the Parent field if non-nil, zero value otherwise.
+
+### GetParentOk
+
+`func (o *ExternalResourceProfile) GetParentOk() (*ExternalResourceProfileParent, bool)`
+
+GetParentOk returns a tuple with the Parent field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetParent
+
+`func (o *ExternalResourceProfile) SetParent(v ExternalResourceProfileParent)`
+
+SetParent sets Parent field to given value.
+
+### HasParent
+
+`func (o *ExternalResourceProfile) HasParent() bool`
+
+HasParent returns a boolean if a field has been set.
 
 ### GetLabel
 

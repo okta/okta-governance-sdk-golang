@@ -31,9 +31,9 @@ import (
 // checks if the EntitlementValue type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &EntitlementValue{}
 
-// EntitlementValue list of entitlement value ids
+// EntitlementValue List of entitlement value IDs
 type EntitlementValue struct {
-	// The entitlement value id
+	// The entitlement value `id`
 	Id                   string `json:"id"`
 	AdditionalProperties map[string]interface{}
 }

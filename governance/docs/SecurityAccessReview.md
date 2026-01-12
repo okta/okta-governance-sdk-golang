@@ -9,18 +9,18 @@ Name | Type | Description | Notes
 **Created** | **time.Time** | The ISO 8601 formatted date and time when the resource was created | [readonly] 
 **LastUpdated** | **time.Time** | The ISO 8601 formatted date and time when the object was last updated | [readonly] 
 **LastUpdatedBy** | **string** | The &#x60;id&#x60; of the Okta user who last updated the object | [readonly] 
-**Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
+**Links** | Pointer to [**map[string]Link**](Link.md) | Links to related resources | [optional] 
 **Status** | [**SecurityAccessReviewStatus**](SecurityAccessReviewStatus.md) |  | 
 **Name** | **string** | The name of the security access review | 
 **EndTime** | **time.Time** | The end time of the security access review | 
-**ReviewerSettings** | [**SecurityAccessReviewReviewerSettings**](SecurityAccessReviewReviewerSettings.md) |  | 
-**Summary** | Pointer to [**ServerMessage**](ServerMessage.md) |  | [optional] 
+**ReviewerSettings** | [**SecurityAccessReviewReviewerSettingsResponse**](SecurityAccessReviewReviewerSettingsResponse.md) |  | 
+**Summary** | Pointer to [**AiMessage**](AiMessage.md) |  | [optional] 
 
 ## Methods
 
 ### NewSecurityAccessReview
 
-`func NewSecurityAccessReview(id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, status SecurityAccessReviewStatus, name string, endTime time.Time, reviewerSettings SecurityAccessReviewReviewerSettings, ) *SecurityAccessReview`
+`func NewSecurityAccessReview(id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, status SecurityAccessReviewStatus, name string, endTime time.Time, reviewerSettings SecurityAccessReviewReviewerSettingsResponse, ) *SecurityAccessReview`
 
 NewSecurityAccessReview instantiates a new SecurityAccessReview object
 This constructor will assign default values to properties that have it defined,
@@ -222,40 +222,40 @@ SetEndTime sets EndTime field to given value.
 
 ### GetReviewerSettings
 
-`func (o *SecurityAccessReview) GetReviewerSettings() SecurityAccessReviewReviewerSettings`
+`func (o *SecurityAccessReview) GetReviewerSettings() SecurityAccessReviewReviewerSettingsResponse`
 
 GetReviewerSettings returns the ReviewerSettings field if non-nil, zero value otherwise.
 
 ### GetReviewerSettingsOk
 
-`func (o *SecurityAccessReview) GetReviewerSettingsOk() (*SecurityAccessReviewReviewerSettings, bool)`
+`func (o *SecurityAccessReview) GetReviewerSettingsOk() (*SecurityAccessReviewReviewerSettingsResponse, bool)`
 
 GetReviewerSettingsOk returns a tuple with the ReviewerSettings field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetReviewerSettings
 
-`func (o *SecurityAccessReview) SetReviewerSettings(v SecurityAccessReviewReviewerSettings)`
+`func (o *SecurityAccessReview) SetReviewerSettings(v SecurityAccessReviewReviewerSettingsResponse)`
 
 SetReviewerSettings sets ReviewerSettings field to given value.
 
 
 ### GetSummary
 
-`func (o *SecurityAccessReview) GetSummary() ServerMessage`
+`func (o *SecurityAccessReview) GetSummary() AiMessage`
 
 GetSummary returns the Summary field if non-nil, zero value otherwise.
 
 ### GetSummaryOk
 
-`func (o *SecurityAccessReview) GetSummaryOk() (*ServerMessage, bool)`
+`func (o *SecurityAccessReview) GetSummaryOk() (*AiMessage, bool)`
 
 GetSummaryOk returns a tuple with the Summary field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSummary
 
-`func (o *SecurityAccessReview) SetSummary(v ServerMessage)`
+`func (o *SecurityAccessReview) SetSummary(v AiMessage)`
 
 SetSummary sets Summary field to given value.
 

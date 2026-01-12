@@ -39,7 +39,7 @@ type RequestTypeSparse struct {
 	Links            RequestTypeLinks  `json:"_links"`
 	// Writable unique key on Create. Not modifiable on update.
 	Name string `json:"name"`
-	// Human readable description.
+	// Human readable description
 	Description string `json:"description"`
 	// Unique identifier for the object
 	Id string `json:"id"`

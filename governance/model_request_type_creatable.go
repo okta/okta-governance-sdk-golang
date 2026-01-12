@@ -43,7 +43,7 @@ type RequestTypeCreatable struct {
 	AccessDuration NullableString `json:"accessDuration,omitempty"`
 	// Writable unique key on Create. Not modifiable on update.
 	Name string `json:"name"`
-	// Human readable description.
+	// Human readable description
 	Description          *string `json:"description,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

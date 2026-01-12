@@ -31,7 +31,7 @@ import (
 // checks if the SecurityAccessReviewReviewerSettings type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SecurityAccessReviewReviewerSettings{}
 
-// SecurityAccessReviewReviewerSettings The settings for the reviewers a security access review. This includes the type of reviewer and specific user settings.
+// SecurityAccessReviewReviewerSettings The reviewer settings for a security access review. These include the type of reviewers and a list of reviewer IDs.
 type SecurityAccessReviewReviewerSettings struct {
 	Type                 SecurityAccessReviewReviewerType          `json:"type"`
 	UserSettings         *SecurityAccessReviewUserReviewerSettings `json:"userSettings,omitempty"`

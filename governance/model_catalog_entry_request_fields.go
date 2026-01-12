@@ -32,6 +32,7 @@ var _ MappedNullable = &CatalogEntryRequestFields{}
 
 // CatalogEntryRequestFields struct for CatalogEntryRequestFields
 type CatalogEntryRequestFields struct {
+	// List of request fields
 	Data                 []RequestField                     `json:"data,omitempty"`
 	Metadata             *CatalogEntryRequestFieldsMetadata `json:"metadata,omitempty"`
 	AdditionalProperties map[string]interface{}

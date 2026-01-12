@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**LabelValueId** | **string** | The &#x60;id&#x60; property of a label value | 
-**Name** | **string** | Name of the label value | 
+**LabelValueId** | **string** | The ID of a label value | 
+**Name** | **string** | The label value | 
 **Metadata** | Pointer to [**LabelMetadata**](LabelMetadata.md) |  | [optional] 
 
 ## Methods

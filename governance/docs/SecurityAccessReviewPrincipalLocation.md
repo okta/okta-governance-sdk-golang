@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**City** | Pointer to **string** | City of the location | [optional] 
-**State** | Pointer to **string** | State of the location | [optional] 
-**Country** | Pointer to **string** | Country of the location | [optional] 
+**City** | Pointer to **string** | The city of the location | [optional] 
+**State** | Pointer to **string** | The state of the location | [optional] 
+**Country** | Pointer to **string** | The country of the location | [optional] 
 
 ## Methods
 

@@ -34,6 +34,8 @@ var _ MappedNullable = &RequestFullApiIncompatible{}
 
 // RequestFullApiIncompatible A Request where the request type has a CUSTOM setting. This representation is limited and does not contain `actions` and `approvals`.
 type RequestFullApiIncompatible struct {
+	// The immutable, persistent identifier that always resolves to the request
+	PermalinkId int32 `json:"permalinkId"`
 	// This request is associated with a request type with `CUSTOM` settings.
 	Type string `json:"type"`
 	// Unique identifier for the object
@@ -67,7 +69,7 @@ type _RequestFullApiIncompatible RequestFullApiIncompatible
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRequestFullApiIncompatible(type_ string, id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, links RequestLinks, requestTypeId string, subject string, requesterUserIds []string, requestStatus RequestRequestStatus, resolved NullableTime, requesterFieldValues []FieldValue) *RequestFullApiIncompatible {
+func NewRequestFullApiIncompatible(permalinkId int32, type_ string, id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, links RequestLinks, requestTypeId string, subject string, requesterUserIds []string, requestStatus RequestRequestStatus, resolved NullableTime, requesterFieldValues []FieldValue) *RequestFullApiIncompatible {
 	this := RequestFullApiIncompatible{}
 	this.Id = id
 	this.CreatedBy = createdBy
@@ -90,6 +92,30 @@ func NewRequestFullApiIncompatible(type_ string, id string, createdBy string, cr
 func NewRequestFullApiIncompatibleWithDefaults() *RequestFullApiIncompatible {
 	this := RequestFullApiIncompatible{}
 	return &this
+}
+
+// GetPermalinkId returns the PermalinkId field value
+func (o *RequestFullApiIncompatible) GetPermalinkId() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.PermalinkId
+}
+
+// GetPermalinkIdOk returns a tuple with the PermalinkId field value
+// and a boolean to check if the value has been set.
+func (o *RequestFullApiIncompatible) GetPermalinkIdOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PermalinkId, true
+}
+
+// SetPermalinkId sets field value
+func (o *RequestFullApiIncompatible) SetPermalinkId(v int32) {
+	o.PermalinkId = v
 }
 
 // GetType returns the Type field value
@@ -418,6 +444,7 @@ func (o RequestFullApiIncompatible) MarshalJSON() ([]byte, error) {
 
 func (o RequestFullApiIncompatible) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["permalinkId"] = o.PermalinkId
 	toSerialize["type"] = o.Type
 	toSerialize["id"] = o.Id
 	toSerialize["createdBy"] = o.CreatedBy
@@ -446,6 +473,7 @@ func (o *RequestFullApiIncompatible) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"permalinkId",
 		"type",
 		"id",
 		"createdBy",
@@ -488,6 +516,7 @@ func (o *RequestFullApiIncompatible) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "permalinkId")
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "createdBy")

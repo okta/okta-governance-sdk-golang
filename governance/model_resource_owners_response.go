@@ -32,7 +32,7 @@ var _ MappedNullable = &ResourceOwnersResponse{}
 
 // ResourceOwnersResponse struct for ResourceOwnersResponse
 type ResourceOwnersResponse struct {
-	// Resource owner details.
+	// Resource owner details
 	Data                 []ResourceOwner `json:"data,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

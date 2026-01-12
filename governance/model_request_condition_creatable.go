@@ -40,9 +40,9 @@ type RequestConditionCreatable struct {
 	ApprovalSequenceId string `json:"approvalSequenceId"`
 	// The priority of the condition. The smaller the number, the higher the priority. The highest priority is 0. A new condition will default to the lowest priority.
 	Priority *int32 `json:"priority,omitempty"`
-	// Writable unique key on Create. Modifiable on update.
+	// Writable unique key on create. Modifiable on update.
 	Name string `json:"name"`
-	// Human readable description.
+	// Human readable description
 	Description          *string `json:"description,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

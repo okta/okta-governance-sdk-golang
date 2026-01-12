@@ -34,21 +34,25 @@ var _ MappedNullable = &EntitlementValue2{}
 // EntitlementValue2 struct for EntitlementValue2
 type EntitlementValue2 struct {
 	Links EntitlementLink `json:"_links"`
-	// The `id` of an entitlement value
+	// The `id` of the entitlement value
 	Id string `json:"id"`
 	// The display name for an entitlement value
 	Name string `json:"name"`
 	// The value of an entitlement property value
 	ExternalValue string `json:"externalValue"`
-	// The read-only `id` of an entitlement property value in the downstream application.
+	// The read-only ID of an entitlement property value in the downstream app
 	ExternalId *string `json:"externalId,omitempty"`
 	// The description of an entitlement value
 	Description *string `json:"description,omitempty"`
+	// The entitlement value resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)
+	Orn string `json:"orn"`
 	// The `id` property of an entitlement
 	EntitlementId string `json:"entitlementId"`
-	// The Okta app instance, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for a specific app in [Supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
-	ParentResourceOrn    string         `json:"parentResourceOrn"`
-	Parent               TargetResource `json:"parent"`
+	// The Okta resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for [supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
+	ParentResourceOrn string         `json:"parentResourceOrn"`
+	Parent            TargetResource `json:"parent"`
+	// List of assigned labels
+	Labels               []Label `json:"labels,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,11 +62,12 @@ type _EntitlementValue2 EntitlementValue2
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEntitlementValue2(links EntitlementLink, id string, name string, externalValue string, entitlementId string, parentResourceOrn string, parent TargetResource) *EntitlementValue2 {
+func NewEntitlementValue2(links EntitlementLink, id string, name string, externalValue string, orn string, entitlementId string, parentResourceOrn string, parent TargetResource) *EntitlementValue2 {
 	this := EntitlementValue2{}
 	this.Id = id
 	this.Name = name
 	this.ExternalValue = externalValue
+	this.Orn = orn
 	this.EntitlementId = entitlementId
 	this.ParentResourceOrn = parentResourceOrn
 	this.Parent = parent
@@ -237,6 +242,30 @@ func (o *EntitlementValue2) SetDescription(v string) {
 	o.Description = &v
 }
 
+// GetOrn returns the Orn field value
+func (o *EntitlementValue2) GetOrn() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Orn
+}
+
+// GetOrnOk returns a tuple with the Orn field value
+// and a boolean to check if the value has been set.
+func (o *EntitlementValue2) GetOrnOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Orn, true
+}
+
+// SetOrn sets field value
+func (o *EntitlementValue2) SetOrn(v string) {
+	o.Orn = v
+}
+
 // GetEntitlementId returns the EntitlementId field value
 func (o *EntitlementValue2) GetEntitlementId() string {
 	if o == nil {
@@ -309,6 +338,38 @@ func (o *EntitlementValue2) SetParent(v TargetResource) {
 	o.Parent = v
 }
 
+// GetLabels returns the Labels field value if set, zero value otherwise.
+func (o *EntitlementValue2) GetLabels() []Label {
+	if o == nil || IsNil(o.Labels) {
+		var ret []Label
+		return ret
+	}
+	return o.Labels
+}
+
+// GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EntitlementValue2) GetLabelsOk() ([]Label, bool) {
+	if o == nil || IsNil(o.Labels) {
+		return nil, false
+	}
+	return o.Labels, true
+}
+
+// HasLabels returns a boolean if a field has been set.
+func (o *EntitlementValue2) HasLabels() bool {
+	if o != nil && !IsNil(o.Labels) {
+		return true
+	}
+
+	return false
+}
+
+// SetLabels gets a reference to the given []Label and assigns it to the Labels field.
+func (o *EntitlementValue2) SetLabels(v []Label) {
+	o.Labels = v
+}
+
 func (o EntitlementValue2) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -329,9 +390,13 @@ func (o EntitlementValue2) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
+	toSerialize["orn"] = o.Orn
 	toSerialize["entitlementId"] = o.EntitlementId
 	toSerialize["parentResourceOrn"] = o.ParentResourceOrn
 	toSerialize["parent"] = o.Parent
+	if !IsNil(o.Labels) {
+		toSerialize["labels"] = o.Labels
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -349,6 +414,7 @@ func (o *EntitlementValue2) UnmarshalJSON(data []byte) (err error) {
 		"id",
 		"name",
 		"externalValue",
+		"orn",
 		"entitlementId",
 		"parentResourceOrn",
 		"parent",
@@ -387,9 +453,11 @@ func (o *EntitlementValue2) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "externalValue")
 		delete(additionalProperties, "externalId")
 		delete(additionalProperties, "description")
+		delete(additionalProperties, "orn")
 		delete(additionalProperties, "entitlementId")
 		delete(additionalProperties, "parentResourceOrn")
 		delete(additionalProperties, "parent")
+		delete(additionalProperties, "labels")
 		o.AdditionalProperties = additionalProperties
 	}
 

@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **LastUpdateSource** | [**RequestTypeLastUpdateSource**](RequestTypeLastUpdateSource.md) |  | 
 **Links** | [**RequestTypeLinks**](RequestTypeLinks.md) |  | 
 **Name** | **string** | Writable unique key on Create. Not modifiable on update. | 
-**Description** | **string** | Human readable description. | 
+**Description** | **string** | Human readable description | 
 **Id** | **string** | Unique identifier for the object | 
 **CreatedBy** | **string** | The &#x60;id&#x60; of the Okta user who created the resource | [readonly] 
 **Created** | **time.Time** | The ISO 8601 formatted date and time when the resource was created | [readonly] 

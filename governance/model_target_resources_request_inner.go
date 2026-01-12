@@ -31,18 +31,28 @@ import (
 // checks if the TargetResourcesRequestInner type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &TargetResourcesRequestInner{}
 
-// TargetResourcesRequestInner Represents a resource that will be part of access certification
+// TargetResourcesRequestInner A resource that's included in the access certification campaign
 type TargetResourcesRequestInner struct {
-	// The resource ID that is being reviewed. The `resourceId` can have a different value based on the `resourceType`. When the `resourceType = GROUP`, the value is a group ID. When the `resourceType = APPLICATION`, the value is an application ID.
+	// The resource ID to review. The `resourceId` value depends on the `resourceType` object.
 	ResourceId   string        `json:"resourceId"`
 	ResourceType *ResourceType `json:"resourceType,omitempty"`
-	// Include all entitlements and entitlement bundles for this application. Only applicable if the `resourcetype = APPLICATION` and Entitlement Management is enabled.
+	// Only applicable if the `resourceType` is `APPLICATION` and entitlement management is enabled.  If `true`, include all entitlements and entitlement bundles for the app.
 	IncludeAllEntitlementsAndBundles *bool `json:"includeAllEntitlementsAndBundles,omitempty"`
-	// An array of entitlement bundles associated with `resourceId` that should be chosen as target when creating reviews. Only applicable if the `resourceType = APPLICATION` and Entitlement Management is enabled.
+	// Only applicable if the `resourceType` is `APPLICATION` and entitlement management is enabled.  A list of entitlement bundles (associated with the app specified in `resourceId`) selected as targets for review.
 	EntitlementBundles []EntitlementBundlesInner `json:"entitlementBundles,omitempty"`
-	// An array of entitlements associated with `resourceId` that should be chosen as target when creating reviews. Only applicable if `resourceType = APPLICATION` and Entitlement Management is enabled.
-	Entitlements         []EntitlementsInner `json:"entitlements,omitempty"`
-	AdditionalProperties map[string]interface{}
+	// Only applicable if `resourceType` is `APPLICATION` and entitlement management is enabled. A list of entitlements (associated with the app specified in `resourceId`) selected as targets for review.
+	Entitlements []EntitlementsInner `json:"entitlements,omitempty"`
+	// <x-lifecycle class=\"beta\"></x-lifecycle><br> Only applicable when `targetResources.resourceType` is `APPLICATION` or `GOVERNANCE_LABEL_VALUE`.  A list of governance label values assigned to resources to target for the review.
+	EntitlementValueScopeByGovernanceLabelValues []GovernanceLabelValuesInner `json:"entitlementValueScopeByGovernanceLabelValues,omitempty"`
+	// <x-lifecycle class=\"beta\"></x-lifecycle><br> If `true`, entitlements bundles are also included as additional targets to review. Only entitlement bundles with values that are targeted through the `entitlementValueScopeByGovernanceLabelValues` list are included.
+	IncludeBundlesHavingSameEntitlementValues *bool `json:"includeBundlesHavingSameEntitlementValues,omitempty"`
+	// <x-lifecycle class=\"beta\"></x-lifecycle><br> Only applicable when `targetResources.resourceType` is `APPLICATION` or `GOVERNANCE_LABEL_VALUE`.  A list of governance label values assigned to resources to target for the review.
+	EntitlementBundleScopeByGovernanceLabelValues []GovernanceLabelValuesInner `json:"entitlementBundleScopeByGovernanceLabelValues,omitempty"`
+	// Only applicable if the `resourceType` is `APPLICATION`.  A list of app service accounts (associated with the app specified in `resourceId`) selected as targets for review.
+	AppServiceAccounts []AppServiceAccountsInner `json:"appServiceAccounts,omitempty"`
+	// Only applicable if `resourceSettings.type` is `APP_SERVICE_ACCOUNT` and `resourceSettings.targetResources.resourceType` is `APPLICATION`:  * If true, includes all SaaS app service accounts associated with the app specified in `resourceSettings.targetResources.resourceId`. * If false, includes only the SaaS app service accounts specified in the list of `resourceSettings.targetResources.appServiceAccounts`. The list of service account IDs in `resourceSettings.targetResources.appServiceAccounts` must be associated with the app in `resourceSettings.targetResources.resourceId`.
+	IncludeAllAppServiceAccounts *bool `json:"includeAllAppServiceAccounts,omitempty"`
+	AdditionalProperties         map[string]interface{}
 }
 
 type _TargetResourcesRequestInner TargetResourcesRequestInner
@@ -217,6 +227,166 @@ func (o *TargetResourcesRequestInner) SetEntitlements(v []EntitlementsInner) {
 	o.Entitlements = v
 }
 
+// GetEntitlementValueScopeByGovernanceLabelValues returns the EntitlementValueScopeByGovernanceLabelValues field value if set, zero value otherwise.
+func (o *TargetResourcesRequestInner) GetEntitlementValueScopeByGovernanceLabelValues() []GovernanceLabelValuesInner {
+	if o == nil || IsNil(o.EntitlementValueScopeByGovernanceLabelValues) {
+		var ret []GovernanceLabelValuesInner
+		return ret
+	}
+	return o.EntitlementValueScopeByGovernanceLabelValues
+}
+
+// GetEntitlementValueScopeByGovernanceLabelValuesOk returns a tuple with the EntitlementValueScopeByGovernanceLabelValues field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TargetResourcesRequestInner) GetEntitlementValueScopeByGovernanceLabelValuesOk() ([]GovernanceLabelValuesInner, bool) {
+	if o == nil || IsNil(o.EntitlementValueScopeByGovernanceLabelValues) {
+		return nil, false
+	}
+	return o.EntitlementValueScopeByGovernanceLabelValues, true
+}
+
+// HasEntitlementValueScopeByGovernanceLabelValues returns a boolean if a field has been set.
+func (o *TargetResourcesRequestInner) HasEntitlementValueScopeByGovernanceLabelValues() bool {
+	if o != nil && !IsNil(o.EntitlementValueScopeByGovernanceLabelValues) {
+		return true
+	}
+
+	return false
+}
+
+// SetEntitlementValueScopeByGovernanceLabelValues gets a reference to the given []GovernanceLabelValuesInner and assigns it to the EntitlementValueScopeByGovernanceLabelValues field.
+func (o *TargetResourcesRequestInner) SetEntitlementValueScopeByGovernanceLabelValues(v []GovernanceLabelValuesInner) {
+	o.EntitlementValueScopeByGovernanceLabelValues = v
+}
+
+// GetIncludeBundlesHavingSameEntitlementValues returns the IncludeBundlesHavingSameEntitlementValues field value if set, zero value otherwise.
+func (o *TargetResourcesRequestInner) GetIncludeBundlesHavingSameEntitlementValues() bool {
+	if o == nil || IsNil(o.IncludeBundlesHavingSameEntitlementValues) {
+		var ret bool
+		return ret
+	}
+	return *o.IncludeBundlesHavingSameEntitlementValues
+}
+
+// GetIncludeBundlesHavingSameEntitlementValuesOk returns a tuple with the IncludeBundlesHavingSameEntitlementValues field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TargetResourcesRequestInner) GetIncludeBundlesHavingSameEntitlementValuesOk() (*bool, bool) {
+	if o == nil || IsNil(o.IncludeBundlesHavingSameEntitlementValues) {
+		return nil, false
+	}
+	return o.IncludeBundlesHavingSameEntitlementValues, true
+}
+
+// HasIncludeBundlesHavingSameEntitlementValues returns a boolean if a field has been set.
+func (o *TargetResourcesRequestInner) HasIncludeBundlesHavingSameEntitlementValues() bool {
+	if o != nil && !IsNil(o.IncludeBundlesHavingSameEntitlementValues) {
+		return true
+	}
+
+	return false
+}
+
+// SetIncludeBundlesHavingSameEntitlementValues gets a reference to the given bool and assigns it to the IncludeBundlesHavingSameEntitlementValues field.
+func (o *TargetResourcesRequestInner) SetIncludeBundlesHavingSameEntitlementValues(v bool) {
+	o.IncludeBundlesHavingSameEntitlementValues = &v
+}
+
+// GetEntitlementBundleScopeByGovernanceLabelValues returns the EntitlementBundleScopeByGovernanceLabelValues field value if set, zero value otherwise.
+func (o *TargetResourcesRequestInner) GetEntitlementBundleScopeByGovernanceLabelValues() []GovernanceLabelValuesInner {
+	if o == nil || IsNil(o.EntitlementBundleScopeByGovernanceLabelValues) {
+		var ret []GovernanceLabelValuesInner
+		return ret
+	}
+	return o.EntitlementBundleScopeByGovernanceLabelValues
+}
+
+// GetEntitlementBundleScopeByGovernanceLabelValuesOk returns a tuple with the EntitlementBundleScopeByGovernanceLabelValues field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TargetResourcesRequestInner) GetEntitlementBundleScopeByGovernanceLabelValuesOk() ([]GovernanceLabelValuesInner, bool) {
+	if o == nil || IsNil(o.EntitlementBundleScopeByGovernanceLabelValues) {
+		return nil, false
+	}
+	return o.EntitlementBundleScopeByGovernanceLabelValues, true
+}
+
+// HasEntitlementBundleScopeByGovernanceLabelValues returns a boolean if a field has been set.
+func (o *TargetResourcesRequestInner) HasEntitlementBundleScopeByGovernanceLabelValues() bool {
+	if o != nil && !IsNil(o.EntitlementBundleScopeByGovernanceLabelValues) {
+		return true
+	}
+
+	return false
+}
+
+// SetEntitlementBundleScopeByGovernanceLabelValues gets a reference to the given []GovernanceLabelValuesInner and assigns it to the EntitlementBundleScopeByGovernanceLabelValues field.
+func (o *TargetResourcesRequestInner) SetEntitlementBundleScopeByGovernanceLabelValues(v []GovernanceLabelValuesInner) {
+	o.EntitlementBundleScopeByGovernanceLabelValues = v
+}
+
+// GetAppServiceAccounts returns the AppServiceAccounts field value if set, zero value otherwise.
+func (o *TargetResourcesRequestInner) GetAppServiceAccounts() []AppServiceAccountsInner {
+	if o == nil || IsNil(o.AppServiceAccounts) {
+		var ret []AppServiceAccountsInner
+		return ret
+	}
+	return o.AppServiceAccounts
+}
+
+// GetAppServiceAccountsOk returns a tuple with the AppServiceAccounts field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TargetResourcesRequestInner) GetAppServiceAccountsOk() ([]AppServiceAccountsInner, bool) {
+	if o == nil || IsNil(o.AppServiceAccounts) {
+		return nil, false
+	}
+	return o.AppServiceAccounts, true
+}
+
+// HasAppServiceAccounts returns a boolean if a field has been set.
+func (o *TargetResourcesRequestInner) HasAppServiceAccounts() bool {
+	if o != nil && !IsNil(o.AppServiceAccounts) {
+		return true
+	}
+
+	return false
+}
+
+// SetAppServiceAccounts gets a reference to the given []AppServiceAccountsInner and assigns it to the AppServiceAccounts field.
+func (o *TargetResourcesRequestInner) SetAppServiceAccounts(v []AppServiceAccountsInner) {
+	o.AppServiceAccounts = v
+}
+
+// GetIncludeAllAppServiceAccounts returns the IncludeAllAppServiceAccounts field value if set, zero value otherwise.
+func (o *TargetResourcesRequestInner) GetIncludeAllAppServiceAccounts() bool {
+	if o == nil || IsNil(o.IncludeAllAppServiceAccounts) {
+		var ret bool
+		return ret
+	}
+	return *o.IncludeAllAppServiceAccounts
+}
+
+// GetIncludeAllAppServiceAccountsOk returns a tuple with the IncludeAllAppServiceAccounts field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TargetResourcesRequestInner) GetIncludeAllAppServiceAccountsOk() (*bool, bool) {
+	if o == nil || IsNil(o.IncludeAllAppServiceAccounts) {
+		return nil, false
+	}
+	return o.IncludeAllAppServiceAccounts, true
+}
+
+// HasIncludeAllAppServiceAccounts returns a boolean if a field has been set.
+func (o *TargetResourcesRequestInner) HasIncludeAllAppServiceAccounts() bool {
+	if o != nil && !IsNil(o.IncludeAllAppServiceAccounts) {
+		return true
+	}
+
+	return false
+}
+
+// SetIncludeAllAppServiceAccounts gets a reference to the given bool and assigns it to the IncludeAllAppServiceAccounts field.
+func (o *TargetResourcesRequestInner) SetIncludeAllAppServiceAccounts(v bool) {
+	o.IncludeAllAppServiceAccounts = &v
+}
+
 func (o TargetResourcesRequestInner) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -239,6 +409,21 @@ func (o TargetResourcesRequestInner) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Entitlements) {
 		toSerialize["entitlements"] = o.Entitlements
+	}
+	if !IsNil(o.EntitlementValueScopeByGovernanceLabelValues) {
+		toSerialize["entitlementValueScopeByGovernanceLabelValues"] = o.EntitlementValueScopeByGovernanceLabelValues
+	}
+	if !IsNil(o.IncludeBundlesHavingSameEntitlementValues) {
+		toSerialize["includeBundlesHavingSameEntitlementValues"] = o.IncludeBundlesHavingSameEntitlementValues
+	}
+	if !IsNil(o.EntitlementBundleScopeByGovernanceLabelValues) {
+		toSerialize["entitlementBundleScopeByGovernanceLabelValues"] = o.EntitlementBundleScopeByGovernanceLabelValues
+	}
+	if !IsNil(o.AppServiceAccounts) {
+		toSerialize["appServiceAccounts"] = o.AppServiceAccounts
+	}
+	if !IsNil(o.IncludeAllAppServiceAccounts) {
+		toSerialize["includeAllAppServiceAccounts"] = o.IncludeAllAppServiceAccounts
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -288,6 +473,11 @@ func (o *TargetResourcesRequestInner) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "includeAllEntitlementsAndBundles")
 		delete(additionalProperties, "entitlementBundles")
 		delete(additionalProperties, "entitlements")
+		delete(additionalProperties, "entitlementValueScopeByGovernanceLabelValues")
+		delete(additionalProperties, "includeBundlesHavingSameEntitlementValues")
+		delete(additionalProperties, "entitlementBundleScopeByGovernanceLabelValues")
+		delete(additionalProperties, "appServiceAccounts")
+		delete(additionalProperties, "includeAllAppServiceAccounts")
 		o.AdditionalProperties = additionalProperties
 	}
 

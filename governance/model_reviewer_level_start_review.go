@@ -31,9 +31,9 @@ import (
 // checks if the ReviewerLevelStartReview type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ReviewerLevelStartReview{}
 
-// ReviewerLevelStartReview One can indicate, the rules for which the reviews can move to that level.
+// ReviewerLevelStartReview Indicates rules for starting reviews at this level
 type ReviewerLevelStartReview struct {
-	// The day on which that reviewer level will start.  It will be `0` for `FIRST` reviewer level, as the first level will start when the campaign starts.  For `SECOND` reviewer level specify a value greater than `0`. This will indicate the day, the reviews will be moved to second level.
+	// The day when reviewer level starts: 1. For the first level, this value is always `0` since the first level starts when the campaign starts. 2. For the second level, specify a value that's greater than `0`. This indicates the day when the reviews move to the second level.
 	OnDay                int32                        `json:"onDay"`
 	When                 *ReviewerLowerLevelCondition `json:"when,omitempty"`
 	AdditionalProperties map[string]interface{}

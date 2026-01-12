@@ -25,7 +25,6 @@ package governance
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the MySettings type satisfies the MappedNullable interface at compile time
@@ -33,7 +32,7 @@ var _ MappedNullable = &MySettings{}
 
 // MySettings struct for MySettings
 type MySettings struct {
-	Delegates            MySettingsDelegates `json:"delegates"`
+	Delegates            *MySettingsDelegates `json:"delegates,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -43,9 +42,8 @@ type _MySettings MySettings
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMySettings(delegates MySettingsDelegates) *MySettings {
+func NewMySettings() *MySettings {
 	this := MySettings{}
-	this.Delegates = delegates
 	return &this
 }
 
@@ -57,28 +55,36 @@ func NewMySettingsWithDefaults() *MySettings {
 	return &this
 }
 
-// GetDelegates returns the Delegates field value
+// GetDelegates returns the Delegates field value if set, zero value otherwise.
 func (o *MySettings) GetDelegates() MySettingsDelegates {
-	if o == nil {
+	if o == nil || IsNil(o.Delegates) {
 		var ret MySettingsDelegates
 		return ret
 	}
-
-	return o.Delegates
+	return *o.Delegates
 }
 
-// GetDelegatesOk returns a tuple with the Delegates field value
+// GetDelegatesOk returns a tuple with the Delegates field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MySettings) GetDelegatesOk() (*MySettingsDelegates, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Delegates) {
 		return nil, false
 	}
-	return &o.Delegates, true
+	return o.Delegates, true
 }
 
-// SetDelegates sets field value
+// HasDelegates returns a boolean if a field has been set.
+func (o *MySettings) HasDelegates() bool {
+	if o != nil && !IsNil(o.Delegates) {
+		return true
+	}
+
+	return false
+}
+
+// SetDelegates gets a reference to the given MySettingsDelegates and assigns it to the Delegates field.
 func (o *MySettings) SetDelegates(v MySettingsDelegates) {
-	o.Delegates = v
+	o.Delegates = &v
 }
 
 func (o MySettings) MarshalJSON() ([]byte, error) {
@@ -91,7 +97,9 @@ func (o MySettings) MarshalJSON() ([]byte, error) {
 
 func (o MySettings) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["delegates"] = o.Delegates
+	if !IsNil(o.Delegates) {
+		toSerialize["delegates"] = o.Delegates
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -101,27 +109,6 @@ func (o MySettings) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *MySettings) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"delegates",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varMySettings := _MySettings{}
 
 	err = json.Unmarshal(data, &varMySettings)

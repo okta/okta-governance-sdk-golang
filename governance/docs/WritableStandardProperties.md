@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **string** | Writable unique key on Create. Not modifiable on update. | [optional] 
-**Description** | Pointer to **string** | Human readable description. | [optional] 
+**Description** | Pointer to **string** | Human readable description | [optional] 
 
 ## Methods
 

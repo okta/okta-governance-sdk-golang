@@ -33,7 +33,7 @@ var _ MappedNullable = &EntitlementsFullWithParent{}
 
 // EntitlementsFullWithParent Representation of all entitlement. Entitlement values are optional
 type EntitlementsFullWithParent struct {
-	// The Okta app instance, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for a specific app in [Supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
+	// The Okta resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for [supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
 	ParentResourceOrn string         `json:"parentResourceOrn"`
 	Parent            TargetResource `json:"parent"`
 	// Collection of entitlement values.
@@ -48,7 +48,7 @@ type EntitlementsFullWithParent struct {
 	ExternalValue string `json:"externalValue"`
 	// The description of an entitlement property
 	Description *string `json:"description,omitempty"`
-	// The property that determines if the entitlement property can hold multiple values. If this is set to true, the data type is replaced with an array.
+	// Indicate if the entitlement property can hold multiple values. If this property is `true`, then the `dataType` property is set to  `array`.
 	MultiValue bool `json:"multiValue"`
 	// The property that determines if the entitlement property is a required attribute
 	Required             *bool                       `json:"required,omitempty"`

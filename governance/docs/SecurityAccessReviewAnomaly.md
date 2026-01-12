@@ -6,14 +6,14 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | [**SecurityAccessReviewAnomalyType**](SecurityAccessReviewAnomalyType.md) |  | 
 **Severity** | [**SecurityAccessReviewAccessItemSeverity**](SecurityAccessReviewAccessItemSeverity.md) |  | 
-**Subtext** | [**ServerMessage**](ServerMessage.md) |  | 
+**Subtext** | [**ServerExtendedMessage**](ServerExtendedMessage.md) |  | 
 **SodConflicts** | Pointer to [**[]SecurityAccessReviewSodConflict**](SecurityAccessReviewSodConflict.md) | A list of separation of duties (SOD) conflicts caused by a user&#39;s access to an entitlement | [optional] 
 
 ## Methods
 
 ### NewSecurityAccessReviewAnomaly
 
-`func NewSecurityAccessReviewAnomaly(type_ SecurityAccessReviewAnomalyType, severity SecurityAccessReviewAccessItemSeverity, subtext ServerMessage, ) *SecurityAccessReviewAnomaly`
+`func NewSecurityAccessReviewAnomaly(type_ SecurityAccessReviewAnomalyType, severity SecurityAccessReviewAccessItemSeverity, subtext ServerExtendedMessage, ) *SecurityAccessReviewAnomaly`
 
 NewSecurityAccessReviewAnomaly instantiates a new SecurityAccessReviewAnomaly object
 This constructor will assign default values to properties that have it defined,
@@ -70,20 +70,20 @@ SetSeverity sets Severity field to given value.
 
 ### GetSubtext
 
-`func (o *SecurityAccessReviewAnomaly) GetSubtext() ServerMessage`
+`func (o *SecurityAccessReviewAnomaly) GetSubtext() ServerExtendedMessage`
 
 GetSubtext returns the Subtext field if non-nil, zero value otherwise.
 
 ### GetSubtextOk
 
-`func (o *SecurityAccessReviewAnomaly) GetSubtextOk() (*ServerMessage, bool)`
+`func (o *SecurityAccessReviewAnomaly) GetSubtextOk() (*ServerExtendedMessage, bool)`
 
 GetSubtextOk returns a tuple with the Subtext field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSubtext
 
-`func (o *SecurityAccessReviewAnomaly) SetSubtext(v ServerMessage)`
+`func (o *SecurityAccessReviewAnomaly) SetSubtext(v ServerExtendedMessage)`
 
 SetSubtext sets Subtext field to given value.
 

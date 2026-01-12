@@ -53,6 +53,8 @@ type RequestApprovalCompleted struct {
 	OriginalDeciderEmail *string `json:"originalDeciderEmail,omitempty"`
 	// Indicates if the decision was made by a delegated decider
 	DeciderDelegated *bool `json:"deciderDelegated,omitempty"`
+	// Indicates if the decision was made by an escalated decider
+	DeciderEscalated *bool `json:"deciderEscalated,omitempty"`
 	// Values to field prompts provided by the approver at the time of approval.  All approval fields specified in the related request type are represented in the same order as defined in the request type.
 	FieldValues          []FieldValue `json:"fieldValues"`
 	AdditionalProperties map[string]interface{}
@@ -356,6 +358,38 @@ func (o *RequestApprovalCompleted) SetDeciderDelegated(v bool) {
 	o.DeciderDelegated = &v
 }
 
+// GetDeciderEscalated returns the DeciderEscalated field value if set, zero value otherwise.
+func (o *RequestApprovalCompleted) GetDeciderEscalated() bool {
+	if o == nil || IsNil(o.DeciderEscalated) {
+		var ret bool
+		return ret
+	}
+	return *o.DeciderEscalated
+}
+
+// GetDeciderEscalatedOk returns a tuple with the DeciderEscalated field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RequestApprovalCompleted) GetDeciderEscalatedOk() (*bool, bool) {
+	if o == nil || IsNil(o.DeciderEscalated) {
+		return nil, false
+	}
+	return o.DeciderEscalated, true
+}
+
+// HasDeciderEscalated returns a boolean if a field has been set.
+func (o *RequestApprovalCompleted) HasDeciderEscalated() bool {
+	if o != nil && !IsNil(o.DeciderEscalated) {
+		return true
+	}
+
+	return false
+}
+
+// SetDeciderEscalated gets a reference to the given bool and assigns it to the DeciderEscalated field.
+func (o *RequestApprovalCompleted) SetDeciderEscalated(v bool) {
+	o.DeciderEscalated = &v
+}
+
 // GetFieldValues returns the FieldValues field value
 // If the value is explicit nil, the zero value for []FieldValue will be returned
 func (o *RequestApprovalCompleted) GetFieldValues() []FieldValue {
@@ -409,6 +443,9 @@ func (o RequestApprovalCompleted) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.DeciderDelegated) {
 		toSerialize["deciderDelegated"] = o.DeciderDelegated
+	}
+	if !IsNil(o.DeciderEscalated) {
+		toSerialize["deciderEscalated"] = o.DeciderEscalated
 	}
 	if o.FieldValues != nil {
 		toSerialize["fieldValues"] = o.FieldValues
@@ -472,6 +509,7 @@ func (o *RequestApprovalCompleted) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "originalDeciderFullName")
 		delete(additionalProperties, "originalDeciderEmail")
 		delete(additionalProperties, "deciderDelegated")
+		delete(additionalProperties, "deciderEscalated")
 		delete(additionalProperties, "fieldValues")
 		o.AdditionalProperties = additionalProperties
 	}

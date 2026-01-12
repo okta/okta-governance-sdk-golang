@@ -32,7 +32,7 @@ import (
 // checks if the SecurityAccessReviewSubAccessItemEntitlementInfo type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SecurityAccessReviewSubAccessItemEntitlementInfo{}
 
-// SecurityAccessReviewSubAccessItemEntitlementInfo struct for SecurityAccessReviewSubAccessItemEntitlementInfo
+// SecurityAccessReviewSubAccessItemEntitlementInfo The entitlement details for the sub-access item
 type SecurityAccessReviewSubAccessItemEntitlementInfo struct {
 	Type SecurityAccessReviewSubAccessItemEntitlementType `json:"type"`
 	// A brief description of the entitlement value or bundle
@@ -44,14 +44,14 @@ type SecurityAccessReviewSubAccessItemEntitlementInfo struct {
 	AssignmentType *AssignmentType `json:"assignmentType,omitempty"`
 	// Collections assigning this resource
 	CollectionsAssigning []CollectionInfoSparse `json:"collectionsAssigning,omitempty"`
-	// If a bundle, these are the entitlements included in the bundle
+	// The entitlements included in the entitlement bundle
 	Entitlements []EntitlementPropertyFull `json:"entitlements,omitempty"`
 	// The last time the user/entitlement pair was reviewed in an access certification campaign
 	LastAccessCertificationReviewedDate *time.Time `json:"lastAccessCertificationReviewedDate,omitempty"`
 	// The last time an action was taken on this entitlement for the user in a security access review
 	LastSecurityAccessReviewDate *time.Time `json:"lastSecurityAccessReviewDate,omitempty"`
 	// All governance labels applied to the entitlement value or bundle
-	GovernanceLabels     []GovernanceLabel `json:"governanceLabels,omitempty"`
+	GovernanceLabels     []TargetGovernanceLabel `json:"governanceLabels,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -356,9 +356,9 @@ func (o *SecurityAccessReviewSubAccessItemEntitlementInfo) SetLastSecurityAccess
 }
 
 // GetGovernanceLabels returns the GovernanceLabels field value if set, zero value otherwise.
-func (o *SecurityAccessReviewSubAccessItemEntitlementInfo) GetGovernanceLabels() []GovernanceLabel {
+func (o *SecurityAccessReviewSubAccessItemEntitlementInfo) GetGovernanceLabels() []TargetGovernanceLabel {
 	if o == nil || IsNil(o.GovernanceLabels) {
-		var ret []GovernanceLabel
+		var ret []TargetGovernanceLabel
 		return ret
 	}
 	return o.GovernanceLabels
@@ -366,7 +366,7 @@ func (o *SecurityAccessReviewSubAccessItemEntitlementInfo) GetGovernanceLabels()
 
 // GetGovernanceLabelsOk returns a tuple with the GovernanceLabels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SecurityAccessReviewSubAccessItemEntitlementInfo) GetGovernanceLabelsOk() ([]GovernanceLabel, bool) {
+func (o *SecurityAccessReviewSubAccessItemEntitlementInfo) GetGovernanceLabelsOk() ([]TargetGovernanceLabel, bool) {
 	if o == nil || IsNil(o.GovernanceLabels) {
 		return nil, false
 	}
@@ -382,8 +382,8 @@ func (o *SecurityAccessReviewSubAccessItemEntitlementInfo) HasGovernanceLabels()
 	return false
 }
 
-// SetGovernanceLabels gets a reference to the given []GovernanceLabel and assigns it to the GovernanceLabels field.
-func (o *SecurityAccessReviewSubAccessItemEntitlementInfo) SetGovernanceLabels(v []GovernanceLabel) {
+// SetGovernanceLabels gets a reference to the given []TargetGovernanceLabel and assigns it to the GovernanceLabels field.
+func (o *SecurityAccessReviewSubAccessItemEntitlementInfo) SetGovernanceLabels(v []TargetGovernanceLabel) {
 	o.GovernanceLabels = v
 }
 

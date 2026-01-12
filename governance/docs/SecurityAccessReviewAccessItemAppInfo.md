@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **LastSecurityAccessReviewDate** | Pointer to **time.Time** | The last time an action was taken on this app for the user in a security access review | [optional] 
 **LastDeviceLogin** | Pointer to **string** | Information about the last device used to log into the app | [optional] 
 **ActiveEntitlements** | Pointer to [**[]EntitlementPropertyFull**](EntitlementPropertyFull.md) | Any active entitlements for this app | [optional] 
-**GovernanceLabels** | Pointer to [**[]GovernanceLabel**](GovernanceLabel.md) | All governance labels applied to the app | [optional] 
+**GovernanceLabels** | Pointer to [**[]TargetGovernanceLabel**](TargetGovernanceLabel.md) | All governance labels applied to the app | [optional] 
 
 ## Methods
 
@@ -324,20 +324,20 @@ HasActiveEntitlements returns a boolean if a field has been set.
 
 ### GetGovernanceLabels
 
-`func (o *SecurityAccessReviewAccessItemAppInfo) GetGovernanceLabels() []GovernanceLabel`
+`func (o *SecurityAccessReviewAccessItemAppInfo) GetGovernanceLabels() []TargetGovernanceLabel`
 
 GetGovernanceLabels returns the GovernanceLabels field if non-nil, zero value otherwise.
 
 ### GetGovernanceLabelsOk
 
-`func (o *SecurityAccessReviewAccessItemAppInfo) GetGovernanceLabelsOk() (*[]GovernanceLabel, bool)`
+`func (o *SecurityAccessReviewAccessItemAppInfo) GetGovernanceLabelsOk() (*[]TargetGovernanceLabel, bool)`
 
 GetGovernanceLabelsOk returns a tuple with the GovernanceLabels field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGovernanceLabels
 
-`func (o *SecurityAccessReviewAccessItemAppInfo) SetGovernanceLabels(v []GovernanceLabel)`
+`func (o *SecurityAccessReviewAccessItemAppInfo) SetGovernanceLabels(v []TargetGovernanceLabel)`
 
 SetGovernanceLabels sets GovernanceLabels field to given value.
 

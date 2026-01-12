@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**PrincipalOrns** | Pointer to **[]string** | Owners for the resource. If this is not provided, all current owners will be removed. | [optional] 
-**ResourceOrns** | **[]string** | Resources that are being owned | 
+**PrincipalOrns** | Pointer to **[]string** | Owners of the resource. If no owners are provided (empty list), then all current owners are removed. | [optional] 
+**ResourceOrns** | **[]string** | The resources to assign owners | 
 
 ## Methods
 

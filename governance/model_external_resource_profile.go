@@ -33,12 +33,13 @@ var _ MappedNullable = &ExternalResourceProfile{}
 
 // ExternalResourceProfile A limited set of properties from the resource's profile
 type ExternalResourceProfile struct {
-	// Okta resource `id`
+	// Okta resource ID
 	Id string `json:"id"`
-	// The display name for the resource.
+	// The display name for the resource
 	Name string `json:"name"`
-	// The description of the resource.
-	Description *string `json:"description,omitempty"`
+	// The description of the resource
+	Description *string                        `json:"description,omitempty"`
+	Parent      *ExternalResourceProfileParent `json:"parent,omitempty"`
 	// The label of the Okta resource
 	Label *string `json:"label,omitempty"`
 	// List of logo resources
@@ -147,6 +148,38 @@ func (o *ExternalResourceProfile) SetDescription(v string) {
 	o.Description = &v
 }
 
+// GetParent returns the Parent field value if set, zero value otherwise.
+func (o *ExternalResourceProfile) GetParent() ExternalResourceProfileParent {
+	if o == nil || IsNil(o.Parent) {
+		var ret ExternalResourceProfileParent
+		return ret
+	}
+	return *o.Parent
+}
+
+// GetParentOk returns a tuple with the Parent field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ExternalResourceProfile) GetParentOk() (*ExternalResourceProfileParent, bool) {
+	if o == nil || IsNil(o.Parent) {
+		return nil, false
+	}
+	return o.Parent, true
+}
+
+// HasParent returns a boolean if a field has been set.
+func (o *ExternalResourceProfile) HasParent() bool {
+	if o != nil && !IsNil(o.Parent) {
+		return true
+	}
+
+	return false
+}
+
+// SetParent gets a reference to the given ExternalResourceProfileParent and assigns it to the Parent field.
+func (o *ExternalResourceProfile) SetParent(v ExternalResourceProfileParent) {
+	o.Parent = &v
+}
+
 // GetLabel returns the Label field value if set, zero value otherwise.
 func (o *ExternalResourceProfile) GetLabel() string {
 	if o == nil || IsNil(o.Label) {
@@ -226,6 +259,9 @@ func (o ExternalResourceProfile) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
+	if !IsNil(o.Parent) {
+		toSerialize["parent"] = o.Parent
+	}
 	if !IsNil(o.Label) {
 		toSerialize["label"] = o.Label
 	}
@@ -279,6 +315,7 @@ func (o *ExternalResourceProfile) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "description")
+		delete(additionalProperties, "parent")
 		delete(additionalProperties, "label")
 		delete(additionalProperties, "logo")
 		o.AdditionalProperties = additionalProperties

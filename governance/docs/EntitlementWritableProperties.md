@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Name** | **string** | The display name for an entitlement property | 
 **ExternalValue** | **string** | The value of an entitlement property | 
 **Description** | Pointer to **string** | The description of an entitlement property | [optional] 
-**MultiValue** | **bool** | The property that determines if the entitlement property can hold multiple values. If this is set to true, the data type is replaced with an array. | 
+**MultiValue** | **bool** | Indicate if the entitlement property can hold multiple values. If this property is &#x60;true&#x60;, then the &#x60;dataType&#x60; property is set to  &#x60;array&#x60;. | 
 **DataType** | [**EntitlementPropertyDatatype**](EntitlementPropertyDatatype.md) |  | 
 
 ## Methods

@@ -33,7 +33,7 @@ var _ MappedNullable = &ResourceOwnersPatch{}
 
 // ResourceOwnersPatch struct for ResourceOwnersPatch
 type ResourceOwnersPatch struct {
-	// The `id` of the resource in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format. The resource can be an app, or a bundle. See [Supported resources](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
+	// The ID of the resource in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format. The resource can be an app, an entitlement value, an entitlement bundle, or a collection. See [supported resources](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
 	ResourceOrn          string                         `json:"resourceOrn"`
 	Data                 []ResourceOwnersPatchDataInner `json:"data"`
 	AdditionalProperties map[string]interface{}

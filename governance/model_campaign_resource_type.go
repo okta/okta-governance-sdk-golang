@@ -28,7 +28,7 @@ import (
 	"fmt"
 )
 
-// CampaignResourceType The type of Okta resource.
+// CampaignResourceType The type of Okta resources certified by the campaign
 type CampaignResourceType string
 
 // List of campaign-resource-type
@@ -36,6 +36,8 @@ const (
 	CAMPAIGNRESOURCETYPE_GROUP                 CampaignResourceType = "GROUP"
 	CAMPAIGNRESOURCETYPE_APPLICATION           CampaignResourceType = "APPLICATION"
 	CAMPAIGNRESOURCETYPE_APPLICATION_AND_GROUP CampaignResourceType = "APPLICATION_AND_GROUP"
+	CAMPAIGNRESOURCETYPE_OKTA_SERVICE_ACCOUNT  CampaignResourceType = "OKTA_SERVICE_ACCOUNT"
+	CAMPAIGNRESOURCETYPE_APP_SERVICE_ACCOUNT   CampaignResourceType = "APP_SERVICE_ACCOUNT"
 )
 
 // All allowed values of CampaignResourceType enum
@@ -43,6 +45,8 @@ var AllowedCampaignResourceTypeEnumValues = []CampaignResourceType{
 	"GROUP",
 	"APPLICATION",
 	"APPLICATION_AND_GROUP",
+	"OKTA_SERVICE_ACCOUNT",
+	"APP_SERVICE_ACCOUNT",
 }
 
 func (v *CampaignResourceType) UnmarshalJSON(src []byte) error {

@@ -6,12 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** |  | 
 **Groups** | [**[]GroupsArrayFullInner**](GroupsArrayFullInner.md) | A request condition may have a zero item array if it is in an INVALID state. Otherwise, there will be at least one item.  | 
+**Teams** | [**[]TeamsArrayFullInner**](TeamsArrayFullInner.md) | A request condition may have a zero item array if it is in an INVALID state. Otherwise, there will be at least one item.  | 
 
 ## Methods
 
 ### NewRequesterSettingsFullRequesterSettings
 
-`func NewRequesterSettingsFullRequesterSettings(type_ string, groups []GroupsArrayFullInner, ) *RequesterSettingsFullRequesterSettings`
+`func NewRequesterSettingsFullRequesterSettings(type_ string, groups []GroupsArrayFullInner, teams []TeamsArrayFullInner, ) *RequesterSettingsFullRequesterSettings`
 
 NewRequesterSettingsFullRequesterSettings instantiates a new RequesterSettingsFullRequesterSettings object
 This constructor will assign default values to properties that have it defined,
@@ -64,6 +65,26 @@ and a boolean to check if the value has been set.
 `func (o *RequesterSettingsFullRequesterSettings) SetGroups(v []GroupsArrayFullInner)`
 
 SetGroups sets Groups field to given value.
+
+
+### GetTeams
+
+`func (o *RequesterSettingsFullRequesterSettings) GetTeams() []TeamsArrayFullInner`
+
+GetTeams returns the Teams field if non-nil, zero value otherwise.
+
+### GetTeamsOk
+
+`func (o *RequesterSettingsFullRequesterSettings) GetTeamsOk() (*[]TeamsArrayFullInner, bool)`
+
+GetTeamsOk returns a tuple with the Teams field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTeams
+
+`func (o *RequesterSettingsFullRequesterSettings) SetTeams(v []TeamsArrayFullInner)`
+
+SetTeams sets Teams field to given value.
 
 
 

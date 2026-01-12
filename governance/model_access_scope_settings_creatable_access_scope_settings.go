@@ -28,7 +28,7 @@ import (
 	"fmt"
 )
 
-// AccessScopeSettingsCreatableAccessScopeSettings - Settings specifying if groups or entitlements may be used for requesting finer grained access
+// AccessScopeSettingsCreatableAccessScopeSettings - Settings for the access request scope (such as groups, entitlement bundles, or default resources)
 type AccessScopeSettingsCreatableAccessScopeSettings struct {
 	AccessScopeSettingsCreatableEntitlementBundleAccessScopeSettings *AccessScopeSettingsCreatableEntitlementBundleAccessScopeSettings
 	AccessScopeSettingsCreatableGroupAccessScopeSettings             *AccessScopeSettingsCreatableGroupAccessScopeSettings

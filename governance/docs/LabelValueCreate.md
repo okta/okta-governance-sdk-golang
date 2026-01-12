@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** | Name of the label value | 
+**Name** | **string** | The label value | 
 **Metadata** | Pointer to [**LabelMetadata**](LabelMetadata.md) |  | [optional] 
 
 ## Methods

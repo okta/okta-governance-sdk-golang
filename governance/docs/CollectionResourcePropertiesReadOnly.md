@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ResourceId** | Pointer to **string** | The Okta &#x60;app.id&#x60; of the resource  See the [List applications](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Application/#tag/Application/operation/listApplications) endpoint to retrieve application IDs.  | [optional] 
+**ResourceId** | Pointer to **string** | The Okta &#x60;app.id&#x60; of the resource.  See [List applications](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Application/#tag/Application/operation/listApplications) to retrieve app IDs.  | [optional] 
 **Links** | Pointer to [**CollectionResourceLinks**](CollectionResourceLinks.md) |  | [optional] 
 
 ## Methods

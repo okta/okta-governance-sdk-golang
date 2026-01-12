@@ -92,18 +92,18 @@ type RequestsAPI interface {
 	/*
 			CreateRequestV2 Create a request
 
-			Creates a resource access request for a given user
+			Creates a resource access request for a given user.
 
-		You can use this endpoint to create access requests managed by access request conditions.
+		Use this operation to create access requests managed by access request conditions.
 
-		If `requestedBy` and `requestedFor` are not the same, you must also enable the `requestOnBehalfOfSettings` property on the Access request settings. See [Request Settings](https://developer.okta.com/docs/api/iga/openapi/governance.requests.admin.v2/tag/Request-Settings/#tag/Request-Settings/operation/updateResourceRequestSettingsV2!path=requestOnBehalfOfSettings&t=request).
+		If `requestedBy` and `requestedFor` aren't the same, then you must also enable the [`requestOnBehalfOfSettings`](https://developer.okta.com/docs/api/iga/openapi/governance.requests.admin.v2/tag/Request-Settings/#tag/Request-Settings/operation/updateResourceRequestSettingsV2!path=requestOnBehalfOfSettings&t=request) parameter in the access request settings. See [Update the resource request settings](https://developer.okta.com/docs/api/iga/openapi/governance.requests.admin.v2/tag/Request-Settings/#tag/Request-Settings/operation/updateResourceRequestSettingsV2).
 
-		As part of the payload for the Create a request endpoint, include the following information:
+		Include the following information in the payload:
 
 		- The Okta user ID for the user who requires access. Add the user ID in the `requestedFor.externalId` parameter.
-		- The Catalog entry ID of the resource required by the user. Add the catalog ID in the `requested.entryId` parameter.
-		- If the request conditions include requester input fields, add the field and information for the field to the `requesterFieldValues` array. See [Retrieve an entry's request fields](https://developer.okta.com/docs/api/iga/openapi/governance.requests.admin.v2/tag/Catalogs/#tag/Catalogs/operation/getCatalogEntryRequestFieldsV2).
-		- Optional: The user ID of the person submitting the request. By default, this value is the admin user ID calling the endpoint and doesn't need to be provided. However, to add a different Okta user ID for the request, include the `requestedBy.externalId` parameter in the request body.
+		- The catalog entry ID of the resource required by the user. Add the catalog ID in the `requested.entryId` parameter.
+		- If the request conditions include requester input fields, add field information in the `requesterFieldValues` array. See [Retrieve the request fields](https://developer.okta.com/docs/api/iga/openapi/governance.requests.admin.v2/tag/Catalogs/#tag/Catalogs/operation/getCatalogEntryRequestFieldsV2).
+		- Optional: The user ID of the person submitting the request. By default, this value is the admin user ID requesting this operation and doesn't need to be provided. However, to add a different Okta user ID for the request, include the `requestedBy.externalId` parameter in the request body.
 
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -773,18 +773,18 @@ func (r ApiCreateRequestV2Request) Execute() (*RequestSubmissionFull, *APIRespon
 /*
 CreateRequestV2 Create a request
 
-# Creates a resource access request for a given user
+Creates a resource access request for a given user.
 
-You can use this endpoint to create access requests managed by access request conditions.
+Use this operation to create access requests managed by access request conditions.
 
-If `requestedBy` and `requestedFor` are not the same, you must also enable the `requestOnBehalfOfSettings` property on the Access request settings. See [Request Settings](https://developer.okta.com/docs/api/iga/openapi/governance.requests.admin.v2/tag/Request-Settings/#tag/Request-Settings/operation/updateResourceRequestSettingsV2!path=requestOnBehalfOfSettings&t=request).
+If `requestedBy` and `requestedFor` aren't the same, then you must also enable the [`requestOnBehalfOfSettings`](https://developer.okta.com/docs/api/iga/openapi/governance.requests.admin.v2/tag/Request-Settings/#tag/Request-Settings/operation/updateResourceRequestSettingsV2!path=requestOnBehalfOfSettings&t=request) parameter in the access request settings. See [Update the resource request settings](https://developer.okta.com/docs/api/iga/openapi/governance.requests.admin.v2/tag/Request-Settings/#tag/Request-Settings/operation/updateResourceRequestSettingsV2).
 
-As part of the payload for the Create a request endpoint, include the following information:
+Include the following information in the payload:
 
 - The Okta user ID for the user who requires access. Add the user ID in the `requestedFor.externalId` parameter.
-- The Catalog entry ID of the resource required by the user. Add the catalog ID in the `requested.entryId` parameter.
-- If the request conditions include requester input fields, add the field and information for the field to the `requesterFieldValues` array. See [Retrieve an entry's request fields](https://developer.okta.com/docs/api/iga/openapi/governance.requests.admin.v2/tag/Catalogs/#tag/Catalogs/operation/getCatalogEntryRequestFieldsV2).
-- Optional: The user ID of the person submitting the request. By default, this value is the admin user ID calling the endpoint and doesn't need to be provided. However, to add a different Okta user ID for the request, include the `requestedBy.externalId` parameter in the request body.
+- The catalog entry ID of the resource required by the user. Add the catalog ID in the `requested.entryId` parameter.
+- If the request conditions include requester input fields, add field information in the `requesterFieldValues` array. See [Retrieve the request fields](https://developer.okta.com/docs/api/iga/openapi/governance.requests.admin.v2/tag/Catalogs/#tag/Catalogs/operation/getCatalogEntryRequestFieldsV2).
+- Optional: The user ID of the person submitting the request. By default, this value is the admin user ID requesting this operation and doesn't need to be provided. However, to add a different Okta user ID for the request, include the `requestedBy.externalId` parameter in the request body.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiCreateRequestV2Request

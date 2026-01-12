@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | Pointer to [**[]ResourceOwner**](ResourceOwner.md) | Resource owner details. | [optional] 
+**Data** | Pointer to [**[]ResourceOwner**](ResourceOwner.md) | Resource owner details | [optional] 
 
 ## Methods
 

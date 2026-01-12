@@ -30,9 +30,9 @@ import (
 // checks if the LabelValueUpdate type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &LabelValueUpdate{}
 
-// LabelValueUpdate struct for LabelValueUpdate
+// LabelValueUpdate The value of the updated label properties
 type LabelValueUpdate struct {
-	// Name of the label value
+	// The label value
 	Name                 *string        `json:"name,omitempty"`
 	Metadata             *LabelMetadata `json:"metadata,omitempty"`
 	AdditionalProperties map[string]interface{}

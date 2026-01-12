@@ -31,7 +31,7 @@ import (
 // checks if the RiskAssessment type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &RiskAssessment{}
 
-// RiskAssessment A risk assessment indicates whether request submission is allowed or restricted and contains the risk rules that lead to possible conflicts for the requested resource.
+// RiskAssessment A risk assessment that indicates whether request submission is allowed or restricted. It contains the risk rules that lead to possible conflicts for the requested resource.
 type RiskAssessment struct {
 	RequestSubmissionType RequestSubmissionType `json:"requestSubmissionType"`
 	RiskRules             []RiskRule            `json:"riskRules"`

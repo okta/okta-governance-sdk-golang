@@ -31,13 +31,13 @@ import (
 // checks if the ResourceOwnerResource type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ResourceOwnerResource{}
 
-// ResourceOwnerResource Representation of a resource that can be owned by a principal, such as an application or an entitlement bundle.
+// ResourceOwnerResource Details of a resource that are owned by the principal, such as an app, an entitlement value, an entitlement bundle, or a collection
 type ResourceOwnerResource struct {
-	// Id of the resource, which is a unique identifier for the resource in Okta.
+	// A unique identifier for the resource in Okta
 	Id string `json:"id"`
-	// The resource type value from the orn. Examples:- apps, entitlement-bundles
+	// The resource type. This value is the `{objectType}` attribute from the [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) string.  Examples: `apps`, `entitlement-bundles`, `entitlement-values`, or `collections`
 	Type string `json:"type"`
-	// The `id` of the resource in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format. The resource can be an app, or a bundle. See [Supported resources](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
+	// The ID of the resource in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format. The resource can be an app, an entitlement value, an entitlement bundle, or a collection. See [supported resources](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
 	Orn                  string                  `json:"orn"`
 	Profile              ExternalResourceProfile `json:"profile"`
 	AdditionalProperties map[string]interface{}

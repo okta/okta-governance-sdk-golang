@@ -43,15 +43,16 @@ type SecurityAccessReview struct {
 	// The ISO 8601 formatted date and time when the object was last updated
 	LastUpdated time.Time `json:"lastUpdated"`
 	// The `id` of the Okta user who last updated the object
-	LastUpdatedBy string                     `json:"lastUpdatedBy"`
-	Links         *map[string]Link           `json:"_links,omitempty"`
-	Status        SecurityAccessReviewStatus `json:"status"`
+	LastUpdatedBy string `json:"lastUpdatedBy"`
+	// Links to related resources
+	Links  *map[string]Link           `json:"_links,omitempty"`
+	Status SecurityAccessReviewStatus `json:"status"`
 	// The name of the security access review
 	Name string `json:"name"`
 	// The end time of the security access review
-	EndTime              time.Time                            `json:"endTime"`
-	ReviewerSettings     SecurityAccessReviewReviewerSettings `json:"reviewerSettings"`
-	Summary              *ServerMessage                       `json:"summary,omitempty"`
+	EndTime              time.Time                                    `json:"endTime"`
+	ReviewerSettings     SecurityAccessReviewReviewerSettingsResponse `json:"reviewerSettings"`
+	Summary              *AiMessage                                   `json:"summary,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -61,7 +62,7 @@ type _SecurityAccessReview SecurityAccessReview
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSecurityAccessReview(id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, status SecurityAccessReviewStatus, name string, endTime time.Time, reviewerSettings SecurityAccessReviewReviewerSettings) *SecurityAccessReview {
+func NewSecurityAccessReview(id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, status SecurityAccessReviewStatus, name string, endTime time.Time, reviewerSettings SecurityAccessReviewReviewerSettingsResponse) *SecurityAccessReview {
 	this := SecurityAccessReview{}
 	this.Id = id
 	this.CreatedBy = createdBy
@@ -308,9 +309,9 @@ func (o *SecurityAccessReview) SetEndTime(v time.Time) {
 }
 
 // GetReviewerSettings returns the ReviewerSettings field value
-func (o *SecurityAccessReview) GetReviewerSettings() SecurityAccessReviewReviewerSettings {
+func (o *SecurityAccessReview) GetReviewerSettings() SecurityAccessReviewReviewerSettingsResponse {
 	if o == nil {
-		var ret SecurityAccessReviewReviewerSettings
+		var ret SecurityAccessReviewReviewerSettingsResponse
 		return ret
 	}
 
@@ -319,7 +320,7 @@ func (o *SecurityAccessReview) GetReviewerSettings() SecurityAccessReviewReviewe
 
 // GetReviewerSettingsOk returns a tuple with the ReviewerSettings field value
 // and a boolean to check if the value has been set.
-func (o *SecurityAccessReview) GetReviewerSettingsOk() (*SecurityAccessReviewReviewerSettings, bool) {
+func (o *SecurityAccessReview) GetReviewerSettingsOk() (*SecurityAccessReviewReviewerSettingsResponse, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -327,14 +328,14 @@ func (o *SecurityAccessReview) GetReviewerSettingsOk() (*SecurityAccessReviewRev
 }
 
 // SetReviewerSettings sets field value
-func (o *SecurityAccessReview) SetReviewerSettings(v SecurityAccessReviewReviewerSettings) {
+func (o *SecurityAccessReview) SetReviewerSettings(v SecurityAccessReviewReviewerSettingsResponse) {
 	o.ReviewerSettings = v
 }
 
 // GetSummary returns the Summary field value if set, zero value otherwise.
-func (o *SecurityAccessReview) GetSummary() ServerMessage {
+func (o *SecurityAccessReview) GetSummary() AiMessage {
 	if o == nil || IsNil(o.Summary) {
-		var ret ServerMessage
+		var ret AiMessage
 		return ret
 	}
 	return *o.Summary
@@ -342,7 +343,7 @@ func (o *SecurityAccessReview) GetSummary() ServerMessage {
 
 // GetSummaryOk returns a tuple with the Summary field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SecurityAccessReview) GetSummaryOk() (*ServerMessage, bool) {
+func (o *SecurityAccessReview) GetSummaryOk() (*AiMessage, bool) {
 	if o == nil || IsNil(o.Summary) {
 		return nil, false
 	}
@@ -358,8 +359,8 @@ func (o *SecurityAccessReview) HasSummary() bool {
 	return false
 }
 
-// SetSummary gets a reference to the given ServerMessage and assigns it to the Summary field.
-func (o *SecurityAccessReview) SetSummary(v ServerMessage) {
+// SetSummary gets a reference to the given AiMessage and assigns it to the Summary field.
+func (o *SecurityAccessReview) SetSummary(v AiMessage) {
 	o.Summary = &v
 }
 

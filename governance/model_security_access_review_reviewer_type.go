@@ -28,7 +28,7 @@ import (
 	"fmt"
 )
 
-// SecurityAccessReviewReviewerType The type of reviewer involved in the security access review.
+// SecurityAccessReviewReviewerType The type of reviewers involved in the security access review
 type SecurityAccessReviewReviewerType string
 
 // List of security-access-review-reviewer-type

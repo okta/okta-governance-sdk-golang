@@ -6,7 +6,7 @@ import (
 )
 
 func TestGetEntitlementBundleExecute(t *testing.T) {
-	execute, a, err := apiClient.EntitlementBundlesAPI.GetentitlementBundle(apiClient.cfg.Context, "enbzcbqe3Ts4wdw1swD1d6").Execute()
+	execute, a, err := apiClient.EntitlementBundlesAPI.GetEntitlementBundle(apiClient.cfg.Context, "enbzcbqe3Ts4wdw1swD1d6").Execute()
 	if err != nil {
 		t.Errorf("Error getting entitlement bundle: %v", err)
 		return
@@ -75,7 +75,7 @@ func buildEntitlementBundle(name string) EntitlementBundleCreatable {
 func TestListEntitlementBundlesRequest_Execute(t *testing.T) {
 	// filter := `target.externalId eq "0oao01ardu8r8qUP91d7" AND target.type eq "APPLICATION"`
 	// include := []string{"full_entitlements"}
-	_, a, err := apiClient.EntitlementBundlesAPI.GetentitlementBundle(apiClient.cfg.Context, "enbzng5wgTiu7d04L1d6").Execute()
+	_, a, err := apiClient.EntitlementBundlesAPI.GetEntitlementBundle(apiClient.cfg.Context, "enbzng5wgTiu7d04L1d6").Execute()
 	if err != nil {
 		t.Errorf("Error listing entitlement bundles: %v", err)
 		return

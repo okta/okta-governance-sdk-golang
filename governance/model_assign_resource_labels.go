@@ -33,7 +33,7 @@ var _ MappedNullable = &AssignResourceLabels{}
 
 // AssignResourceLabels The properties to assign resources to labels. All resources in the `resourceOrns` list are assigned to all labels in the `labelValueIds`  list.
 type AssignResourceLabels struct {
-	// Resources assigned to labels
+	// Resources assigned to labels (in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format)
 	ResourceOrns []string `json:"resourceOrns"`
 	// Labels assigned to resources in the `resourceOrns` list
 	LabelValueIds        []string `json:"labelValueIds"`

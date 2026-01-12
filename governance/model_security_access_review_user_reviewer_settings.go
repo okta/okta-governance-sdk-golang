@@ -32,7 +32,7 @@ var _ MappedNullable = &SecurityAccessReviewUserReviewerSettings{}
 
 // SecurityAccessReviewUserReviewerSettings struct for SecurityAccessReviewUserReviewerSettings
 type SecurityAccessReviewUserReviewerSettings struct {
-	// The list of user reviewers for the security access review
+	// The list of reviewer user IDs for the security access review
 	IncludedUserIds      []string `json:"includedUserIds,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

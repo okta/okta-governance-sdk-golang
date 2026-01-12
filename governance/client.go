@@ -101,19 +101,37 @@ type OktaGovernanceAPIClient struct {
 
 	CollectionsAPI CollectionsAPI
 
+	DelegatesAPI DelegatesAPI
+
 	EntitlementBundlesAPI EntitlementBundlesAPI
+
+	EntitlementSettingsAPI EntitlementSettingsAPI
 
 	EntitlementsAPI EntitlementsAPI
 
 	GrantsAPI GrantsAPI
 
+	LabelsAPI LabelsAPI
+
+	MyAccessCertificationReviewsAPI MyAccessCertificationReviewsAPI
+
 	MyCatalogsAPI MyCatalogsAPI
 
 	MyRequestsAPI MyRequestsAPI
 
+	MySecurityAccessReviewsAPI MySecurityAccessReviewsAPI
+
+	MySettingsAPI MySettingsAPI
+
+	OrgGovernanceSettingsAPI OrgGovernanceSettingsAPI
+
 	PrincipalAccessAPI PrincipalAccessAPI
 
+	PrincipalAccessV2API PrincipalAccessV2API
+
 	PrincipalEntitlementsAPI PrincipalEntitlementsAPI
+
+	PrincipalSettingsAPI PrincipalSettingsAPI
 
 	RequestConditionsAPI RequestConditionsAPI
 
@@ -125,9 +143,13 @@ type OktaGovernanceAPIClient struct {
 
 	RequestsAPI RequestsAPI
 
+	ResourceOwnersAPI ResourceOwnersAPI
+
 	ReviewsAPI ReviewsAPI
 
 	RiskRulesAPI RiskRulesAPI
+
+	SecurityAccessReviewsAPI SecurityAccessReviewsAPI
 }
 
 type service struct {
@@ -726,20 +748,31 @@ func NewAPIClient(cfg *okta.Configuration) *OktaGovernanceAPIClient {
 	c.CampaignsAPI = (*CampaignsAPIService)(&c.common)
 	c.CatalogsAPI = (*CatalogsAPIService)(&c.common)
 	c.CollectionsAPI = (*CollectionsAPIService)(&c.common)
+	c.DelegatesAPI = (*DelegatesAPIService)(&c.common)
 	c.EntitlementBundlesAPI = (*EntitlementBundlesAPIService)(&c.common)
+	c.EntitlementSettingsAPI = (*EntitlementSettingsAPIService)(&c.common)
 	c.EntitlementsAPI = (*EntitlementsAPIService)(&c.common)
 	c.GrantsAPI = (*GrantsAPIService)(&c.common)
+	c.LabelsAPI = (*LabelsAPIService)(&c.common)
+	c.MyAccessCertificationReviewsAPI = (*MyAccessCertificationReviewsAPIService)(&c.common)
 	c.MyCatalogsAPI = (*MyCatalogsAPIService)(&c.common)
 	c.MyRequestsAPI = (*MyRequestsAPIService)(&c.common)
+	c.MySecurityAccessReviewsAPI = (*MySecurityAccessReviewsAPIService)(&c.common)
+	c.MySettingsAPI = (*MySettingsAPIService)(&c.common)
+	c.OrgGovernanceSettingsAPI = (*OrgGovernanceSettingsAPIService)(&c.common)
 	c.PrincipalAccessAPI = (*PrincipalAccessAPIService)(&c.common)
+	c.PrincipalAccessV2API = (*PrincipalAccessV2APIService)(&c.common)
 	c.PrincipalEntitlementsAPI = (*PrincipalEntitlementsAPIService)(&c.common)
+	c.PrincipalSettingsAPI = (*PrincipalSettingsAPIService)(&c.common)
 	c.RequestConditionsAPI = (*RequestConditionsAPIService)(&c.common)
 	c.RequestSequencesAPI = (*RequestSequencesAPIService)(&c.common)
 	c.RequestSettingsAPI = (*RequestSettingsAPIService)(&c.common)
 	c.RequestTypesAPI = (*RequestTypesAPIService)(&c.common)
 	c.RequestsAPI = (*RequestsAPIService)(&c.common)
+	c.ResourceOwnersAPI = (*ResourceOwnersAPIService)(&c.common)
 	c.ReviewsAPI = (*ReviewsAPIService)(&c.common)
 	c.RiskRulesAPI = (*RiskRulesAPIService)(&c.common)
+	c.SecurityAccessReviewsAPI = (*SecurityAccessReviewsAPIService)(&c.common)
 
 	c.IdaasClient = okta.NewAPIClient(cfg)
 

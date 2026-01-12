@@ -33,16 +33,21 @@ var _ MappedNullable = &SecurityAccessReviewSubAccessItem{}
 
 // SecurityAccessReviewSubAccessItem struct for SecurityAccessReviewSubAccessItem
 type SecurityAccessReviewSubAccessItem struct {
-	// The ID of the sub access item
+	// The ID of the sub-access item
 	Id string `json:"id"`
-	// The name of the sub access item
-	Name                 string                                            `json:"name"`
-	Type                 SecurityAccessReviewSubAccessItemType             `json:"type"`
-	Severity             SecurityAccessReviewAccessItemSeverity            `json:"severity"`
-	SupportedActions     []SecurityAccessReviewAccessItemSupportedAction   `json:"supportedActions"`
-	EntitlementInfo      *SecurityAccessReviewSubAccessItemEntitlementInfo `json:"entitlementInfo,omitempty"`
-	GroupInfo            *SecurityAccessReviewSubAccessItemGroupInfo       `json:"groupInfo,omitempty"`
-	AdditionalProperties map[string]interface{}
+	// The name of the sub-access item
+	Name string                                `json:"name"`
+	Type SecurityAccessReviewSubAccessItemType `json:"type"`
+	// The ID of the resource for the sub-access item
+	ResourceId        string                                           `json:"resourceId"`
+	Severity          SecurityAccessReviewAccessItemSeverity           `json:"severity"`
+	SupportedActions  []SecurityAccessReviewAccessItemSupportedAction  `json:"supportedActions"`
+	RemediationStatus *SecurityAccessReviewAccessItemRemediationStatus `json:"remediationStatus,omitempty"`
+	// The reasons for manual remediation
+	ManualRemediationTypes []SecurityAccessReviewAccessItemManualRemediationType `json:"manualRemediationTypes,omitempty"`
+	EntitlementInfo        *SecurityAccessReviewSubAccessItemEntitlementInfo     `json:"entitlementInfo,omitempty"`
+	GroupInfo              *SecurityAccessReviewSubAccessItemGroupInfo           `json:"groupInfo,omitempty"`
+	AdditionalProperties   map[string]interface{}
 }
 
 type _SecurityAccessReviewSubAccessItem SecurityAccessReviewSubAccessItem
@@ -51,11 +56,12 @@ type _SecurityAccessReviewSubAccessItem SecurityAccessReviewSubAccessItem
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSecurityAccessReviewSubAccessItem(id string, name string, type_ SecurityAccessReviewSubAccessItemType, severity SecurityAccessReviewAccessItemSeverity, supportedActions []SecurityAccessReviewAccessItemSupportedAction) *SecurityAccessReviewSubAccessItem {
+func NewSecurityAccessReviewSubAccessItem(id string, name string, type_ SecurityAccessReviewSubAccessItemType, resourceId string, severity SecurityAccessReviewAccessItemSeverity, supportedActions []SecurityAccessReviewAccessItemSupportedAction) *SecurityAccessReviewSubAccessItem {
 	this := SecurityAccessReviewSubAccessItem{}
 	this.Id = id
 	this.Name = name
 	this.Type = type_
+	this.ResourceId = resourceId
 	this.Severity = severity
 	this.SupportedActions = supportedActions
 	return &this
@@ -141,6 +147,30 @@ func (o *SecurityAccessReviewSubAccessItem) SetType(v SecurityAccessReviewSubAcc
 	o.Type = v
 }
 
+// GetResourceId returns the ResourceId field value
+func (o *SecurityAccessReviewSubAccessItem) GetResourceId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ResourceId
+}
+
+// GetResourceIdOk returns a tuple with the ResourceId field value
+// and a boolean to check if the value has been set.
+func (o *SecurityAccessReviewSubAccessItem) GetResourceIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ResourceId, true
+}
+
+// SetResourceId sets field value
+func (o *SecurityAccessReviewSubAccessItem) SetResourceId(v string) {
+	o.ResourceId = v
+}
+
 // GetSeverity returns the Severity field value
 func (o *SecurityAccessReviewSubAccessItem) GetSeverity() SecurityAccessReviewAccessItemSeverity {
 	if o == nil {
@@ -187,6 +217,70 @@ func (o *SecurityAccessReviewSubAccessItem) GetSupportedActionsOk() ([]SecurityA
 // SetSupportedActions sets field value
 func (o *SecurityAccessReviewSubAccessItem) SetSupportedActions(v []SecurityAccessReviewAccessItemSupportedAction) {
 	o.SupportedActions = v
+}
+
+// GetRemediationStatus returns the RemediationStatus field value if set, zero value otherwise.
+func (o *SecurityAccessReviewSubAccessItem) GetRemediationStatus() SecurityAccessReviewAccessItemRemediationStatus {
+	if o == nil || IsNil(o.RemediationStatus) {
+		var ret SecurityAccessReviewAccessItemRemediationStatus
+		return ret
+	}
+	return *o.RemediationStatus
+}
+
+// GetRemediationStatusOk returns a tuple with the RemediationStatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SecurityAccessReviewSubAccessItem) GetRemediationStatusOk() (*SecurityAccessReviewAccessItemRemediationStatus, bool) {
+	if o == nil || IsNil(o.RemediationStatus) {
+		return nil, false
+	}
+	return o.RemediationStatus, true
+}
+
+// HasRemediationStatus returns a boolean if a field has been set.
+func (o *SecurityAccessReviewSubAccessItem) HasRemediationStatus() bool {
+	if o != nil && !IsNil(o.RemediationStatus) {
+		return true
+	}
+
+	return false
+}
+
+// SetRemediationStatus gets a reference to the given SecurityAccessReviewAccessItemRemediationStatus and assigns it to the RemediationStatus field.
+func (o *SecurityAccessReviewSubAccessItem) SetRemediationStatus(v SecurityAccessReviewAccessItemRemediationStatus) {
+	o.RemediationStatus = &v
+}
+
+// GetManualRemediationTypes returns the ManualRemediationTypes field value if set, zero value otherwise.
+func (o *SecurityAccessReviewSubAccessItem) GetManualRemediationTypes() []SecurityAccessReviewAccessItemManualRemediationType {
+	if o == nil || IsNil(o.ManualRemediationTypes) {
+		var ret []SecurityAccessReviewAccessItemManualRemediationType
+		return ret
+	}
+	return o.ManualRemediationTypes
+}
+
+// GetManualRemediationTypesOk returns a tuple with the ManualRemediationTypes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SecurityAccessReviewSubAccessItem) GetManualRemediationTypesOk() ([]SecurityAccessReviewAccessItemManualRemediationType, bool) {
+	if o == nil || IsNil(o.ManualRemediationTypes) {
+		return nil, false
+	}
+	return o.ManualRemediationTypes, true
+}
+
+// HasManualRemediationTypes returns a boolean if a field has been set.
+func (o *SecurityAccessReviewSubAccessItem) HasManualRemediationTypes() bool {
+	if o != nil && !IsNil(o.ManualRemediationTypes) {
+		return true
+	}
+
+	return false
+}
+
+// SetManualRemediationTypes gets a reference to the given []SecurityAccessReviewAccessItemManualRemediationType and assigns it to the ManualRemediationTypes field.
+func (o *SecurityAccessReviewSubAccessItem) SetManualRemediationTypes(v []SecurityAccessReviewAccessItemManualRemediationType) {
+	o.ManualRemediationTypes = v
 }
 
 // GetEntitlementInfo returns the EntitlementInfo field value if set, zero value otherwise.
@@ -266,8 +360,15 @@ func (o SecurityAccessReviewSubAccessItem) ToMap() (map[string]interface{}, erro
 	toSerialize["id"] = o.Id
 	toSerialize["name"] = o.Name
 	toSerialize["type"] = o.Type
+	toSerialize["resourceId"] = o.ResourceId
 	toSerialize["severity"] = o.Severity
 	toSerialize["supportedActions"] = o.SupportedActions
+	if !IsNil(o.RemediationStatus) {
+		toSerialize["remediationStatus"] = o.RemediationStatus
+	}
+	if !IsNil(o.ManualRemediationTypes) {
+		toSerialize["manualRemediationTypes"] = o.ManualRemediationTypes
+	}
 	if !IsNil(o.EntitlementInfo) {
 		toSerialize["entitlementInfo"] = o.EntitlementInfo
 	}
@@ -290,6 +391,7 @@ func (o *SecurityAccessReviewSubAccessItem) UnmarshalJSON(data []byte) (err erro
 		"id",
 		"name",
 		"type",
+		"resourceId",
 		"severity",
 		"supportedActions",
 	}
@@ -324,8 +426,11 @@ func (o *SecurityAccessReviewSubAccessItem) UnmarshalJSON(data []byte) (err erro
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "type")
+		delete(additionalProperties, "resourceId")
 		delete(additionalProperties, "severity")
 		delete(additionalProperties, "supportedActions")
+		delete(additionalProperties, "remediationStatus")
+		delete(additionalProperties, "manualRemediationTypes")
 		delete(additionalProperties, "entitlementInfo")
 		delete(additionalProperties, "groupInfo")
 		o.AdditionalProperties = additionalProperties

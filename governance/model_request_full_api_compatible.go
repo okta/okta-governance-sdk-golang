@@ -37,6 +37,8 @@ type RequestFullApiCompatible struct {
 	Approvals []RequestApproval `json:"approvals"`
 	// A list of actions. Currently only supports one action per request.
 	Actions []RequestAction `json:"actions"`
+	// The immutable, persistent identifier that always resolves to the request
+	PermalinkId int32 `json:"permalinkId"`
 	// This request is associated with a request type with no `CUSTOM` settings.
 	Type string `json:"type"`
 	// Unique identifier for the object
@@ -70,7 +72,7 @@ type _RequestFullApiCompatible RequestFullApiCompatible
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRequestFullApiCompatible(approvals []RequestApproval, actions []RequestAction, type_ string, id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, links RequestLinks, requestTypeId string, subject string, requesterUserIds []string, requestStatus RequestRequestStatus, resolved NullableTime, requesterFieldValues []FieldValue) *RequestFullApiCompatible {
+func NewRequestFullApiCompatible(approvals []RequestApproval, actions []RequestAction, permalinkId int32, type_ string, id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, links RequestLinks, requestTypeId string, subject string, requesterUserIds []string, requestStatus RequestRequestStatus, resolved NullableTime, requesterFieldValues []FieldValue) *RequestFullApiCompatible {
 	this := RequestFullApiCompatible{}
 	this.Id = id
 	this.CreatedBy = createdBy
@@ -143,6 +145,30 @@ func (o *RequestFullApiCompatible) GetActionsOk() ([]RequestAction, bool) {
 // SetActions sets field value
 func (o *RequestFullApiCompatible) SetActions(v []RequestAction) {
 	o.Actions = v
+}
+
+// GetPermalinkId returns the PermalinkId field value
+func (o *RequestFullApiCompatible) GetPermalinkId() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.PermalinkId
+}
+
+// GetPermalinkIdOk returns a tuple with the PermalinkId field value
+// and a boolean to check if the value has been set.
+func (o *RequestFullApiCompatible) GetPermalinkIdOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PermalinkId, true
+}
+
+// SetPermalinkId sets field value
+func (o *RequestFullApiCompatible) SetPermalinkId(v int32) {
+	o.PermalinkId = v
 }
 
 // GetType returns the Type field value
@@ -475,6 +501,7 @@ func (o RequestFullApiCompatible) ToMap() (map[string]interface{}, error) {
 	if o.Actions != nil {
 		toSerialize["actions"] = o.Actions
 	}
+	toSerialize["permalinkId"] = o.PermalinkId
 	toSerialize["type"] = o.Type
 	toSerialize["id"] = o.Id
 	toSerialize["createdBy"] = o.CreatedBy
@@ -505,6 +532,7 @@ func (o *RequestFullApiCompatible) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"approvals",
 		"actions",
+		"permalinkId",
 		"type",
 		"id",
 		"createdBy",
@@ -549,6 +577,7 @@ func (o *RequestFullApiCompatible) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "approvals")
 		delete(additionalProperties, "actions")
+		delete(additionalProperties, "permalinkId")
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "createdBy")

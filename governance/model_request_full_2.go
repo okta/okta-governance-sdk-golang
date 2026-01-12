@@ -53,10 +53,10 @@ type RequestFull2 struct {
 	Granted          NullableTime             `json:"granted,omitempty"`
 	RevocationStatus *RequestRevocationStatus `json:"revocationStatus,omitempty"`
 	// The date the granted access was revoked. Only set if request.grantStatus is GRANTED and request.revocationStatus is REVOKED.
-	Revoked      NullableTime    `json:"revoked,omitempty"`
-	RequestedBy  TargetPrincipal `json:"requestedBy"`
-	RequestedFor TargetPrincipal `json:"requestedFor"`
-	Requested    Requested       `json:"requested"`
+	Revoked      NullableTime              `json:"revoked,omitempty"`
+	RequestedBy  ClientCredentialPrincipal `json:"requestedBy"`
+	RequestedFor TargetPrincipal           `json:"requestedFor"`
+	Requested    Requested                 `json:"requested"`
 	// How long the requester retains access after their request is approved and fulfilled.  Specified in [ISO 8601 duration format](https://en.wikipedia.org/wiki/ISO_8601#Durations).  #### Known limitation  Only single time unit ISO 8601 duration formats (D, H, M) are supported, for units (days, hours, minutes).  ##### Supported  | Unit       | Example | | ---------- | ------- | | D, days    | P40D    | | H, hours   | PT65H   | | M, minutes | PT90M   |  > **Note:** Mixes of units, as well as month/year/week designations, are not supported. For example, `P40DT65H`, `P40M`, `P1W` and `P1Y` are not supported.
 	AccessDuration NullableString `json:"accessDuration,omitempty"`
 	// The date the granted access is scheduled for recovation. Only set if request.accessDuration exists, and request.grantStatus is GRANTED.
@@ -74,7 +74,7 @@ type _RequestFull2 RequestFull2
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRequestFull2(id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, links RequestLinks2, status RequestStatus, requestedBy TargetPrincipal, requestedFor TargetPrincipal, requested Requested) *RequestFull2 {
+func NewRequestFull2(id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, links RequestLinks2, status RequestStatus, requestedBy ClientCredentialPrincipal, requestedFor TargetPrincipal, requested Requested) *RequestFull2 {
 	this := RequestFull2{}
 	this.Id = id
 	this.CreatedBy = createdBy
@@ -459,9 +459,9 @@ func (o *RequestFull2) UnsetRevoked() {
 }
 
 // GetRequestedBy returns the RequestedBy field value
-func (o *RequestFull2) GetRequestedBy() TargetPrincipal {
+func (o *RequestFull2) GetRequestedBy() ClientCredentialPrincipal {
 	if o == nil {
-		var ret TargetPrincipal
+		var ret ClientCredentialPrincipal
 		return ret
 	}
 
@@ -470,7 +470,7 @@ func (o *RequestFull2) GetRequestedBy() TargetPrincipal {
 
 // GetRequestedByOk returns a tuple with the RequestedBy field value
 // and a boolean to check if the value has been set.
-func (o *RequestFull2) GetRequestedByOk() (*TargetPrincipal, bool) {
+func (o *RequestFull2) GetRequestedByOk() (*ClientCredentialPrincipal, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -478,7 +478,7 @@ func (o *RequestFull2) GetRequestedByOk() (*TargetPrincipal, bool) {
 }
 
 // SetRequestedBy sets field value
-func (o *RequestFull2) SetRequestedBy(v TargetPrincipal) {
+func (o *RequestFull2) SetRequestedBy(v ClientCredentialPrincipal) {
 	o.RequestedBy = v
 }
 

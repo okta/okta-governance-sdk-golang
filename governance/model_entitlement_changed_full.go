@@ -33,6 +33,7 @@ var _ MappedNullable = &EntitlementChangedFull{}
 
 // EntitlementChangedFull All entitlements with the property values
 type EntitlementChangedFull struct {
+	// List of changed entitlement values
 	Values []EntitlementValueChanged `json:"values,omitempty"`
 	// The `id` property of an entitlement
 	Id string `json:"id"`
@@ -42,7 +43,7 @@ type EntitlementChangedFull struct {
 	ExternalValue *string `json:"externalValue,omitempty"`
 	// The description of an entitlement property
 	Description *string `json:"description,omitempty"`
-	// The property that determines if the entitlement property can hold multiple values. If this is set to true, the data type is replaced with an array.
+	// Indicate if the entitlement property can hold multiple values. If this property is `true`, then the `dataType` property is set to  `array`.
 	MultiValue *bool `json:"multiValue,omitempty"`
 	// The property that determines if the entitlement property is a required attribute
 	Required             *bool                        `json:"required,omitempty"`

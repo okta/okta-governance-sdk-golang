@@ -35,7 +35,7 @@ var _ MappedNullable = &CampaignDetailsReadOnly{}
 type CampaignDetailsReadOnly struct {
 	// Name of the campaign. Maintain some uniqueness when naming the campaign as it helps to identify and filter for campaigns when needed.
 	Name string `json:"name"`
-	// Human readable description.
+	// Human readable description
 	Description            *string                        `json:"description,omitempty"`
 	CampaignType           *CampaignType                  `json:"campaignType,omitempty"`
 	ScheduleSettings       ScheduleSettingsReadOnly       `json:"scheduleSettings"`
@@ -45,7 +45,8 @@ type CampaignDetailsReadOnly struct {
 	NotificationSettings   *NotificationSettings          `json:"notificationSettings,omitempty"`
 	RemediationSettings    RemediationSettings            `json:"remediationSettings"`
 	// ID of the recurring campaign if this campaign was created as part of a recurring schedule.
-	RecurringCampaignId  NullableString `json:"recurringCampaignId,omitempty"`
+	RecurringCampaignId  NullableString            `json:"recurringCampaignId,omitempty"`
+	ReportingSettings    *ReportingSettingsMutable `json:"reportingSettings,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,6 +59,8 @@ type _CampaignDetailsReadOnly CampaignDetailsReadOnly
 func NewCampaignDetailsReadOnly(name string, scheduleSettings ScheduleSettingsReadOnly, resourceSettings ResourceSettingsMutable, reviewerSettings ReviewerSettingsMutable, remediationSettings RemediationSettings) *CampaignDetailsReadOnly {
 	this := CampaignDetailsReadOnly{}
 	this.Name = name
+	var campaignType CampaignType = CAMPAIGNTYPE_RESOURCE
+	this.CampaignType = &campaignType
 	this.ScheduleSettings = scheduleSettings
 	this.ResourceSettings = resourceSettings
 	this.ReviewerSettings = reviewerSettings
@@ -70,6 +73,8 @@ func NewCampaignDetailsReadOnly(name string, scheduleSettings ScheduleSettingsRe
 // but it doesn't guarantee that properties required by API are set
 func NewCampaignDetailsReadOnlyWithDefaults() *CampaignDetailsReadOnly {
 	this := CampaignDetailsReadOnly{}
+	var campaignType CampaignType = CAMPAIGNTYPE_RESOURCE
+	this.CampaignType = &campaignType
 	return &this
 }
 
@@ -364,6 +369,38 @@ func (o *CampaignDetailsReadOnly) UnsetRecurringCampaignId() {
 	o.RecurringCampaignId.Unset()
 }
 
+// GetReportingSettings returns the ReportingSettings field value if set, zero value otherwise.
+func (o *CampaignDetailsReadOnly) GetReportingSettings() ReportingSettingsMutable {
+	if o == nil || IsNil(o.ReportingSettings) {
+		var ret ReportingSettingsMutable
+		return ret
+	}
+	return *o.ReportingSettings
+}
+
+// GetReportingSettingsOk returns a tuple with the ReportingSettings field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CampaignDetailsReadOnly) GetReportingSettingsOk() (*ReportingSettingsMutable, bool) {
+	if o == nil || IsNil(o.ReportingSettings) {
+		return nil, false
+	}
+	return o.ReportingSettings, true
+}
+
+// HasReportingSettings returns a boolean if a field has been set.
+func (o *CampaignDetailsReadOnly) HasReportingSettings() bool {
+	if o != nil && !IsNil(o.ReportingSettings) {
+		return true
+	}
+
+	return false
+}
+
+// SetReportingSettings gets a reference to the given ReportingSettingsMutable and assigns it to the ReportingSettings field.
+func (o *CampaignDetailsReadOnly) SetReportingSettings(v ReportingSettingsMutable) {
+	o.ReportingSettings = &v
+}
+
 func (o CampaignDetailsReadOnly) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -393,6 +430,9 @@ func (o CampaignDetailsReadOnly) ToMap() (map[string]interface{}, error) {
 	toSerialize["remediationSettings"] = o.RemediationSettings
 	if o.RecurringCampaignId.IsSet() {
 		toSerialize["recurringCampaignId"] = o.RecurringCampaignId.Get()
+	}
+	if !IsNil(o.ReportingSettings) {
+		toSerialize["reportingSettings"] = o.ReportingSettings
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -451,6 +491,7 @@ func (o *CampaignDetailsReadOnly) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "notificationSettings")
 		delete(additionalProperties, "remediationSettings")
 		delete(additionalProperties, "recurringCampaignId")
+		delete(additionalProperties, "reportingSettings")
 		o.AdditionalProperties = additionalProperties
 	}
 

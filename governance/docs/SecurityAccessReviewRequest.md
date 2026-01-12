@@ -5,15 +5,15 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **PrincipalId** | **string** | The Okta user ID in the security access review | 
-**SecurityAccessReviewName** | **string** | The name of the security access review | 
-**EndTime** | Pointer to **time.Time** | The end time of the security access review. If not specified this defaults to seven days from the start time. | [optional] 
+**Name** | **string** | The name of the security access review | 
+**EndTime** | Pointer to **time.Time** | The date and time when the security access review closes, defaulting to seven days after the creation of the security access review. It must be at least one day and less than six months after creation. | [optional] 
 **ReviewerSettings** | [**SecurityAccessReviewReviewerSettings**](SecurityAccessReviewReviewerSettings.md) |  | 
 
 ## Methods
 
 ### NewSecurityAccessReviewRequest
 
-`func NewSecurityAccessReviewRequest(principalId string, securityAccessReviewName string, reviewerSettings SecurityAccessReviewReviewerSettings, ) *SecurityAccessReviewRequest`
+`func NewSecurityAccessReviewRequest(principalId string, name string, reviewerSettings SecurityAccessReviewReviewerSettings, ) *SecurityAccessReviewRequest`
 
 NewSecurityAccessReviewRequest instantiates a new SecurityAccessReviewRequest object
 This constructor will assign default values to properties that have it defined,
@@ -48,24 +48,24 @@ and a boolean to check if the value has been set.
 SetPrincipalId sets PrincipalId field to given value.
 
 
-### GetSecurityAccessReviewName
+### GetName
 
-`func (o *SecurityAccessReviewRequest) GetSecurityAccessReviewName() string`
+`func (o *SecurityAccessReviewRequest) GetName() string`
 
-GetSecurityAccessReviewName returns the SecurityAccessReviewName field if non-nil, zero value otherwise.
+GetName returns the Name field if non-nil, zero value otherwise.
 
-### GetSecurityAccessReviewNameOk
+### GetNameOk
 
-`func (o *SecurityAccessReviewRequest) GetSecurityAccessReviewNameOk() (*string, bool)`
+`func (o *SecurityAccessReviewRequest) GetNameOk() (*string, bool)`
 
-GetSecurityAccessReviewNameOk returns a tuple with the SecurityAccessReviewName field if it's non-nil, zero value otherwise
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetSecurityAccessReviewName
+### SetName
 
-`func (o *SecurityAccessReviewRequest) SetSecurityAccessReviewName(v string)`
+`func (o *SecurityAccessReviewRequest) SetName(v string)`
 
-SetSecurityAccessReviewName sets SecurityAccessReviewName field to given value.
+SetName sets Name field to given value.
 
 
 ### GetEndTime

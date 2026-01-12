@@ -38,16 +38,16 @@ type CampaignsAPI interface {
 	/*
 			CreateCampaign Create a campaign
 
-			Creates a campaign that governs whether the access can continue to exist.
+			Creates a campaign that governs access to resources.
 
-		When creating a campaign, you specify:
+		Specify the following for a campaign:
 
-		- Which resource(s) are subject to review
-		- Which user(s) with access to the resource(s) are subject to review
-		- The schedule of the campaign (`ONE_OFF`)
-		- Who should review access
-		- What should be done after access is reviewed
-		- If notifications should automatically be sent to a campaign creator or reviewer
+		- `resourceSettings`: Which resources are subject to review
+		- `principalScopeSettings`: Which users with access to the resources are subject to review
+		- `scheduleSettings`: The schedule of the campaign
+		- `reviewerSettings`: Who needs to review access
+		- `remediationSettings`: What needs to be done after access is reviewed
+		- `notificationSettings`: Configure automatic notifications to a campaign creator or reviewer
 
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -174,7 +174,7 @@ type ApiCreateCampaignRequest struct {
 	retryCount      int32
 }
 
-// Creates a single campaign with all the required characteristics
+// Specifies the characteristics of a single campaign
 func (r ApiCreateCampaignRequest) CampaignMutable(campaignMutable CampaignMutable) ApiCreateCampaignRequest {
 	r.campaignMutable = &campaignMutable
 	return r
@@ -187,16 +187,16 @@ func (r ApiCreateCampaignRequest) Execute() (*CampaignFull, *APIResponse, error)
 /*
 CreateCampaign Create a campaign
 
-Creates a campaign that governs whether the access can continue to exist.
+Creates a campaign that governs access to resources.
 
-When creating a campaign, you specify:
+Specify the following for a campaign:
 
-- Which resource(s) are subject to review
-- Which user(s) with access to the resource(s) are subject to review
-- The schedule of the campaign (`ONE_OFF`)
-- Who should review access
-- What should be done after access is reviewed
-- If notifications should automatically be sent to a campaign creator or reviewer
+- `resourceSettings`: Which resources are subject to review
+- `principalScopeSettings`: Which users with access to the resources are subject to review
+- `scheduleSettings`: The schedule of the campaign
+- `reviewerSettings`: Who needs to review access
+- `remediationSettings`: What needs to be done after access is reviewed
+- `notificationSettings`: Configure automatic notifications to a campaign creator or reviewer
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiCreateCampaignRequest

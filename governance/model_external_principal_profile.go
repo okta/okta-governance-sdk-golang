@@ -38,7 +38,8 @@ type ExternalPrincipalProfile struct {
 	// User name or Group Name
 	Name string `json:"name"`
 	// Email of the resource owner, if applicable.
-	Email *string `json:"email,omitempty"`
+	Email    *string                           `json:"email,omitempty"`
+	Metadata *ExternalPrincipalProfileMetadata `json:"metadata,omitempty"`
 	// List of logo resources
 	Logo                 []Link   `json:"logo,omitempty"`
 	Links                LinkSelf `json:"_links"`
@@ -147,6 +148,38 @@ func (o *ExternalPrincipalProfile) SetEmail(v string) {
 	o.Email = &v
 }
 
+// GetMetadata returns the Metadata field value if set, zero value otherwise.
+func (o *ExternalPrincipalProfile) GetMetadata() ExternalPrincipalProfileMetadata {
+	if o == nil || IsNil(o.Metadata) {
+		var ret ExternalPrincipalProfileMetadata
+		return ret
+	}
+	return *o.Metadata
+}
+
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ExternalPrincipalProfile) GetMetadataOk() (*ExternalPrincipalProfileMetadata, bool) {
+	if o == nil || IsNil(o.Metadata) {
+		return nil, false
+	}
+	return o.Metadata, true
+}
+
+// HasMetadata returns a boolean if a field has been set.
+func (o *ExternalPrincipalProfile) HasMetadata() bool {
+	if o != nil && !IsNil(o.Metadata) {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadata gets a reference to the given ExternalPrincipalProfileMetadata and assigns it to the Metadata field.
+func (o *ExternalPrincipalProfile) SetMetadata(v ExternalPrincipalProfileMetadata) {
+	o.Metadata = &v
+}
+
 // GetLogo returns the Logo field value if set, zero value otherwise.
 func (o *ExternalPrincipalProfile) GetLogo() []Link {
 	if o == nil || IsNil(o.Logo) {
@@ -218,6 +251,9 @@ func (o ExternalPrincipalProfile) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Email) {
 		toSerialize["email"] = o.Email
 	}
+	if !IsNil(o.Metadata) {
+		toSerialize["metadata"] = o.Metadata
+	}
 	if !IsNil(o.Logo) {
 		toSerialize["logo"] = o.Logo
 	}
@@ -270,6 +306,7 @@ func (o *ExternalPrincipalProfile) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "email")
+		delete(additionalProperties, "metadata")
 		delete(additionalProperties, "logo")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties

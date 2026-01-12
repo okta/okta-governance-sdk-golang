@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ResourceOrns** | **[]string** | Resources assigned to labels | 
+**ResourceOrns** | **[]string** | Resources assigned to labels (in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format) | 
 **LabelValueIds** | **[]string** | Labels assigned to resources in the &#x60;resourceOrns&#x60; list | 
 
 ## Methods

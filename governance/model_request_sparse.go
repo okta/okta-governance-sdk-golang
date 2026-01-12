@@ -39,7 +39,9 @@ type RequestSparse struct {
 	RequestStatus RequestRequestStatus `json:"requestStatus"`
 	// The date the request was resolved. The property may transition from having a value to null if the request is reopened.
 	Resolved NullableTime `json:"resolved"`
-	Links    RequestLinks `json:"_links"`
+	// The immutable, persistent identifier that always resolves to the request
+	PermalinkId int32        `json:"permalinkId"`
+	Links       RequestLinks `json:"_links"`
 	// Unique identifier for the object
 	Id string `json:"id"`
 	// The `id` of the Okta user who created the resource
@@ -65,7 +67,7 @@ type _RequestSparse RequestSparse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRequestSparse(type_ string, requestStatus RequestRequestStatus, resolved NullableTime, links RequestLinks, id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, requestTypeId string, subject string, requesterUserIds []string) *RequestSparse {
+func NewRequestSparse(type_ string, requestStatus RequestRequestStatus, resolved NullableTime, permalinkId int32, links RequestLinks, id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, requestTypeId string, subject string, requesterUserIds []string) *RequestSparse {
 	this := RequestSparse{}
 	this.Id = id
 	this.CreatedBy = createdBy
@@ -159,6 +161,30 @@ func (o *RequestSparse) GetResolvedOk() (*time.Time, bool) {
 // SetResolved sets field value
 func (o *RequestSparse) SetResolved(v time.Time) {
 	o.Resolved.Set(&v)
+}
+
+// GetPermalinkId returns the PermalinkId field value
+func (o *RequestSparse) GetPermalinkId() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.PermalinkId
+}
+
+// GetPermalinkIdOk returns a tuple with the PermalinkId field value
+// and a boolean to check if the value has been set.
+func (o *RequestSparse) GetPermalinkIdOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PermalinkId, true
+}
+
+// SetPermalinkId sets field value
+func (o *RequestSparse) SetPermalinkId(v int32) {
+	o.PermalinkId = v
 }
 
 // GetLinks returns the Links field value
@@ -390,6 +416,7 @@ func (o RequestSparse) ToMap() (map[string]interface{}, error) {
 	toSerialize["type"] = o.Type
 	toSerialize["requestStatus"] = o.RequestStatus
 	toSerialize["resolved"] = o.Resolved.Get()
+	toSerialize["permalinkId"] = o.PermalinkId
 	toSerialize["_links"] = o.Links
 	toSerialize["id"] = o.Id
 	toSerialize["createdBy"] = o.CreatedBy
@@ -415,6 +442,7 @@ func (o *RequestSparse) UnmarshalJSON(data []byte) (err error) {
 		"type",
 		"requestStatus",
 		"resolved",
+		"permalinkId",
 		"_links",
 		"id",
 		"createdBy",
@@ -456,6 +484,7 @@ func (o *RequestSparse) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "requestStatus")
 		delete(additionalProperties, "resolved")
+		delete(additionalProperties, "permalinkId")
 		delete(additionalProperties, "_links")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "createdBy")
