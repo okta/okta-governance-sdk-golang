@@ -39508,9 +39508,6 @@ components:
       - type
       type: object
     request-type-request-settings-mutable:
-      default:
-        type: EVERYONE
-        requesterFields: []
       description: |
         The `requestSettings` control:
 
@@ -40034,9 +40031,6 @@ components:
       - type
       type: object
     request-type-request-settings-readable:
-      default:
-        type: EVERYONE
-        requesterFields: []
       description: |
         The `requestSettings` control:
 

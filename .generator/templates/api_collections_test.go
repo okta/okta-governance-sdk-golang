@@ -1,7 +1,6 @@
 package governance
 
 import (
-	apiClient "github.com/okta/okta-governance-sdk-golang"
 	"testing"
 )
 

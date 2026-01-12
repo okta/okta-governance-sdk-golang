@@ -4,6 +4,8 @@ outputDir: ./governance/
 gitUserId: okta
 gitRepoId: okta-governance-sdk-golang
 versionName: v1
+goVersion: "1.24.0"
+toolchainVersion: "go1.24.2"
 additionalProperties:
   enumClassPrefix: true
   generateInterfaces: true
@@ -24,5 +26,4 @@ files:
   api_grants_test.go: {}
   api_principal_access_test.go: {}
   api_reviews_test.go: {}
-
-
+  test_setup.go: {}

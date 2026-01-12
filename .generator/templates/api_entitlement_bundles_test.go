@@ -1,7 +1,6 @@
 package governance
 
 import (
-	apiClient "github.com/okta/okta-governance-sdk-golang"
 	"net/http"
 	"testing"
 )
@@ -12,7 +11,7 @@ func TestGetEntitlementBundleExecute(t *testing.T) {
 		t.Errorf("Error getting entitlement bundle: %v", err)
 		return
 	}
-	if execute.EntitlementBundleFull.Entitlements == nil {
+	if execute.Entitlements == nil {
 		t.Errorf("Expected entitlements to be present in the response")
 		return
 	}

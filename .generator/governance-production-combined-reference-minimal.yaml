@@ -26891,9 +26891,9 @@ components:
 
         - Which users can request access using this request type.
         - What fields the user may or must fill out in order to request access.
-      default:
-        type: EVERYONE
-        requesterFields: []
+      # default:
+      #   type: EVERYONE
+      #   requesterFields: []
       oneOf:
         - $ref: '#/components/schemas/request-type-requester-member-of-writable'
         - $ref: '#/components/schemas/request-type-requester-everyone-writable'
@@ -27286,9 +27286,9 @@ components:
 
         - Which users can request access using this request type.
         - What fields the user may or must fill out in order to request access.
-      default:
-        type: EVERYONE
-        requesterFields: []
+      # default:
+      #   type: EVERYONE
+      #   requesterFields: []
       oneOf:
         - $ref: '#/components/schemas/request-type-requester-member-of'
         - $ref: '#/components/schemas/request-type-requester-everyone'

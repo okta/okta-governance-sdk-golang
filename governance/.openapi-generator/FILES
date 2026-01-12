@@ -1061,5 +1061,6 @@ test/api_request_types_test.go
 test/api_requests_test.go
 test/api_reviews_test.go
 test/api_risk_rules_test.go
+test_setup.go
 user_agent.go
 utils.go

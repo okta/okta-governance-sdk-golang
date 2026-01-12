@@ -35,16 +35,16 @@ var _ MappedNullable = &RequestTypeCreatable{}
 type RequestTypeCreatable struct {
 	Status *RequestTypeCreatableStatus `json:"status,omitempty"`
 	// The ID of the team that administers this request type.
-	OwnerId string `json:"ownerId" validate:"regexp=^[a-fA-F\\\\d]{24}$"`
+	OwnerId          string                             `json:"ownerId" validate:"regexp=^[a-fA-F\\\\d]{24}$"`
 	ResourceSettings RequestTypeResourceSettingsMutable `json:"resourceSettings"`
-	RequestSettings *RequestTypeRequestSettingsMutable `json:"requestSettings,omitempty"`
+	RequestSettings  *RequestTypeRequestSettingsMutable `json:"requestSettings,omitempty"`
 	ApprovalSettings RequestTypeApprovalSettingsMutable `json:"approvalSettings"`
 	// How long the requester retains access after their request is approved and fulfilled.  Specified in [ISO 8601 duration format](https://en.wikipedia.org/wiki/ISO_8601#Durations).  #### Known limitation  Only single time unit ISO 8601 duration formats (D, H, M) are supported, for units (days, hours, minutes).  ##### Supported  | Unit       | Example | | ---------- | ------- | | D, days    | P40D    | | H, hours   | PT65H   | | M, minutes | PT90M   |  > **Note:** Mixes of units, as well as month/year/week designations, are not supported. For example, `P40DT65H`, `P40M`, `P1W` and `P1Y` are not supported.
 	AccessDuration NullableString `json:"accessDuration,omitempty"`
 	// Writable unique key on Create. Not modifiable on update.
 	Name string `json:"name"`
 	// Human readable description.
-	Description *string `json:"description,omitempty"`
+	Description          *string `json:"description,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -67,8 +67,6 @@ func NewRequestTypeCreatableWithDefaults() *RequestTypeCreatable {
 	this := RequestTypeCreatable{}
 	var status RequestTypeCreatableStatus = REQUESTTYPECREATABLESTATUS_DRAFT
 	this.Status = &status
-	var requestSettings RequestTypeRequestSettingsMutable = {"type":"EVERYONE","requesterFields":[]}
-	this.RequestSettings = &requestSettings
 	return &this
 }
 
@@ -240,6 +238,7 @@ func (o *RequestTypeCreatable) HasAccessDuration() bool {
 func (o *RequestTypeCreatable) SetAccessDuration(v string) {
 	o.AccessDuration.Set(&v)
 }
+
 // SetAccessDurationNil sets the value for AccessDuration to be an explicit nil
 func (o *RequestTypeCreatable) SetAccessDurationNil() {
 	o.AccessDuration.Set(nil)
@@ -307,7 +306,7 @@ func (o *RequestTypeCreatable) SetDescription(v string) {
 }
 
 func (o RequestTypeCreatable) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -356,10 +355,10 @@ func (o *RequestTypeCreatable) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -427,5 +426,3 @@ func (v *NullableRequestTypeCreatable) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

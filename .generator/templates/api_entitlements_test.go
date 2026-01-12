@@ -1,12 +1,11 @@
 package governance
 
 import (
-	apiClient "github.com/okta/okta-governance-sdk-golang"
 	"testing"
 )
 
 func TestCreateEntitlementExecute(t *testing.T) {
-	applicationList, _, _ := idaasAPIClient.ApplicationAPI.ListApplications(apiClient.cfg.Context).Execute()
+	applicationList, _, _ := apiClient.IdaasClient.ApplicationAPI.ListApplications(apiClient.cfg.Context).Execute()
 
 	for _, application := range applicationList {
 		if application.OpenIdConnectApplication == nil {

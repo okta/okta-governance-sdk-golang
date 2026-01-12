@@ -25,8 +25,8 @@ package governance
 
 import (
 	"encoding/json"
-	"time"
 	"fmt"
+	"time"
 )
 
 // checks if the RequestTypeFull type satisfies the MappedNullable interface at compile time
@@ -35,15 +35,15 @@ var _ MappedNullable = &RequestTypeFull{}
 // RequestTypeFull Full representation of a request type resource
 type RequestTypeFull struct {
 	// The ID of the team that administers this request type.
-	OwnerId string `json:"ownerId" validate:"regexp=^[a-fA-F\\\\d]{24}$"`
+	OwnerId          string                              `json:"ownerId" validate:"regexp=^[a-fA-F\\\\d]{24}$"`
 	ResourceSettings RequestTypeResourceSettingsReadable `json:"resourceSettings"`
-	RequestSettings RequestTypeRequestSettingsReadable `json:"requestSettings"`
+	RequestSettings  RequestTypeRequestSettingsReadable  `json:"requestSettings"`
 	ApprovalSettings RequestTypeApprovalSettingsReadable `json:"approvalSettings"`
 	// How long the requester retains access after their request is approved and fulfilled.  Specified in [ISO 8601 duration format](https://en.wikipedia.org/wiki/ISO_8601#Durations).  #### Known limitation  Only single time unit ISO 8601 duration formats (D, H, M) are supported, for units (days, hours, minutes).  ##### Supported  | Unit       | Example | | ---------- | ------- | | D, days    | P40D    | | H, hours   | PT65H   | | M, minutes | PT90M   |  > **Note:** Mixes of units, as well as month/year/week designations, are not supported. For example, `P40DT65H`, `P40M`, `P1W` and `P1Y` are not supported.
-	AccessDuration NullableString `json:"accessDuration"`
-	Status RequestTypeStatus `json:"status"`
+	AccessDuration   NullableString              `json:"accessDuration"`
+	Status           RequestTypeStatus           `json:"status"`
 	LastUpdateSource RequestTypeLastUpdateSource `json:"lastUpdateSource"`
-	Links RequestTypeLinks `json:"_links"`
+	Links            RequestTypeLinks            `json:"_links"`
 	// Writable unique key on Create. Not modifiable on update.
 	Name string `json:"name"`
 	// Human readable description.
@@ -57,7 +57,7 @@ type RequestTypeFull struct {
 	// The ISO 8601 formatted date and time when the object was last updated
 	LastUpdated time.Time `json:"lastUpdated"`
 	// The `id` of the Okta user who last updated the object
-	LastUpdatedBy string `json:"lastUpdatedBy"`
+	LastUpdatedBy        string `json:"lastUpdatedBy"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -85,8 +85,6 @@ func NewRequestTypeFull(ownerId string, resourceSettings RequestTypeResourceSett
 // but it doesn't guarantee that properties required by API are set
 func NewRequestTypeFullWithDefaults() *RequestTypeFull {
 	this := RequestTypeFull{}
-	var requestSettings RequestTypeRequestSettingsReadable = {"type":"EVERYONE","requesterFields":[]}
-	this.RequestSettings = requestSettings
 	return &this
 }
 
@@ -453,7 +451,7 @@ func (o *RequestTypeFull) SetLastUpdatedBy(v string) {
 }
 
 func (o RequestTypeFull) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -512,10 +510,10 @@ func (o *RequestTypeFull) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -590,5 +588,3 @@ func (v *NullableRequestTypeFull) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

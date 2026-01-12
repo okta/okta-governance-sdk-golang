@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Status** | Pointer to [**RequestTypeCreatableStatus**](RequestTypeCreatableStatus.md) |  | [optional] [default to REQUESTTYPECREATABLESTATUS_DRAFT]
 **OwnerId** | **string** | The ID of the team that administers this request type. | 
 **ResourceSettings** | [**RequestTypeResourceSettingsMutable**](RequestTypeResourceSettingsMutable.md) |  | 
-**RequestSettings** | Pointer to [**RequestTypeRequestSettingsMutable**](RequestTypeRequestSettingsMutable.md) |  | [optional] [default to {"type":"EVERYONE","requesterFields":[]}]
+**RequestSettings** | Pointer to [**RequestTypeRequestSettingsMutable**](RequestTypeRequestSettingsMutable.md) |  | [optional] 
 **ApprovalSettings** | [**RequestTypeApprovalSettingsMutable**](RequestTypeApprovalSettingsMutable.md) |  | 
 **AccessDuration** | Pointer to **NullableString** | How long the requester retains access after their request is approved and fulfilled.  Specified in [ISO 8601 duration format](https://en.wikipedia.org/wiki/ISO_8601#Durations).  #### Known limitation  Only single time unit ISO 8601 duration formats (D, H, M) are supported, for units (days, hours, minutes).  ##### Supported  | Unit       | Example | | ---------- | ------- | | D, days    | P40D    | | H, hours   | PT65H   | | M, minutes | PT90M   |  &gt; **Note:** Mixes of units, as well as month/year/week designations, are not supported. For example, &#x60;P40DT65H&#x60;, &#x60;P40M&#x60;, &#x60;P1W&#x60; and &#x60;P1Y&#x60; are not supported. | [optional] 
 **Name** | **string** | Writable unique key on Create. Not modifiable on update. | 
