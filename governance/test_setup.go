@@ -1,6 +1,8 @@
 package governance
 
 import (
+	"testing"
+
 	"github.com/okta/okta-sdk-golang/v6/okta"
 )
 
@@ -26,5 +28,12 @@ func init() {
 	apiClient = &testClient{
 		OktaGovernanceAPIClient: client,
 		cfg:                     cfg,
+	}
+}
+
+// skipIfNoCredentials skips the test if Okta credentials are not configured
+func skipIfNoCredentials(t *testing.T) {
+	if apiClient == nil {
+		t.Skip("Skipping integration test: Okta credentials not configured")
 	}
 }

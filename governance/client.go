@@ -741,6 +741,8 @@ func NewAPIClient(cfg *okta.Configuration) *OktaGovernanceAPIClient {
 	c.ReviewsAPI = (*ReviewsAPIService)(&c.common)
 	c.RiskRulesAPI = (*RiskRulesAPIService)(&c.common)
 
+	c.IdaasClient = okta.NewAPIClient(cfg)
+
 	return c
 }
 
