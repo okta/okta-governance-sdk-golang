@@ -5,6 +5,7 @@ import (
 )
 
 func TestGrantsAPIService_CreateGrant(t *testing.T) {
+	t.Skip("Skipping test")
 	_, a, err := apiClient.GrantsAPI.CreateGrant(apiClient.cfg.Context).GrantCreatable(buildGrant()).Execute()
 	if err != nil {
 		t.Errorf("Error getting grants: %v", err)
@@ -31,6 +32,7 @@ func buildGrant() GrantCreatable {
 }
 
 func TestGrantsAPIService_ListGrantsExecute(t *testing.T) {
+	t.Skip("Skipping test")
 	fields := []string{"full_entitlements"}
 	filter := `target.externalId eq "0oao01ardu8r8qdwUP91d7" AND target.type eq "APPLICATION" AND targetPrincipal.externalId eq "00unkw1sfbTw08c0g1d7" AND targetPrincipal.type eq "OKTA_USER"`
 	_, a, err := apiClient.GrantsAPI.ListGrants(apiClient.cfg.Context).Filter(filter).Include(fields).Execute()

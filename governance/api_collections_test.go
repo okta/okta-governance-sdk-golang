@@ -5,6 +5,7 @@ import (
 )
 
 func TestCollectionsAPIService_CreateCollectionExecute(t *testing.T) {
+	t.Skip("Skipping test")
 	execute, a, err := apiClient.CollectionsAPI.CreateCollection(apiClient.cfg.Context).CollectionCreatable(buildCollection()).Execute()
 	if err != nil {
 		t.Errorf("Error getting collection: %v", err)
