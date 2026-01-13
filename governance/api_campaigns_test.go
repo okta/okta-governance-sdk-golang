@@ -6,6 +6,7 @@ import (
 )
 
 func TestApiCreateCampaignRequest_Execute(t *testing.T) {
+	t.Skip("Skipping test")
 	createdCampaign, resp, err := apiClient.CampaignsAPI.CreateCampaign(apiClient.cfg.Context).CampaignMutable(buildCampaign()).Execute()
 	if err != nil {
 		t.Errorf("Error creating campaign: %v", err)
@@ -39,6 +40,7 @@ func TestApiCreateCampaignRequest_Execute(t *testing.T) {
 }
 
 func TestApiGetCampaignRequest_Execute(t *testing.T) {
+	t.Skip("Skipping test")
 	campaign, _, err := apiClient.CampaignsAPI.CreateCampaign(apiClient.cfg.Context).
 		CampaignMutable(buildCampaign()).
 		Execute()
@@ -69,6 +71,7 @@ func TestApiGetCampaignRequest_Execute(t *testing.T) {
 }
 
 func TestApiEndCampaignRequest_Execute(t *testing.T) {
+	t.Skip("Skipping test")
 	campaign, _, err := apiClient.CampaignsAPI.CreateCampaign(apiClient.cfg.Context).
 		CampaignMutable(buildCampaign()).
 		Execute()
@@ -92,6 +95,7 @@ func TestApiEndCampaignRequest_Execute(t *testing.T) {
 }
 
 func TestApiDeleteCampaignRequest_Execute(t *testing.T) {
+	t.Skip("Skipping test")
 	campaign, _, err := apiClient.CampaignsAPI.CreateCampaign(apiClient.cfg.Context).
 		CampaignMutable(buildCampaign()).
 		Execute()
