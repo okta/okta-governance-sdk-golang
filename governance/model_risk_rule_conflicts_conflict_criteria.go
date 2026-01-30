@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package governance
 import (
 	"encoding/json"
 )
+
+// checks if the RiskRuleConflictsConflictCriteria type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RiskRuleConflictsConflictCriteria{}
 
 // RiskRuleConflictsConflictCriteria struct for RiskRuleConflictsConflictCriteria
 type RiskRuleConflictsConflictCriteria struct {
@@ -54,7 +57,7 @@ func NewRiskRuleConflictsConflictCriteriaWithDefaults() *RiskRuleConflictsConfli
 
 // GetAnd returns the And field value if set, zero value otherwise.
 func (o *RiskRuleConflictsConflictCriteria) GetAnd() []RiskRuleCriteria {
-	if o == nil || o.And == nil {
+	if o == nil || IsNil(o.And) {
 		var ret []RiskRuleCriteria
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *RiskRuleConflictsConflictCriteria) GetAnd() []RiskRuleCriteria {
 // GetAndOk returns a tuple with the And field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskRuleConflictsConflictCriteria) GetAndOk() ([]RiskRuleCriteria, bool) {
-	if o == nil || o.And == nil {
+	if o == nil || IsNil(o.And) {
 		return nil, false
 	}
 	return o.And, true
@@ -72,7 +75,7 @@ func (o *RiskRuleConflictsConflictCriteria) GetAndOk() ([]RiskRuleCriteria, bool
 
 // HasAnd returns a boolean if a field has been set.
 func (o *RiskRuleConflictsConflictCriteria) HasAnd() bool {
-	if o != nil && o.And != nil {
+	if o != nil && !IsNil(o.And) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *RiskRuleConflictsConflictCriteria) SetAnd(v []RiskRuleCriteria) {
 }
 
 func (o RiskRuleConflictsConflictCriteria) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RiskRuleConflictsConflictCriteria) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.And != nil {
+	if !IsNil(o.And) {
 		toSerialize["and"] = o.And
 	}
 
@@ -94,27 +105,25 @@ func (o RiskRuleConflictsConflictCriteria) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RiskRuleConflictsConflictCriteria) UnmarshalJSON(bytes []byte) (err error) {
+func (o *RiskRuleConflictsConflictCriteria) UnmarshalJSON(data []byte) (err error) {
 	varRiskRuleConflictsConflictCriteria := _RiskRuleConflictsConflictCriteria{}
 
-	err = json.Unmarshal(bytes, &varRiskRuleConflictsConflictCriteria)
-	if err == nil {
-		*o = RiskRuleConflictsConflictCriteria(varRiskRuleConflictsConflictCriteria)
-	} else {
+	err = json.Unmarshal(data, &varRiskRuleConflictsConflictCriteria)
+
+	if err != nil {
 		return err
 	}
 
+	*o = RiskRuleConflictsConflictCriteria(varRiskRuleConflictsConflictCriteria)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "and")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

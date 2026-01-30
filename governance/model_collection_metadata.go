@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the CollectionMetadata type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CollectionMetadata{}
+
 // CollectionMetadata Collection metadata properties
 type CollectionMetadata struct {
 	// The resource collection `id`
-	Id *string `json:"id,omitempty"`
+	Id *string `json:"id,omitempty" validate:"regexp=col[0-9a-zA-Z]+"`
 	// The name of a resource collection
 	Name                 *string `json:"name,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -57,7 +60,7 @@ func NewCollectionMetadataWithDefaults() *CollectionMetadata {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *CollectionMetadata) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *CollectionMetadata) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionMetadata) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -75,7 +78,7 @@ func (o *CollectionMetadata) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *CollectionMetadata) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *CollectionMetadata) SetId(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *CollectionMetadata) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *CollectionMetadata) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionMetadata) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -107,7 +110,7 @@ func (o *CollectionMetadata) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *CollectionMetadata) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *CollectionMetadata) SetName(v string) {
 }
 
 func (o CollectionMetadata) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CollectionMetadata) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
 
@@ -132,28 +143,26 @@ func (o CollectionMetadata) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *CollectionMetadata) UnmarshalJSON(bytes []byte) (err error) {
+func (o *CollectionMetadata) UnmarshalJSON(data []byte) (err error) {
 	varCollectionMetadata := _CollectionMetadata{}
 
-	err = json.Unmarshal(bytes, &varCollectionMetadata)
-	if err == nil {
-		*o = CollectionMetadata(varCollectionMetadata)
-	} else {
+	err = json.Unmarshal(data, &varCollectionMetadata)
+
+	if err != nil {
 		return err
 	}
 
+	*o = CollectionMetadata(varCollectionMetadata)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "name")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ import (
 	"fmt"
 )
 
-// SecurityAccessReviewReviewerType The type of reviewer involved in the security access review.
+// SecurityAccessReviewReviewerType The type of reviewers involved in the security access review
 type SecurityAccessReviewReviewerType string
 
 // List of security-access-review-reviewer-type

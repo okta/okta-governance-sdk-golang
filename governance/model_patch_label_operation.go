@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,16 +25,21 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the PatchLabelOperation type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PatchLabelOperation{}
 
 // PatchLabelOperation The properties for updating a label
 type PatchLabelOperation struct {
 	Op LabelPatchOp `json:"op"`
-	// The path of the property being updated. ex - `/name` label category update.
+	// The path of the property to update. Use the `/name` path to update the label category name.
 	Path string `json:"path"`
-	// The value of the property being updated.
-	Value                *string `json:"value,omitempty"`
-	RefType              string  `json:"refType"`
+	// The value of the updated property
+	Value *string `json:"value,omitempty"`
+	// The label property for the update operation
+	RefType              string `json:"refType"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -110,7 +115,7 @@ func (o *PatchLabelOperation) SetPath(v string) {
 
 // GetValue returns the Value field value if set, zero value otherwise.
 func (o *PatchLabelOperation) GetValue() string {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		var ret string
 		return ret
 	}
@@ -120,7 +125,7 @@ func (o *PatchLabelOperation) GetValue() string {
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PatchLabelOperation) GetValueOk() (*string, bool) {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
 	return o.Value, true
@@ -128,7 +133,7 @@ func (o *PatchLabelOperation) GetValueOk() (*string, bool) {
 
 // HasValue returns a boolean if a field has been set.
 func (o *PatchLabelOperation) HasValue() bool {
-	if o != nil && o.Value != nil {
+	if o != nil && !IsNil(o.Value) {
 		return true
 	}
 
@@ -165,48 +170,71 @@ func (o *PatchLabelOperation) SetRefType(v string) {
 }
 
 func (o PatchLabelOperation) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PatchLabelOperation) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["op"] = o.Op
-	}
-	if true {
-		toSerialize["path"] = o.Path
-	}
-	if o.Value != nil {
+	toSerialize["op"] = o.Op
+	toSerialize["path"] = o.Path
+	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
-	if true {
-		toSerialize["refType"] = o.RefType
-	}
+	toSerialize["refType"] = o.RefType
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PatchLabelOperation) UnmarshalJSON(bytes []byte) (err error) {
-	varPatchLabelOperation := _PatchLabelOperation{}
+func (o *PatchLabelOperation) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"op",
+		"path",
+		"refType",
+	}
 
-	err = json.Unmarshal(bytes, &varPatchLabelOperation)
-	if err == nil {
-		*o = PatchLabelOperation(varPatchLabelOperation)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPatchLabelOperation := _PatchLabelOperation{}
+
+	err = json.Unmarshal(data, &varPatchLabelOperation)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PatchLabelOperation(varPatchLabelOperation)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "op")
 		delete(additionalProperties, "path")
 		delete(additionalProperties, "value")
 		delete(additionalProperties, "refType")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

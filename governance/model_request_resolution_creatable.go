@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package governance
 import (
 	"encoding/json"
 )
+
+// checks if the RequestResolutionCreatable type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RequestResolutionCreatable{}
 
 // RequestResolutionCreatable The properties expected in a request resolution create request
 type RequestResolutionCreatable struct {
@@ -55,7 +58,7 @@ func NewRequestResolutionCreatableWithDefaults() *RequestResolutionCreatable {
 
 // GetTerminalState returns the TerminalState field value if set, zero value otherwise.
 func (o *RequestResolutionCreatable) GetTerminalState() RequestResolutionTerminalState {
-	if o == nil || o.TerminalState == nil {
+	if o == nil || IsNil(o.TerminalState) {
 		var ret RequestResolutionTerminalState
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *RequestResolutionCreatable) GetTerminalState() RequestResolutionTermina
 // GetTerminalStateOk returns a tuple with the TerminalState field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestResolutionCreatable) GetTerminalStateOk() (*RequestResolutionTerminalState, bool) {
-	if o == nil || o.TerminalState == nil {
+	if o == nil || IsNil(o.TerminalState) {
 		return nil, false
 	}
 	return o.TerminalState, true
@@ -73,7 +76,7 @@ func (o *RequestResolutionCreatable) GetTerminalStateOk() (*RequestResolutionTer
 
 // HasTerminalState returns a boolean if a field has been set.
 func (o *RequestResolutionCreatable) HasTerminalState() bool {
-	if o != nil && o.TerminalState != nil {
+	if o != nil && !IsNil(o.TerminalState) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *RequestResolutionCreatable) SetTerminalState(v RequestResolutionTermina
 
 // GetDecisions returns the Decisions field value if set, zero value otherwise.
 func (o *RequestResolutionCreatable) GetDecisions() []RequestDecisionCreatable {
-	if o == nil || o.Decisions == nil {
+	if o == nil || IsNil(o.Decisions) {
 		var ret []RequestDecisionCreatable
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *RequestResolutionCreatable) GetDecisions() []RequestDecisionCreatable {
 // GetDecisionsOk returns a tuple with the Decisions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestResolutionCreatable) GetDecisionsOk() ([]RequestDecisionCreatable, bool) {
-	if o == nil || o.Decisions == nil {
+	if o == nil || IsNil(o.Decisions) {
 		return nil, false
 	}
 	return o.Decisions, true
@@ -105,7 +108,7 @@ func (o *RequestResolutionCreatable) GetDecisionsOk() ([]RequestDecisionCreatabl
 
 // HasDecisions returns a boolean if a field has been set.
 func (o *RequestResolutionCreatable) HasDecisions() bool {
-	if o != nil && o.Decisions != nil {
+	if o != nil && !IsNil(o.Decisions) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *RequestResolutionCreatable) SetDecisions(v []RequestDecisionCreatable) 
 }
 
 func (o RequestResolutionCreatable) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RequestResolutionCreatable) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.TerminalState != nil {
+	if !IsNil(o.TerminalState) {
 		toSerialize["terminalState"] = o.TerminalState
 	}
-	if o.Decisions != nil {
+	if !IsNil(o.Decisions) {
 		toSerialize["decisions"] = o.Decisions
 	}
 
@@ -130,28 +141,26 @@ func (o RequestResolutionCreatable) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RequestResolutionCreatable) UnmarshalJSON(bytes []byte) (err error) {
+func (o *RequestResolutionCreatable) UnmarshalJSON(data []byte) (err error) {
 	varRequestResolutionCreatable := _RequestResolutionCreatable{}
 
-	err = json.Unmarshal(bytes, &varRequestResolutionCreatable)
-	if err == nil {
-		*o = RequestResolutionCreatable(varRequestResolutionCreatable)
-	} else {
+	err = json.Unmarshal(data, &varRequestResolutionCreatable)
+
+	if err != nil {
 		return err
 	}
 
+	*o = RequestResolutionCreatable(varRequestResolutionCreatable)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "terminalState")
 		delete(additionalProperties, "decisions")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

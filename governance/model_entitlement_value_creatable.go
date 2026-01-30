@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the EntitlementValueCreatable type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EntitlementValueCreatable{}
+
 // EntitlementValueCreatable Entitlement value id
 type EntitlementValueCreatable struct {
-	// The `id` of an entitlement value
+	// The `id` of the entitlement value
 	Id                   *string `json:"id,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -55,7 +58,7 @@ func NewEntitlementValueCreatableWithDefaults() *EntitlementValueCreatable {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *EntitlementValueCreatable) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *EntitlementValueCreatable) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntitlementValueCreatable) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -73,7 +76,7 @@ func (o *EntitlementValueCreatable) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *EntitlementValueCreatable) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *EntitlementValueCreatable) SetId(v string) {
 }
 
 func (o EntitlementValueCreatable) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o EntitlementValueCreatable) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
 
@@ -95,27 +106,25 @@ func (o EntitlementValueCreatable) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *EntitlementValueCreatable) UnmarshalJSON(bytes []byte) (err error) {
+func (o *EntitlementValueCreatable) UnmarshalJSON(data []byte) (err error) {
 	varEntitlementValueCreatable := _EntitlementValueCreatable{}
 
-	err = json.Unmarshal(bytes, &varEntitlementValueCreatable)
-	if err == nil {
-		*o = EntitlementValueCreatable(varEntitlementValueCreatable)
-	} else {
+	err = json.Unmarshal(data, &varEntitlementValueCreatable)
+
+	if err != nil {
 		return err
 	}
 
+	*o = EntitlementValueCreatable(varEntitlementValueCreatable)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

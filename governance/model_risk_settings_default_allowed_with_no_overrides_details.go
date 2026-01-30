@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the RiskSettingsDefaultAllowedWithNoOverridesDetails type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RiskSettingsDefaultAllowedWithNoOverridesDetails{}
 
 // RiskSettingsDefaultAllowedWithNoOverridesDetails Risk settings where request submission is allowed with no overrides.
 type RiskSettingsDefaultAllowedWithNoOverridesDetails struct {
@@ -80,7 +84,7 @@ func (o *RiskSettingsDefaultAllowedWithNoOverridesDetails) SetRequestSubmissionT
 
 // GetError returns the Error field value if set, zero value otherwise.
 func (o *RiskSettingsDefaultAllowedWithNoOverridesDetails) GetError() []RiskSettingsError {
-	if o == nil || o.Error == nil {
+	if o == nil || IsNil(o.Error) {
 		var ret []RiskSettingsError
 		return ret
 	}
@@ -90,7 +94,7 @@ func (o *RiskSettingsDefaultAllowedWithNoOverridesDetails) GetError() []RiskSett
 // GetErrorOk returns a tuple with the Error field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskSettingsDefaultAllowedWithNoOverridesDetails) GetErrorOk() ([]RiskSettingsError, bool) {
-	if o == nil || o.Error == nil {
+	if o == nil || IsNil(o.Error) {
 		return nil, false
 	}
 	return o.Error, true
@@ -98,7 +102,7 @@ func (o *RiskSettingsDefaultAllowedWithNoOverridesDetails) GetErrorOk() ([]RiskS
 
 // HasError returns a boolean if a field has been set.
 func (o *RiskSettingsDefaultAllowedWithNoOverridesDetails) HasError() bool {
-	if o != nil && o.Error != nil {
+	if o != nil && !IsNil(o.Error) {
 		return true
 	}
 
@@ -111,11 +115,17 @@ func (o *RiskSettingsDefaultAllowedWithNoOverridesDetails) SetError(v []RiskSett
 }
 
 func (o RiskSettingsDefaultAllowedWithNoOverridesDetails) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["requestSubmissionType"] = o.RequestSubmissionType
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.Error != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o RiskSettingsDefaultAllowedWithNoOverridesDetails) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["requestSubmissionType"] = o.RequestSubmissionType
+	if !IsNil(o.Error) {
 		toSerialize["error"] = o.Error
 	}
 
@@ -123,28 +133,47 @@ func (o RiskSettingsDefaultAllowedWithNoOverridesDetails) MarshalJSON() ([]byte,
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RiskSettingsDefaultAllowedWithNoOverridesDetails) UnmarshalJSON(bytes []byte) (err error) {
-	varRiskSettingsDefaultAllowedWithNoOverridesDetails := _RiskSettingsDefaultAllowedWithNoOverridesDetails{}
+func (o *RiskSettingsDefaultAllowedWithNoOverridesDetails) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"requestSubmissionType",
+	}
 
-	err = json.Unmarshal(bytes, &varRiskSettingsDefaultAllowedWithNoOverridesDetails)
-	if err == nil {
-		*o = RiskSettingsDefaultAllowedWithNoOverridesDetails(varRiskSettingsDefaultAllowedWithNoOverridesDetails)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRiskSettingsDefaultAllowedWithNoOverridesDetails := _RiskSettingsDefaultAllowedWithNoOverridesDetails{}
+
+	err = json.Unmarshal(data, &varRiskSettingsDefaultAllowedWithNoOverridesDetails)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RiskSettingsDefaultAllowedWithNoOverridesDetails(varRiskSettingsDefaultAllowedWithNoOverridesDetails)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "requestSubmissionType")
 		delete(additionalProperties, "error")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

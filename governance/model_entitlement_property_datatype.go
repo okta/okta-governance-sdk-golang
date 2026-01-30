@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ import (
 	"fmt"
 )
 
-// EntitlementPropertyDatatype The data type of the entitlement property. If the entitlement property is multivalued, the data type is replaced with an array.
+// EntitlementPropertyDatatype The data type of the entitlement property
 type EntitlementPropertyDatatype string
 
 // List of entitlement-property-datatype

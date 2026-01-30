@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,7 +28,6 @@ import (
 	"fmt"
 )
 
-// model_oneof.mustache
 // AccessScopeSettingsFullAccessScopeSettings - Settings specifying if groups or entitlements may be used for requesting finer grained access
 type AccessScopeSettingsFullAccessScopeSettings struct {
 	EntitlementBundleAccessScopeSettings *EntitlementBundleAccessScopeSettings
@@ -57,14 +56,14 @@ func ResourceDefaultAccessScopeSettingsAsAccessScopeSettingsFullAccessScopeSetti
 	}
 }
 
-// Unmarshal JSON data into one of the pointers in the struct  CUSTOM
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *AccessScopeSettingsFullAccessScopeSettings) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup
 	var jsonDict map[string]interface{}
 	err = newStrictDecoder(data).Decode(&jsonDict)
 	if err != nil {
-		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
 	// check if the discriminator value is 'ENTITLEMENT_BUNDLES'
@@ -75,7 +74,7 @@ func (dst *AccessScopeSettingsFullAccessScopeSettings) UnmarshalJSON(data []byte
 			return nil // data stored in dst.EntitlementBundleAccessScopeSettings, return on the first match
 		} else {
 			dst.EntitlementBundleAccessScopeSettings = nil
-			return fmt.Errorf("Failed to unmarshal AccessScopeSettingsFullAccessScopeSettings as EntitlementBundleAccessScopeSettings: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal AccessScopeSettingsFullAccessScopeSettings as EntitlementBundleAccessScopeSettings: %s", err.Error())
 		}
 	}
 
@@ -87,7 +86,7 @@ func (dst *AccessScopeSettingsFullAccessScopeSettings) UnmarshalJSON(data []byte
 			return nil // data stored in dst.GroupAccessScopeSettings, return on the first match
 		} else {
 			dst.GroupAccessScopeSettings = nil
-			return fmt.Errorf("Failed to unmarshal AccessScopeSettingsFullAccessScopeSettings as GroupAccessScopeSettings: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal AccessScopeSettingsFullAccessScopeSettings as GroupAccessScopeSettings: %s", err.Error())
 		}
 	}
 
@@ -99,43 +98,7 @@ func (dst *AccessScopeSettingsFullAccessScopeSettings) UnmarshalJSON(data []byte
 			return nil // data stored in dst.ResourceDefaultAccessScopeSettings, return on the first match
 		} else {
 			dst.ResourceDefaultAccessScopeSettings = nil
-			return fmt.Errorf("Failed to unmarshal AccessScopeSettingsFullAccessScopeSettings as ResourceDefaultAccessScopeSettings: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'EntitlementBundleAccessScopeSettings'
-	if jsonDict["type"] == "EntitlementBundleAccessScopeSettings" {
-		// try to unmarshal JSON data into EntitlementBundleAccessScopeSettings
-		err = json.Unmarshal(data, &dst.EntitlementBundleAccessScopeSettings)
-		if err == nil {
-			return nil // data stored in dst.EntitlementBundleAccessScopeSettings, return on the first match
-		} else {
-			dst.EntitlementBundleAccessScopeSettings = nil
-			return fmt.Errorf("Failed to unmarshal AccessScopeSettingsFullAccessScopeSettings as EntitlementBundleAccessScopeSettings: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'GroupAccessScopeSettings'
-	if jsonDict["type"] == "GroupAccessScopeSettings" {
-		// try to unmarshal JSON data into GroupAccessScopeSettings
-		err = json.Unmarshal(data, &dst.GroupAccessScopeSettings)
-		if err == nil {
-			return nil // data stored in dst.GroupAccessScopeSettings, return on the first match
-		} else {
-			dst.GroupAccessScopeSettings = nil
-			return fmt.Errorf("Failed to unmarshal AccessScopeSettingsFullAccessScopeSettings as GroupAccessScopeSettings: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'ResourceDefaultAccessScopeSettings'
-	if jsonDict["type"] == "ResourceDefaultAccessScopeSettings" {
-		// try to unmarshal JSON data into ResourceDefaultAccessScopeSettings
-		err = json.Unmarshal(data, &dst.ResourceDefaultAccessScopeSettings)
-		if err == nil {
-			return nil // data stored in dst.ResourceDefaultAccessScopeSettings, return on the first match
-		} else {
-			dst.ResourceDefaultAccessScopeSettings = nil
-			return fmt.Errorf("Failed to unmarshal AccessScopeSettingsFullAccessScopeSettings as ResourceDefaultAccessScopeSettings: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal AccessScopeSettingsFullAccessScopeSettings as ResourceDefaultAccessScopeSettings: %s", err.Error())
 		}
 	}
 
@@ -174,6 +137,24 @@ func (obj *AccessScopeSettingsFullAccessScopeSettings) GetActualInstance() inter
 
 	if obj.ResourceDefaultAccessScopeSettings != nil {
 		return obj.ResourceDefaultAccessScopeSettings
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj AccessScopeSettingsFullAccessScopeSettings) GetActualInstanceValue() interface{} {
+	if obj.EntitlementBundleAccessScopeSettings != nil {
+		return *obj.EntitlementBundleAccessScopeSettings
+	}
+
+	if obj.GroupAccessScopeSettings != nil {
+		return *obj.GroupAccessScopeSettings
+	}
+
+	if obj.ResourceDefaultAccessScopeSettings != nil {
+		return *obj.ResourceDefaultAccessScopeSettings
 	}
 
 	// all schemas are nil

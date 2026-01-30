@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Message** | **string** |  | 
-**Args** | Pointer to [**[]ServerMessageArgument**](ServerMessageArgument.md) |  | [optional] 
+**Message** | **string** | Server message with detailed content. | 
+**Args** | Pointer to [**[]ServerMessageArgument**](ServerMessageArgument.md) | Dynamic arguments, used to construct the whole message, are supplied as an array of values. | [optional] 
 
 ## Methods
 

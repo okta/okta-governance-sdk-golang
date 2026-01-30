@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,26 +25,32 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the ResourceSettingsMutable type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ResourceSettingsMutable{}
 
 // ResourceSettingsMutable Resource specific properties
 type ResourceSettingsMutable struct {
 	Type CampaignResourceType `json:"type"`
-	//  Represents a resource that will be part of Access certifications. If the app is enabled for Access Certifications, it's possible to review entitlements and entitlement bundles.  You can review all entitlements by specifying `includeEntitlements: true` and/or restrict it by setting the property `onlyIncludeOutOfPolicyEntitlements: true`, both of which are `false` by default.  If `includeEntitlements: false`, you need to specify a list of `entitlementBundles` and/or `entitlements`.
+	//  Specific resources that are included in the access certification campaign:  * If `resourceSettings.targetResources.resourceType` is `APPLICATION` and the app is enabled with entitlement management, you can also review entitlements and entitlement bundles:     * Review all entitlements and bundles by setting `resourceSettings.targetResources.includeAllEntitlementsAndBundles` to `true` (`false` is set by default).     * Restrict the review to non-policy entitlement grants by setting `resourceSettings.onlyIncludeOutOfPolicyEntitlements` to `true` (`false` is set by default).     * If `resourceSettings.targetResources.includeAllEntitlementsAndBundles` is `false`, then you must specify a list of `resourceSettings.targetResources.entitlementBundles` and/or `resourceSettings.targetResources.entitlements`. * If `resourceSettings.type` is `OKTA_SERVICE_ACCOUNT`, then specify `OKTA_SERVICE_ACCOUNT` as `resourceSettings.targetResources.resourceType`, and `resourceId` as the ID of the Okta service account. * If `resourceSettings.type` is `APP_SERVICE_ACCOUNT`, then specify `APPLICATION` as the `resourceSettings.targetResources.resourceType`, `resourceSettings.targetResources.resourceId` as the ID of the Okta app instance, and add service account IDs into `resourceSettings.targetResources.appServiceAccounts`.
 	TargetResources []TargetResourcesRequestInner `json:"targetResources,omitempty"`
-	// An array of resources that are excluded from the review
+	// Only applicable if `campaignType` is `USER`.  A list of resources that are excluded from the review.
 	ExcludedResources []ResourceSettingsMutableExcludedResourcesInner `json:"excludedResources,omitempty"`
-	// Only include individually assigned apps. This is only applicable if campaign type is `USER`.
+	// Only applicable if `campaignType` is `USER`.  If `true`, only include individually assigned apps.
 	IndividuallyAssignedAppsOnly *bool `json:"individuallyAssignedAppsOnly,omitempty"`
-	// Only include individually assigned groups. This is only applicable if campaign type is `USER`.
+	// Only applicable if `campaignType` is `USER`.  If `true`, only include individually assigned groups.
 	IndividuallyAssignedGroupsOnly *bool `json:"individuallyAssignedGroupsOnly,omitempty"`
-	// Include entitlements for this application. This property is only applicable if `resourcetype = APPLICATION` and Entitlement Management is enabled.
+	// Only applicable if `resourceSettings.targetResources.resourceType` is `APPLICATION` and entitlement management is enabled.  If `true`, include entitlements for the app.
 	IncludeEntitlements *bool `json:"includeEntitlements,omitempty"`
-	// Only include out-of-policy entitlements. Only applicable if `resourcetype = APPLICATION` and Entitlement Management is enabled.
+	// Only applicable if `campaignType` is `USER`, `resourceSettings.targetResources.resourceType` is `APPLICATION`, and entitlement management is enabled:  If `true`, only include out-of-policy entitlements.
 	OnlyIncludeOutOfPolicyEntitlements *bool `json:"onlyIncludeOutOfPolicyEntitlements,omitempty"`
-	// Include admin roles.
-	IncludeAdminRoles    *bool `json:"includeAdminRoles,omitempty"`
-	AdditionalProperties map[string]interface{}
+	// Only applicable if `campaignType` is `USER`.  If `true`, include users assigned to admin roles in the campaign.
+	IncludeAdminRoles *bool `json:"includeAdminRoles,omitempty"`
+	// Only applicable when `resourceSettings.type` is `OKTA_SERVICE_ACCOUNT`: * If `true`, all Okta service accounts in the org are included as target resources in the campaign. * If `false`, only the Okta service accounts IDs specified in `resourceSettings.targetResources.resourceId` are included in the campaign.
+	IncludeAllOktaServiceAccounts *bool `json:"includeAllOktaServiceAccounts,omitempty"`
+	AdditionalProperties          map[string]interface{}
 }
 
 type _ResourceSettingsMutable ResourceSettingsMutable
@@ -56,6 +62,8 @@ type _ResourceSettingsMutable ResourceSettingsMutable
 func NewResourceSettingsMutable(type_ CampaignResourceType) *ResourceSettingsMutable {
 	this := ResourceSettingsMutable{}
 	this.Type = type_
+	var includeEntitlements bool = false
+	this.IncludeEntitlements = &includeEntitlements
 	return &this
 }
 
@@ -64,6 +72,8 @@ func NewResourceSettingsMutable(type_ CampaignResourceType) *ResourceSettingsMut
 // but it doesn't guarantee that properties required by API are set
 func NewResourceSettingsMutableWithDefaults() *ResourceSettingsMutable {
 	this := ResourceSettingsMutable{}
+	var includeEntitlements bool = false
+	this.IncludeEntitlements = &includeEntitlements
 	return &this
 }
 
@@ -93,7 +103,7 @@ func (o *ResourceSettingsMutable) SetType(v CampaignResourceType) {
 
 // GetTargetResources returns the TargetResources field value if set, zero value otherwise.
 func (o *ResourceSettingsMutable) GetTargetResources() []TargetResourcesRequestInner {
-	if o == nil || o.TargetResources == nil {
+	if o == nil || IsNil(o.TargetResources) {
 		var ret []TargetResourcesRequestInner
 		return ret
 	}
@@ -103,7 +113,7 @@ func (o *ResourceSettingsMutable) GetTargetResources() []TargetResourcesRequestI
 // GetTargetResourcesOk returns a tuple with the TargetResources field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceSettingsMutable) GetTargetResourcesOk() ([]TargetResourcesRequestInner, bool) {
-	if o == nil || o.TargetResources == nil {
+	if o == nil || IsNil(o.TargetResources) {
 		return nil, false
 	}
 	return o.TargetResources, true
@@ -111,7 +121,7 @@ func (o *ResourceSettingsMutable) GetTargetResourcesOk() ([]TargetResourcesReque
 
 // HasTargetResources returns a boolean if a field has been set.
 func (o *ResourceSettingsMutable) HasTargetResources() bool {
-	if o != nil && o.TargetResources != nil {
+	if o != nil && !IsNil(o.TargetResources) {
 		return true
 	}
 
@@ -125,7 +135,7 @@ func (o *ResourceSettingsMutable) SetTargetResources(v []TargetResourcesRequestI
 
 // GetExcludedResources returns the ExcludedResources field value if set, zero value otherwise.
 func (o *ResourceSettingsMutable) GetExcludedResources() []ResourceSettingsMutableExcludedResourcesInner {
-	if o == nil || o.ExcludedResources == nil {
+	if o == nil || IsNil(o.ExcludedResources) {
 		var ret []ResourceSettingsMutableExcludedResourcesInner
 		return ret
 	}
@@ -135,7 +145,7 @@ func (o *ResourceSettingsMutable) GetExcludedResources() []ResourceSettingsMutab
 // GetExcludedResourcesOk returns a tuple with the ExcludedResources field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceSettingsMutable) GetExcludedResourcesOk() ([]ResourceSettingsMutableExcludedResourcesInner, bool) {
-	if o == nil || o.ExcludedResources == nil {
+	if o == nil || IsNil(o.ExcludedResources) {
 		return nil, false
 	}
 	return o.ExcludedResources, true
@@ -143,7 +153,7 @@ func (o *ResourceSettingsMutable) GetExcludedResourcesOk() ([]ResourceSettingsMu
 
 // HasExcludedResources returns a boolean if a field has been set.
 func (o *ResourceSettingsMutable) HasExcludedResources() bool {
-	if o != nil && o.ExcludedResources != nil {
+	if o != nil && !IsNil(o.ExcludedResources) {
 		return true
 	}
 
@@ -157,7 +167,7 @@ func (o *ResourceSettingsMutable) SetExcludedResources(v []ResourceSettingsMutab
 
 // GetIndividuallyAssignedAppsOnly returns the IndividuallyAssignedAppsOnly field value if set, zero value otherwise.
 func (o *ResourceSettingsMutable) GetIndividuallyAssignedAppsOnly() bool {
-	if o == nil || o.IndividuallyAssignedAppsOnly == nil {
+	if o == nil || IsNil(o.IndividuallyAssignedAppsOnly) {
 		var ret bool
 		return ret
 	}
@@ -167,7 +177,7 @@ func (o *ResourceSettingsMutable) GetIndividuallyAssignedAppsOnly() bool {
 // GetIndividuallyAssignedAppsOnlyOk returns a tuple with the IndividuallyAssignedAppsOnly field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceSettingsMutable) GetIndividuallyAssignedAppsOnlyOk() (*bool, bool) {
-	if o == nil || o.IndividuallyAssignedAppsOnly == nil {
+	if o == nil || IsNil(o.IndividuallyAssignedAppsOnly) {
 		return nil, false
 	}
 	return o.IndividuallyAssignedAppsOnly, true
@@ -175,7 +185,7 @@ func (o *ResourceSettingsMutable) GetIndividuallyAssignedAppsOnlyOk() (*bool, bo
 
 // HasIndividuallyAssignedAppsOnly returns a boolean if a field has been set.
 func (o *ResourceSettingsMutable) HasIndividuallyAssignedAppsOnly() bool {
-	if o != nil && o.IndividuallyAssignedAppsOnly != nil {
+	if o != nil && !IsNil(o.IndividuallyAssignedAppsOnly) {
 		return true
 	}
 
@@ -189,7 +199,7 @@ func (o *ResourceSettingsMutable) SetIndividuallyAssignedAppsOnly(v bool) {
 
 // GetIndividuallyAssignedGroupsOnly returns the IndividuallyAssignedGroupsOnly field value if set, zero value otherwise.
 func (o *ResourceSettingsMutable) GetIndividuallyAssignedGroupsOnly() bool {
-	if o == nil || o.IndividuallyAssignedGroupsOnly == nil {
+	if o == nil || IsNil(o.IndividuallyAssignedGroupsOnly) {
 		var ret bool
 		return ret
 	}
@@ -199,7 +209,7 @@ func (o *ResourceSettingsMutable) GetIndividuallyAssignedGroupsOnly() bool {
 // GetIndividuallyAssignedGroupsOnlyOk returns a tuple with the IndividuallyAssignedGroupsOnly field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceSettingsMutable) GetIndividuallyAssignedGroupsOnlyOk() (*bool, bool) {
-	if o == nil || o.IndividuallyAssignedGroupsOnly == nil {
+	if o == nil || IsNil(o.IndividuallyAssignedGroupsOnly) {
 		return nil, false
 	}
 	return o.IndividuallyAssignedGroupsOnly, true
@@ -207,7 +217,7 @@ func (o *ResourceSettingsMutable) GetIndividuallyAssignedGroupsOnlyOk() (*bool, 
 
 // HasIndividuallyAssignedGroupsOnly returns a boolean if a field has been set.
 func (o *ResourceSettingsMutable) HasIndividuallyAssignedGroupsOnly() bool {
-	if o != nil && o.IndividuallyAssignedGroupsOnly != nil {
+	if o != nil && !IsNil(o.IndividuallyAssignedGroupsOnly) {
 		return true
 	}
 
@@ -221,7 +231,7 @@ func (o *ResourceSettingsMutable) SetIndividuallyAssignedGroupsOnly(v bool) {
 
 // GetIncludeEntitlements returns the IncludeEntitlements field value if set, zero value otherwise.
 func (o *ResourceSettingsMutable) GetIncludeEntitlements() bool {
-	if o == nil || o.IncludeEntitlements == nil {
+	if o == nil || IsNil(o.IncludeEntitlements) {
 		var ret bool
 		return ret
 	}
@@ -231,7 +241,7 @@ func (o *ResourceSettingsMutable) GetIncludeEntitlements() bool {
 // GetIncludeEntitlementsOk returns a tuple with the IncludeEntitlements field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceSettingsMutable) GetIncludeEntitlementsOk() (*bool, bool) {
-	if o == nil || o.IncludeEntitlements == nil {
+	if o == nil || IsNil(o.IncludeEntitlements) {
 		return nil, false
 	}
 	return o.IncludeEntitlements, true
@@ -239,7 +249,7 @@ func (o *ResourceSettingsMutable) GetIncludeEntitlementsOk() (*bool, bool) {
 
 // HasIncludeEntitlements returns a boolean if a field has been set.
 func (o *ResourceSettingsMutable) HasIncludeEntitlements() bool {
-	if o != nil && o.IncludeEntitlements != nil {
+	if o != nil && !IsNil(o.IncludeEntitlements) {
 		return true
 	}
 
@@ -253,7 +263,7 @@ func (o *ResourceSettingsMutable) SetIncludeEntitlements(v bool) {
 
 // GetOnlyIncludeOutOfPolicyEntitlements returns the OnlyIncludeOutOfPolicyEntitlements field value if set, zero value otherwise.
 func (o *ResourceSettingsMutable) GetOnlyIncludeOutOfPolicyEntitlements() bool {
-	if o == nil || o.OnlyIncludeOutOfPolicyEntitlements == nil {
+	if o == nil || IsNil(o.OnlyIncludeOutOfPolicyEntitlements) {
 		var ret bool
 		return ret
 	}
@@ -263,7 +273,7 @@ func (o *ResourceSettingsMutable) GetOnlyIncludeOutOfPolicyEntitlements() bool {
 // GetOnlyIncludeOutOfPolicyEntitlementsOk returns a tuple with the OnlyIncludeOutOfPolicyEntitlements field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceSettingsMutable) GetOnlyIncludeOutOfPolicyEntitlementsOk() (*bool, bool) {
-	if o == nil || o.OnlyIncludeOutOfPolicyEntitlements == nil {
+	if o == nil || IsNil(o.OnlyIncludeOutOfPolicyEntitlements) {
 		return nil, false
 	}
 	return o.OnlyIncludeOutOfPolicyEntitlements, true
@@ -271,7 +281,7 @@ func (o *ResourceSettingsMutable) GetOnlyIncludeOutOfPolicyEntitlementsOk() (*bo
 
 // HasOnlyIncludeOutOfPolicyEntitlements returns a boolean if a field has been set.
 func (o *ResourceSettingsMutable) HasOnlyIncludeOutOfPolicyEntitlements() bool {
-	if o != nil && o.OnlyIncludeOutOfPolicyEntitlements != nil {
+	if o != nil && !IsNil(o.OnlyIncludeOutOfPolicyEntitlements) {
 		return true
 	}
 
@@ -285,7 +295,7 @@ func (o *ResourceSettingsMutable) SetOnlyIncludeOutOfPolicyEntitlements(v bool) 
 
 // GetIncludeAdminRoles returns the IncludeAdminRoles field value if set, zero value otherwise.
 func (o *ResourceSettingsMutable) GetIncludeAdminRoles() bool {
-	if o == nil || o.IncludeAdminRoles == nil {
+	if o == nil || IsNil(o.IncludeAdminRoles) {
 		var ret bool
 		return ret
 	}
@@ -295,7 +305,7 @@ func (o *ResourceSettingsMutable) GetIncludeAdminRoles() bool {
 // GetIncludeAdminRolesOk returns a tuple with the IncludeAdminRoles field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceSettingsMutable) GetIncludeAdminRolesOk() (*bool, bool) {
-	if o == nil || o.IncludeAdminRoles == nil {
+	if o == nil || IsNil(o.IncludeAdminRoles) {
 		return nil, false
 	}
 	return o.IncludeAdminRoles, true
@@ -303,7 +313,7 @@ func (o *ResourceSettingsMutable) GetIncludeAdminRolesOk() (*bool, bool) {
 
 // HasIncludeAdminRoles returns a boolean if a field has been set.
 func (o *ResourceSettingsMutable) HasIncludeAdminRoles() bool {
-	if o != nil && o.IncludeAdminRoles != nil {
+	if o != nil && !IsNil(o.IncludeAdminRoles) {
 		return true
 	}
 
@@ -315,54 +325,116 @@ func (o *ResourceSettingsMutable) SetIncludeAdminRoles(v bool) {
 	o.IncludeAdminRoles = &v
 }
 
-func (o ResourceSettingsMutable) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["type"] = o.Type
+// GetIncludeAllOktaServiceAccounts returns the IncludeAllOktaServiceAccounts field value if set, zero value otherwise.
+func (o *ResourceSettingsMutable) GetIncludeAllOktaServiceAccounts() bool {
+	if o == nil || IsNil(o.IncludeAllOktaServiceAccounts) {
+		var ret bool
+		return ret
 	}
-	if o.TargetResources != nil {
+	return *o.IncludeAllOktaServiceAccounts
+}
+
+// GetIncludeAllOktaServiceAccountsOk returns a tuple with the IncludeAllOktaServiceAccounts field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ResourceSettingsMutable) GetIncludeAllOktaServiceAccountsOk() (*bool, bool) {
+	if o == nil || IsNil(o.IncludeAllOktaServiceAccounts) {
+		return nil, false
+	}
+	return o.IncludeAllOktaServiceAccounts, true
+}
+
+// HasIncludeAllOktaServiceAccounts returns a boolean if a field has been set.
+func (o *ResourceSettingsMutable) HasIncludeAllOktaServiceAccounts() bool {
+	if o != nil && !IsNil(o.IncludeAllOktaServiceAccounts) {
+		return true
+	}
+
+	return false
+}
+
+// SetIncludeAllOktaServiceAccounts gets a reference to the given bool and assigns it to the IncludeAllOktaServiceAccounts field.
+func (o *ResourceSettingsMutable) SetIncludeAllOktaServiceAccounts(v bool) {
+	o.IncludeAllOktaServiceAccounts = &v
+}
+
+func (o ResourceSettingsMutable) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ResourceSettingsMutable) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["type"] = o.Type
+	if !IsNil(o.TargetResources) {
 		toSerialize["targetResources"] = o.TargetResources
 	}
-	if o.ExcludedResources != nil {
+	if !IsNil(o.ExcludedResources) {
 		toSerialize["excludedResources"] = o.ExcludedResources
 	}
-	if o.IndividuallyAssignedAppsOnly != nil {
+	if !IsNil(o.IndividuallyAssignedAppsOnly) {
 		toSerialize["individuallyAssignedAppsOnly"] = o.IndividuallyAssignedAppsOnly
 	}
-	if o.IndividuallyAssignedGroupsOnly != nil {
+	if !IsNil(o.IndividuallyAssignedGroupsOnly) {
 		toSerialize["individuallyAssignedGroupsOnly"] = o.IndividuallyAssignedGroupsOnly
 	}
-	if o.IncludeEntitlements != nil {
+	if !IsNil(o.IncludeEntitlements) {
 		toSerialize["includeEntitlements"] = o.IncludeEntitlements
 	}
-	if o.OnlyIncludeOutOfPolicyEntitlements != nil {
+	if !IsNil(o.OnlyIncludeOutOfPolicyEntitlements) {
 		toSerialize["onlyIncludeOutOfPolicyEntitlements"] = o.OnlyIncludeOutOfPolicyEntitlements
 	}
-	if o.IncludeAdminRoles != nil {
+	if !IsNil(o.IncludeAdminRoles) {
 		toSerialize["includeAdminRoles"] = o.IncludeAdminRoles
+	}
+	if !IsNil(o.IncludeAllOktaServiceAccounts) {
+		toSerialize["includeAllOktaServiceAccounts"] = o.IncludeAllOktaServiceAccounts
 	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ResourceSettingsMutable) UnmarshalJSON(bytes []byte) (err error) {
-	varResourceSettingsMutable := _ResourceSettingsMutable{}
+func (o *ResourceSettingsMutable) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"type",
+	}
 
-	err = json.Unmarshal(bytes, &varResourceSettingsMutable)
-	if err == nil {
-		*o = ResourceSettingsMutable(varResourceSettingsMutable)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varResourceSettingsMutable := _ResourceSettingsMutable{}
+
+	err = json.Unmarshal(data, &varResourceSettingsMutable)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ResourceSettingsMutable(varResourceSettingsMutable)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "targetResources")
 		delete(additionalProperties, "excludedResources")
@@ -371,9 +443,8 @@ func (o *ResourceSettingsMutable) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "includeEntitlements")
 		delete(additionalProperties, "onlyIncludeOutOfPolicyEntitlements")
 		delete(additionalProperties, "includeAdminRoles")
+		delete(additionalProperties, "includeAllOktaServiceAccounts")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

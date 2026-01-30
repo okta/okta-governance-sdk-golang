@@ -17,18 +17,22 @@ Name | Type | Description | Notes
 **Decision** | [**Decision**](Decision.md) |  | 
 **Decided** | Pointer to **time.Time** |  | [optional] 
 **RemediationStatus** | [**RemediationStatus**](RemediationStatus.md) |  | 
-**PrincipalProfile** | [**PrincipalProfile**](PrincipalProfile.md) |  | 
-**ReviewerProfile** | Pointer to [**PrincipalProfile**](PrincipalProfile.md) |  | [optional] 
+**PrincipalProfile** | [**PrincipalProfileEnriched**](PrincipalProfileEnriched.md) |  | 
+**ReviewerProfile** | Pointer to [**PrincipalProfileEnriched**](PrincipalProfileEnriched.md) |  | [optional] 
 **ReviewerType** | [**ReviewersReviewerType**](ReviewersReviewerType.md) |  | 
 **ReviewerGroupProfile** | Pointer to [**ReviewerGroupProfile**](ReviewerGroupProfile.md) |  | [optional] 
 **CurrentReviewerLevel** | Pointer to [**ReviewerLevelType**](ReviewerLevelType.md) |  | [optional] 
 **RiskRuleConflicts** | Pointer to [**[]RiskRuleConflicts**](RiskRuleConflicts.md) | List of risk rule conflicts caused by this entitlement value. Only applies to review item that has entitlement value. | [optional] 
+**DelegatorProfile** | Pointer to [**PrincipalProfileEnriched**](PrincipalProfileEnriched.md) |  | [optional] 
+**Delegated** | Pointer to **bool** | Specifies if this review was delegated by the original reviewer based on their governance delegate settings | [optional] 
+**AppServiceAccount** | Pointer to [**ReviewerServiceAccount**](ReviewerServiceAccount.md) |  | [optional] 
+**OktaServiceAccount** | Pointer to [**ReviewerServiceAccount**](ReviewerServiceAccount.md) |  | [optional] 
 
 ## Methods
 
 ### NewReviewSparse
 
-`func NewReviewSparse(links ReviewLinks, id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, campaignId string, resourceId string, decision Decision, remediationStatus RemediationStatus, principalProfile PrincipalProfile, reviewerType ReviewersReviewerType, ) *ReviewSparse`
+`func NewReviewSparse(links ReviewLinks, id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, campaignId string, resourceId string, decision Decision, remediationStatus RemediationStatus, principalProfile PrincipalProfileEnriched, reviewerType ReviewersReviewerType, ) *ReviewSparse`
 
 NewReviewSparse instantiates a new ReviewSparse object
 This constructor will assign default values to properties that have it defined,
@@ -320,40 +324,40 @@ SetRemediationStatus sets RemediationStatus field to given value.
 
 ### GetPrincipalProfile
 
-`func (o *ReviewSparse) GetPrincipalProfile() PrincipalProfile`
+`func (o *ReviewSparse) GetPrincipalProfile() PrincipalProfileEnriched`
 
 GetPrincipalProfile returns the PrincipalProfile field if non-nil, zero value otherwise.
 
 ### GetPrincipalProfileOk
 
-`func (o *ReviewSparse) GetPrincipalProfileOk() (*PrincipalProfile, bool)`
+`func (o *ReviewSparse) GetPrincipalProfileOk() (*PrincipalProfileEnriched, bool)`
 
 GetPrincipalProfileOk returns a tuple with the PrincipalProfile field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPrincipalProfile
 
-`func (o *ReviewSparse) SetPrincipalProfile(v PrincipalProfile)`
+`func (o *ReviewSparse) SetPrincipalProfile(v PrincipalProfileEnriched)`
 
 SetPrincipalProfile sets PrincipalProfile field to given value.
 
 
 ### GetReviewerProfile
 
-`func (o *ReviewSparse) GetReviewerProfile() PrincipalProfile`
+`func (o *ReviewSparse) GetReviewerProfile() PrincipalProfileEnriched`
 
 GetReviewerProfile returns the ReviewerProfile field if non-nil, zero value otherwise.
 
 ### GetReviewerProfileOk
 
-`func (o *ReviewSparse) GetReviewerProfileOk() (*PrincipalProfile, bool)`
+`func (o *ReviewSparse) GetReviewerProfileOk() (*PrincipalProfileEnriched, bool)`
 
 GetReviewerProfileOk returns a tuple with the ReviewerProfile field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetReviewerProfile
 
-`func (o *ReviewSparse) SetReviewerProfile(v PrincipalProfile)`
+`func (o *ReviewSparse) SetReviewerProfile(v PrincipalProfileEnriched)`
 
 SetReviewerProfile sets ReviewerProfile field to given value.
 
@@ -468,6 +472,106 @@ HasRiskRuleConflicts returns a boolean if a field has been set.
 `func (o *ReviewSparse) UnsetRiskRuleConflicts()`
 
 UnsetRiskRuleConflicts ensures that no value is present for RiskRuleConflicts, not even an explicit nil
+### GetDelegatorProfile
+
+`func (o *ReviewSparse) GetDelegatorProfile() PrincipalProfileEnriched`
+
+GetDelegatorProfile returns the DelegatorProfile field if non-nil, zero value otherwise.
+
+### GetDelegatorProfileOk
+
+`func (o *ReviewSparse) GetDelegatorProfileOk() (*PrincipalProfileEnriched, bool)`
+
+GetDelegatorProfileOk returns a tuple with the DelegatorProfile field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDelegatorProfile
+
+`func (o *ReviewSparse) SetDelegatorProfile(v PrincipalProfileEnriched)`
+
+SetDelegatorProfile sets DelegatorProfile field to given value.
+
+### HasDelegatorProfile
+
+`func (o *ReviewSparse) HasDelegatorProfile() bool`
+
+HasDelegatorProfile returns a boolean if a field has been set.
+
+### GetDelegated
+
+`func (o *ReviewSparse) GetDelegated() bool`
+
+GetDelegated returns the Delegated field if non-nil, zero value otherwise.
+
+### GetDelegatedOk
+
+`func (o *ReviewSparse) GetDelegatedOk() (*bool, bool)`
+
+GetDelegatedOk returns a tuple with the Delegated field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDelegated
+
+`func (o *ReviewSparse) SetDelegated(v bool)`
+
+SetDelegated sets Delegated field to given value.
+
+### HasDelegated
+
+`func (o *ReviewSparse) HasDelegated() bool`
+
+HasDelegated returns a boolean if a field has been set.
+
+### GetAppServiceAccount
+
+`func (o *ReviewSparse) GetAppServiceAccount() ReviewerServiceAccount`
+
+GetAppServiceAccount returns the AppServiceAccount field if non-nil, zero value otherwise.
+
+### GetAppServiceAccountOk
+
+`func (o *ReviewSparse) GetAppServiceAccountOk() (*ReviewerServiceAccount, bool)`
+
+GetAppServiceAccountOk returns a tuple with the AppServiceAccount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAppServiceAccount
+
+`func (o *ReviewSparse) SetAppServiceAccount(v ReviewerServiceAccount)`
+
+SetAppServiceAccount sets AppServiceAccount field to given value.
+
+### HasAppServiceAccount
+
+`func (o *ReviewSparse) HasAppServiceAccount() bool`
+
+HasAppServiceAccount returns a boolean if a field has been set.
+
+### GetOktaServiceAccount
+
+`func (o *ReviewSparse) GetOktaServiceAccount() ReviewerServiceAccount`
+
+GetOktaServiceAccount returns the OktaServiceAccount field if non-nil, zero value otherwise.
+
+### GetOktaServiceAccountOk
+
+`func (o *ReviewSparse) GetOktaServiceAccountOk() (*ReviewerServiceAccount, bool)`
+
+GetOktaServiceAccountOk returns a tuple with the OktaServiceAccount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOktaServiceAccount
+
+`func (o *ReviewSparse) SetOktaServiceAccount(v ReviewerServiceAccount)`
+
+SetOktaServiceAccount sets OktaServiceAccount field to given value.
+
+### HasOktaServiceAccount
+
+`func (o *ReviewSparse) HasOktaServiceAccount() bool`
+
+HasOktaServiceAccount returns a boolean if a field has been set.
+
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

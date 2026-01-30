@@ -3,7 +3,7 @@ package governance
 import (
 	"runtime"
 
-	"github.com/okta/okta-sdk-golang/v5/okta"
+	"github.com/okta/okta-sdk-golang/v6/okta"
 )
 
 type UserAgent struct {

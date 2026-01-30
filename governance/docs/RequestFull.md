@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Approvals** | [**[]RequestApproval**](RequestApproval.md) |  | 
 **Actions** | [**[]RequestAction**](RequestAction.md) | A list of actions. Currently only supports one action per request. | 
+**PermalinkId** | **int32** | The immutable, persistent identifier that always resolves to the request | 
 **Type** | **string** | This request is associated with a request type with no &#x60;CUSTOM&#x60; settings. | 
 **Id** | **string** | Unique identifier for the object | 
 **CreatedBy** | **string** | The &#x60;id&#x60; of the Okta user who created the resource | [readonly] 
@@ -24,7 +25,7 @@ Name | Type | Description | Notes
 
 ### NewRequestFull
 
-`func NewRequestFull(approvals []RequestApproval, actions []RequestAction, type_ string, id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, links RequestLinks, requestTypeId string, subject string, requesterUserIds []string, requestStatus RequestRequestStatus, resolved NullableTime, requesterFieldValues []FieldValue, ) *RequestFull`
+`func NewRequestFull(approvals []RequestApproval, actions []RequestAction, permalinkId int32, type_ string, id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, links RequestLinks, requestTypeId string, subject string, requesterUserIds []string, requestStatus RequestRequestStatus, resolved NullableTime, requesterFieldValues []FieldValue, ) *RequestFull`
 
 NewRequestFull instantiates a new RequestFull object
 This constructor will assign default values to properties that have it defined,
@@ -89,6 +90,26 @@ SetActions sets Actions field to given value.
 `func (o *RequestFull) UnsetActions()`
 
 UnsetActions ensures that no value is present for Actions, not even an explicit nil
+### GetPermalinkId
+
+`func (o *RequestFull) GetPermalinkId() int32`
+
+GetPermalinkId returns the PermalinkId field if non-nil, zero value otherwise.
+
+### GetPermalinkIdOk
+
+`func (o *RequestFull) GetPermalinkIdOk() (*int32, bool)`
+
+GetPermalinkIdOk returns a tuple with the PermalinkId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPermalinkId
+
+`func (o *RequestFull) SetPermalinkId(v int32)`
+
+SetPermalinkId sets PermalinkId field to given value.
+
+
 ### GetType
 
 `func (o *RequestFull) GetType() string`

@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package governance
 import (
 	"encoding/json"
 )
+
+// checks if the ValidRiskSettingsType type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ValidRiskSettingsType{}
 
 // ValidRiskSettingsType struct for ValidRiskSettingsType
 type ValidRiskSettingsType struct {
@@ -54,7 +57,7 @@ func NewValidRiskSettingsTypeWithDefaults() *ValidRiskSettingsType {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *ValidRiskSettingsType) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *ValidRiskSettingsType) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ValidRiskSettingsType) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -72,7 +75,7 @@ func (o *ValidRiskSettingsType) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *ValidRiskSettingsType) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *ValidRiskSettingsType) SetType(v string) {
 }
 
 func (o ValidRiskSettingsType) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ValidRiskSettingsType) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 
@@ -94,27 +105,25 @@ func (o ValidRiskSettingsType) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ValidRiskSettingsType) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ValidRiskSettingsType) UnmarshalJSON(data []byte) (err error) {
 	varValidRiskSettingsType := _ValidRiskSettingsType{}
 
-	err = json.Unmarshal(bytes, &varValidRiskSettingsType)
-	if err == nil {
-		*o = ValidRiskSettingsType(varValidRiskSettingsType)
-	} else {
+	err = json.Unmarshal(data, &varValidRiskSettingsType)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ValidRiskSettingsType(varValidRiskSettingsType)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

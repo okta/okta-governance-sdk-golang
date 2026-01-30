@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ import (
 	"fmt"
 )
 
-// LabelValuePatchOp The operation to perform a label value update
+// LabelValuePatchOp The operation to perform a label update
 type LabelValuePatchOp string
 
 // List of label-value-patch-op

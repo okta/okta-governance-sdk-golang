@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,9 +25,13 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
-// ResourceOwnersListLinks Links available in resource owners list response
+// checks if the ResourceOwnersListLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ResourceOwnersListLinks{}
+
+// ResourceOwnersListLinks Related links available in a list response
 type ResourceOwnersListLinks struct {
 	Self                 Link  `json:"self"`
 	Next                 *Link `json:"next,omitempty"`
@@ -80,7 +84,7 @@ func (o *ResourceOwnersListLinks) SetSelf(v Link) {
 
 // GetNext returns the Next field value if set, zero value otherwise.
 func (o *ResourceOwnersListLinks) GetNext() Link {
-	if o == nil || o.Next == nil {
+	if o == nil || IsNil(o.Next) {
 		var ret Link
 		return ret
 	}
@@ -90,7 +94,7 @@ func (o *ResourceOwnersListLinks) GetNext() Link {
 // GetNextOk returns a tuple with the Next field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceOwnersListLinks) GetNextOk() (*Link, bool) {
-	if o == nil || o.Next == nil {
+	if o == nil || IsNil(o.Next) {
 		return nil, false
 	}
 	return o.Next, true
@@ -98,7 +102,7 @@ func (o *ResourceOwnersListLinks) GetNextOk() (*Link, bool) {
 
 // HasNext returns a boolean if a field has been set.
 func (o *ResourceOwnersListLinks) HasNext() bool {
-	if o != nil && o.Next != nil {
+	if o != nil && !IsNil(o.Next) {
 		return true
 	}
 
@@ -111,11 +115,17 @@ func (o *ResourceOwnersListLinks) SetNext(v Link) {
 }
 
 func (o ResourceOwnersListLinks) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["self"] = o.Self
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.Next != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o ResourceOwnersListLinks) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["self"] = o.Self
+	if !IsNil(o.Next) {
 		toSerialize["next"] = o.Next
 	}
 
@@ -123,28 +133,47 @@ func (o ResourceOwnersListLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ResourceOwnersListLinks) UnmarshalJSON(bytes []byte) (err error) {
-	varResourceOwnersListLinks := _ResourceOwnersListLinks{}
+func (o *ResourceOwnersListLinks) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"self",
+	}
 
-	err = json.Unmarshal(bytes, &varResourceOwnersListLinks)
-	if err == nil {
-		*o = ResourceOwnersListLinks(varResourceOwnersListLinks)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varResourceOwnersListLinks := _ResourceOwnersListLinks{}
+
+	err = json.Unmarshal(data, &varResourceOwnersListLinks)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ResourceOwnersListLinks(varResourceOwnersListLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "self")
 		delete(additionalProperties, "next")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

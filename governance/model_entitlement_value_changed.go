@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,20 +27,25 @@ import (
 	"encoding/json"
 )
 
+// checks if the EntitlementValueChanged type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EntitlementValueChanged{}
+
 // EntitlementValueChanged Attributes related to an entitlement value
 type EntitlementValueChanged struct {
 	// Type of change that occurred to the entitlement
 	ChangeType *string `json:"changeType,omitempty"`
-	// The `id` of an entitlement value
+	// The `id` of the entitlement value
 	Id *string `json:"id,omitempty"`
 	// The display name for an entitlement value
 	Name *string `json:"name,omitempty"`
 	// The value of an entitlement property value
 	ExternalValue *string `json:"externalValue,omitempty"`
-	// The read-only `id` of an entitlement property value in the downstream application.
+	// The read-only ID of an entitlement property value in the downstream app
 	ExternalId *string `json:"externalId,omitempty"`
 	// The description of an entitlement value
-	Description          *string `json:"description,omitempty"`
+	Description *string `json:"description,omitempty"`
+	// The entitlement value resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)
+	Orn                  *string `json:"orn,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -65,7 +70,7 @@ func NewEntitlementValueChangedWithDefaults() *EntitlementValueChanged {
 
 // GetChangeType returns the ChangeType field value if set, zero value otherwise.
 func (o *EntitlementValueChanged) GetChangeType() string {
-	if o == nil || o.ChangeType == nil {
+	if o == nil || IsNil(o.ChangeType) {
 		var ret string
 		return ret
 	}
@@ -75,7 +80,7 @@ func (o *EntitlementValueChanged) GetChangeType() string {
 // GetChangeTypeOk returns a tuple with the ChangeType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntitlementValueChanged) GetChangeTypeOk() (*string, bool) {
-	if o == nil || o.ChangeType == nil {
+	if o == nil || IsNil(o.ChangeType) {
 		return nil, false
 	}
 	return o.ChangeType, true
@@ -83,7 +88,7 @@ func (o *EntitlementValueChanged) GetChangeTypeOk() (*string, bool) {
 
 // HasChangeType returns a boolean if a field has been set.
 func (o *EntitlementValueChanged) HasChangeType() bool {
-	if o != nil && o.ChangeType != nil {
+	if o != nil && !IsNil(o.ChangeType) {
 		return true
 	}
 
@@ -97,7 +102,7 @@ func (o *EntitlementValueChanged) SetChangeType(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *EntitlementValueChanged) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -107,7 +112,7 @@ func (o *EntitlementValueChanged) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntitlementValueChanged) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -115,7 +120,7 @@ func (o *EntitlementValueChanged) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *EntitlementValueChanged) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -129,7 +134,7 @@ func (o *EntitlementValueChanged) SetId(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *EntitlementValueChanged) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -139,7 +144,7 @@ func (o *EntitlementValueChanged) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntitlementValueChanged) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -147,7 +152,7 @@ func (o *EntitlementValueChanged) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *EntitlementValueChanged) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -161,7 +166,7 @@ func (o *EntitlementValueChanged) SetName(v string) {
 
 // GetExternalValue returns the ExternalValue field value if set, zero value otherwise.
 func (o *EntitlementValueChanged) GetExternalValue() string {
-	if o == nil || o.ExternalValue == nil {
+	if o == nil || IsNil(o.ExternalValue) {
 		var ret string
 		return ret
 	}
@@ -171,7 +176,7 @@ func (o *EntitlementValueChanged) GetExternalValue() string {
 // GetExternalValueOk returns a tuple with the ExternalValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntitlementValueChanged) GetExternalValueOk() (*string, bool) {
-	if o == nil || o.ExternalValue == nil {
+	if o == nil || IsNil(o.ExternalValue) {
 		return nil, false
 	}
 	return o.ExternalValue, true
@@ -179,7 +184,7 @@ func (o *EntitlementValueChanged) GetExternalValueOk() (*string, bool) {
 
 // HasExternalValue returns a boolean if a field has been set.
 func (o *EntitlementValueChanged) HasExternalValue() bool {
-	if o != nil && o.ExternalValue != nil {
+	if o != nil && !IsNil(o.ExternalValue) {
 		return true
 	}
 
@@ -193,7 +198,7 @@ func (o *EntitlementValueChanged) SetExternalValue(v string) {
 
 // GetExternalId returns the ExternalId field value if set, zero value otherwise.
 func (o *EntitlementValueChanged) GetExternalId() string {
-	if o == nil || o.ExternalId == nil {
+	if o == nil || IsNil(o.ExternalId) {
 		var ret string
 		return ret
 	}
@@ -203,7 +208,7 @@ func (o *EntitlementValueChanged) GetExternalId() string {
 // GetExternalIdOk returns a tuple with the ExternalId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntitlementValueChanged) GetExternalIdOk() (*string, bool) {
-	if o == nil || o.ExternalId == nil {
+	if o == nil || IsNil(o.ExternalId) {
 		return nil, false
 	}
 	return o.ExternalId, true
@@ -211,7 +216,7 @@ func (o *EntitlementValueChanged) GetExternalIdOk() (*string, bool) {
 
 // HasExternalId returns a boolean if a field has been set.
 func (o *EntitlementValueChanged) HasExternalId() bool {
-	if o != nil && o.ExternalId != nil {
+	if o != nil && !IsNil(o.ExternalId) {
 		return true
 	}
 
@@ -225,7 +230,7 @@ func (o *EntitlementValueChanged) SetExternalId(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *EntitlementValueChanged) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -235,7 +240,7 @@ func (o *EntitlementValueChanged) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntitlementValueChanged) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -243,7 +248,7 @@ func (o *EntitlementValueChanged) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *EntitlementValueChanged) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -255,57 +260,99 @@ func (o *EntitlementValueChanged) SetDescription(v string) {
 	o.Description = &v
 }
 
+// GetOrn returns the Orn field value if set, zero value otherwise.
+func (o *EntitlementValueChanged) GetOrn() string {
+	if o == nil || IsNil(o.Orn) {
+		var ret string
+		return ret
+	}
+	return *o.Orn
+}
+
+// GetOrnOk returns a tuple with the Orn field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EntitlementValueChanged) GetOrnOk() (*string, bool) {
+	if o == nil || IsNil(o.Orn) {
+		return nil, false
+	}
+	return o.Orn, true
+}
+
+// HasOrn returns a boolean if a field has been set.
+func (o *EntitlementValueChanged) HasOrn() bool {
+	if o != nil && !IsNil(o.Orn) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrn gets a reference to the given string and assigns it to the Orn field.
+func (o *EntitlementValueChanged) SetOrn(v string) {
+	o.Orn = &v
+}
+
 func (o EntitlementValueChanged) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o EntitlementValueChanged) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ChangeType != nil {
+	if !IsNil(o.ChangeType) {
 		toSerialize["changeType"] = o.ChangeType
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.ExternalValue != nil {
+	if !IsNil(o.ExternalValue) {
 		toSerialize["externalValue"] = o.ExternalValue
 	}
-	if o.ExternalId != nil {
+	if !IsNil(o.ExternalId) {
 		toSerialize["externalId"] = o.ExternalId
 	}
-	if o.Description != nil {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Orn) {
+		toSerialize["orn"] = o.Orn
 	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *EntitlementValueChanged) UnmarshalJSON(bytes []byte) (err error) {
+func (o *EntitlementValueChanged) UnmarshalJSON(data []byte) (err error) {
 	varEntitlementValueChanged := _EntitlementValueChanged{}
 
-	err = json.Unmarshal(bytes, &varEntitlementValueChanged)
-	if err == nil {
-		*o = EntitlementValueChanged(varEntitlementValueChanged)
-	} else {
+	err = json.Unmarshal(data, &varEntitlementValueChanged)
+
+	if err != nil {
 		return err
 	}
 
+	*o = EntitlementValueChanged(varEntitlementValueChanged)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "changeType")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "externalValue")
 		delete(additionalProperties, "externalId")
 		delete(additionalProperties, "description")
+		delete(additionalProperties, "orn")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,8 +25,12 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the RecurrenceDefinitionMutable type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RecurrenceDefinitionMutable{}
 
 // RecurrenceDefinitionMutable Applicable for recurring campaigns only (`type: RECURRING`). You can specify the campaign recurring frequency using `interval` and `repeatOn`. Optionally specify `ends` with a date-time, when the campaign schedule can end.
 type RecurrenceDefinitionMutable struct {
@@ -84,7 +88,7 @@ func (o *RecurrenceDefinitionMutable) SetInterval(v string) {
 
 // GetRepeatOnType returns the RepeatOnType field value if set, zero value otherwise.
 func (o *RecurrenceDefinitionMutable) GetRepeatOnType() RecurrenceRepeatOnType {
-	if o == nil || o.RepeatOnType == nil {
+	if o == nil || IsNil(o.RepeatOnType) {
 		var ret RecurrenceRepeatOnType
 		return ret
 	}
@@ -94,7 +98,7 @@ func (o *RecurrenceDefinitionMutable) GetRepeatOnType() RecurrenceRepeatOnType {
 // GetRepeatOnTypeOk returns a tuple with the RepeatOnType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RecurrenceDefinitionMutable) GetRepeatOnTypeOk() (*RecurrenceRepeatOnType, bool) {
-	if o == nil || o.RepeatOnType == nil {
+	if o == nil || IsNil(o.RepeatOnType) {
 		return nil, false
 	}
 	return o.RepeatOnType, true
@@ -102,7 +106,7 @@ func (o *RecurrenceDefinitionMutable) GetRepeatOnTypeOk() (*RecurrenceRepeatOnTy
 
 // HasRepeatOnType returns a boolean if a field has been set.
 func (o *RecurrenceDefinitionMutable) HasRepeatOnType() bool {
-	if o != nil && o.RepeatOnType != nil {
+	if o != nil && !IsNil(o.RepeatOnType) {
 		return true
 	}
 
@@ -116,7 +120,7 @@ func (o *RecurrenceDefinitionMutable) SetRepeatOnType(v RecurrenceRepeatOnType) 
 
 // GetEnds returns the Ends field value if set, zero value otherwise.
 func (o *RecurrenceDefinitionMutable) GetEnds() time.Time {
-	if o == nil || o.Ends == nil {
+	if o == nil || IsNil(o.Ends) {
 		var ret time.Time
 		return ret
 	}
@@ -126,7 +130,7 @@ func (o *RecurrenceDefinitionMutable) GetEnds() time.Time {
 // GetEndsOk returns a tuple with the Ends field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RecurrenceDefinitionMutable) GetEndsOk() (*time.Time, bool) {
-	if o == nil || o.Ends == nil {
+	if o == nil || IsNil(o.Ends) {
 		return nil, false
 	}
 	return o.Ends, true
@@ -134,7 +138,7 @@ func (o *RecurrenceDefinitionMutable) GetEndsOk() (*time.Time, bool) {
 
 // HasEnds returns a boolean if a field has been set.
 func (o *RecurrenceDefinitionMutable) HasEnds() bool {
-	if o != nil && o.Ends != nil {
+	if o != nil && !IsNil(o.Ends) {
 		return true
 	}
 
@@ -147,14 +151,20 @@ func (o *RecurrenceDefinitionMutable) SetEnds(v time.Time) {
 }
 
 func (o RecurrenceDefinitionMutable) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["interval"] = o.Interval
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.RepeatOnType != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o RecurrenceDefinitionMutable) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["interval"] = o.Interval
+	if !IsNil(o.RepeatOnType) {
 		toSerialize["repeatOnType"] = o.RepeatOnType
 	}
-	if o.Ends != nil {
+	if !IsNil(o.Ends) {
 		toSerialize["ends"] = o.Ends
 	}
 
@@ -162,29 +172,48 @@ func (o RecurrenceDefinitionMutable) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RecurrenceDefinitionMutable) UnmarshalJSON(bytes []byte) (err error) {
-	varRecurrenceDefinitionMutable := _RecurrenceDefinitionMutable{}
+func (o *RecurrenceDefinitionMutable) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"interval",
+	}
 
-	err = json.Unmarshal(bytes, &varRecurrenceDefinitionMutable)
-	if err == nil {
-		*o = RecurrenceDefinitionMutable(varRecurrenceDefinitionMutable)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRecurrenceDefinitionMutable := _RecurrenceDefinitionMutable{}
+
+	err = json.Unmarshal(data, &varRecurrenceDefinitionMutable)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RecurrenceDefinitionMutable(varRecurrenceDefinitionMutable)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "interval")
 		delete(additionalProperties, "repeatOnType")
 		delete(additionalProperties, "ends")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

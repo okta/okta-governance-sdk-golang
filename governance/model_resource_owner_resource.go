@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,15 +25,19 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
-// ResourceOwnerResource Representation of a resource that can be owned by a principal, such as an application or an entitlement bundle.
+// checks if the ResourceOwnerResource type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ResourceOwnerResource{}
+
+// ResourceOwnerResource Details of a resource that are owned by the principal, such as an app, an entitlement value, an entitlement bundle, or a collection
 type ResourceOwnerResource struct {
-	// Id of the resource, which is a unique identifier for the resource in Okta.
+	// A unique identifier for the resource in Okta
 	Id string `json:"id"`
-	// The resource type value from the orn. Examples:- apps, entitlement-bundles
+	// The resource type. This value is the `{objectType}` attribute from the [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) string.  Examples: `apps`, `entitlement-bundles`, `entitlement-values`, or `collections`
 	Type string `json:"type"`
-	// The `id` of the resource in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format.  The resource can be an app, or a bundle. See [Supported resources](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
+	// The ID of the resource in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format. The resource can be an app, an entitlement value, an entitlement bundle, or a collection. See [supported resources](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
 	Orn                  string                  `json:"orn"`
 	Profile              ExternalResourceProfile `json:"profile"`
 	AdditionalProperties map[string]interface{}
@@ -159,48 +163,70 @@ func (o *ResourceOwnerResource) SetProfile(v ExternalResourceProfile) {
 }
 
 func (o ResourceOwnerResource) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ResourceOwnerResource) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if true {
-		toSerialize["orn"] = o.Orn
-	}
-	if true {
-		toSerialize["profile"] = o.Profile
-	}
+	toSerialize["id"] = o.Id
+	toSerialize["type"] = o.Type
+	toSerialize["orn"] = o.Orn
+	toSerialize["profile"] = o.Profile
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ResourceOwnerResource) UnmarshalJSON(bytes []byte) (err error) {
-	varResourceOwnerResource := _ResourceOwnerResource{}
+func (o *ResourceOwnerResource) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"type",
+		"orn",
+		"profile",
+	}
 
-	err = json.Unmarshal(bytes, &varResourceOwnerResource)
-	if err == nil {
-		*o = ResourceOwnerResource(varResourceOwnerResource)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varResourceOwnerResource := _ResourceOwnerResource{}
+
+	err = json.Unmarshal(data, &varResourceOwnerResource)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ResourceOwnerResource(varResourceOwnerResource)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "orn")
 		delete(additionalProperties, "profile")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

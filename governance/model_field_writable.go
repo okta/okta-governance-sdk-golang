@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,7 +28,6 @@ import (
 	"fmt"
 )
 
-// model_oneof.mustache
 // FieldWritable - The field to use when prompting the user
 type FieldWritable struct {
 	FieldDateWritable   *FieldDateWritable
@@ -57,14 +56,14 @@ func FieldTextWritableAsFieldWritable(v *FieldTextWritable) FieldWritable {
 	}
 }
 
-// Unmarshal JSON data into one of the pointers in the struct  CUSTOM
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *FieldWritable) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup
 	var jsonDict map[string]interface{}
 	err = newStrictDecoder(data).Decode(&jsonDict)
 	if err != nil {
-		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
 	// check if the discriminator value is 'DATE-TIME'
@@ -75,7 +74,7 @@ func (dst *FieldWritable) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.FieldDateWritable, return on the first match
 		} else {
 			dst.FieldDateWritable = nil
-			return fmt.Errorf("Failed to unmarshal FieldWritable as FieldDateWritable: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal FieldWritable as FieldDateWritable: %s", err.Error())
 		}
 	}
 
@@ -87,7 +86,7 @@ func (dst *FieldWritable) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.FieldSelectWritable, return on the first match
 		} else {
 			dst.FieldSelectWritable = nil
-			return fmt.Errorf("Failed to unmarshal FieldWritable as FieldSelectWritable: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal FieldWritable as FieldSelectWritable: %s", err.Error())
 		}
 	}
 
@@ -99,43 +98,7 @@ func (dst *FieldWritable) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.FieldTextWritable, return on the first match
 		} else {
 			dst.FieldTextWritable = nil
-			return fmt.Errorf("Failed to unmarshal FieldWritable as FieldTextWritable: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'field-date-writable'
-	if jsonDict["type"] == "field-date-writable" {
-		// try to unmarshal JSON data into FieldDateWritable
-		err = json.Unmarshal(data, &dst.FieldDateWritable)
-		if err == nil {
-			return nil // data stored in dst.FieldDateWritable, return on the first match
-		} else {
-			dst.FieldDateWritable = nil
-			return fmt.Errorf("Failed to unmarshal FieldWritable as FieldDateWritable: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'field-select-writable'
-	if jsonDict["type"] == "field-select-writable" {
-		// try to unmarshal JSON data into FieldSelectWritable
-		err = json.Unmarshal(data, &dst.FieldSelectWritable)
-		if err == nil {
-			return nil // data stored in dst.FieldSelectWritable, return on the first match
-		} else {
-			dst.FieldSelectWritable = nil
-			return fmt.Errorf("Failed to unmarshal FieldWritable as FieldSelectWritable: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'field-text-writable'
-	if jsonDict["type"] == "field-text-writable" {
-		// try to unmarshal JSON data into FieldTextWritable
-		err = json.Unmarshal(data, &dst.FieldTextWritable)
-		if err == nil {
-			return nil // data stored in dst.FieldTextWritable, return on the first match
-		} else {
-			dst.FieldTextWritable = nil
-			return fmt.Errorf("Failed to unmarshal FieldWritable as FieldTextWritable: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal FieldWritable as FieldTextWritable: %s", err.Error())
 		}
 	}
 
@@ -174,6 +137,24 @@ func (obj *FieldWritable) GetActualInstance() interface{} {
 
 	if obj.FieldTextWritable != nil {
 		return obj.FieldTextWritable
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj FieldWritable) GetActualInstanceValue() interface{} {
+	if obj.FieldDateWritable != nil {
+		return *obj.FieldDateWritable
+	}
+
+	if obj.FieldSelectWritable != nil {
+		return *obj.FieldSelectWritable
+	}
+
+	if obj.FieldTextWritable != nil {
+		return *obj.FieldTextWritable
 	}
 
 	// all schemas are nil

@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,7 +28,6 @@ import (
 	"fmt"
 )
 
-// model_oneof.mustache
 // PatchLabelsInner - struct for PatchLabelsInner
 type PatchLabelsInner struct {
 	PatchLabelOperation      *PatchLabelOperation
@@ -49,14 +48,14 @@ func PatchLabelValueOperationAsPatchLabelsInner(v *PatchLabelValueOperation) Pat
 	}
 }
 
-// Unmarshal JSON data into one of the pointers in the struct  CUSTOM
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *PatchLabelsInner) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup
 	var jsonDict map[string]interface{}
 	err = newStrictDecoder(data).Decode(&jsonDict)
 	if err != nil {
-		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
 	// check if the discriminator value is 'LABEL-CATEGORY'
@@ -67,7 +66,7 @@ func (dst *PatchLabelsInner) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.PatchLabelOperation, return on the first match
 		} else {
 			dst.PatchLabelOperation = nil
-			return fmt.Errorf("Failed to unmarshal PatchLabelsInner as PatchLabelOperation: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal PatchLabelsInner as PatchLabelOperation: %s", err.Error())
 		}
 	}
 
@@ -79,31 +78,7 @@ func (dst *PatchLabelsInner) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.PatchLabelValueOperation, return on the first match
 		} else {
 			dst.PatchLabelValueOperation = nil
-			return fmt.Errorf("Failed to unmarshal PatchLabelsInner as PatchLabelValueOperation: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'patch-label-operation'
-	if jsonDict["refType"] == "patch-label-operation" {
-		// try to unmarshal JSON data into PatchLabelOperation
-		err = json.Unmarshal(data, &dst.PatchLabelOperation)
-		if err == nil {
-			return nil // data stored in dst.PatchLabelOperation, return on the first match
-		} else {
-			dst.PatchLabelOperation = nil
-			return fmt.Errorf("Failed to unmarshal PatchLabelsInner as PatchLabelOperation: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'patch-label-value-operation'
-	if jsonDict["refType"] == "patch-label-value-operation" {
-		// try to unmarshal JSON data into PatchLabelValueOperation
-		err = json.Unmarshal(data, &dst.PatchLabelValueOperation)
-		if err == nil {
-			return nil // data stored in dst.PatchLabelValueOperation, return on the first match
-		} else {
-			dst.PatchLabelValueOperation = nil
-			return fmt.Errorf("Failed to unmarshal PatchLabelsInner as PatchLabelValueOperation: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal PatchLabelsInner as PatchLabelValueOperation: %s", err.Error())
 		}
 	}
 
@@ -134,6 +109,20 @@ func (obj *PatchLabelsInner) GetActualInstance() interface{} {
 
 	if obj.PatchLabelValueOperation != nil {
 		return obj.PatchLabelValueOperation
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj PatchLabelsInner) GetActualInstanceValue() interface{} {
+	if obj.PatchLabelOperation != nil {
+		return *obj.PatchLabelOperation
+	}
+
+	if obj.PatchLabelValueOperation != nil {
+		return *obj.PatchLabelValueOperation
 	}
 
 	// all schemas are nil

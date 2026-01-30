@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package governance
 import (
 	"encoding/json"
 )
+
+// checks if the CampaignEndSkipRemediation type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CampaignEndSkipRemediation{}
 
 // CampaignEndSkipRemediation Boolean variable to skip remediation when campaign end operation is requested.
 type CampaignEndSkipRemediation struct {
@@ -55,7 +58,7 @@ func NewCampaignEndSkipRemediationWithDefaults() *CampaignEndSkipRemediation {
 
 // GetSkipRemediation returns the SkipRemediation field value if set, zero value otherwise.
 func (o *CampaignEndSkipRemediation) GetSkipRemediation() bool {
-	if o == nil || o.SkipRemediation == nil {
+	if o == nil || IsNil(o.SkipRemediation) {
 		var ret bool
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *CampaignEndSkipRemediation) GetSkipRemediation() bool {
 // GetSkipRemediationOk returns a tuple with the SkipRemediation field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CampaignEndSkipRemediation) GetSkipRemediationOk() (*bool, bool) {
-	if o == nil || o.SkipRemediation == nil {
+	if o == nil || IsNil(o.SkipRemediation) {
 		return nil, false
 	}
 	return o.SkipRemediation, true
@@ -73,7 +76,7 @@ func (o *CampaignEndSkipRemediation) GetSkipRemediationOk() (*bool, bool) {
 
 // HasSkipRemediation returns a boolean if a field has been set.
 func (o *CampaignEndSkipRemediation) HasSkipRemediation() bool {
-	if o != nil && o.SkipRemediation != nil {
+	if o != nil && !IsNil(o.SkipRemediation) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *CampaignEndSkipRemediation) SetSkipRemediation(v bool) {
 }
 
 func (o CampaignEndSkipRemediation) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CampaignEndSkipRemediation) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.SkipRemediation != nil {
+	if !IsNil(o.SkipRemediation) {
 		toSerialize["skipRemediation"] = o.SkipRemediation
 	}
 
@@ -95,27 +106,25 @@ func (o CampaignEndSkipRemediation) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *CampaignEndSkipRemediation) UnmarshalJSON(bytes []byte) (err error) {
+func (o *CampaignEndSkipRemediation) UnmarshalJSON(data []byte) (err error) {
 	varCampaignEndSkipRemediation := _CampaignEndSkipRemediation{}
 
-	err = json.Unmarshal(bytes, &varCampaignEndSkipRemediation)
-	if err == nil {
-		*o = CampaignEndSkipRemediation(varCampaignEndSkipRemediation)
-	} else {
+	err = json.Unmarshal(data, &varCampaignEndSkipRemediation)
+
+	if err != nil {
 		return err
 	}
 
+	*o = CampaignEndSkipRemediation(varCampaignEndSkipRemediation)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "skipRemediation")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

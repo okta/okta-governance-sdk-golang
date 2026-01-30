@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -35,12 +35,14 @@ type RequesterSettingsType string
 const (
 	REQUESTERSETTINGSTYPE_EVERYONE RequesterSettingsType = "EVERYONE"
 	REQUESTERSETTINGSTYPE_GROUPS   RequesterSettingsType = "GROUPS"
+	REQUESTERSETTINGSTYPE_TEAMS    RequesterSettingsType = "TEAMS"
 )
 
 // All allowed values of RequesterSettingsType enum
 var AllowedRequesterSettingsTypeEnumValues = []RequesterSettingsType{
 	"EVERYONE",
 	"GROUPS",
+	"TEAMS",
 }
 
 func (v *RequesterSettingsType) UnmarshalJSON(src []byte) error {

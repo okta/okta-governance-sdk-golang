@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -33,12 +33,14 @@ type ResourceType3 string
 
 // List of resource-type-3
 const (
-	RESOURCETYPE3_APPLICATION ResourceType3 = "APPLICATION"
+	RESOURCETYPE3_APPLICATION  ResourceType3 = "APPLICATION"
+	RESOURCETYPE3_REQUEST_TYPE ResourceType3 = "REQUEST_TYPE"
 )
 
 // All allowed values of ResourceType3 enum
 var AllowedResourceType3EnumValues = []ResourceType3{
 	"APPLICATION",
+	"REQUEST_TYPE",
 }
 
 func (v *ResourceType3) UnmarshalJSON(src []byte) error {

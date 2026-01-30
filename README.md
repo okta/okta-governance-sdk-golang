@@ -22,7 +22,7 @@
 * [Contributing](#contributing)
 
 This repository contains the Okta Internal Governance SDK for Golang. This SDK can be
-used in your server-side code to interact with the Okta Internal Governance API and
+used in your server-side code to interact with the Okta Internal Governance APIs and manage Okta campaigns, entitlements, reviews, grants etc.
 
 * Manage campaigns with the [Campaigns API](https://developer.okta.com/docs/api/iga/openapi/governance.api/tag/Campaigns/)
 * Manage Entitlements with the [Entitlements API](https://developer.okta.com/docs/api/iga/openapi/governance.api/tag/Entitlements/), [Entitlements-bundles](https://developer.okta.com/docs/api/iga/openapi/governance.api/tag/Entitlement-Bundles/)

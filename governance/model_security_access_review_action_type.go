@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -33,25 +33,13 @@ type SecurityAccessReviewActionType string
 
 // List of security-access-review-action-type
 const (
-	SECURITYACCESSREVIEWACTIONTYPE_UNIVERSAL_LOGOUT     SecurityAccessReviewActionType = "UNIVERSAL_LOGOUT"
-	SECURITYACCESSREVIEWACTIONTYPE_SUSPEND_ACCOUNT      SecurityAccessReviewActionType = "SUSPEND_ACCOUNT"
-	SECURITYACCESSREVIEWACTIONTYPE_REACTIVATE_ACCOUNT   SecurityAccessReviewActionType = "REACTIVATE_ACCOUNT"
-	SECURITYACCESSREVIEWACTIONTYPE_CLOSE_REVIEW         SecurityAccessReviewActionType = "CLOSE_REVIEW"
-	SECURITYACCESSREVIEWACTIONTYPE_REVOKE_OKTA_SESSIONS SecurityAccessReviewActionType = "REVOKE_OKTA_SESSIONS"
-	SECURITYACCESSREVIEWACTIONTYPE_RESET_MFA            SecurityAccessReviewActionType = "RESET_MFA"
-	SECURITYACCESSREVIEWACTIONTYPE_RESET_PASSWORD       SecurityAccessReviewActionType = "RESET_PASSWORD"
-	SECURITYACCESSREVIEWACTIONTYPE_RESTORE_ALL_ACCESS   SecurityAccessReviewActionType = "RESTORE_ALL_ACCESS"
+	SECURITYACCESSREVIEWACTIONTYPE_CLOSE_REVIEW       SecurityAccessReviewActionType = "CLOSE_REVIEW"
+	SECURITYACCESSREVIEWACTIONTYPE_RESTORE_ALL_ACCESS SecurityAccessReviewActionType = "RESTORE_ALL_ACCESS"
 )
 
 // All allowed values of SecurityAccessReviewActionType enum
 var AllowedSecurityAccessReviewActionTypeEnumValues = []SecurityAccessReviewActionType{
-	"UNIVERSAL_LOGOUT",
-	"SUSPEND_ACCOUNT",
-	"REACTIVATE_ACCOUNT",
 	"CLOSE_REVIEW",
-	"REVOKE_OKTA_SESSIONS",
-	"RESET_MFA",
-	"RESET_PASSWORD",
 	"RESTORE_ALL_ACCESS",
 }
 

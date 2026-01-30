@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package governance
 import (
 	"encoding/json"
 )
+
+// checks if the DelegateUsersList type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DelegateUsersList{}
 
 // DelegateUsersList struct for DelegateUsersList
 type DelegateUsersList struct {
@@ -56,7 +59,7 @@ func NewDelegateUsersListWithDefaults() *DelegateUsersList {
 
 // GetData returns the Data field value if set, zero value otherwise.
 func (o *DelegateUsersList) GetData() []DelegateUser {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		var ret []DelegateUser
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *DelegateUsersList) GetData() []DelegateUser {
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DelegateUsersList) GetDataOk() ([]DelegateUser, bool) {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		return nil, false
 	}
 	return o.Data, true
@@ -74,7 +77,7 @@ func (o *DelegateUsersList) GetDataOk() ([]DelegateUser, bool) {
 
 // HasData returns a boolean if a field has been set.
 func (o *DelegateUsersList) HasData() bool {
-	if o != nil && o.Data != nil {
+	if o != nil && !IsNil(o.Data) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *DelegateUsersList) SetData(v []DelegateUser) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *DelegateUsersList) GetLinks() LinkSelf {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret LinkSelf
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *DelegateUsersList) GetLinks() LinkSelf {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DelegateUsersList) GetLinksOk() (*LinkSelf, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -106,7 +109,7 @@ func (o *DelegateUsersList) GetLinksOk() (*LinkSelf, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *DelegateUsersList) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -119,11 +122,19 @@ func (o *DelegateUsersList) SetLinks(v LinkSelf) {
 }
 
 func (o DelegateUsersList) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o DelegateUsersList) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Data != nil {
+	if !IsNil(o.Data) {
 		toSerialize["data"] = o.Data
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -131,28 +142,26 @@ func (o DelegateUsersList) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *DelegateUsersList) UnmarshalJSON(bytes []byte) (err error) {
+func (o *DelegateUsersList) UnmarshalJSON(data []byte) (err error) {
 	varDelegateUsersList := _DelegateUsersList{}
 
-	err = json.Unmarshal(bytes, &varDelegateUsersList)
-	if err == nil {
-		*o = DelegateUsersList(varDelegateUsersList)
-	} else {
+	err = json.Unmarshal(data, &varDelegateUsersList)
+
+	if err != nil {
 		return err
 	}
 
+	*o = DelegateUsersList(varDelegateUsersList)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "data")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

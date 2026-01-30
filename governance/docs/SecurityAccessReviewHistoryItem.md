@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **SystemGenerated** | **bool** | Indicates if the action or change was made by Okta | 
 **Timestamp** | **time.Time** | The date and time of the action or change | 
 **Message** | **string** |  | 
-**PrincipalProfile** | Pointer to [**PrincipalProfile**](PrincipalProfile.md) |  | [optional] 
+**PrincipalProfile** | Pointer to [**PrincipalProfileEnriched**](PrincipalProfileEnriched.md) |  | [optional] 
 
 ## Methods
 
@@ -111,20 +111,20 @@ SetMessage sets Message field to given value.
 
 ### GetPrincipalProfile
 
-`func (o *SecurityAccessReviewHistoryItem) GetPrincipalProfile() PrincipalProfile`
+`func (o *SecurityAccessReviewHistoryItem) GetPrincipalProfile() PrincipalProfileEnriched`
 
 GetPrincipalProfile returns the PrincipalProfile field if non-nil, zero value otherwise.
 
 ### GetPrincipalProfileOk
 
-`func (o *SecurityAccessReviewHistoryItem) GetPrincipalProfileOk() (*PrincipalProfile, bool)`
+`func (o *SecurityAccessReviewHistoryItem) GetPrincipalProfileOk() (*PrincipalProfileEnriched, bool)`
 
 GetPrincipalProfileOk returns a tuple with the PrincipalProfile field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPrincipalProfile
 
-`func (o *SecurityAccessReviewHistoryItem) SetPrincipalProfile(v PrincipalProfile)`
+`func (o *SecurityAccessReviewHistoryItem) SetPrincipalProfile(v PrincipalProfileEnriched)`
 
 SetPrincipalProfile sets PrincipalProfile field to given value.
 

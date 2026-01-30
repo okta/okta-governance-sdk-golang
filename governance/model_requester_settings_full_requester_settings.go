@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,11 +28,11 @@ import (
 	"fmt"
 )
 
-// model_oneof.mustache
 // RequesterSettingsFullRequesterSettings - Requester settings define who may submit an access request for the related resource and access scopes.
 type RequesterSettingsFullRequesterSettings struct {
 	EveryoneRequesterSettings *EveryoneRequesterSettings
 	GroupsRequesterSettings   *GroupsRequesterSettings
+	TeamsRequesterSettings    *TeamsRequesterSettings
 }
 
 // EveryoneRequesterSettingsAsRequesterSettingsFullRequesterSettings is a convenience function that returns EveryoneRequesterSettings wrapped in RequesterSettingsFullRequesterSettings
@@ -49,14 +49,21 @@ func GroupsRequesterSettingsAsRequesterSettingsFullRequesterSettings(v *GroupsRe
 	}
 }
 
-// Unmarshal JSON data into one of the pointers in the struct  CUSTOM
+// TeamsRequesterSettingsAsRequesterSettingsFullRequesterSettings is a convenience function that returns TeamsRequesterSettings wrapped in RequesterSettingsFullRequesterSettings
+func TeamsRequesterSettingsAsRequesterSettingsFullRequesterSettings(v *TeamsRequesterSettings) RequesterSettingsFullRequesterSettings {
+	return RequesterSettingsFullRequesterSettings{
+		TeamsRequesterSettings: v,
+	}
+}
+
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *RequesterSettingsFullRequesterSettings) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup
 	var jsonDict map[string]interface{}
 	err = newStrictDecoder(data).Decode(&jsonDict)
 	if err != nil {
-		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
 	// check if the discriminator value is 'EVERYONE'
@@ -67,7 +74,7 @@ func (dst *RequesterSettingsFullRequesterSettings) UnmarshalJSON(data []byte) er
 			return nil // data stored in dst.EveryoneRequesterSettings, return on the first match
 		} else {
 			dst.EveryoneRequesterSettings = nil
-			return fmt.Errorf("Failed to unmarshal RequesterSettingsFullRequesterSettings as EveryoneRequesterSettings: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal RequesterSettingsFullRequesterSettings as EveryoneRequesterSettings: %s", err.Error())
 		}
 	}
 
@@ -79,31 +86,19 @@ func (dst *RequesterSettingsFullRequesterSettings) UnmarshalJSON(data []byte) er
 			return nil // data stored in dst.GroupsRequesterSettings, return on the first match
 		} else {
 			dst.GroupsRequesterSettings = nil
-			return fmt.Errorf("Failed to unmarshal RequesterSettingsFullRequesterSettings as GroupsRequesterSettings: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal RequesterSettingsFullRequesterSettings as GroupsRequesterSettings: %s", err.Error())
 		}
 	}
 
-	// check if the discriminator value is 'EveryoneRequesterSettings'
-	if jsonDict["type"] == "EveryoneRequesterSettings" {
-		// try to unmarshal JSON data into EveryoneRequesterSettings
-		err = json.Unmarshal(data, &dst.EveryoneRequesterSettings)
+	// check if the discriminator value is 'TEAMS'
+	if jsonDict["type"] == "TEAMS" {
+		// try to unmarshal JSON data into TeamsRequesterSettings
+		err = json.Unmarshal(data, &dst.TeamsRequesterSettings)
 		if err == nil {
-			return nil // data stored in dst.EveryoneRequesterSettings, return on the first match
+			return nil // data stored in dst.TeamsRequesterSettings, return on the first match
 		} else {
-			dst.EveryoneRequesterSettings = nil
-			return fmt.Errorf("Failed to unmarshal RequesterSettingsFullRequesterSettings as EveryoneRequesterSettings: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'GroupsRequesterSettings'
-	if jsonDict["type"] == "GroupsRequesterSettings" {
-		// try to unmarshal JSON data into GroupsRequesterSettings
-		err = json.Unmarshal(data, &dst.GroupsRequesterSettings)
-		if err == nil {
-			return nil // data stored in dst.GroupsRequesterSettings, return on the first match
-		} else {
-			dst.GroupsRequesterSettings = nil
-			return fmt.Errorf("Failed to unmarshal RequesterSettingsFullRequesterSettings as GroupsRequesterSettings: %s", err.Error())
+			dst.TeamsRequesterSettings = nil
+			return fmt.Errorf("failed to unmarshal RequesterSettingsFullRequesterSettings as TeamsRequesterSettings: %s", err.Error())
 		}
 	}
 
@@ -120,6 +115,10 @@ func (src RequesterSettingsFullRequesterSettings) MarshalJSON() ([]byte, error) 
 		return json.Marshal(&src.GroupsRequesterSettings)
 	}
 
+	if src.TeamsRequesterSettings != nil {
+		return json.Marshal(&src.TeamsRequesterSettings)
+	}
+
 	return nil, nil // no data in oneOf schemas
 }
 
@@ -134,6 +133,28 @@ func (obj *RequesterSettingsFullRequesterSettings) GetActualInstance() interface
 
 	if obj.GroupsRequesterSettings != nil {
 		return obj.GroupsRequesterSettings
+	}
+
+	if obj.TeamsRequesterSettings != nil {
+		return obj.TeamsRequesterSettings
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj RequesterSettingsFullRequesterSettings) GetActualInstanceValue() interface{} {
+	if obj.EveryoneRequesterSettings != nil {
+		return *obj.EveryoneRequesterSettings
+	}
+
+	if obj.GroupsRequesterSettings != nil {
+		return *obj.GroupsRequesterSettings
+	}
+
+	if obj.TeamsRequesterSettings != nil {
+		return *obj.TeamsRequesterSettings
 	}
 
 	// all schemas are nil

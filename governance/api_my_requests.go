@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ package governance
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
@@ -34,6 +34,7 @@ import (
 )
 
 type MyRequestsAPI interface {
+
 	/*
 		CreateMyRequestV2 Create a request
 
@@ -52,7 +53,7 @@ type MyRequestsAPI interface {
 	/*
 		GetMyRequestV2 Retrieve my request
 
-		Retrieves a request
+		Retrieves a request belonging to the authenticated requester
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param entryId The ID of the catalog entry
@@ -77,7 +78,7 @@ type ApiCreateMyRequestV2Request struct {
 	retryCount         int32
 }
 
-// Creates a resource access request for a given user  You can use this endpoint to create access requests managed by access request conditions.  If &#x60;requestedBy&#x60; and &#x60;requestedFor&#x60; are not the same, you must also enable the &#x60;requestOnBehalfOfSettings&#x60; property on the Access request settings. See [Request Settings](https://developer.okta.com/docs/api/iga/openapi/governance.requests.admin.v2/tag/Request-Settings/#tag/Request-Settings/operation/updateResourceRequestSettingsV2!path&#x3D;requestOnBehalfOfSettings&amp;t&#x3D;request).  As part of the payload for the Create a request endpoint, include the following information:  - The Okta user ID for the user who requires access. Add the user ID in the &#x60;requestedFor.externalId&#x60; parameter. - The Catalog entry ID of the resource required by the user. Add the catalog ID in the &#x60;requested.entryId&#x60; parameter. - If the request conditions include requester input fields, add the field and information for the field to the &#x60;requesterFieldValues&#x60; array. See [Retrieve an entry&#39;s request fields](https://developer.okta.com/docs/api/iga/openapi/governance.requests.admin.v2/tag/Catalogs/#tag/Catalogs/operation/getCatalogEntryRequestFieldsV2). - Optional: The user ID of the person submitting the request. By default, this value is the admin user ID calling the endpoint and doesn&#39;t need to be provided. However, to add a different Okta user ID for the request, include the &#x60;requestedBy.externalId&#x60; parameter in the request body.
+// Creates a resource access request for a given user.  Use this operation to create access requests managed by access request conditions.  If &#x60;requestedBy&#x60; and &#x60;requestedFor&#x60; aren&#39;t the same, then you must also enable the [&#x60;requestOnBehalfOfSettings&#x60;](https://developer.okta.com/docs/api/iga/openapi/governance.requests.admin.v2/tag/Request-Settings/#tag/Request-Settings/operation/updateResourceRequestSettingsV2!path&#x3D;requestOnBehalfOfSettings&amp;t&#x3D;request) parameter in the access request settings. See [Update the resource request settings](https://developer.okta.com/docs/api/iga/openapi/governance.requests.admin.v2/tag/Request-Settings/#tag/Request-Settings/operation/updateResourceRequestSettingsV2).  Include the following information in the payload:  - The Okta user ID for the user who requires access. Add the user ID in the &#x60;requestedFor.externalId&#x60; parameter. - The catalog entry ID of the resource required by the user. Add the catalog ID in the &#x60;requested.entryId&#x60; parameter. - If the request conditions include requester input fields, add field information in the &#x60;requesterFieldValues&#x60; array. See [Retrieve the request fields](https://developer.okta.com/docs/api/iga/openapi/governance.requests.admin.v2/tag/Catalogs/#tag/Catalogs/operation/getCatalogEntryRequestFieldsV2). - Optional: The user ID of the person submitting the request. By default, this value is the admin user ID requesting this operation and doesn&#39;t need to be provided. However, to add a different Okta user ID for the request, include the &#x60;requestedBy.externalId&#x60; parameter in the request body.
 func (r ApiCreateMyRequestV2Request) MyRequestCreatable(myRequestCreatable MyRequestCreatable) ApiCreateMyRequestV2Request {
 	r.myRequestCreatable = &myRequestCreatable
 	return r
@@ -139,7 +140,7 @@ func (a *MyRequestsAPIService) CreateMyRequestV2Execute(r ApiCreateMyRequestV2Re
 		return localVarReturnValue, nil, reportError("entryId must have at least 20 elements")
 	}
 	if strlen(r.entryId) > 20 {
-		return localVarReturnValue, nil, reportError("entryId must have at most 20 elements")
+		return localVarReturnValue, nil, reportError("entryId must have less than 20 elements")
 	}
 	if r.myRequestCreatable == nil {
 		return localVarReturnValue, nil, reportError("myRequestCreatable is required and must be specified")
@@ -174,9 +175,9 @@ func (a *MyRequestsAPIService) CreateMyRequestV2Execute(r ApiCreateMyRequestV2Re
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -254,7 +255,7 @@ func (r ApiGetMyRequestV2Request) Execute() (*RequestFull2, *APIResponse, error)
 /*
 GetMyRequestV2 Retrieve my request
 
-Retrieves a request
+Retrieves a request belonging to the authenticated requester
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param entryId The ID of the catalog entry
@@ -306,13 +307,13 @@ func (a *MyRequestsAPIService) GetMyRequestV2Execute(r ApiGetMyRequestV2Request)
 		return localVarReturnValue, nil, reportError("entryId must have at least 20 elements")
 	}
 	if strlen(r.entryId) > 20 {
-		return localVarReturnValue, nil, reportError("entryId must have at most 20 elements")
+		return localVarReturnValue, nil, reportError("entryId must have less than 20 elements")
 	}
 	if strlen(r.requestId) < 20 {
 		return localVarReturnValue, nil, reportError("requestId must have at least 20 elements")
 	}
 	if strlen(r.requestId) > 20 {
-		return localVarReturnValue, nil, reportError("requestId must have at most 20 elements")
+		return localVarReturnValue, nil, reportError("requestId must have less than 20 elements")
 	}
 
 	// to determine the Content-Type header
@@ -342,9 +343,9 @@ func (a *MyRequestsAPIService) GetMyRequestV2Execute(r ApiGetMyRequestV2Request)
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | Pointer to [**[]RequestField**](RequestField.md) |  | [optional] 
+**Data** | Pointer to [**[]RequestField**](RequestField.md) | List of request fields | [optional] 
 **Metadata** | Pointer to [**CatalogEntryRequestFieldsMetadata**](CatalogEntryRequestFieldsMetadata.md) |  | [optional] 
 
 ## Methods

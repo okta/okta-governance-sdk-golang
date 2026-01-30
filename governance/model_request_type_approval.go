@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,7 +28,6 @@ import (
 	"fmt"
 )
 
-// model_oneof.mustache
 // RequestTypeApproval - request-type-approval-description.md
 type RequestTypeApproval struct {
 	RequestTypeApprovalManager       *RequestTypeApprovalManager
@@ -65,14 +64,14 @@ func RequestTypeApprovalUserAsRequestTypeApproval(v *RequestTypeApprovalUser) Re
 	}
 }
 
-// Unmarshal JSON data into one of the pointers in the struct  CUSTOM
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *RequestTypeApproval) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup
 	var jsonDict map[string]interface{}
 	err = newStrictDecoder(data).Decode(&jsonDict)
 	if err != nil {
-		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
 	// check if the discriminator value is 'MANAGER'
@@ -83,7 +82,7 @@ func (dst *RequestTypeApproval) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.RequestTypeApprovalManager, return on the first match
 		} else {
 			dst.RequestTypeApprovalManager = nil
-			return fmt.Errorf("Failed to unmarshal RequestTypeApproval as RequestTypeApprovalManager: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal RequestTypeApproval as RequestTypeApprovalManager: %s", err.Error())
 		}
 	}
 
@@ -95,7 +94,7 @@ func (dst *RequestTypeApproval) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.RequestTypeApprovalMemberOf, return on the first match
 		} else {
 			dst.RequestTypeApprovalMemberOf = nil
-			return fmt.Errorf("Failed to unmarshal RequestTypeApproval as RequestTypeApprovalMemberOf: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal RequestTypeApproval as RequestTypeApprovalMemberOf: %s", err.Error())
 		}
 	}
 
@@ -107,7 +106,7 @@ func (dst *RequestTypeApproval) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.RequestTypeApprovalResourceOwner, return on the first match
 		} else {
 			dst.RequestTypeApprovalResourceOwner = nil
-			return fmt.Errorf("Failed to unmarshal RequestTypeApproval as RequestTypeApprovalResourceOwner: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal RequestTypeApproval as RequestTypeApprovalResourceOwner: %s", err.Error())
 		}
 	}
 
@@ -119,55 +118,7 @@ func (dst *RequestTypeApproval) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.RequestTypeApprovalUser, return on the first match
 		} else {
 			dst.RequestTypeApprovalUser = nil
-			return fmt.Errorf("Failed to unmarshal RequestTypeApproval as RequestTypeApprovalUser: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'request-type-approval-manager'
-	if jsonDict["approverType"] == "request-type-approval-manager" {
-		// try to unmarshal JSON data into RequestTypeApprovalManager
-		err = json.Unmarshal(data, &dst.RequestTypeApprovalManager)
-		if err == nil {
-			return nil // data stored in dst.RequestTypeApprovalManager, return on the first match
-		} else {
-			dst.RequestTypeApprovalManager = nil
-			return fmt.Errorf("Failed to unmarshal RequestTypeApproval as RequestTypeApprovalManager: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'request-type-approval-member-of'
-	if jsonDict["approverType"] == "request-type-approval-member-of" {
-		// try to unmarshal JSON data into RequestTypeApprovalMemberOf
-		err = json.Unmarshal(data, &dst.RequestTypeApprovalMemberOf)
-		if err == nil {
-			return nil // data stored in dst.RequestTypeApprovalMemberOf, return on the first match
-		} else {
-			dst.RequestTypeApprovalMemberOf = nil
-			return fmt.Errorf("Failed to unmarshal RequestTypeApproval as RequestTypeApprovalMemberOf: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'request-type-approval-resource-owner'
-	if jsonDict["approverType"] == "request-type-approval-resource-owner" {
-		// try to unmarshal JSON data into RequestTypeApprovalResourceOwner
-		err = json.Unmarshal(data, &dst.RequestTypeApprovalResourceOwner)
-		if err == nil {
-			return nil // data stored in dst.RequestTypeApprovalResourceOwner, return on the first match
-		} else {
-			dst.RequestTypeApprovalResourceOwner = nil
-			return fmt.Errorf("Failed to unmarshal RequestTypeApproval as RequestTypeApprovalResourceOwner: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'request-type-approval-user'
-	if jsonDict["approverType"] == "request-type-approval-user" {
-		// try to unmarshal JSON data into RequestTypeApprovalUser
-		err = json.Unmarshal(data, &dst.RequestTypeApprovalUser)
-		if err == nil {
-			return nil // data stored in dst.RequestTypeApprovalUser, return on the first match
-		} else {
-			dst.RequestTypeApprovalUser = nil
-			return fmt.Errorf("Failed to unmarshal RequestTypeApproval as RequestTypeApprovalUser: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal RequestTypeApproval as RequestTypeApprovalUser: %s", err.Error())
 		}
 	}
 
@@ -214,6 +165,28 @@ func (obj *RequestTypeApproval) GetActualInstance() interface{} {
 
 	if obj.RequestTypeApprovalUser != nil {
 		return obj.RequestTypeApprovalUser
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj RequestTypeApproval) GetActualInstanceValue() interface{} {
+	if obj.RequestTypeApprovalManager != nil {
+		return *obj.RequestTypeApprovalManager
+	}
+
+	if obj.RequestTypeApprovalMemberOf != nil {
+		return *obj.RequestTypeApprovalMemberOf
+	}
+
+	if obj.RequestTypeApprovalResourceOwner != nil {
+		return *obj.RequestTypeApprovalResourceOwner
+	}
+
+	if obj.RequestTypeApprovalUser != nil {
+		return *obj.RequestTypeApprovalUser
 	}
 
 	// all schemas are nil

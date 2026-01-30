@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -24,8 +24,13 @@ Contact: devex-public@okta.com
 package governance
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the AccessDurationSettingsAdminFixedDuration type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AccessDurationSettingsAdminFixedDuration{}
 
 // AccessDurationSettingsAdminFixedDuration Settings when the access duration is specified by the admin.
 type AccessDurationSettingsAdminFixedDuration struct {
@@ -33,6 +38,8 @@ type AccessDurationSettingsAdminFixedDuration struct {
 	// The duration set by the admin for access durations. Use ISO8061 notation for duration values, see https://tc39.es/proposal-temporal/docs/duration.html. You can set up an access duration to a maximum of 72 hours (`PT72H`), 90 days (`90D`), or 12 weeks (`P12W`). For example:    - 24 hours (`PT24H`)   - 7 days (`P7D`)   - 2 weeks (`P2W`)
 	Duration string `json:"duration"`
 }
+
+type _AccessDurationSettingsAdminFixedDuration AccessDurationSettingsAdminFixedDuration
 
 // NewAccessDurationSettingsAdminFixedDuration instantiates a new AccessDurationSettingsAdminFixedDuration object
 // This constructor will assign default values to properties that have it defined,
@@ -102,14 +109,56 @@ func (o *AccessDurationSettingsAdminFixedDuration) SetDuration(v string) {
 }
 
 func (o AccessDurationSettingsAdminFixedDuration) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if true {
-		toSerialize["duration"] = o.Duration
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AccessDurationSettingsAdminFixedDuration) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["type"] = o.Type
+	toSerialize["duration"] = o.Duration
+	return toSerialize, nil
+}
+
+func (o *AccessDurationSettingsAdminFixedDuration) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"type",
+		"duration",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAccessDurationSettingsAdminFixedDuration := _AccessDurationSettingsAdminFixedDuration{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varAccessDurationSettingsAdminFixedDuration)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AccessDurationSettingsAdminFixedDuration(varAccessDurationSettingsAdminFixedDuration)
+
+	return err
 }
 
 type NullableAccessDurationSettingsAdminFixedDuration struct {

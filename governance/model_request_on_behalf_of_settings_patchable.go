@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the RequestOnBehalfOfSettingsPatchable type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RequestOnBehalfOfSettingsPatchable{}
 
 // RequestOnBehalfOfSettingsPatchable Specifies if and for whom a requester may request the resource for.
 type RequestOnBehalfOfSettingsPatchable struct {
@@ -93,7 +97,7 @@ func (o *RequestOnBehalfOfSettingsPatchable) GetOnlyFor() []RequestOnBehalfOfTyp
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *RequestOnBehalfOfSettingsPatchable) GetOnlyForOk() ([]RequestOnBehalfOfType, bool) {
-	if o == nil || o.OnlyFor == nil {
+	if o == nil || IsNil(o.OnlyFor) {
 		return nil, false
 	}
 	return o.OnlyFor, true
@@ -101,7 +105,7 @@ func (o *RequestOnBehalfOfSettingsPatchable) GetOnlyForOk() ([]RequestOnBehalfOf
 
 // HasOnlyFor returns a boolean if a field has been set.
 func (o *RequestOnBehalfOfSettingsPatchable) HasOnlyFor() bool {
-	if o != nil && o.OnlyFor != nil {
+	if o != nil && !IsNil(o.OnlyFor) {
 		return true
 	}
 
@@ -114,10 +118,16 @@ func (o *RequestOnBehalfOfSettingsPatchable) SetOnlyFor(v []RequestOnBehalfOfTyp
 }
 
 func (o RequestOnBehalfOfSettingsPatchable) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["allowed"] = o.Allowed
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RequestOnBehalfOfSettingsPatchable) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["allowed"] = o.Allowed
 	if o.OnlyFor != nil {
 		toSerialize["onlyFor"] = o.OnlyFor
 	}
@@ -126,28 +136,47 @@ func (o RequestOnBehalfOfSettingsPatchable) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RequestOnBehalfOfSettingsPatchable) UnmarshalJSON(bytes []byte) (err error) {
-	varRequestOnBehalfOfSettingsPatchable := _RequestOnBehalfOfSettingsPatchable{}
+func (o *RequestOnBehalfOfSettingsPatchable) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"allowed",
+	}
 
-	err = json.Unmarshal(bytes, &varRequestOnBehalfOfSettingsPatchable)
-	if err == nil {
-		*o = RequestOnBehalfOfSettingsPatchable(varRequestOnBehalfOfSettingsPatchable)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRequestOnBehalfOfSettingsPatchable := _RequestOnBehalfOfSettingsPatchable{}
+
+	err = json.Unmarshal(data, &varRequestOnBehalfOfSettingsPatchable)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RequestOnBehalfOfSettingsPatchable(varRequestOnBehalfOfSettingsPatchable)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "allowed")
 		delete(additionalProperties, "onlyFor")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

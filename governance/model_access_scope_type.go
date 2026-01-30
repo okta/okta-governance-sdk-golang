@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -36,6 +36,7 @@ const (
 	ACCESSSCOPETYPE_ENTITLEMENT_BUNDLE AccessScopeType = "ENTITLEMENT_BUNDLE"
 	ACCESSSCOPETYPE_GROUP              AccessScopeType = "GROUP"
 	ACCESSSCOPETYPE_APPLICATION        AccessScopeType = "APPLICATION"
+	ACCESSSCOPETYPE_REQUEST_TYPE       AccessScopeType = "REQUEST_TYPE"
 )
 
 // All allowed values of AccessScopeType enum
@@ -43,6 +44,7 @@ var AllowedAccessScopeTypeEnumValues = []AccessScopeType{
 	"ENTITLEMENT_BUNDLE",
 	"GROUP",
 	"APPLICATION",
+	"REQUEST_TYPE",
 }
 
 func (v *AccessScopeType) UnmarshalJSON(src []byte) error {

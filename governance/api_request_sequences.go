@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,16 +26,15 @@ package governance
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 	"time"
-
-	"github.com/okta/okta-sdk-golang/v5/okta"
 )
 
 type RequestSequencesAPI interface {
+
 	/*
 		DeleteRequestSequenceV2 Delete a request sequence
 
@@ -145,7 +144,7 @@ func (a *RequestSequencesAPIService) DeleteRequestSequenceV2Execute(r ApiDeleteR
 		return nil, reportError("sequenceId must have at least 24 elements")
 	}
 	if strlen(r.sequenceId) > 24 {
-		return nil, reportError("sequenceId must have at most 24 elements")
+		return nil, reportError("sequenceId must have less than 24 elements")
 	}
 
 	// to determine the Content-Type header
@@ -167,7 +166,7 @@ func (a *RequestSequencesAPIService) DeleteRequestSequenceV2Execute(r ApiDeleteR
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(okta.ContextAPIKeys).(map[string]okta.APIKey); ok {
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["ApiKey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -189,9 +188,9 @@ func (a *RequestSequencesAPIService) DeleteRequestSequenceV2Execute(r ApiDeleteR
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -335,7 +334,7 @@ func (a *RequestSequencesAPIService) GetResourceRequestSequenceV2Execute(r ApiGe
 		return localVarReturnValue, nil, reportError("sequenceId must have at least 24 elements")
 	}
 	if strlen(r.sequenceId) > 24 {
-		return localVarReturnValue, nil, reportError("sequenceId must have at most 24 elements")
+		return localVarReturnValue, nil, reportError("sequenceId must have less than 24 elements")
 	}
 
 	// to determine the Content-Type header
@@ -357,7 +356,7 @@ func (a *RequestSequencesAPIService) GetResourceRequestSequenceV2Execute(r ApiGe
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(okta.ContextAPIKeys).(map[string]okta.APIKey); ok {
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["ApiKey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -379,9 +378,9 @@ func (a *RequestSequencesAPIService) GetResourceRequestSequenceV2Execute(r ApiGe
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -547,7 +546,7 @@ func (a *RequestSequencesAPIService) ListResourceRequestSequencesV2Execute(r Api
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(okta.ContextAPIKeys).(map[string]okta.APIKey); ok {
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["ApiKey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -569,9 +568,9 @@ func (a *RequestSequencesAPIService) ListResourceRequestSequencesV2Execute(r Api
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err

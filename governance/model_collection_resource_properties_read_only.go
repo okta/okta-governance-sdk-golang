@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the CollectionResourcePropertiesReadOnly type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CollectionResourcePropertiesReadOnly{}
+
 // CollectionResourcePropertiesReadOnly struct for CollectionResourcePropertiesReadOnly
 type CollectionResourcePropertiesReadOnly struct {
-	// The Okta `app.id` of the resource  See the [List applications](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Application/#tag/Application/operation/listApplications) endpoint to retrieve application IDs.
+	// The Okta `app.id` of the resource.  See [List applications](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Application/#tag/Application/operation/listApplications) to retrieve app IDs.
 	ResourceId           *string                  `json:"resourceId,omitempty"`
 	Links                *CollectionResourceLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -56,7 +59,7 @@ func NewCollectionResourcePropertiesReadOnlyWithDefaults() *CollectionResourcePr
 
 // GetResourceId returns the ResourceId field value if set, zero value otherwise.
 func (o *CollectionResourcePropertiesReadOnly) GetResourceId() string {
-	if o == nil || o.ResourceId == nil {
+	if o == nil || IsNil(o.ResourceId) {
 		var ret string
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *CollectionResourcePropertiesReadOnly) GetResourceId() string {
 // GetResourceIdOk returns a tuple with the ResourceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionResourcePropertiesReadOnly) GetResourceIdOk() (*string, bool) {
-	if o == nil || o.ResourceId == nil {
+	if o == nil || IsNil(o.ResourceId) {
 		return nil, false
 	}
 	return o.ResourceId, true
@@ -74,7 +77,7 @@ func (o *CollectionResourcePropertiesReadOnly) GetResourceIdOk() (*string, bool)
 
 // HasResourceId returns a boolean if a field has been set.
 func (o *CollectionResourcePropertiesReadOnly) HasResourceId() bool {
-	if o != nil && o.ResourceId != nil {
+	if o != nil && !IsNil(o.ResourceId) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *CollectionResourcePropertiesReadOnly) SetResourceId(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *CollectionResourcePropertiesReadOnly) GetLinks() CollectionResourceLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret CollectionResourceLinks
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *CollectionResourcePropertiesReadOnly) GetLinks() CollectionResourceLink
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionResourcePropertiesReadOnly) GetLinksOk() (*CollectionResourceLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -106,7 +109,7 @@ func (o *CollectionResourcePropertiesReadOnly) GetLinksOk() (*CollectionResource
 
 // HasLinks returns a boolean if a field has been set.
 func (o *CollectionResourcePropertiesReadOnly) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -119,11 +122,19 @@ func (o *CollectionResourcePropertiesReadOnly) SetLinks(v CollectionResourceLink
 }
 
 func (o CollectionResourcePropertiesReadOnly) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CollectionResourcePropertiesReadOnly) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ResourceId != nil {
+	if !IsNil(o.ResourceId) {
 		toSerialize["resourceId"] = o.ResourceId
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -131,28 +142,26 @@ func (o CollectionResourcePropertiesReadOnly) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *CollectionResourcePropertiesReadOnly) UnmarshalJSON(bytes []byte) (err error) {
+func (o *CollectionResourcePropertiesReadOnly) UnmarshalJSON(data []byte) (err error) {
 	varCollectionResourcePropertiesReadOnly := _CollectionResourcePropertiesReadOnly{}
 
-	err = json.Unmarshal(bytes, &varCollectionResourcePropertiesReadOnly)
-	if err == nil {
-		*o = CollectionResourcePropertiesReadOnly(varCollectionResourcePropertiesReadOnly)
-	} else {
+	err = json.Unmarshal(data, &varCollectionResourcePropertiesReadOnly)
+
+	if err != nil {
 		return err
 	}
 
+	*o = CollectionResourcePropertiesReadOnly(varCollectionResourcePropertiesReadOnly)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "resourceId")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

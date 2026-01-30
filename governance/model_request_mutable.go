@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package governance
 import (
 	"encoding/json"
 )
+
+// checks if the RequestMutable type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RequestMutable{}
 
 // RequestMutable Properties which are mutable in mutation operations
 type RequestMutable struct {
@@ -59,7 +62,7 @@ func NewRequestMutableWithDefaults() *RequestMutable {
 
 // GetRequestTypeId returns the RequestTypeId field value if set, zero value otherwise.
 func (o *RequestMutable) GetRequestTypeId() string {
-	if o == nil || o.RequestTypeId == nil {
+	if o == nil || IsNil(o.RequestTypeId) {
 		var ret string
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *RequestMutable) GetRequestTypeId() string {
 // GetRequestTypeIdOk returns a tuple with the RequestTypeId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestMutable) GetRequestTypeIdOk() (*string, bool) {
-	if o == nil || o.RequestTypeId == nil {
+	if o == nil || IsNil(o.RequestTypeId) {
 		return nil, false
 	}
 	return o.RequestTypeId, true
@@ -77,7 +80,7 @@ func (o *RequestMutable) GetRequestTypeIdOk() (*string, bool) {
 
 // HasRequestTypeId returns a boolean if a field has been set.
 func (o *RequestMutable) HasRequestTypeId() bool {
-	if o != nil && o.RequestTypeId != nil {
+	if o != nil && !IsNil(o.RequestTypeId) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *RequestMutable) SetRequestTypeId(v string) {
 
 // GetSubject returns the Subject field value if set, zero value otherwise.
 func (o *RequestMutable) GetSubject() string {
-	if o == nil || o.Subject == nil {
+	if o == nil || IsNil(o.Subject) {
 		var ret string
 		return ret
 	}
@@ -101,7 +104,7 @@ func (o *RequestMutable) GetSubject() string {
 // GetSubjectOk returns a tuple with the Subject field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestMutable) GetSubjectOk() (*string, bool) {
-	if o == nil || o.Subject == nil {
+	if o == nil || IsNil(o.Subject) {
 		return nil, false
 	}
 	return o.Subject, true
@@ -109,7 +112,7 @@ func (o *RequestMutable) GetSubjectOk() (*string, bool) {
 
 // HasSubject returns a boolean if a field has been set.
 func (o *RequestMutable) HasSubject() bool {
-	if o != nil && o.Subject != nil {
+	if o != nil && !IsNil(o.Subject) {
 		return true
 	}
 
@@ -123,7 +126,7 @@ func (o *RequestMutable) SetSubject(v string) {
 
 // GetRequesterUserIds returns the RequesterUserIds field value if set, zero value otherwise.
 func (o *RequestMutable) GetRequesterUserIds() []string {
-	if o == nil || o.RequesterUserIds == nil {
+	if o == nil || IsNil(o.RequesterUserIds) {
 		var ret []string
 		return ret
 	}
@@ -133,7 +136,7 @@ func (o *RequestMutable) GetRequesterUserIds() []string {
 // GetRequesterUserIdsOk returns a tuple with the RequesterUserIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestMutable) GetRequesterUserIdsOk() ([]string, bool) {
-	if o == nil || o.RequesterUserIds == nil {
+	if o == nil || IsNil(o.RequesterUserIds) {
 		return nil, false
 	}
 	return o.RequesterUserIds, true
@@ -141,7 +144,7 @@ func (o *RequestMutable) GetRequesterUserIdsOk() ([]string, bool) {
 
 // HasRequesterUserIds returns a boolean if a field has been set.
 func (o *RequestMutable) HasRequesterUserIds() bool {
-	if o != nil && o.RequesterUserIds != nil {
+	if o != nil && !IsNil(o.RequesterUserIds) {
 		return true
 	}
 
@@ -154,14 +157,22 @@ func (o *RequestMutable) SetRequesterUserIds(v []string) {
 }
 
 func (o RequestMutable) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RequestMutable) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.RequestTypeId != nil {
+	if !IsNil(o.RequestTypeId) {
 		toSerialize["requestTypeId"] = o.RequestTypeId
 	}
-	if o.Subject != nil {
+	if !IsNil(o.Subject) {
 		toSerialize["subject"] = o.Subject
 	}
-	if o.RequesterUserIds != nil {
+	if !IsNil(o.RequesterUserIds) {
 		toSerialize["requesterUserIds"] = o.RequesterUserIds
 	}
 
@@ -169,29 +180,27 @@ func (o RequestMutable) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RequestMutable) UnmarshalJSON(bytes []byte) (err error) {
+func (o *RequestMutable) UnmarshalJSON(data []byte) (err error) {
 	varRequestMutable := _RequestMutable{}
 
-	err = json.Unmarshal(bytes, &varRequestMutable)
-	if err == nil {
-		*o = RequestMutable(varRequestMutable)
-	} else {
+	err = json.Unmarshal(data, &varRequestMutable)
+
+	if err != nil {
 		return err
 	}
 
+	*o = RequestMutable(varRequestMutable)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "requestTypeId")
 		delete(additionalProperties, "subject")
 		delete(additionalProperties, "requesterUserIds")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

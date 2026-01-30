@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the RemediationSettings type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RemediationSettings{}
 
 // RemediationSettings Specify the action to be taken after a reviewer makes a decision to `APPROVE` or `REVOKE` the access, or if the campaign was `CLOSED` and there was no response from the reviewer.
 type RemediationSettings struct {
@@ -138,7 +142,7 @@ func (o *RemediationSettings) SetNoResponse(v NoResponseRemediationAction) {
 
 // GetAutoRemediationSettings returns the AutoRemediationSettings field value if set, zero value otherwise.
 func (o *RemediationSettings) GetAutoRemediationSettings() AutoRemediationSettings {
-	if o == nil || o.AutoRemediationSettings == nil {
+	if o == nil || IsNil(o.AutoRemediationSettings) {
 		var ret AutoRemediationSettings
 		return ret
 	}
@@ -148,7 +152,7 @@ func (o *RemediationSettings) GetAutoRemediationSettings() AutoRemediationSettin
 // GetAutoRemediationSettingsOk returns a tuple with the AutoRemediationSettings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RemediationSettings) GetAutoRemediationSettingsOk() (*AutoRemediationSettings, bool) {
-	if o == nil || o.AutoRemediationSettings == nil {
+	if o == nil || IsNil(o.AutoRemediationSettings) {
 		return nil, false
 	}
 	return o.AutoRemediationSettings, true
@@ -156,7 +160,7 @@ func (o *RemediationSettings) GetAutoRemediationSettingsOk() (*AutoRemediationSe
 
 // HasAutoRemediationSettings returns a boolean if a field has been set.
 func (o *RemediationSettings) HasAutoRemediationSettings() bool {
-	if o != nil && o.AutoRemediationSettings != nil {
+	if o != nil && !IsNil(o.AutoRemediationSettings) {
 		return true
 	}
 
@@ -169,17 +173,19 @@ func (o *RemediationSettings) SetAutoRemediationSettings(v AutoRemediationSettin
 }
 
 func (o RemediationSettings) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RemediationSettings) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["accessApproved"] = o.AccessApproved
-	}
-	if true {
-		toSerialize["accessRevoked"] = o.AccessRevoked
-	}
-	if true {
-		toSerialize["noResponse"] = o.NoResponse
-	}
-	if o.AutoRemediationSettings != nil {
+	toSerialize["accessApproved"] = o.AccessApproved
+	toSerialize["accessRevoked"] = o.AccessRevoked
+	toSerialize["noResponse"] = o.NoResponse
+	if !IsNil(o.AutoRemediationSettings) {
 		toSerialize["autoRemediationSettings"] = o.AutoRemediationSettings
 	}
 
@@ -187,30 +193,51 @@ func (o RemediationSettings) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RemediationSettings) UnmarshalJSON(bytes []byte) (err error) {
-	varRemediationSettings := _RemediationSettings{}
+func (o *RemediationSettings) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"accessApproved",
+		"accessRevoked",
+		"noResponse",
+	}
 
-	err = json.Unmarshal(bytes, &varRemediationSettings)
-	if err == nil {
-		*o = RemediationSettings(varRemediationSettings)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRemediationSettings := _RemediationSettings{}
+
+	err = json.Unmarshal(data, &varRemediationSettings)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RemediationSettings(varRemediationSettings)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "accessApproved")
 		delete(additionalProperties, "accessRevoked")
 		delete(additionalProperties, "noResponse")
 		delete(additionalProperties, "autoRemediationSettings")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package governance
 import (
 	"encoding/json"
 )
+
+// checks if the RcarEntryCounts type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RcarEntryCounts{}
 
 // RcarEntryCounts Entry count metadata
 type RcarEntryCounts struct {
@@ -54,7 +57,7 @@ func NewRcarEntryCountsWithDefaults() *RcarEntryCounts {
 
 // GetResourceCounts returns the ResourceCounts field value if set, zero value otherwise.
 func (o *RcarEntryCounts) GetResourceCounts() RcarEntryCountsResourceCounts {
-	if o == nil || o.ResourceCounts == nil {
+	if o == nil || IsNil(o.ResourceCounts) {
 		var ret RcarEntryCountsResourceCounts
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *RcarEntryCounts) GetResourceCounts() RcarEntryCountsResourceCounts {
 // GetResourceCountsOk returns a tuple with the ResourceCounts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RcarEntryCounts) GetResourceCountsOk() (*RcarEntryCountsResourceCounts, bool) {
-	if o == nil || o.ResourceCounts == nil {
+	if o == nil || IsNil(o.ResourceCounts) {
 		return nil, false
 	}
 	return o.ResourceCounts, true
@@ -72,7 +75,7 @@ func (o *RcarEntryCounts) GetResourceCountsOk() (*RcarEntryCountsResourceCounts,
 
 // HasResourceCounts returns a boolean if a field has been set.
 func (o *RcarEntryCounts) HasResourceCounts() bool {
-	if o != nil && o.ResourceCounts != nil {
+	if o != nil && !IsNil(o.ResourceCounts) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *RcarEntryCounts) SetResourceCounts(v RcarEntryCountsResourceCounts) {
 }
 
 func (o RcarEntryCounts) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RcarEntryCounts) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ResourceCounts != nil {
+	if !IsNil(o.ResourceCounts) {
 		toSerialize["resourceCounts"] = o.ResourceCounts
 	}
 
@@ -94,27 +105,25 @@ func (o RcarEntryCounts) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RcarEntryCounts) UnmarshalJSON(bytes []byte) (err error) {
+func (o *RcarEntryCounts) UnmarshalJSON(data []byte) (err error) {
 	varRcarEntryCounts := _RcarEntryCounts{}
 
-	err = json.Unmarshal(bytes, &varRcarEntryCounts)
-	if err == nil {
-		*o = RcarEntryCounts(varRcarEntryCounts)
-	} else {
+	err = json.Unmarshal(data, &varRcarEntryCounts)
+
+	if err != nil {
 		return err
 	}
 
+	*o = RcarEntryCounts(varRcarEntryCounts)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "resourceCounts")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

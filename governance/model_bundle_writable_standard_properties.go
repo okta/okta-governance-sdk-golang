@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the BundleWritableStandardProperties type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BundleWritableStandardProperties{}
+
 // BundleWritableStandardProperties struct for BundleWritableStandardProperties
 type BundleWritableStandardProperties struct {
-	// The unique name of the entitlement bundle.
+	// The unique name of the entitlement bundle
 	Name *string `json:"name,omitempty"`
 	// The human-readable description
 	Description          *string `json:"description,omitempty"`
@@ -57,7 +60,7 @@ func NewBundleWritableStandardPropertiesWithDefaults() *BundleWritableStandardPr
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *BundleWritableStandardProperties) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *BundleWritableStandardProperties) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BundleWritableStandardProperties) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -75,7 +78,7 @@ func (o *BundleWritableStandardProperties) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *BundleWritableStandardProperties) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *BundleWritableStandardProperties) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *BundleWritableStandardProperties) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *BundleWritableStandardProperties) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BundleWritableStandardProperties) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -107,7 +110,7 @@ func (o *BundleWritableStandardProperties) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *BundleWritableStandardProperties) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *BundleWritableStandardProperties) SetDescription(v string) {
 }
 
 func (o BundleWritableStandardProperties) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o BundleWritableStandardProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Description != nil {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
 
@@ -132,28 +143,26 @@ func (o BundleWritableStandardProperties) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *BundleWritableStandardProperties) UnmarshalJSON(bytes []byte) (err error) {
+func (o *BundleWritableStandardProperties) UnmarshalJSON(data []byte) (err error) {
 	varBundleWritableStandardProperties := _BundleWritableStandardProperties{}
 
-	err = json.Unmarshal(bytes, &varBundleWritableStandardProperties)
-	if err == nil {
-		*o = BundleWritableStandardProperties(varBundleWritableStandardProperties)
-	} else {
+	err = json.Unmarshal(data, &varBundleWritableStandardProperties)
+
+	if err != nil {
 		return err
 	}
 
+	*o = BundleWritableStandardProperties(varBundleWritableStandardProperties)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "description")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

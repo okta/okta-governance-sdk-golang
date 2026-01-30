@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the StandardGrantPropertiesWriteable type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &StandardGrantPropertiesWriteable{}
 
 // StandardGrantPropertiesWriteable struct for StandardGrantPropertiesWriteable
 type StandardGrantPropertiesWriteable struct {
@@ -90,7 +94,7 @@ func (o *StandardGrantPropertiesWriteable) SetTargetPrincipal(v TargetPrincipal)
 
 // GetScheduleSettings returns the ScheduleSettings field value if set, zero value otherwise.
 func (o *StandardGrantPropertiesWriteable) GetScheduleSettings() ScheduleSettingsWriteable {
-	if o == nil || o.ScheduleSettings == nil {
+	if o == nil || IsNil(o.ScheduleSettings) {
 		var ret ScheduleSettingsWriteable
 		return ret
 	}
@@ -100,7 +104,7 @@ func (o *StandardGrantPropertiesWriteable) GetScheduleSettings() ScheduleSetting
 // GetScheduleSettingsOk returns a tuple with the ScheduleSettings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StandardGrantPropertiesWriteable) GetScheduleSettingsOk() (*ScheduleSettingsWriteable, bool) {
-	if o == nil || o.ScheduleSettings == nil {
+	if o == nil || IsNil(o.ScheduleSettings) {
 		return nil, false
 	}
 	return o.ScheduleSettings, true
@@ -108,7 +112,7 @@ func (o *StandardGrantPropertiesWriteable) GetScheduleSettingsOk() (*ScheduleSet
 
 // HasScheduleSettings returns a boolean if a field has been set.
 func (o *StandardGrantPropertiesWriteable) HasScheduleSettings() bool {
-	if o != nil && o.ScheduleSettings != nil {
+	if o != nil && !IsNil(o.ScheduleSettings) {
 		return true
 	}
 
@@ -122,7 +126,7 @@ func (o *StandardGrantPropertiesWriteable) SetScheduleSettings(v ScheduleSetting
 
 // GetAction returns the Action field value if set, zero value otherwise.
 func (o *StandardGrantPropertiesWriteable) GetAction() GrantAction {
-	if o == nil || o.Action == nil {
+	if o == nil || IsNil(o.Action) {
 		var ret GrantAction
 		return ret
 	}
@@ -132,7 +136,7 @@ func (o *StandardGrantPropertiesWriteable) GetAction() GrantAction {
 // GetActionOk returns a tuple with the Action field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StandardGrantPropertiesWriteable) GetActionOk() (*GrantAction, bool) {
-	if o == nil || o.Action == nil {
+	if o == nil || IsNil(o.Action) {
 		return nil, false
 	}
 	return o.Action, true
@@ -140,7 +144,7 @@ func (o *StandardGrantPropertiesWriteable) GetActionOk() (*GrantAction, bool) {
 
 // HasAction returns a boolean if a field has been set.
 func (o *StandardGrantPropertiesWriteable) HasAction() bool {
-	if o != nil && o.Action != nil {
+	if o != nil && !IsNil(o.Action) {
 		return true
 	}
 
@@ -154,7 +158,7 @@ func (o *StandardGrantPropertiesWriteable) SetAction(v GrantAction) {
 
 // GetActor returns the Actor field value if set, zero value otherwise.
 func (o *StandardGrantPropertiesWriteable) GetActor() GrantActor {
-	if o == nil || o.Actor == nil {
+	if o == nil || IsNil(o.Actor) {
 		var ret GrantActor
 		return ret
 	}
@@ -164,7 +168,7 @@ func (o *StandardGrantPropertiesWriteable) GetActor() GrantActor {
 // GetActorOk returns a tuple with the Actor field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StandardGrantPropertiesWriteable) GetActorOk() (*GrantActor, bool) {
-	if o == nil || o.Actor == nil {
+	if o == nil || IsNil(o.Actor) {
 		return nil, false
 	}
 	return o.Actor, true
@@ -172,7 +176,7 @@ func (o *StandardGrantPropertiesWriteable) GetActorOk() (*GrantActor, bool) {
 
 // HasActor returns a boolean if a field has been set.
 func (o *StandardGrantPropertiesWriteable) HasActor() bool {
-	if o != nil && o.Actor != nil {
+	if o != nil && !IsNil(o.Actor) {
 		return true
 	}
 
@@ -185,17 +189,23 @@ func (o *StandardGrantPropertiesWriteable) SetActor(v GrantActor) {
 }
 
 func (o StandardGrantPropertiesWriteable) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["targetPrincipal"] = o.TargetPrincipal
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.ScheduleSettings != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o StandardGrantPropertiesWriteable) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["targetPrincipal"] = o.TargetPrincipal
+	if !IsNil(o.ScheduleSettings) {
 		toSerialize["scheduleSettings"] = o.ScheduleSettings
 	}
-	if o.Action != nil {
+	if !IsNil(o.Action) {
 		toSerialize["action"] = o.Action
 	}
-	if o.Actor != nil {
+	if !IsNil(o.Actor) {
 		toSerialize["actor"] = o.Actor
 	}
 
@@ -203,30 +213,49 @@ func (o StandardGrantPropertiesWriteable) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *StandardGrantPropertiesWriteable) UnmarshalJSON(bytes []byte) (err error) {
-	varStandardGrantPropertiesWriteable := _StandardGrantPropertiesWriteable{}
+func (o *StandardGrantPropertiesWriteable) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"targetPrincipal",
+	}
 
-	err = json.Unmarshal(bytes, &varStandardGrantPropertiesWriteable)
-	if err == nil {
-		*o = StandardGrantPropertiesWriteable(varStandardGrantPropertiesWriteable)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varStandardGrantPropertiesWriteable := _StandardGrantPropertiesWriteable{}
+
+	err = json.Unmarshal(data, &varStandardGrantPropertiesWriteable)
+
+	if err != nil {
+		return err
+	}
+
+	*o = StandardGrantPropertiesWriteable(varStandardGrantPropertiesWriteable)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "targetPrincipal")
 		delete(additionalProperties, "scheduleSettings")
 		delete(additionalProperties, "action")
 		delete(additionalProperties, "actor")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

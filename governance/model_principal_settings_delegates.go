@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
-// PrincipalSettingsDelegates struct for PrincipalSettingsDelegates
+// checks if the PrincipalSettingsDelegates type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PrincipalSettingsDelegates{}
+
+// PrincipalSettingsDelegates Delegates for the principal
 type PrincipalSettingsDelegates struct {
-	// All delegate appointments
+	// Delegate appointments
 	Appointments         []DelegateAppointment `json:"appointments,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -55,7 +58,7 @@ func NewPrincipalSettingsDelegatesWithDefaults() *PrincipalSettingsDelegates {
 
 // GetAppointments returns the Appointments field value if set, zero value otherwise.
 func (o *PrincipalSettingsDelegates) GetAppointments() []DelegateAppointment {
-	if o == nil || o.Appointments == nil {
+	if o == nil || IsNil(o.Appointments) {
 		var ret []DelegateAppointment
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *PrincipalSettingsDelegates) GetAppointments() []DelegateAppointment {
 // GetAppointmentsOk returns a tuple with the Appointments field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalSettingsDelegates) GetAppointmentsOk() ([]DelegateAppointment, bool) {
-	if o == nil || o.Appointments == nil {
+	if o == nil || IsNil(o.Appointments) {
 		return nil, false
 	}
 	return o.Appointments, true
@@ -73,7 +76,7 @@ func (o *PrincipalSettingsDelegates) GetAppointmentsOk() ([]DelegateAppointment,
 
 // HasAppointments returns a boolean if a field has been set.
 func (o *PrincipalSettingsDelegates) HasAppointments() bool {
-	if o != nil && o.Appointments != nil {
+	if o != nil && !IsNil(o.Appointments) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *PrincipalSettingsDelegates) SetAppointments(v []DelegateAppointment) {
 }
 
 func (o PrincipalSettingsDelegates) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PrincipalSettingsDelegates) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Appointments != nil {
+	if !IsNil(o.Appointments) {
 		toSerialize["appointments"] = o.Appointments
 	}
 
@@ -95,27 +106,25 @@ func (o PrincipalSettingsDelegates) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PrincipalSettingsDelegates) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PrincipalSettingsDelegates) UnmarshalJSON(data []byte) (err error) {
 	varPrincipalSettingsDelegates := _PrincipalSettingsDelegates{}
 
-	err = json.Unmarshal(bytes, &varPrincipalSettingsDelegates)
-	if err == nil {
-		*o = PrincipalSettingsDelegates(varPrincipalSettingsDelegates)
-	} else {
+	err = json.Unmarshal(data, &varPrincipalSettingsDelegates)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PrincipalSettingsDelegates(varPrincipalSettingsDelegates)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "appointments")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

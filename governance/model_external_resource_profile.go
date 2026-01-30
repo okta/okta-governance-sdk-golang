@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,16 +25,21 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the ExternalResourceProfile type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ExternalResourceProfile{}
 
 // ExternalResourceProfile A limited set of properties from the resource's profile
 type ExternalResourceProfile struct {
-	// Okta resource `id`
+	// Okta resource ID
 	Id string `json:"id"`
-	// The display name for the resource.
+	// The display name for the resource
 	Name string `json:"name"`
-	// The description of the resource.
-	Description *string `json:"description,omitempty"`
+	// The description of the resource
+	Description *string                        `json:"description,omitempty"`
+	Parent      *ExternalResourceProfileParent `json:"parent,omitempty"`
 	// The label of the Okta resource
 	Label *string `json:"label,omitempty"`
 	// List of logo resources
@@ -113,7 +118,7 @@ func (o *ExternalResourceProfile) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *ExternalResourceProfile) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -123,7 +128,7 @@ func (o *ExternalResourceProfile) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExternalResourceProfile) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -131,7 +136,7 @@ func (o *ExternalResourceProfile) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *ExternalResourceProfile) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -143,9 +148,41 @@ func (o *ExternalResourceProfile) SetDescription(v string) {
 	o.Description = &v
 }
 
+// GetParent returns the Parent field value if set, zero value otherwise.
+func (o *ExternalResourceProfile) GetParent() ExternalResourceProfileParent {
+	if o == nil || IsNil(o.Parent) {
+		var ret ExternalResourceProfileParent
+		return ret
+	}
+	return *o.Parent
+}
+
+// GetParentOk returns a tuple with the Parent field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ExternalResourceProfile) GetParentOk() (*ExternalResourceProfileParent, bool) {
+	if o == nil || IsNil(o.Parent) {
+		return nil, false
+	}
+	return o.Parent, true
+}
+
+// HasParent returns a boolean if a field has been set.
+func (o *ExternalResourceProfile) HasParent() bool {
+	if o != nil && !IsNil(o.Parent) {
+		return true
+	}
+
+	return false
+}
+
+// SetParent gets a reference to the given ExternalResourceProfileParent and assigns it to the Parent field.
+func (o *ExternalResourceProfile) SetParent(v ExternalResourceProfileParent) {
+	o.Parent = &v
+}
+
 // GetLabel returns the Label field value if set, zero value otherwise.
 func (o *ExternalResourceProfile) GetLabel() string {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		var ret string
 		return ret
 	}
@@ -155,7 +192,7 @@ func (o *ExternalResourceProfile) GetLabel() string {
 // GetLabelOk returns a tuple with the Label field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExternalResourceProfile) GetLabelOk() (*string, bool) {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		return nil, false
 	}
 	return o.Label, true
@@ -163,7 +200,7 @@ func (o *ExternalResourceProfile) GetLabelOk() (*string, bool) {
 
 // HasLabel returns a boolean if a field has been set.
 func (o *ExternalResourceProfile) HasLabel() bool {
-	if o != nil && o.Label != nil {
+	if o != nil && !IsNil(o.Label) {
 		return true
 	}
 
@@ -177,7 +214,7 @@ func (o *ExternalResourceProfile) SetLabel(v string) {
 
 // GetLogo returns the Logo field value if set, zero value otherwise.
 func (o *ExternalResourceProfile) GetLogo() []Link {
-	if o == nil || o.Logo == nil {
+	if o == nil || IsNil(o.Logo) {
 		var ret []Link
 		return ret
 	}
@@ -187,7 +224,7 @@ func (o *ExternalResourceProfile) GetLogo() []Link {
 // GetLogoOk returns a tuple with the Logo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExternalResourceProfile) GetLogoOk() ([]Link, bool) {
-	if o == nil || o.Logo == nil {
+	if o == nil || IsNil(o.Logo) {
 		return nil, false
 	}
 	return o.Logo, true
@@ -195,7 +232,7 @@ func (o *ExternalResourceProfile) GetLogoOk() ([]Link, bool) {
 
 // HasLogo returns a boolean if a field has been set.
 func (o *ExternalResourceProfile) HasLogo() bool {
-	if o != nil && o.Logo != nil {
+	if o != nil && !IsNil(o.Logo) {
 		return true
 	}
 
@@ -208,20 +245,27 @@ func (o *ExternalResourceProfile) SetLogo(v []Link) {
 }
 
 func (o ExternalResourceProfile) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ExternalResourceProfile) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Description != nil {
+	toSerialize["id"] = o.Id
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if o.Label != nil {
+	if !IsNil(o.Parent) {
+		toSerialize["parent"] = o.Parent
+	}
+	if !IsNil(o.Label) {
 		toSerialize["label"] = o.Label
 	}
-	if o.Logo != nil {
+	if !IsNil(o.Logo) {
 		toSerialize["logo"] = o.Logo
 	}
 
@@ -229,31 +273,52 @@ func (o ExternalResourceProfile) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ExternalResourceProfile) UnmarshalJSON(bytes []byte) (err error) {
-	varExternalResourceProfile := _ExternalResourceProfile{}
+func (o *ExternalResourceProfile) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"name",
+	}
 
-	err = json.Unmarshal(bytes, &varExternalResourceProfile)
-	if err == nil {
-		*o = ExternalResourceProfile(varExternalResourceProfile)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varExternalResourceProfile := _ExternalResourceProfile{}
+
+	err = json.Unmarshal(data, &varExternalResourceProfile)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ExternalResourceProfile(varExternalResourceProfile)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "description")
+		delete(additionalProperties, "parent")
 		delete(additionalProperties, "label")
 		delete(additionalProperties, "logo")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

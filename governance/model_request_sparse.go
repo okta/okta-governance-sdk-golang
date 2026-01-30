@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,8 +25,12 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the RequestSparse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RequestSparse{}
 
 // RequestSparse Sparse representation of a Request resource
 type RequestSparse struct {
@@ -35,7 +39,9 @@ type RequestSparse struct {
 	RequestStatus RequestRequestStatus `json:"requestStatus"`
 	// The date the request was resolved. The property may transition from having a value to null if the request is reopened.
 	Resolved NullableTime `json:"resolved"`
-	Links    RequestLinks `json:"_links"`
+	// The immutable, persistent identifier that always resolves to the request
+	PermalinkId int32        `json:"permalinkId"`
+	Links       RequestLinks `json:"_links"`
 	// Unique identifier for the object
 	Id string `json:"id"`
 	// The `id` of the Okta user who created the resource
@@ -61,7 +67,7 @@ type _RequestSparse RequestSparse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRequestSparse(type_ string, requestStatus RequestRequestStatus, resolved NullableTime, links RequestLinks, id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, requestTypeId string, subject string, requesterUserIds []string) *RequestSparse {
+func NewRequestSparse(type_ string, requestStatus RequestRequestStatus, resolved NullableTime, permalinkId int32, links RequestLinks, id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, requestTypeId string, subject string, requesterUserIds []string) *RequestSparse {
 	this := RequestSparse{}
 	this.Id = id
 	this.CreatedBy = createdBy
@@ -155,6 +161,30 @@ func (o *RequestSparse) GetResolvedOk() (*time.Time, bool) {
 // SetResolved sets field value
 func (o *RequestSparse) SetResolved(v time.Time) {
 	o.Resolved.Set(&v)
+}
+
+// GetPermalinkId returns the PermalinkId field value
+func (o *RequestSparse) GetPermalinkId() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.PermalinkId
+}
+
+// GetPermalinkIdOk returns a tuple with the PermalinkId field value
+// and a boolean to check if the value has been set.
+func (o *RequestSparse) GetPermalinkIdOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PermalinkId, true
+}
+
+// SetPermalinkId sets field value
+func (o *RequestSparse) SetPermalinkId(v int32) {
+	o.PermalinkId = v
 }
 
 // GetLinks returns the Links field value
@@ -374,68 +404,87 @@ func (o *RequestSparse) SetRequesterUserIds(v []string) {
 }
 
 func (o RequestSparse) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RequestSparse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if true {
-		toSerialize["requestStatus"] = o.RequestStatus
-	}
-	if true {
-		toSerialize["resolved"] = o.Resolved.Get()
-	}
-	if true {
-		toSerialize["_links"] = o.Links
-	}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["createdBy"] = o.CreatedBy
-	}
-	if true {
-		toSerialize["created"] = o.Created
-	}
-	if true {
-		toSerialize["lastUpdated"] = o.LastUpdated
-	}
-	if true {
-		toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
-	}
-	if true {
-		toSerialize["requestTypeId"] = o.RequestTypeId
-	}
-	if true {
-		toSerialize["subject"] = o.Subject
-	}
-	if true {
-		toSerialize["requesterUserIds"] = o.RequesterUserIds
-	}
+	toSerialize["type"] = o.Type
+	toSerialize["requestStatus"] = o.RequestStatus
+	toSerialize["resolved"] = o.Resolved.Get()
+	toSerialize["permalinkId"] = o.PermalinkId
+	toSerialize["_links"] = o.Links
+	toSerialize["id"] = o.Id
+	toSerialize["createdBy"] = o.CreatedBy
+	toSerialize["created"] = o.Created
+	toSerialize["lastUpdated"] = o.LastUpdated
+	toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
+	toSerialize["requestTypeId"] = o.RequestTypeId
+	toSerialize["subject"] = o.Subject
+	toSerialize["requesterUserIds"] = o.RequesterUserIds
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RequestSparse) UnmarshalJSON(bytes []byte) (err error) {
-	varRequestSparse := _RequestSparse{}
+func (o *RequestSparse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"type",
+		"requestStatus",
+		"resolved",
+		"permalinkId",
+		"_links",
+		"id",
+		"createdBy",
+		"created",
+		"lastUpdated",
+		"lastUpdatedBy",
+		"requestTypeId",
+		"subject",
+		"requesterUserIds",
+	}
 
-	err = json.Unmarshal(bytes, &varRequestSparse)
-	if err == nil {
-		*o = RequestSparse(varRequestSparse)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRequestSparse := _RequestSparse{}
+
+	err = json.Unmarshal(data, &varRequestSparse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RequestSparse(varRequestSparse)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "requestStatus")
 		delete(additionalProperties, "resolved")
+		delete(additionalProperties, "permalinkId")
 		delete(additionalProperties, "_links")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "createdBy")
@@ -446,8 +495,6 @@ func (o *RequestSparse) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "subject")
 		delete(additionalProperties, "requesterUserIds")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

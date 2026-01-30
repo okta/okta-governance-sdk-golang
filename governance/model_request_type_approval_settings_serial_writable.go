@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the RequestTypeApprovalSettingsSerialWritable type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RequestTypeApprovalSettingsSerialWritable{}
 
 // RequestTypeApprovalSettingsSerialWritable Settings for approval
 type RequestTypeApprovalSettingsSerialWritable struct {
@@ -106,40 +110,64 @@ func (o *RequestTypeApprovalSettingsSerialWritable) SetApprovals(v []RequestType
 }
 
 func (o RequestTypeApprovalSettingsSerialWritable) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RequestTypeApprovalSettingsSerialWritable) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if true {
-		toSerialize["approvals"] = o.Approvals
-	}
+	toSerialize["type"] = o.Type
+	toSerialize["approvals"] = o.Approvals
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RequestTypeApprovalSettingsSerialWritable) UnmarshalJSON(bytes []byte) (err error) {
-	varRequestTypeApprovalSettingsSerialWritable := _RequestTypeApprovalSettingsSerialWritable{}
+func (o *RequestTypeApprovalSettingsSerialWritable) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"type",
+		"approvals",
+	}
 
-	err = json.Unmarshal(bytes, &varRequestTypeApprovalSettingsSerialWritable)
-	if err == nil {
-		*o = RequestTypeApprovalSettingsSerialWritable(varRequestTypeApprovalSettingsSerialWritable)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRequestTypeApprovalSettingsSerialWritable := _RequestTypeApprovalSettingsSerialWritable{}
+
+	err = json.Unmarshal(data, &varRequestTypeApprovalSettingsSerialWritable)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RequestTypeApprovalSettingsSerialWritable(varRequestTypeApprovalSettingsSerialWritable)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "approvals")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **Granted** | Pointer to **NullableTime** | The date the approved access was granted. Only set if request.status is APPROVED. | [optional] 
 **RevocationStatus** | Pointer to [**RequestRevocationStatus**](RequestRevocationStatus.md) |  | [optional] 
 **Revoked** | Pointer to **NullableTime** | The date the granted access was revoked. Only set if request.grantStatus is GRANTED and request.revocationStatus is REVOKED. | [optional] 
-**RequestedBy** | [**TargetPrincipal**](TargetPrincipal.md) |  | 
+**RequestedBy** | [**ClientCredentialPrincipal**](ClientCredentialPrincipal.md) |  | 
 **RequestedFor** | [**TargetPrincipal**](TargetPrincipal.md) |  | 
 **Requested** | [**Requested**](Requested.md) |  | 
 
@@ -24,7 +24,7 @@ Name | Type | Description | Notes
 
 ### NewRequestSparse2
 
-`func NewRequestSparse2(id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, links RequestLinks2, status RequestStatus, requestedBy TargetPrincipal, requestedFor TargetPrincipal, requested Requested, ) *RequestSparse2`
+`func NewRequestSparse2(id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, links RequestLinks2, status RequestStatus, requestedBy ClientCredentialPrincipal, requestedFor TargetPrincipal, requested Requested, ) *RequestSparse2`
 
 NewRequestSparse2 instantiates a new RequestSparse2 object
 This constructor will assign default values to properties that have it defined,
@@ -336,20 +336,20 @@ HasRevoked returns a boolean if a field has been set.
 UnsetRevoked ensures that no value is present for Revoked, not even an explicit nil
 ### GetRequestedBy
 
-`func (o *RequestSparse2) GetRequestedBy() TargetPrincipal`
+`func (o *RequestSparse2) GetRequestedBy() ClientCredentialPrincipal`
 
 GetRequestedBy returns the RequestedBy field if non-nil, zero value otherwise.
 
 ### GetRequestedByOk
 
-`func (o *RequestSparse2) GetRequestedByOk() (*TargetPrincipal, bool)`
+`func (o *RequestSparse2) GetRequestedByOk() (*ClientCredentialPrincipal, bool)`
 
 GetRequestedByOk returns a tuple with the RequestedBy field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRequestedBy
 
-`func (o *RequestSparse2) SetRequestedBy(v TargetPrincipal)`
+`func (o *RequestSparse2) SetRequestedBy(v ClientCredentialPrincipal)`
 
 SetRequestedBy sets RequestedBy field to given value.
 

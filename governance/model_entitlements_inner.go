@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,15 +25,19 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the EntitlementsInner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EntitlementsInner{}
 
 // EntitlementsInner struct for EntitlementsInner
 type EntitlementsInner struct {
-	// The entitlement id
+	// The entitlement `id`
 	Id string `json:"id"`
-	// whether to include all entitlement values. If `false` we must provide the `values` property
+	// Indicates whether to include all entitlement values:   * If `true`, all entitlement values are included.   * If `false`, you must specify the `values` property.
 	IncludeAllValues *bool `json:"includeAllValues,omitempty"`
-	// entitlement value ids
+	// Entitlement value IDs
 	Values               []EntitlementValue `json:"values,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -84,7 +88,7 @@ func (o *EntitlementsInner) SetId(v string) {
 
 // GetIncludeAllValues returns the IncludeAllValues field value if set, zero value otherwise.
 func (o *EntitlementsInner) GetIncludeAllValues() bool {
-	if o == nil || o.IncludeAllValues == nil {
+	if o == nil || IsNil(o.IncludeAllValues) {
 		var ret bool
 		return ret
 	}
@@ -94,7 +98,7 @@ func (o *EntitlementsInner) GetIncludeAllValues() bool {
 // GetIncludeAllValuesOk returns a tuple with the IncludeAllValues field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntitlementsInner) GetIncludeAllValuesOk() (*bool, bool) {
-	if o == nil || o.IncludeAllValues == nil {
+	if o == nil || IsNil(o.IncludeAllValues) {
 		return nil, false
 	}
 	return o.IncludeAllValues, true
@@ -102,7 +106,7 @@ func (o *EntitlementsInner) GetIncludeAllValuesOk() (*bool, bool) {
 
 // HasIncludeAllValues returns a boolean if a field has been set.
 func (o *EntitlementsInner) HasIncludeAllValues() bool {
-	if o != nil && o.IncludeAllValues != nil {
+	if o != nil && !IsNil(o.IncludeAllValues) {
 		return true
 	}
 
@@ -116,7 +120,7 @@ func (o *EntitlementsInner) SetIncludeAllValues(v bool) {
 
 // GetValues returns the Values field value if set, zero value otherwise.
 func (o *EntitlementsInner) GetValues() []EntitlementValue {
-	if o == nil || o.Values == nil {
+	if o == nil || IsNil(o.Values) {
 		var ret []EntitlementValue
 		return ret
 	}
@@ -126,7 +130,7 @@ func (o *EntitlementsInner) GetValues() []EntitlementValue {
 // GetValuesOk returns a tuple with the Values field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntitlementsInner) GetValuesOk() ([]EntitlementValue, bool) {
-	if o == nil || o.Values == nil {
+	if o == nil || IsNil(o.Values) {
 		return nil, false
 	}
 	return o.Values, true
@@ -134,7 +138,7 @@ func (o *EntitlementsInner) GetValuesOk() ([]EntitlementValue, bool) {
 
 // HasValues returns a boolean if a field has been set.
 func (o *EntitlementsInner) HasValues() bool {
-	if o != nil && o.Values != nil {
+	if o != nil && !IsNil(o.Values) {
 		return true
 	}
 
@@ -147,14 +151,20 @@ func (o *EntitlementsInner) SetValues(v []EntitlementValue) {
 }
 
 func (o EntitlementsInner) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.IncludeAllValues != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o EntitlementsInner) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	if !IsNil(o.IncludeAllValues) {
 		toSerialize["includeAllValues"] = o.IncludeAllValues
 	}
-	if o.Values != nil {
+	if !IsNil(o.Values) {
 		toSerialize["values"] = o.Values
 	}
 
@@ -162,29 +172,48 @@ func (o EntitlementsInner) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *EntitlementsInner) UnmarshalJSON(bytes []byte) (err error) {
-	varEntitlementsInner := _EntitlementsInner{}
+func (o *EntitlementsInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+	}
 
-	err = json.Unmarshal(bytes, &varEntitlementsInner)
-	if err == nil {
-		*o = EntitlementsInner(varEntitlementsInner)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varEntitlementsInner := _EntitlementsInner{}
+
+	err = json.Unmarshal(data, &varEntitlementsInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = EntitlementsInner(varEntitlementsInner)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "includeAllValues")
 		delete(additionalProperties, "values")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

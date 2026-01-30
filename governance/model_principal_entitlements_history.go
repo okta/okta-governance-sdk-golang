@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,12 +27,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the PrincipalEntitlementsHistory type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PrincipalEntitlementsHistory{}
+
 // PrincipalEntitlementsHistory struct for PrincipalEntitlementsHistory
 type PrincipalEntitlementsHistory struct {
-	// The Okta app instance, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for a specific app in [Supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
+	// The Okta resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for [supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
 	ResourceOrn *string         `json:"resourceOrn,omitempty"`
 	Resource    *TargetResource `json:"resource,omitempty"`
-	// The Okta user `id` in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format.  See [Supported resources](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
+	// The Okta user, in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format.
 	PrincipalOrn *string              `json:"principalOrn,omitempty"`
 	Principal    *TargetPrincipalFull `json:"principal,omitempty"`
 	// Principal entitlements history list
@@ -63,7 +66,7 @@ func NewPrincipalEntitlementsHistoryWithDefaults() *PrincipalEntitlementsHistory
 
 // GetResourceOrn returns the ResourceOrn field value if set, zero value otherwise.
 func (o *PrincipalEntitlementsHistory) GetResourceOrn() string {
-	if o == nil || o.ResourceOrn == nil {
+	if o == nil || IsNil(o.ResourceOrn) {
 		var ret string
 		return ret
 	}
@@ -73,7 +76,7 @@ func (o *PrincipalEntitlementsHistory) GetResourceOrn() string {
 // GetResourceOrnOk returns a tuple with the ResourceOrn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalEntitlementsHistory) GetResourceOrnOk() (*string, bool) {
-	if o == nil || o.ResourceOrn == nil {
+	if o == nil || IsNil(o.ResourceOrn) {
 		return nil, false
 	}
 	return o.ResourceOrn, true
@@ -81,7 +84,7 @@ func (o *PrincipalEntitlementsHistory) GetResourceOrnOk() (*string, bool) {
 
 // HasResourceOrn returns a boolean if a field has been set.
 func (o *PrincipalEntitlementsHistory) HasResourceOrn() bool {
-	if o != nil && o.ResourceOrn != nil {
+	if o != nil && !IsNil(o.ResourceOrn) {
 		return true
 	}
 
@@ -95,7 +98,7 @@ func (o *PrincipalEntitlementsHistory) SetResourceOrn(v string) {
 
 // GetResource returns the Resource field value if set, zero value otherwise.
 func (o *PrincipalEntitlementsHistory) GetResource() TargetResource {
-	if o == nil || o.Resource == nil {
+	if o == nil || IsNil(o.Resource) {
 		var ret TargetResource
 		return ret
 	}
@@ -105,7 +108,7 @@ func (o *PrincipalEntitlementsHistory) GetResource() TargetResource {
 // GetResourceOk returns a tuple with the Resource field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalEntitlementsHistory) GetResourceOk() (*TargetResource, bool) {
-	if o == nil || o.Resource == nil {
+	if o == nil || IsNil(o.Resource) {
 		return nil, false
 	}
 	return o.Resource, true
@@ -113,7 +116,7 @@ func (o *PrincipalEntitlementsHistory) GetResourceOk() (*TargetResource, bool) {
 
 // HasResource returns a boolean if a field has been set.
 func (o *PrincipalEntitlementsHistory) HasResource() bool {
-	if o != nil && o.Resource != nil {
+	if o != nil && !IsNil(o.Resource) {
 		return true
 	}
 
@@ -127,7 +130,7 @@ func (o *PrincipalEntitlementsHistory) SetResource(v TargetResource) {
 
 // GetPrincipalOrn returns the PrincipalOrn field value if set, zero value otherwise.
 func (o *PrincipalEntitlementsHistory) GetPrincipalOrn() string {
-	if o == nil || o.PrincipalOrn == nil {
+	if o == nil || IsNil(o.PrincipalOrn) {
 		var ret string
 		return ret
 	}
@@ -137,7 +140,7 @@ func (o *PrincipalEntitlementsHistory) GetPrincipalOrn() string {
 // GetPrincipalOrnOk returns a tuple with the PrincipalOrn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalEntitlementsHistory) GetPrincipalOrnOk() (*string, bool) {
-	if o == nil || o.PrincipalOrn == nil {
+	if o == nil || IsNil(o.PrincipalOrn) {
 		return nil, false
 	}
 	return o.PrincipalOrn, true
@@ -145,7 +148,7 @@ func (o *PrincipalEntitlementsHistory) GetPrincipalOrnOk() (*string, bool) {
 
 // HasPrincipalOrn returns a boolean if a field has been set.
 func (o *PrincipalEntitlementsHistory) HasPrincipalOrn() bool {
-	if o != nil && o.PrincipalOrn != nil {
+	if o != nil && !IsNil(o.PrincipalOrn) {
 		return true
 	}
 
@@ -159,7 +162,7 @@ func (o *PrincipalEntitlementsHistory) SetPrincipalOrn(v string) {
 
 // GetPrincipal returns the Principal field value if set, zero value otherwise.
 func (o *PrincipalEntitlementsHistory) GetPrincipal() TargetPrincipalFull {
-	if o == nil || o.Principal == nil {
+	if o == nil || IsNil(o.Principal) {
 		var ret TargetPrincipalFull
 		return ret
 	}
@@ -169,7 +172,7 @@ func (o *PrincipalEntitlementsHistory) GetPrincipal() TargetPrincipalFull {
 // GetPrincipalOk returns a tuple with the Principal field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalEntitlementsHistory) GetPrincipalOk() (*TargetPrincipalFull, bool) {
-	if o == nil || o.Principal == nil {
+	if o == nil || IsNil(o.Principal) {
 		return nil, false
 	}
 	return o.Principal, true
@@ -177,7 +180,7 @@ func (o *PrincipalEntitlementsHistory) GetPrincipalOk() (*TargetPrincipalFull, b
 
 // HasPrincipal returns a boolean if a field has been set.
 func (o *PrincipalEntitlementsHistory) HasPrincipal() bool {
-	if o != nil && o.Principal != nil {
+	if o != nil && !IsNil(o.Principal) {
 		return true
 	}
 
@@ -191,7 +194,7 @@ func (o *PrincipalEntitlementsHistory) SetPrincipal(v TargetPrincipalFull) {
 
 // GetEntitlementHistory returns the EntitlementHistory field value if set, zero value otherwise.
 func (o *PrincipalEntitlementsHistory) GetEntitlementHistory() []EntitlementHistoryRecord {
-	if o == nil || o.EntitlementHistory == nil {
+	if o == nil || IsNil(o.EntitlementHistory) {
 		var ret []EntitlementHistoryRecord
 		return ret
 	}
@@ -201,7 +204,7 @@ func (o *PrincipalEntitlementsHistory) GetEntitlementHistory() []EntitlementHist
 // GetEntitlementHistoryOk returns a tuple with the EntitlementHistory field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalEntitlementsHistory) GetEntitlementHistoryOk() ([]EntitlementHistoryRecord, bool) {
-	if o == nil || o.EntitlementHistory == nil {
+	if o == nil || IsNil(o.EntitlementHistory) {
 		return nil, false
 	}
 	return o.EntitlementHistory, true
@@ -209,7 +212,7 @@ func (o *PrincipalEntitlementsHistory) GetEntitlementHistoryOk() ([]EntitlementH
 
 // HasEntitlementHistory returns a boolean if a field has been set.
 func (o *PrincipalEntitlementsHistory) HasEntitlementHistory() bool {
-	if o != nil && o.EntitlementHistory != nil {
+	if o != nil && !IsNil(o.EntitlementHistory) {
 		return true
 	}
 
@@ -223,7 +226,7 @@ func (o *PrincipalEntitlementsHistory) SetEntitlementHistory(v []EntitlementHist
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *PrincipalEntitlementsHistory) GetLinks() ListLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret ListLinks
 		return ret
 	}
@@ -233,7 +236,7 @@ func (o *PrincipalEntitlementsHistory) GetLinks() ListLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalEntitlementsHistory) GetLinksOk() (*ListLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -241,7 +244,7 @@ func (o *PrincipalEntitlementsHistory) GetLinksOk() (*ListLinks, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *PrincipalEntitlementsHistory) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -255,7 +258,7 @@ func (o *PrincipalEntitlementsHistory) SetLinks(v ListLinks) {
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *PrincipalEntitlementsHistory) GetMetadata() ListMetadata {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		var ret ListMetadata
 		return ret
 	}
@@ -265,7 +268,7 @@ func (o *PrincipalEntitlementsHistory) GetMetadata() ListMetadata {
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalEntitlementsHistory) GetMetadataOk() (*ListMetadata, bool) {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
 	return o.Metadata, true
@@ -273,7 +276,7 @@ func (o *PrincipalEntitlementsHistory) GetMetadataOk() (*ListMetadata, bool) {
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *PrincipalEntitlementsHistory) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
@@ -286,26 +289,34 @@ func (o *PrincipalEntitlementsHistory) SetMetadata(v ListMetadata) {
 }
 
 func (o PrincipalEntitlementsHistory) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PrincipalEntitlementsHistory) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ResourceOrn != nil {
+	if !IsNil(o.ResourceOrn) {
 		toSerialize["resourceOrn"] = o.ResourceOrn
 	}
-	if o.Resource != nil {
+	if !IsNil(o.Resource) {
 		toSerialize["resource"] = o.Resource
 	}
-	if o.PrincipalOrn != nil {
+	if !IsNil(o.PrincipalOrn) {
 		toSerialize["principalOrn"] = o.PrincipalOrn
 	}
-	if o.Principal != nil {
+	if !IsNil(o.Principal) {
 		toSerialize["principal"] = o.Principal
 	}
-	if o.EntitlementHistory != nil {
+	if !IsNil(o.EntitlementHistory) {
 		toSerialize["entitlementHistory"] = o.EntitlementHistory
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
-	if o.Metadata != nil {
+	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
 
@@ -313,23 +324,23 @@ func (o PrincipalEntitlementsHistory) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PrincipalEntitlementsHistory) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PrincipalEntitlementsHistory) UnmarshalJSON(data []byte) (err error) {
 	varPrincipalEntitlementsHistory := _PrincipalEntitlementsHistory{}
 
-	err = json.Unmarshal(bytes, &varPrincipalEntitlementsHistory)
-	if err == nil {
-		*o = PrincipalEntitlementsHistory(varPrincipalEntitlementsHistory)
-	} else {
+	err = json.Unmarshal(data, &varPrincipalEntitlementsHistory)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PrincipalEntitlementsHistory(varPrincipalEntitlementsHistory)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "resourceOrn")
 		delete(additionalProperties, "resource")
 		delete(additionalProperties, "principalOrn")
@@ -338,8 +349,6 @@ func (o *PrincipalEntitlementsHistory) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "_links")
 		delete(additionalProperties, "metadata")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the EntitlementValueWritableProperties type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EntitlementValueWritableProperties{}
 
 // EntitlementValueWritableProperties struct for EntitlementValueWritableProperties
 type EntitlementValueWritableProperties struct {
@@ -109,7 +113,7 @@ func (o *EntitlementValueWritableProperties) SetExternalValue(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *EntitlementValueWritableProperties) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -119,7 +123,7 @@ func (o *EntitlementValueWritableProperties) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntitlementValueWritableProperties) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -127,7 +131,7 @@ func (o *EntitlementValueWritableProperties) GetDescriptionOk() (*string, bool) 
 
 // HasDescription returns a boolean if a field has been set.
 func (o *EntitlementValueWritableProperties) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -140,14 +144,18 @@ func (o *EntitlementValueWritableProperties) SetDescription(v string) {
 }
 
 func (o EntitlementValueWritableProperties) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o EntitlementValueWritableProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["externalValue"] = o.ExternalValue
-	}
-	if o.Description != nil {
+	toSerialize["name"] = o.Name
+	toSerialize["externalValue"] = o.ExternalValue
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
 
@@ -155,29 +163,49 @@ func (o EntitlementValueWritableProperties) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *EntitlementValueWritableProperties) UnmarshalJSON(bytes []byte) (err error) {
-	varEntitlementValueWritableProperties := _EntitlementValueWritableProperties{}
+func (o *EntitlementValueWritableProperties) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"externalValue",
+	}
 
-	err = json.Unmarshal(bytes, &varEntitlementValueWritableProperties)
-	if err == nil {
-		*o = EntitlementValueWritableProperties(varEntitlementValueWritableProperties)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varEntitlementValueWritableProperties := _EntitlementValueWritableProperties{}
+
+	err = json.Unmarshal(data, &varEntitlementValueWritableProperties)
+
+	if err != nil {
+		return err
+	}
+
+	*o = EntitlementValueWritableProperties(varEntitlementValueWritableProperties)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "externalValue")
 		delete(additionalProperties, "description")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

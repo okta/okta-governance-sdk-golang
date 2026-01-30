@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ import (
 	"fmt"
 )
 
-// ReviewerType Identifies the kind of reviewer for Access Certification. For example, a reviewer can be a user or an expression.
+// ReviewerType Identifies the type of reviewer at this level for the campaign
 type ReviewerType string
 
 // List of reviewer-type

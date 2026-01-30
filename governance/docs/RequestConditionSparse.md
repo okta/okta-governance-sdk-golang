@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 **AccessScopeSettings** | [**AccessScopeSettings**](AccessScopeSettings.md) |  | 
 **AccessDurationSettings** | Pointer to [**AccessDurationSettingsFull**](AccessDurationSettingsFull.md) |  | [optional] 
 **ApprovalSequenceId** | Pointer to **string** | If an approval sequence was deleted, then conditions referencing it will become invalid and the approvalSequenceId will not be present. | [optional] 
-**Name** | **string** | Writable unique key on Create. Modifiable on update. | 
-**Description** | Pointer to **string** | Human readable description. | [optional] 
+**Name** | **string** | Writable unique key on create. Modifiable on update. | 
+**Description** | Pointer to **string** | Human readable description | [optional] 
 **Id** | **string** | The ID of the request condition | 
 **CreatedBy** | **string** | The &#x60;id&#x60; of the Okta user who created the resource | [readonly] 
 **Created** | **time.Time** | The ISO 8601 formatted date and time when the resource was created | [readonly] 

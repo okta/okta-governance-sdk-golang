@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the ErrorCause type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ErrorCause{}
 
 // ErrorCause A specific cause of an error
 type ErrorCause struct {
@@ -88,7 +92,7 @@ func (o *ErrorCause) SetErrorSummary(v string) {
 
 // GetReason returns the Reason field value if set, zero value otherwise.
 func (o *ErrorCause) GetReason() string {
-	if o == nil || o.Reason == nil {
+	if o == nil || IsNil(o.Reason) {
 		var ret string
 		return ret
 	}
@@ -98,7 +102,7 @@ func (o *ErrorCause) GetReason() string {
 // GetReasonOk returns a tuple with the Reason field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ErrorCause) GetReasonOk() (*string, bool) {
-	if o == nil || o.Reason == nil {
+	if o == nil || IsNil(o.Reason) {
 		return nil, false
 	}
 	return o.Reason, true
@@ -106,7 +110,7 @@ func (o *ErrorCause) GetReasonOk() (*string, bool) {
 
 // HasReason returns a boolean if a field has been set.
 func (o *ErrorCause) HasReason() bool {
-	if o != nil && o.Reason != nil {
+	if o != nil && !IsNil(o.Reason) {
 		return true
 	}
 
@@ -120,7 +124,7 @@ func (o *ErrorCause) SetReason(v string) {
 
 // GetLocation returns the Location field value if set, zero value otherwise.
 func (o *ErrorCause) GetLocation() string {
-	if o == nil || o.Location == nil {
+	if o == nil || IsNil(o.Location) {
 		var ret string
 		return ret
 	}
@@ -130,7 +134,7 @@ func (o *ErrorCause) GetLocation() string {
 // GetLocationOk returns a tuple with the Location field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ErrorCause) GetLocationOk() (*string, bool) {
-	if o == nil || o.Location == nil {
+	if o == nil || IsNil(o.Location) {
 		return nil, false
 	}
 	return o.Location, true
@@ -138,7 +142,7 @@ func (o *ErrorCause) GetLocationOk() (*string, bool) {
 
 // HasLocation returns a boolean if a field has been set.
 func (o *ErrorCause) HasLocation() bool {
-	if o != nil && o.Location != nil {
+	if o != nil && !IsNil(o.Location) {
 		return true
 	}
 
@@ -152,7 +156,7 @@ func (o *ErrorCause) SetLocation(v string) {
 
 // GetLocationType returns the LocationType field value if set, zero value otherwise.
 func (o *ErrorCause) GetLocationType() string {
-	if o == nil || o.LocationType == nil {
+	if o == nil || IsNil(o.LocationType) {
 		var ret string
 		return ret
 	}
@@ -162,7 +166,7 @@ func (o *ErrorCause) GetLocationType() string {
 // GetLocationTypeOk returns a tuple with the LocationType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ErrorCause) GetLocationTypeOk() (*string, bool) {
-	if o == nil || o.LocationType == nil {
+	if o == nil || IsNil(o.LocationType) {
 		return nil, false
 	}
 	return o.LocationType, true
@@ -170,7 +174,7 @@ func (o *ErrorCause) GetLocationTypeOk() (*string, bool) {
 
 // HasLocationType returns a boolean if a field has been set.
 func (o *ErrorCause) HasLocationType() bool {
-	if o != nil && o.LocationType != nil {
+	if o != nil && !IsNil(o.LocationType) {
 		return true
 	}
 
@@ -184,7 +188,7 @@ func (o *ErrorCause) SetLocationType(v string) {
 
 // GetDomain returns the Domain field value if set, zero value otherwise.
 func (o *ErrorCause) GetDomain() string {
-	if o == nil || o.Domain == nil {
+	if o == nil || IsNil(o.Domain) {
 		var ret string
 		return ret
 	}
@@ -194,7 +198,7 @@ func (o *ErrorCause) GetDomain() string {
 // GetDomainOk returns a tuple with the Domain field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ErrorCause) GetDomainOk() (*string, bool) {
-	if o == nil || o.Domain == nil {
+	if o == nil || IsNil(o.Domain) {
 		return nil, false
 	}
 	return o.Domain, true
@@ -202,7 +206,7 @@ func (o *ErrorCause) GetDomainOk() (*string, bool) {
 
 // HasDomain returns a boolean if a field has been set.
 func (o *ErrorCause) HasDomain() bool {
-	if o != nil && o.Domain != nil {
+	if o != nil && !IsNil(o.Domain) {
 		return true
 	}
 
@@ -215,20 +219,26 @@ func (o *ErrorCause) SetDomain(v string) {
 }
 
 func (o ErrorCause) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["errorSummary"] = o.ErrorSummary
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.Reason != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o ErrorCause) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["errorSummary"] = o.ErrorSummary
+	if !IsNil(o.Reason) {
 		toSerialize["reason"] = o.Reason
 	}
-	if o.Location != nil {
+	if !IsNil(o.Location) {
 		toSerialize["location"] = o.Location
 	}
-	if o.LocationType != nil {
+	if !IsNil(o.LocationType) {
 		toSerialize["locationType"] = o.LocationType
 	}
-	if o.Domain != nil {
+	if !IsNil(o.Domain) {
 		toSerialize["domain"] = o.Domain
 	}
 
@@ -236,31 +246,50 @@ func (o ErrorCause) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ErrorCause) UnmarshalJSON(bytes []byte) (err error) {
-	varErrorCause := _ErrorCause{}
+func (o *ErrorCause) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"errorSummary",
+	}
 
-	err = json.Unmarshal(bytes, &varErrorCause)
-	if err == nil {
-		*o = ErrorCause(varErrorCause)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varErrorCause := _ErrorCause{}
+
+	err = json.Unmarshal(data, &varErrorCause)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ErrorCause(varErrorCause)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "errorSummary")
 		delete(additionalProperties, "reason")
 		delete(additionalProperties, "location")
 		delete(additionalProperties, "locationType")
 		delete(additionalProperties, "domain")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

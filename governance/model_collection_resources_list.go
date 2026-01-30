@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package governance
 import (
 	"encoding/json"
 )
+
+// checks if the CollectionResourcesList type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CollectionResourcesList{}
 
 // CollectionResourcesList struct for CollectionResourcesList
 type CollectionResourcesList struct {
@@ -56,7 +59,7 @@ func NewCollectionResourcesListWithDefaults() *CollectionResourcesList {
 
 // GetData returns the Data field value if set, zero value otherwise.
 func (o *CollectionResourcesList) GetData() []CollectionResourceFull {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		var ret []CollectionResourceFull
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *CollectionResourcesList) GetData() []CollectionResourceFull {
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionResourcesList) GetDataOk() ([]CollectionResourceFull, bool) {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		return nil, false
 	}
 	return o.Data, true
@@ -74,7 +77,7 @@ func (o *CollectionResourcesList) GetDataOk() ([]CollectionResourceFull, bool) {
 
 // HasData returns a boolean if a field has been set.
 func (o *CollectionResourcesList) HasData() bool {
-	if o != nil && o.Data != nil {
+	if o != nil && !IsNil(o.Data) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *CollectionResourcesList) SetData(v []CollectionResourceFull) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *CollectionResourcesList) GetLinks() ListLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret ListLinks
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *CollectionResourcesList) GetLinks() ListLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionResourcesList) GetLinksOk() (*ListLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -106,7 +109,7 @@ func (o *CollectionResourcesList) GetLinksOk() (*ListLinks, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *CollectionResourcesList) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -120,7 +123,7 @@ func (o *CollectionResourcesList) SetLinks(v ListLinks) {
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *CollectionResourcesList) GetMetadata() ListMetadata {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		var ret ListMetadata
 		return ret
 	}
@@ -130,7 +133,7 @@ func (o *CollectionResourcesList) GetMetadata() ListMetadata {
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionResourcesList) GetMetadataOk() (*ListMetadata, bool) {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
 	return o.Metadata, true
@@ -138,7 +141,7 @@ func (o *CollectionResourcesList) GetMetadataOk() (*ListMetadata, bool) {
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *CollectionResourcesList) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
@@ -151,14 +154,22 @@ func (o *CollectionResourcesList) SetMetadata(v ListMetadata) {
 }
 
 func (o CollectionResourcesList) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CollectionResourcesList) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Data != nil {
+	if !IsNil(o.Data) {
 		toSerialize["data"] = o.Data
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
-	if o.Metadata != nil {
+	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
 
@@ -166,29 +177,27 @@ func (o CollectionResourcesList) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *CollectionResourcesList) UnmarshalJSON(bytes []byte) (err error) {
+func (o *CollectionResourcesList) UnmarshalJSON(data []byte) (err error) {
 	varCollectionResourcesList := _CollectionResourcesList{}
 
-	err = json.Unmarshal(bytes, &varCollectionResourcesList)
-	if err == nil {
-		*o = CollectionResourcesList(varCollectionResourcesList)
-	} else {
+	err = json.Unmarshal(data, &varCollectionResourcesList)
+
+	if err != nil {
 		return err
 	}
 
+	*o = CollectionResourcesList(varCollectionResourcesList)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "data")
 		delete(additionalProperties, "_links")
 		delete(additionalProperties, "metadata")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

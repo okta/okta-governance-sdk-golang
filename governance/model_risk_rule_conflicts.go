@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package governance
 import (
 	"encoding/json"
 )
+
+// checks if the RiskRuleConflicts type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RiskRuleConflicts{}
 
 // RiskRuleConflicts struct for RiskRuleConflicts
 type RiskRuleConflicts struct {
@@ -58,7 +61,7 @@ func NewRiskRuleConflictsWithDefaults() *RiskRuleConflicts {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *RiskRuleConflicts) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *RiskRuleConflicts) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskRuleConflicts) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -76,7 +79,7 @@ func (o *RiskRuleConflicts) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *RiskRuleConflicts) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -90,7 +93,7 @@ func (o *RiskRuleConflicts) SetId(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *RiskRuleConflicts) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -100,7 +103,7 @@ func (o *RiskRuleConflicts) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskRuleConflicts) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -108,7 +111,7 @@ func (o *RiskRuleConflicts) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *RiskRuleConflicts) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -122,7 +125,7 @@ func (o *RiskRuleConflicts) SetType(v string) {
 
 // GetConflictCriteria returns the ConflictCriteria field value if set, zero value otherwise.
 func (o *RiskRuleConflicts) GetConflictCriteria() RiskRuleConflictsConflictCriteria {
-	if o == nil || o.ConflictCriteria == nil {
+	if o == nil || IsNil(o.ConflictCriteria) {
 		var ret RiskRuleConflictsConflictCriteria
 		return ret
 	}
@@ -132,7 +135,7 @@ func (o *RiskRuleConflicts) GetConflictCriteria() RiskRuleConflictsConflictCrite
 // GetConflictCriteriaOk returns a tuple with the ConflictCriteria field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskRuleConflicts) GetConflictCriteriaOk() (*RiskRuleConflictsConflictCriteria, bool) {
-	if o == nil || o.ConflictCriteria == nil {
+	if o == nil || IsNil(o.ConflictCriteria) {
 		return nil, false
 	}
 	return o.ConflictCriteria, true
@@ -140,7 +143,7 @@ func (o *RiskRuleConflicts) GetConflictCriteriaOk() (*RiskRuleConflictsConflictC
 
 // HasConflictCriteria returns a boolean if a field has been set.
 func (o *RiskRuleConflicts) HasConflictCriteria() bool {
-	if o != nil && o.ConflictCriteria != nil {
+	if o != nil && !IsNil(o.ConflictCriteria) {
 		return true
 	}
 
@@ -153,14 +156,22 @@ func (o *RiskRuleConflicts) SetConflictCriteria(v RiskRuleConflictsConflictCrite
 }
 
 func (o RiskRuleConflicts) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RiskRuleConflicts) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.ConflictCriteria != nil {
+	if !IsNil(o.ConflictCriteria) {
 		toSerialize["conflictCriteria"] = o.ConflictCriteria
 	}
 
@@ -168,29 +179,27 @@ func (o RiskRuleConflicts) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RiskRuleConflicts) UnmarshalJSON(bytes []byte) (err error) {
+func (o *RiskRuleConflicts) UnmarshalJSON(data []byte) (err error) {
 	varRiskRuleConflicts := _RiskRuleConflicts{}
 
-	err = json.Unmarshal(bytes, &varRiskRuleConflicts)
-	if err == nil {
-		*o = RiskRuleConflicts(varRiskRuleConflicts)
-	} else {
+	err = json.Unmarshal(data, &varRiskRuleConflicts)
+
+	if err != nil {
 		return err
 	}
 
+	*o = RiskRuleConflicts(varRiskRuleConflicts)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "conflictCriteria")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

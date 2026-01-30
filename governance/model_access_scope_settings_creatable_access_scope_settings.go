@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,8 +28,7 @@ import (
 	"fmt"
 )
 
-// model_oneof.mustache
-// AccessScopeSettingsCreatableAccessScopeSettings - Settings specifying if groups or entitlements may be used for requesting finer grained access
+// AccessScopeSettingsCreatableAccessScopeSettings - Settings for the access request scope (such as groups, entitlement bundles, or default resources)
 type AccessScopeSettingsCreatableAccessScopeSettings struct {
 	AccessScopeSettingsCreatableEntitlementBundleAccessScopeSettings *AccessScopeSettingsCreatableEntitlementBundleAccessScopeSettings
 	AccessScopeSettingsCreatableGroupAccessScopeSettings             *AccessScopeSettingsCreatableGroupAccessScopeSettings
@@ -57,14 +56,14 @@ func AccessScopeSettingsCreatableResourceDefaultAccessScopeSettingsAsAccessScope
 	}
 }
 
-// Unmarshal JSON data into one of the pointers in the struct  CUSTOM
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *AccessScopeSettingsCreatableAccessScopeSettings) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup
 	var jsonDict map[string]interface{}
 	err = newStrictDecoder(data).Decode(&jsonDict)
 	if err != nil {
-		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
 	// check if the discriminator value is 'ENTITLEMENT_BUNDLES'
@@ -75,7 +74,7 @@ func (dst *AccessScopeSettingsCreatableAccessScopeSettings) UnmarshalJSON(data [
 			return nil // data stored in dst.AccessScopeSettingsCreatableEntitlementBundleAccessScopeSettings, return on the first match
 		} else {
 			dst.AccessScopeSettingsCreatableEntitlementBundleAccessScopeSettings = nil
-			return fmt.Errorf("Failed to unmarshal AccessScopeSettingsCreatableAccessScopeSettings as AccessScopeSettingsCreatableEntitlementBundleAccessScopeSettings: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal AccessScopeSettingsCreatableAccessScopeSettings as AccessScopeSettingsCreatableEntitlementBundleAccessScopeSettings: %s", err.Error())
 		}
 	}
 
@@ -87,7 +86,7 @@ func (dst *AccessScopeSettingsCreatableAccessScopeSettings) UnmarshalJSON(data [
 			return nil // data stored in dst.AccessScopeSettingsCreatableGroupAccessScopeSettings, return on the first match
 		} else {
 			dst.AccessScopeSettingsCreatableGroupAccessScopeSettings = nil
-			return fmt.Errorf("Failed to unmarshal AccessScopeSettingsCreatableAccessScopeSettings as AccessScopeSettingsCreatableGroupAccessScopeSettings: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal AccessScopeSettingsCreatableAccessScopeSettings as AccessScopeSettingsCreatableGroupAccessScopeSettings: %s", err.Error())
 		}
 	}
 
@@ -99,43 +98,7 @@ func (dst *AccessScopeSettingsCreatableAccessScopeSettings) UnmarshalJSON(data [
 			return nil // data stored in dst.AccessScopeSettingsCreatableResourceDefaultAccessScopeSettings, return on the first match
 		} else {
 			dst.AccessScopeSettingsCreatableResourceDefaultAccessScopeSettings = nil
-			return fmt.Errorf("Failed to unmarshal AccessScopeSettingsCreatableAccessScopeSettings as AccessScopeSettingsCreatableResourceDefaultAccessScopeSettings: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'access-scope-settings-creatable_EntitlementBundleAccessScopeSettings'
-	if jsonDict["type"] == "access-scope-settings-creatable_EntitlementBundleAccessScopeSettings" {
-		// try to unmarshal JSON data into AccessScopeSettingsCreatableEntitlementBundleAccessScopeSettings
-		err = json.Unmarshal(data, &dst.AccessScopeSettingsCreatableEntitlementBundleAccessScopeSettings)
-		if err == nil {
-			return nil // data stored in dst.AccessScopeSettingsCreatableEntitlementBundleAccessScopeSettings, return on the first match
-		} else {
-			dst.AccessScopeSettingsCreatableEntitlementBundleAccessScopeSettings = nil
-			return fmt.Errorf("Failed to unmarshal AccessScopeSettingsCreatableAccessScopeSettings as AccessScopeSettingsCreatableEntitlementBundleAccessScopeSettings: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'access-scope-settings-creatable_GroupAccessScopeSettings'
-	if jsonDict["type"] == "access-scope-settings-creatable_GroupAccessScopeSettings" {
-		// try to unmarshal JSON data into AccessScopeSettingsCreatableGroupAccessScopeSettings
-		err = json.Unmarshal(data, &dst.AccessScopeSettingsCreatableGroupAccessScopeSettings)
-		if err == nil {
-			return nil // data stored in dst.AccessScopeSettingsCreatableGroupAccessScopeSettings, return on the first match
-		} else {
-			dst.AccessScopeSettingsCreatableGroupAccessScopeSettings = nil
-			return fmt.Errorf("Failed to unmarshal AccessScopeSettingsCreatableAccessScopeSettings as AccessScopeSettingsCreatableGroupAccessScopeSettings: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'access-scope-settings-creatable_ResourceDefaultAccessScopeSettings'
-	if jsonDict["type"] == "access-scope-settings-creatable_ResourceDefaultAccessScopeSettings" {
-		// try to unmarshal JSON data into AccessScopeSettingsCreatableResourceDefaultAccessScopeSettings
-		err = json.Unmarshal(data, &dst.AccessScopeSettingsCreatableResourceDefaultAccessScopeSettings)
-		if err == nil {
-			return nil // data stored in dst.AccessScopeSettingsCreatableResourceDefaultAccessScopeSettings, return on the first match
-		} else {
-			dst.AccessScopeSettingsCreatableResourceDefaultAccessScopeSettings = nil
-			return fmt.Errorf("Failed to unmarshal AccessScopeSettingsCreatableAccessScopeSettings as AccessScopeSettingsCreatableResourceDefaultAccessScopeSettings: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal AccessScopeSettingsCreatableAccessScopeSettings as AccessScopeSettingsCreatableResourceDefaultAccessScopeSettings: %s", err.Error())
 		}
 	}
 
@@ -174,6 +137,24 @@ func (obj *AccessScopeSettingsCreatableAccessScopeSettings) GetActualInstance() 
 
 	if obj.AccessScopeSettingsCreatableResourceDefaultAccessScopeSettings != nil {
 		return obj.AccessScopeSettingsCreatableResourceDefaultAccessScopeSettings
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj AccessScopeSettingsCreatableAccessScopeSettings) GetActualInstanceValue() interface{} {
+	if obj.AccessScopeSettingsCreatableEntitlementBundleAccessScopeSettings != nil {
+		return *obj.AccessScopeSettingsCreatableEntitlementBundleAccessScopeSettings
+	}
+
+	if obj.AccessScopeSettingsCreatableGroupAccessScopeSettings != nil {
+		return *obj.AccessScopeSettingsCreatableGroupAccessScopeSettings
+	}
+
+	if obj.AccessScopeSettingsCreatableResourceDefaultAccessScopeSettings != nil {
+		return *obj.AccessScopeSettingsCreatableResourceDefaultAccessScopeSettings
 	}
 
 	// all schemas are nil

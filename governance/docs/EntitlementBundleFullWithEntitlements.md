@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**TargetResourceOrn** | **string** | The Okta app instance, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for a specific app in [Supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources). | 
+**Orn** | **string** | The &#x60;id&#x60; of the bundle in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn). | 
+**TargetResourceOrn** | **string** | The Okta resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for [supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources). | 
 **Target** | [**TargetResource**](TargetResource.md) |  | 
 **Status** | [**EntitlementBundleStatus**](EntitlementBundleStatus.md) |  | 
-**Entitlements** | [**[]EntitlementFull**](EntitlementFull.md) | Collection of entitlements with associated values | 
-**EntitlementsObjectType** | **string** |  | [default to "entitlement-bundle-full-with-entitlements"]
+**Entitlements** | Pointer to [**[]EntitlementFull**](EntitlementFull.md) | Collection of entitlements with associated values | [optional] 
 **Links** | [**EntitlementBundleLinks**](EntitlementBundleLinks.md) |  | 
 **Name** | **string** | The unique name of the entitlement bundle | 
 **Description** | Pointer to **string** | The human-readable description | [optional] 
@@ -22,7 +22,7 @@ Name | Type | Description | Notes
 
 ### NewEntitlementBundleFullWithEntitlements
 
-`func NewEntitlementBundleFullWithEntitlements(targetResourceOrn string, target TargetResource, status EntitlementBundleStatus, entitlements []EntitlementFull, entitlementsObjectType string, links EntitlementBundleLinks, name string, id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, ) *EntitlementBundleFullWithEntitlements`
+`func NewEntitlementBundleFullWithEntitlements(orn string, targetResourceOrn string, target TargetResource, status EntitlementBundleStatus, links EntitlementBundleLinks, name string, id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, ) *EntitlementBundleFullWithEntitlements`
 
 NewEntitlementBundleFullWithEntitlements instantiates a new EntitlementBundleFullWithEntitlements object
 This constructor will assign default values to properties that have it defined,
@@ -36,6 +36,26 @@ will change when the set of required properties is changed
 NewEntitlementBundleFullWithEntitlementsWithDefaults instantiates a new EntitlementBundleFullWithEntitlements object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetOrn
+
+`func (o *EntitlementBundleFullWithEntitlements) GetOrn() string`
+
+GetOrn returns the Orn field if non-nil, zero value otherwise.
+
+### GetOrnOk
+
+`func (o *EntitlementBundleFullWithEntitlements) GetOrnOk() (*string, bool)`
+
+GetOrnOk returns a tuple with the Orn field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOrn
+
+`func (o *EntitlementBundleFullWithEntitlements) SetOrn(v string)`
+
+SetOrn sets Orn field to given value.
+
 
 ### GetTargetResourceOrn
 
@@ -116,26 +136,11 @@ and a boolean to check if the value has been set.
 
 SetEntitlements sets Entitlements field to given value.
 
+### HasEntitlements
 
-### GetEntitlementsObjectType
+`func (o *EntitlementBundleFullWithEntitlements) HasEntitlements() bool`
 
-`func (o *EntitlementBundleFullWithEntitlements) GetEntitlementsObjectType() string`
-
-GetEntitlementsObjectType returns the EntitlementsObjectType field if non-nil, zero value otherwise.
-
-### GetEntitlementsObjectTypeOk
-
-`func (o *EntitlementBundleFullWithEntitlements) GetEntitlementsObjectTypeOk() (*string, bool)`
-
-GetEntitlementsObjectTypeOk returns a tuple with the EntitlementsObjectType field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetEntitlementsObjectType
-
-`func (o *EntitlementBundleFullWithEntitlements) SetEntitlementsObjectType(v string)`
-
-SetEntitlementsObjectType sets EntitlementsObjectType field to given value.
-
+HasEntitlements returns a boolean if a field has been set.
 
 ### GetLinks
 

@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ReviewerLevel** | [**ReviewerLevelType**](ReviewerLevelType.md) |  | 
 **Decision** | [**Decision**](Decision.md) |  | 
-**ReviewerProfile** | Pointer to [**PrincipalProfile**](PrincipalProfile.md) |  | [optional] 
+**ReviewerProfile** | Pointer to [**PrincipalProfileEnriched**](PrincipalProfileEnriched.md) |  | [optional] 
 **ReviewerType** | [**ReviewersReviewerType**](ReviewersReviewerType.md) |  | 
 **ReviewerGroupProfile** | Pointer to [**ReviewerGroupProfile**](ReviewerGroupProfile.md) |  | [optional] 
 **Id** | **string** | Unique identifier for the object | 
@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **Created** | **time.Time** | The ISO 8601 formatted date and time when the resource was created | [readonly] 
 **LastUpdated** | **time.Time** | The ISO 8601 formatted date and time when the object was last updated | [readonly] 
 **LastUpdatedBy** | **string** | The &#x60;id&#x60; of the Okta user who last updated the object | [readonly] 
-**Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
+**Links** | Pointer to [**map[string]Link**](Link.md) | Links to related resources | [optional] 
 
 ## Methods
 
@@ -77,20 +77,20 @@ SetDecision sets Decision field to given value.
 
 ### GetReviewerProfile
 
-`func (o *ReviewerLevelInfoFull) GetReviewerProfile() PrincipalProfile`
+`func (o *ReviewerLevelInfoFull) GetReviewerProfile() PrincipalProfileEnriched`
 
 GetReviewerProfile returns the ReviewerProfile field if non-nil, zero value otherwise.
 
 ### GetReviewerProfileOk
 
-`func (o *ReviewerLevelInfoFull) GetReviewerProfileOk() (*PrincipalProfile, bool)`
+`func (o *ReviewerLevelInfoFull) GetReviewerProfileOk() (*PrincipalProfileEnriched, bool)`
 
 GetReviewerProfileOk returns a tuple with the ReviewerProfile field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetReviewerProfile
 
-`func (o *ReviewerLevelInfoFull) SetReviewerProfile(v PrincipalProfile)`
+`func (o *ReviewerLevelInfoFull) SetReviewerProfile(v PrincipalProfileEnriched)`
 
 SetReviewerProfile sets ReviewerProfile field to given value.
 

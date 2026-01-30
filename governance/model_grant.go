@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,8 +25,12 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the Grant type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Grant{}
 
 // Grant representation of a base grant
 type Grant struct {
@@ -68,7 +72,7 @@ func NewGrantWithDefaults() *Grant {
 
 // GetGrantMethod returns the GrantMethod field value if set, zero value otherwise.
 func (o *Grant) GetGrantMethod() GrantMethod {
-	if o == nil || o.GrantMethod == nil {
+	if o == nil || IsNil(o.GrantMethod) {
 		var ret GrantMethod
 		return ret
 	}
@@ -78,7 +82,7 @@ func (o *Grant) GetGrantMethod() GrantMethod {
 // GetGrantMethodOk returns a tuple with the GrantMethod field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Grant) GetGrantMethodOk() (*GrantMethod, bool) {
-	if o == nil || o.GrantMethod == nil {
+	if o == nil || IsNil(o.GrantMethod) {
 		return nil, false
 	}
 	return o.GrantMethod, true
@@ -86,7 +90,7 @@ func (o *Grant) GetGrantMethodOk() (*GrantMethod, bool) {
 
 // HasGrantMethod returns a boolean if a field has been set.
 func (o *Grant) HasGrantMethod() bool {
-	if o != nil && o.GrantMethod != nil {
+	if o != nil && !IsNil(o.GrantMethod) {
 		return true
 	}
 
@@ -124,7 +128,7 @@ func (o *Grant) SetGrantType(v GrantType) {
 
 // GetStartTime returns the StartTime field value if set, zero value otherwise.
 func (o *Grant) GetStartTime() time.Time {
-	if o == nil || o.StartTime == nil {
+	if o == nil || IsNil(o.StartTime) {
 		var ret time.Time
 		return ret
 	}
@@ -134,7 +138,7 @@ func (o *Grant) GetStartTime() time.Time {
 // GetStartTimeOk returns a tuple with the StartTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Grant) GetStartTimeOk() (*time.Time, bool) {
-	if o == nil || o.StartTime == nil {
+	if o == nil || IsNil(o.StartTime) {
 		return nil, false
 	}
 	return o.StartTime, true
@@ -142,7 +146,7 @@ func (o *Grant) GetStartTimeOk() (*time.Time, bool) {
 
 // HasStartTime returns a boolean if a field has been set.
 func (o *Grant) HasStartTime() bool {
-	if o != nil && o.StartTime != nil {
+	if o != nil && !IsNil(o.StartTime) {
 		return true
 	}
 
@@ -156,7 +160,7 @@ func (o *Grant) SetStartTime(v time.Time) {
 
 // GetExpirationTime returns the ExpirationTime field value if set, zero value otherwise.
 func (o *Grant) GetExpirationTime() time.Time {
-	if o == nil || o.ExpirationTime == nil {
+	if o == nil || IsNil(o.ExpirationTime) {
 		var ret time.Time
 		return ret
 	}
@@ -166,7 +170,7 @@ func (o *Grant) GetExpirationTime() time.Time {
 // GetExpirationTimeOk returns a tuple with the ExpirationTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Grant) GetExpirationTimeOk() (*time.Time, bool) {
-	if o == nil || o.ExpirationTime == nil {
+	if o == nil || IsNil(o.ExpirationTime) {
 		return nil, false
 	}
 	return o.ExpirationTime, true
@@ -174,7 +178,7 @@ func (o *Grant) GetExpirationTimeOk() (*time.Time, bool) {
 
 // HasExpirationTime returns a boolean if a field has been set.
 func (o *Grant) HasExpirationTime() bool {
-	if o != nil && o.ExpirationTime != nil {
+	if o != nil && !IsNil(o.ExpirationTime) {
 		return true
 	}
 
@@ -188,7 +192,7 @@ func (o *Grant) SetExpirationTime(v time.Time) {
 
 // GetTimeZone returns the TimeZone field value if set, zero value otherwise.
 func (o *Grant) GetTimeZone() string {
-	if o == nil || o.TimeZone == nil {
+	if o == nil || IsNil(o.TimeZone) {
 		var ret string
 		return ret
 	}
@@ -198,7 +202,7 @@ func (o *Grant) GetTimeZone() string {
 // GetTimeZoneOk returns a tuple with the TimeZone field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Grant) GetTimeZoneOk() (*string, bool) {
-	if o == nil || o.TimeZone == nil {
+	if o == nil || IsNil(o.TimeZone) {
 		return nil, false
 	}
 	return o.TimeZone, true
@@ -206,7 +210,7 @@ func (o *Grant) GetTimeZoneOk() (*string, bool) {
 
 // HasTimeZone returns a boolean if a field has been set.
 func (o *Grant) HasTimeZone() bool {
-	if o != nil && o.TimeZone != nil {
+	if o != nil && !IsNil(o.TimeZone) {
 		return true
 	}
 
@@ -244,7 +248,7 @@ func (o *Grant) SetGrant(v GrantDetails) {
 
 // GetBundle returns the Bundle field value if set, zero value otherwise.
 func (o *Grant) GetBundle() Bundle {
-	if o == nil || o.Bundle == nil {
+	if o == nil || IsNil(o.Bundle) {
 		var ret Bundle
 		return ret
 	}
@@ -254,7 +258,7 @@ func (o *Grant) GetBundle() Bundle {
 // GetBundleOk returns a tuple with the Bundle field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Grant) GetBundleOk() (*Bundle, bool) {
-	if o == nil || o.Bundle == nil {
+	if o == nil || IsNil(o.Bundle) {
 		return nil, false
 	}
 	return o.Bundle, true
@@ -262,7 +266,7 @@ func (o *Grant) GetBundleOk() (*Bundle, bool) {
 
 // HasBundle returns a boolean if a field has been set.
 func (o *Grant) HasBundle() bool {
-	if o != nil && o.Bundle != nil {
+	if o != nil && !IsNil(o.Bundle) {
 		return true
 	}
 
@@ -299,53 +303,78 @@ func (o *Grant) SetEntitlements(v []GrantedEntitlements) {
 }
 
 func (o Grant) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Grant) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.GrantMethod != nil {
+	if !IsNil(o.GrantMethod) {
 		toSerialize["grantMethod"] = o.GrantMethod
 	}
-	if true {
-		toSerialize["grantType"] = o.GrantType
-	}
-	if o.StartTime != nil {
+	toSerialize["grantType"] = o.GrantType
+	if !IsNil(o.StartTime) {
 		toSerialize["startTime"] = o.StartTime
 	}
-	if o.ExpirationTime != nil {
+	if !IsNil(o.ExpirationTime) {
 		toSerialize["expirationTime"] = o.ExpirationTime
 	}
-	if o.TimeZone != nil {
+	if !IsNil(o.TimeZone) {
 		toSerialize["timeZone"] = o.TimeZone
 	}
-	if true {
-		toSerialize["grant"] = o.Grant
-	}
-	if o.Bundle != nil {
+	toSerialize["grant"] = o.Grant
+	if !IsNil(o.Bundle) {
 		toSerialize["bundle"] = o.Bundle
 	}
-	if true {
-		toSerialize["entitlements"] = o.Entitlements
-	}
+	toSerialize["entitlements"] = o.Entitlements
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *Grant) UnmarshalJSON(bytes []byte) (err error) {
-	varGrant := _Grant{}
+func (o *Grant) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"grantType",
+		"grant",
+		"entitlements",
+	}
 
-	err = json.Unmarshal(bytes, &varGrant)
-	if err == nil {
-		*o = Grant(varGrant)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varGrant := _Grant{}
+
+	err = json.Unmarshal(data, &varGrant)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Grant(varGrant)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "grantMethod")
 		delete(additionalProperties, "grantType")
 		delete(additionalProperties, "startTime")
@@ -355,8 +384,6 @@ func (o *Grant) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "bundle")
 		delete(additionalProperties, "entitlements")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

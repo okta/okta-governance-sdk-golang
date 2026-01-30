@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ import (
 	"fmt"
 )
 
-// CampaignType Identifies if it is a resource campaign or a user campaign. By default it is RESOURCE.
+// CampaignType Identifies the campaign as a resource or a user campaign
 type CampaignType string
 
 // List of campaign-type

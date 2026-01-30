@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the RequestSettings type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RequestSettings{}
 
 // RequestSettings Request settings specify what conditions are valid for the given resource
 type RequestSettings struct {
@@ -37,7 +41,9 @@ type RequestSettings struct {
 	RequestOnBehalfOfSettings   *RequestOnBehalfOfSettingsDetails  `json:"requestOnBehalfOfSettings,omitempty"`
 	ValidRiskSettings           *ValidRiskSettingsDetails          `json:"validRiskSettings,omitempty"`
 	RiskSettings                *RiskSettingsDetails               `json:"riskSettings,omitempty"`
-	AdditionalProperties        map[string]interface{}
+	// Request on behalf of settings that are eligible to be added to a request condition for the specified resource
+	ValidRequestOnBehalfOfSettings []ValidRequestOnBehalfOfSetting `json:"validRequestOnBehalfOfSettings,omitempty"`
+	AdditionalProperties           map[string]interface{}
 }
 
 type _RequestSettings RequestSettings
@@ -136,7 +142,7 @@ func (o *RequestSettings) SetValidAccessDurationSettings(v ValidAccessDurationSe
 
 // GetRequestOnBehalfOfSettings returns the RequestOnBehalfOfSettings field value if set, zero value otherwise.
 func (o *RequestSettings) GetRequestOnBehalfOfSettings() RequestOnBehalfOfSettingsDetails {
-	if o == nil || o.RequestOnBehalfOfSettings == nil {
+	if o == nil || IsNil(o.RequestOnBehalfOfSettings) {
 		var ret RequestOnBehalfOfSettingsDetails
 		return ret
 	}
@@ -146,7 +152,7 @@ func (o *RequestSettings) GetRequestOnBehalfOfSettings() RequestOnBehalfOfSettin
 // GetRequestOnBehalfOfSettingsOk returns a tuple with the RequestOnBehalfOfSettings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestSettings) GetRequestOnBehalfOfSettingsOk() (*RequestOnBehalfOfSettingsDetails, bool) {
-	if o == nil || o.RequestOnBehalfOfSettings == nil {
+	if o == nil || IsNil(o.RequestOnBehalfOfSettings) {
 		return nil, false
 	}
 	return o.RequestOnBehalfOfSettings, true
@@ -154,7 +160,7 @@ func (o *RequestSettings) GetRequestOnBehalfOfSettingsOk() (*RequestOnBehalfOfSe
 
 // HasRequestOnBehalfOfSettings returns a boolean if a field has been set.
 func (o *RequestSettings) HasRequestOnBehalfOfSettings() bool {
-	if o != nil && o.RequestOnBehalfOfSettings != nil {
+	if o != nil && !IsNil(o.RequestOnBehalfOfSettings) {
 		return true
 	}
 
@@ -168,7 +174,7 @@ func (o *RequestSettings) SetRequestOnBehalfOfSettings(v RequestOnBehalfOfSettin
 
 // GetValidRiskSettings returns the ValidRiskSettings field value if set, zero value otherwise.
 func (o *RequestSettings) GetValidRiskSettings() ValidRiskSettingsDetails {
-	if o == nil || o.ValidRiskSettings == nil {
+	if o == nil || IsNil(o.ValidRiskSettings) {
 		var ret ValidRiskSettingsDetails
 		return ret
 	}
@@ -178,7 +184,7 @@ func (o *RequestSettings) GetValidRiskSettings() ValidRiskSettingsDetails {
 // GetValidRiskSettingsOk returns a tuple with the ValidRiskSettings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestSettings) GetValidRiskSettingsOk() (*ValidRiskSettingsDetails, bool) {
-	if o == nil || o.ValidRiskSettings == nil {
+	if o == nil || IsNil(o.ValidRiskSettings) {
 		return nil, false
 	}
 	return o.ValidRiskSettings, true
@@ -186,7 +192,7 @@ func (o *RequestSettings) GetValidRiskSettingsOk() (*ValidRiskSettingsDetails, b
 
 // HasValidRiskSettings returns a boolean if a field has been set.
 func (o *RequestSettings) HasValidRiskSettings() bool {
-	if o != nil && o.ValidRiskSettings != nil {
+	if o != nil && !IsNil(o.ValidRiskSettings) {
 		return true
 	}
 
@@ -200,7 +206,7 @@ func (o *RequestSettings) SetValidRiskSettings(v ValidRiskSettingsDetails) {
 
 // GetRiskSettings returns the RiskSettings field value if set, zero value otherwise.
 func (o *RequestSettings) GetRiskSettings() RiskSettingsDetails {
-	if o == nil || o.RiskSettings == nil {
+	if o == nil || IsNil(o.RiskSettings) {
 		var ret RiskSettingsDetails
 		return ret
 	}
@@ -210,7 +216,7 @@ func (o *RequestSettings) GetRiskSettings() RiskSettingsDetails {
 // GetRiskSettingsOk returns a tuple with the RiskSettings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestSettings) GetRiskSettingsOk() (*RiskSettingsDetails, bool) {
-	if o == nil || o.RiskSettings == nil {
+	if o == nil || IsNil(o.RiskSettings) {
 		return nil, false
 	}
 	return o.RiskSettings, true
@@ -218,7 +224,7 @@ func (o *RequestSettings) GetRiskSettingsOk() (*RiskSettingsDetails, bool) {
 
 // HasRiskSettings returns a boolean if a field has been set.
 func (o *RequestSettings) HasRiskSettings() bool {
-	if o != nil && o.RiskSettings != nil {
+	if o != nil && !IsNil(o.RiskSettings) {
 		return true
 	}
 
@@ -230,57 +236,116 @@ func (o *RequestSettings) SetRiskSettings(v RiskSettingsDetails) {
 	o.RiskSettings = &v
 }
 
+// GetValidRequestOnBehalfOfSettings returns the ValidRequestOnBehalfOfSettings field value if set, zero value otherwise.
+func (o *RequestSettings) GetValidRequestOnBehalfOfSettings() []ValidRequestOnBehalfOfSetting {
+	if o == nil || IsNil(o.ValidRequestOnBehalfOfSettings) {
+		var ret []ValidRequestOnBehalfOfSetting
+		return ret
+	}
+	return o.ValidRequestOnBehalfOfSettings
+}
+
+// GetValidRequestOnBehalfOfSettingsOk returns a tuple with the ValidRequestOnBehalfOfSettings field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RequestSettings) GetValidRequestOnBehalfOfSettingsOk() ([]ValidRequestOnBehalfOfSetting, bool) {
+	if o == nil || IsNil(o.ValidRequestOnBehalfOfSettings) {
+		return nil, false
+	}
+	return o.ValidRequestOnBehalfOfSettings, true
+}
+
+// HasValidRequestOnBehalfOfSettings returns a boolean if a field has been set.
+func (o *RequestSettings) HasValidRequestOnBehalfOfSettings() bool {
+	if o != nil && !IsNil(o.ValidRequestOnBehalfOfSettings) {
+		return true
+	}
+
+	return false
+}
+
+// SetValidRequestOnBehalfOfSettings gets a reference to the given []ValidRequestOnBehalfOfSetting and assigns it to the ValidRequestOnBehalfOfSettings field.
+func (o *RequestSettings) SetValidRequestOnBehalfOfSettings(v []ValidRequestOnBehalfOfSetting) {
+	o.ValidRequestOnBehalfOfSettings = v
+}
+
 func (o RequestSettings) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RequestSettings) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["validAccessScopeSettings"] = o.ValidAccessScopeSettings
-	}
-	if true {
-		toSerialize["validRequesterSettings"] = o.ValidRequesterSettings
-	}
-	if true {
-		toSerialize["validAccessDurationSettings"] = o.ValidAccessDurationSettings
-	}
-	if o.RequestOnBehalfOfSettings != nil {
+	toSerialize["validAccessScopeSettings"] = o.ValidAccessScopeSettings
+	toSerialize["validRequesterSettings"] = o.ValidRequesterSettings
+	toSerialize["validAccessDurationSettings"] = o.ValidAccessDurationSettings
+	if !IsNil(o.RequestOnBehalfOfSettings) {
 		toSerialize["requestOnBehalfOfSettings"] = o.RequestOnBehalfOfSettings
 	}
-	if o.ValidRiskSettings != nil {
+	if !IsNil(o.ValidRiskSettings) {
 		toSerialize["validRiskSettings"] = o.ValidRiskSettings
 	}
-	if o.RiskSettings != nil {
+	if !IsNil(o.RiskSettings) {
 		toSerialize["riskSettings"] = o.RiskSettings
+	}
+	if !IsNil(o.ValidRequestOnBehalfOfSettings) {
+		toSerialize["validRequestOnBehalfOfSettings"] = o.ValidRequestOnBehalfOfSettings
 	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RequestSettings) UnmarshalJSON(bytes []byte) (err error) {
-	varRequestSettings := _RequestSettings{}
+func (o *RequestSettings) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"validAccessScopeSettings",
+		"validRequesterSettings",
+		"validAccessDurationSettings",
+	}
 
-	err = json.Unmarshal(bytes, &varRequestSettings)
-	if err == nil {
-		*o = RequestSettings(varRequestSettings)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRequestSettings := _RequestSettings{}
+
+	err = json.Unmarshal(data, &varRequestSettings)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RequestSettings(varRequestSettings)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "validAccessScopeSettings")
 		delete(additionalProperties, "validRequesterSettings")
 		delete(additionalProperties, "validAccessDurationSettings")
 		delete(additionalProperties, "requestOnBehalfOfSettings")
 		delete(additionalProperties, "validRiskSettings")
 		delete(additionalProperties, "riskSettings")
+		delete(additionalProperties, "validRequestOnBehalfOfSettings")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package governance
 import (
 	"encoding/json"
 )
+
+// checks if the RequestCreatableOnly type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RequestCreatableOnly{}
 
 // RequestCreatableOnly struct for RequestCreatableOnly
 type RequestCreatableOnly struct {
@@ -55,7 +58,7 @@ func NewRequestCreatableOnlyWithDefaults() *RequestCreatableOnly {
 
 // GetRequesterFieldValues returns the RequesterFieldValues field value if set, zero value otherwise.
 func (o *RequestCreatableOnly) GetRequesterFieldValues() []FieldValueWritable {
-	if o == nil || o.RequesterFieldValues == nil {
+	if o == nil || IsNil(o.RequesterFieldValues) {
 		var ret []FieldValueWritable
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *RequestCreatableOnly) GetRequesterFieldValues() []FieldValueWritable {
 // GetRequesterFieldValuesOk returns a tuple with the RequesterFieldValues field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestCreatableOnly) GetRequesterFieldValuesOk() ([]FieldValueWritable, bool) {
-	if o == nil || o.RequesterFieldValues == nil {
+	if o == nil || IsNil(o.RequesterFieldValues) {
 		return nil, false
 	}
 	return o.RequesterFieldValues, true
@@ -73,7 +76,7 @@ func (o *RequestCreatableOnly) GetRequesterFieldValuesOk() ([]FieldValueWritable
 
 // HasRequesterFieldValues returns a boolean if a field has been set.
 func (o *RequestCreatableOnly) HasRequesterFieldValues() bool {
-	if o != nil && o.RequesterFieldValues != nil {
+	if o != nil && !IsNil(o.RequesterFieldValues) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *RequestCreatableOnly) SetRequesterFieldValues(v []FieldValueWritable) {
 }
 
 func (o RequestCreatableOnly) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RequestCreatableOnly) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.RequesterFieldValues != nil {
+	if !IsNil(o.RequesterFieldValues) {
 		toSerialize["requesterFieldValues"] = o.RequesterFieldValues
 	}
 
@@ -95,27 +106,25 @@ func (o RequestCreatableOnly) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RequestCreatableOnly) UnmarshalJSON(bytes []byte) (err error) {
+func (o *RequestCreatableOnly) UnmarshalJSON(data []byte) (err error) {
 	varRequestCreatableOnly := _RequestCreatableOnly{}
 
-	err = json.Unmarshal(bytes, &varRequestCreatableOnly)
-	if err == nil {
-		*o = RequestCreatableOnly(varRequestCreatableOnly)
-	} else {
+	err = json.Unmarshal(data, &varRequestCreatableOnly)
+
+	if err != nil {
 		return err
 	}
 
+	*o = RequestCreatableOnly(varRequestCreatableOnly)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "requesterFieldValues")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

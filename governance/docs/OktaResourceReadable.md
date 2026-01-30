@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ResourceName** | Pointer to **string** | Human readable name of the resource | [optional] 
-**ResourceId** | Pointer to **string** | The Okta &#x60;app.id&#x60;, or &#x60;group.id&#x60; of the resource that can be requested with this Request Type.  See [list applications](https://developer.okta.com/docs/reference/api/apps/#list-applications) endpoint for reference on how to retrieve application IDs.  See [list groups](https://developer.okta.com/docs/reference/api/groups/#list-groups) endpoint for reference on how to retrieve group IDs.  | [optional] 
+**ResourceId** | Pointer to **string** | The Okta &#x60;app.id&#x60;, or &#x60;group.id&#x60; of the resource that can be requested with this Request Type.  * See [List applications](https://developer.okta.com/docs/reference/api/apps/#list-applications) to retrieve app IDs. * See [List groups](https://developer.okta.com/docs/reference/api/groups/#list-groups) to retrieve group IDs.  | [optional] 
 **ResourceType** | Pointer to **string** | The type of resource | [optional] 
 
 ## Methods

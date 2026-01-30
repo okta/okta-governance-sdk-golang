@@ -5,13 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** |  | 
-**Groups** | [**[]GroupsArrayCreatableInner**](GroupsArrayCreatableInner.md) |  | 
+**Groups** | [**[]GroupsArrayCreatableInner**](GroupsArrayCreatableInner.md) | List of requestable groups  &gt; **Note:** Both standard Okta groups and AD-sourced groups are supported in Access Requests. &gt; Standard Okta groups have the &#x60;okta:user_group&#x60; value, whereas AD-sourced groups have the &#x60;okta:windows_security_principal&#x60; value in their &#x60;objectClass&#x60; property. | 
+**Teams** | [**[]TeamsArrayCreatableInner**](TeamsArrayCreatableInner.md) |  | 
 
 ## Methods
 
 ### NewRequesterSettingsCreatableRequesterSettings
 
-`func NewRequesterSettingsCreatableRequesterSettings(type_ string, groups []GroupsArrayCreatableInner, ) *RequesterSettingsCreatableRequesterSettings`
+`func NewRequesterSettingsCreatableRequesterSettings(type_ string, groups []GroupsArrayCreatableInner, teams []TeamsArrayCreatableInner, ) *RequesterSettingsCreatableRequesterSettings`
 
 NewRequesterSettingsCreatableRequesterSettings instantiates a new RequesterSettingsCreatableRequesterSettings object
 This constructor will assign default values to properties that have it defined,
@@ -64,6 +65,26 @@ and a boolean to check if the value has been set.
 `func (o *RequesterSettingsCreatableRequesterSettings) SetGroups(v []GroupsArrayCreatableInner)`
 
 SetGroups sets Groups field to given value.
+
+
+### GetTeams
+
+`func (o *RequesterSettingsCreatableRequesterSettings) GetTeams() []TeamsArrayCreatableInner`
+
+GetTeams returns the Teams field if non-nil, zero value otherwise.
+
+### GetTeamsOk
+
+`func (o *RequesterSettingsCreatableRequesterSettings) GetTeamsOk() (*[]TeamsArrayCreatableInner, bool)`
+
+GetTeamsOk returns a tuple with the Teams field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTeams
+
+`func (o *RequesterSettingsCreatableRequesterSettings) SetTeams(v []TeamsArrayCreatableInner)`
+
+SetTeams sets Teams field to given value.
 
 
 

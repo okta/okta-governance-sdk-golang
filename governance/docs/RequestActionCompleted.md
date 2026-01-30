@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **ActionAttempted** | **time.Time** | When the action was attempted | 
 **AccessRemoved** | Pointer to **NullableTime** | When access was removed if the associated Request Type has an &#x60;accessDuration&#x60;. null if the Request Type does not have an &#x60;accessDuration&#x60;, or the duration has not yet expired. | [optional] 
 **ResourceName** | **string** | Human readable name of the resource | 
-**ResourceId** | **string** | The Okta &#x60;app.id&#x60;, or &#x60;group.id&#x60; of the resource that can be requested with this Request Type.  See [list applications](https://developer.okta.com/docs/reference/api/apps/#list-applications) endpoint for reference on how to retrieve application IDs.  See [list groups](https://developer.okta.com/docs/reference/api/groups/#list-groups) endpoint for reference on how to retrieve group IDs.  | 
+**ResourceId** | **string** | The Okta &#x60;app.id&#x60;, or &#x60;group.id&#x60; of the resource that can be requested with this Request Type.  * See [List applications](https://developer.okta.com/docs/reference/api/apps/#list-applications) to retrieve app IDs. * See [List groups](https://developer.okta.com/docs/reference/api/groups/#list-groups) to retrieve group IDs.  | 
 **ResourceType** | **string** | The type of resource | 
 
 ## Methods

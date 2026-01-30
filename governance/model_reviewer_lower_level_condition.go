@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,13 +28,13 @@ import (
 	"fmt"
 )
 
-// ReviewerLowerLevelCondition The condition for which, the lower level reviews will move to that level for further review.  This property should not be set for `FIRST` reviewer level. Only `SECOND` reviewer level will have the appropriate condition.  `LOWER_LEVEL_APPROVES` means only approved reviews from lower level moves to that level.  `LOWER_LEVEL_APPROVES_OR_REJECTS` means both approved and revoked reviews from lower level moves to that level.
+// ReviewerLowerLevelCondition The condition for reviews to move from the first to the second level reviewer.  Don't set a condition for the first level. A condition is only appropriate for the second level.
 type ReviewerLowerLevelCondition string
 
 // List of reviewer-lower-level-condition
 const (
-	REVIEWERLOWERLEVELCONDITION_APPROVES            ReviewerLowerLevelCondition = "LOWER_LEVEL_APPROVES"
-	REVIEWERLOWERLEVELCONDITION_APPROVES_OR_REJECTS ReviewerLowerLevelCondition = "LOWER_LEVEL_APPROVES_OR_REJECTS"
+	REVIEWERLOWERLEVELCONDITION_LOWER_LEVEL_APPROVES            ReviewerLowerLevelCondition = "LOWER_LEVEL_APPROVES"
+	REVIEWERLOWERLEVELCONDITION_LOWER_LEVEL_APPROVES_OR_REJECTS ReviewerLowerLevelCondition = "LOWER_LEVEL_APPROVES_OR_REJECTS"
 )
 
 // All allowed values of ReviewerLowerLevelCondition enum

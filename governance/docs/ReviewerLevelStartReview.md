@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**OnDay** | **int32** | The day on which that reviewer level will start.  It will be &#x60;0&#x60; for &#x60;FIRST&#x60; reviewer level, as the first level will start when the campaign starts.  For &#x60;SECOND&#x60; reviewer level specify a value greater than &#x60;0&#x60;. This will indicate the day, the reviews will be moved to second level.  | [default to 0]
+**OnDay** | **int32** | The day when reviewer level starts: 1. For the first level, this value is always &#x60;0&#x60; since the first level starts when the campaign starts. 2. For the second level, specify a value that&#39;s greater than &#x60;0&#x60;. This indicates the day when the reviews move to the second level. | [default to 0]
 **When** | Pointer to [**ReviewerLowerLevelCondition**](ReviewerLowerLevelCondition.md) |  | [optional] 
 
 ## Methods

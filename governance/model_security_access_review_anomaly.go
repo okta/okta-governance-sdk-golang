@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,13 +25,17 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the SecurityAccessReviewAnomaly type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SecurityAccessReviewAnomaly{}
 
 // SecurityAccessReviewAnomaly struct for SecurityAccessReviewAnomaly
 type SecurityAccessReviewAnomaly struct {
 	Type     SecurityAccessReviewAnomalyType        `json:"type"`
 	Severity SecurityAccessReviewAccessItemSeverity `json:"severity"`
-	Subtext  ServerMessage                          `json:"subtext"`
+	Subtext  ServerExtendedMessage                  `json:"subtext"`
 	// A list of separation of duties (SOD) conflicts caused by a user's access to an entitlement
 	SodConflicts         []SecurityAccessReviewSodConflict `json:"sodConflicts,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -43,7 +47,7 @@ type _SecurityAccessReviewAnomaly SecurityAccessReviewAnomaly
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSecurityAccessReviewAnomaly(type_ SecurityAccessReviewAnomalyType, severity SecurityAccessReviewAccessItemSeverity, subtext ServerMessage) *SecurityAccessReviewAnomaly {
+func NewSecurityAccessReviewAnomaly(type_ SecurityAccessReviewAnomalyType, severity SecurityAccessReviewAccessItemSeverity, subtext ServerExtendedMessage) *SecurityAccessReviewAnomaly {
 	this := SecurityAccessReviewAnomaly{}
 	this.Type = type_
 	this.Severity = severity
@@ -108,9 +112,9 @@ func (o *SecurityAccessReviewAnomaly) SetSeverity(v SecurityAccessReviewAccessIt
 }
 
 // GetSubtext returns the Subtext field value
-func (o *SecurityAccessReviewAnomaly) GetSubtext() ServerMessage {
+func (o *SecurityAccessReviewAnomaly) GetSubtext() ServerExtendedMessage {
 	if o == nil {
-		var ret ServerMessage
+		var ret ServerExtendedMessage
 		return ret
 	}
 
@@ -119,7 +123,7 @@ func (o *SecurityAccessReviewAnomaly) GetSubtext() ServerMessage {
 
 // GetSubtextOk returns a tuple with the Subtext field value
 // and a boolean to check if the value has been set.
-func (o *SecurityAccessReviewAnomaly) GetSubtextOk() (*ServerMessage, bool) {
+func (o *SecurityAccessReviewAnomaly) GetSubtextOk() (*ServerExtendedMessage, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -127,13 +131,13 @@ func (o *SecurityAccessReviewAnomaly) GetSubtextOk() (*ServerMessage, bool) {
 }
 
 // SetSubtext sets field value
-func (o *SecurityAccessReviewAnomaly) SetSubtext(v ServerMessage) {
+func (o *SecurityAccessReviewAnomaly) SetSubtext(v ServerExtendedMessage) {
 	o.Subtext = v
 }
 
 // GetSodConflicts returns the SodConflicts field value if set, zero value otherwise.
 func (o *SecurityAccessReviewAnomaly) GetSodConflicts() []SecurityAccessReviewSodConflict {
-	if o == nil || o.SodConflicts == nil {
+	if o == nil || IsNil(o.SodConflicts) {
 		var ret []SecurityAccessReviewSodConflict
 		return ret
 	}
@@ -143,7 +147,7 @@ func (o *SecurityAccessReviewAnomaly) GetSodConflicts() []SecurityAccessReviewSo
 // GetSodConflictsOk returns a tuple with the SodConflicts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityAccessReviewAnomaly) GetSodConflictsOk() ([]SecurityAccessReviewSodConflict, bool) {
-	if o == nil || o.SodConflicts == nil {
+	if o == nil || IsNil(o.SodConflicts) {
 		return nil, false
 	}
 	return o.SodConflicts, true
@@ -151,7 +155,7 @@ func (o *SecurityAccessReviewAnomaly) GetSodConflictsOk() ([]SecurityAccessRevie
 
 // HasSodConflicts returns a boolean if a field has been set.
 func (o *SecurityAccessReviewAnomaly) HasSodConflicts() bool {
-	if o != nil && o.SodConflicts != nil {
+	if o != nil && !IsNil(o.SodConflicts) {
 		return true
 	}
 
@@ -164,17 +168,19 @@ func (o *SecurityAccessReviewAnomaly) SetSodConflicts(v []SecurityAccessReviewSo
 }
 
 func (o SecurityAccessReviewAnomaly) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SecurityAccessReviewAnomaly) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if true {
-		toSerialize["severity"] = o.Severity
-	}
-	if true {
-		toSerialize["subtext"] = o.Subtext
-	}
-	if o.SodConflicts != nil {
+	toSerialize["type"] = o.Type
+	toSerialize["severity"] = o.Severity
+	toSerialize["subtext"] = o.Subtext
+	if !IsNil(o.SodConflicts) {
 		toSerialize["sodConflicts"] = o.SodConflicts
 	}
 
@@ -182,30 +188,51 @@ func (o SecurityAccessReviewAnomaly) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SecurityAccessReviewAnomaly) UnmarshalJSON(bytes []byte) (err error) {
-	varSecurityAccessReviewAnomaly := _SecurityAccessReviewAnomaly{}
+func (o *SecurityAccessReviewAnomaly) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"type",
+		"severity",
+		"subtext",
+	}
 
-	err = json.Unmarshal(bytes, &varSecurityAccessReviewAnomaly)
-	if err == nil {
-		*o = SecurityAccessReviewAnomaly(varSecurityAccessReviewAnomaly)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSecurityAccessReviewAnomaly := _SecurityAccessReviewAnomaly{}
+
+	err = json.Unmarshal(data, &varSecurityAccessReviewAnomaly)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SecurityAccessReviewAnomaly(varSecurityAccessReviewAnomaly)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "severity")
 		delete(additionalProperties, "subtext")
 		delete(additionalProperties, "sodConflicts")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

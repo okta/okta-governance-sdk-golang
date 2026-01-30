@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **OriginalDeciderFullName** | Pointer to **string** | Full name of the original decider | [optional] 
 **OriginalDeciderEmail** | Pointer to **string** | Email of the original decider | [optional] 
 **DeciderDelegated** | Pointer to **bool** | Indicates if the decision was made by a delegated decider | [optional] 
+**DeciderEscalated** | Pointer to **bool** | Indicates if the decision was made by an escalated decider | [optional] 
 **FieldValues** | [**[]FieldValue**](FieldValue.md) | Values to field prompts provided by the approver at the time of approval.  All approval fields specified in the related request type are represented in the same order as defined in the request type. | 
 
 ## Methods
@@ -254,6 +255,31 @@ SetDeciderDelegated sets DeciderDelegated field to given value.
 `func (o *RequestApproval) HasDeciderDelegated() bool`
 
 HasDeciderDelegated returns a boolean if a field has been set.
+
+### GetDeciderEscalated
+
+`func (o *RequestApproval) GetDeciderEscalated() bool`
+
+GetDeciderEscalated returns the DeciderEscalated field if non-nil, zero value otherwise.
+
+### GetDeciderEscalatedOk
+
+`func (o *RequestApproval) GetDeciderEscalatedOk() (*bool, bool)`
+
+GetDeciderEscalatedOk returns a tuple with the DeciderEscalated field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDeciderEscalated
+
+`func (o *RequestApproval) SetDeciderEscalated(v bool)`
+
+SetDeciderEscalated sets DeciderEscalated field to given value.
+
+### HasDeciderEscalated
+
+`func (o *RequestApproval) HasDeciderEscalated() bool`
+
+HasDeciderEscalated returns a boolean if a field has been set.
 
 ### GetFieldValues
 

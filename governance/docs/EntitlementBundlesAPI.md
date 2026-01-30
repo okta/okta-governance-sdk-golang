@@ -6,7 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateEntitlementBundle**](EntitlementBundlesAPI.md#CreateEntitlementBundle) | **Post** /governance/api/v1/entitlement-bundles | Create an entitlement bundle
 [**DeleteEntitlementBundle**](EntitlementBundlesAPI.md#DeleteEntitlementBundle) | **Delete** /governance/api/v1/entitlement-bundles/{entitlementBundleId} | Delete an entitlement bundle
-[**GetentitlementBundle**](EntitlementBundlesAPI.md#GetentitlementBundle) | **Get** /governance/api/v1/entitlement-bundles/{entitlementBundleId} | Retrieve an entitlement bundle
+[**GetEntitlementBundle**](EntitlementBundlesAPI.md#GetEntitlementBundle) | **Get** /governance/api/v1/entitlement-bundles/{entitlementBundleId} | Retrieve an entitlement bundle
 [**ListEntitlementBundles**](EntitlementBundlesAPI.md#ListEntitlementBundles) | **Get** /governance/api/v1/entitlement-bundles | List all entitlement bundles
 [**ReplaceEntitlementBundle**](EntitlementBundlesAPI.md#ReplaceEntitlementBundle) | **Put** /governance/api/v1/entitlement-bundles/{entitlementBundleId} | Replace an entitlement bundle
 
@@ -146,9 +146,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetentitlementBundle
+## GetEntitlementBundle
 
-> GetentitlementBundle200Response GetentitlementBundle(ctx, entitlementBundleId).Include(include).Execute()
+> EntitlementBundleFullWithEntitlements GetEntitlementBundle(ctx, entitlementBundleId).Include(include).Execute()
 
 Retrieve an entitlement bundle
 
@@ -172,13 +172,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EntitlementBundlesAPI.GetentitlementBundle(context.Background(), entitlementBundleId).Include(include).Execute()
+	resp, r, err := apiClient.EntitlementBundlesAPI.GetEntitlementBundle(context.Background(), entitlementBundleId).Include(include).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `EntitlementBundlesAPI.GetentitlementBundle``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `EntitlementBundlesAPI.GetEntitlementBundle``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetentitlementBundle`: GetentitlementBundle200Response
-	fmt.Fprintf(os.Stdout, "Response from `EntitlementBundlesAPI.GetentitlementBundle`: %v\n", resp)
+	// response from `GetEntitlementBundle`: EntitlementBundleFullWithEntitlements
+	fmt.Fprintf(os.Stdout, "Response from `EntitlementBundlesAPI.GetEntitlementBundle`: %v\n", resp)
 }
 ```
 
@@ -192,7 +192,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetentitlementBundleRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetEntitlementBundleRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -202,7 +202,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetentitlementBundle200Response**](GetentitlementBundle200Response.md)
+[**EntitlementBundleFullWithEntitlements**](EntitlementBundleFullWithEntitlements.md)
 
 ### Authorization
 
@@ -220,7 +220,7 @@ Name | Type | Description  | Notes
 
 ## ListEntitlementBundles
 
-> ListEntitlementBundles200Response ListEntitlementBundles(ctx).Filter(filter).After(after).Limit(limit).OrderBy(orderBy).Include(include).Execute()
+> EntitlementBundlesListWithEntitlements ListEntitlementBundles(ctx).Filter(filter).After(after).Limit(limit).OrderBy(orderBy).Include(include).Execute()
 
 List all entitlement bundles
 
@@ -252,7 +252,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `EntitlementBundlesAPI.ListEntitlementBundles``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListEntitlementBundles`: ListEntitlementBundles200Response
+	// response from `ListEntitlementBundles`: EntitlementBundlesListWithEntitlements
 	fmt.Fprintf(os.Stdout, "Response from `EntitlementBundlesAPI.ListEntitlementBundles`: %v\n", resp)
 }
 ```
@@ -276,7 +276,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListEntitlementBundles200Response**](ListEntitlementBundles200Response.md)
+[**EntitlementBundlesListWithEntitlements**](EntitlementBundlesListWithEntitlements.md)
 
 ### Authorization
 

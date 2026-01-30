@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package governance
 import (
 	"encoding/json"
 )
+
+// checks if the Note type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Note{}
 
 // Note struct for Note
 type Note struct {
@@ -55,7 +58,7 @@ func NewNoteWithDefaults() *Note {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *Note) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *Note) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Note) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -73,7 +76,7 @@ func (o *Note) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *Note) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *Note) SetId(v string) {
 
 // GetNote returns the Note field value if set, zero value otherwise.
 func (o *Note) GetNote() string {
-	if o == nil || o.Note == nil {
+	if o == nil || IsNil(o.Note) {
 		var ret string
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *Note) GetNote() string {
 // GetNoteOk returns a tuple with the Note field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Note) GetNoteOk() (*string, bool) {
-	if o == nil || o.Note == nil {
+	if o == nil || IsNil(o.Note) {
 		return nil, false
 	}
 	return o.Note, true
@@ -105,7 +108,7 @@ func (o *Note) GetNoteOk() (*string, bool) {
 
 // HasNote returns a boolean if a field has been set.
 func (o *Note) HasNote() bool {
-	if o != nil && o.Note != nil {
+	if o != nil && !IsNil(o.Note) {
 		return true
 	}
 
@@ -118,11 +121,19 @@ func (o *Note) SetNote(v string) {
 }
 
 func (o Note) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Note) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Note != nil {
+	if !IsNil(o.Note) {
 		toSerialize["note"] = o.Note
 	}
 
@@ -130,28 +141,26 @@ func (o Note) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *Note) UnmarshalJSON(bytes []byte) (err error) {
+func (o *Note) UnmarshalJSON(data []byte) (err error) {
 	varNote := _Note{}
 
-	err = json.Unmarshal(bytes, &varNote)
-	if err == nil {
-		*o = Note(varNote)
-	} else {
+	err = json.Unmarshal(data, &varNote)
+
+	if err != nil {
 		return err
 	}
 
+	*o = Note(varNote)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "note")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

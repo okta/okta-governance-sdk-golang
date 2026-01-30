@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package governance
 import (
 	"encoding/json"
 )
+
+// checks if the RiskRuleCriteria type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RiskRuleCriteria{}
 
 // RiskRuleCriteria struct for RiskRuleCriteria
 type RiskRuleCriteria struct {
@@ -58,7 +61,7 @@ func NewRiskRuleCriteriaWithDefaults() *RiskRuleCriteria {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *RiskRuleCriteria) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *RiskRuleCriteria) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskRuleCriteria) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -76,7 +79,7 @@ func (o *RiskRuleCriteria) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *RiskRuleCriteria) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -90,7 +93,7 @@ func (o *RiskRuleCriteria) SetName(v string) {
 
 // GetOperation returns the Operation field value if set, zero value otherwise.
 func (o *RiskRuleCriteria) GetOperation() string {
-	if o == nil || o.Operation == nil {
+	if o == nil || IsNil(o.Operation) {
 		var ret string
 		return ret
 	}
@@ -100,7 +103,7 @@ func (o *RiskRuleCriteria) GetOperation() string {
 // GetOperationOk returns a tuple with the Operation field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskRuleCriteria) GetOperationOk() (*string, bool) {
-	if o == nil || o.Operation == nil {
+	if o == nil || IsNil(o.Operation) {
 		return nil, false
 	}
 	return o.Operation, true
@@ -108,7 +111,7 @@ func (o *RiskRuleCriteria) GetOperationOk() (*string, bool) {
 
 // HasOperation returns a boolean if a field has been set.
 func (o *RiskRuleCriteria) HasOperation() bool {
-	if o != nil && o.Operation != nil {
+	if o != nil && !IsNil(o.Operation) {
 		return true
 	}
 
@@ -122,7 +125,7 @@ func (o *RiskRuleCriteria) SetOperation(v string) {
 
 // GetValue returns the Value field value if set, zero value otherwise.
 func (o *RiskRuleCriteria) GetValue() RiskRuleCriteriaValue {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		var ret RiskRuleCriteriaValue
 		return ret
 	}
@@ -132,7 +135,7 @@ func (o *RiskRuleCriteria) GetValue() RiskRuleCriteriaValue {
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskRuleCriteria) GetValueOk() (*RiskRuleCriteriaValue, bool) {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
 	return o.Value, true
@@ -140,7 +143,7 @@ func (o *RiskRuleCriteria) GetValueOk() (*RiskRuleCriteriaValue, bool) {
 
 // HasValue returns a boolean if a field has been set.
 func (o *RiskRuleCriteria) HasValue() bool {
-	if o != nil && o.Value != nil {
+	if o != nil && !IsNil(o.Value) {
 		return true
 	}
 
@@ -153,14 +156,22 @@ func (o *RiskRuleCriteria) SetValue(v RiskRuleCriteriaValue) {
 }
 
 func (o RiskRuleCriteria) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RiskRuleCriteria) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Operation != nil {
+	if !IsNil(o.Operation) {
 		toSerialize["operation"] = o.Operation
 	}
-	if o.Value != nil {
+	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
 
@@ -168,29 +179,27 @@ func (o RiskRuleCriteria) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RiskRuleCriteria) UnmarshalJSON(bytes []byte) (err error) {
+func (o *RiskRuleCriteria) UnmarshalJSON(data []byte) (err error) {
 	varRiskRuleCriteria := _RiskRuleCriteria{}
 
-	err = json.Unmarshal(bytes, &varRiskRuleCriteria)
-	if err == nil {
-		*o = RiskRuleCriteria(varRiskRuleCriteria)
-	} else {
+	err = json.Unmarshal(data, &varRiskRuleCriteria)
+
+	if err != nil {
 		return err
 	}
 
+	*o = RiskRuleCriteria(varRiskRuleCriteria)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "operation")
 		delete(additionalProperties, "value")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

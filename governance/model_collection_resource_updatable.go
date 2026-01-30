@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package governance
 import (
 	"encoding/json"
 )
+
+// checks if the CollectionResourceUpdatable type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CollectionResourceUpdatable{}
 
 // CollectionResourceUpdatable the updatable properties of a collection resource
 type CollectionResourceUpdatable struct {
@@ -55,7 +58,7 @@ func NewCollectionResourceUpdatableWithDefaults() *CollectionResourceUpdatable {
 
 // GetEntitlements returns the Entitlements field value if set, zero value otherwise.
 func (o *CollectionResourceUpdatable) GetEntitlements() []EntitlementCreatable {
-	if o == nil || o.Entitlements == nil {
+	if o == nil || IsNil(o.Entitlements) {
 		var ret []EntitlementCreatable
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *CollectionResourceUpdatable) GetEntitlements() []EntitlementCreatable {
 // GetEntitlementsOk returns a tuple with the Entitlements field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionResourceUpdatable) GetEntitlementsOk() ([]EntitlementCreatable, bool) {
-	if o == nil || o.Entitlements == nil {
+	if o == nil || IsNil(o.Entitlements) {
 		return nil, false
 	}
 	return o.Entitlements, true
@@ -73,7 +76,7 @@ func (o *CollectionResourceUpdatable) GetEntitlementsOk() ([]EntitlementCreatabl
 
 // HasEntitlements returns a boolean if a field has been set.
 func (o *CollectionResourceUpdatable) HasEntitlements() bool {
-	if o != nil && o.Entitlements != nil {
+	if o != nil && !IsNil(o.Entitlements) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *CollectionResourceUpdatable) SetEntitlements(v []EntitlementCreatable) 
 }
 
 func (o CollectionResourceUpdatable) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CollectionResourceUpdatable) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Entitlements != nil {
+	if !IsNil(o.Entitlements) {
 		toSerialize["entitlements"] = o.Entitlements
 	}
 
@@ -95,27 +106,25 @@ func (o CollectionResourceUpdatable) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *CollectionResourceUpdatable) UnmarshalJSON(bytes []byte) (err error) {
+func (o *CollectionResourceUpdatable) UnmarshalJSON(data []byte) (err error) {
 	varCollectionResourceUpdatable := _CollectionResourceUpdatable{}
 
-	err = json.Unmarshal(bytes, &varCollectionResourceUpdatable)
-	if err == nil {
-		*o = CollectionResourceUpdatable(varCollectionResourceUpdatable)
-	} else {
+	err = json.Unmarshal(data, &varCollectionResourceUpdatable)
+
+	if err != nil {
 		return err
 	}
 
+	*o = CollectionResourceUpdatable(varCollectionResourceUpdatable)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "entitlements")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

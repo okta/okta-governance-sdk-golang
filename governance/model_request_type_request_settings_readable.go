@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,7 +28,6 @@ import (
 	"fmt"
 )
 
-// model_oneof.mustache
 // RequestTypeRequestSettingsReadable - The `requestSettings` control:  - Which users can request access using this request type. - What fields the user may or must fill out in order to request access.
 type RequestTypeRequestSettingsReadable struct {
 	RequestTypeRequesterCustom   *RequestTypeRequesterCustom
@@ -57,14 +56,14 @@ func RequestTypeRequesterMemberOfAsRequestTypeRequestSettingsReadable(v *Request
 	}
 }
 
-// Unmarshal JSON data into one of the pointers in the struct  CUSTOM
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *RequestTypeRequestSettingsReadable) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup
 	var jsonDict map[string]interface{}
 	err = newStrictDecoder(data).Decode(&jsonDict)
 	if err != nil {
-		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
 	// check if the discriminator value is 'CUSTOM'
@@ -75,7 +74,7 @@ func (dst *RequestTypeRequestSettingsReadable) UnmarshalJSON(data []byte) error 
 			return nil // data stored in dst.RequestTypeRequesterCustom, return on the first match
 		} else {
 			dst.RequestTypeRequesterCustom = nil
-			return fmt.Errorf("Failed to unmarshal RequestTypeRequestSettingsReadable as RequestTypeRequesterCustom: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal RequestTypeRequestSettingsReadable as RequestTypeRequesterCustom: %s", err.Error())
 		}
 	}
 
@@ -87,7 +86,7 @@ func (dst *RequestTypeRequestSettingsReadable) UnmarshalJSON(data []byte) error 
 			return nil // data stored in dst.RequestTypeRequesterEveryone, return on the first match
 		} else {
 			dst.RequestTypeRequesterEveryone = nil
-			return fmt.Errorf("Failed to unmarshal RequestTypeRequestSettingsReadable as RequestTypeRequesterEveryone: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal RequestTypeRequestSettingsReadable as RequestTypeRequesterEveryone: %s", err.Error())
 		}
 	}
 
@@ -99,43 +98,7 @@ func (dst *RequestTypeRequestSettingsReadable) UnmarshalJSON(data []byte) error 
 			return nil // data stored in dst.RequestTypeRequesterMemberOf, return on the first match
 		} else {
 			dst.RequestTypeRequesterMemberOf = nil
-			return fmt.Errorf("Failed to unmarshal RequestTypeRequestSettingsReadable as RequestTypeRequesterMemberOf: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'request-type-requester-custom'
-	if jsonDict["type"] == "request-type-requester-custom" {
-		// try to unmarshal JSON data into RequestTypeRequesterCustom
-		err = json.Unmarshal(data, &dst.RequestTypeRequesterCustom)
-		if err == nil {
-			return nil // data stored in dst.RequestTypeRequesterCustom, return on the first match
-		} else {
-			dst.RequestTypeRequesterCustom = nil
-			return fmt.Errorf("Failed to unmarshal RequestTypeRequestSettingsReadable as RequestTypeRequesterCustom: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'request-type-requester-everyone'
-	if jsonDict["type"] == "request-type-requester-everyone" {
-		// try to unmarshal JSON data into RequestTypeRequesterEveryone
-		err = json.Unmarshal(data, &dst.RequestTypeRequesterEveryone)
-		if err == nil {
-			return nil // data stored in dst.RequestTypeRequesterEveryone, return on the first match
-		} else {
-			dst.RequestTypeRequesterEveryone = nil
-			return fmt.Errorf("Failed to unmarshal RequestTypeRequestSettingsReadable as RequestTypeRequesterEveryone: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'request-type-requester-member-of'
-	if jsonDict["type"] == "request-type-requester-member-of" {
-		// try to unmarshal JSON data into RequestTypeRequesterMemberOf
-		err = json.Unmarshal(data, &dst.RequestTypeRequesterMemberOf)
-		if err == nil {
-			return nil // data stored in dst.RequestTypeRequesterMemberOf, return on the first match
-		} else {
-			dst.RequestTypeRequesterMemberOf = nil
-			return fmt.Errorf("Failed to unmarshal RequestTypeRequestSettingsReadable as RequestTypeRequesterMemberOf: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal RequestTypeRequestSettingsReadable as RequestTypeRequesterMemberOf: %s", err.Error())
 		}
 	}
 
@@ -174,6 +137,24 @@ func (obj *RequestTypeRequestSettingsReadable) GetActualInstance() interface{} {
 
 	if obj.RequestTypeRequesterMemberOf != nil {
 		return obj.RequestTypeRequesterMemberOf
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj RequestTypeRequestSettingsReadable) GetActualInstanceValue() interface{} {
+	if obj.RequestTypeRequesterCustom != nil {
+		return *obj.RequestTypeRequesterCustom
+	}
+
+	if obj.RequestTypeRequesterEveryone != nil {
+		return *obj.RequestTypeRequesterEveryone
+	}
+
+	if obj.RequestTypeRequesterMemberOf != nil {
+		return *obj.RequestTypeRequesterMemberOf
 	}
 
 	// all schemas are nil

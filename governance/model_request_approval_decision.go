@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,8 +25,12 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the RequestApprovalDecision type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RequestApprovalDecision{}
 
 // RequestApprovalDecision A completed access request approval decision
 type RequestApprovalDecision struct {
@@ -44,7 +48,9 @@ type RequestApprovalDecision struct {
 	// Email of the original decider
 	OriginalDeciderEmail *string `json:"originalDeciderEmail,omitempty"`
 	// Indicates if the decision was made by a delegated decider
-	DeciderDelegated     *bool `json:"deciderDelegated,omitempty"`
+	DeciderDelegated *bool `json:"deciderDelegated,omitempty"`
+	// Indicates if the decision was made by an escalated decider
+	DeciderEscalated     *bool `json:"deciderEscalated,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -96,7 +102,7 @@ func (o *RequestApprovalDecision) SetDeciderId(v string) {
 
 // GetDeciderName returns the DeciderName field value if set, zero value otherwise.
 func (o *RequestApprovalDecision) GetDeciderName() string {
-	if o == nil || o.DeciderName == nil {
+	if o == nil || IsNil(o.DeciderName) {
 		var ret string
 		return ret
 	}
@@ -106,7 +112,7 @@ func (o *RequestApprovalDecision) GetDeciderName() string {
 // GetDeciderNameOk returns a tuple with the DeciderName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestApprovalDecision) GetDeciderNameOk() (*string, bool) {
-	if o == nil || o.DeciderName == nil {
+	if o == nil || IsNil(o.DeciderName) {
 		return nil, false
 	}
 	return o.DeciderName, true
@@ -114,7 +120,7 @@ func (o *RequestApprovalDecision) GetDeciderNameOk() (*string, bool) {
 
 // HasDeciderName returns a boolean if a field has been set.
 func (o *RequestApprovalDecision) HasDeciderName() bool {
-	if o != nil && o.DeciderName != nil {
+	if o != nil && !IsNil(o.DeciderName) {
 		return true
 	}
 
@@ -176,7 +182,7 @@ func (o *RequestApprovalDecision) SetDecided(v time.Time) {
 
 // GetOriginalDeciderId returns the OriginalDeciderId field value if set, zero value otherwise.
 func (o *RequestApprovalDecision) GetOriginalDeciderId() string {
-	if o == nil || o.OriginalDeciderId == nil {
+	if o == nil || IsNil(o.OriginalDeciderId) {
 		var ret string
 		return ret
 	}
@@ -186,7 +192,7 @@ func (o *RequestApprovalDecision) GetOriginalDeciderId() string {
 // GetOriginalDeciderIdOk returns a tuple with the OriginalDeciderId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestApprovalDecision) GetOriginalDeciderIdOk() (*string, bool) {
-	if o == nil || o.OriginalDeciderId == nil {
+	if o == nil || IsNil(o.OriginalDeciderId) {
 		return nil, false
 	}
 	return o.OriginalDeciderId, true
@@ -194,7 +200,7 @@ func (o *RequestApprovalDecision) GetOriginalDeciderIdOk() (*string, bool) {
 
 // HasOriginalDeciderId returns a boolean if a field has been set.
 func (o *RequestApprovalDecision) HasOriginalDeciderId() bool {
-	if o != nil && o.OriginalDeciderId != nil {
+	if o != nil && !IsNil(o.OriginalDeciderId) {
 		return true
 	}
 
@@ -208,7 +214,7 @@ func (o *RequestApprovalDecision) SetOriginalDeciderId(v string) {
 
 // GetOriginalDeciderFullName returns the OriginalDeciderFullName field value if set, zero value otherwise.
 func (o *RequestApprovalDecision) GetOriginalDeciderFullName() string {
-	if o == nil || o.OriginalDeciderFullName == nil {
+	if o == nil || IsNil(o.OriginalDeciderFullName) {
 		var ret string
 		return ret
 	}
@@ -218,7 +224,7 @@ func (o *RequestApprovalDecision) GetOriginalDeciderFullName() string {
 // GetOriginalDeciderFullNameOk returns a tuple with the OriginalDeciderFullName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestApprovalDecision) GetOriginalDeciderFullNameOk() (*string, bool) {
-	if o == nil || o.OriginalDeciderFullName == nil {
+	if o == nil || IsNil(o.OriginalDeciderFullName) {
 		return nil, false
 	}
 	return o.OriginalDeciderFullName, true
@@ -226,7 +232,7 @@ func (o *RequestApprovalDecision) GetOriginalDeciderFullNameOk() (*string, bool)
 
 // HasOriginalDeciderFullName returns a boolean if a field has been set.
 func (o *RequestApprovalDecision) HasOriginalDeciderFullName() bool {
-	if o != nil && o.OriginalDeciderFullName != nil {
+	if o != nil && !IsNil(o.OriginalDeciderFullName) {
 		return true
 	}
 
@@ -240,7 +246,7 @@ func (o *RequestApprovalDecision) SetOriginalDeciderFullName(v string) {
 
 // GetOriginalDeciderEmail returns the OriginalDeciderEmail field value if set, zero value otherwise.
 func (o *RequestApprovalDecision) GetOriginalDeciderEmail() string {
-	if o == nil || o.OriginalDeciderEmail == nil {
+	if o == nil || IsNil(o.OriginalDeciderEmail) {
 		var ret string
 		return ret
 	}
@@ -250,7 +256,7 @@ func (o *RequestApprovalDecision) GetOriginalDeciderEmail() string {
 // GetOriginalDeciderEmailOk returns a tuple with the OriginalDeciderEmail field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestApprovalDecision) GetOriginalDeciderEmailOk() (*string, bool) {
-	if o == nil || o.OriginalDeciderEmail == nil {
+	if o == nil || IsNil(o.OriginalDeciderEmail) {
 		return nil, false
 	}
 	return o.OriginalDeciderEmail, true
@@ -258,7 +264,7 @@ func (o *RequestApprovalDecision) GetOriginalDeciderEmailOk() (*string, bool) {
 
 // HasOriginalDeciderEmail returns a boolean if a field has been set.
 func (o *RequestApprovalDecision) HasOriginalDeciderEmail() bool {
-	if o != nil && o.OriginalDeciderEmail != nil {
+	if o != nil && !IsNil(o.OriginalDeciderEmail) {
 		return true
 	}
 
@@ -272,7 +278,7 @@ func (o *RequestApprovalDecision) SetOriginalDeciderEmail(v string) {
 
 // GetDeciderDelegated returns the DeciderDelegated field value if set, zero value otherwise.
 func (o *RequestApprovalDecision) GetDeciderDelegated() bool {
-	if o == nil || o.DeciderDelegated == nil {
+	if o == nil || IsNil(o.DeciderDelegated) {
 		var ret bool
 		return ret
 	}
@@ -282,7 +288,7 @@ func (o *RequestApprovalDecision) GetDeciderDelegated() bool {
 // GetDeciderDelegatedOk returns a tuple with the DeciderDelegated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestApprovalDecision) GetDeciderDelegatedOk() (*bool, bool) {
-	if o == nil || o.DeciderDelegated == nil {
+	if o == nil || IsNil(o.DeciderDelegated) {
 		return nil, false
 	}
 	return o.DeciderDelegated, true
@@ -290,7 +296,7 @@ func (o *RequestApprovalDecision) GetDeciderDelegatedOk() (*bool, bool) {
 
 // HasDeciderDelegated returns a boolean if a field has been set.
 func (o *RequestApprovalDecision) HasDeciderDelegated() bool {
-	if o != nil && o.DeciderDelegated != nil {
+	if o != nil && !IsNil(o.DeciderDelegated) {
 		return true
 	}
 
@@ -302,54 +308,114 @@ func (o *RequestApprovalDecision) SetDeciderDelegated(v bool) {
 	o.DeciderDelegated = &v
 }
 
-func (o RequestApprovalDecision) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["deciderId"] = o.DeciderId
+// GetDeciderEscalated returns the DeciderEscalated field value if set, zero value otherwise.
+func (o *RequestApprovalDecision) GetDeciderEscalated() bool {
+	if o == nil || IsNil(o.DeciderEscalated) {
+		var ret bool
+		return ret
 	}
-	if o.DeciderName != nil {
+	return *o.DeciderEscalated
+}
+
+// GetDeciderEscalatedOk returns a tuple with the DeciderEscalated field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RequestApprovalDecision) GetDeciderEscalatedOk() (*bool, bool) {
+	if o == nil || IsNil(o.DeciderEscalated) {
+		return nil, false
+	}
+	return o.DeciderEscalated, true
+}
+
+// HasDeciderEscalated returns a boolean if a field has been set.
+func (o *RequestApprovalDecision) HasDeciderEscalated() bool {
+	if o != nil && !IsNil(o.DeciderEscalated) {
+		return true
+	}
+
+	return false
+}
+
+// SetDeciderEscalated gets a reference to the given bool and assigns it to the DeciderEscalated field.
+func (o *RequestApprovalDecision) SetDeciderEscalated(v bool) {
+	o.DeciderEscalated = &v
+}
+
+func (o RequestApprovalDecision) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RequestApprovalDecision) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["deciderId"] = o.DeciderId
+	if !IsNil(o.DeciderName) {
 		toSerialize["deciderName"] = o.DeciderName
 	}
-	if true {
-		toSerialize["decision"] = o.Decision
-	}
-	if true {
-		toSerialize["decided"] = o.Decided
-	}
-	if o.OriginalDeciderId != nil {
+	toSerialize["decision"] = o.Decision
+	toSerialize["decided"] = o.Decided
+	if !IsNil(o.OriginalDeciderId) {
 		toSerialize["originalDeciderId"] = o.OriginalDeciderId
 	}
-	if o.OriginalDeciderFullName != nil {
+	if !IsNil(o.OriginalDeciderFullName) {
 		toSerialize["originalDeciderFullName"] = o.OriginalDeciderFullName
 	}
-	if o.OriginalDeciderEmail != nil {
+	if !IsNil(o.OriginalDeciderEmail) {
 		toSerialize["originalDeciderEmail"] = o.OriginalDeciderEmail
 	}
-	if o.DeciderDelegated != nil {
+	if !IsNil(o.DeciderDelegated) {
 		toSerialize["deciderDelegated"] = o.DeciderDelegated
+	}
+	if !IsNil(o.DeciderEscalated) {
+		toSerialize["deciderEscalated"] = o.DeciderEscalated
 	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RequestApprovalDecision) UnmarshalJSON(bytes []byte) (err error) {
-	varRequestApprovalDecision := _RequestApprovalDecision{}
+func (o *RequestApprovalDecision) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"deciderId",
+		"decision",
+		"decided",
+	}
 
-	err = json.Unmarshal(bytes, &varRequestApprovalDecision)
-	if err == nil {
-		*o = RequestApprovalDecision(varRequestApprovalDecision)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRequestApprovalDecision := _RequestApprovalDecision{}
+
+	err = json.Unmarshal(data, &varRequestApprovalDecision)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RequestApprovalDecision(varRequestApprovalDecision)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "deciderId")
 		delete(additionalProperties, "deciderName")
 		delete(additionalProperties, "decision")
@@ -358,9 +424,8 @@ func (o *RequestApprovalDecision) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "originalDeciderFullName")
 		delete(additionalProperties, "originalDeciderEmail")
 		delete(additionalProperties, "deciderDelegated")
+		delete(additionalProperties, "deciderEscalated")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

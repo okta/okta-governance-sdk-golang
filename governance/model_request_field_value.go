@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,16 +25,20 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the RequestFieldValue type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RequestFieldValue{}
 
 // RequestFieldValue struct for RequestFieldValue
 type RequestFieldValue struct {
-	// The ID of a `requesterField`.  For `OKTA` request approval, this is typically the ID of an input field defined in an approval sequence.  For `EXTERNAL` request approval, this is the ID of an input field relevant to the external approval system.  The following are reserved identifiers: - `ACCESS_DURATION`: An identifier used to specify the duration of the access being requested. (**Note:**   This identifier is to be grandfathered. The new name will be `OKTA_ACCESS_DURATION`.) - `OKTA_REQUESTED_FOR`: An identifier used to specify who the resource is being requested for - `OKTA_ACCESS_DURATION`: An identifier used to specify the duration of the requested access. If a request    field is included in this ID, the field value must be a `DURATION` expression in ISO format. The maximum    length of this value is 5 characters. For example, `P1D` represents a duration of one day. - Any identifiers with `OKTA_` prefix are reserved for future use.
+	// The ID of a `requesterField`.  For `OKTA` request approval, this is typically the ID of an input field defined in an approval sequence.  For `EXTERNAL` request approval, this is the ID of an input field relevant to the external approval system.  The following are reserved identifiers: - `ACCESS_DURATION`: An identifier used to specify the duration of the access being requested. (**Note:**   This identifier is to be grandfathered. The new name will be `OKTA_ACCESS_DURATION`.) - `OKTA_REQUESTED_FOR`: An identifier used to specify who the resource is being requested for - `OKTA_ACCESS_DURATION`: An identifier used to specify the duration of the requested access. If a request   field is included in this ID, the field value must be a `DURATION` expression in ISO format. The maximum   length of this value is 5 characters. For example, `P1D` represents a duration of one day. - Any identifiers with `OKTA_` prefix are reserved for future use.
 	Id string `json:"id"`
 	// A human-readable description of `requesterField`. It's used for display purposes and is optional
 	Label *string           `json:"label,omitempty"`
 	Type  *RequestFieldType `json:"type,omitempty"`
-	// The value of `requesterField`, which depends on the type of the field: - `TEXT`: A multi-line string - `SELECT`: An option predefined by the approval system - `ISO_DATE`: An ISO formatted date string. for example, `2022-05-05T14:15:22Z` - `DURATION`: An ISO format duration expression with a maximum length of 5 characters. For example,    `P1D` indicates a duration of one day. - `OKTA_USER_ID`: Okta User ID  If the field type is one of the previously listed, this property is required.
+	// The value of `requesterField`, which depends on the type of the field: - `TEXT`: A multi-line string - `SELECT`: An option predefined by the approval system - `ISO_DATE`: An ISO formatted date string. for example, `2022-05-05T14:15:22Z` - `DURATION`: An ISO format duration expression with a maximum length of 5 characters. For example,   `P1D` indicates a duration of one day. - `OKTA_USER_ID`: Okta User ID  If the field type is one of the previously listed, this property is required.
 	Value *string `json:"value,omitempty"`
 	// The values of `requesterField` with the type `MULTISELECT`.  If the field type is `MULTISELECT`, this property is required.
 	Values               []string `json:"values,omitempty"`
@@ -87,7 +91,7 @@ func (o *RequestFieldValue) SetId(v string) {
 
 // GetLabel returns the Label field value if set, zero value otherwise.
 func (o *RequestFieldValue) GetLabel() string {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		var ret string
 		return ret
 	}
@@ -97,7 +101,7 @@ func (o *RequestFieldValue) GetLabel() string {
 // GetLabelOk returns a tuple with the Label field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestFieldValue) GetLabelOk() (*string, bool) {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		return nil, false
 	}
 	return o.Label, true
@@ -105,7 +109,7 @@ func (o *RequestFieldValue) GetLabelOk() (*string, bool) {
 
 // HasLabel returns a boolean if a field has been set.
 func (o *RequestFieldValue) HasLabel() bool {
-	if o != nil && o.Label != nil {
+	if o != nil && !IsNil(o.Label) {
 		return true
 	}
 
@@ -119,7 +123,7 @@ func (o *RequestFieldValue) SetLabel(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *RequestFieldValue) GetType() RequestFieldType {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret RequestFieldType
 		return ret
 	}
@@ -129,7 +133,7 @@ func (o *RequestFieldValue) GetType() RequestFieldType {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestFieldValue) GetTypeOk() (*RequestFieldType, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -137,7 +141,7 @@ func (o *RequestFieldValue) GetTypeOk() (*RequestFieldType, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *RequestFieldValue) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -151,7 +155,7 @@ func (o *RequestFieldValue) SetType(v RequestFieldType) {
 
 // GetValue returns the Value field value if set, zero value otherwise.
 func (o *RequestFieldValue) GetValue() string {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		var ret string
 		return ret
 	}
@@ -161,7 +165,7 @@ func (o *RequestFieldValue) GetValue() string {
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestFieldValue) GetValueOk() (*string, bool) {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
 	return o.Value, true
@@ -169,7 +173,7 @@ func (o *RequestFieldValue) GetValueOk() (*string, bool) {
 
 // HasValue returns a boolean if a field has been set.
 func (o *RequestFieldValue) HasValue() bool {
-	if o != nil && o.Value != nil {
+	if o != nil && !IsNil(o.Value) {
 		return true
 	}
 
@@ -183,7 +187,7 @@ func (o *RequestFieldValue) SetValue(v string) {
 
 // GetValues returns the Values field value if set, zero value otherwise.
 func (o *RequestFieldValue) GetValues() []string {
-	if o == nil || o.Values == nil {
+	if o == nil || IsNil(o.Values) {
 		var ret []string
 		return ret
 	}
@@ -193,7 +197,7 @@ func (o *RequestFieldValue) GetValues() []string {
 // GetValuesOk returns a tuple with the Values field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestFieldValue) GetValuesOk() ([]string, bool) {
-	if o == nil || o.Values == nil {
+	if o == nil || IsNil(o.Values) {
 		return nil, false
 	}
 	return o.Values, true
@@ -201,7 +205,7 @@ func (o *RequestFieldValue) GetValuesOk() ([]string, bool) {
 
 // HasValues returns a boolean if a field has been set.
 func (o *RequestFieldValue) HasValues() bool {
-	if o != nil && o.Values != nil {
+	if o != nil && !IsNil(o.Values) {
 		return true
 	}
 
@@ -214,20 +218,26 @@ func (o *RequestFieldValue) SetValues(v []string) {
 }
 
 func (o RequestFieldValue) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.Label != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o RequestFieldValue) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	if !IsNil(o.Label) {
 		toSerialize["label"] = o.Label
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.Value != nil {
+	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
-	if o.Values != nil {
+	if !IsNil(o.Values) {
 		toSerialize["values"] = o.Values
 	}
 
@@ -235,31 +245,50 @@ func (o RequestFieldValue) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RequestFieldValue) UnmarshalJSON(bytes []byte) (err error) {
-	varRequestFieldValue := _RequestFieldValue{}
+func (o *RequestFieldValue) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+	}
 
-	err = json.Unmarshal(bytes, &varRequestFieldValue)
-	if err == nil {
-		*o = RequestFieldValue(varRequestFieldValue)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRequestFieldValue := _RequestFieldValue{}
+
+	err = json.Unmarshal(data, &varRequestFieldValue)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RequestFieldValue(varRequestFieldValue)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "label")
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "value")
 		delete(additionalProperties, "values")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

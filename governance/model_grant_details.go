@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,10 +27,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the GrantDetails type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GrantDetails{}
+
 // GrantDetails struct for GrantDetails
 type GrantDetails struct {
 	// Grant `id`
-	Id                   *string            `json:"id,omitempty"`
+	Id                   *string            `json:"id,omitempty" validate:"regexp=gra[0-9a-zA-Z]+"`
 	Metadata             *GrantMetadata     `json:"metadata,omitempty"`
 	Links                *GrantDetailsLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -57,7 +60,7 @@ func NewGrantDetailsWithDefaults() *GrantDetails {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *GrantDetails) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *GrantDetails) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GrantDetails) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -75,7 +78,7 @@ func (o *GrantDetails) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *GrantDetails) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *GrantDetails) SetId(v string) {
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *GrantDetails) GetMetadata() GrantMetadata {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		var ret GrantMetadata
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *GrantDetails) GetMetadata() GrantMetadata {
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GrantDetails) GetMetadataOk() (*GrantMetadata, bool) {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
 	return o.Metadata, true
@@ -107,7 +110,7 @@ func (o *GrantDetails) GetMetadataOk() (*GrantMetadata, bool) {
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *GrantDetails) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
@@ -121,7 +124,7 @@ func (o *GrantDetails) SetMetadata(v GrantMetadata) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *GrantDetails) GetLinks() GrantDetailsLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret GrantDetailsLinks
 		return ret
 	}
@@ -131,7 +134,7 @@ func (o *GrantDetails) GetLinks() GrantDetailsLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GrantDetails) GetLinksOk() (*GrantDetailsLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -139,7 +142,7 @@ func (o *GrantDetails) GetLinksOk() (*GrantDetailsLinks, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *GrantDetails) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -152,14 +155,22 @@ func (o *GrantDetails) SetLinks(v GrantDetailsLinks) {
 }
 
 func (o GrantDetails) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o GrantDetails) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Metadata != nil {
+	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -167,29 +178,27 @@ func (o GrantDetails) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *GrantDetails) UnmarshalJSON(bytes []byte) (err error) {
+func (o *GrantDetails) UnmarshalJSON(data []byte) (err error) {
 	varGrantDetails := _GrantDetails{}
 
-	err = json.Unmarshal(bytes, &varGrantDetails)
-	if err == nil {
-		*o = GrantDetails(varGrantDetails)
-	} else {
+	err = json.Unmarshal(data, &varGrantDetails)
+
+	if err != nil {
 		return err
 	}
 
+	*o = GrantDetails(varGrantDetails)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "metadata")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

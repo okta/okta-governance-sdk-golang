@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,13 +25,17 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the RequestCreatable2 type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RequestCreatable2{}
 
 // RequestCreatable2 Properties which are mutable in mutation operations
 type RequestCreatable2 struct {
-	Requested    RequestResourceCreatable `json:"requested"`
-	RequestedBy  *TargetPrincipal         `json:"requestedBy,omitempty"`
-	RequestedFor TargetPrincipal          `json:"requestedFor"`
+	Requested    RequestResourceCatalogEntryCreatable `json:"requested"`
+	RequestedBy  *TargetPrincipal                     `json:"requestedBy,omitempty"`
+	RequestedFor TargetPrincipal                      `json:"requestedFor"`
 	// The requester input fields required by the approval system.  **Note:** The fields required are determined by the approval system.  For the Okta approval system, the required fields are defined in the approval sequence. Ensure that the requester input fields match up with this definition to avoid request approval flow failure.  For external approval systems, the requester input fields are for recording purposes only and do not affect the approval process.
 	RequesterFieldValues []RequestFieldValue `json:"requesterFieldValues,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -43,7 +47,7 @@ type _RequestCreatable2 RequestCreatable2
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRequestCreatable2(requested RequestResourceCreatable, requestedFor TargetPrincipal) *RequestCreatable2 {
+func NewRequestCreatable2(requested RequestResourceCatalogEntryCreatable, requestedFor TargetPrincipal) *RequestCreatable2 {
 	this := RequestCreatable2{}
 	this.Requested = requested
 	this.RequestedFor = requestedFor
@@ -59,9 +63,9 @@ func NewRequestCreatable2WithDefaults() *RequestCreatable2 {
 }
 
 // GetRequested returns the Requested field value
-func (o *RequestCreatable2) GetRequested() RequestResourceCreatable {
+func (o *RequestCreatable2) GetRequested() RequestResourceCatalogEntryCreatable {
 	if o == nil {
-		var ret RequestResourceCreatable
+		var ret RequestResourceCatalogEntryCreatable
 		return ret
 	}
 
@@ -70,7 +74,7 @@ func (o *RequestCreatable2) GetRequested() RequestResourceCreatable {
 
 // GetRequestedOk returns a tuple with the Requested field value
 // and a boolean to check if the value has been set.
-func (o *RequestCreatable2) GetRequestedOk() (*RequestResourceCreatable, bool) {
+func (o *RequestCreatable2) GetRequestedOk() (*RequestResourceCatalogEntryCreatable, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -78,13 +82,13 @@ func (o *RequestCreatable2) GetRequestedOk() (*RequestResourceCreatable, bool) {
 }
 
 // SetRequested sets field value
-func (o *RequestCreatable2) SetRequested(v RequestResourceCreatable) {
+func (o *RequestCreatable2) SetRequested(v RequestResourceCatalogEntryCreatable) {
 	o.Requested = v
 }
 
 // GetRequestedBy returns the RequestedBy field value if set, zero value otherwise.
 func (o *RequestCreatable2) GetRequestedBy() TargetPrincipal {
-	if o == nil || o.RequestedBy == nil {
+	if o == nil || IsNil(o.RequestedBy) {
 		var ret TargetPrincipal
 		return ret
 	}
@@ -94,7 +98,7 @@ func (o *RequestCreatable2) GetRequestedBy() TargetPrincipal {
 // GetRequestedByOk returns a tuple with the RequestedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestCreatable2) GetRequestedByOk() (*TargetPrincipal, bool) {
-	if o == nil || o.RequestedBy == nil {
+	if o == nil || IsNil(o.RequestedBy) {
 		return nil, false
 	}
 	return o.RequestedBy, true
@@ -102,7 +106,7 @@ func (o *RequestCreatable2) GetRequestedByOk() (*TargetPrincipal, bool) {
 
 // HasRequestedBy returns a boolean if a field has been set.
 func (o *RequestCreatable2) HasRequestedBy() bool {
-	if o != nil && o.RequestedBy != nil {
+	if o != nil && !IsNil(o.RequestedBy) {
 		return true
 	}
 
@@ -140,7 +144,7 @@ func (o *RequestCreatable2) SetRequestedFor(v TargetPrincipal) {
 
 // GetRequesterFieldValues returns the RequesterFieldValues field value if set, zero value otherwise.
 func (o *RequestCreatable2) GetRequesterFieldValues() []RequestFieldValue {
-	if o == nil || o.RequesterFieldValues == nil {
+	if o == nil || IsNil(o.RequesterFieldValues) {
 		var ret []RequestFieldValue
 		return ret
 	}
@@ -150,7 +154,7 @@ func (o *RequestCreatable2) GetRequesterFieldValues() []RequestFieldValue {
 // GetRequesterFieldValuesOk returns a tuple with the RequesterFieldValues field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestCreatable2) GetRequesterFieldValuesOk() ([]RequestFieldValue, bool) {
-	if o == nil || o.RequesterFieldValues == nil {
+	if o == nil || IsNil(o.RequesterFieldValues) {
 		return nil, false
 	}
 	return o.RequesterFieldValues, true
@@ -158,7 +162,7 @@ func (o *RequestCreatable2) GetRequesterFieldValuesOk() ([]RequestFieldValue, bo
 
 // HasRequesterFieldValues returns a boolean if a field has been set.
 func (o *RequestCreatable2) HasRequesterFieldValues() bool {
-	if o != nil && o.RequesterFieldValues != nil {
+	if o != nil && !IsNil(o.RequesterFieldValues) {
 		return true
 	}
 
@@ -171,17 +175,21 @@ func (o *RequestCreatable2) SetRequesterFieldValues(v []RequestFieldValue) {
 }
 
 func (o RequestCreatable2) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["requested"] = o.Requested
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.RequestedBy != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o RequestCreatable2) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["requested"] = o.Requested
+	if !IsNil(o.RequestedBy) {
 		toSerialize["requestedBy"] = o.RequestedBy
 	}
-	if true {
-		toSerialize["requestedFor"] = o.RequestedFor
-	}
-	if o.RequesterFieldValues != nil {
+	toSerialize["requestedFor"] = o.RequestedFor
+	if !IsNil(o.RequesterFieldValues) {
 		toSerialize["requesterFieldValues"] = o.RequesterFieldValues
 	}
 
@@ -189,30 +197,50 @@ func (o RequestCreatable2) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RequestCreatable2) UnmarshalJSON(bytes []byte) (err error) {
-	varRequestCreatable2 := _RequestCreatable2{}
+func (o *RequestCreatable2) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"requested",
+		"requestedFor",
+	}
 
-	err = json.Unmarshal(bytes, &varRequestCreatable2)
-	if err == nil {
-		*o = RequestCreatable2(varRequestCreatable2)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRequestCreatable2 := _RequestCreatable2{}
+
+	err = json.Unmarshal(data, &varRequestCreatable2)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RequestCreatable2(varRequestCreatable2)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "requested")
 		delete(additionalProperties, "requestedBy")
 		delete(additionalProperties, "requestedFor")
 		delete(additionalProperties, "requesterFieldValues")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

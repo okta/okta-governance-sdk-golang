@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,14 +27,17 @@ import (
 	"encoding/json"
 )
 
+// checks if the PrincipalEntitlement type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PrincipalEntitlement{}
+
 // PrincipalEntitlement struct for PrincipalEntitlement
 type PrincipalEntitlement struct {
-	// The Okta app instance, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for a specific app in [Supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
+	// The Okta resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for [supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
 	ParentResourceOrn *string         `json:"parentResourceOrn,omitempty"`
 	Parent            *TargetResource `json:"parent,omitempty"`
 	// Collection of entitlement values.
 	Values []EntitlementValueFull `json:"values,omitempty"`
-	// The Okta user `id` in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format.  See [Supported resources](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
+	// The Okta user, in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format.
 	TargetPrincipalOrn *string              `json:"targetPrincipalOrn,omitempty"`
 	TargetPrincipal    *TargetPrincipalFull `json:"targetPrincipal,omitempty"`
 	// The `id` property of an entitlement
@@ -45,7 +48,7 @@ type PrincipalEntitlement struct {
 	ExternalValue *string `json:"externalValue,omitempty"`
 	// The description of an entitlement property
 	Description *string `json:"description,omitempty"`
-	// The property that determines if the entitlement property can hold multiple values. If this is set to true, the data type is replaced with an array.
+	// Indicate if the entitlement property can hold multiple values. If this property is `true`, then the `dataType` property is set to  `array`.
 	MultiValue *bool `json:"multiValue,omitempty"`
 	// The property that determines if the entitlement property is a required attribute
 	Required             *bool                        `json:"required,omitempty"`
@@ -74,7 +77,7 @@ func NewPrincipalEntitlementWithDefaults() *PrincipalEntitlement {
 
 // GetParentResourceOrn returns the ParentResourceOrn field value if set, zero value otherwise.
 func (o *PrincipalEntitlement) GetParentResourceOrn() string {
-	if o == nil || o.ParentResourceOrn == nil {
+	if o == nil || IsNil(o.ParentResourceOrn) {
 		var ret string
 		return ret
 	}
@@ -84,7 +87,7 @@ func (o *PrincipalEntitlement) GetParentResourceOrn() string {
 // GetParentResourceOrnOk returns a tuple with the ParentResourceOrn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalEntitlement) GetParentResourceOrnOk() (*string, bool) {
-	if o == nil || o.ParentResourceOrn == nil {
+	if o == nil || IsNil(o.ParentResourceOrn) {
 		return nil, false
 	}
 	return o.ParentResourceOrn, true
@@ -92,7 +95,7 @@ func (o *PrincipalEntitlement) GetParentResourceOrnOk() (*string, bool) {
 
 // HasParentResourceOrn returns a boolean if a field has been set.
 func (o *PrincipalEntitlement) HasParentResourceOrn() bool {
-	if o != nil && o.ParentResourceOrn != nil {
+	if o != nil && !IsNil(o.ParentResourceOrn) {
 		return true
 	}
 
@@ -106,7 +109,7 @@ func (o *PrincipalEntitlement) SetParentResourceOrn(v string) {
 
 // GetParent returns the Parent field value if set, zero value otherwise.
 func (o *PrincipalEntitlement) GetParent() TargetResource {
-	if o == nil || o.Parent == nil {
+	if o == nil || IsNil(o.Parent) {
 		var ret TargetResource
 		return ret
 	}
@@ -116,7 +119,7 @@ func (o *PrincipalEntitlement) GetParent() TargetResource {
 // GetParentOk returns a tuple with the Parent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalEntitlement) GetParentOk() (*TargetResource, bool) {
-	if o == nil || o.Parent == nil {
+	if o == nil || IsNil(o.Parent) {
 		return nil, false
 	}
 	return o.Parent, true
@@ -124,7 +127,7 @@ func (o *PrincipalEntitlement) GetParentOk() (*TargetResource, bool) {
 
 // HasParent returns a boolean if a field has been set.
 func (o *PrincipalEntitlement) HasParent() bool {
-	if o != nil && o.Parent != nil {
+	if o != nil && !IsNil(o.Parent) {
 		return true
 	}
 
@@ -138,7 +141,7 @@ func (o *PrincipalEntitlement) SetParent(v TargetResource) {
 
 // GetValues returns the Values field value if set, zero value otherwise.
 func (o *PrincipalEntitlement) GetValues() []EntitlementValueFull {
-	if o == nil || o.Values == nil {
+	if o == nil || IsNil(o.Values) {
 		var ret []EntitlementValueFull
 		return ret
 	}
@@ -148,7 +151,7 @@ func (o *PrincipalEntitlement) GetValues() []EntitlementValueFull {
 // GetValuesOk returns a tuple with the Values field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalEntitlement) GetValuesOk() ([]EntitlementValueFull, bool) {
-	if o == nil || o.Values == nil {
+	if o == nil || IsNil(o.Values) {
 		return nil, false
 	}
 	return o.Values, true
@@ -156,7 +159,7 @@ func (o *PrincipalEntitlement) GetValuesOk() ([]EntitlementValueFull, bool) {
 
 // HasValues returns a boolean if a field has been set.
 func (o *PrincipalEntitlement) HasValues() bool {
-	if o != nil && o.Values != nil {
+	if o != nil && !IsNil(o.Values) {
 		return true
 	}
 
@@ -170,7 +173,7 @@ func (o *PrincipalEntitlement) SetValues(v []EntitlementValueFull) {
 
 // GetTargetPrincipalOrn returns the TargetPrincipalOrn field value if set, zero value otherwise.
 func (o *PrincipalEntitlement) GetTargetPrincipalOrn() string {
-	if o == nil || o.TargetPrincipalOrn == nil {
+	if o == nil || IsNil(o.TargetPrincipalOrn) {
 		var ret string
 		return ret
 	}
@@ -180,7 +183,7 @@ func (o *PrincipalEntitlement) GetTargetPrincipalOrn() string {
 // GetTargetPrincipalOrnOk returns a tuple with the TargetPrincipalOrn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalEntitlement) GetTargetPrincipalOrnOk() (*string, bool) {
-	if o == nil || o.TargetPrincipalOrn == nil {
+	if o == nil || IsNil(o.TargetPrincipalOrn) {
 		return nil, false
 	}
 	return o.TargetPrincipalOrn, true
@@ -188,7 +191,7 @@ func (o *PrincipalEntitlement) GetTargetPrincipalOrnOk() (*string, bool) {
 
 // HasTargetPrincipalOrn returns a boolean if a field has been set.
 func (o *PrincipalEntitlement) HasTargetPrincipalOrn() bool {
-	if o != nil && o.TargetPrincipalOrn != nil {
+	if o != nil && !IsNil(o.TargetPrincipalOrn) {
 		return true
 	}
 
@@ -202,7 +205,7 @@ func (o *PrincipalEntitlement) SetTargetPrincipalOrn(v string) {
 
 // GetTargetPrincipal returns the TargetPrincipal field value if set, zero value otherwise.
 func (o *PrincipalEntitlement) GetTargetPrincipal() TargetPrincipalFull {
-	if o == nil || o.TargetPrincipal == nil {
+	if o == nil || IsNil(o.TargetPrincipal) {
 		var ret TargetPrincipalFull
 		return ret
 	}
@@ -212,7 +215,7 @@ func (o *PrincipalEntitlement) GetTargetPrincipal() TargetPrincipalFull {
 // GetTargetPrincipalOk returns a tuple with the TargetPrincipal field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalEntitlement) GetTargetPrincipalOk() (*TargetPrincipalFull, bool) {
-	if o == nil || o.TargetPrincipal == nil {
+	if o == nil || IsNil(o.TargetPrincipal) {
 		return nil, false
 	}
 	return o.TargetPrincipal, true
@@ -220,7 +223,7 @@ func (o *PrincipalEntitlement) GetTargetPrincipalOk() (*TargetPrincipalFull, boo
 
 // HasTargetPrincipal returns a boolean if a field has been set.
 func (o *PrincipalEntitlement) HasTargetPrincipal() bool {
-	if o != nil && o.TargetPrincipal != nil {
+	if o != nil && !IsNil(o.TargetPrincipal) {
 		return true
 	}
 
@@ -234,7 +237,7 @@ func (o *PrincipalEntitlement) SetTargetPrincipal(v TargetPrincipalFull) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *PrincipalEntitlement) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -244,7 +247,7 @@ func (o *PrincipalEntitlement) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalEntitlement) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -252,7 +255,7 @@ func (o *PrincipalEntitlement) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *PrincipalEntitlement) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -266,7 +269,7 @@ func (o *PrincipalEntitlement) SetId(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *PrincipalEntitlement) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -276,7 +279,7 @@ func (o *PrincipalEntitlement) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalEntitlement) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -284,7 +287,7 @@ func (o *PrincipalEntitlement) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *PrincipalEntitlement) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -298,7 +301,7 @@ func (o *PrincipalEntitlement) SetName(v string) {
 
 // GetExternalValue returns the ExternalValue field value if set, zero value otherwise.
 func (o *PrincipalEntitlement) GetExternalValue() string {
-	if o == nil || o.ExternalValue == nil {
+	if o == nil || IsNil(o.ExternalValue) {
 		var ret string
 		return ret
 	}
@@ -308,7 +311,7 @@ func (o *PrincipalEntitlement) GetExternalValue() string {
 // GetExternalValueOk returns a tuple with the ExternalValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalEntitlement) GetExternalValueOk() (*string, bool) {
-	if o == nil || o.ExternalValue == nil {
+	if o == nil || IsNil(o.ExternalValue) {
 		return nil, false
 	}
 	return o.ExternalValue, true
@@ -316,7 +319,7 @@ func (o *PrincipalEntitlement) GetExternalValueOk() (*string, bool) {
 
 // HasExternalValue returns a boolean if a field has been set.
 func (o *PrincipalEntitlement) HasExternalValue() bool {
-	if o != nil && o.ExternalValue != nil {
+	if o != nil && !IsNil(o.ExternalValue) {
 		return true
 	}
 
@@ -330,7 +333,7 @@ func (o *PrincipalEntitlement) SetExternalValue(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *PrincipalEntitlement) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -340,7 +343,7 @@ func (o *PrincipalEntitlement) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalEntitlement) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -348,7 +351,7 @@ func (o *PrincipalEntitlement) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *PrincipalEntitlement) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -362,7 +365,7 @@ func (o *PrincipalEntitlement) SetDescription(v string) {
 
 // GetMultiValue returns the MultiValue field value if set, zero value otherwise.
 func (o *PrincipalEntitlement) GetMultiValue() bool {
-	if o == nil || o.MultiValue == nil {
+	if o == nil || IsNil(o.MultiValue) {
 		var ret bool
 		return ret
 	}
@@ -372,7 +375,7 @@ func (o *PrincipalEntitlement) GetMultiValue() bool {
 // GetMultiValueOk returns a tuple with the MultiValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalEntitlement) GetMultiValueOk() (*bool, bool) {
-	if o == nil || o.MultiValue == nil {
+	if o == nil || IsNil(o.MultiValue) {
 		return nil, false
 	}
 	return o.MultiValue, true
@@ -380,7 +383,7 @@ func (o *PrincipalEntitlement) GetMultiValueOk() (*bool, bool) {
 
 // HasMultiValue returns a boolean if a field has been set.
 func (o *PrincipalEntitlement) HasMultiValue() bool {
-	if o != nil && o.MultiValue != nil {
+	if o != nil && !IsNil(o.MultiValue) {
 		return true
 	}
 
@@ -394,7 +397,7 @@ func (o *PrincipalEntitlement) SetMultiValue(v bool) {
 
 // GetRequired returns the Required field value if set, zero value otherwise.
 func (o *PrincipalEntitlement) GetRequired() bool {
-	if o == nil || o.Required == nil {
+	if o == nil || IsNil(o.Required) {
 		var ret bool
 		return ret
 	}
@@ -404,7 +407,7 @@ func (o *PrincipalEntitlement) GetRequired() bool {
 // GetRequiredOk returns a tuple with the Required field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalEntitlement) GetRequiredOk() (*bool, bool) {
-	if o == nil || o.Required == nil {
+	if o == nil || IsNil(o.Required) {
 		return nil, false
 	}
 	return o.Required, true
@@ -412,7 +415,7 @@ func (o *PrincipalEntitlement) GetRequiredOk() (*bool, bool) {
 
 // HasRequired returns a boolean if a field has been set.
 func (o *PrincipalEntitlement) HasRequired() bool {
-	if o != nil && o.Required != nil {
+	if o != nil && !IsNil(o.Required) {
 		return true
 	}
 
@@ -426,7 +429,7 @@ func (o *PrincipalEntitlement) SetRequired(v bool) {
 
 // GetDataType returns the DataType field value if set, zero value otherwise.
 func (o *PrincipalEntitlement) GetDataType() EntitlementPropertyDatatype {
-	if o == nil || o.DataType == nil {
+	if o == nil || IsNil(o.DataType) {
 		var ret EntitlementPropertyDatatype
 		return ret
 	}
@@ -436,7 +439,7 @@ func (o *PrincipalEntitlement) GetDataType() EntitlementPropertyDatatype {
 // GetDataTypeOk returns a tuple with the DataType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalEntitlement) GetDataTypeOk() (*EntitlementPropertyDatatype, bool) {
-	if o == nil || o.DataType == nil {
+	if o == nil || IsNil(o.DataType) {
 		return nil, false
 	}
 	return o.DataType, true
@@ -444,7 +447,7 @@ func (o *PrincipalEntitlement) GetDataTypeOk() (*EntitlementPropertyDatatype, bo
 
 // HasDataType returns a boolean if a field has been set.
 func (o *PrincipalEntitlement) HasDataType() bool {
-	if o != nil && o.DataType != nil {
+	if o != nil && !IsNil(o.DataType) {
 		return true
 	}
 
@@ -457,41 +460,49 @@ func (o *PrincipalEntitlement) SetDataType(v EntitlementPropertyDatatype) {
 }
 
 func (o PrincipalEntitlement) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PrincipalEntitlement) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ParentResourceOrn != nil {
+	if !IsNil(o.ParentResourceOrn) {
 		toSerialize["parentResourceOrn"] = o.ParentResourceOrn
 	}
-	if o.Parent != nil {
+	if !IsNil(o.Parent) {
 		toSerialize["parent"] = o.Parent
 	}
-	if o.Values != nil {
+	if !IsNil(o.Values) {
 		toSerialize["values"] = o.Values
 	}
-	if o.TargetPrincipalOrn != nil {
+	if !IsNil(o.TargetPrincipalOrn) {
 		toSerialize["targetPrincipalOrn"] = o.TargetPrincipalOrn
 	}
-	if o.TargetPrincipal != nil {
+	if !IsNil(o.TargetPrincipal) {
 		toSerialize["targetPrincipal"] = o.TargetPrincipal
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.ExternalValue != nil {
+	if !IsNil(o.ExternalValue) {
 		toSerialize["externalValue"] = o.ExternalValue
 	}
-	if o.Description != nil {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if o.MultiValue != nil {
+	if !IsNil(o.MultiValue) {
 		toSerialize["multiValue"] = o.MultiValue
 	}
-	if o.Required != nil {
+	if !IsNil(o.Required) {
 		toSerialize["required"] = o.Required
 	}
-	if o.DataType != nil {
+	if !IsNil(o.DataType) {
 		toSerialize["dataType"] = o.DataType
 	}
 
@@ -499,23 +510,23 @@ func (o PrincipalEntitlement) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PrincipalEntitlement) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PrincipalEntitlement) UnmarshalJSON(data []byte) (err error) {
 	varPrincipalEntitlement := _PrincipalEntitlement{}
 
-	err = json.Unmarshal(bytes, &varPrincipalEntitlement)
-	if err == nil {
-		*o = PrincipalEntitlement(varPrincipalEntitlement)
-	} else {
+	err = json.Unmarshal(data, &varPrincipalEntitlement)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PrincipalEntitlement(varPrincipalEntitlement)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "parentResourceOrn")
 		delete(additionalProperties, "parent")
 		delete(additionalProperties, "values")
@@ -529,8 +540,6 @@ func (o *PrincipalEntitlement) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "required")
 		delete(additionalProperties, "dataType")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

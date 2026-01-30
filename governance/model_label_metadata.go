@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,9 +27,12 @@ import (
 	"encoding/json"
 )
 
-// LabelMetadata struct for LabelMetadata
+// checks if the LabelMetadata type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LabelMetadata{}
+
+// LabelMetadata Metadata for a label value
 type LabelMetadata struct {
-	// (Optional) A map of key value pairs. Additional properties for the label. e.g {\\\"backgroundColor\\\": \\\"blue\\\", \\\"font\\\": \\\"Arial\\\"}
+	// Additional metadata properties for the label value.  Supported property and valid values: * `backgroundColor`: [`red`, `orange`, `yellow`, `green`, `blue`, `purple`, `teal`, `beige`, `gray`]
 	AdditionalPropertiesField map[string]interface{} `json:"additionalProperties,omitempty"`
 	AdditionalProperties      map[string]interface{}
 }
@@ -55,7 +58,7 @@ func NewLabelMetadataWithDefaults() *LabelMetadata {
 
 // GetAdditionalPropertiesField returns the AdditionalPropertiesField field value if set, zero value otherwise.
 func (o *LabelMetadata) GetAdditionalPropertiesField() map[string]interface{} {
-	if o == nil || o.AdditionalPropertiesField == nil {
+	if o == nil || IsNil(o.AdditionalPropertiesField) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -65,15 +68,15 @@ func (o *LabelMetadata) GetAdditionalPropertiesField() map[string]interface{} {
 // GetAdditionalPropertiesFieldOk returns a tuple with the AdditionalPropertiesField field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LabelMetadata) GetAdditionalPropertiesFieldOk() (map[string]interface{}, bool) {
-	if o == nil || o.AdditionalPropertiesField == nil {
-		return nil, false
+	if o == nil || IsNil(o.AdditionalPropertiesField) {
+		return map[string]interface{}{}, false
 	}
 	return o.AdditionalPropertiesField, true
 }
 
 // HasAdditionalPropertiesField returns a boolean if a field has been set.
 func (o *LabelMetadata) HasAdditionalPropertiesField() bool {
-	if o != nil && o.AdditionalPropertiesField != nil {
+	if o != nil && !IsNil(o.AdditionalPropertiesField) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *LabelMetadata) SetAdditionalPropertiesField(v map[string]interface{}) {
 }
 
 func (o LabelMetadata) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LabelMetadata) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AdditionalPropertiesField != nil {
+	if !IsNil(o.AdditionalPropertiesField) {
 		toSerialize["additionalProperties"] = o.AdditionalPropertiesField
 	}
 
@@ -95,27 +106,25 @@ func (o LabelMetadata) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LabelMetadata) UnmarshalJSON(bytes []byte) (err error) {
+func (o *LabelMetadata) UnmarshalJSON(data []byte) (err error) {
 	varLabelMetadata := _LabelMetadata{}
 
-	err = json.Unmarshal(bytes, &varLabelMetadata)
-	if err == nil {
-		*o = LabelMetadata(varLabelMetadata)
-	} else {
+	err = json.Unmarshal(data, &varLabelMetadata)
+
+	if err != nil {
 		return err
 	}
 
+	*o = LabelMetadata(varLabelMetadata)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "additionalProperties")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

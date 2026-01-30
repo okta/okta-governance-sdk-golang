@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the SecurityAccessReviewSodConflictConflictedEntitlementInfo type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SecurityAccessReviewSodConflictConflictedEntitlementInfo{}
 
 // SecurityAccessReviewSodConflictConflictedEntitlementInfo struct for SecurityAccessReviewSodConflictConflictedEntitlementInfo
 type SecurityAccessReviewSodConflictConflictedEntitlementInfo struct {
@@ -132,44 +136,67 @@ func (o *SecurityAccessReviewSodConflictConflictedEntitlementInfo) SetEntitlemen
 }
 
 func (o SecurityAccessReviewSodConflictConflictedEntitlementInfo) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SecurityAccessReviewSodConflictConflictedEntitlementInfo) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["listName"] = o.ListName
-	}
-	if true {
-		toSerialize["scope"] = o.Scope
-	}
-	if true {
-		toSerialize["entitlements"] = o.Entitlements
-	}
+	toSerialize["listName"] = o.ListName
+	toSerialize["scope"] = o.Scope
+	toSerialize["entitlements"] = o.Entitlements
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SecurityAccessReviewSodConflictConflictedEntitlementInfo) UnmarshalJSON(bytes []byte) (err error) {
-	varSecurityAccessReviewSodConflictConflictedEntitlementInfo := _SecurityAccessReviewSodConflictConflictedEntitlementInfo{}
+func (o *SecurityAccessReviewSodConflictConflictedEntitlementInfo) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"listName",
+		"scope",
+		"entitlements",
+	}
 
-	err = json.Unmarshal(bytes, &varSecurityAccessReviewSodConflictConflictedEntitlementInfo)
-	if err == nil {
-		*o = SecurityAccessReviewSodConflictConflictedEntitlementInfo(varSecurityAccessReviewSodConflictConflictedEntitlementInfo)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSecurityAccessReviewSodConflictConflictedEntitlementInfo := _SecurityAccessReviewSodConflictConflictedEntitlementInfo{}
+
+	err = json.Unmarshal(data, &varSecurityAccessReviewSodConflictConflictedEntitlementInfo)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SecurityAccessReviewSodConflictConflictedEntitlementInfo(varSecurityAccessReviewSodConflictConflictedEntitlementInfo)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "listName")
 		delete(additionalProperties, "scope")
 		delete(additionalProperties, "entitlements")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

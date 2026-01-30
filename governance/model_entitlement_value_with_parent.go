@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,25 +25,33 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the EntitlementValueWithParent type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EntitlementValueWithParent{}
 
 // EntitlementValueWithParent Attributes related to an entitlement value
 type EntitlementValueWithParent struct {
-	// The `id` of an entitlement value
+	// The `id` of the entitlement value
 	Id string `json:"id"`
 	// The display name for an entitlement value
 	Name string `json:"name"`
 	// The value of an entitlement property value
 	ExternalValue string `json:"externalValue"`
-	// The read-only `id` of an entitlement property value in the downstream application.
+	// The read-only ID of an entitlement property value in the downstream app
 	ExternalId *string `json:"externalId,omitempty"`
 	// The description of an entitlement value
 	Description *string `json:"description,omitempty"`
+	// The entitlement value resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)
+	Orn string `json:"orn"`
 	// The `id` property of an entitlement
 	EntitlementId string `json:"entitlementId"`
-	// The Okta app instance, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for a specific app in [Supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
-	ParentResourceOrn    string         `json:"parentResourceOrn"`
-	Parent               TargetResource `json:"parent"`
+	// The Okta resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for [supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
+	ParentResourceOrn string         `json:"parentResourceOrn"`
+	Parent            TargetResource `json:"parent"`
+	// List of assigned labels
+	Labels               []Label `json:"labels,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -53,11 +61,12 @@ type _EntitlementValueWithParent EntitlementValueWithParent
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEntitlementValueWithParent(id string, name string, externalValue string, entitlementId string, parentResourceOrn string, parent TargetResource) *EntitlementValueWithParent {
+func NewEntitlementValueWithParent(id string, name string, externalValue string, orn string, entitlementId string, parentResourceOrn string, parent TargetResource) *EntitlementValueWithParent {
 	this := EntitlementValueWithParent{}
 	this.Id = id
 	this.Name = name
 	this.ExternalValue = externalValue
+	this.Orn = orn
 	this.EntitlementId = entitlementId
 	this.ParentResourceOrn = parentResourceOrn
 	this.Parent = parent
@@ -146,7 +155,7 @@ func (o *EntitlementValueWithParent) SetExternalValue(v string) {
 
 // GetExternalId returns the ExternalId field value if set, zero value otherwise.
 func (o *EntitlementValueWithParent) GetExternalId() string {
-	if o == nil || o.ExternalId == nil {
+	if o == nil || IsNil(o.ExternalId) {
 		var ret string
 		return ret
 	}
@@ -156,7 +165,7 @@ func (o *EntitlementValueWithParent) GetExternalId() string {
 // GetExternalIdOk returns a tuple with the ExternalId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntitlementValueWithParent) GetExternalIdOk() (*string, bool) {
-	if o == nil || o.ExternalId == nil {
+	if o == nil || IsNil(o.ExternalId) {
 		return nil, false
 	}
 	return o.ExternalId, true
@@ -164,7 +173,7 @@ func (o *EntitlementValueWithParent) GetExternalIdOk() (*string, bool) {
 
 // HasExternalId returns a boolean if a field has been set.
 func (o *EntitlementValueWithParent) HasExternalId() bool {
-	if o != nil && o.ExternalId != nil {
+	if o != nil && !IsNil(o.ExternalId) {
 		return true
 	}
 
@@ -178,7 +187,7 @@ func (o *EntitlementValueWithParent) SetExternalId(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *EntitlementValueWithParent) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -188,7 +197,7 @@ func (o *EntitlementValueWithParent) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntitlementValueWithParent) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -196,7 +205,7 @@ func (o *EntitlementValueWithParent) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *EntitlementValueWithParent) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -206,6 +215,30 @@ func (o *EntitlementValueWithParent) HasDescription() bool {
 // SetDescription gets a reference to the given string and assigns it to the Description field.
 func (o *EntitlementValueWithParent) SetDescription(v string) {
 	o.Description = &v
+}
+
+// GetOrn returns the Orn field value
+func (o *EntitlementValueWithParent) GetOrn() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Orn
+}
+
+// GetOrnOk returns a tuple with the Orn field value
+// and a boolean to check if the value has been set.
+func (o *EntitlementValueWithParent) GetOrnOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Orn, true
+}
+
+// SetOrn sets field value
+func (o *EntitlementValueWithParent) SetOrn(v string) {
+	o.Orn = v
 }
 
 // GetEntitlementId returns the EntitlementId field value
@@ -280,65 +313,124 @@ func (o *EntitlementValueWithParent) SetParent(v TargetResource) {
 	o.Parent = v
 }
 
+// GetLabels returns the Labels field value if set, zero value otherwise.
+func (o *EntitlementValueWithParent) GetLabels() []Label {
+	if o == nil || IsNil(o.Labels) {
+		var ret []Label
+		return ret
+	}
+	return o.Labels
+}
+
+// GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EntitlementValueWithParent) GetLabelsOk() ([]Label, bool) {
+	if o == nil || IsNil(o.Labels) {
+		return nil, false
+	}
+	return o.Labels, true
+}
+
+// HasLabels returns a boolean if a field has been set.
+func (o *EntitlementValueWithParent) HasLabels() bool {
+	if o != nil && !IsNil(o.Labels) {
+		return true
+	}
+
+	return false
+}
+
+// SetLabels gets a reference to the given []Label and assigns it to the Labels field.
+func (o *EntitlementValueWithParent) SetLabels(v []Label) {
+	o.Labels = v
+}
+
 func (o EntitlementValueWithParent) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o EntitlementValueWithParent) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["externalValue"] = o.ExternalValue
-	}
-	if o.ExternalId != nil {
+	toSerialize["id"] = o.Id
+	toSerialize["name"] = o.Name
+	toSerialize["externalValue"] = o.ExternalValue
+	if !IsNil(o.ExternalId) {
 		toSerialize["externalId"] = o.ExternalId
 	}
-	if o.Description != nil {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if true {
-		toSerialize["entitlementId"] = o.EntitlementId
-	}
-	if true {
-		toSerialize["parentResourceOrn"] = o.ParentResourceOrn
-	}
-	if true {
-		toSerialize["parent"] = o.Parent
+	toSerialize["orn"] = o.Orn
+	toSerialize["entitlementId"] = o.EntitlementId
+	toSerialize["parentResourceOrn"] = o.ParentResourceOrn
+	toSerialize["parent"] = o.Parent
+	if !IsNil(o.Labels) {
+		toSerialize["labels"] = o.Labels
 	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *EntitlementValueWithParent) UnmarshalJSON(bytes []byte) (err error) {
-	varEntitlementValueWithParent := _EntitlementValueWithParent{}
+func (o *EntitlementValueWithParent) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"name",
+		"externalValue",
+		"orn",
+		"entitlementId",
+		"parentResourceOrn",
+		"parent",
+	}
 
-	err = json.Unmarshal(bytes, &varEntitlementValueWithParent)
-	if err == nil {
-		*o = EntitlementValueWithParent(varEntitlementValueWithParent)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varEntitlementValueWithParent := _EntitlementValueWithParent{}
+
+	err = json.Unmarshal(data, &varEntitlementValueWithParent)
+
+	if err != nil {
+		return err
+	}
+
+	*o = EntitlementValueWithParent(varEntitlementValueWithParent)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "externalValue")
 		delete(additionalProperties, "externalId")
 		delete(additionalProperties, "description")
+		delete(additionalProperties, "orn")
 		delete(additionalProperties, "entitlementId")
 		delete(additionalProperties, "parentResourceOrn")
 		delete(additionalProperties, "parent")
+		delete(additionalProperties, "labels")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

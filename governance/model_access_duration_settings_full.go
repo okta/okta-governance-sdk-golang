@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,7 +28,6 @@ import (
 	"fmt"
 )
 
-// model_oneof.mustache
 // AccessDurationSettingsFull - Settings that control who may specify the access duration allowed by this request condition or risk settings, as well as what duration may be requested.  **Note:** The resource request settings affect what access duration settings are valid. See the `validAccessDurationSettings` property.
 type AccessDurationSettingsFull struct {
 	AccessDurationSettingsAdminFixedDuration         *AccessDurationSettingsAdminFixedDuration
@@ -49,14 +48,14 @@ func AccessDurationSettingsRequesterSpecifiedDurationAsAccessDurationSettingsFul
 	}
 }
 
-// Unmarshal JSON data into one of the pointers in the struct  CUSTOM
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *AccessDurationSettingsFull) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup
 	var jsonDict map[string]interface{}
 	err = newStrictDecoder(data).Decode(&jsonDict)
 	if err != nil {
-		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
 	// check if the discriminator value is 'ADMIN_FIXED_DURATION'
@@ -67,7 +66,7 @@ func (dst *AccessDurationSettingsFull) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.AccessDurationSettingsAdminFixedDuration, return on the first match
 		} else {
 			dst.AccessDurationSettingsAdminFixedDuration = nil
-			return fmt.Errorf("Failed to unmarshal AccessDurationSettingsFull as AccessDurationSettingsAdminFixedDuration: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal AccessDurationSettingsFull as AccessDurationSettingsAdminFixedDuration: %s", err.Error())
 		}
 	}
 
@@ -79,31 +78,7 @@ func (dst *AccessDurationSettingsFull) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.AccessDurationSettingsRequesterSpecifiedDuration, return on the first match
 		} else {
 			dst.AccessDurationSettingsRequesterSpecifiedDuration = nil
-			return fmt.Errorf("Failed to unmarshal AccessDurationSettingsFull as AccessDurationSettingsRequesterSpecifiedDuration: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'access-duration-settings-admin-fixed-duration'
-	if jsonDict["type"] == "access-duration-settings-admin-fixed-duration" {
-		// try to unmarshal JSON data into AccessDurationSettingsAdminFixedDuration
-		err = json.Unmarshal(data, &dst.AccessDurationSettingsAdminFixedDuration)
-		if err == nil {
-			return nil // data stored in dst.AccessDurationSettingsAdminFixedDuration, return on the first match
-		} else {
-			dst.AccessDurationSettingsAdminFixedDuration = nil
-			return fmt.Errorf("Failed to unmarshal AccessDurationSettingsFull as AccessDurationSettingsAdminFixedDuration: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'access-duration-settings-requester-specified-duration'
-	if jsonDict["type"] == "access-duration-settings-requester-specified-duration" {
-		// try to unmarshal JSON data into AccessDurationSettingsRequesterSpecifiedDuration
-		err = json.Unmarshal(data, &dst.AccessDurationSettingsRequesterSpecifiedDuration)
-		if err == nil {
-			return nil // data stored in dst.AccessDurationSettingsRequesterSpecifiedDuration, return on the first match
-		} else {
-			dst.AccessDurationSettingsRequesterSpecifiedDuration = nil
-			return fmt.Errorf("Failed to unmarshal AccessDurationSettingsFull as AccessDurationSettingsRequesterSpecifiedDuration: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal AccessDurationSettingsFull as AccessDurationSettingsRequesterSpecifiedDuration: %s", err.Error())
 		}
 	}
 
@@ -134,6 +109,20 @@ func (obj *AccessDurationSettingsFull) GetActualInstance() interface{} {
 
 	if obj.AccessDurationSettingsRequesterSpecifiedDuration != nil {
 		return obj.AccessDurationSettingsRequesterSpecifiedDuration
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj AccessDurationSettingsFull) GetActualInstanceValue() interface{} {
+	if obj.AccessDurationSettingsAdminFixedDuration != nil {
+		return *obj.AccessDurationSettingsAdminFixedDuration
+	}
+
+	if obj.AccessDurationSettingsRequesterSpecifiedDuration != nil {
+		return *obj.AccessDurationSettingsRequesterSpecifiedDuration
 	}
 
 	// all schemas are nil

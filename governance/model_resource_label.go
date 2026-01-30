@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,14 +25,18 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the ResourceLabel type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ResourceLabel{}
 
 // ResourceLabel struct for ResourceLabel
 type ResourceLabel struct {
-	// The Okta app instance, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for a specific app in [Supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
+	// The Okta resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for [supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
 	Orn     *string                  `json:"orn,omitempty"`
 	Profile *ExternalResourceProfile `json:"profile,omitempty"`
-	// List of assigned labels.
+	// List of assigned labels
 	Labels               []Label  `json:"labels,omitempty"`
 	Links                LinkSelf `json:"_links"`
 	AdditionalProperties map[string]interface{}
@@ -60,7 +64,7 @@ func NewResourceLabelWithDefaults() *ResourceLabel {
 
 // GetOrn returns the Orn field value if set, zero value otherwise.
 func (o *ResourceLabel) GetOrn() string {
-	if o == nil || o.Orn == nil {
+	if o == nil || IsNil(o.Orn) {
 		var ret string
 		return ret
 	}
@@ -70,7 +74,7 @@ func (o *ResourceLabel) GetOrn() string {
 // GetOrnOk returns a tuple with the Orn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceLabel) GetOrnOk() (*string, bool) {
-	if o == nil || o.Orn == nil {
+	if o == nil || IsNil(o.Orn) {
 		return nil, false
 	}
 	return o.Orn, true
@@ -78,7 +82,7 @@ func (o *ResourceLabel) GetOrnOk() (*string, bool) {
 
 // HasOrn returns a boolean if a field has been set.
 func (o *ResourceLabel) HasOrn() bool {
-	if o != nil && o.Orn != nil {
+	if o != nil && !IsNil(o.Orn) {
 		return true
 	}
 
@@ -92,7 +96,7 @@ func (o *ResourceLabel) SetOrn(v string) {
 
 // GetProfile returns the Profile field value if set, zero value otherwise.
 func (o *ResourceLabel) GetProfile() ExternalResourceProfile {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		var ret ExternalResourceProfile
 		return ret
 	}
@@ -102,7 +106,7 @@ func (o *ResourceLabel) GetProfile() ExternalResourceProfile {
 // GetProfileOk returns a tuple with the Profile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceLabel) GetProfileOk() (*ExternalResourceProfile, bool) {
-	if o == nil || o.Profile == nil {
+	if o == nil || IsNil(o.Profile) {
 		return nil, false
 	}
 	return o.Profile, true
@@ -110,7 +114,7 @@ func (o *ResourceLabel) GetProfileOk() (*ExternalResourceProfile, bool) {
 
 // HasProfile returns a boolean if a field has been set.
 func (o *ResourceLabel) HasProfile() bool {
-	if o != nil && o.Profile != nil {
+	if o != nil && !IsNil(o.Profile) {
 		return true
 	}
 
@@ -124,7 +128,7 @@ func (o *ResourceLabel) SetProfile(v ExternalResourceProfile) {
 
 // GetLabels returns the Labels field value if set, zero value otherwise.
 func (o *ResourceLabel) GetLabels() []Label {
-	if o == nil || o.Labels == nil {
+	if o == nil || IsNil(o.Labels) {
 		var ret []Label
 		return ret
 	}
@@ -134,7 +138,7 @@ func (o *ResourceLabel) GetLabels() []Label {
 // GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceLabel) GetLabelsOk() ([]Label, bool) {
-	if o == nil || o.Labels == nil {
+	if o == nil || IsNil(o.Labels) {
 		return nil, false
 	}
 	return o.Labels, true
@@ -142,7 +146,7 @@ func (o *ResourceLabel) GetLabelsOk() ([]Label, bool) {
 
 // HasLabels returns a boolean if a field has been set.
 func (o *ResourceLabel) HasLabels() bool {
-	if o != nil && o.Labels != nil {
+	if o != nil && !IsNil(o.Labels) {
 		return true
 	}
 
@@ -179,48 +183,73 @@ func (o *ResourceLabel) SetLinks(v LinkSelf) {
 }
 
 func (o ResourceLabel) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ResourceLabel) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Orn != nil {
+	if !IsNil(o.Orn) {
 		toSerialize["orn"] = o.Orn
 	}
-	if o.Profile != nil {
+	if !IsNil(o.Profile) {
 		toSerialize["profile"] = o.Profile
 	}
-	if o.Labels != nil {
+	if !IsNil(o.Labels) {
 		toSerialize["labels"] = o.Labels
 	}
-	if true {
-		toSerialize["_links"] = o.Links
-	}
+	toSerialize["_links"] = o.Links
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ResourceLabel) UnmarshalJSON(bytes []byte) (err error) {
-	varResourceLabel := _ResourceLabel{}
+func (o *ResourceLabel) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"_links",
+	}
 
-	err = json.Unmarshal(bytes, &varResourceLabel)
-	if err == nil {
-		*o = ResourceLabel(varResourceLabel)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varResourceLabel := _ResourceLabel{}
+
+	err = json.Unmarshal(data, &varResourceLabel)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ResourceLabel(varResourceLabel)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "orn")
 		delete(additionalProperties, "profile")
 		delete(additionalProperties, "labels")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

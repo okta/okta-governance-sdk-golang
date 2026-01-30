@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,10 +25,14 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
-// SecurityAccessReviewAccessItemAppInfo struct for SecurityAccessReviewAccessItemAppInfo
+// checks if the SecurityAccessReviewAccessItemAppInfo type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SecurityAccessReviewAccessItemAppInfo{}
+
+// SecurityAccessReviewAccessItemAppInfo The details of an app access item
 type SecurityAccessReviewAccessItemAppInfo struct {
 	// The Okta app ID
 	Id string `json:"id"`
@@ -54,7 +58,7 @@ type SecurityAccessReviewAccessItemAppInfo struct {
 	// Any active entitlements for this app
 	ActiveEntitlements []EntitlementPropertyFull `json:"activeEntitlements,omitempty"`
 	// All governance labels applied to the app
-	GovernanceLabels     []GovernanceLabel `json:"governanceLabels,omitempty"`
+	GovernanceLabels     []TargetGovernanceLabel `json:"governanceLabels,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -154,7 +158,7 @@ func (o *SecurityAccessReviewAccessItemAppInfo) SetLogoUrl(v string) {
 
 // GetLabel returns the Label field value if set, zero value otherwise.
 func (o *SecurityAccessReviewAccessItemAppInfo) GetLabel() string {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		var ret string
 		return ret
 	}
@@ -164,7 +168,7 @@ func (o *SecurityAccessReviewAccessItemAppInfo) GetLabel() string {
 // GetLabelOk returns a tuple with the Label field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityAccessReviewAccessItemAppInfo) GetLabelOk() (*string, bool) {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		return nil, false
 	}
 	return o.Label, true
@@ -172,7 +176,7 @@ func (o *SecurityAccessReviewAccessItemAppInfo) GetLabelOk() (*string, bool) {
 
 // HasLabel returns a boolean if a field has been set.
 func (o *SecurityAccessReviewAccessItemAppInfo) HasLabel() bool {
-	if o != nil && o.Label != nil {
+	if o != nil && !IsNil(o.Label) {
 		return true
 	}
 
@@ -186,7 +190,7 @@ func (o *SecurityAccessReviewAccessItemAppInfo) SetLabel(v string) {
 
 // GetLastAccessDate returns the LastAccessDate field value if set, zero value otherwise.
 func (o *SecurityAccessReviewAccessItemAppInfo) GetLastAccessDate() time.Time {
-	if o == nil || o.LastAccessDate == nil {
+	if o == nil || IsNil(o.LastAccessDate) {
 		var ret time.Time
 		return ret
 	}
@@ -196,7 +200,7 @@ func (o *SecurityAccessReviewAccessItemAppInfo) GetLastAccessDate() time.Time {
 // GetLastAccessDateOk returns a tuple with the LastAccessDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityAccessReviewAccessItemAppInfo) GetLastAccessDateOk() (*time.Time, bool) {
-	if o == nil || o.LastAccessDate == nil {
+	if o == nil || IsNil(o.LastAccessDate) {
 		return nil, false
 	}
 	return o.LastAccessDate, true
@@ -204,7 +208,7 @@ func (o *SecurityAccessReviewAccessItemAppInfo) GetLastAccessDateOk() (*time.Tim
 
 // HasLastAccessDate returns a boolean if a field has been set.
 func (o *SecurityAccessReviewAccessItemAppInfo) HasLastAccessDate() bool {
-	if o != nil && o.LastAccessDate != nil {
+	if o != nil && !IsNil(o.LastAccessDate) {
 		return true
 	}
 
@@ -218,7 +222,7 @@ func (o *SecurityAccessReviewAccessItemAppInfo) SetLastAccessDate(v time.Time) {
 
 // GetAssignedDate returns the AssignedDate field value if set, zero value otherwise.
 func (o *SecurityAccessReviewAccessItemAppInfo) GetAssignedDate() time.Time {
-	if o == nil || o.AssignedDate == nil {
+	if o == nil || IsNil(o.AssignedDate) {
 		var ret time.Time
 		return ret
 	}
@@ -228,7 +232,7 @@ func (o *SecurityAccessReviewAccessItemAppInfo) GetAssignedDate() time.Time {
 // GetAssignedDateOk returns a tuple with the AssignedDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityAccessReviewAccessItemAppInfo) GetAssignedDateOk() (*time.Time, bool) {
-	if o == nil || o.AssignedDate == nil {
+	if o == nil || IsNil(o.AssignedDate) {
 		return nil, false
 	}
 	return o.AssignedDate, true
@@ -236,7 +240,7 @@ func (o *SecurityAccessReviewAccessItemAppInfo) GetAssignedDateOk() (*time.Time,
 
 // HasAssignedDate returns a boolean if a field has been set.
 func (o *SecurityAccessReviewAccessItemAppInfo) HasAssignedDate() bool {
-	if o != nil && o.AssignedDate != nil {
+	if o != nil && !IsNil(o.AssignedDate) {
 		return true
 	}
 
@@ -250,7 +254,7 @@ func (o *SecurityAccessReviewAccessItemAppInfo) SetAssignedDate(v time.Time) {
 
 // GetAssignmentType returns the AssignmentType field value if set, zero value otherwise.
 func (o *SecurityAccessReviewAccessItemAppInfo) GetAssignmentType() AssignmentType {
-	if o == nil || o.AssignmentType == nil {
+	if o == nil || IsNil(o.AssignmentType) {
 		var ret AssignmentType
 		return ret
 	}
@@ -260,7 +264,7 @@ func (o *SecurityAccessReviewAccessItemAppInfo) GetAssignmentType() AssignmentTy
 // GetAssignmentTypeOk returns a tuple with the AssignmentType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityAccessReviewAccessItemAppInfo) GetAssignmentTypeOk() (*AssignmentType, bool) {
-	if o == nil || o.AssignmentType == nil {
+	if o == nil || IsNil(o.AssignmentType) {
 		return nil, false
 	}
 	return o.AssignmentType, true
@@ -268,7 +272,7 @@ func (o *SecurityAccessReviewAccessItemAppInfo) GetAssignmentTypeOk() (*Assignme
 
 // HasAssignmentType returns a boolean if a field has been set.
 func (o *SecurityAccessReviewAccessItemAppInfo) HasAssignmentType() bool {
-	if o != nil && o.AssignmentType != nil {
+	if o != nil && !IsNil(o.AssignmentType) {
 		return true
 	}
 
@@ -282,7 +286,7 @@ func (o *SecurityAccessReviewAccessItemAppInfo) SetAssignmentType(v AssignmentTy
 
 // GetApplicationUsage returns the ApplicationUsage field value if set, zero value otherwise.
 func (o *SecurityAccessReviewAccessItemAppInfo) GetApplicationUsage() int64 {
-	if o == nil || o.ApplicationUsage == nil {
+	if o == nil || IsNil(o.ApplicationUsage) {
 		var ret int64
 		return ret
 	}
@@ -292,7 +296,7 @@ func (o *SecurityAccessReviewAccessItemAppInfo) GetApplicationUsage() int64 {
 // GetApplicationUsageOk returns a tuple with the ApplicationUsage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityAccessReviewAccessItemAppInfo) GetApplicationUsageOk() (*int64, bool) {
-	if o == nil || o.ApplicationUsage == nil {
+	if o == nil || IsNil(o.ApplicationUsage) {
 		return nil, false
 	}
 	return o.ApplicationUsage, true
@@ -300,7 +304,7 @@ func (o *SecurityAccessReviewAccessItemAppInfo) GetApplicationUsageOk() (*int64,
 
 // HasApplicationUsage returns a boolean if a field has been set.
 func (o *SecurityAccessReviewAccessItemAppInfo) HasApplicationUsage() bool {
-	if o != nil && o.ApplicationUsage != nil {
+	if o != nil && !IsNil(o.ApplicationUsage) {
 		return true
 	}
 
@@ -314,7 +318,7 @@ func (o *SecurityAccessReviewAccessItemAppInfo) SetApplicationUsage(v int64) {
 
 // GetLastAccessCertificationReviewedDate returns the LastAccessCertificationReviewedDate field value if set, zero value otherwise.
 func (o *SecurityAccessReviewAccessItemAppInfo) GetLastAccessCertificationReviewedDate() time.Time {
-	if o == nil || o.LastAccessCertificationReviewedDate == nil {
+	if o == nil || IsNil(o.LastAccessCertificationReviewedDate) {
 		var ret time.Time
 		return ret
 	}
@@ -324,7 +328,7 @@ func (o *SecurityAccessReviewAccessItemAppInfo) GetLastAccessCertificationReview
 // GetLastAccessCertificationReviewedDateOk returns a tuple with the LastAccessCertificationReviewedDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityAccessReviewAccessItemAppInfo) GetLastAccessCertificationReviewedDateOk() (*time.Time, bool) {
-	if o == nil || o.LastAccessCertificationReviewedDate == nil {
+	if o == nil || IsNil(o.LastAccessCertificationReviewedDate) {
 		return nil, false
 	}
 	return o.LastAccessCertificationReviewedDate, true
@@ -332,7 +336,7 @@ func (o *SecurityAccessReviewAccessItemAppInfo) GetLastAccessCertificationReview
 
 // HasLastAccessCertificationReviewedDate returns a boolean if a field has been set.
 func (o *SecurityAccessReviewAccessItemAppInfo) HasLastAccessCertificationReviewedDate() bool {
-	if o != nil && o.LastAccessCertificationReviewedDate != nil {
+	if o != nil && !IsNil(o.LastAccessCertificationReviewedDate) {
 		return true
 	}
 
@@ -346,7 +350,7 @@ func (o *SecurityAccessReviewAccessItemAppInfo) SetLastAccessCertificationReview
 
 // GetLastSecurityAccessReviewDate returns the LastSecurityAccessReviewDate field value if set, zero value otherwise.
 func (o *SecurityAccessReviewAccessItemAppInfo) GetLastSecurityAccessReviewDate() time.Time {
-	if o == nil || o.LastSecurityAccessReviewDate == nil {
+	if o == nil || IsNil(o.LastSecurityAccessReviewDate) {
 		var ret time.Time
 		return ret
 	}
@@ -356,7 +360,7 @@ func (o *SecurityAccessReviewAccessItemAppInfo) GetLastSecurityAccessReviewDate(
 // GetLastSecurityAccessReviewDateOk returns a tuple with the LastSecurityAccessReviewDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityAccessReviewAccessItemAppInfo) GetLastSecurityAccessReviewDateOk() (*time.Time, bool) {
-	if o == nil || o.LastSecurityAccessReviewDate == nil {
+	if o == nil || IsNil(o.LastSecurityAccessReviewDate) {
 		return nil, false
 	}
 	return o.LastSecurityAccessReviewDate, true
@@ -364,7 +368,7 @@ func (o *SecurityAccessReviewAccessItemAppInfo) GetLastSecurityAccessReviewDateO
 
 // HasLastSecurityAccessReviewDate returns a boolean if a field has been set.
 func (o *SecurityAccessReviewAccessItemAppInfo) HasLastSecurityAccessReviewDate() bool {
-	if o != nil && o.LastSecurityAccessReviewDate != nil {
+	if o != nil && !IsNil(o.LastSecurityAccessReviewDate) {
 		return true
 	}
 
@@ -378,7 +382,7 @@ func (o *SecurityAccessReviewAccessItemAppInfo) SetLastSecurityAccessReviewDate(
 
 // GetLastDeviceLogin returns the LastDeviceLogin field value if set, zero value otherwise.
 func (o *SecurityAccessReviewAccessItemAppInfo) GetLastDeviceLogin() string {
-	if o == nil || o.LastDeviceLogin == nil {
+	if o == nil || IsNil(o.LastDeviceLogin) {
 		var ret string
 		return ret
 	}
@@ -388,7 +392,7 @@ func (o *SecurityAccessReviewAccessItemAppInfo) GetLastDeviceLogin() string {
 // GetLastDeviceLoginOk returns a tuple with the LastDeviceLogin field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityAccessReviewAccessItemAppInfo) GetLastDeviceLoginOk() (*string, bool) {
-	if o == nil || o.LastDeviceLogin == nil {
+	if o == nil || IsNil(o.LastDeviceLogin) {
 		return nil, false
 	}
 	return o.LastDeviceLogin, true
@@ -396,7 +400,7 @@ func (o *SecurityAccessReviewAccessItemAppInfo) GetLastDeviceLoginOk() (*string,
 
 // HasLastDeviceLogin returns a boolean if a field has been set.
 func (o *SecurityAccessReviewAccessItemAppInfo) HasLastDeviceLogin() bool {
-	if o != nil && o.LastDeviceLogin != nil {
+	if o != nil && !IsNil(o.LastDeviceLogin) {
 		return true
 	}
 
@@ -410,7 +414,7 @@ func (o *SecurityAccessReviewAccessItemAppInfo) SetLastDeviceLogin(v string) {
 
 // GetActiveEntitlements returns the ActiveEntitlements field value if set, zero value otherwise.
 func (o *SecurityAccessReviewAccessItemAppInfo) GetActiveEntitlements() []EntitlementPropertyFull {
-	if o == nil || o.ActiveEntitlements == nil {
+	if o == nil || IsNil(o.ActiveEntitlements) {
 		var ret []EntitlementPropertyFull
 		return ret
 	}
@@ -420,7 +424,7 @@ func (o *SecurityAccessReviewAccessItemAppInfo) GetActiveEntitlements() []Entitl
 // GetActiveEntitlementsOk returns a tuple with the ActiveEntitlements field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityAccessReviewAccessItemAppInfo) GetActiveEntitlementsOk() ([]EntitlementPropertyFull, bool) {
-	if o == nil || o.ActiveEntitlements == nil {
+	if o == nil || IsNil(o.ActiveEntitlements) {
 		return nil, false
 	}
 	return o.ActiveEntitlements, true
@@ -428,7 +432,7 @@ func (o *SecurityAccessReviewAccessItemAppInfo) GetActiveEntitlementsOk() ([]Ent
 
 // HasActiveEntitlements returns a boolean if a field has been set.
 func (o *SecurityAccessReviewAccessItemAppInfo) HasActiveEntitlements() bool {
-	if o != nil && o.ActiveEntitlements != nil {
+	if o != nil && !IsNil(o.ActiveEntitlements) {
 		return true
 	}
 
@@ -441,9 +445,9 @@ func (o *SecurityAccessReviewAccessItemAppInfo) SetActiveEntitlements(v []Entitl
 }
 
 // GetGovernanceLabels returns the GovernanceLabels field value if set, zero value otherwise.
-func (o *SecurityAccessReviewAccessItemAppInfo) GetGovernanceLabels() []GovernanceLabel {
-	if o == nil || o.GovernanceLabels == nil {
-		var ret []GovernanceLabel
+func (o *SecurityAccessReviewAccessItemAppInfo) GetGovernanceLabels() []TargetGovernanceLabel {
+	if o == nil || IsNil(o.GovernanceLabels) {
+		var ret []TargetGovernanceLabel
 		return ret
 	}
 	return o.GovernanceLabels
@@ -451,8 +455,8 @@ func (o *SecurityAccessReviewAccessItemAppInfo) GetGovernanceLabels() []Governan
 
 // GetGovernanceLabelsOk returns a tuple with the GovernanceLabels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SecurityAccessReviewAccessItemAppInfo) GetGovernanceLabelsOk() ([]GovernanceLabel, bool) {
-	if o == nil || o.GovernanceLabels == nil {
+func (o *SecurityAccessReviewAccessItemAppInfo) GetGovernanceLabelsOk() ([]TargetGovernanceLabel, bool) {
+	if o == nil || IsNil(o.GovernanceLabels) {
 		return nil, false
 	}
 	return o.GovernanceLabels, true
@@ -460,57 +464,59 @@ func (o *SecurityAccessReviewAccessItemAppInfo) GetGovernanceLabelsOk() ([]Gover
 
 // HasGovernanceLabels returns a boolean if a field has been set.
 func (o *SecurityAccessReviewAccessItemAppInfo) HasGovernanceLabels() bool {
-	if o != nil && o.GovernanceLabels != nil {
+	if o != nil && !IsNil(o.GovernanceLabels) {
 		return true
 	}
 
 	return false
 }
 
-// SetGovernanceLabels gets a reference to the given []GovernanceLabel and assigns it to the GovernanceLabels field.
-func (o *SecurityAccessReviewAccessItemAppInfo) SetGovernanceLabels(v []GovernanceLabel) {
+// SetGovernanceLabels gets a reference to the given []TargetGovernanceLabel and assigns it to the GovernanceLabels field.
+func (o *SecurityAccessReviewAccessItemAppInfo) SetGovernanceLabels(v []TargetGovernanceLabel) {
 	o.GovernanceLabels = v
 }
 
 func (o SecurityAccessReviewAccessItemAppInfo) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SecurityAccessReviewAccessItemAppInfo) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["logoUrl"] = o.LogoUrl
-	}
-	if o.Label != nil {
+	toSerialize["id"] = o.Id
+	toSerialize["name"] = o.Name
+	toSerialize["logoUrl"] = o.LogoUrl
+	if !IsNil(o.Label) {
 		toSerialize["label"] = o.Label
 	}
-	if o.LastAccessDate != nil {
+	if !IsNil(o.LastAccessDate) {
 		toSerialize["lastAccessDate"] = o.LastAccessDate
 	}
-	if o.AssignedDate != nil {
+	if !IsNil(o.AssignedDate) {
 		toSerialize["assignedDate"] = o.AssignedDate
 	}
-	if o.AssignmentType != nil {
+	if !IsNil(o.AssignmentType) {
 		toSerialize["assignmentType"] = o.AssignmentType
 	}
-	if o.ApplicationUsage != nil {
+	if !IsNil(o.ApplicationUsage) {
 		toSerialize["applicationUsage"] = o.ApplicationUsage
 	}
-	if o.LastAccessCertificationReviewedDate != nil {
+	if !IsNil(o.LastAccessCertificationReviewedDate) {
 		toSerialize["lastAccessCertificationReviewedDate"] = o.LastAccessCertificationReviewedDate
 	}
-	if o.LastSecurityAccessReviewDate != nil {
+	if !IsNil(o.LastSecurityAccessReviewDate) {
 		toSerialize["lastSecurityAccessReviewDate"] = o.LastSecurityAccessReviewDate
 	}
-	if o.LastDeviceLogin != nil {
+	if !IsNil(o.LastDeviceLogin) {
 		toSerialize["lastDeviceLogin"] = o.LastDeviceLogin
 	}
-	if o.ActiveEntitlements != nil {
+	if !IsNil(o.ActiveEntitlements) {
 		toSerialize["activeEntitlements"] = o.ActiveEntitlements
 	}
-	if o.GovernanceLabels != nil {
+	if !IsNil(o.GovernanceLabels) {
 		toSerialize["governanceLabels"] = o.GovernanceLabels
 	}
 
@@ -518,23 +524,46 @@ func (o SecurityAccessReviewAccessItemAppInfo) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SecurityAccessReviewAccessItemAppInfo) UnmarshalJSON(bytes []byte) (err error) {
-	varSecurityAccessReviewAccessItemAppInfo := _SecurityAccessReviewAccessItemAppInfo{}
+func (o *SecurityAccessReviewAccessItemAppInfo) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"name",
+		"logoUrl",
+	}
 
-	err = json.Unmarshal(bytes, &varSecurityAccessReviewAccessItemAppInfo)
-	if err == nil {
-		*o = SecurityAccessReviewAccessItemAppInfo(varSecurityAccessReviewAccessItemAppInfo)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSecurityAccessReviewAccessItemAppInfo := _SecurityAccessReviewAccessItemAppInfo{}
+
+	err = json.Unmarshal(data, &varSecurityAccessReviewAccessItemAppInfo)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SecurityAccessReviewAccessItemAppInfo(varSecurityAccessReviewAccessItemAppInfo)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "logoUrl")
@@ -549,8 +578,6 @@ func (o *SecurityAccessReviewAccessItemAppInfo) UnmarshalJSON(bytes []byte) (err
 		delete(additionalProperties, "activeEntitlements")
 		delete(additionalProperties, "governanceLabels")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

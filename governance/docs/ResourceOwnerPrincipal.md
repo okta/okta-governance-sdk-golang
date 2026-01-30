@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** | Id of the principal, which is a unique identifier for the principal in Okta. | 
-**Type** | **string** | The principal type value from the orn. Examples:- groups, users | 
+**Id** | **string** | A unique identifier for the principal in Okta | 
+**Type** | **string** | The principal type. This value is the &#x60;{objectType}&#x60; attribute from the [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) string.  Examples: &#x60;groups&#x60; or &#x60;users&#x60; | 
 **Orn** | **string** | The Okta user or group &#x60;id&#x60; in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format. The resource can be an user id, or a group id. See [Supported resources](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources). | 
 **Profile** | [**ExternalPrincipalProfile**](ExternalPrincipalProfile.md) |  | 
 

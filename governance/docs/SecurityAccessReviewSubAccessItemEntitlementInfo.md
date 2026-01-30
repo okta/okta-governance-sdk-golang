@@ -10,10 +10,10 @@ Name | Type | Description | Notes
 **AssignedDate** | Pointer to **time.Time** | The date the entitlement or bundle was assigned to the user | [optional] 
 **AssignmentType** | Pointer to [**AssignmentType**](AssignmentType.md) |  | [optional] 
 **CollectionsAssigning** | Pointer to [**[]CollectionInfoSparse**](CollectionInfoSparse.md) | Collections assigning this resource | [optional] 
-**Entitlements** | Pointer to [**[]EntitlementPropertyFull**](EntitlementPropertyFull.md) | If a bundle, these are the entitlements included in the bundle | [optional] 
+**Entitlements** | Pointer to [**[]EntitlementPropertyFull**](EntitlementPropertyFull.md) | The entitlements included in the entitlement bundle | [optional] 
 **LastAccessCertificationReviewedDate** | Pointer to **time.Time** | The last time the user/entitlement pair was reviewed in an access certification campaign | [optional] 
 **LastSecurityAccessReviewDate** | Pointer to **time.Time** | The last time an action was taken on this entitlement for the user in a security access review | [optional] 
-**GovernanceLabels** | Pointer to [**[]GovernanceLabel**](GovernanceLabel.md) | All governance labels applied to the entitlement value or bundle | [optional] 
+**GovernanceLabels** | Pointer to [**[]TargetGovernanceLabel**](TargetGovernanceLabel.md) | All governance labels applied to the entitlement value or bundle | [optional] 
 
 ## Methods
 
@@ -256,20 +256,20 @@ HasLastSecurityAccessReviewDate returns a boolean if a field has been set.
 
 ### GetGovernanceLabels
 
-`func (o *SecurityAccessReviewSubAccessItemEntitlementInfo) GetGovernanceLabels() []GovernanceLabel`
+`func (o *SecurityAccessReviewSubAccessItemEntitlementInfo) GetGovernanceLabels() []TargetGovernanceLabel`
 
 GetGovernanceLabels returns the GovernanceLabels field if non-nil, zero value otherwise.
 
 ### GetGovernanceLabelsOk
 
-`func (o *SecurityAccessReviewSubAccessItemEntitlementInfo) GetGovernanceLabelsOk() (*[]GovernanceLabel, bool)`
+`func (o *SecurityAccessReviewSubAccessItemEntitlementInfo) GetGovernanceLabelsOk() (*[]TargetGovernanceLabel, bool)`
 
 GetGovernanceLabelsOk returns a tuple with the GovernanceLabels field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGovernanceLabels
 
-`func (o *SecurityAccessReviewSubAccessItemEntitlementInfo) SetGovernanceLabels(v []GovernanceLabel)`
+`func (o *SecurityAccessReviewSubAccessItemEntitlementInfo) SetGovernanceLabels(v []TargetGovernanceLabel)`
 
 SetGovernanceLabels sets GovernanceLabels field to given value.
 

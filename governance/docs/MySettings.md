@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Delegates** | [**MySettingsDelegates**](MySettingsDelegates.md) |  | 
+**Delegates** | Pointer to [**MySettingsDelegates**](MySettingsDelegates.md) |  | [optional] 
 
 ## Methods
 
 ### NewMySettings
 
-`func NewMySettings(delegates MySettingsDelegates, ) *MySettings`
+`func NewMySettings() *MySettings`
 
 NewMySettings instantiates a new MySettings object
 This constructor will assign default values to properties that have it defined,
@@ -44,6 +44,11 @@ and a boolean to check if the value has been set.
 
 SetDelegates sets Delegates field to given value.
 
+### HasDelegates
+
+`func (o *MySettings) HasDelegates() bool`
+
+HasDelegates returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

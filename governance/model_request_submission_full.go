@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,8 +25,12 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the RequestSubmissionFull type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RequestSubmissionFull{}
 
 // RequestSubmissionFull Full representation of a request submission
 type RequestSubmissionFull struct {
@@ -50,10 +54,10 @@ type RequestSubmissionFull struct {
 	Granted          NullableTime             `json:"granted,omitempty"`
 	RevocationStatus *RequestRevocationStatus `json:"revocationStatus,omitempty"`
 	// The date the granted access was revoked. Only set if request.grantStatus is GRANTED and request.revocationStatus is REVOKED.
-	Revoked      NullableTime    `json:"revoked,omitempty"`
-	RequestedBy  TargetPrincipal `json:"requestedBy"`
-	RequestedFor TargetPrincipal `json:"requestedFor"`
-	Requested    Requested       `json:"requested"`
+	Revoked      NullableTime              `json:"revoked,omitempty"`
+	RequestedBy  ClientCredentialPrincipal `json:"requestedBy"`
+	RequestedFor TargetPrincipal           `json:"requestedFor"`
+	Requested    Requested                 `json:"requested"`
 	// How long the requester retains access after their request is approved and fulfilled.  Specified in [ISO 8601 duration format](https://en.wikipedia.org/wiki/ISO_8601#Durations).  #### Known limitation  Only single time unit ISO 8601 duration formats (D, H, M) are supported, for units (days, hours, minutes).  ##### Supported  | Unit       | Example | | ---------- | ------- | | D, days    | P40D    | | H, hours   | PT65H   | | M, minutes | PT90M   |  > **Note:** Mixes of units, as well as month/year/week designations, are not supported. For example, `P40DT65H`, `P40M`, `P1W` and `P1Y` are not supported.
 	AccessDuration NullableString `json:"accessDuration,omitempty"`
 	// The date the granted access is scheduled for recovation. Only set if request.accessDuration exists, and request.grantStatus is GRANTED.
@@ -70,7 +74,7 @@ type _RequestSubmissionFull RequestSubmissionFull
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRequestSubmissionFull(id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, links RequestLinks2, status string, requestedBy TargetPrincipal, requestedFor TargetPrincipal, requested Requested) *RequestSubmissionFull {
+func NewRequestSubmissionFull(id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, links RequestLinks2, status string, requestedBy ClientCredentialPrincipal, requestedFor TargetPrincipal, requested Requested) *RequestSubmissionFull {
 	this := RequestSubmissionFull{}
 	this.Id = id
 	this.CreatedBy = createdBy
@@ -263,7 +267,7 @@ func (o *RequestSubmissionFull) SetStatus(v string) {
 
 // GetResolved returns the Resolved field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *RequestSubmissionFull) GetResolved() time.Time {
-	if o == nil || o.Resolved.Get() == nil {
+	if o == nil || IsNil(o.Resolved.Get()) {
 		var ret time.Time
 		return ret
 	}
@@ -306,7 +310,7 @@ func (o *RequestSubmissionFull) UnsetResolved() {
 
 // GetGrantStatus returns the GrantStatus field value if set, zero value otherwise.
 func (o *RequestSubmissionFull) GetGrantStatus() RequestGrantStatus {
-	if o == nil || o.GrantStatus == nil {
+	if o == nil || IsNil(o.GrantStatus) {
 		var ret RequestGrantStatus
 		return ret
 	}
@@ -316,7 +320,7 @@ func (o *RequestSubmissionFull) GetGrantStatus() RequestGrantStatus {
 // GetGrantStatusOk returns a tuple with the GrantStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestSubmissionFull) GetGrantStatusOk() (*RequestGrantStatus, bool) {
-	if o == nil || o.GrantStatus == nil {
+	if o == nil || IsNil(o.GrantStatus) {
 		return nil, false
 	}
 	return o.GrantStatus, true
@@ -324,7 +328,7 @@ func (o *RequestSubmissionFull) GetGrantStatusOk() (*RequestGrantStatus, bool) {
 
 // HasGrantStatus returns a boolean if a field has been set.
 func (o *RequestSubmissionFull) HasGrantStatus() bool {
-	if o != nil && o.GrantStatus != nil {
+	if o != nil && !IsNil(o.GrantStatus) {
 		return true
 	}
 
@@ -338,7 +342,7 @@ func (o *RequestSubmissionFull) SetGrantStatus(v RequestGrantStatus) {
 
 // GetGranted returns the Granted field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *RequestSubmissionFull) GetGranted() time.Time {
-	if o == nil || o.Granted.Get() == nil {
+	if o == nil || IsNil(o.Granted.Get()) {
 		var ret time.Time
 		return ret
 	}
@@ -381,7 +385,7 @@ func (o *RequestSubmissionFull) UnsetGranted() {
 
 // GetRevocationStatus returns the RevocationStatus field value if set, zero value otherwise.
 func (o *RequestSubmissionFull) GetRevocationStatus() RequestRevocationStatus {
-	if o == nil || o.RevocationStatus == nil {
+	if o == nil || IsNil(o.RevocationStatus) {
 		var ret RequestRevocationStatus
 		return ret
 	}
@@ -391,7 +395,7 @@ func (o *RequestSubmissionFull) GetRevocationStatus() RequestRevocationStatus {
 // GetRevocationStatusOk returns a tuple with the RevocationStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestSubmissionFull) GetRevocationStatusOk() (*RequestRevocationStatus, bool) {
-	if o == nil || o.RevocationStatus == nil {
+	if o == nil || IsNil(o.RevocationStatus) {
 		return nil, false
 	}
 	return o.RevocationStatus, true
@@ -399,7 +403,7 @@ func (o *RequestSubmissionFull) GetRevocationStatusOk() (*RequestRevocationStatu
 
 // HasRevocationStatus returns a boolean if a field has been set.
 func (o *RequestSubmissionFull) HasRevocationStatus() bool {
-	if o != nil && o.RevocationStatus != nil {
+	if o != nil && !IsNil(o.RevocationStatus) {
 		return true
 	}
 
@@ -413,7 +417,7 @@ func (o *RequestSubmissionFull) SetRevocationStatus(v RequestRevocationStatus) {
 
 // GetRevoked returns the Revoked field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *RequestSubmissionFull) GetRevoked() time.Time {
-	if o == nil || o.Revoked.Get() == nil {
+	if o == nil || IsNil(o.Revoked.Get()) {
 		var ret time.Time
 		return ret
 	}
@@ -455,9 +459,9 @@ func (o *RequestSubmissionFull) UnsetRevoked() {
 }
 
 // GetRequestedBy returns the RequestedBy field value
-func (o *RequestSubmissionFull) GetRequestedBy() TargetPrincipal {
+func (o *RequestSubmissionFull) GetRequestedBy() ClientCredentialPrincipal {
 	if o == nil {
-		var ret TargetPrincipal
+		var ret ClientCredentialPrincipal
 		return ret
 	}
 
@@ -466,7 +470,7 @@ func (o *RequestSubmissionFull) GetRequestedBy() TargetPrincipal {
 
 // GetRequestedByOk returns a tuple with the RequestedBy field value
 // and a boolean to check if the value has been set.
-func (o *RequestSubmissionFull) GetRequestedByOk() (*TargetPrincipal, bool) {
+func (o *RequestSubmissionFull) GetRequestedByOk() (*ClientCredentialPrincipal, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -474,7 +478,7 @@ func (o *RequestSubmissionFull) GetRequestedByOk() (*TargetPrincipal, bool) {
 }
 
 // SetRequestedBy sets field value
-func (o *RequestSubmissionFull) SetRequestedBy(v TargetPrincipal) {
+func (o *RequestSubmissionFull) SetRequestedBy(v ClientCredentialPrincipal) {
 	o.RequestedBy = v
 }
 
@@ -528,7 +532,7 @@ func (o *RequestSubmissionFull) SetRequested(v Requested) {
 
 // GetAccessDuration returns the AccessDuration field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *RequestSubmissionFull) GetAccessDuration() string {
-	if o == nil || o.AccessDuration.Get() == nil {
+	if o == nil || IsNil(o.AccessDuration.Get()) {
 		var ret string
 		return ret
 	}
@@ -571,7 +575,7 @@ func (o *RequestSubmissionFull) UnsetAccessDuration() {
 
 // GetRevocationScheduled returns the RevocationScheduled field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *RequestSubmissionFull) GetRevocationScheduled() time.Time {
-	if o == nil || o.RevocationScheduled.Get() == nil {
+	if o == nil || IsNil(o.RevocationScheduled.Get()) {
 		var ret time.Time
 		return ret
 	}
@@ -614,7 +618,7 @@ func (o *RequestSubmissionFull) UnsetRevocationScheduled() {
 
 // GetRequesterFieldValues returns the RequesterFieldValues field value if set, zero value otherwise.
 func (o *RequestSubmissionFull) GetRequesterFieldValues() []RequestFieldValue {
-	if o == nil || o.RequesterFieldValues == nil {
+	if o == nil || IsNil(o.RequesterFieldValues) {
 		var ret []RequestFieldValue
 		return ret
 	}
@@ -624,7 +628,7 @@ func (o *RequestSubmissionFull) GetRequesterFieldValues() []RequestFieldValue {
 // GetRequesterFieldValuesOk returns a tuple with the RequesterFieldValues field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestSubmissionFull) GetRequesterFieldValuesOk() ([]RequestFieldValue, bool) {
-	if o == nil || o.RequesterFieldValues == nil {
+	if o == nil || IsNil(o.RequesterFieldValues) {
 		return nil, false
 	}
 	return o.RequesterFieldValues, true
@@ -632,7 +636,7 @@ func (o *RequestSubmissionFull) GetRequesterFieldValuesOk() ([]RequestFieldValue
 
 // HasRequesterFieldValues returns a boolean if a field has been set.
 func (o *RequestSubmissionFull) HasRequesterFieldValues() bool {
-	if o != nil && o.RequesterFieldValues != nil {
+	if o != nil && !IsNil(o.RequesterFieldValues) {
 		return true
 	}
 
@@ -646,7 +650,7 @@ func (o *RequestSubmissionFull) SetRequesterFieldValues(v []RequestFieldValue) {
 
 // GetRiskAssessment returns the RiskAssessment field value if set, zero value otherwise.
 func (o *RequestSubmissionFull) GetRiskAssessment() RiskAssessment {
-	if o == nil || o.RiskAssessment == nil {
+	if o == nil || IsNil(o.RiskAssessment) {
 		var ret RiskAssessment
 		return ret
 	}
@@ -656,7 +660,7 @@ func (o *RequestSubmissionFull) GetRiskAssessment() RiskAssessment {
 // GetRiskAssessmentOk returns a tuple with the RiskAssessment field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestSubmissionFull) GetRiskAssessmentOk() (*RiskAssessment, bool) {
-	if o == nil || o.RiskAssessment == nil {
+	if o == nil || IsNil(o.RiskAssessment) {
 		return nil, false
 	}
 	return o.RiskAssessment, true
@@ -664,7 +668,7 @@ func (o *RequestSubmissionFull) GetRiskAssessmentOk() (*RiskAssessment, bool) {
 
 // HasRiskAssessment returns a boolean if a field has been set.
 func (o *RequestSubmissionFull) HasRiskAssessment() bool {
-	if o != nil && o.RiskAssessment != nil {
+	if o != nil && !IsNil(o.RiskAssessment) {
 		return true
 	}
 
@@ -677,62 +681,50 @@ func (o *RequestSubmissionFull) SetRiskAssessment(v RiskAssessment) {
 }
 
 func (o RequestSubmissionFull) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RequestSubmissionFull) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["createdBy"] = o.CreatedBy
-	}
-	if true {
-		toSerialize["created"] = o.Created
-	}
-	if true {
-		toSerialize["lastUpdated"] = o.LastUpdated
-	}
-	if true {
-		toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
-	}
-	if true {
-		toSerialize["_links"] = o.Links
-	}
-	if true {
-		toSerialize["status"] = o.Status
-	}
+	toSerialize["id"] = o.Id
+	toSerialize["createdBy"] = o.CreatedBy
+	toSerialize["created"] = o.Created
+	toSerialize["lastUpdated"] = o.LastUpdated
+	toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
+	toSerialize["_links"] = o.Links
+	toSerialize["status"] = o.Status
 	if o.Resolved.IsSet() {
 		toSerialize["resolved"] = o.Resolved.Get()
 	}
-	if o.GrantStatus != nil {
+	if !IsNil(o.GrantStatus) {
 		toSerialize["grantStatus"] = o.GrantStatus
 	}
 	if o.Granted.IsSet() {
 		toSerialize["granted"] = o.Granted.Get()
 	}
-	if o.RevocationStatus != nil {
+	if !IsNil(o.RevocationStatus) {
 		toSerialize["revocationStatus"] = o.RevocationStatus
 	}
 	if o.Revoked.IsSet() {
 		toSerialize["revoked"] = o.Revoked.Get()
 	}
-	if true {
-		toSerialize["requestedBy"] = o.RequestedBy
-	}
-	if true {
-		toSerialize["requestedFor"] = o.RequestedFor
-	}
-	if true {
-		toSerialize["requested"] = o.Requested
-	}
+	toSerialize["requestedBy"] = o.RequestedBy
+	toSerialize["requestedFor"] = o.RequestedFor
+	toSerialize["requested"] = o.Requested
 	if o.AccessDuration.IsSet() {
 		toSerialize["accessDuration"] = o.AccessDuration.Get()
 	}
 	if o.RevocationScheduled.IsSet() {
 		toSerialize["revocationScheduled"] = o.RevocationScheduled.Get()
 	}
-	if o.RequesterFieldValues != nil {
+	if !IsNil(o.RequesterFieldValues) {
 		toSerialize["requesterFieldValues"] = o.RequesterFieldValues
 	}
-	if o.RiskAssessment != nil {
+	if !IsNil(o.RiskAssessment) {
 		toSerialize["riskAssessment"] = o.RiskAssessment
 	}
 
@@ -740,23 +732,53 @@ func (o RequestSubmissionFull) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RequestSubmissionFull) UnmarshalJSON(bytes []byte) (err error) {
-	varRequestSubmissionFull := _RequestSubmissionFull{}
+func (o *RequestSubmissionFull) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"createdBy",
+		"created",
+		"lastUpdated",
+		"lastUpdatedBy",
+		"_links",
+		"status",
+		"requestedBy",
+		"requestedFor",
+		"requested",
+	}
 
-	err = json.Unmarshal(bytes, &varRequestSubmissionFull)
-	if err == nil {
-		*o = RequestSubmissionFull(varRequestSubmissionFull)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRequestSubmissionFull := _RequestSubmissionFull{}
+
+	err = json.Unmarshal(data, &varRequestSubmissionFull)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RequestSubmissionFull(varRequestSubmissionFull)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "createdBy")
 		delete(additionalProperties, "created")
@@ -777,8 +799,6 @@ func (o *RequestSubmissionFull) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "requesterFieldValues")
 		delete(additionalProperties, "riskAssessment")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

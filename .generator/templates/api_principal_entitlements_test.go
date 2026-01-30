@@ -1,6 +1,10 @@
 package governance
 
-import "testing"
+import (
+	"testing"
+
+	apiClient "github.com/okta/okta-governance-sdk-golang"
+)
 
 func TestEntitlementsAPIService_GetPrincipalEntitlements(t *testing.T) {
 	filter := `parentResourceOrn eq "orn:oktapreview:idp:00onkdqw1sbuAh3Q06I1d7:apps:oidc_client:0oao01ardcdu8r8qUP91d7" AND targetPrincipalOrn eq "orn:oktapreview:directory:00onkw1sbuAh3Q06I1d7:users:00unkw1sfbTcew08c0g1d7"`

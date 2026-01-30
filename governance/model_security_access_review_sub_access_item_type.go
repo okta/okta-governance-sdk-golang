@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,18 +28,20 @@ import (
 	"fmt"
 )
 
-// SecurityAccessReviewSubAccessItemType the model 'SecurityAccessReviewSubAccessItemType'
+// SecurityAccessReviewSubAccessItemType The type of sub-access item
 type SecurityAccessReviewSubAccessItemType string
 
 // List of security-access-review-sub-access-item-type
 const (
-	SECURITYACCESSREVIEWSUBACCESSITEMTYPE_ENTITLEMENT SecurityAccessReviewSubAccessItemType = "ENTITLEMENT"
-	SECURITYACCESSREVIEWSUBACCESSITEMTYPE_GROUP       SecurityAccessReviewSubAccessItemType = "GROUP"
+	SECURITYACCESSREVIEWSUBACCESSITEMTYPE_ENTITLEMENT_VALUE  SecurityAccessReviewSubAccessItemType = "ENTITLEMENT_VALUE"
+	SECURITYACCESSREVIEWSUBACCESSITEMTYPE_ENTITLEMENT_BUNDLE SecurityAccessReviewSubAccessItemType = "ENTITLEMENT_BUNDLE"
+	SECURITYACCESSREVIEWSUBACCESSITEMTYPE_GROUP              SecurityAccessReviewSubAccessItemType = "GROUP"
 )
 
 // All allowed values of SecurityAccessReviewSubAccessItemType enum
 var AllowedSecurityAccessReviewSubAccessItemTypeEnumValues = []SecurityAccessReviewSubAccessItemType{
-	"ENTITLEMENT",
+	"ENTITLEMENT_VALUE",
+	"ENTITLEMENT_BUNDLE",
 	"GROUP",
 }
 

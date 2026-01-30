@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package governance
 import (
 	"encoding/json"
 )
+
+// checks if the ListMetadata type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ListMetadata{}
 
 // ListMetadata Metadata for the list response
 type ListMetadata struct {
@@ -55,7 +58,7 @@ func NewListMetadataWithDefaults() *ListMetadata {
 
 // GetTotal returns the Total field value if set, zero value otherwise.
 func (o *ListMetadata) GetTotal() int32 {
-	if o == nil || o.Total == nil {
+	if o == nil || IsNil(o.Total) {
 		var ret int32
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *ListMetadata) GetTotal() int32 {
 // GetTotalOk returns a tuple with the Total field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ListMetadata) GetTotalOk() (*int32, bool) {
-	if o == nil || o.Total == nil {
+	if o == nil || IsNil(o.Total) {
 		return nil, false
 	}
 	return o.Total, true
@@ -73,7 +76,7 @@ func (o *ListMetadata) GetTotalOk() (*int32, bool) {
 
 // HasTotal returns a boolean if a field has been set.
 func (o *ListMetadata) HasTotal() bool {
-	if o != nil && o.Total != nil {
+	if o != nil && !IsNil(o.Total) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *ListMetadata) SetTotal(v int32) {
 }
 
 func (o ListMetadata) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ListMetadata) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Total != nil {
+	if !IsNil(o.Total) {
 		toSerialize["total"] = o.Total
 	}
 
@@ -95,27 +106,25 @@ func (o ListMetadata) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ListMetadata) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ListMetadata) UnmarshalJSON(data []byte) (err error) {
 	varListMetadata := _ListMetadata{}
 
-	err = json.Unmarshal(bytes, &varListMetadata)
-	if err == nil {
-		*o = ListMetadata(varListMetadata)
-	} else {
+	err = json.Unmarshal(data, &varListMetadata)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ListMetadata(varListMetadata)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "total")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the CollectionResourceFull type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CollectionResourceFull{}
 
 // CollectionResourceFull Full representation of a resource within a resource collection
 type CollectionResourceFull struct {
@@ -36,7 +40,7 @@ type CollectionResourceFull struct {
 	EntitlementValueCount *int32 `json:"entitlementValueCount,omitempty"`
 	// The ORN identifier for a specific app. Other resource types aren't supported.  See the [supported-resources](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources) endpoint for reference.
 	ResourceOrn string `json:"resourceOrn"`
-	// The Okta `app.id` of the resource  See the [List applications](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Application/#tag/Application/operation/listApplications) endpoint to retrieve application IDs.
+	// The Okta `app.id` of the resource.  See [List applications](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Application/#tag/Application/operation/listApplications) to retrieve app IDs.
 	ResourceId           *string                 `json:"resourceId,omitempty"`
 	Links                CollectionResourceLinks `json:"_links"`
 	AdditionalProperties map[string]interface{}
@@ -65,7 +69,7 @@ func NewCollectionResourceFullWithDefaults() *CollectionResourceFull {
 
 // GetResourceProfile returns the ResourceProfile field value if set, zero value otherwise.
 func (o *CollectionResourceFull) GetResourceProfile() ResourceProfile {
-	if o == nil || o.ResourceProfile == nil {
+	if o == nil || IsNil(o.ResourceProfile) {
 		var ret ResourceProfile
 		return ret
 	}
@@ -75,7 +79,7 @@ func (o *CollectionResourceFull) GetResourceProfile() ResourceProfile {
 // GetResourceProfileOk returns a tuple with the ResourceProfile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionResourceFull) GetResourceProfileOk() (*ResourceProfile, bool) {
-	if o == nil || o.ResourceProfile == nil {
+	if o == nil || IsNil(o.ResourceProfile) {
 		return nil, false
 	}
 	return o.ResourceProfile, true
@@ -83,7 +87,7 @@ func (o *CollectionResourceFull) GetResourceProfileOk() (*ResourceProfile, bool)
 
 // HasResourceProfile returns a boolean if a field has been set.
 func (o *CollectionResourceFull) HasResourceProfile() bool {
-	if o != nil && o.ResourceProfile != nil {
+	if o != nil && !IsNil(o.ResourceProfile) {
 		return true
 	}
 
@@ -97,7 +101,7 @@ func (o *CollectionResourceFull) SetResourceProfile(v ResourceProfile) {
 
 // GetEntitlements returns the Entitlements field value if set, zero value otherwise.
 func (o *CollectionResourceFull) GetEntitlements() []EntitlementFull {
-	if o == nil || o.Entitlements == nil {
+	if o == nil || IsNil(o.Entitlements) {
 		var ret []EntitlementFull
 		return ret
 	}
@@ -107,7 +111,7 @@ func (o *CollectionResourceFull) GetEntitlements() []EntitlementFull {
 // GetEntitlementsOk returns a tuple with the Entitlements field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionResourceFull) GetEntitlementsOk() ([]EntitlementFull, bool) {
-	if o == nil || o.Entitlements == nil {
+	if o == nil || IsNil(o.Entitlements) {
 		return nil, false
 	}
 	return o.Entitlements, true
@@ -115,7 +119,7 @@ func (o *CollectionResourceFull) GetEntitlementsOk() ([]EntitlementFull, bool) {
 
 // HasEntitlements returns a boolean if a field has been set.
 func (o *CollectionResourceFull) HasEntitlements() bool {
-	if o != nil && o.Entitlements != nil {
+	if o != nil && !IsNil(o.Entitlements) {
 		return true
 	}
 
@@ -129,7 +133,7 @@ func (o *CollectionResourceFull) SetEntitlements(v []EntitlementFull) {
 
 // GetEntitlementValueCount returns the EntitlementValueCount field value if set, zero value otherwise.
 func (o *CollectionResourceFull) GetEntitlementValueCount() int32 {
-	if o == nil || o.EntitlementValueCount == nil {
+	if o == nil || IsNil(o.EntitlementValueCount) {
 		var ret int32
 		return ret
 	}
@@ -139,7 +143,7 @@ func (o *CollectionResourceFull) GetEntitlementValueCount() int32 {
 // GetEntitlementValueCountOk returns a tuple with the EntitlementValueCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionResourceFull) GetEntitlementValueCountOk() (*int32, bool) {
-	if o == nil || o.EntitlementValueCount == nil {
+	if o == nil || IsNil(o.EntitlementValueCount) {
 		return nil, false
 	}
 	return o.EntitlementValueCount, true
@@ -147,7 +151,7 @@ func (o *CollectionResourceFull) GetEntitlementValueCountOk() (*int32, bool) {
 
 // HasEntitlementValueCount returns a boolean if a field has been set.
 func (o *CollectionResourceFull) HasEntitlementValueCount() bool {
-	if o != nil && o.EntitlementValueCount != nil {
+	if o != nil && !IsNil(o.EntitlementValueCount) {
 		return true
 	}
 
@@ -185,7 +189,7 @@ func (o *CollectionResourceFull) SetResourceOrn(v string) {
 
 // GetResourceId returns the ResourceId field value if set, zero value otherwise.
 func (o *CollectionResourceFull) GetResourceId() string {
-	if o == nil || o.ResourceId == nil {
+	if o == nil || IsNil(o.ResourceId) {
 		var ret string
 		return ret
 	}
@@ -195,7 +199,7 @@ func (o *CollectionResourceFull) GetResourceId() string {
 // GetResourceIdOk returns a tuple with the ResourceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionResourceFull) GetResourceIdOk() (*string, bool) {
-	if o == nil || o.ResourceId == nil {
+	if o == nil || IsNil(o.ResourceId) {
 		return nil, false
 	}
 	return o.ResourceId, true
@@ -203,7 +207,7 @@ func (o *CollectionResourceFull) GetResourceIdOk() (*string, bool) {
 
 // HasResourceId returns a boolean if a field has been set.
 func (o *CollectionResourceFull) HasResourceId() bool {
-	if o != nil && o.ResourceId != nil {
+	if o != nil && !IsNil(o.ResourceId) {
 		return true
 	}
 
@@ -240,47 +244,73 @@ func (o *CollectionResourceFull) SetLinks(v CollectionResourceLinks) {
 }
 
 func (o CollectionResourceFull) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CollectionResourceFull) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ResourceProfile != nil {
+	if !IsNil(o.ResourceProfile) {
 		toSerialize["resourceProfile"] = o.ResourceProfile
 	}
-	if o.Entitlements != nil {
+	if !IsNil(o.Entitlements) {
 		toSerialize["entitlements"] = o.Entitlements
 	}
-	if o.EntitlementValueCount != nil {
+	if !IsNil(o.EntitlementValueCount) {
 		toSerialize["entitlementValueCount"] = o.EntitlementValueCount
 	}
-	if true {
-		toSerialize["resourceOrn"] = o.ResourceOrn
-	}
-	if o.ResourceId != nil {
+	toSerialize["resourceOrn"] = o.ResourceOrn
+	if !IsNil(o.ResourceId) {
 		toSerialize["resourceId"] = o.ResourceId
 	}
-	if true {
-		toSerialize["_links"] = o.Links
-	}
+	toSerialize["_links"] = o.Links
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *CollectionResourceFull) UnmarshalJSON(bytes []byte) (err error) {
-	varCollectionResourceFull := _CollectionResourceFull{}
+func (o *CollectionResourceFull) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"resourceOrn",
+		"_links",
+	}
 
-	err = json.Unmarshal(bytes, &varCollectionResourceFull)
-	if err == nil {
-		*o = CollectionResourceFull(varCollectionResourceFull)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varCollectionResourceFull := _CollectionResourceFull{}
+
+	err = json.Unmarshal(data, &varCollectionResourceFull)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CollectionResourceFull(varCollectionResourceFull)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "resourceProfile")
 		delete(additionalProperties, "entitlements")
 		delete(additionalProperties, "entitlementValueCount")
@@ -288,8 +318,6 @@ func (o *CollectionResourceFull) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "resourceId")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

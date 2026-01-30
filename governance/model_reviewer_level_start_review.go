@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,11 +25,15 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
-// ReviewerLevelStartReview One can indicate, the rules for which the reviews can move to that level.
+// checks if the ReviewerLevelStartReview type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ReviewerLevelStartReview{}
+
+// ReviewerLevelStartReview Indicates rules for starting reviews at this level
 type ReviewerLevelStartReview struct {
-	// The day on which that reviewer level will start.  It will be `0` for `FIRST` reviewer level, as the first level will start when the campaign starts.  For `SECOND` reviewer level specify a value greater than `0`. This will indicate the day, the reviews will be moved to second level.
+	// The day when reviewer level starts: 1. For the first level, this value is always `0` since the first level starts when the campaign starts. 2. For the second level, specify a value that's greater than `0`. This indicates the day when the reviews move to the second level.
 	OnDay                int32                        `json:"onDay"`
 	When                 *ReviewerLowerLevelCondition `json:"when,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -83,7 +87,7 @@ func (o *ReviewerLevelStartReview) SetOnDay(v int32) {
 
 // GetWhen returns the When field value if set, zero value otherwise.
 func (o *ReviewerLevelStartReview) GetWhen() ReviewerLowerLevelCondition {
-	if o == nil || o.When == nil {
+	if o == nil || IsNil(o.When) {
 		var ret ReviewerLowerLevelCondition
 		return ret
 	}
@@ -93,7 +97,7 @@ func (o *ReviewerLevelStartReview) GetWhen() ReviewerLowerLevelCondition {
 // GetWhenOk returns a tuple with the When field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReviewerLevelStartReview) GetWhenOk() (*ReviewerLowerLevelCondition, bool) {
-	if o == nil || o.When == nil {
+	if o == nil || IsNil(o.When) {
 		return nil, false
 	}
 	return o.When, true
@@ -101,7 +105,7 @@ func (o *ReviewerLevelStartReview) GetWhenOk() (*ReviewerLowerLevelCondition, bo
 
 // HasWhen returns a boolean if a field has been set.
 func (o *ReviewerLevelStartReview) HasWhen() bool {
-	if o != nil && o.When != nil {
+	if o != nil && !IsNil(o.When) {
 		return true
 	}
 
@@ -114,11 +118,17 @@ func (o *ReviewerLevelStartReview) SetWhen(v ReviewerLowerLevelCondition) {
 }
 
 func (o ReviewerLevelStartReview) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["onDay"] = o.OnDay
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.When != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o ReviewerLevelStartReview) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["onDay"] = o.OnDay
+	if !IsNil(o.When) {
 		toSerialize["when"] = o.When
 	}
 
@@ -126,28 +136,47 @@ func (o ReviewerLevelStartReview) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ReviewerLevelStartReview) UnmarshalJSON(bytes []byte) (err error) {
-	varReviewerLevelStartReview := _ReviewerLevelStartReview{}
+func (o *ReviewerLevelStartReview) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"onDay",
+	}
 
-	err = json.Unmarshal(bytes, &varReviewerLevelStartReview)
-	if err == nil {
-		*o = ReviewerLevelStartReview(varReviewerLevelStartReview)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varReviewerLevelStartReview := _ReviewerLevelStartReview{}
+
+	err = json.Unmarshal(data, &varReviewerLevelStartReview)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ReviewerLevelStartReview(varReviewerLevelStartReview)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "onDay")
 		delete(additionalProperties, "when")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

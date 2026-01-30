@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,14 +25,18 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the EntitlementBundleCreatable type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EntitlementBundleCreatable{}
 
 // EntitlementBundleCreatable The properties expected in an initial add entitlement bundle
 type EntitlementBundleCreatable struct {
 	Target TargetResource `json:"target"`
 	// Collection of entitlements and associated value identifiers
 	Entitlements []EntitlementCreatable `json:"entitlements"`
-	// The unique name of the entitlement bundle.
+	// The unique name of the entitlement bundle
 	Name string `json:"name"`
 	// The human-readable description
 	Description          *string `json:"description,omitempty"`
@@ -133,7 +137,7 @@ func (o *EntitlementBundleCreatable) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *EntitlementBundleCreatable) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -143,7 +147,7 @@ func (o *EntitlementBundleCreatable) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntitlementBundleCreatable) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -151,7 +155,7 @@ func (o *EntitlementBundleCreatable) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *EntitlementBundleCreatable) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -164,17 +168,19 @@ func (o *EntitlementBundleCreatable) SetDescription(v string) {
 }
 
 func (o EntitlementBundleCreatable) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o EntitlementBundleCreatable) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["target"] = o.Target
-	}
-	if true {
-		toSerialize["entitlements"] = o.Entitlements
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Description != nil {
+	toSerialize["target"] = o.Target
+	toSerialize["entitlements"] = o.Entitlements
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
 
@@ -182,30 +188,51 @@ func (o EntitlementBundleCreatable) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *EntitlementBundleCreatable) UnmarshalJSON(bytes []byte) (err error) {
-	varEntitlementBundleCreatable := _EntitlementBundleCreatable{}
+func (o *EntitlementBundleCreatable) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"target",
+		"entitlements",
+		"name",
+	}
 
-	err = json.Unmarshal(bytes, &varEntitlementBundleCreatable)
-	if err == nil {
-		*o = EntitlementBundleCreatable(varEntitlementBundleCreatable)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varEntitlementBundleCreatable := _EntitlementBundleCreatable{}
+
+	err = json.Unmarshal(data, &varEntitlementBundleCreatable)
+
+	if err != nil {
+		return err
+	}
+
+	*o = EntitlementBundleCreatable(varEntitlementBundleCreatable)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "target")
 		delete(additionalProperties, "entitlements")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "description")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

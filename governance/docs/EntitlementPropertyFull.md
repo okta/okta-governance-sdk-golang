@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Name** | Pointer to **string** | The display name for an entitlement property | [optional] 
 **ExternalValue** | Pointer to **string** | The value of an entitlement property | [optional] 
 **Description** | Pointer to **string** | The description of an entitlement property | [optional] 
-**MultiValue** | Pointer to **bool** | The property that determines if the entitlement property can hold multiple values. If this is set to true, the data type is replaced with an array. | [optional] 
+**MultiValue** | Pointer to **bool** | Indicate if the entitlement property can hold multiple values. If this property is &#x60;true&#x60;, then the &#x60;dataType&#x60; property is set to  &#x60;array&#x60;. | [optional] 
 **Required** | Pointer to **bool** | The property that determines if the entitlement property is a required attribute | [optional] 
 **DataType** | Pointer to [**EntitlementPropertyDatatype**](EntitlementPropertyDatatype.md) |  | [optional] 
 

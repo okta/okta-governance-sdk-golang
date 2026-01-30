@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,20 +25,24 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the GrantFull type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GrantFull{}
 
 // GrantFull Grant response
 type GrantFull struct {
 	GrantType GrantType `json:"grantType"`
 	// The entitlement bundle `id`
-	EntitlementBundleId *string `json:"entitlementBundleId,omitempty"`
-	// The Okta user `id` in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format.  See [Supported resources](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
+	EntitlementBundleId *string `json:"entitlementBundleId,omitempty" validate:"regexp=enb[0-9a-zA-Z]+"`
+	// The Okta user, in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format.
 	TargetPrincipalOrn string              `json:"targetPrincipalOrn"`
 	TargetPrincipal    TargetPrincipalFull `json:"targetPrincipal"`
 	Action             GrantAction         `json:"action"`
 	Actor              GrantActor          `json:"actor"`
-	// The Okta app instance, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for a specific app in [Supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
+	// The Okta resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for [supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
 	TargetResourceOrn string         `json:"targetResourceOrn"`
 	Target            TargetResource `json:"target"`
 	// Collection of entitlements and associated value identifiers
@@ -115,7 +119,7 @@ func (o *GrantFull) SetGrantType(v GrantType) {
 
 // GetEntitlementBundleId returns the EntitlementBundleId field value if set, zero value otherwise.
 func (o *GrantFull) GetEntitlementBundleId() string {
-	if o == nil || o.EntitlementBundleId == nil {
+	if o == nil || IsNil(o.EntitlementBundleId) {
 		var ret string
 		return ret
 	}
@@ -125,7 +129,7 @@ func (o *GrantFull) GetEntitlementBundleId() string {
 // GetEntitlementBundleIdOk returns a tuple with the EntitlementBundleId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GrantFull) GetEntitlementBundleIdOk() (*string, bool) {
-	if o == nil || o.EntitlementBundleId == nil {
+	if o == nil || IsNil(o.EntitlementBundleId) {
 		return nil, false
 	}
 	return o.EntitlementBundleId, true
@@ -133,7 +137,7 @@ func (o *GrantFull) GetEntitlementBundleIdOk() (*string, bool) {
 
 // HasEntitlementBundleId returns a boolean if a field has been set.
 func (o *GrantFull) HasEntitlementBundleId() bool {
-	if o != nil && o.EntitlementBundleId != nil {
+	if o != nil && !IsNil(o.EntitlementBundleId) {
 		return true
 	}
 
@@ -291,7 +295,7 @@ func (o *GrantFull) SetTarget(v TargetResource) {
 
 // GetEntitlements returns the Entitlements field value if set, zero value otherwise.
 func (o *GrantFull) GetEntitlements() []EntitlementCreatable {
-	if o == nil || o.Entitlements == nil {
+	if o == nil || IsNil(o.Entitlements) {
 		var ret []EntitlementCreatable
 		return ret
 	}
@@ -301,7 +305,7 @@ func (o *GrantFull) GetEntitlements() []EntitlementCreatable {
 // GetEntitlementsOk returns a tuple with the Entitlements field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GrantFull) GetEntitlementsOk() ([]EntitlementCreatable, bool) {
-	if o == nil || o.Entitlements == nil {
+	if o == nil || IsNil(o.Entitlements) {
 		return nil, false
 	}
 	return o.Entitlements, true
@@ -309,7 +313,7 @@ func (o *GrantFull) GetEntitlementsOk() ([]EntitlementCreatable, bool) {
 
 // HasEntitlements returns a boolean if a field has been set.
 func (o *GrantFull) HasEntitlements() bool {
-	if o != nil && o.Entitlements != nil {
+	if o != nil && !IsNil(o.Entitlements) {
 		return true
 	}
 
@@ -323,7 +327,7 @@ func (o *GrantFull) SetEntitlements(v []EntitlementCreatable) {
 
 // GetScheduleSettings returns the ScheduleSettings field value if set, zero value otherwise.
 func (o *GrantFull) GetScheduleSettings() ScheduleSettingsWriteable {
-	if o == nil || o.ScheduleSettings == nil {
+	if o == nil || IsNil(o.ScheduleSettings) {
 		var ret ScheduleSettingsWriteable
 		return ret
 	}
@@ -333,7 +337,7 @@ func (o *GrantFull) GetScheduleSettings() ScheduleSettingsWriteable {
 // GetScheduleSettingsOk returns a tuple with the ScheduleSettings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GrantFull) GetScheduleSettingsOk() (*ScheduleSettingsWriteable, bool) {
-	if o == nil || o.ScheduleSettings == nil {
+	if o == nil || IsNil(o.ScheduleSettings) {
 		return nil, false
 	}
 	return o.ScheduleSettings, true
@@ -341,7 +345,7 @@ func (o *GrantFull) GetScheduleSettingsOk() (*ScheduleSettingsWriteable, bool) {
 
 // HasScheduleSettings returns a boolean if a field has been set.
 func (o *GrantFull) HasScheduleSettings() bool {
-	if o != nil && o.ScheduleSettings != nil {
+	if o != nil && !IsNil(o.ScheduleSettings) {
 		return true
 	}
 
@@ -403,7 +407,7 @@ func (o *GrantFull) SetStatus(v GrantStatus) {
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *GrantFull) GetMetadata() GrantMetadata {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		var ret GrantMetadata
 		return ret
 	}
@@ -413,7 +417,7 @@ func (o *GrantFull) GetMetadata() GrantMetadata {
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GrantFull) GetMetadataOk() (*GrantMetadata, bool) {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
 	return o.Metadata, true
@@ -421,7 +425,7 @@ func (o *GrantFull) GetMetadataOk() (*GrantMetadata, bool) {
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *GrantFull) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
@@ -554,83 +558,97 @@ func (o *GrantFull) SetLastUpdatedBy(v string) {
 }
 
 func (o GrantFull) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["grantType"] = o.GrantType
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.EntitlementBundleId != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o GrantFull) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["grantType"] = o.GrantType
+	if !IsNil(o.EntitlementBundleId) {
 		toSerialize["entitlementBundleId"] = o.EntitlementBundleId
 	}
-	if true {
-		toSerialize["targetPrincipalOrn"] = o.TargetPrincipalOrn
-	}
-	if true {
-		toSerialize["targetPrincipal"] = o.TargetPrincipal
-	}
-	if true {
-		toSerialize["action"] = o.Action
-	}
-	if true {
-		toSerialize["actor"] = o.Actor
-	}
-	if true {
-		toSerialize["targetResourceOrn"] = o.TargetResourceOrn
-	}
-	if true {
-		toSerialize["target"] = o.Target
-	}
-	if o.Entitlements != nil {
+	toSerialize["targetPrincipalOrn"] = o.TargetPrincipalOrn
+	toSerialize["targetPrincipal"] = o.TargetPrincipal
+	toSerialize["action"] = o.Action
+	toSerialize["actor"] = o.Actor
+	toSerialize["targetResourceOrn"] = o.TargetResourceOrn
+	toSerialize["target"] = o.Target
+	if !IsNil(o.Entitlements) {
 		toSerialize["entitlements"] = o.Entitlements
 	}
-	if o.ScheduleSettings != nil {
+	if !IsNil(o.ScheduleSettings) {
 		toSerialize["scheduleSettings"] = o.ScheduleSettings
 	}
-	if true {
-		toSerialize["_links"] = o.Links
-	}
-	if true {
-		toSerialize["status"] = o.Status
-	}
-	if o.Metadata != nil {
+	toSerialize["_links"] = o.Links
+	toSerialize["status"] = o.Status
+	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["createdBy"] = o.CreatedBy
-	}
-	if true {
-		toSerialize["created"] = o.Created
-	}
-	if true {
-		toSerialize["lastUpdated"] = o.LastUpdated
-	}
-	if true {
-		toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
-	}
+	toSerialize["id"] = o.Id
+	toSerialize["createdBy"] = o.CreatedBy
+	toSerialize["created"] = o.Created
+	toSerialize["lastUpdated"] = o.LastUpdated
+	toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *GrantFull) UnmarshalJSON(bytes []byte) (err error) {
-	varGrantFull := _GrantFull{}
+func (o *GrantFull) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"grantType",
+		"targetPrincipalOrn",
+		"targetPrincipal",
+		"action",
+		"actor",
+		"targetResourceOrn",
+		"target",
+		"_links",
+		"status",
+		"id",
+		"createdBy",
+		"created",
+		"lastUpdated",
+		"lastUpdatedBy",
+	}
 
-	err = json.Unmarshal(bytes, &varGrantFull)
-	if err == nil {
-		*o = GrantFull(varGrantFull)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varGrantFull := _GrantFull{}
+
+	err = json.Unmarshal(data, &varGrantFull)
+
+	if err != nil {
+		return err
+	}
+
+	*o = GrantFull(varGrantFull)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "grantType")
 		delete(additionalProperties, "entitlementBundleId")
 		delete(additionalProperties, "targetPrincipalOrn")
@@ -650,8 +668,6 @@ func (o *GrantFull) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "lastUpdated")
 		delete(additionalProperties, "lastUpdatedBy")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

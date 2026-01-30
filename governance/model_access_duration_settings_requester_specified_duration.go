@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -24,15 +24,22 @@ Contact: devex-public@okta.com
 package governance
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the AccessDurationSettingsRequesterSpecifiedDuration type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AccessDurationSettingsRequesterSpecifiedDuration{}
 
 // AccessDurationSettingsRequesterSpecifiedDuration Setting to specify the maximum duration that an end user can request access for when making a request.
 type AccessDurationSettingsRequesterSpecifiedDuration struct {
 	Type string `json:"type"`
-	// The maximum duration set by the requester for access durations. Use ISO8061 notation for duration values, see https://tc39.es/proposal-temporal/docs/duration.html.  The admin sets the maximum duration that can be requested and can't exceed 72 hours (`PT72H`), 90 days (`90D`), or 12 weeks (`P12W`). For example:    - 24 hours (`PT24H`)   - 7 days (`P7D`)   - 2 weeks (`P2W`)
+	// The maximum duration set by the requester for access durations. Use ISO8061 notation for duration values, see https://tc39.es/proposal-temporal/docs/duration.html. The admin sets the maximum duration that can be requested and can't exceed 72 hours (`PT72H`), 90 days (`90D`), or 12 weeks (`P12W`). For example:    - 24 hours (`PT24H`)   - 7 days (`P7D`)   - 2 weeks (`P2W`)
 	MaximumDuration string `json:"maximumDuration"`
 }
+
+type _AccessDurationSettingsRequesterSpecifiedDuration AccessDurationSettingsRequesterSpecifiedDuration
 
 // NewAccessDurationSettingsRequesterSpecifiedDuration instantiates a new AccessDurationSettingsRequesterSpecifiedDuration object
 // This constructor will assign default values to properties that have it defined,
@@ -102,14 +109,56 @@ func (o *AccessDurationSettingsRequesterSpecifiedDuration) SetMaximumDuration(v 
 }
 
 func (o AccessDurationSettingsRequesterSpecifiedDuration) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if true {
-		toSerialize["maximumDuration"] = o.MaximumDuration
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AccessDurationSettingsRequesterSpecifiedDuration) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["type"] = o.Type
+	toSerialize["maximumDuration"] = o.MaximumDuration
+	return toSerialize, nil
+}
+
+func (o *AccessDurationSettingsRequesterSpecifiedDuration) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"type",
+		"maximumDuration",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAccessDurationSettingsRequesterSpecifiedDuration := _AccessDurationSettingsRequesterSpecifiedDuration{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varAccessDurationSettingsRequesterSpecifiedDuration)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AccessDurationSettingsRequesterSpecifiedDuration(varAccessDurationSettingsRequesterSpecifiedDuration)
+
+	return err
 }
 
 type NullableAccessDurationSettingsRequesterSpecifiedDuration struct {

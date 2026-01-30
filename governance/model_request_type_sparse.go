@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,8 +25,12 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the RequestTypeSparse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RequestTypeSparse{}
 
 // RequestTypeSparse Sparse representation of a Request Type resource
 type RequestTypeSparse struct {
@@ -35,7 +39,7 @@ type RequestTypeSparse struct {
 	Links            RequestTypeLinks  `json:"_links"`
 	// Writable unique key on Create. Not modifiable on update.
 	Name string `json:"name"`
-	// Human readable description.
+	// Human readable description
 	Description string `json:"description"`
 	// Unique identifier for the object
 	Id string `json:"id"`
@@ -318,59 +322,77 @@ func (o *RequestTypeSparse) SetLastUpdatedBy(v string) {
 }
 
 func (o RequestTypeSparse) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RequestTypeSparse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["status"] = o.Status
-	}
-	if true {
-		toSerialize["lastUpdateSource"] = o.LastUpdateSource
-	}
-	if true {
-		toSerialize["_links"] = o.Links
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["description"] = o.Description
-	}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["createdBy"] = o.CreatedBy
-	}
-	if true {
-		toSerialize["created"] = o.Created
-	}
-	if true {
-		toSerialize["lastUpdated"] = o.LastUpdated
-	}
-	if true {
-		toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
-	}
+	toSerialize["status"] = o.Status
+	toSerialize["lastUpdateSource"] = o.LastUpdateSource
+	toSerialize["_links"] = o.Links
+	toSerialize["name"] = o.Name
+	toSerialize["description"] = o.Description
+	toSerialize["id"] = o.Id
+	toSerialize["createdBy"] = o.CreatedBy
+	toSerialize["created"] = o.Created
+	toSerialize["lastUpdated"] = o.LastUpdated
+	toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RequestTypeSparse) UnmarshalJSON(bytes []byte) (err error) {
-	varRequestTypeSparse := _RequestTypeSparse{}
+func (o *RequestTypeSparse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"status",
+		"lastUpdateSource",
+		"_links",
+		"name",
+		"description",
+		"id",
+		"createdBy",
+		"created",
+		"lastUpdated",
+		"lastUpdatedBy",
+	}
 
-	err = json.Unmarshal(bytes, &varRequestTypeSparse)
-	if err == nil {
-		*o = RequestTypeSparse(varRequestTypeSparse)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRequestTypeSparse := _RequestTypeSparse{}
+
+	err = json.Unmarshal(data, &varRequestTypeSparse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RequestTypeSparse(varRequestTypeSparse)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "lastUpdateSource")
 		delete(additionalProperties, "_links")
@@ -382,8 +404,6 @@ func (o *RequestTypeSparse) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "lastUpdated")
 		delete(additionalProperties, "lastUpdatedBy")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

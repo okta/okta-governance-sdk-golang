@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** | The entitlement id | 
-**IncludeAllValues** | Pointer to **bool** | whether to include all entitlement values. If &#x60;false&#x60; we must provide the &#x60;values&#x60; property | [optional] 
-**Values** | Pointer to [**[]EntitlementValue**](EntitlementValue.md) | entitlement value ids | [optional] 
+**Id** | **string** | The entitlement &#x60;id&#x60; | 
+**IncludeAllValues** | Pointer to **bool** | Indicates whether to include all entitlement values:   * If &#x60;true&#x60;, all entitlement values are included.   * If &#x60;false&#x60;, you must specify the &#x60;values&#x60; property. | [optional] 
+**Values** | Pointer to [**[]EntitlementValue**](EntitlementValue.md) | Entitlement value IDs | [optional] 
 
 ## Methods
 

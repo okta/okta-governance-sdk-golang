@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,19 +25,24 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
+// checks if the EntitlementBundleFull type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EntitlementBundleFull{}
+
 // EntitlementBundleFull Full representation of a entitlement bundle resource
 type EntitlementBundleFull struct {
-	// The Okta app instance, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for a specific app in [Supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
+	// The `id` of the bundle in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).
+	Orn string `json:"orn"`
+	// The Okta resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for [supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
 	TargetResourceOrn string                  `json:"targetResourceOrn"`
 	Target            TargetResource          `json:"target"`
 	Status            EntitlementBundleStatus `json:"status"`
 	// Collection of entitlements and associated value identifiers
-	Entitlements           []EntitlementCreatable `json:"entitlements,omitempty"`
-	EntitlementsObjectType string                 `json:"entitlementsObjectType"`
-	Links                  EntitlementBundleLinks `json:"_links"`
+	Entitlements []EntitlementCreatable `json:"entitlements,omitempty"`
+	Links        EntitlementBundleLinks `json:"_links"`
 	// The unique name of the entitlement bundle
 	Name string `json:"name"`
 	// The human-readable description
@@ -61,7 +66,7 @@ type _EntitlementBundleFull EntitlementBundleFull
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEntitlementBundleFull(targetResourceOrn string, target TargetResource, status EntitlementBundleStatus, entitlementsObjectType string, links EntitlementBundleLinks, name string, id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string) *EntitlementBundleFull {
+func NewEntitlementBundleFull(orn string, targetResourceOrn string, target TargetResource, status EntitlementBundleStatus, links EntitlementBundleLinks, name string, id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string) *EntitlementBundleFull {
 	this := EntitlementBundleFull{}
 	this.Name = name
 	this.Id = id
@@ -78,9 +83,31 @@ func NewEntitlementBundleFull(targetResourceOrn string, target TargetResource, s
 // but it doesn't guarantee that properties required by API are set
 func NewEntitlementBundleFullWithDefaults() *EntitlementBundleFull {
 	this := EntitlementBundleFull{}
-	var entitlementsObjectType string = "entitlement-bundle-full"
-	this.EntitlementsObjectType = entitlementsObjectType
 	return &this
+}
+
+// GetOrn returns the Orn field value
+func (o *EntitlementBundleFull) GetOrn() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Orn
+}
+
+// GetOrnOk returns a tuple with the Orn field value
+// and a boolean to check if the value has been set.
+func (o *EntitlementBundleFull) GetOrnOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Orn, true
+}
+
+// SetOrn sets field value
+func (o *EntitlementBundleFull) SetOrn(v string) {
+	o.Orn = v
 }
 
 // GetTargetResourceOrn returns the TargetResourceOrn field value
@@ -157,7 +184,7 @@ func (o *EntitlementBundleFull) SetStatus(v EntitlementBundleStatus) {
 
 // GetEntitlements returns the Entitlements field value if set, zero value otherwise.
 func (o *EntitlementBundleFull) GetEntitlements() []EntitlementCreatable {
-	if o == nil || o.Entitlements == nil {
+	if o == nil || IsNil(o.Entitlements) {
 		var ret []EntitlementCreatable
 		return ret
 	}
@@ -167,7 +194,7 @@ func (o *EntitlementBundleFull) GetEntitlements() []EntitlementCreatable {
 // GetEntitlementsOk returns a tuple with the Entitlements field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntitlementBundleFull) GetEntitlementsOk() ([]EntitlementCreatable, bool) {
-	if o == nil || o.Entitlements == nil {
+	if o == nil || IsNil(o.Entitlements) {
 		return nil, false
 	}
 	return o.Entitlements, true
@@ -175,7 +202,7 @@ func (o *EntitlementBundleFull) GetEntitlementsOk() ([]EntitlementCreatable, boo
 
 // HasEntitlements returns a boolean if a field has been set.
 func (o *EntitlementBundleFull) HasEntitlements() bool {
-	if o != nil && o.Entitlements != nil {
+	if o != nil && !IsNil(o.Entitlements) {
 		return true
 	}
 
@@ -185,30 +212,6 @@ func (o *EntitlementBundleFull) HasEntitlements() bool {
 // SetEntitlements gets a reference to the given []EntitlementCreatable and assigns it to the Entitlements field.
 func (o *EntitlementBundleFull) SetEntitlements(v []EntitlementCreatable) {
 	o.Entitlements = v
-}
-
-// GetEntitlementsObjectType returns the EntitlementsObjectType field value
-func (o *EntitlementBundleFull) GetEntitlementsObjectType() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.EntitlementsObjectType
-}
-
-// GetEntitlementsObjectTypeOk returns a tuple with the EntitlementsObjectType field value
-// and a boolean to check if the value has been set.
-func (o *EntitlementBundleFull) GetEntitlementsObjectTypeOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.EntitlementsObjectType, true
-}
-
-// SetEntitlementsObjectType sets field value
-func (o *EntitlementBundleFull) SetEntitlementsObjectType(v string) {
-	o.EntitlementsObjectType = v
 }
 
 // GetLinks returns the Links field value
@@ -261,7 +264,7 @@ func (o *EntitlementBundleFull) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *EntitlementBundleFull) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -271,7 +274,7 @@ func (o *EntitlementBundleFull) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntitlementBundleFull) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -279,7 +282,7 @@ func (o *EntitlementBundleFull) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *EntitlementBundleFull) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -412,73 +415,90 @@ func (o *EntitlementBundleFull) SetLastUpdatedBy(v string) {
 }
 
 func (o EntitlementBundleFull) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o EntitlementBundleFull) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["targetResourceOrn"] = o.TargetResourceOrn
-	}
-	if true {
-		toSerialize["target"] = o.Target
-	}
-	if true {
-		toSerialize["status"] = o.Status
-	}
-	if o.Entitlements != nil {
+	toSerialize["orn"] = o.Orn
+	toSerialize["targetResourceOrn"] = o.TargetResourceOrn
+	toSerialize["target"] = o.Target
+	toSerialize["status"] = o.Status
+	if !IsNil(o.Entitlements) {
 		toSerialize["entitlements"] = o.Entitlements
 	}
-	if true {
-		toSerialize["entitlementsObjectType"] = o.EntitlementsObjectType
-	}
-	if true {
-		toSerialize["_links"] = o.Links
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Description != nil {
+	toSerialize["_links"] = o.Links
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["createdBy"] = o.CreatedBy
-	}
-	if true {
-		toSerialize["created"] = o.Created
-	}
-	if true {
-		toSerialize["lastUpdated"] = o.LastUpdated
-	}
-	if true {
-		toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
-	}
+	toSerialize["id"] = o.Id
+	toSerialize["createdBy"] = o.CreatedBy
+	toSerialize["created"] = o.Created
+	toSerialize["lastUpdated"] = o.LastUpdated
+	toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *EntitlementBundleFull) UnmarshalJSON(bytes []byte) (err error) {
-	varEntitlementBundleFull := _EntitlementBundleFull{}
+func (o *EntitlementBundleFull) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"orn",
+		"targetResourceOrn",
+		"target",
+		"status",
+		"_links",
+		"name",
+		"id",
+		"createdBy",
+		"created",
+		"lastUpdated",
+		"lastUpdatedBy",
+	}
 
-	err = json.Unmarshal(bytes, &varEntitlementBundleFull)
-	if err == nil {
-		*o = EntitlementBundleFull(varEntitlementBundleFull)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varEntitlementBundleFull := _EntitlementBundleFull{}
+
+	err = json.Unmarshal(data, &varEntitlementBundleFull)
+
+	if err != nil {
+		return err
+	}
+
+	*o = EntitlementBundleFull(varEntitlementBundleFull)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "orn")
 		delete(additionalProperties, "targetResourceOrn")
 		delete(additionalProperties, "target")
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "entitlements")
-		delete(additionalProperties, "entitlementsObjectType")
 		delete(additionalProperties, "_links")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "description")
@@ -488,8 +508,6 @@ func (o *EntitlementBundleFull) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "lastUpdated")
 		delete(additionalProperties, "lastUpdatedBy")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,7 +28,6 @@ import (
 	"fmt"
 )
 
-// model_oneof.mustache
 // RequestApproval - An approval for this request. It may be in a PENDING or COMPLETED state.
 type RequestApproval struct {
 	RequestApprovalCompleted *RequestApprovalCompleted
@@ -49,14 +48,14 @@ func RequestApprovalPendingAsRequestApproval(v *RequestApprovalPending) RequestA
 	}
 }
 
-// Unmarshal JSON data into one of the pointers in the struct  CUSTOM
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *RequestApproval) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup
 	var jsonDict map[string]interface{}
 	err = newStrictDecoder(data).Decode(&jsonDict)
 	if err != nil {
-		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
 	// check if the discriminator value is 'COMPLETED'
@@ -67,7 +66,7 @@ func (dst *RequestApproval) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.RequestApprovalCompleted, return on the first match
 		} else {
 			dst.RequestApprovalCompleted = nil
-			return fmt.Errorf("Failed to unmarshal RequestApproval as RequestApprovalCompleted: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal RequestApproval as RequestApprovalCompleted: %s", err.Error())
 		}
 	}
 
@@ -79,31 +78,7 @@ func (dst *RequestApproval) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.RequestApprovalPending, return on the first match
 		} else {
 			dst.RequestApprovalPending = nil
-			return fmt.Errorf("Failed to unmarshal RequestApproval as RequestApprovalPending: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'request-approval-completed'
-	if jsonDict["status"] == "request-approval-completed" {
-		// try to unmarshal JSON data into RequestApprovalCompleted
-		err = json.Unmarshal(data, &dst.RequestApprovalCompleted)
-		if err == nil {
-			return nil // data stored in dst.RequestApprovalCompleted, return on the first match
-		} else {
-			dst.RequestApprovalCompleted = nil
-			return fmt.Errorf("Failed to unmarshal RequestApproval as RequestApprovalCompleted: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'request-approval-pending'
-	if jsonDict["status"] == "request-approval-pending" {
-		// try to unmarshal JSON data into RequestApprovalPending
-		err = json.Unmarshal(data, &dst.RequestApprovalPending)
-		if err == nil {
-			return nil // data stored in dst.RequestApprovalPending, return on the first match
-		} else {
-			dst.RequestApprovalPending = nil
-			return fmt.Errorf("Failed to unmarshal RequestApproval as RequestApprovalPending: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal RequestApproval as RequestApprovalPending: %s", err.Error())
 		}
 	}
 
@@ -134,6 +109,20 @@ func (obj *RequestApproval) GetActualInstance() interface{} {
 
 	if obj.RequestApprovalPending != nil {
 		return obj.RequestApprovalPending
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj RequestApproval) GetActualInstanceValue() interface{} {
+	if obj.RequestApprovalCompleted != nil {
+		return *obj.RequestApprovalCompleted
+	}
+
+	if obj.RequestApprovalPending != nil {
+		return *obj.RequestApprovalPending
 	}
 
 	// all schemas are nil

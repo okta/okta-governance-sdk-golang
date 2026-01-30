@@ -7,18 +7,21 @@ Name | Type | Description | Notes
 **Id** | **string** | The ID of the access item | 
 **Type** | [**SecurityAccessReviewAccessItemType**](SecurityAccessReviewAccessItemType.md) |  | 
 **Name** | **string** | The name of the access item | 
+**ResourceId** | **string** | The ID of the resource for the access item in a security access review | 
 **Severity** | [**SecurityAccessReviewAccessItemSeverity**](SecurityAccessReviewAccessItemSeverity.md) |  | 
 **SupportedActions** | [**[]SecurityAccessReviewAccessItemSupportedAction**](SecurityAccessReviewAccessItemSupportedAction.md) |  | 
+**RemediationStatus** | Pointer to [**SecurityAccessReviewAccessItemRemediationStatus**](SecurityAccessReviewAccessItemRemediationStatus.md) |  | [optional] 
+**ManualRemediationTypes** | Pointer to [**[]SecurityAccessReviewAccessItemManualRemediationType**](SecurityAccessReviewAccessItemManualRemediationType.md) | The reasons for manual remediation | [optional] 
 **AppInfo** | Pointer to [**SecurityAccessReviewAccessItemAppInfo**](SecurityAccessReviewAccessItemAppInfo.md) |  | [optional] 
-**Summary** | Pointer to [**ServerMessage**](ServerMessage.md) |  | [optional] 
-**SubAccessTypes** | Pointer to [**[]SecurityAccessReviewSubAccessItemType**](SecurityAccessReviewSubAccessItemType.md) | A list of types of sub accesses the access item has | [optional] 
-**Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
+**Summary** | Pointer to [**AiMessage**](AiMessage.md) |  | [optional] 
+**SubAccessTypes** | Pointer to [**[]SecurityAccessReviewSubAccessItemType**](SecurityAccessReviewSubAccessItemType.md) | A list of sub-access types for the access item | [optional] 
+**Links** | Pointer to [**map[string]Link**](Link.md) | Links related to the access item | [optional] 
 
 ## Methods
 
 ### NewSecurityAccessReviewAccessItem
 
-`func NewSecurityAccessReviewAccessItem(id string, type_ SecurityAccessReviewAccessItemType, name string, severity SecurityAccessReviewAccessItemSeverity, supportedActions []SecurityAccessReviewAccessItemSupportedAction, ) *SecurityAccessReviewAccessItem`
+`func NewSecurityAccessReviewAccessItem(id string, type_ SecurityAccessReviewAccessItemType, name string, resourceId string, severity SecurityAccessReviewAccessItemSeverity, supportedActions []SecurityAccessReviewAccessItemSupportedAction, ) *SecurityAccessReviewAccessItem`
 
 NewSecurityAccessReviewAccessItem instantiates a new SecurityAccessReviewAccessItem object
 This constructor will assign default values to properties that have it defined,
@@ -93,6 +96,26 @@ and a boolean to check if the value has been set.
 SetName sets Name field to given value.
 
 
+### GetResourceId
+
+`func (o *SecurityAccessReviewAccessItem) GetResourceId() string`
+
+GetResourceId returns the ResourceId field if non-nil, zero value otherwise.
+
+### GetResourceIdOk
+
+`func (o *SecurityAccessReviewAccessItem) GetResourceIdOk() (*string, bool)`
+
+GetResourceIdOk returns a tuple with the ResourceId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetResourceId
+
+`func (o *SecurityAccessReviewAccessItem) SetResourceId(v string)`
+
+SetResourceId sets ResourceId field to given value.
+
+
 ### GetSeverity
 
 `func (o *SecurityAccessReviewAccessItem) GetSeverity() SecurityAccessReviewAccessItemSeverity`
@@ -133,6 +156,56 @@ and a boolean to check if the value has been set.
 SetSupportedActions sets SupportedActions field to given value.
 
 
+### GetRemediationStatus
+
+`func (o *SecurityAccessReviewAccessItem) GetRemediationStatus() SecurityAccessReviewAccessItemRemediationStatus`
+
+GetRemediationStatus returns the RemediationStatus field if non-nil, zero value otherwise.
+
+### GetRemediationStatusOk
+
+`func (o *SecurityAccessReviewAccessItem) GetRemediationStatusOk() (*SecurityAccessReviewAccessItemRemediationStatus, bool)`
+
+GetRemediationStatusOk returns a tuple with the RemediationStatus field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRemediationStatus
+
+`func (o *SecurityAccessReviewAccessItem) SetRemediationStatus(v SecurityAccessReviewAccessItemRemediationStatus)`
+
+SetRemediationStatus sets RemediationStatus field to given value.
+
+### HasRemediationStatus
+
+`func (o *SecurityAccessReviewAccessItem) HasRemediationStatus() bool`
+
+HasRemediationStatus returns a boolean if a field has been set.
+
+### GetManualRemediationTypes
+
+`func (o *SecurityAccessReviewAccessItem) GetManualRemediationTypes() []SecurityAccessReviewAccessItemManualRemediationType`
+
+GetManualRemediationTypes returns the ManualRemediationTypes field if non-nil, zero value otherwise.
+
+### GetManualRemediationTypesOk
+
+`func (o *SecurityAccessReviewAccessItem) GetManualRemediationTypesOk() (*[]SecurityAccessReviewAccessItemManualRemediationType, bool)`
+
+GetManualRemediationTypesOk returns a tuple with the ManualRemediationTypes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetManualRemediationTypes
+
+`func (o *SecurityAccessReviewAccessItem) SetManualRemediationTypes(v []SecurityAccessReviewAccessItemManualRemediationType)`
+
+SetManualRemediationTypes sets ManualRemediationTypes field to given value.
+
+### HasManualRemediationTypes
+
+`func (o *SecurityAccessReviewAccessItem) HasManualRemediationTypes() bool`
+
+HasManualRemediationTypes returns a boolean if a field has been set.
+
 ### GetAppInfo
 
 `func (o *SecurityAccessReviewAccessItem) GetAppInfo() SecurityAccessReviewAccessItemAppInfo`
@@ -160,20 +233,20 @@ HasAppInfo returns a boolean if a field has been set.
 
 ### GetSummary
 
-`func (o *SecurityAccessReviewAccessItem) GetSummary() ServerMessage`
+`func (o *SecurityAccessReviewAccessItem) GetSummary() AiMessage`
 
 GetSummary returns the Summary field if non-nil, zero value otherwise.
 
 ### GetSummaryOk
 
-`func (o *SecurityAccessReviewAccessItem) GetSummaryOk() (*ServerMessage, bool)`
+`func (o *SecurityAccessReviewAccessItem) GetSummaryOk() (*AiMessage, bool)`
 
 GetSummaryOk returns a tuple with the Summary field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSummary
 
-`func (o *SecurityAccessReviewAccessItem) SetSummary(v ServerMessage)`
+`func (o *SecurityAccessReviewAccessItem) SetSummary(v AiMessage)`
 
 SetSummary sets Summary field to given value.
 

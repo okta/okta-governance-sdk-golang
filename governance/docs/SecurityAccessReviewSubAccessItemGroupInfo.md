@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **AssignmentType** | Pointer to [**AssignmentType**](AssignmentType.md) |  | [optional] 
 **LastAccessCertificationReviewedDate** | Pointer to **time.Time** | The last time the user/group pair was reviewed in an access certification campaign | [optional] 
 **LastSecurityAccessReviewDate** | Pointer to **time.Time** | The last time an action was taken on this group for the user in a security access review | [optional] 
-**GovernanceLabels** | Pointer to [**[]GovernanceLabel**](GovernanceLabel.md) | All governance labels applied to the group | [optional] 
+**GovernanceLabels** | Pointer to [**[]TargetGovernanceLabel**](TargetGovernanceLabel.md) | All governance labels applied to the group | [optional] 
 
 ## Methods
 
@@ -183,20 +183,20 @@ HasLastSecurityAccessReviewDate returns a boolean if a field has been set.
 
 ### GetGovernanceLabels
 
-`func (o *SecurityAccessReviewSubAccessItemGroupInfo) GetGovernanceLabels() []GovernanceLabel`
+`func (o *SecurityAccessReviewSubAccessItemGroupInfo) GetGovernanceLabels() []TargetGovernanceLabel`
 
 GetGovernanceLabels returns the GovernanceLabels field if non-nil, zero value otherwise.
 
 ### GetGovernanceLabelsOk
 
-`func (o *SecurityAccessReviewSubAccessItemGroupInfo) GetGovernanceLabelsOk() (*[]GovernanceLabel, bool)`
+`func (o *SecurityAccessReviewSubAccessItemGroupInfo) GetGovernanceLabelsOk() (*[]TargetGovernanceLabel, bool)`
 
 GetGovernanceLabelsOk returns a tuple with the GovernanceLabels field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGovernanceLabels
 
-`func (o *SecurityAccessReviewSubAccessItemGroupInfo) SetGovernanceLabels(v []GovernanceLabel)`
+`func (o *SecurityAccessReviewSubAccessItemGroupInfo) SetGovernanceLabels(v []TargetGovernanceLabel)`
 
 SetGovernanceLabels sets GovernanceLabels field to given value.
 

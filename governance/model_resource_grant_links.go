@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the ResourceGrantLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ResourceGrantLinks{}
 
 // ResourceGrantLinks Links available on a single grant representation
 type ResourceGrantLinks struct {
@@ -80,7 +84,7 @@ func (o *ResourceGrantLinks) SetSelf(v Link) {
 
 // GetEntitlementBundle returns the EntitlementBundle field value if set, zero value otherwise.
 func (o *ResourceGrantLinks) GetEntitlementBundle() EntitlementBundleLink {
-	if o == nil || o.EntitlementBundle == nil {
+	if o == nil || IsNil(o.EntitlementBundle) {
 		var ret EntitlementBundleLink
 		return ret
 	}
@@ -90,7 +94,7 @@ func (o *ResourceGrantLinks) GetEntitlementBundle() EntitlementBundleLink {
 // GetEntitlementBundleOk returns a tuple with the EntitlementBundle field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceGrantLinks) GetEntitlementBundleOk() (*EntitlementBundleLink, bool) {
-	if o == nil || o.EntitlementBundle == nil {
+	if o == nil || IsNil(o.EntitlementBundle) {
 		return nil, false
 	}
 	return o.EntitlementBundle, true
@@ -98,7 +102,7 @@ func (o *ResourceGrantLinks) GetEntitlementBundleOk() (*EntitlementBundleLink, b
 
 // HasEntitlementBundle returns a boolean if a field has been set.
 func (o *ResourceGrantLinks) HasEntitlementBundle() bool {
-	if o != nil && o.EntitlementBundle != nil {
+	if o != nil && !IsNil(o.EntitlementBundle) {
 		return true
 	}
 
@@ -111,11 +115,17 @@ func (o *ResourceGrantLinks) SetEntitlementBundle(v EntitlementBundleLink) {
 }
 
 func (o ResourceGrantLinks) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["self"] = o.Self
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.EntitlementBundle != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o ResourceGrantLinks) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["self"] = o.Self
+	if !IsNil(o.EntitlementBundle) {
 		toSerialize["entitlementBundle"] = o.EntitlementBundle
 	}
 
@@ -123,28 +133,47 @@ func (o ResourceGrantLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ResourceGrantLinks) UnmarshalJSON(bytes []byte) (err error) {
-	varResourceGrantLinks := _ResourceGrantLinks{}
+func (o *ResourceGrantLinks) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"self",
+	}
 
-	err = json.Unmarshal(bytes, &varResourceGrantLinks)
-	if err == nil {
-		*o = ResourceGrantLinks(varResourceGrantLinks)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varResourceGrantLinks := _ResourceGrantLinks{}
+
+	err = json.Unmarshal(data, &varResourceGrantLinks)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ResourceGrantLinks(varResourceGrantLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "self")
 		delete(additionalProperties, "entitlementBundle")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

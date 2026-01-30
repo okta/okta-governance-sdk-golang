@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
-// ResourceSettingsMutableExcludedResourcesInner Represents a resource that will be excluded from access certification
+// checks if the ResourceSettingsMutableExcludedResourcesInner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ResourceSettingsMutableExcludedResourcesInner{}
+
+// ResourceSettingsMutableExcludedResourcesInner A resource that's excluded from the user campaign
 type ResourceSettingsMutableExcludedResourcesInner struct {
 	// Okta specific resource ID
-	ResourceId           *string       `json:"resourceId,omitempty"`
-	ResourceType         *ResourceType `json:"resourceType,omitempty"`
+	ResourceId           *string              `json:"resourceId,omitempty"`
+	ResourceType         *ResourceTypeExclude `json:"resourceType,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func NewResourceSettingsMutableExcludedResourcesInnerWithDefaults() *ResourceSet
 
 // GetResourceId returns the ResourceId field value if set, zero value otherwise.
 func (o *ResourceSettingsMutableExcludedResourcesInner) GetResourceId() string {
-	if o == nil || o.ResourceId == nil {
+	if o == nil || IsNil(o.ResourceId) {
 		var ret string
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *ResourceSettingsMutableExcludedResourcesInner) GetResourceId() string {
 // GetResourceIdOk returns a tuple with the ResourceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceSettingsMutableExcludedResourcesInner) GetResourceIdOk() (*string, bool) {
-	if o == nil || o.ResourceId == nil {
+	if o == nil || IsNil(o.ResourceId) {
 		return nil, false
 	}
 	return o.ResourceId, true
@@ -74,7 +77,7 @@ func (o *ResourceSettingsMutableExcludedResourcesInner) GetResourceIdOk() (*stri
 
 // HasResourceId returns a boolean if a field has been set.
 func (o *ResourceSettingsMutableExcludedResourcesInner) HasResourceId() bool {
-	if o != nil && o.ResourceId != nil {
+	if o != nil && !IsNil(o.ResourceId) {
 		return true
 	}
 
@@ -87,9 +90,9 @@ func (o *ResourceSettingsMutableExcludedResourcesInner) SetResourceId(v string) 
 }
 
 // GetResourceType returns the ResourceType field value if set, zero value otherwise.
-func (o *ResourceSettingsMutableExcludedResourcesInner) GetResourceType() ResourceType {
-	if o == nil || o.ResourceType == nil {
-		var ret ResourceType
+func (o *ResourceSettingsMutableExcludedResourcesInner) GetResourceType() ResourceTypeExclude {
+	if o == nil || IsNil(o.ResourceType) {
+		var ret ResourceTypeExclude
 		return ret
 	}
 	return *o.ResourceType
@@ -97,8 +100,8 @@ func (o *ResourceSettingsMutableExcludedResourcesInner) GetResourceType() Resour
 
 // GetResourceTypeOk returns a tuple with the ResourceType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ResourceSettingsMutableExcludedResourcesInner) GetResourceTypeOk() (*ResourceType, bool) {
-	if o == nil || o.ResourceType == nil {
+func (o *ResourceSettingsMutableExcludedResourcesInner) GetResourceTypeOk() (*ResourceTypeExclude, bool) {
+	if o == nil || IsNil(o.ResourceType) {
 		return nil, false
 	}
 	return o.ResourceType, true
@@ -106,24 +109,32 @@ func (o *ResourceSettingsMutableExcludedResourcesInner) GetResourceTypeOk() (*Re
 
 // HasResourceType returns a boolean if a field has been set.
 func (o *ResourceSettingsMutableExcludedResourcesInner) HasResourceType() bool {
-	if o != nil && o.ResourceType != nil {
+	if o != nil && !IsNil(o.ResourceType) {
 		return true
 	}
 
 	return false
 }
 
-// SetResourceType gets a reference to the given ResourceType and assigns it to the ResourceType field.
-func (o *ResourceSettingsMutableExcludedResourcesInner) SetResourceType(v ResourceType) {
+// SetResourceType gets a reference to the given ResourceTypeExclude and assigns it to the ResourceType field.
+func (o *ResourceSettingsMutableExcludedResourcesInner) SetResourceType(v ResourceTypeExclude) {
 	o.ResourceType = &v
 }
 
 func (o ResourceSettingsMutableExcludedResourcesInner) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ResourceSettingsMutableExcludedResourcesInner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ResourceId != nil {
+	if !IsNil(o.ResourceId) {
 		toSerialize["resourceId"] = o.ResourceId
 	}
-	if o.ResourceType != nil {
+	if !IsNil(o.ResourceType) {
 		toSerialize["resourceType"] = o.ResourceType
 	}
 
@@ -131,28 +142,26 @@ func (o ResourceSettingsMutableExcludedResourcesInner) MarshalJSON() ([]byte, er
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ResourceSettingsMutableExcludedResourcesInner) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ResourceSettingsMutableExcludedResourcesInner) UnmarshalJSON(data []byte) (err error) {
 	varResourceSettingsMutableExcludedResourcesInner := _ResourceSettingsMutableExcludedResourcesInner{}
 
-	err = json.Unmarshal(bytes, &varResourceSettingsMutableExcludedResourcesInner)
-	if err == nil {
-		*o = ResourceSettingsMutableExcludedResourcesInner(varResourceSettingsMutableExcludedResourcesInner)
-	} else {
+	err = json.Unmarshal(data, &varResourceSettingsMutableExcludedResourcesInner)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ResourceSettingsMutableExcludedResourcesInner(varResourceSettingsMutableExcludedResourcesInner)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "resourceId")
 		delete(additionalProperties, "resourceType")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

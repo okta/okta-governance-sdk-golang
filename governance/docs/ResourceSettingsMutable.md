@@ -5,13 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | [**CampaignResourceType**](CampaignResourceType.md) |  | 
-**TargetResources** | Pointer to [**[]TargetResourcesRequestInner**](TargetResourcesRequestInner.md) |  Represents a resource that will be part of Access certifications. If the app is enabled for Access Certifications, it&#39;s possible to review entitlements and entitlement bundles.  You can review all entitlements by specifying &#x60;includeEntitlements: true&#x60; and/or restrict it by setting the property &#x60;onlyIncludeOutOfPolicyEntitlements: true&#x60;, both of which are &#x60;false&#x60; by default.  If &#x60;includeEntitlements: false&#x60;, you need to specify a list of &#x60;entitlementBundles&#x60; and/or &#x60;entitlements&#x60;.  | [optional] 
-**ExcludedResources** | Pointer to [**[]ResourceSettingsMutableExcludedResourcesInner**](ResourceSettingsMutableExcludedResourcesInner.md) | An array of resources that are excluded from the review | [optional] 
-**IndividuallyAssignedAppsOnly** | Pointer to **bool** | Only include individually assigned apps. This is only applicable if campaign type is &#x60;USER&#x60;. | [optional] 
-**IndividuallyAssignedGroupsOnly** | Pointer to **bool** | Only include individually assigned groups. This is only applicable if campaign type is &#x60;USER&#x60;. | [optional] 
-**IncludeEntitlements** | Pointer to **bool** | Include entitlements for this application. This property is only applicable if &#x60;resourcetype &#x3D; APPLICATION&#x60; and Entitlement Management is enabled. | [optional] 
-**OnlyIncludeOutOfPolicyEntitlements** | Pointer to **bool** | Only include out-of-policy entitlements. Only applicable if &#x60;resourcetype &#x3D; APPLICATION&#x60; and Entitlement Management is enabled. | [optional] 
-**IncludeAdminRoles** | Pointer to **bool** | Include admin roles. | [optional] 
+**TargetResources** | Pointer to [**[]TargetResourcesRequestInner**](TargetResourcesRequestInner.md) |  Specific resources that are included in the access certification campaign:  * If &#x60;resourceSettings.targetResources.resourceType&#x60; is &#x60;APPLICATION&#x60; and the app is enabled with entitlement management, you can also review entitlements and entitlement bundles:     * Review all entitlements and bundles by setting &#x60;resourceSettings.targetResources.includeAllEntitlementsAndBundles&#x60; to &#x60;true&#x60; (&#x60;false&#x60; is set by default).     * Restrict the review to non-policy entitlement grants by setting &#x60;resourceSettings.onlyIncludeOutOfPolicyEntitlements&#x60; to &#x60;true&#x60; (&#x60;false&#x60; is set by default).     * If &#x60;resourceSettings.targetResources.includeAllEntitlementsAndBundles&#x60; is &#x60;false&#x60;, then you must specify a list of &#x60;resourceSettings.targetResources.entitlementBundles&#x60; and/or &#x60;resourceSettings.targetResources.entitlements&#x60;. * If &#x60;resourceSettings.type&#x60; is &#x60;OKTA_SERVICE_ACCOUNT&#x60;, then specify &#x60;OKTA_SERVICE_ACCOUNT&#x60; as &#x60;resourceSettings.targetResources.resourceType&#x60;, and &#x60;resourceId&#x60; as the ID of the Okta service account. * If &#x60;resourceSettings.type&#x60; is &#x60;APP_SERVICE_ACCOUNT&#x60;, then specify &#x60;APPLICATION&#x60; as the &#x60;resourceSettings.targetResources.resourceType&#x60;, &#x60;resourceSettings.targetResources.resourceId&#x60; as the ID of the Okta app instance, and add service account IDs into &#x60;resourceSettings.targetResources.appServiceAccounts&#x60;.  | [optional] 
+**ExcludedResources** | Pointer to [**[]ResourceSettingsMutableExcludedResourcesInner**](ResourceSettingsMutableExcludedResourcesInner.md) | Only applicable if &#x60;campaignType&#x60; is &#x60;USER&#x60;.  A list of resources that are excluded from the review. | [optional] 
+**IndividuallyAssignedAppsOnly** | Pointer to **bool** | Only applicable if &#x60;campaignType&#x60; is &#x60;USER&#x60;.  If &#x60;true&#x60;, only include individually assigned apps. | [optional] 
+**IndividuallyAssignedGroupsOnly** | Pointer to **bool** | Only applicable if &#x60;campaignType&#x60; is &#x60;USER&#x60;.  If &#x60;true&#x60;, only include individually assigned groups. | [optional] 
+**IncludeEntitlements** | Pointer to **bool** | Only applicable if &#x60;resourceSettings.targetResources.resourceType&#x60; is &#x60;APPLICATION&#x60; and entitlement management is enabled.  If &#x60;true&#x60;, include entitlements for the app. | [optional] [default to false]
+**OnlyIncludeOutOfPolicyEntitlements** | Pointer to **bool** | Only applicable if &#x60;campaignType&#x60; is &#x60;USER&#x60;, &#x60;resourceSettings.targetResources.resourceType&#x60; is &#x60;APPLICATION&#x60;, and entitlement management is enabled:  If &#x60;true&#x60;, only include out-of-policy entitlements. | [optional] 
+**IncludeAdminRoles** | Pointer to **bool** | Only applicable if &#x60;campaignType&#x60; is &#x60;USER&#x60;.  If &#x60;true&#x60;, include users assigned to admin roles in the campaign. | [optional] 
+**IncludeAllOktaServiceAccounts** | Pointer to **bool** | Only applicable when &#x60;resourceSettings.type&#x60; is &#x60;OKTA_SERVICE_ACCOUNT&#x60;: * If &#x60;true&#x60;, all Okta service accounts in the org are included as target resources in the campaign. * If &#x60;false&#x60;, only the Okta service accounts IDs specified in &#x60;resourceSettings.targetResources.resourceId&#x60; are included in the campaign. | [optional] 
 
 ## Methods
 
@@ -226,6 +227,31 @@ SetIncludeAdminRoles sets IncludeAdminRoles field to given value.
 `func (o *ResourceSettingsMutable) HasIncludeAdminRoles() bool`
 
 HasIncludeAdminRoles returns a boolean if a field has been set.
+
+### GetIncludeAllOktaServiceAccounts
+
+`func (o *ResourceSettingsMutable) GetIncludeAllOktaServiceAccounts() bool`
+
+GetIncludeAllOktaServiceAccounts returns the IncludeAllOktaServiceAccounts field if non-nil, zero value otherwise.
+
+### GetIncludeAllOktaServiceAccountsOk
+
+`func (o *ResourceSettingsMutable) GetIncludeAllOktaServiceAccountsOk() (*bool, bool)`
+
+GetIncludeAllOktaServiceAccountsOk returns a tuple with the IncludeAllOktaServiceAccounts field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIncludeAllOktaServiceAccounts
+
+`func (o *ResourceSettingsMutable) SetIncludeAllOktaServiceAccounts(v bool)`
+
+SetIncludeAllOktaServiceAccounts sets IncludeAllOktaServiceAccounts field to given value.
+
+### HasIncludeAllOktaServiceAccounts
+
+`func (o *ResourceSettingsMutable) HasIncludeAllOktaServiceAccounts() bool`
+
+HasIncludeAllOktaServiceAccounts returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

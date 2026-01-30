@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,11 +27,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the WritableStandardProperties type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &WritableStandardProperties{}
+
 // WritableStandardProperties struct for WritableStandardProperties
 type WritableStandardProperties struct {
 	// Writable unique key on Create. Not modifiable on update.
 	Name *string `json:"name,omitempty"`
-	// Human readable description.
+	// Human readable description
 	Description          *string `json:"description,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -57,7 +60,7 @@ func NewWritableStandardPropertiesWithDefaults() *WritableStandardProperties {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *WritableStandardProperties) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *WritableStandardProperties) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WritableStandardProperties) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -75,7 +78,7 @@ func (o *WritableStandardProperties) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *WritableStandardProperties) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *WritableStandardProperties) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *WritableStandardProperties) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *WritableStandardProperties) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WritableStandardProperties) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -107,7 +110,7 @@ func (o *WritableStandardProperties) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *WritableStandardProperties) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *WritableStandardProperties) SetDescription(v string) {
 }
 
 func (o WritableStandardProperties) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o WritableStandardProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Description != nil {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
 
@@ -132,28 +143,26 @@ func (o WritableStandardProperties) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *WritableStandardProperties) UnmarshalJSON(bytes []byte) (err error) {
+func (o *WritableStandardProperties) UnmarshalJSON(data []byte) (err error) {
 	varWritableStandardProperties := _WritableStandardProperties{}
 
-	err = json.Unmarshal(bytes, &varWritableStandardProperties)
-	if err == nil {
-		*o = WritableStandardProperties(varWritableStandardProperties)
-	} else {
+	err = json.Unmarshal(data, &varWritableStandardProperties)
+
+	if err != nil {
 		return err
 	}
 
+	*o = WritableStandardProperties(varWritableStandardProperties)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "description")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

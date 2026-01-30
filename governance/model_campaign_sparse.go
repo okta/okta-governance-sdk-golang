@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,14 +25,18 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the CampaignSparse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CampaignSparse{}
 
 // CampaignSparse Sparse representation of a Campaign resource.
 type CampaignSparse struct {
 	// Name of the campaign. Maintain some uniqueness when naming the campaign as it helps to identify and filter for campaigns when needed.
 	Name string `json:"name"`
-	// Human readable description.
+	// Campaign description
 	Description *string `json:"description,omitempty"`
 	// The date on which the campaign is scheduled to start. Accepts date in ISO 8601 format.
 	StartDate time.Time `json:"startDate"`
@@ -109,7 +113,7 @@ func (o *CampaignSparse) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *CampaignSparse) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -119,7 +123,7 @@ func (o *CampaignSparse) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CampaignSparse) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -127,7 +131,7 @@ func (o *CampaignSparse) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *CampaignSparse) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -213,7 +217,7 @@ func (o *CampaignSparse) SetScheduleType(v ScheduleType) {
 
 // GetRecurringCampaignId returns the RecurringCampaignId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CampaignSparse) GetRecurringCampaignId() string {
-	if o == nil || o.RecurringCampaignId.Get() == nil {
+	if o == nil || IsNil(o.RecurringCampaignId.Get()) {
 		var ret string
 		return ret
 	}
@@ -447,71 +451,87 @@ func (o *CampaignSparse) SetStatus(v CampaignStatus) {
 }
 
 func (o CampaignSparse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["name"] = o.Name
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.Description != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o CampaignSparse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if true {
-		toSerialize["startDate"] = o.StartDate
-	}
-	if true {
-		toSerialize["endDate"] = o.EndDate
-	}
-	if true {
-		toSerialize["scheduleType"] = o.ScheduleType
-	}
+	toSerialize["startDate"] = o.StartDate
+	toSerialize["endDate"] = o.EndDate
+	toSerialize["scheduleType"] = o.ScheduleType
 	if o.RecurringCampaignId.IsSet() {
 		toSerialize["recurringCampaignId"] = o.RecurringCampaignId.Get()
 	}
-	if true {
-		toSerialize["reviewerType"] = o.ReviewerType
-	}
-	if true {
-		toSerialize["_links"] = o.Links
-	}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["createdBy"] = o.CreatedBy
-	}
-	if true {
-		toSerialize["created"] = o.Created
-	}
-	if true {
-		toSerialize["lastUpdated"] = o.LastUpdated
-	}
-	if true {
-		toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
-	}
-	if true {
-		toSerialize["status"] = o.Status
-	}
+	toSerialize["reviewerType"] = o.ReviewerType
+	toSerialize["_links"] = o.Links
+	toSerialize["id"] = o.Id
+	toSerialize["createdBy"] = o.CreatedBy
+	toSerialize["created"] = o.Created
+	toSerialize["lastUpdated"] = o.LastUpdated
+	toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
+	toSerialize["status"] = o.Status
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *CampaignSparse) UnmarshalJSON(bytes []byte) (err error) {
-	varCampaignSparse := _CampaignSparse{}
+func (o *CampaignSparse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"startDate",
+		"endDate",
+		"scheduleType",
+		"reviewerType",
+		"_links",
+		"id",
+		"createdBy",
+		"created",
+		"lastUpdated",
+		"lastUpdatedBy",
+		"status",
+	}
 
-	err = json.Unmarshal(bytes, &varCampaignSparse)
-	if err == nil {
-		*o = CampaignSparse(varCampaignSparse)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varCampaignSparse := _CampaignSparse{}
+
+	err = json.Unmarshal(data, &varCampaignSparse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CampaignSparse(varCampaignSparse)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "startDate")
@@ -527,8 +547,6 @@ func (o *CampaignSparse) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "lastUpdatedBy")
 		delete(additionalProperties, "status")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

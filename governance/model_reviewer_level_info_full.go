@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,16 +25,20 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
+// checks if the ReviewerLevelInfoFull type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ReviewerLevelInfoFull{}
+
 // ReviewerLevelInfoFull Full representation of a reviewer level. Applicable for multi level campaigns only.
 type ReviewerLevelInfoFull struct {
-	ReviewerLevel        ReviewerLevelType     `json:"reviewerLevel"`
-	Decision             Decision              `json:"decision"`
-	ReviewerProfile      *PrincipalProfile     `json:"reviewerProfile,omitempty"`
-	ReviewerType         ReviewersReviewerType `json:"reviewerType"`
-	ReviewerGroupProfile *ReviewerGroupProfile `json:"reviewerGroupProfile,omitempty"`
+	ReviewerLevel        ReviewerLevelType         `json:"reviewerLevel"`
+	Decision             Decision                  `json:"decision"`
+	ReviewerProfile      *PrincipalProfileEnriched `json:"reviewerProfile,omitempty"`
+	ReviewerType         ReviewersReviewerType     `json:"reviewerType"`
+	ReviewerGroupProfile *ReviewerGroupProfile     `json:"reviewerGroupProfile,omitempty"`
 	// Unique identifier for the object
 	Id string `json:"id"`
 	// The `id` of the Okta user who created the resource
@@ -44,7 +48,8 @@ type ReviewerLevelInfoFull struct {
 	// The ISO 8601 formatted date and time when the object was last updated
 	LastUpdated time.Time `json:"lastUpdated"`
 	// The `id` of the Okta user who last updated the object
-	LastUpdatedBy        string           `json:"lastUpdatedBy"`
+	LastUpdatedBy string `json:"lastUpdatedBy"`
+	// Links to related resources
 	Links                *map[string]Link `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -122,9 +127,9 @@ func (o *ReviewerLevelInfoFull) SetDecision(v Decision) {
 }
 
 // GetReviewerProfile returns the ReviewerProfile field value if set, zero value otherwise.
-func (o *ReviewerLevelInfoFull) GetReviewerProfile() PrincipalProfile {
-	if o == nil || o.ReviewerProfile == nil {
-		var ret PrincipalProfile
+func (o *ReviewerLevelInfoFull) GetReviewerProfile() PrincipalProfileEnriched {
+	if o == nil || IsNil(o.ReviewerProfile) {
+		var ret PrincipalProfileEnriched
 		return ret
 	}
 	return *o.ReviewerProfile
@@ -132,8 +137,8 @@ func (o *ReviewerLevelInfoFull) GetReviewerProfile() PrincipalProfile {
 
 // GetReviewerProfileOk returns a tuple with the ReviewerProfile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReviewerLevelInfoFull) GetReviewerProfileOk() (*PrincipalProfile, bool) {
-	if o == nil || o.ReviewerProfile == nil {
+func (o *ReviewerLevelInfoFull) GetReviewerProfileOk() (*PrincipalProfileEnriched, bool) {
+	if o == nil || IsNil(o.ReviewerProfile) {
 		return nil, false
 	}
 	return o.ReviewerProfile, true
@@ -141,15 +146,15 @@ func (o *ReviewerLevelInfoFull) GetReviewerProfileOk() (*PrincipalProfile, bool)
 
 // HasReviewerProfile returns a boolean if a field has been set.
 func (o *ReviewerLevelInfoFull) HasReviewerProfile() bool {
-	if o != nil && o.ReviewerProfile != nil {
+	if o != nil && !IsNil(o.ReviewerProfile) {
 		return true
 	}
 
 	return false
 }
 
-// SetReviewerProfile gets a reference to the given PrincipalProfile and assigns it to the ReviewerProfile field.
-func (o *ReviewerLevelInfoFull) SetReviewerProfile(v PrincipalProfile) {
+// SetReviewerProfile gets a reference to the given PrincipalProfileEnriched and assigns it to the ReviewerProfile field.
+func (o *ReviewerLevelInfoFull) SetReviewerProfile(v PrincipalProfileEnriched) {
 	o.ReviewerProfile = &v
 }
 
@@ -179,7 +184,7 @@ func (o *ReviewerLevelInfoFull) SetReviewerType(v ReviewersReviewerType) {
 
 // GetReviewerGroupProfile returns the ReviewerGroupProfile field value if set, zero value otherwise.
 func (o *ReviewerLevelInfoFull) GetReviewerGroupProfile() ReviewerGroupProfile {
-	if o == nil || o.ReviewerGroupProfile == nil {
+	if o == nil || IsNil(o.ReviewerGroupProfile) {
 		var ret ReviewerGroupProfile
 		return ret
 	}
@@ -189,7 +194,7 @@ func (o *ReviewerLevelInfoFull) GetReviewerGroupProfile() ReviewerGroupProfile {
 // GetReviewerGroupProfileOk returns a tuple with the ReviewerGroupProfile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReviewerLevelInfoFull) GetReviewerGroupProfileOk() (*ReviewerGroupProfile, bool) {
-	if o == nil || o.ReviewerGroupProfile == nil {
+	if o == nil || IsNil(o.ReviewerGroupProfile) {
 		return nil, false
 	}
 	return o.ReviewerGroupProfile, true
@@ -197,7 +202,7 @@ func (o *ReviewerLevelInfoFull) GetReviewerGroupProfileOk() (*ReviewerGroupProfi
 
 // HasReviewerGroupProfile returns a boolean if a field has been set.
 func (o *ReviewerLevelInfoFull) HasReviewerGroupProfile() bool {
-	if o != nil && o.ReviewerGroupProfile != nil {
+	if o != nil && !IsNil(o.ReviewerGroupProfile) {
 		return true
 	}
 
@@ -331,7 +336,7 @@ func (o *ReviewerLevelInfoFull) SetLastUpdatedBy(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *ReviewerLevelInfoFull) GetLinks() map[string]Link {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret map[string]Link
 		return ret
 	}
@@ -341,7 +346,7 @@ func (o *ReviewerLevelInfoFull) GetLinks() map[string]Link {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReviewerLevelInfoFull) GetLinksOk() (*map[string]Link, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -349,7 +354,7 @@ func (o *ReviewerLevelInfoFull) GetLinksOk() (*map[string]Link, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *ReviewerLevelInfoFull) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -362,38 +367,30 @@ func (o *ReviewerLevelInfoFull) SetLinks(v map[string]Link) {
 }
 
 func (o ReviewerLevelInfoFull) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ReviewerLevelInfoFull) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["reviewerLevel"] = o.ReviewerLevel
-	}
-	if true {
-		toSerialize["decision"] = o.Decision
-	}
-	if o.ReviewerProfile != nil {
+	toSerialize["reviewerLevel"] = o.ReviewerLevel
+	toSerialize["decision"] = o.Decision
+	if !IsNil(o.ReviewerProfile) {
 		toSerialize["reviewerProfile"] = o.ReviewerProfile
 	}
-	if true {
-		toSerialize["reviewerType"] = o.ReviewerType
-	}
-	if o.ReviewerGroupProfile != nil {
+	toSerialize["reviewerType"] = o.ReviewerType
+	if !IsNil(o.ReviewerGroupProfile) {
 		toSerialize["reviewerGroupProfile"] = o.ReviewerGroupProfile
 	}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["createdBy"] = o.CreatedBy
-	}
-	if true {
-		toSerialize["created"] = o.Created
-	}
-	if true {
-		toSerialize["lastUpdated"] = o.LastUpdated
-	}
-	if true {
-		toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
-	}
-	if o.Links != nil {
+	toSerialize["id"] = o.Id
+	toSerialize["createdBy"] = o.CreatedBy
+	toSerialize["created"] = o.Created
+	toSerialize["lastUpdated"] = o.LastUpdated
+	toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -401,23 +398,51 @@ func (o ReviewerLevelInfoFull) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ReviewerLevelInfoFull) UnmarshalJSON(bytes []byte) (err error) {
-	varReviewerLevelInfoFull := _ReviewerLevelInfoFull{}
+func (o *ReviewerLevelInfoFull) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"reviewerLevel",
+		"decision",
+		"reviewerType",
+		"id",
+		"createdBy",
+		"created",
+		"lastUpdated",
+		"lastUpdatedBy",
+	}
 
-	err = json.Unmarshal(bytes, &varReviewerLevelInfoFull)
-	if err == nil {
-		*o = ReviewerLevelInfoFull(varReviewerLevelInfoFull)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varReviewerLevelInfoFull := _ReviewerLevelInfoFull{}
+
+	err = json.Unmarshal(data, &varReviewerLevelInfoFull)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ReviewerLevelInfoFull(varReviewerLevelInfoFull)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "reviewerLevel")
 		delete(additionalProperties, "decision")
 		delete(additionalProperties, "reviewerProfile")
@@ -430,8 +455,6 @@ func (o *ReviewerLevelInfoFull) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "lastUpdatedBy")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

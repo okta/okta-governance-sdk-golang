@@ -5,11 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | Unique identifier for the object | 
-**TargetResourceOrn** | **string** | The Okta app instance, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for a specific app in [Supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources). | 
+**TargetResourceOrn** | **string** | The Okta resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for [supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources). | 
 **Target** | [**TargetResource**](TargetResource.md) |  | 
 **Status** | Pointer to [**EntitlementBundleStatus**](EntitlementBundleStatus.md) |  | [optional] 
 **Entitlements** | Pointer to [**[]EntitlementCreatable**](EntitlementCreatable.md) | Collection of entitlements and associated value identifiers | [optional] 
-**EntitlementsObjectType** | Pointer to **string** |  | [optional] [default to "entitlement-bundle-full"]
 **Name** | **string** | The unique name of the entitlement bundle | 
 **Description** | Pointer to **string** | The human-readable description | [optional] 
 
@@ -141,31 +140,6 @@ SetEntitlements sets Entitlements field to given value.
 `func (o *EntitlementBundleUpdatable) HasEntitlements() bool`
 
 HasEntitlements returns a boolean if a field has been set.
-
-### GetEntitlementsObjectType
-
-`func (o *EntitlementBundleUpdatable) GetEntitlementsObjectType() string`
-
-GetEntitlementsObjectType returns the EntitlementsObjectType field if non-nil, zero value otherwise.
-
-### GetEntitlementsObjectTypeOk
-
-`func (o *EntitlementBundleUpdatable) GetEntitlementsObjectTypeOk() (*string, bool)`
-
-GetEntitlementsObjectTypeOk returns a tuple with the EntitlementsObjectType field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetEntitlementsObjectType
-
-`func (o *EntitlementBundleUpdatable) SetEntitlementsObjectType(v string)`
-
-SetEntitlementsObjectType sets EntitlementsObjectType field to given value.
-
-### HasEntitlementsObjectType
-
-`func (o *EntitlementBundleUpdatable) HasEntitlementsObjectType() bool`
-
-HasEntitlementsObjectType returns a boolean if a field has been set.
 
 ### GetName
 

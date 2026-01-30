@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,12 +25,17 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the ResourceOwner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ResourceOwner{}
 
 // ResourceOwner struct for ResourceOwner
 type ResourceOwner struct {
-	// The Okta app instance, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for a specific app in [Supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
-	ParentResourceOrn    string                   `json:"parentResourceOrn"`
+	// The Okta resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for [supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
+	ParentResourceOrn *string `json:"parentResourceOrn,omitempty"`
+	// The principals that own the resource (users or groups)
 	Principals           []ResourceOwnerPrincipal `json:"principals,omitempty"`
 	Resource             ResourceOwnerResource    `json:"resource"`
 	AdditionalProperties map[string]interface{}
@@ -42,9 +47,8 @@ type _ResourceOwner ResourceOwner
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewResourceOwner(parentResourceOrn string, resource ResourceOwnerResource) *ResourceOwner {
+func NewResourceOwner(resource ResourceOwnerResource) *ResourceOwner {
 	this := ResourceOwner{}
-	this.ParentResourceOrn = parentResourceOrn
 	this.Resource = resource
 	return &this
 }
@@ -57,33 +61,41 @@ func NewResourceOwnerWithDefaults() *ResourceOwner {
 	return &this
 }
 
-// GetParentResourceOrn returns the ParentResourceOrn field value
+// GetParentResourceOrn returns the ParentResourceOrn field value if set, zero value otherwise.
 func (o *ResourceOwner) GetParentResourceOrn() string {
-	if o == nil {
+	if o == nil || IsNil(o.ParentResourceOrn) {
 		var ret string
 		return ret
 	}
-
-	return o.ParentResourceOrn
+	return *o.ParentResourceOrn
 }
 
-// GetParentResourceOrnOk returns a tuple with the ParentResourceOrn field value
+// GetParentResourceOrnOk returns a tuple with the ParentResourceOrn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceOwner) GetParentResourceOrnOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.ParentResourceOrn) {
 		return nil, false
 	}
-	return &o.ParentResourceOrn, true
+	return o.ParentResourceOrn, true
 }
 
-// SetParentResourceOrn sets field value
+// HasParentResourceOrn returns a boolean if a field has been set.
+func (o *ResourceOwner) HasParentResourceOrn() bool {
+	if o != nil && !IsNil(o.ParentResourceOrn) {
+		return true
+	}
+
+	return false
+}
+
+// SetParentResourceOrn gets a reference to the given string and assigns it to the ParentResourceOrn field.
 func (o *ResourceOwner) SetParentResourceOrn(v string) {
-	o.ParentResourceOrn = v
+	o.ParentResourceOrn = &v
 }
 
 // GetPrincipals returns the Principals field value if set, zero value otherwise.
 func (o *ResourceOwner) GetPrincipals() []ResourceOwnerPrincipal {
-	if o == nil || o.Principals == nil {
+	if o == nil || IsNil(o.Principals) {
 		var ret []ResourceOwnerPrincipal
 		return ret
 	}
@@ -93,7 +105,7 @@ func (o *ResourceOwner) GetPrincipals() []ResourceOwnerPrincipal {
 // GetPrincipalsOk returns a tuple with the Principals field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceOwner) GetPrincipalsOk() ([]ResourceOwnerPrincipal, bool) {
-	if o == nil || o.Principals == nil {
+	if o == nil || IsNil(o.Principals) {
 		return nil, false
 	}
 	return o.Principals, true
@@ -101,7 +113,7 @@ func (o *ResourceOwner) GetPrincipalsOk() ([]ResourceOwnerPrincipal, bool) {
 
 // HasPrincipals returns a boolean if a field has been set.
 func (o *ResourceOwner) HasPrincipals() bool {
-	if o != nil && o.Principals != nil {
+	if o != nil && !IsNil(o.Principals) {
 		return true
 	}
 
@@ -138,44 +150,69 @@ func (o *ResourceOwner) SetResource(v ResourceOwnerResource) {
 }
 
 func (o ResourceOwner) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ResourceOwner) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
+	if !IsNil(o.ParentResourceOrn) {
 		toSerialize["parentResourceOrn"] = o.ParentResourceOrn
 	}
-	if o.Principals != nil {
+	if !IsNil(o.Principals) {
 		toSerialize["principals"] = o.Principals
 	}
-	if true {
-		toSerialize["resource"] = o.Resource
-	}
+	toSerialize["resource"] = o.Resource
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ResourceOwner) UnmarshalJSON(bytes []byte) (err error) {
-	varResourceOwner := _ResourceOwner{}
+func (o *ResourceOwner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"resource",
+	}
 
-	err = json.Unmarshal(bytes, &varResourceOwner)
-	if err == nil {
-		*o = ResourceOwner(varResourceOwner)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varResourceOwner := _ResourceOwner{}
+
+	err = json.Unmarshal(data, &varResourceOwner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ResourceOwner(varResourceOwner)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "parentResourceOrn")
 		delete(additionalProperties, "principals")
 		delete(additionalProperties, "resource")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

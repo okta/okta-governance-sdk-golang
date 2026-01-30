@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**IncludedUserIds** | Pointer to **[]string** | The list of user reviewers for the security access review | [optional] 
+**IncludedUserIds** | Pointer to **[]string** | The list of reviewer user IDs for the security access review | [optional] 
 
 ## Methods
 

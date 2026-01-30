@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,10 +25,14 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
-// ScheduleSettingsReadOnly Scheduler specific settings.    A campaign can be a `ONE_OFF` or a `RECURRING` campaign.    You can't provide both in the campaign definition.
+// checks if the ScheduleSettingsReadOnly type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ScheduleSettingsReadOnly{}
+
+// ScheduleSettingsReadOnly Scheduler specific settings.  A campaign can be a `ONE_OFF` or a `RECURRING` campaign.  You can't provide both in the campaign definition.
 type ScheduleSettingsReadOnly struct {
 	Type ScheduleType `json:"type"`
 	// The date on which the campaign is supposed to start. Accepts date in ISO 8601 format.
@@ -164,7 +168,7 @@ func (o *ScheduleSettingsReadOnly) SetTimeZone(v string) {
 
 // GetEndDate returns the EndDate field value if set, zero value otherwise.
 func (o *ScheduleSettingsReadOnly) GetEndDate() time.Time {
-	if o == nil || o.EndDate == nil {
+	if o == nil || IsNil(o.EndDate) {
 		var ret time.Time
 		return ret
 	}
@@ -174,7 +178,7 @@ func (o *ScheduleSettingsReadOnly) GetEndDate() time.Time {
 // GetEndDateOk returns a tuple with the EndDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ScheduleSettingsReadOnly) GetEndDateOk() (*time.Time, bool) {
-	if o == nil || o.EndDate == nil {
+	if o == nil || IsNil(o.EndDate) {
 		return nil, false
 	}
 	return o.EndDate, true
@@ -182,7 +186,7 @@ func (o *ScheduleSettingsReadOnly) GetEndDateOk() (*time.Time, bool) {
 
 // HasEndDate returns a boolean if a field has been set.
 func (o *ScheduleSettingsReadOnly) HasEndDate() bool {
-	if o != nil && o.EndDate != nil {
+	if o != nil && !IsNil(o.EndDate) {
 		return true
 	}
 
@@ -196,7 +200,7 @@ func (o *ScheduleSettingsReadOnly) SetEndDate(v time.Time) {
 
 // GetRecurrence returns the Recurrence field value if set, zero value otherwise.
 func (o *ScheduleSettingsReadOnly) GetRecurrence() RecurrenceDefinitionMutable {
-	if o == nil || o.Recurrence == nil {
+	if o == nil || IsNil(o.Recurrence) {
 		var ret RecurrenceDefinitionMutable
 		return ret
 	}
@@ -206,7 +210,7 @@ func (o *ScheduleSettingsReadOnly) GetRecurrence() RecurrenceDefinitionMutable {
 // GetRecurrenceOk returns a tuple with the Recurrence field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ScheduleSettingsReadOnly) GetRecurrenceOk() (*RecurrenceDefinitionMutable, bool) {
-	if o == nil || o.Recurrence == nil {
+	if o == nil || IsNil(o.Recurrence) {
 		return nil, false
 	}
 	return o.Recurrence, true
@@ -214,7 +218,7 @@ func (o *ScheduleSettingsReadOnly) GetRecurrenceOk() (*RecurrenceDefinitionMutab
 
 // HasRecurrence returns a boolean if a field has been set.
 func (o *ScheduleSettingsReadOnly) HasRecurrence() bool {
-	if o != nil && o.Recurrence != nil {
+	if o != nil && !IsNil(o.Recurrence) {
 		return true
 	}
 
@@ -227,23 +231,23 @@ func (o *ScheduleSettingsReadOnly) SetRecurrence(v RecurrenceDefinitionMutable) 
 }
 
 func (o ScheduleSettingsReadOnly) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ScheduleSettingsReadOnly) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if true {
-		toSerialize["startDate"] = o.StartDate
-	}
-	if true {
-		toSerialize["durationInDays"] = o.DurationInDays
-	}
-	if true {
-		toSerialize["timeZone"] = o.TimeZone
-	}
-	if o.EndDate != nil {
+	toSerialize["type"] = o.Type
+	toSerialize["startDate"] = o.StartDate
+	toSerialize["durationInDays"] = o.DurationInDays
+	toSerialize["timeZone"] = o.TimeZone
+	if !IsNil(o.EndDate) {
 		toSerialize["endDate"] = o.EndDate
 	}
-	if o.Recurrence != nil {
+	if !IsNil(o.Recurrence) {
 		toSerialize["recurrence"] = o.Recurrence
 	}
 
@@ -251,23 +255,47 @@ func (o ScheduleSettingsReadOnly) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ScheduleSettingsReadOnly) UnmarshalJSON(bytes []byte) (err error) {
-	varScheduleSettingsReadOnly := _ScheduleSettingsReadOnly{}
+func (o *ScheduleSettingsReadOnly) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"type",
+		"startDate",
+		"durationInDays",
+		"timeZone",
+	}
 
-	err = json.Unmarshal(bytes, &varScheduleSettingsReadOnly)
-	if err == nil {
-		*o = ScheduleSettingsReadOnly(varScheduleSettingsReadOnly)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varScheduleSettingsReadOnly := _ScheduleSettingsReadOnly{}
+
+	err = json.Unmarshal(data, &varScheduleSettingsReadOnly)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ScheduleSettingsReadOnly(varScheduleSettingsReadOnly)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "startDate")
 		delete(additionalProperties, "durationInDays")
@@ -275,8 +303,6 @@ func (o *ScheduleSettingsReadOnly) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "endDate")
 		delete(additionalProperties, "recurrence")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -33,14 +33,18 @@ type SecurityAccessReviewAccessItemSupportedAction string
 
 // List of security-access-review-access-item-supported-action
 const (
-	SECURITYACCESSREVIEWACCESSITEMSUPPORTEDACTION_REVOKE_ACCESS  SecurityAccessReviewAccessItemSupportedAction = "REVOKE_ACCESS"
-	SECURITYACCESSREVIEWACCESSITEMSUPPORTEDACTION_RESTORE_ACCESS SecurityAccessReviewAccessItemSupportedAction = "RESTORE_ACCESS"
+	SECURITYACCESSREVIEWACCESSITEMSUPPORTEDACTION_REVOKE_ACCESS               SecurityAccessReviewAccessItemSupportedAction = "REVOKE_ACCESS"
+	SECURITYACCESSREVIEWACCESSITEMSUPPORTEDACTION_RESTORE_ACCESS              SecurityAccessReviewAccessItemSupportedAction = "RESTORE_ACCESS"
+	SECURITYACCESSREVIEWACCESSITEMSUPPORTEDACTION_FLAG_FOR_MANUAL_REMEDIATION SecurityAccessReviewAccessItemSupportedAction = "FLAG_FOR_MANUAL_REMEDIATION"
+	SECURITYACCESSREVIEWACCESSITEMSUPPORTEDACTION_FLAG_FOR_MANUAL_RESTORATION SecurityAccessReviewAccessItemSupportedAction = "FLAG_FOR_MANUAL_RESTORATION"
 )
 
 // All allowed values of SecurityAccessReviewAccessItemSupportedAction enum
 var AllowedSecurityAccessReviewAccessItemSupportedActionEnumValues = []SecurityAccessReviewAccessItemSupportedAction{
 	"REVOKE_ACCESS",
 	"RESTORE_ACCESS",
+	"FLAG_FOR_MANUAL_REMEDIATION",
+	"FLAG_FOR_MANUAL_RESTORATION",
 }
 
 func (v *SecurityAccessReviewAccessItemSupportedAction) UnmarshalJSON(src []byte) error {

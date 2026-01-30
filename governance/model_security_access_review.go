@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,8 +25,12 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the SecurityAccessReview type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SecurityAccessReview{}
 
 // SecurityAccessReview struct for SecurityAccessReview
 type SecurityAccessReview struct {
@@ -39,15 +43,16 @@ type SecurityAccessReview struct {
 	// The ISO 8601 formatted date and time when the object was last updated
 	LastUpdated time.Time `json:"lastUpdated"`
 	// The `id` of the Okta user who last updated the object
-	LastUpdatedBy string                     `json:"lastUpdatedBy"`
-	Links         *map[string]Link           `json:"_links,omitempty"`
-	Status        SecurityAccessReviewStatus `json:"status"`
+	LastUpdatedBy string `json:"lastUpdatedBy"`
+	// Links to related resources
+	Links  *map[string]Link           `json:"_links,omitempty"`
+	Status SecurityAccessReviewStatus `json:"status"`
 	// The name of the security access review
 	Name string `json:"name"`
 	// The end time of the security access review
-	EndTime              time.Time                            `json:"endTime"`
-	ReviewerSettings     SecurityAccessReviewReviewerSettings `json:"reviewerSettings"`
-	Summary              *ServerMessage                       `json:"summary,omitempty"`
+	EndTime              time.Time                                    `json:"endTime"`
+	ReviewerSettings     SecurityAccessReviewReviewerSettingsResponse `json:"reviewerSettings"`
+	Summary              *AiMessage                                   `json:"summary,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,7 +62,7 @@ type _SecurityAccessReview SecurityAccessReview
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSecurityAccessReview(id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, status SecurityAccessReviewStatus, name string, endTime time.Time, reviewerSettings SecurityAccessReviewReviewerSettings) *SecurityAccessReview {
+func NewSecurityAccessReview(id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, status SecurityAccessReviewStatus, name string, endTime time.Time, reviewerSettings SecurityAccessReviewReviewerSettingsResponse) *SecurityAccessReview {
 	this := SecurityAccessReview{}
 	this.Id = id
 	this.CreatedBy = createdBy
@@ -201,7 +206,7 @@ func (o *SecurityAccessReview) SetLastUpdatedBy(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *SecurityAccessReview) GetLinks() map[string]Link {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret map[string]Link
 		return ret
 	}
@@ -211,7 +216,7 @@ func (o *SecurityAccessReview) GetLinks() map[string]Link {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityAccessReview) GetLinksOk() (*map[string]Link, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -219,7 +224,7 @@ func (o *SecurityAccessReview) GetLinksOk() (*map[string]Link, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *SecurityAccessReview) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -304,9 +309,9 @@ func (o *SecurityAccessReview) SetEndTime(v time.Time) {
 }
 
 // GetReviewerSettings returns the ReviewerSettings field value
-func (o *SecurityAccessReview) GetReviewerSettings() SecurityAccessReviewReviewerSettings {
+func (o *SecurityAccessReview) GetReviewerSettings() SecurityAccessReviewReviewerSettingsResponse {
 	if o == nil {
-		var ret SecurityAccessReviewReviewerSettings
+		var ret SecurityAccessReviewReviewerSettingsResponse
 		return ret
 	}
 
@@ -315,7 +320,7 @@ func (o *SecurityAccessReview) GetReviewerSettings() SecurityAccessReviewReviewe
 
 // GetReviewerSettingsOk returns a tuple with the ReviewerSettings field value
 // and a boolean to check if the value has been set.
-func (o *SecurityAccessReview) GetReviewerSettingsOk() (*SecurityAccessReviewReviewerSettings, bool) {
+func (o *SecurityAccessReview) GetReviewerSettingsOk() (*SecurityAccessReviewReviewerSettingsResponse, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -323,14 +328,14 @@ func (o *SecurityAccessReview) GetReviewerSettingsOk() (*SecurityAccessReviewRev
 }
 
 // SetReviewerSettings sets field value
-func (o *SecurityAccessReview) SetReviewerSettings(v SecurityAccessReviewReviewerSettings) {
+func (o *SecurityAccessReview) SetReviewerSettings(v SecurityAccessReviewReviewerSettingsResponse) {
 	o.ReviewerSettings = v
 }
 
 // GetSummary returns the Summary field value if set, zero value otherwise.
-func (o *SecurityAccessReview) GetSummary() ServerMessage {
-	if o == nil || o.Summary == nil {
-		var ret ServerMessage
+func (o *SecurityAccessReview) GetSummary() AiMessage {
+	if o == nil || IsNil(o.Summary) {
+		var ret AiMessage
 		return ret
 	}
 	return *o.Summary
@@ -338,8 +343,8 @@ func (o *SecurityAccessReview) GetSummary() ServerMessage {
 
 // GetSummaryOk returns a tuple with the Summary field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SecurityAccessReview) GetSummaryOk() (*ServerMessage, bool) {
-	if o == nil || o.Summary == nil {
+func (o *SecurityAccessReview) GetSummaryOk() (*AiMessage, bool) {
+	if o == nil || IsNil(o.Summary) {
 		return nil, false
 	}
 	return o.Summary, true
@@ -347,51 +352,41 @@ func (o *SecurityAccessReview) GetSummaryOk() (*ServerMessage, bool) {
 
 // HasSummary returns a boolean if a field has been set.
 func (o *SecurityAccessReview) HasSummary() bool {
-	if o != nil && o.Summary != nil {
+	if o != nil && !IsNil(o.Summary) {
 		return true
 	}
 
 	return false
 }
 
-// SetSummary gets a reference to the given ServerMessage and assigns it to the Summary field.
-func (o *SecurityAccessReview) SetSummary(v ServerMessage) {
+// SetSummary gets a reference to the given AiMessage and assigns it to the Summary field.
+func (o *SecurityAccessReview) SetSummary(v AiMessage) {
 	o.Summary = &v
 }
 
 func (o SecurityAccessReview) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SecurityAccessReview) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["createdBy"] = o.CreatedBy
-	}
-	if true {
-		toSerialize["created"] = o.Created
-	}
-	if true {
-		toSerialize["lastUpdated"] = o.LastUpdated
-	}
-	if true {
-		toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
-	}
-	if o.Links != nil {
+	toSerialize["id"] = o.Id
+	toSerialize["createdBy"] = o.CreatedBy
+	toSerialize["created"] = o.Created
+	toSerialize["lastUpdated"] = o.LastUpdated
+	toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
-	if true {
-		toSerialize["status"] = o.Status
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["endTime"] = o.EndTime
-	}
-	if true {
-		toSerialize["reviewerSettings"] = o.ReviewerSettings
-	}
-	if o.Summary != nil {
+	toSerialize["status"] = o.Status
+	toSerialize["name"] = o.Name
+	toSerialize["endTime"] = o.EndTime
+	toSerialize["reviewerSettings"] = o.ReviewerSettings
+	if !IsNil(o.Summary) {
 		toSerialize["summary"] = o.Summary
 	}
 
@@ -399,23 +394,52 @@ func (o SecurityAccessReview) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SecurityAccessReview) UnmarshalJSON(bytes []byte) (err error) {
-	varSecurityAccessReview := _SecurityAccessReview{}
+func (o *SecurityAccessReview) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"createdBy",
+		"created",
+		"lastUpdated",
+		"lastUpdatedBy",
+		"status",
+		"name",
+		"endTime",
+		"reviewerSettings",
+	}
 
-	err = json.Unmarshal(bytes, &varSecurityAccessReview)
-	if err == nil {
-		*o = SecurityAccessReview(varSecurityAccessReview)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSecurityAccessReview := _SecurityAccessReview{}
+
+	err = json.Unmarshal(data, &varSecurityAccessReview)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SecurityAccessReview(varSecurityAccessReview)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "createdBy")
 		delete(additionalProperties, "created")
@@ -428,8 +452,6 @@ func (o *SecurityAccessReview) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "reviewerSettings")
 		delete(additionalProperties, "summary")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

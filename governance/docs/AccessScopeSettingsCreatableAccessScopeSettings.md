@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** |  | 
+**Type** | **string** | Request for resource access | 
 **EntitlementBundles** | [**[]EntitlementBundlesArrayCreatableInner**](EntitlementBundlesArrayCreatableInner.md) | Entitlement bundles that are made requestable | 
-**Groups** | [**[]GroupsArrayCreatableInner**](GroupsArrayCreatableInner.md) |  | 
+**Groups** | [**[]GroupsArrayCreatableInner**](GroupsArrayCreatableInner.md) | List of requestable groups  &gt; **Note:** Both standard Okta groups and AD-sourced groups are supported in Access Requests. &gt; Standard Okta groups have the &#x60;okta:user_group&#x60; value, whereas AD-sourced groups have the &#x60;okta:windows_security_principal&#x60; value in their &#x60;objectClass&#x60; property. | 
 
 ## Methods
 

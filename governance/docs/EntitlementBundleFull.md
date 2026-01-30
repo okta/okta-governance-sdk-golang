@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**TargetResourceOrn** | **string** | The Okta app instance, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for a specific app in [Supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources). | 
+**Orn** | **string** | The &#x60;id&#x60; of the bundle in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn). | 
+**TargetResourceOrn** | **string** | The Okta resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for [supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources). | 
 **Target** | [**TargetResource**](TargetResource.md) |  | 
 **Status** | [**EntitlementBundleStatus**](EntitlementBundleStatus.md) |  | 
 **Entitlements** | Pointer to [**[]EntitlementCreatable**](EntitlementCreatable.md) | Collection of entitlements and associated value identifiers | [optional] 
-**EntitlementsObjectType** | **string** |  | [default to "entitlement-bundle-full"]
 **Links** | [**EntitlementBundleLinks**](EntitlementBundleLinks.md) |  | 
 **Name** | **string** | The unique name of the entitlement bundle | 
 **Description** | Pointer to **string** | The human-readable description | [optional] 
@@ -22,7 +22,7 @@ Name | Type | Description | Notes
 
 ### NewEntitlementBundleFull
 
-`func NewEntitlementBundleFull(targetResourceOrn string, target TargetResource, status EntitlementBundleStatus, entitlementsObjectType string, links EntitlementBundleLinks, name string, id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, ) *EntitlementBundleFull`
+`func NewEntitlementBundleFull(orn string, targetResourceOrn string, target TargetResource, status EntitlementBundleStatus, links EntitlementBundleLinks, name string, id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, ) *EntitlementBundleFull`
 
 NewEntitlementBundleFull instantiates a new EntitlementBundleFull object
 This constructor will assign default values to properties that have it defined,
@@ -36,6 +36,26 @@ will change when the set of required properties is changed
 NewEntitlementBundleFullWithDefaults instantiates a new EntitlementBundleFull object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetOrn
+
+`func (o *EntitlementBundleFull) GetOrn() string`
+
+GetOrn returns the Orn field if non-nil, zero value otherwise.
+
+### GetOrnOk
+
+`func (o *EntitlementBundleFull) GetOrnOk() (*string, bool)`
+
+GetOrnOk returns a tuple with the Orn field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOrn
+
+`func (o *EntitlementBundleFull) SetOrn(v string)`
+
+SetOrn sets Orn field to given value.
+
 
 ### GetTargetResourceOrn
 
@@ -121,26 +141,6 @@ SetEntitlements sets Entitlements field to given value.
 `func (o *EntitlementBundleFull) HasEntitlements() bool`
 
 HasEntitlements returns a boolean if a field has been set.
-
-### GetEntitlementsObjectType
-
-`func (o *EntitlementBundleFull) GetEntitlementsObjectType() string`
-
-GetEntitlementsObjectType returns the EntitlementsObjectType field if non-nil, zero value otherwise.
-
-### GetEntitlementsObjectTypeOk
-
-`func (o *EntitlementBundleFull) GetEntitlementsObjectTypeOk() (*string, bool)`
-
-GetEntitlementsObjectTypeOk returns a tuple with the EntitlementsObjectType field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetEntitlementsObjectType
-
-`func (o *EntitlementBundleFull) SetEntitlementsObjectType(v string)`
-
-SetEntitlementsObjectType sets EntitlementsObjectType field to given value.
-
 
 ### GetLinks
 

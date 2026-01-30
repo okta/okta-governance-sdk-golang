@@ -1,0 +1,55 @@
+{{>partial_header}}
+package {{packageName}}_test
+
+import (
+	"context"
+	"testing"
+
+  "github.com/okta/okta-sdk-golang/v6/okta"
+	{{goImportAlias}} "{{gitHost}}/{{gitUserId}}/{{gitRepoId}}{{#isGoSubmodule}}/{{packageName}}{{/isGoSubmodule}}/governance"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
+)
+
+func Test_{{packageName}}_{{classname}}Service(t *testing.T) {
+
+  configuration, err := okta.NewConfiguration()
+	if err != nil {
+		t.Fatalf("Failed to initialize configuration: %v", err)
+	}
+	apiClient := {{goImportAlias}}.NewAPIClient(configuration)
+
+{{#operations}}
+{{#operation}}
+	t.Run("Test {{classname}}Service {{{nickname}}}", func(t *testing.T) {
+
+		{{^pathParams}}
+		t.Skip("skip test") // remove to run test
+		{{/pathParams}}
+		{{#pathParams}}
+		{{#-first}}
+		t.Skip("skip test") // remove to run test
+
+		{{/-first}}
+		{{#isPrimitiveType}}
+		var {{paramName}} {{{dataType}}}
+		{{/isPrimitiveType}}
+		{{^isPrimitiveType}}
+		var {{paramName}} {{goImportAlias}}.{{{dataType}}}
+		{{/isPrimitiveType}}
+		{{/pathParams}}
+
+		{{#returnType}}resp, {{/returnType}}httpRes, err := apiClient.{{classname}}.{{operationId}}(context.Background(){{#pathParams}}, {{paramName}}{{/pathParams}}).Execute()
+
+		require.Nil(t, err)
+		{{#returnType}}
+		require.NotNil(t, resp)
+		{{/returnType}}
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+{{/operation}}
+{{/operations}}
+}
+

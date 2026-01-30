@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,9 +25,13 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
-// SecurityAccessReviewReviewerSettings The settings for the reviewers a security access review. This includes the type of reviewer and specific user settings.
+// checks if the SecurityAccessReviewReviewerSettings type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SecurityAccessReviewReviewerSettings{}
+
+// SecurityAccessReviewReviewerSettings The reviewer settings for a security access review. These include the type of reviewers and a list of reviewer IDs.
 type SecurityAccessReviewReviewerSettings struct {
 	Type                 SecurityAccessReviewReviewerType          `json:"type"`
 	UserSettings         *SecurityAccessReviewUserReviewerSettings `json:"userSettings,omitempty"`
@@ -80,7 +84,7 @@ func (o *SecurityAccessReviewReviewerSettings) SetType(v SecurityAccessReviewRev
 
 // GetUserSettings returns the UserSettings field value if set, zero value otherwise.
 func (o *SecurityAccessReviewReviewerSettings) GetUserSettings() SecurityAccessReviewUserReviewerSettings {
-	if o == nil || o.UserSettings == nil {
+	if o == nil || IsNil(o.UserSettings) {
 		var ret SecurityAccessReviewUserReviewerSettings
 		return ret
 	}
@@ -90,7 +94,7 @@ func (o *SecurityAccessReviewReviewerSettings) GetUserSettings() SecurityAccessR
 // GetUserSettingsOk returns a tuple with the UserSettings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityAccessReviewReviewerSettings) GetUserSettingsOk() (*SecurityAccessReviewUserReviewerSettings, bool) {
-	if o == nil || o.UserSettings == nil {
+	if o == nil || IsNil(o.UserSettings) {
 		return nil, false
 	}
 	return o.UserSettings, true
@@ -98,7 +102,7 @@ func (o *SecurityAccessReviewReviewerSettings) GetUserSettingsOk() (*SecurityAcc
 
 // HasUserSettings returns a boolean if a field has been set.
 func (o *SecurityAccessReviewReviewerSettings) HasUserSettings() bool {
-	if o != nil && o.UserSettings != nil {
+	if o != nil && !IsNil(o.UserSettings) {
 		return true
 	}
 
@@ -111,11 +115,17 @@ func (o *SecurityAccessReviewReviewerSettings) SetUserSettings(v SecurityAccessR
 }
 
 func (o SecurityAccessReviewReviewerSettings) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["type"] = o.Type
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.UserSettings != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o SecurityAccessReviewReviewerSettings) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["type"] = o.Type
+	if !IsNil(o.UserSettings) {
 		toSerialize["userSettings"] = o.UserSettings
 	}
 
@@ -123,28 +133,47 @@ func (o SecurityAccessReviewReviewerSettings) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SecurityAccessReviewReviewerSettings) UnmarshalJSON(bytes []byte) (err error) {
-	varSecurityAccessReviewReviewerSettings := _SecurityAccessReviewReviewerSettings{}
+func (o *SecurityAccessReviewReviewerSettings) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"type",
+	}
 
-	err = json.Unmarshal(bytes, &varSecurityAccessReviewReviewerSettings)
-	if err == nil {
-		*o = SecurityAccessReviewReviewerSettings(varSecurityAccessReviewReviewerSettings)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSecurityAccessReviewReviewerSettings := _SecurityAccessReviewReviewerSettings{}
+
+	err = json.Unmarshal(data, &varSecurityAccessReviewReviewerSettings)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SecurityAccessReviewReviewerSettings(varSecurityAccessReviewReviewerSettings)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "userSettings")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

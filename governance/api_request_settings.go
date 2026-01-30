@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,16 +26,15 @@ package governance
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 	"time"
-
-	"github.com/okta/okta-sdk-golang/v5/okta"
 )
 
 type RequestSettingsAPI interface {
+
 	/*
 			GetOrgRequestSettingsV2 Retrieve the request settings for the organization
 
@@ -71,11 +70,11 @@ type RequestSettingsAPI interface {
 		- `validRequesterSettings` indicates what `requesterSettings` may be passed in a `Create request condition` or `Update request condition` operation.
 		- `validAccessDurationSettings` indicates the maximum duration the user will have access to the resources.
 		- `validRiskSettings` indicates what `riskSettings` may be passed. Currently, it can be at the resource request settings.
+		- `validRequestOnBehalfOfSettings` indicates the available request on behalf of settings for the resource.
 		- `requestOnBehalfOfSettings` if they exist, they indicate the settings specified for request on behalf of.
 		- `riskSettings` if they exist, they indicate the risk settings specified for the resource.
 
 		See response examples for various possible request setting scenarios.
-
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@param resourceId The `id` of the resource in Okta ID format or ORN format
@@ -203,7 +202,7 @@ func (a *RequestSettingsAPIService) GetOrgRequestSettingsV2Execute(r ApiGetOrgRe
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(okta.ContextAPIKeys).(map[string]okta.APIKey); ok {
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["ApiKey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -225,9 +224,9 @@ func (a *RequestSettingsAPIService) GetOrgRequestSettingsV2Execute(r ApiGetOrgRe
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -339,6 +338,7 @@ For example:
 - `validRequesterSettings` indicates what `requesterSettings` may be passed in a `Create request condition` or `Update request condition` operation.
 - `validAccessDurationSettings` indicates the maximum duration the user will have access to the resources.
 - `validRiskSettings` indicates what `riskSettings` may be passed. Currently, it can be at the resource request settings.
+- `validRequestOnBehalfOfSettings` indicates the available request on behalf of settings for the resource.
 - `requestOnBehalfOfSettings` if they exist, they indicate the settings specified for request on behalf of.
 - `riskSettings` if they exist, they indicate the risk settings specified for the resource.
 
@@ -407,7 +407,7 @@ func (a *RequestSettingsAPIService) GetRequestSettingsV2Execute(r ApiGetRequestS
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(okta.ContextAPIKeys).(map[string]okta.APIKey); ok {
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["ApiKey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -429,9 +429,9 @@ func (a *RequestSettingsAPIService) GetRequestSettingsV2Execute(r ApiGetRequestS
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -604,7 +604,7 @@ func (a *RequestSettingsAPIService) UpdateOrgRequestSettingsV2Execute(r ApiUpdat
 	localVarPostBody = r.orgRequestSettingsPatchable
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(okta.ContextAPIKeys).(map[string]okta.APIKey); ok {
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["ApiKey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -626,9 +626,9 @@ func (a *RequestSettingsAPIService) UpdateOrgRequestSettingsV2Execute(r ApiUpdat
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -805,7 +805,7 @@ func (a *RequestSettingsAPIService) UpdateResourceRequestSettingsV2Execute(r Api
 	localVarPostBody = r.resourceRequestSettingsPatchable
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(okta.ContextAPIKeys).(map[string]okta.APIKey); ok {
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["ApiKey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -827,9 +827,9 @@ func (a *RequestSettingsAPIService) UpdateResourceRequestSettingsV2Execute(r Api
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err

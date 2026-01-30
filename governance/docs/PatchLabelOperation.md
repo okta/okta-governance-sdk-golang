@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Op** | [**LabelPatchOp**](LabelPatchOp.md) |  | 
-**Path** | **string** | The path of the property being updated. ex - &#x60;/name&#x60; label category update. | 
-**Value** | Pointer to **string** | The value of the property being updated. | [optional] 
-**RefType** | **string** |  | 
+**Path** | **string** | The path of the property to update. Use the &#x60;/name&#x60; path to update the label category name. | 
+**Value** | Pointer to **string** | The value of the updated property | [optional] 
+**RefType** | **string** | The label property for the update operation | 
 
 ## Methods
 

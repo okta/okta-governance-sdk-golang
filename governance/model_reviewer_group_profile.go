@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the ReviewerGroupProfile type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ReviewerGroupProfile{}
 
 // ReviewerGroupProfile Applicable only when `reviewerType` is `GROUP` or `RESOURCE_OWNER`. For all other reviewer type, this property can be ignored. It represents the group in charge of reviews.
 type ReviewerGroupProfile struct {
@@ -130,44 +134,67 @@ func (o *ReviewerGroupProfile) SetGroupType(v GroupType) {
 }
 
 func (o ReviewerGroupProfile) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ReviewerGroupProfile) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["groupId"] = o.GroupId
-	}
-	if true {
-		toSerialize["groupType"] = o.GroupType
-	}
+	toSerialize["name"] = o.Name
+	toSerialize["groupId"] = o.GroupId
+	toSerialize["groupType"] = o.GroupType
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ReviewerGroupProfile) UnmarshalJSON(bytes []byte) (err error) {
-	varReviewerGroupProfile := _ReviewerGroupProfile{}
+func (o *ReviewerGroupProfile) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"groupId",
+		"groupType",
+	}
 
-	err = json.Unmarshal(bytes, &varReviewerGroupProfile)
-	if err == nil {
-		*o = ReviewerGroupProfile(varReviewerGroupProfile)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varReviewerGroupProfile := _ReviewerGroupProfile{}
+
+	err = json.Unmarshal(data, &varReviewerGroupProfile)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ReviewerGroupProfile(varReviewerGroupProfile)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "groupId")
 		delete(additionalProperties, "groupType")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

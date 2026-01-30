@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package governance
 import (
 	"encoding/json"
 )
+
+// checks if the EntitlementCreatable type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EntitlementCreatable{}
 
 // EntitlementCreatable An entitlement with associated value identifiers
 type EntitlementCreatable struct {
@@ -57,7 +60,7 @@ func NewEntitlementCreatableWithDefaults() *EntitlementCreatable {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *EntitlementCreatable) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *EntitlementCreatable) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntitlementCreatable) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -75,7 +78,7 @@ func (o *EntitlementCreatable) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *EntitlementCreatable) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *EntitlementCreatable) SetId(v string) {
 
 // GetValues returns the Values field value if set, zero value otherwise.
 func (o *EntitlementCreatable) GetValues() []EntitlementValueCreatable {
-	if o == nil || o.Values == nil {
+	if o == nil || IsNil(o.Values) {
 		var ret []EntitlementValueCreatable
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *EntitlementCreatable) GetValues() []EntitlementValueCreatable {
 // GetValuesOk returns a tuple with the Values field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntitlementCreatable) GetValuesOk() ([]EntitlementValueCreatable, bool) {
-	if o == nil || o.Values == nil {
+	if o == nil || IsNil(o.Values) {
 		return nil, false
 	}
 	return o.Values, true
@@ -107,7 +110,7 @@ func (o *EntitlementCreatable) GetValuesOk() ([]EntitlementValueCreatable, bool)
 
 // HasValues returns a boolean if a field has been set.
 func (o *EntitlementCreatable) HasValues() bool {
-	if o != nil && o.Values != nil {
+	if o != nil && !IsNil(o.Values) {
 		return true
 	}
 
@@ -120,11 +123,19 @@ func (o *EntitlementCreatable) SetValues(v []EntitlementValueCreatable) {
 }
 
 func (o EntitlementCreatable) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o EntitlementCreatable) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Values != nil {
+	if !IsNil(o.Values) {
 		toSerialize["values"] = o.Values
 	}
 
@@ -132,28 +143,26 @@ func (o EntitlementCreatable) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *EntitlementCreatable) UnmarshalJSON(bytes []byte) (err error) {
+func (o *EntitlementCreatable) UnmarshalJSON(data []byte) (err error) {
 	varEntitlementCreatable := _EntitlementCreatable{}
 
-	err = json.Unmarshal(bytes, &varEntitlementCreatable)
-	if err == nil {
-		*o = EntitlementCreatable(varEntitlementCreatable)
-	} else {
+	err = json.Unmarshal(data, &varEntitlementCreatable)
+
+	if err != nil {
 		return err
 	}
 
+	*o = EntitlementCreatable(varEntitlementCreatable)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "values")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

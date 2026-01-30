@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**PrincipalOrn** | **string** | The Okta user &#x60;id&#x60; in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format.  See [Supported resources](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources). | 
-**ResourceOrn** | **string** | The &#x60;id&#x60; of the resource in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format. The resource can be an app, a collection, or a bundle. | 
+**PrincipalOrn** | **string** | The Okta user, in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format. | 
+**ResourceOrn** | Pointer to **string** | The &#x60;id&#x60; of the resource in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format. The resource can be a collection, a bundle, or an entitlement. | [optional] 
 
 ## Methods
 
 ### NewPotentialRiskAssessmentRequest
 
-`func NewPotentialRiskAssessmentRequest(principalOrn string, resourceOrn string, ) *PotentialRiskAssessmentRequest`
+`func NewPotentialRiskAssessmentRequest(principalOrn string, ) *PotentialRiskAssessmentRequest`
 
 NewPotentialRiskAssessmentRequest instantiates a new PotentialRiskAssessmentRequest object
 This constructor will assign default values to properties that have it defined,
@@ -65,6 +65,11 @@ and a boolean to check if the value has been set.
 
 SetResourceOrn sets ResourceOrn field to given value.
 
+### HasResourceOrn
+
+`func (o *PotentialRiskAssessmentRequest) HasResourceOrn() bool`
+
+HasResourceOrn returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

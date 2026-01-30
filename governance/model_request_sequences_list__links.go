@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the RequestSequencesListLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RequestSequencesListLinks{}
 
 // RequestSequencesListLinks struct for RequestSequencesListLinks
 type RequestSequencesListLinks struct {
@@ -80,7 +84,7 @@ func (o *RequestSequencesListLinks) SetSelf(v Link) {
 
 // GetNewSequence returns the NewSequence field value if set, zero value otherwise.
 func (o *RequestSequencesListLinks) GetNewSequence() Link {
-	if o == nil || o.NewSequence == nil {
+	if o == nil || IsNil(o.NewSequence) {
 		var ret Link
 		return ret
 	}
@@ -90,7 +94,7 @@ func (o *RequestSequencesListLinks) GetNewSequence() Link {
 // GetNewSequenceOk returns a tuple with the NewSequence field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestSequencesListLinks) GetNewSequenceOk() (*Link, bool) {
-	if o == nil || o.NewSequence == nil {
+	if o == nil || IsNil(o.NewSequence) {
 		return nil, false
 	}
 	return o.NewSequence, true
@@ -98,7 +102,7 @@ func (o *RequestSequencesListLinks) GetNewSequenceOk() (*Link, bool) {
 
 // HasNewSequence returns a boolean if a field has been set.
 func (o *RequestSequencesListLinks) HasNewSequence() bool {
-	if o != nil && o.NewSequence != nil {
+	if o != nil && !IsNil(o.NewSequence) {
 		return true
 	}
 
@@ -111,11 +115,17 @@ func (o *RequestSequencesListLinks) SetNewSequence(v Link) {
 }
 
 func (o RequestSequencesListLinks) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["self"] = o.Self
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.NewSequence != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o RequestSequencesListLinks) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["self"] = o.Self
+	if !IsNil(o.NewSequence) {
 		toSerialize["newSequence"] = o.NewSequence
 	}
 
@@ -123,28 +133,47 @@ func (o RequestSequencesListLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RequestSequencesListLinks) UnmarshalJSON(bytes []byte) (err error) {
-	varRequestSequencesListLinks := _RequestSequencesListLinks{}
+func (o *RequestSequencesListLinks) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"self",
+	}
 
-	err = json.Unmarshal(bytes, &varRequestSequencesListLinks)
-	if err == nil {
-		*o = RequestSequencesListLinks(varRequestSequencesListLinks)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRequestSequencesListLinks := _RequestSequencesListLinks{}
+
+	err = json.Unmarshal(data, &varRequestSequencesListLinks)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RequestSequencesListLinks(varRequestSequencesListLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "self")
 		delete(additionalProperties, "newSequence")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

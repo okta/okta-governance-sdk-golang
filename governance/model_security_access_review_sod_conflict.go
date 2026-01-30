@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the SecurityAccessReviewSodConflict type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SecurityAccessReviewSodConflict{}
 
 // SecurityAccessReviewSodConflict struct for SecurityAccessReviewSodConflict
 type SecurityAccessReviewSodConflict struct {
@@ -114,7 +118,7 @@ func (o *SecurityAccessReviewSodConflict) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *SecurityAccessReviewSodConflict) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -124,7 +128,7 @@ func (o *SecurityAccessReviewSodConflict) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityAccessReviewSodConflict) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -132,7 +136,7 @@ func (o *SecurityAccessReviewSodConflict) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *SecurityAccessReviewSodConflict) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -193,52 +197,74 @@ func (o *SecurityAccessReviewSodConflict) SetConflictedEntitlements(v []Security
 }
 
 func (o SecurityAccessReviewSodConflict) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SecurityAccessReviewSodConflict) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Description != nil {
+	toSerialize["id"] = o.Id
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if true {
-		toSerialize["operator"] = o.Operator
-	}
-	if true {
-		toSerialize["conflictedEntitlements"] = o.ConflictedEntitlements
-	}
+	toSerialize["operator"] = o.Operator
+	toSerialize["conflictedEntitlements"] = o.ConflictedEntitlements
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SecurityAccessReviewSodConflict) UnmarshalJSON(bytes []byte) (err error) {
-	varSecurityAccessReviewSodConflict := _SecurityAccessReviewSodConflict{}
+func (o *SecurityAccessReviewSodConflict) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"name",
+		"operator",
+		"conflictedEntitlements",
+	}
 
-	err = json.Unmarshal(bytes, &varSecurityAccessReviewSodConflict)
-	if err == nil {
-		*o = SecurityAccessReviewSodConflict(varSecurityAccessReviewSodConflict)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSecurityAccessReviewSodConflict := _SecurityAccessReviewSodConflict{}
+
+	err = json.Unmarshal(data, &varSecurityAccessReviewSodConflict)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SecurityAccessReviewSodConflict(varSecurityAccessReviewSodConflict)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "operator")
 		delete(additionalProperties, "conflictedEntitlements")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

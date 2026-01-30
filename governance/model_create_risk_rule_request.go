@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the CreateRiskRuleRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreateRiskRuleRequest{}
 
 // CreateRiskRuleRequest struct for CreateRiskRuleRequest
 type CreateRiskRuleRequest struct {
@@ -92,7 +96,7 @@ func (o *CreateRiskRuleRequest) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *CreateRiskRuleRequest) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -102,7 +106,7 @@ func (o *CreateRiskRuleRequest) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateRiskRuleRequest) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -110,7 +114,7 @@ func (o *CreateRiskRuleRequest) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *CreateRiskRuleRequest) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -124,7 +128,7 @@ func (o *CreateRiskRuleRequest) SetDescription(v string) {
 
 // GetNotes returns the Notes field value if set, zero value otherwise.
 func (o *CreateRiskRuleRequest) GetNotes() string {
-	if o == nil || o.Notes == nil {
+	if o == nil || IsNil(o.Notes) {
 		var ret string
 		return ret
 	}
@@ -134,7 +138,7 @@ func (o *CreateRiskRuleRequest) GetNotes() string {
 // GetNotesOk returns a tuple with the Notes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateRiskRuleRequest) GetNotesOk() (*string, bool) {
-	if o == nil || o.Notes == nil {
+	if o == nil || IsNil(o.Notes) {
 		return nil, false
 	}
 	return o.Notes, true
@@ -142,7 +146,7 @@ func (o *CreateRiskRuleRequest) GetNotesOk() (*string, bool) {
 
 // HasNotes returns a boolean if a field has been set.
 func (o *CreateRiskRuleRequest) HasNotes() bool {
-	if o != nil && o.Notes != nil {
+	if o != nil && !IsNil(o.Notes) {
 		return true
 	}
 
@@ -227,47 +231,71 @@ func (o *CreateRiskRuleRequest) SetConflictCriteria(v ConflictCriteriaCreatable)
 }
 
 func (o CreateRiskRuleRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["name"] = o.Name
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.Description != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o CreateRiskRuleRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if o.Notes != nil {
+	if !IsNil(o.Notes) {
 		toSerialize["notes"] = o.Notes
 	}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if true {
-		toSerialize["resources"] = o.Resources
-	}
-	if true {
-		toSerialize["conflictCriteria"] = o.ConflictCriteria
-	}
+	toSerialize["type"] = o.Type
+	toSerialize["resources"] = o.Resources
+	toSerialize["conflictCriteria"] = o.ConflictCriteria
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *CreateRiskRuleRequest) UnmarshalJSON(bytes []byte) (err error) {
-	varCreateRiskRuleRequest := _CreateRiskRuleRequest{}
+func (o *CreateRiskRuleRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"type",
+		"resources",
+		"conflictCriteria",
+	}
 
-	err = json.Unmarshal(bytes, &varCreateRiskRuleRequest)
-	if err == nil {
-		*o = CreateRiskRuleRequest(varCreateRiskRuleRequest)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varCreateRiskRuleRequest := _CreateRiskRuleRequest{}
+
+	err = json.Unmarshal(data, &varCreateRiskRuleRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CreateRiskRuleRequest(varCreateRiskRuleRequest)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "notes")
@@ -275,8 +303,6 @@ func (o *CreateRiskRuleRequest) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "resources")
 		delete(additionalProperties, "conflictCriteria")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

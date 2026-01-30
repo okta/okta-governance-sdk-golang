@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**LabelId** | **string** | The &#x60;id&#x60; property of a label | 
-**Name** | **string** | Name of the label | 
+**LabelId** | **string** | The ID of a label | 
+**Name** | **string** | Key name of the label | 
 **Values** | [**[]LabelValue**](LabelValue.md) | List of label values | 
 **Links** | [**LinkSelf**](LinkSelf.md) |  | 
 
