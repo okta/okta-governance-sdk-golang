@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the RequestConditionCreatable type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RequestConditionCreatable{}
 
 // RequestConditionCreatable A condition defines who can request which resource (with what resource permissions) and what is the approval process if requested.
 type RequestConditionCreatable struct {
@@ -113,7 +117,7 @@ func (o *RequestConditionCreatable) SetAccessScopeSettings(v AccessScopeSettings
 
 // GetAccessDurationSettings returns the AccessDurationSettings field value if set, zero value otherwise.
 func (o *RequestConditionCreatable) GetAccessDurationSettings() AccessDurationSettingsCreatable {
-	if o == nil || o.AccessDurationSettings == nil {
+	if o == nil || IsNil(o.AccessDurationSettings) {
 		var ret AccessDurationSettingsCreatable
 		return ret
 	}
@@ -123,7 +127,7 @@ func (o *RequestConditionCreatable) GetAccessDurationSettings() AccessDurationSe
 // GetAccessDurationSettingsOk returns a tuple with the AccessDurationSettings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestConditionCreatable) GetAccessDurationSettingsOk() (*AccessDurationSettingsCreatable, bool) {
-	if o == nil || o.AccessDurationSettings == nil {
+	if o == nil || IsNil(o.AccessDurationSettings) {
 		return nil, false
 	}
 	return o.AccessDurationSettings, true
@@ -131,7 +135,7 @@ func (o *RequestConditionCreatable) GetAccessDurationSettingsOk() (*AccessDurati
 
 // HasAccessDurationSettings returns a boolean if a field has been set.
 func (o *RequestConditionCreatable) HasAccessDurationSettings() bool {
-	if o != nil && o.AccessDurationSettings != nil {
+	if o != nil && !IsNil(o.AccessDurationSettings) {
 		return true
 	}
 
@@ -169,7 +173,7 @@ func (o *RequestConditionCreatable) SetApprovalSequenceId(v string) {
 
 // GetPriority returns the Priority field value if set, zero value otherwise.
 func (o *RequestConditionCreatable) GetPriority() int32 {
-	if o == nil || o.Priority == nil {
+	if o == nil || IsNil(o.Priority) {
 		var ret int32
 		return ret
 	}
@@ -179,7 +183,7 @@ func (o *RequestConditionCreatable) GetPriority() int32 {
 // GetPriorityOk returns a tuple with the Priority field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestConditionCreatable) GetPriorityOk() (*int32, bool) {
-	if o == nil || o.Priority == nil {
+	if o == nil || IsNil(o.Priority) {
 		return nil, false
 	}
 	return o.Priority, true
@@ -187,7 +191,7 @@ func (o *RequestConditionCreatable) GetPriorityOk() (*int32, bool) {
 
 // HasPriority returns a boolean if a field has been set.
 func (o *RequestConditionCreatable) HasPriority() bool {
-	if o != nil && o.Priority != nil {
+	if o != nil && !IsNil(o.Priority) {
 		return true
 	}
 
@@ -225,7 +229,7 @@ func (o *RequestConditionCreatable) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *RequestConditionCreatable) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -235,7 +239,7 @@ func (o *RequestConditionCreatable) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestConditionCreatable) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -243,7 +247,7 @@ func (o *RequestConditionCreatable) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *RequestConditionCreatable) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -256,26 +260,26 @@ func (o *RequestConditionCreatable) SetDescription(v string) {
 }
 
 func (o RequestConditionCreatable) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RequestConditionCreatable) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["requesterSettings"] = o.RequesterSettings
-	}
-	if true {
-		toSerialize["accessScopeSettings"] = o.AccessScopeSettings
-	}
-	if o.AccessDurationSettings != nil {
+	toSerialize["requesterSettings"] = o.RequesterSettings
+	toSerialize["accessScopeSettings"] = o.AccessScopeSettings
+	if !IsNil(o.AccessDurationSettings) {
 		toSerialize["accessDurationSettings"] = o.AccessDurationSettings
 	}
-	if true {
-		toSerialize["approvalSequenceId"] = o.ApprovalSequenceId
-	}
-	if o.Priority != nil {
+	toSerialize["approvalSequenceId"] = o.ApprovalSequenceId
+	if !IsNil(o.Priority) {
 		toSerialize["priority"] = o.Priority
 	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Description != nil {
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
 
@@ -283,23 +287,47 @@ func (o RequestConditionCreatable) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RequestConditionCreatable) UnmarshalJSON(bytes []byte) (err error) {
-	varRequestConditionCreatable := _RequestConditionCreatable{}
+func (o *RequestConditionCreatable) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"requesterSettings",
+		"accessScopeSettings",
+		"approvalSequenceId",
+		"name",
+	}
 
-	err = json.Unmarshal(bytes, &varRequestConditionCreatable)
-	if err == nil {
-		*o = RequestConditionCreatable(varRequestConditionCreatable)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRequestConditionCreatable := _RequestConditionCreatable{}
+
+	err = json.Unmarshal(data, &varRequestConditionCreatable)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RequestConditionCreatable(varRequestConditionCreatable)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "requesterSettings")
 		delete(additionalProperties, "accessScopeSettings")
 		delete(additionalProperties, "accessDurationSettings")
@@ -308,8 +336,6 @@ func (o *RequestConditionCreatable) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "description")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

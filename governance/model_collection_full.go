@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,8 +25,12 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the CollectionFull type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CollectionFull{}
 
 // CollectionFull Full representation of a collection response
 type CollectionFull struct {
@@ -77,7 +81,7 @@ func NewCollectionFullWithDefaults() *CollectionFull {
 
 // GetCounts returns the Counts field value if set, zero value otherwise.
 func (o *CollectionFull) GetCounts() CollectionCounts {
-	if o == nil || o.Counts == nil {
+	if o == nil || IsNil(o.Counts) {
 		var ret CollectionCounts
 		return ret
 	}
@@ -87,7 +91,7 @@ func (o *CollectionFull) GetCounts() CollectionCounts {
 // GetCountsOk returns a tuple with the Counts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionFull) GetCountsOk() (*CollectionCounts, bool) {
-	if o == nil || o.Counts == nil {
+	if o == nil || IsNil(o.Counts) {
 		return nil, false
 	}
 	return o.Counts, true
@@ -95,7 +99,7 @@ func (o *CollectionFull) GetCountsOk() (*CollectionCounts, bool) {
 
 // HasCounts returns a boolean if a field has been set.
 func (o *CollectionFull) HasCounts() bool {
-	if o != nil && o.Counts != nil {
+	if o != nil && !IsNil(o.Counts) {
 		return true
 	}
 
@@ -157,7 +161,7 @@ func (o *CollectionFull) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *CollectionFull) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -167,7 +171,7 @@ func (o *CollectionFull) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionFull) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -175,7 +179,7 @@ func (o *CollectionFull) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *CollectionFull) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -308,56 +312,77 @@ func (o *CollectionFull) SetLastUpdatedBy(v string) {
 }
 
 func (o CollectionFull) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CollectionFull) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Counts != nil {
+	if !IsNil(o.Counts) {
 		toSerialize["counts"] = o.Counts
 	}
-	if true {
-		toSerialize["_links"] = o.Links
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Description != nil {
+	toSerialize["_links"] = o.Links
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["createdBy"] = o.CreatedBy
-	}
-	if true {
-		toSerialize["created"] = o.Created
-	}
-	if true {
-		toSerialize["lastUpdated"] = o.LastUpdated
-	}
-	if true {
-		toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
-	}
+	toSerialize["id"] = o.Id
+	toSerialize["createdBy"] = o.CreatedBy
+	toSerialize["created"] = o.Created
+	toSerialize["lastUpdated"] = o.LastUpdated
+	toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *CollectionFull) UnmarshalJSON(bytes []byte) (err error) {
-	varCollectionFull := _CollectionFull{}
+func (o *CollectionFull) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"_links",
+		"name",
+		"id",
+		"createdBy",
+		"created",
+		"lastUpdated",
+		"lastUpdatedBy",
+	}
 
-	err = json.Unmarshal(bytes, &varCollectionFull)
-	if err == nil {
-		*o = CollectionFull(varCollectionFull)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varCollectionFull := _CollectionFull{}
+
+	err = json.Unmarshal(data, &varCollectionFull)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CollectionFull(varCollectionFull)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "counts")
 		delete(additionalProperties, "_links")
 		delete(additionalProperties, "name")
@@ -368,8 +393,6 @@ func (o *CollectionFull) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "lastUpdated")
 		delete(additionalProperties, "lastUpdatedBy")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

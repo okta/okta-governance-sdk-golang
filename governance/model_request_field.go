@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the RequestField type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RequestField{}
 
 // RequestField Fields to be filled out for a request
 type RequestField struct {
@@ -121,7 +125,7 @@ func (o *RequestField) SetType(v RequestFieldType) {
 
 // GetChoices returns the Choices field value if set, zero value otherwise.
 func (o *RequestField) GetChoices() []string {
-	if o == nil || o.Choices == nil {
+	if o == nil || IsNil(o.Choices) {
 		var ret []string
 		return ret
 	}
@@ -131,7 +135,7 @@ func (o *RequestField) GetChoices() []string {
 // GetChoicesOk returns a tuple with the Choices field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestField) GetChoicesOk() ([]string, bool) {
-	if o == nil || o.Choices == nil {
+	if o == nil || IsNil(o.Choices) {
 		return nil, false
 	}
 	return o.Choices, true
@@ -139,7 +143,7 @@ func (o *RequestField) GetChoicesOk() ([]string, bool) {
 
 // HasChoices returns a boolean if a field has been set.
 func (o *RequestField) HasChoices() bool {
-	if o != nil && o.Choices != nil {
+	if o != nil && !IsNil(o.Choices) {
 		return true
 	}
 
@@ -177,7 +181,7 @@ func (o *RequestField) SetRequired(v bool) {
 
 // GetLabel returns the Label field value if set, zero value otherwise.
 func (o *RequestField) GetLabel() string {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		var ret string
 		return ret
 	}
@@ -187,7 +191,7 @@ func (o *RequestField) GetLabel() string {
 // GetLabelOk returns a tuple with the Label field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestField) GetLabelOk() (*string, bool) {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		return nil, false
 	}
 	return o.Label, true
@@ -195,7 +199,7 @@ func (o *RequestField) GetLabelOk() (*string, bool) {
 
 // HasLabel returns a boolean if a field has been set.
 func (o *RequestField) HasLabel() bool {
-	if o != nil && o.Label != nil {
+	if o != nil && !IsNil(o.Label) {
 		return true
 	}
 
@@ -209,7 +213,7 @@ func (o *RequestField) SetLabel(v string) {
 
 // GetValue returns the Value field value if set, zero value otherwise.
 func (o *RequestField) GetValue() string {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		var ret string
 		return ret
 	}
@@ -219,7 +223,7 @@ func (o *RequestField) GetValue() string {
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestField) GetValueOk() (*string, bool) {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
 	return o.Value, true
@@ -227,7 +231,7 @@ func (o *RequestField) GetValueOk() (*string, bool) {
 
 // HasValue returns a boolean if a field has been set.
 func (o *RequestField) HasValue() bool {
-	if o != nil && o.Value != nil {
+	if o != nil && !IsNil(o.Value) {
 		return true
 	}
 
@@ -241,7 +245,7 @@ func (o *RequestField) SetValue(v string) {
 
 // GetMaximumValue returns the MaximumValue field value if set, zero value otherwise.
 func (o *RequestField) GetMaximumValue() string {
-	if o == nil || o.MaximumValue == nil {
+	if o == nil || IsNil(o.MaximumValue) {
 		var ret string
 		return ret
 	}
@@ -251,7 +255,7 @@ func (o *RequestField) GetMaximumValue() string {
 // GetMaximumValueOk returns a tuple with the MaximumValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestField) GetMaximumValueOk() (*string, bool) {
-	if o == nil || o.MaximumValue == nil {
+	if o == nil || IsNil(o.MaximumValue) {
 		return nil, false
 	}
 	return o.MaximumValue, true
@@ -259,7 +263,7 @@ func (o *RequestField) GetMaximumValueOk() (*string, bool) {
 
 // HasMaximumValue returns a boolean if a field has been set.
 func (o *RequestField) HasMaximumValue() bool {
-	if o != nil && o.MaximumValue != nil {
+	if o != nil && !IsNil(o.MaximumValue) {
 		return true
 	}
 
@@ -273,7 +277,7 @@ func (o *RequestField) SetMaximumValue(v string) {
 
 // GetReadOnly returns the ReadOnly field value if set, zero value otherwise.
 func (o *RequestField) GetReadOnly() bool {
-	if o == nil || o.ReadOnly == nil {
+	if o == nil || IsNil(o.ReadOnly) {
 		var ret bool
 		return ret
 	}
@@ -283,7 +287,7 @@ func (o *RequestField) GetReadOnly() bool {
 // GetReadOnlyOk returns a tuple with the ReadOnly field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestField) GetReadOnlyOk() (*bool, bool) {
-	if o == nil || o.ReadOnly == nil {
+	if o == nil || IsNil(o.ReadOnly) {
 		return nil, false
 	}
 	return o.ReadOnly, true
@@ -291,7 +295,7 @@ func (o *RequestField) GetReadOnlyOk() (*bool, bool) {
 
 // HasReadOnly returns a boolean if a field has been set.
 func (o *RequestField) HasReadOnly() bool {
-	if o != nil && o.ReadOnly != nil {
+	if o != nil && !IsNil(o.ReadOnly) {
 		return true
 	}
 
@@ -304,29 +308,31 @@ func (o *RequestField) SetReadOnly(v bool) {
 }
 
 func (o RequestField) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RequestField) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if o.Choices != nil {
+	toSerialize["id"] = o.Id
+	toSerialize["type"] = o.Type
+	if !IsNil(o.Choices) {
 		toSerialize["choices"] = o.Choices
 	}
-	if true {
-		toSerialize["required"] = o.Required
-	}
-	if o.Label != nil {
+	toSerialize["required"] = o.Required
+	if !IsNil(o.Label) {
 		toSerialize["label"] = o.Label
 	}
-	if o.Value != nil {
+	if !IsNil(o.Value) {
 		toSerialize["value"] = o.Value
 	}
-	if o.MaximumValue != nil {
+	if !IsNil(o.MaximumValue) {
 		toSerialize["maximumValue"] = o.MaximumValue
 	}
-	if o.ReadOnly != nil {
+	if !IsNil(o.ReadOnly) {
 		toSerialize["readOnly"] = o.ReadOnly
 	}
 
@@ -334,23 +340,46 @@ func (o RequestField) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RequestField) UnmarshalJSON(bytes []byte) (err error) {
-	varRequestField := _RequestField{}
+func (o *RequestField) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"type",
+		"required",
+	}
 
-	err = json.Unmarshal(bytes, &varRequestField)
-	if err == nil {
-		*o = RequestField(varRequestField)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRequestField := _RequestField{}
+
+	err = json.Unmarshal(data, &varRequestField)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RequestField(varRequestField)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "choices")
@@ -360,8 +389,6 @@ func (o *RequestField) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "maximumValue")
 		delete(additionalProperties, "readOnly")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

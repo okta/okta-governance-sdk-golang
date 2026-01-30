@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the LabelValue type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LabelValue{}
 
 // LabelValue struct for LabelValue
 type LabelValue struct {
@@ -108,7 +112,7 @@ func (o *LabelValue) SetName(v string) {
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *LabelValue) GetMetadata() LabelMetadata {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		var ret LabelMetadata
 		return ret
 	}
@@ -118,7 +122,7 @@ func (o *LabelValue) GetMetadata() LabelMetadata {
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LabelValue) GetMetadataOk() (*LabelMetadata, bool) {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
 	return o.Metadata, true
@@ -126,7 +130,7 @@ func (o *LabelValue) GetMetadataOk() (*LabelMetadata, bool) {
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *LabelValue) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
@@ -139,14 +143,18 @@ func (o *LabelValue) SetMetadata(v LabelMetadata) {
 }
 
 func (o LabelValue) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LabelValue) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["labelValueId"] = o.LabelValueId
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Metadata != nil {
+	toSerialize["labelValueId"] = o.LabelValueId
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
 
@@ -154,29 +162,49 @@ func (o LabelValue) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *LabelValue) UnmarshalJSON(bytes []byte) (err error) {
-	varLabelValue := _LabelValue{}
+func (o *LabelValue) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"labelValueId",
+		"name",
+	}
 
-	err = json.Unmarshal(bytes, &varLabelValue)
-	if err == nil {
-		*o = LabelValue(varLabelValue)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varLabelValue := _LabelValue{}
+
+	err = json.Unmarshal(data, &varLabelValue)
+
+	if err != nil {
+		return err
+	}
+
+	*o = LabelValue(varLabelValue)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "labelValueId")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "metadata")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

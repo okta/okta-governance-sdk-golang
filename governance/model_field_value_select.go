@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the FieldValueSelect type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &FieldValueSelect{}
 
 // FieldValueSelect struct for FieldValueSelect
 type FieldValueSelect struct {
@@ -104,7 +108,7 @@ func (o *FieldValueSelect) GetValue() []string {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *FieldValueSelect) GetValueOk() ([]string, bool) {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
 	return o.Value, true
@@ -188,52 +192,75 @@ func (o *FieldValueSelect) SetRequired(v bool) {
 }
 
 func (o FieldValueSelect) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["type"] = o.Type
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
+	return json.Marshal(toSerialize)
+}
+
+func (o FieldValueSelect) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["type"] = o.Type
 	if o.Value != nil {
 		toSerialize["value"] = o.Value
 	}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["prompt"] = o.Prompt
-	}
-	if true {
-		toSerialize["required"] = o.Required
-	}
+	toSerialize["id"] = o.Id
+	toSerialize["prompt"] = o.Prompt
+	toSerialize["required"] = o.Required
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *FieldValueSelect) UnmarshalJSON(bytes []byte) (err error) {
-	varFieldValueSelect := _FieldValueSelect{}
+func (o *FieldValueSelect) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"type",
+		"value",
+		"id",
+		"prompt",
+		"required",
+	}
 
-	err = json.Unmarshal(bytes, &varFieldValueSelect)
-	if err == nil {
-		*o = FieldValueSelect(varFieldValueSelect)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFieldValueSelect := _FieldValueSelect{}
+
+	err = json.Unmarshal(data, &varFieldValueSelect)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FieldValueSelect(varFieldValueSelect)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "value")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "prompt")
 		delete(additionalProperties, "required")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

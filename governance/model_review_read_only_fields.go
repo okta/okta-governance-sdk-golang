@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package governance
 import (
 	"encoding/json"
 )
+
+// checks if the ReviewReadOnlyFields type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ReviewReadOnlyFields{}
 
 // ReviewReadOnlyFields Additional read-only attributes for reviews
 type ReviewReadOnlyFields struct {
@@ -57,7 +60,7 @@ func NewReviewReadOnlyFieldsWithDefaults() *ReviewReadOnlyFields {
 
 // GetNote returns the Note field value if set, zero value otherwise.
 func (o *ReviewReadOnlyFields) GetNote() Note {
-	if o == nil || o.Note == nil {
+	if o == nil || IsNil(o.Note) {
 		var ret Note
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *ReviewReadOnlyFields) GetNote() Note {
 // GetNoteOk returns a tuple with the Note field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReviewReadOnlyFields) GetNoteOk() (*Note, bool) {
-	if o == nil || o.Note == nil {
+	if o == nil || IsNil(o.Note) {
 		return nil, false
 	}
 	return o.Note, true
@@ -75,7 +78,7 @@ func (o *ReviewReadOnlyFields) GetNoteOk() (*Note, bool) {
 
 // HasNote returns a boolean if a field has been set.
 func (o *ReviewReadOnlyFields) HasNote() bool {
-	if o != nil && o.Note != nil {
+	if o != nil && !IsNil(o.Note) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *ReviewReadOnlyFields) SetNote(v Note) {
 
 // GetReviewerGroupProfile returns the ReviewerGroupProfile field value if set, zero value otherwise.
 func (o *ReviewReadOnlyFields) GetReviewerGroupProfile() ReviewerGroupProfile {
-	if o == nil || o.ReviewerGroupProfile == nil {
+	if o == nil || IsNil(o.ReviewerGroupProfile) {
 		var ret ReviewerGroupProfile
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *ReviewReadOnlyFields) GetReviewerGroupProfile() ReviewerGroupProfile {
 // GetReviewerGroupProfileOk returns a tuple with the ReviewerGroupProfile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReviewReadOnlyFields) GetReviewerGroupProfileOk() (*ReviewerGroupProfile, bool) {
-	if o == nil || o.ReviewerGroupProfile == nil {
+	if o == nil || IsNil(o.ReviewerGroupProfile) {
 		return nil, false
 	}
 	return o.ReviewerGroupProfile, true
@@ -107,7 +110,7 @@ func (o *ReviewReadOnlyFields) GetReviewerGroupProfileOk() (*ReviewerGroupProfil
 
 // HasReviewerGroupProfile returns a boolean if a field has been set.
 func (o *ReviewReadOnlyFields) HasReviewerGroupProfile() bool {
-	if o != nil && o.ReviewerGroupProfile != nil {
+	if o != nil && !IsNil(o.ReviewerGroupProfile) {
 		return true
 	}
 
@@ -121,7 +124,7 @@ func (o *ReviewReadOnlyFields) SetReviewerGroupProfile(v ReviewerGroupProfile) {
 
 // GetAllReviewerLevels returns the AllReviewerLevels field value if set, zero value otherwise.
 func (o *ReviewReadOnlyFields) GetAllReviewerLevels() []ReviewerLevelInfoFull {
-	if o == nil || o.AllReviewerLevels == nil {
+	if o == nil || IsNil(o.AllReviewerLevels) {
 		var ret []ReviewerLevelInfoFull
 		return ret
 	}
@@ -131,7 +134,7 @@ func (o *ReviewReadOnlyFields) GetAllReviewerLevels() []ReviewerLevelInfoFull {
 // GetAllReviewerLevelsOk returns a tuple with the AllReviewerLevels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReviewReadOnlyFields) GetAllReviewerLevelsOk() ([]ReviewerLevelInfoFull, bool) {
-	if o == nil || o.AllReviewerLevels == nil {
+	if o == nil || IsNil(o.AllReviewerLevels) {
 		return nil, false
 	}
 	return o.AllReviewerLevels, true
@@ -139,7 +142,7 @@ func (o *ReviewReadOnlyFields) GetAllReviewerLevelsOk() ([]ReviewerLevelInfoFull
 
 // HasAllReviewerLevels returns a boolean if a field has been set.
 func (o *ReviewReadOnlyFields) HasAllReviewerLevels() bool {
-	if o != nil && o.AllReviewerLevels != nil {
+	if o != nil && !IsNil(o.AllReviewerLevels) {
 		return true
 	}
 
@@ -152,14 +155,22 @@ func (o *ReviewReadOnlyFields) SetAllReviewerLevels(v []ReviewerLevelInfoFull) {
 }
 
 func (o ReviewReadOnlyFields) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ReviewReadOnlyFields) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Note != nil {
+	if !IsNil(o.Note) {
 		toSerialize["note"] = o.Note
 	}
-	if o.ReviewerGroupProfile != nil {
+	if !IsNil(o.ReviewerGroupProfile) {
 		toSerialize["reviewerGroupProfile"] = o.ReviewerGroupProfile
 	}
-	if o.AllReviewerLevels != nil {
+	if !IsNil(o.AllReviewerLevels) {
 		toSerialize["allReviewerLevels"] = o.AllReviewerLevels
 	}
 
@@ -167,29 +178,27 @@ func (o ReviewReadOnlyFields) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ReviewReadOnlyFields) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ReviewReadOnlyFields) UnmarshalJSON(data []byte) (err error) {
 	varReviewReadOnlyFields := _ReviewReadOnlyFields{}
 
-	err = json.Unmarshal(bytes, &varReviewReadOnlyFields)
-	if err == nil {
-		*o = ReviewReadOnlyFields(varReviewReadOnlyFields)
-	} else {
+	err = json.Unmarshal(data, &varReviewReadOnlyFields)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ReviewReadOnlyFields(varReviewReadOnlyFields)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "note")
 		delete(additionalProperties, "reviewerGroupProfile")
 		delete(additionalProperties, "allReviewerLevels")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package governance
 import (
 	"encoding/json"
 )
+
+// checks if the ConflictCriteria type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ConflictCriteria{}
 
 // ConflictCriteria Conflict criteria for the risk rule
 type ConflictCriteria struct {
@@ -55,7 +58,7 @@ func NewConflictCriteriaWithDefaults() *ConflictCriteria {
 
 // GetAnd returns the And field value if set, zero value otherwise.
 func (o *ConflictCriteria) GetAnd() []Criteria {
-	if o == nil || o.And == nil {
+	if o == nil || IsNil(o.And) {
 		var ret []Criteria
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *ConflictCriteria) GetAnd() []Criteria {
 // GetAndOk returns a tuple with the And field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ConflictCriteria) GetAndOk() ([]Criteria, bool) {
-	if o == nil || o.And == nil {
+	if o == nil || IsNil(o.And) {
 		return nil, false
 	}
 	return o.And, true
@@ -73,7 +76,7 @@ func (o *ConflictCriteria) GetAndOk() ([]Criteria, bool) {
 
 // HasAnd returns a boolean if a field has been set.
 func (o *ConflictCriteria) HasAnd() bool {
-	if o != nil && o.And != nil {
+	if o != nil && !IsNil(o.And) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *ConflictCriteria) SetAnd(v []Criteria) {
 }
 
 func (o ConflictCriteria) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ConflictCriteria) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.And != nil {
+	if !IsNil(o.And) {
 		toSerialize["and"] = o.And
 	}
 
@@ -95,27 +106,25 @@ func (o ConflictCriteria) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ConflictCriteria) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ConflictCriteria) UnmarshalJSON(data []byte) (err error) {
 	varConflictCriteria := _ConflictCriteria{}
 
-	err = json.Unmarshal(bytes, &varConflictCriteria)
-	if err == nil {
-		*o = ConflictCriteria(varConflictCriteria)
-	} else {
+	err = json.Unmarshal(data, &varConflictCriteria)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ConflictCriteria(varConflictCriteria)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "and")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

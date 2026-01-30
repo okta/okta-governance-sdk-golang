@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 	"time"
 )
+
+// checks if the AssignmentProperties type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AssignmentProperties{}
 
 // AssignmentProperties struct for AssignmentProperties
 type AssignmentProperties struct {
@@ -58,7 +61,7 @@ func NewAssignmentPropertiesWithDefaults() *AssignmentProperties {
 
 // GetExpirationTime returns the ExpirationTime field value if set, zero value otherwise.
 func (o *AssignmentProperties) GetExpirationTime() time.Time {
-	if o == nil || o.ExpirationTime == nil {
+	if o == nil || IsNil(o.ExpirationTime) {
 		var ret time.Time
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *AssignmentProperties) GetExpirationTime() time.Time {
 // GetExpirationTimeOk returns a tuple with the ExpirationTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AssignmentProperties) GetExpirationTimeOk() (*time.Time, bool) {
-	if o == nil || o.ExpirationTime == nil {
+	if o == nil || IsNil(o.ExpirationTime) {
 		return nil, false
 	}
 	return o.ExpirationTime, true
@@ -76,7 +79,7 @@ func (o *AssignmentProperties) GetExpirationTimeOk() (*time.Time, bool) {
 
 // HasExpirationTime returns a boolean if a field has been set.
 func (o *AssignmentProperties) HasExpirationTime() bool {
-	if o != nil && o.ExpirationTime != nil {
+	if o != nil && !IsNil(o.ExpirationTime) {
 		return true
 	}
 
@@ -90,7 +93,7 @@ func (o *AssignmentProperties) SetExpirationTime(v time.Time) {
 
 // GetTimeZone returns the TimeZone field value if set, zero value otherwise.
 func (o *AssignmentProperties) GetTimeZone() string {
-	if o == nil || o.TimeZone == nil {
+	if o == nil || IsNil(o.TimeZone) {
 		var ret string
 		return ret
 	}
@@ -100,7 +103,7 @@ func (o *AssignmentProperties) GetTimeZone() string {
 // GetTimeZoneOk returns a tuple with the TimeZone field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AssignmentProperties) GetTimeZoneOk() (*string, bool) {
-	if o == nil || o.TimeZone == nil {
+	if o == nil || IsNil(o.TimeZone) {
 		return nil, false
 	}
 	return o.TimeZone, true
@@ -108,7 +111,7 @@ func (o *AssignmentProperties) GetTimeZoneOk() (*string, bool) {
 
 // HasTimeZone returns a boolean if a field has been set.
 func (o *AssignmentProperties) HasTimeZone() bool {
-	if o != nil && o.TimeZone != nil {
+	if o != nil && !IsNil(o.TimeZone) {
 		return true
 	}
 
@@ -121,11 +124,19 @@ func (o *AssignmentProperties) SetTimeZone(v string) {
 }
 
 func (o AssignmentProperties) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AssignmentProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ExpirationTime != nil {
+	if !IsNil(o.ExpirationTime) {
 		toSerialize["expirationTime"] = o.ExpirationTime
 	}
-	if o.TimeZone != nil {
+	if !IsNil(o.TimeZone) {
 		toSerialize["timeZone"] = o.TimeZone
 	}
 
@@ -133,28 +144,26 @@ func (o AssignmentProperties) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AssignmentProperties) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AssignmentProperties) UnmarshalJSON(data []byte) (err error) {
 	varAssignmentProperties := _AssignmentProperties{}
 
-	err = json.Unmarshal(bytes, &varAssignmentProperties)
-	if err == nil {
-		*o = AssignmentProperties(varAssignmentProperties)
-	} else {
+	err = json.Unmarshal(data, &varAssignmentProperties)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AssignmentProperties(varAssignmentProperties)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "expirationTime")
 		delete(additionalProperties, "timeZone")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

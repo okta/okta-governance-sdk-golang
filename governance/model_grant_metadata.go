@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package governance
 import (
 	"encoding/json"
 )
+
+// checks if the GrantMetadata type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GrantMetadata{}
 
 // GrantMetadata Grant metadata properties
 type GrantMetadata struct {
@@ -54,7 +57,7 @@ func NewGrantMetadataWithDefaults() *GrantMetadata {
 
 // GetCollection returns the Collection field value if set, zero value otherwise.
 func (o *GrantMetadata) GetCollection() CollectionMetadata {
-	if o == nil || o.Collection == nil {
+	if o == nil || IsNil(o.Collection) {
 		var ret CollectionMetadata
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *GrantMetadata) GetCollection() CollectionMetadata {
 // GetCollectionOk returns a tuple with the Collection field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GrantMetadata) GetCollectionOk() (*CollectionMetadata, bool) {
-	if o == nil || o.Collection == nil {
+	if o == nil || IsNil(o.Collection) {
 		return nil, false
 	}
 	return o.Collection, true
@@ -72,7 +75,7 @@ func (o *GrantMetadata) GetCollectionOk() (*CollectionMetadata, bool) {
 
 // HasCollection returns a boolean if a field has been set.
 func (o *GrantMetadata) HasCollection() bool {
-	if o != nil && o.Collection != nil {
+	if o != nil && !IsNil(o.Collection) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *GrantMetadata) SetCollection(v CollectionMetadata) {
 }
 
 func (o GrantMetadata) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o GrantMetadata) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Collection != nil {
+	if !IsNil(o.Collection) {
 		toSerialize["collection"] = o.Collection
 	}
 
@@ -94,27 +105,25 @@ func (o GrantMetadata) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *GrantMetadata) UnmarshalJSON(bytes []byte) (err error) {
+func (o *GrantMetadata) UnmarshalJSON(data []byte) (err error) {
 	varGrantMetadata := _GrantMetadata{}
 
-	err = json.Unmarshal(bytes, &varGrantMetadata)
-	if err == nil {
-		*o = GrantMetadata(varGrantMetadata)
-	} else {
+	err = json.Unmarshal(data, &varGrantMetadata)
+
+	if err != nil {
 		return err
 	}
 
+	*o = GrantMetadata(varGrantMetadata)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "collection")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

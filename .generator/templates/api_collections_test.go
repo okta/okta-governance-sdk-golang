@@ -1,6 +1,8 @@
 package governance
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestCollectionsAPIService_CreateCollectionExecute(t *testing.T) {
 	execute, a, err := apiClient.CollectionsAPI.CreateCollection(apiClient.cfg.Context).CollectionCreatable(buildCollection()).Execute()

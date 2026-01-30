@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 	"time"
 )
+
+// checks if the AssignedPrincipalFull type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AssignedPrincipalFull{}
 
 // AssignedPrincipalFull struct for AssignedPrincipalFull
 type AssignedPrincipalFull struct {
@@ -73,7 +76,7 @@ func NewAssignedPrincipalFullWithDefaults() *AssignedPrincipalFull {
 
 // GetExpirationTime returns the ExpirationTime field value if set, zero value otherwise.
 func (o *AssignedPrincipalFull) GetExpirationTime() time.Time {
-	if o == nil || o.ExpirationTime == nil {
+	if o == nil || IsNil(o.ExpirationTime) {
 		var ret time.Time
 		return ret
 	}
@@ -83,7 +86,7 @@ func (o *AssignedPrincipalFull) GetExpirationTime() time.Time {
 // GetExpirationTimeOk returns a tuple with the ExpirationTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AssignedPrincipalFull) GetExpirationTimeOk() (*time.Time, bool) {
-	if o == nil || o.ExpirationTime == nil {
+	if o == nil || IsNil(o.ExpirationTime) {
 		return nil, false
 	}
 	return o.ExpirationTime, true
@@ -91,7 +94,7 @@ func (o *AssignedPrincipalFull) GetExpirationTimeOk() (*time.Time, bool) {
 
 // HasExpirationTime returns a boolean if a field has been set.
 func (o *AssignedPrincipalFull) HasExpirationTime() bool {
-	if o != nil && o.ExpirationTime != nil {
+	if o != nil && !IsNil(o.ExpirationTime) {
 		return true
 	}
 
@@ -105,7 +108,7 @@ func (o *AssignedPrincipalFull) SetExpirationTime(v time.Time) {
 
 // GetTimeZone returns the TimeZone field value if set, zero value otherwise.
 func (o *AssignedPrincipalFull) GetTimeZone() string {
-	if o == nil || o.TimeZone == nil {
+	if o == nil || IsNil(o.TimeZone) {
 		var ret string
 		return ret
 	}
@@ -115,7 +118,7 @@ func (o *AssignedPrincipalFull) GetTimeZone() string {
 // GetTimeZoneOk returns a tuple with the TimeZone field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AssignedPrincipalFull) GetTimeZoneOk() (*string, bool) {
-	if o == nil || o.TimeZone == nil {
+	if o == nil || IsNil(o.TimeZone) {
 		return nil, false
 	}
 	return o.TimeZone, true
@@ -123,7 +126,7 @@ func (o *AssignedPrincipalFull) GetTimeZoneOk() (*string, bool) {
 
 // HasTimeZone returns a boolean if a field has been set.
 func (o *AssignedPrincipalFull) HasTimeZone() bool {
-	if o != nil && o.TimeZone != nil {
+	if o != nil && !IsNil(o.TimeZone) {
 		return true
 	}
 
@@ -137,7 +140,7 @@ func (o *AssignedPrincipalFull) SetTimeZone(v string) {
 
 // GetPrincipal returns the Principal field value if set, zero value otherwise.
 func (o *AssignedPrincipalFull) GetPrincipal() TargetPrincipalFull {
-	if o == nil || o.Principal == nil {
+	if o == nil || IsNil(o.Principal) {
 		var ret TargetPrincipalFull
 		return ret
 	}
@@ -147,7 +150,7 @@ func (o *AssignedPrincipalFull) GetPrincipal() TargetPrincipalFull {
 // GetPrincipalOk returns a tuple with the Principal field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AssignedPrincipalFull) GetPrincipalOk() (*TargetPrincipalFull, bool) {
-	if o == nil || o.Principal == nil {
+	if o == nil || IsNil(o.Principal) {
 		return nil, false
 	}
 	return o.Principal, true
@@ -155,7 +158,7 @@ func (o *AssignedPrincipalFull) GetPrincipalOk() (*TargetPrincipalFull, bool) {
 
 // HasPrincipal returns a boolean if a field has been set.
 func (o *AssignedPrincipalFull) HasPrincipal() bool {
-	if o != nil && o.Principal != nil {
+	if o != nil && !IsNil(o.Principal) {
 		return true
 	}
 
@@ -169,7 +172,7 @@ func (o *AssignedPrincipalFull) SetPrincipal(v TargetPrincipalFull) {
 
 // GetActor returns the Actor field value if set, zero value otherwise.
 func (o *AssignedPrincipalFull) GetActor() GrantActor {
-	if o == nil || o.Actor == nil {
+	if o == nil || IsNil(o.Actor) {
 		var ret GrantActor
 		return ret
 	}
@@ -179,7 +182,7 @@ func (o *AssignedPrincipalFull) GetActor() GrantActor {
 // GetActorOk returns a tuple with the Actor field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AssignedPrincipalFull) GetActorOk() (*GrantActor, bool) {
-	if o == nil || o.Actor == nil {
+	if o == nil || IsNil(o.Actor) {
 		return nil, false
 	}
 	return o.Actor, true
@@ -187,7 +190,7 @@ func (o *AssignedPrincipalFull) GetActorOk() (*GrantActor, bool) {
 
 // HasActor returns a boolean if a field has been set.
 func (o *AssignedPrincipalFull) HasActor() bool {
-	if o != nil && o.Actor != nil {
+	if o != nil && !IsNil(o.Actor) {
 		return true
 	}
 
@@ -201,7 +204,7 @@ func (o *AssignedPrincipalFull) SetActor(v GrantActor) {
 
 // GetCollectionId returns the CollectionId field value if set, zero value otherwise.
 func (o *AssignedPrincipalFull) GetCollectionId() string {
-	if o == nil || o.CollectionId == nil {
+	if o == nil || IsNil(o.CollectionId) {
 		var ret string
 		return ret
 	}
@@ -211,7 +214,7 @@ func (o *AssignedPrincipalFull) GetCollectionId() string {
 // GetCollectionIdOk returns a tuple with the CollectionId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AssignedPrincipalFull) GetCollectionIdOk() (*string, bool) {
-	if o == nil || o.CollectionId == nil {
+	if o == nil || IsNil(o.CollectionId) {
 		return nil, false
 	}
 	return o.CollectionId, true
@@ -219,7 +222,7 @@ func (o *AssignedPrincipalFull) GetCollectionIdOk() (*string, bool) {
 
 // HasCollectionId returns a boolean if a field has been set.
 func (o *AssignedPrincipalFull) HasCollectionId() bool {
-	if o != nil && o.CollectionId != nil {
+	if o != nil && !IsNil(o.CollectionId) {
 		return true
 	}
 
@@ -233,7 +236,7 @@ func (o *AssignedPrincipalFull) SetCollectionId(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *AssignedPrincipalFull) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -243,7 +246,7 @@ func (o *AssignedPrincipalFull) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AssignedPrincipalFull) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -251,7 +254,7 @@ func (o *AssignedPrincipalFull) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *AssignedPrincipalFull) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -265,7 +268,7 @@ func (o *AssignedPrincipalFull) SetId(v string) {
 
 // GetAssignmentType returns the AssignmentType field value if set, zero value otherwise.
 func (o *AssignedPrincipalFull) GetAssignmentType() PrincipalAssignmentType {
-	if o == nil || o.AssignmentType == nil {
+	if o == nil || IsNil(o.AssignmentType) {
 		var ret PrincipalAssignmentType
 		return ret
 	}
@@ -275,7 +278,7 @@ func (o *AssignedPrincipalFull) GetAssignmentType() PrincipalAssignmentType {
 // GetAssignmentTypeOk returns a tuple with the AssignmentType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AssignedPrincipalFull) GetAssignmentTypeOk() (*PrincipalAssignmentType, bool) {
-	if o == nil || o.AssignmentType == nil {
+	if o == nil || IsNil(o.AssignmentType) {
 		return nil, false
 	}
 	return o.AssignmentType, true
@@ -283,7 +286,7 @@ func (o *AssignedPrincipalFull) GetAssignmentTypeOk() (*PrincipalAssignmentType,
 
 // HasAssignmentType returns a boolean if a field has been set.
 func (o *AssignedPrincipalFull) HasAssignmentType() bool {
-	if o != nil && o.AssignmentType != nil {
+	if o != nil && !IsNil(o.AssignmentType) {
 		return true
 	}
 
@@ -296,26 +299,34 @@ func (o *AssignedPrincipalFull) SetAssignmentType(v PrincipalAssignmentType) {
 }
 
 func (o AssignedPrincipalFull) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AssignedPrincipalFull) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ExpirationTime != nil {
+	if !IsNil(o.ExpirationTime) {
 		toSerialize["expirationTime"] = o.ExpirationTime
 	}
-	if o.TimeZone != nil {
+	if !IsNil(o.TimeZone) {
 		toSerialize["timeZone"] = o.TimeZone
 	}
-	if o.Principal != nil {
+	if !IsNil(o.Principal) {
 		toSerialize["principal"] = o.Principal
 	}
-	if o.Actor != nil {
+	if !IsNil(o.Actor) {
 		toSerialize["actor"] = o.Actor
 	}
-	if o.CollectionId != nil {
+	if !IsNil(o.CollectionId) {
 		toSerialize["collectionId"] = o.CollectionId
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.AssignmentType != nil {
+	if !IsNil(o.AssignmentType) {
 		toSerialize["assignmentType"] = o.AssignmentType
 	}
 
@@ -323,23 +334,23 @@ func (o AssignedPrincipalFull) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *AssignedPrincipalFull) UnmarshalJSON(bytes []byte) (err error) {
+func (o *AssignedPrincipalFull) UnmarshalJSON(data []byte) (err error) {
 	varAssignedPrincipalFull := _AssignedPrincipalFull{}
 
-	err = json.Unmarshal(bytes, &varAssignedPrincipalFull)
-	if err == nil {
-		*o = AssignedPrincipalFull(varAssignedPrincipalFull)
-	} else {
+	err = json.Unmarshal(data, &varAssignedPrincipalFull)
+
+	if err != nil {
 		return err
 	}
 
+	*o = AssignedPrincipalFull(varAssignedPrincipalFull)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "expirationTime")
 		delete(additionalProperties, "timeZone")
 		delete(additionalProperties, "principal")
@@ -348,8 +359,6 @@ func (o *AssignedPrincipalFull) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "assignmentType")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

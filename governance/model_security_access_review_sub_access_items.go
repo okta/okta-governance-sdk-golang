@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package governance
 import (
 	"encoding/json"
 )
+
+// checks if the SecurityAccessReviewSubAccessItems type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SecurityAccessReviewSubAccessItems{}
 
 // SecurityAccessReviewSubAccessItems struct for SecurityAccessReviewSubAccessItems
 type SecurityAccessReviewSubAccessItems struct {
@@ -56,7 +59,7 @@ func NewSecurityAccessReviewSubAccessItemsWithDefaults() *SecurityAccessReviewSu
 
 // GetData returns the Data field value if set, zero value otherwise.
 func (o *SecurityAccessReviewSubAccessItems) GetData() []SecurityAccessReviewSubAccessItem {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		var ret []SecurityAccessReviewSubAccessItem
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *SecurityAccessReviewSubAccessItems) GetData() []SecurityAccessReviewSub
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityAccessReviewSubAccessItems) GetDataOk() ([]SecurityAccessReviewSubAccessItem, bool) {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		return nil, false
 	}
 	return o.Data, true
@@ -74,7 +77,7 @@ func (o *SecurityAccessReviewSubAccessItems) GetDataOk() ([]SecurityAccessReview
 
 // HasData returns a boolean if a field has been set.
 func (o *SecurityAccessReviewSubAccessItems) HasData() bool {
-	if o != nil && o.Data != nil {
+	if o != nil && !IsNil(o.Data) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *SecurityAccessReviewSubAccessItems) SetData(v []SecurityAccessReviewSub
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *SecurityAccessReviewSubAccessItems) GetLinks() SecurityAccessReviewListLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret SecurityAccessReviewListLinks
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *SecurityAccessReviewSubAccessItems) GetLinks() SecurityAccessReviewList
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityAccessReviewSubAccessItems) GetLinksOk() (*SecurityAccessReviewListLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -106,7 +109,7 @@ func (o *SecurityAccessReviewSubAccessItems) GetLinksOk() (*SecurityAccessReview
 
 // HasLinks returns a boolean if a field has been set.
 func (o *SecurityAccessReviewSubAccessItems) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -119,11 +122,19 @@ func (o *SecurityAccessReviewSubAccessItems) SetLinks(v SecurityAccessReviewList
 }
 
 func (o SecurityAccessReviewSubAccessItems) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SecurityAccessReviewSubAccessItems) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Data != nil {
+	if !IsNil(o.Data) {
 		toSerialize["data"] = o.Data
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -131,28 +142,26 @@ func (o SecurityAccessReviewSubAccessItems) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SecurityAccessReviewSubAccessItems) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SecurityAccessReviewSubAccessItems) UnmarshalJSON(data []byte) (err error) {
 	varSecurityAccessReviewSubAccessItems := _SecurityAccessReviewSubAccessItems{}
 
-	err = json.Unmarshal(bytes, &varSecurityAccessReviewSubAccessItems)
-	if err == nil {
-		*o = SecurityAccessReviewSubAccessItems(varSecurityAccessReviewSubAccessItems)
-	} else {
+	err = json.Unmarshal(data, &varSecurityAccessReviewSubAccessItems)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SecurityAccessReviewSubAccessItems(varSecurityAccessReviewSubAccessItems)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "data")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

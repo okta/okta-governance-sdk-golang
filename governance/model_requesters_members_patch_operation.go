@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,7 +28,6 @@ import (
 	"fmt"
 )
 
-// model_oneof.mustache
 // RequestersMembersPatchOperation - struct for RequestersMembersPatchOperation
 type RequestersMembersPatchOperation struct {
 	RequestersAddPatch     *RequestersAddPatch
@@ -49,14 +48,14 @@ func RequestersReplacePatchAsRequestersMembersPatchOperation(v *RequestersReplac
 	}
 }
 
-// Unmarshal JSON data into one of the pointers in the struct  CUSTOM
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *RequestersMembersPatchOperation) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup
 	var jsonDict map[string]interface{}
 	err = newStrictDecoder(data).Decode(&jsonDict)
 	if err != nil {
-		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
 	// check if the discriminator value is 'add'
@@ -67,7 +66,7 @@ func (dst *RequestersMembersPatchOperation) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.RequestersAddPatch, return on the first match
 		} else {
 			dst.RequestersAddPatch = nil
-			return fmt.Errorf("Failed to unmarshal RequestersMembersPatchOperation as RequestersAddPatch: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal RequestersMembersPatchOperation as RequestersAddPatch: %s", err.Error())
 		}
 	}
 
@@ -79,31 +78,7 @@ func (dst *RequestersMembersPatchOperation) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.RequestersReplacePatch, return on the first match
 		} else {
 			dst.RequestersReplacePatch = nil
-			return fmt.Errorf("Failed to unmarshal RequestersMembersPatchOperation as RequestersReplacePatch: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'requesters-add-patch'
-	if jsonDict["op"] == "requesters-add-patch" {
-		// try to unmarshal JSON data into RequestersAddPatch
-		err = json.Unmarshal(data, &dst.RequestersAddPatch)
-		if err == nil {
-			return nil // data stored in dst.RequestersAddPatch, return on the first match
-		} else {
-			dst.RequestersAddPatch = nil
-			return fmt.Errorf("Failed to unmarshal RequestersMembersPatchOperation as RequestersAddPatch: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'requesters-replace-patch'
-	if jsonDict["op"] == "requesters-replace-patch" {
-		// try to unmarshal JSON data into RequestersReplacePatch
-		err = json.Unmarshal(data, &dst.RequestersReplacePatch)
-		if err == nil {
-			return nil // data stored in dst.RequestersReplacePatch, return on the first match
-		} else {
-			dst.RequestersReplacePatch = nil
-			return fmt.Errorf("Failed to unmarshal RequestersMembersPatchOperation as RequestersReplacePatch: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal RequestersMembersPatchOperation as RequestersReplacePatch: %s", err.Error())
 		}
 	}
 
@@ -134,6 +109,20 @@ func (obj *RequestersMembersPatchOperation) GetActualInstance() interface{} {
 
 	if obj.RequestersReplacePatch != nil {
 		return obj.RequestersReplacePatch
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj RequestersMembersPatchOperation) GetActualInstanceValue() interface{} {
+	if obj.RequestersAddPatch != nil {
+		return *obj.RequestersAddPatch
+	}
+
+	if obj.RequestersReplacePatch != nil {
+		return *obj.RequestersReplacePatch
 	}
 
 	// all schemas are nil

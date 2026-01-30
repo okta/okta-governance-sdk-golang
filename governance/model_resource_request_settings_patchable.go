@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package governance
 import (
 	"encoding/json"
 )
+
+// checks if the ResourceRequestSettingsPatchable type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ResourceRequestSettingsPatchable{}
 
 // ResourceRequestSettingsPatchable Resource request settings that specify various configurations and permissions at the resource level.
 type ResourceRequestSettingsPatchable struct {
@@ -55,7 +58,7 @@ func NewResourceRequestSettingsPatchableWithDefaults() *ResourceRequestSettingsP
 
 // GetRequestOnBehalfOfSettings returns the RequestOnBehalfOfSettings field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ResourceRequestSettingsPatchable) GetRequestOnBehalfOfSettings() RequestOnBehalfOfSettingsPatchable {
-	if o == nil || o.RequestOnBehalfOfSettings.Get() == nil {
+	if o == nil || IsNil(o.RequestOnBehalfOfSettings.Get()) {
 		var ret RequestOnBehalfOfSettingsPatchable
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *ResourceRequestSettingsPatchable) UnsetRequestOnBehalfOfSettings() {
 
 // GetRiskSettings returns the RiskSettings field value if set, zero value otherwise.
 func (o *ResourceRequestSettingsPatchable) GetRiskSettings() RiskSettingsPatchable {
-	if o == nil || o.RiskSettings == nil {
+	if o == nil || IsNil(o.RiskSettings) {
 		var ret RiskSettingsPatchable
 		return ret
 	}
@@ -108,7 +111,7 @@ func (o *ResourceRequestSettingsPatchable) GetRiskSettings() RiskSettingsPatchab
 // GetRiskSettingsOk returns a tuple with the RiskSettings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceRequestSettingsPatchable) GetRiskSettingsOk() (*RiskSettingsPatchable, bool) {
-	if o == nil || o.RiskSettings == nil {
+	if o == nil || IsNil(o.RiskSettings) {
 		return nil, false
 	}
 	return o.RiskSettings, true
@@ -116,7 +119,7 @@ func (o *ResourceRequestSettingsPatchable) GetRiskSettingsOk() (*RiskSettingsPat
 
 // HasRiskSettings returns a boolean if a field has been set.
 func (o *ResourceRequestSettingsPatchable) HasRiskSettings() bool {
-	if o != nil && o.RiskSettings != nil {
+	if o != nil && !IsNil(o.RiskSettings) {
 		return true
 	}
 
@@ -129,11 +132,19 @@ func (o *ResourceRequestSettingsPatchable) SetRiskSettings(v RiskSettingsPatchab
 }
 
 func (o ResourceRequestSettingsPatchable) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ResourceRequestSettingsPatchable) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if o.RequestOnBehalfOfSettings.IsSet() {
 		toSerialize["requestOnBehalfOfSettings"] = o.RequestOnBehalfOfSettings.Get()
 	}
-	if o.RiskSettings != nil {
+	if !IsNil(o.RiskSettings) {
 		toSerialize["riskSettings"] = o.RiskSettings
 	}
 
@@ -141,28 +152,26 @@ func (o ResourceRequestSettingsPatchable) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ResourceRequestSettingsPatchable) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ResourceRequestSettingsPatchable) UnmarshalJSON(data []byte) (err error) {
 	varResourceRequestSettingsPatchable := _ResourceRequestSettingsPatchable{}
 
-	err = json.Unmarshal(bytes, &varResourceRequestSettingsPatchable)
-	if err == nil {
-		*o = ResourceRequestSettingsPatchable(varResourceRequestSettingsPatchable)
-	} else {
+	err = json.Unmarshal(data, &varResourceRequestSettingsPatchable)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ResourceRequestSettingsPatchable(varResourceRequestSettingsPatchable)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "requestOnBehalfOfSettings")
 		delete(additionalProperties, "riskSettings")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

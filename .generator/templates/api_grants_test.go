@@ -1,6 +1,8 @@
 package governance
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestGrantsAPIService_CreateGrant(t *testing.T) {
 	_, a, err := apiClient.GrantsAPI.CreateGrant(apiClient.cfg.Context).GrantCreatable(buildGrant()).Execute()

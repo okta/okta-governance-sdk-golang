@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,8 +25,12 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the RequestActionCompleted type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RequestActionCompleted{}
 
 // RequestActionCompleted A completed access request approval
 type RequestActionCompleted struct {
@@ -194,7 +198,7 @@ func (o *RequestActionCompleted) SetActionAttempted(v time.Time) {
 
 // GetAccessRemoved returns the AccessRemoved field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *RequestActionCompleted) GetAccessRemoved() time.Time {
-	if o == nil || o.AccessRemoved.Get() == nil {
+	if o == nil || IsNil(o.AccessRemoved.Get()) {
 		var ret time.Time
 		return ret
 	}
@@ -308,56 +312,76 @@ func (o *RequestActionCompleted) SetResourceType(v string) {
 }
 
 func (o RequestActionCompleted) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RequestActionCompleted) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["status"] = o.Status
-	}
-	if true {
-		toSerialize["action"] = o.Action
-	}
-	if true {
-		toSerialize["actionId"] = o.ActionId
-	}
-	if true {
-		toSerialize["actionStatus"] = o.ActionStatus
-	}
-	if true {
-		toSerialize["actionAttempted"] = o.ActionAttempted
-	}
+	toSerialize["status"] = o.Status
+	toSerialize["action"] = o.Action
+	toSerialize["actionId"] = o.ActionId
+	toSerialize["actionStatus"] = o.ActionStatus
+	toSerialize["actionAttempted"] = o.ActionAttempted
 	if o.AccessRemoved.IsSet() {
 		toSerialize["accessRemoved"] = o.AccessRemoved.Get()
 	}
-	if true {
-		toSerialize["resourceName"] = o.ResourceName
-	}
-	if true {
-		toSerialize["resourceId"] = o.ResourceId
-	}
-	if true {
-		toSerialize["resourceType"] = o.ResourceType
-	}
+	toSerialize["resourceName"] = o.ResourceName
+	toSerialize["resourceId"] = o.ResourceId
+	toSerialize["resourceType"] = o.ResourceType
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RequestActionCompleted) UnmarshalJSON(bytes []byte) (err error) {
-	varRequestActionCompleted := _RequestActionCompleted{}
+func (o *RequestActionCompleted) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"status",
+		"action",
+		"actionId",
+		"actionStatus",
+		"actionAttempted",
+		"resourceName",
+		"resourceId",
+		"resourceType",
+	}
 
-	err = json.Unmarshal(bytes, &varRequestActionCompleted)
-	if err == nil {
-		*o = RequestActionCompleted(varRequestActionCompleted)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRequestActionCompleted := _RequestActionCompleted{}
+
+	err = json.Unmarshal(data, &varRequestActionCompleted)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RequestActionCompleted(varRequestActionCompleted)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "action")
 		delete(additionalProperties, "actionId")
@@ -368,8 +392,6 @@ func (o *RequestActionCompleted) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "resourceId")
 		delete(additionalProperties, "resourceType")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

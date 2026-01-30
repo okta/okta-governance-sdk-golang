@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the EntitlementBundleLink type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EntitlementBundleLink{}
 
 // EntitlementBundleLink Entitlement bundle details link. This link is only present when `grantType` is `ENTITLEMENT-BUNDLE`
 type EntitlementBundleLink struct {
@@ -70,7 +74,7 @@ func NewEntitlementBundleLinkWithDefaults() *EntitlementBundleLink {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *EntitlementBundleLink) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -80,7 +84,7 @@ func (o *EntitlementBundleLink) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntitlementBundleLink) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -88,7 +92,7 @@ func (o *EntitlementBundleLink) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *EntitlementBundleLink) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -102,7 +106,7 @@ func (o *EntitlementBundleLink) SetName(v string) {
 
 // GetRel returns the Rel field value if set, zero value otherwise.
 func (o *EntitlementBundleLink) GetRel() string {
-	if o == nil || o.Rel == nil {
+	if o == nil || IsNil(o.Rel) {
 		var ret string
 		return ret
 	}
@@ -112,7 +116,7 @@ func (o *EntitlementBundleLink) GetRel() string {
 // GetRelOk returns a tuple with the Rel field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntitlementBundleLink) GetRelOk() (*string, bool) {
-	if o == nil || o.Rel == nil {
+	if o == nil || IsNil(o.Rel) {
 		return nil, false
 	}
 	return o.Rel, true
@@ -120,7 +124,7 @@ func (o *EntitlementBundleLink) GetRelOk() (*string, bool) {
 
 // HasRel returns a boolean if a field has been set.
 func (o *EntitlementBundleLink) HasRel() bool {
-	if o != nil && o.Rel != nil {
+	if o != nil && !IsNil(o.Rel) {
 		return true
 	}
 
@@ -158,7 +162,7 @@ func (o *EntitlementBundleLink) SetHref(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *EntitlementBundleLink) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -168,7 +172,7 @@ func (o *EntitlementBundleLink) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntitlementBundleLink) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -176,7 +180,7 @@ func (o *EntitlementBundleLink) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *EntitlementBundleLink) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -191,7 +195,7 @@ func (o *EntitlementBundleLink) SetType(v string) {
 // GetMethod returns the Method field value if set, zero value otherwise.
 // Deprecated
 func (o *EntitlementBundleLink) GetMethod() string {
-	if o == nil || o.Method == nil {
+	if o == nil || IsNil(o.Method) {
 		var ret string
 		return ret
 	}
@@ -202,7 +206,7 @@ func (o *EntitlementBundleLink) GetMethod() string {
 // and a boolean to check if the value has been set.
 // Deprecated
 func (o *EntitlementBundleLink) GetMethodOk() (*string, bool) {
-	if o == nil || o.Method == nil {
+	if o == nil || IsNil(o.Method) {
 		return nil, false
 	}
 	return o.Method, true
@@ -210,7 +214,7 @@ func (o *EntitlementBundleLink) GetMethodOk() (*string, bool) {
 
 // HasMethod returns a boolean if a field has been set.
 func (o *EntitlementBundleLink) HasMethod() bool {
-	if o != nil && o.Method != nil {
+	if o != nil && !IsNil(o.Method) {
 		return true
 	}
 
@@ -225,7 +229,7 @@ func (o *EntitlementBundleLink) SetMethod(v string) {
 
 // GetTemplated returns the Templated field value if set, zero value otherwise.
 func (o *EntitlementBundleLink) GetTemplated() bool {
-	if o == nil || o.Templated == nil {
+	if o == nil || IsNil(o.Templated) {
 		var ret bool
 		return ret
 	}
@@ -235,7 +239,7 @@ func (o *EntitlementBundleLink) GetTemplated() bool {
 // GetTemplatedOk returns a tuple with the Templated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntitlementBundleLink) GetTemplatedOk() (*bool, bool) {
-	if o == nil || o.Templated == nil {
+	if o == nil || IsNil(o.Templated) {
 		return nil, false
 	}
 	return o.Templated, true
@@ -243,7 +247,7 @@ func (o *EntitlementBundleLink) GetTemplatedOk() (*bool, bool) {
 
 // HasTemplated returns a boolean if a field has been set.
 func (o *EntitlementBundleLink) HasTemplated() bool {
-	if o != nil && o.Templated != nil {
+	if o != nil && !IsNil(o.Templated) {
 		return true
 	}
 
@@ -257,7 +261,7 @@ func (o *EntitlementBundleLink) SetTemplated(v bool) {
 
 // GetHints returns the Hints field value if set, zero value otherwise.
 func (o *EntitlementBundleLink) GetHints() map[string][]string {
-	if o == nil || o.Hints == nil {
+	if o == nil || IsNil(o.Hints) {
 		var ret map[string][]string
 		return ret
 	}
@@ -267,7 +271,7 @@ func (o *EntitlementBundleLink) GetHints() map[string][]string {
 // GetHintsOk returns a tuple with the Hints field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntitlementBundleLink) GetHintsOk() (*map[string][]string, bool) {
-	if o == nil || o.Hints == nil {
+	if o == nil || IsNil(o.Hints) {
 		return nil, false
 	}
 	return o.Hints, true
@@ -275,7 +279,7 @@ func (o *EntitlementBundleLink) GetHintsOk() (*map[string][]string, bool) {
 
 // HasHints returns a boolean if a field has been set.
 func (o *EntitlementBundleLink) HasHints() bool {
-	if o != nil && o.Hints != nil {
+	if o != nil && !IsNil(o.Hints) {
 		return true
 	}
 
@@ -289,7 +293,7 @@ func (o *EntitlementBundleLink) SetHints(v map[string][]string) {
 
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *EntitlementBundleLink) GetTitle() string {
-	if o == nil || o.Title == nil {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -299,7 +303,7 @@ func (o *EntitlementBundleLink) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntitlementBundleLink) GetTitleOk() (*string, bool) {
-	if o == nil || o.Title == nil {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -307,7 +311,7 @@ func (o *EntitlementBundleLink) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *EntitlementBundleLink) HasTitle() bool {
-	if o != nil && o.Title != nil {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -320,29 +324,35 @@ func (o *EntitlementBundleLink) SetTitle(v string) {
 }
 
 func (o EntitlementBundleLink) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o EntitlementBundleLink) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Rel != nil {
+	if !IsNil(o.Rel) {
 		toSerialize["rel"] = o.Rel
 	}
-	if true {
-		toSerialize["href"] = o.Href
-	}
-	if o.Type != nil {
+	toSerialize["href"] = o.Href
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.Method != nil {
+	if !IsNil(o.Method) {
 		toSerialize["method"] = o.Method
 	}
-	if o.Templated != nil {
+	if !IsNil(o.Templated) {
 		toSerialize["templated"] = o.Templated
 	}
-	if o.Hints != nil {
+	if !IsNil(o.Hints) {
 		toSerialize["hints"] = o.Hints
 	}
-	if o.Title != nil {
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
 
@@ -350,23 +360,44 @@ func (o EntitlementBundleLink) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *EntitlementBundleLink) UnmarshalJSON(bytes []byte) (err error) {
-	varEntitlementBundleLink := _EntitlementBundleLink{}
+func (o *EntitlementBundleLink) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"href",
+	}
 
-	err = json.Unmarshal(bytes, &varEntitlementBundleLink)
-	if err == nil {
-		*o = EntitlementBundleLink(varEntitlementBundleLink)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varEntitlementBundleLink := _EntitlementBundleLink{}
+
+	err = json.Unmarshal(data, &varEntitlementBundleLink)
+
+	if err != nil {
+		return err
+	}
+
+	*o = EntitlementBundleLink(varEntitlementBundleLink)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "rel")
 		delete(additionalProperties, "href")
@@ -376,8 +407,6 @@ func (o *EntitlementBundleLink) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "hints")
 		delete(additionalProperties, "title")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

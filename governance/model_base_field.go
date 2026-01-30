@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the BaseField type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BaseField{}
 
 // BaseField The field to use when prompting the user
 type BaseField struct {
@@ -89,7 +93,7 @@ func (o *BaseField) SetPrompt(v string) {
 
 // GetRequired returns the Required field value if set, zero value otherwise.
 func (o *BaseField) GetRequired() bool {
-	if o == nil || o.Required == nil {
+	if o == nil || IsNil(o.Required) {
 		var ret bool
 		return ret
 	}
@@ -99,7 +103,7 @@ func (o *BaseField) GetRequired() bool {
 // GetRequiredOk returns a tuple with the Required field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BaseField) GetRequiredOk() (*bool, bool) {
-	if o == nil || o.Required == nil {
+	if o == nil || IsNil(o.Required) {
 		return nil, false
 	}
 	return o.Required, true
@@ -107,7 +111,7 @@ func (o *BaseField) GetRequiredOk() (*bool, bool) {
 
 // HasRequired returns a boolean if a field has been set.
 func (o *BaseField) HasRequired() bool {
-	if o != nil && o.Required != nil {
+	if o != nil && !IsNil(o.Required) {
 		return true
 	}
 
@@ -144,44 +148,68 @@ func (o *BaseField) SetId(v string) {
 }
 
 func (o BaseField) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["prompt"] = o.Prompt
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.Required != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o BaseField) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["prompt"] = o.Prompt
+	if !IsNil(o.Required) {
 		toSerialize["required"] = o.Required
 	}
-	if true {
-		toSerialize["id"] = o.Id
-	}
+	toSerialize["id"] = o.Id
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *BaseField) UnmarshalJSON(bytes []byte) (err error) {
-	varBaseField := _BaseField{}
+func (o *BaseField) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"prompt",
+		"id",
+	}
 
-	err = json.Unmarshal(bytes, &varBaseField)
-	if err == nil {
-		*o = BaseField(varBaseField)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varBaseField := _BaseField{}
+
+	err = json.Unmarshal(data, &varBaseField)
+
+	if err != nil {
+		return err
+	}
+
+	*o = BaseField(varBaseField)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "prompt")
 		delete(additionalProperties, "required")
 		delete(additionalProperties, "id")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

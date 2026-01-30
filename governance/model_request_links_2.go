@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the RequestLinks2 type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RequestLinks2{}
 
 // RequestLinks2 Links available on a single request representation
 type RequestLinks2 struct {
@@ -58,7 +62,7 @@ func NewRequestLinks2WithDefaults() *RequestLinks2 {
 
 // GetCatalogEntry returns the CatalogEntry field value if set, zero value otherwise.
 func (o *RequestLinks2) GetCatalogEntry() Link {
-	if o == nil || o.CatalogEntry == nil {
+	if o == nil || IsNil(o.CatalogEntry) {
 		var ret Link
 		return ret
 	}
@@ -68,7 +72,7 @@ func (o *RequestLinks2) GetCatalogEntry() Link {
 // GetCatalogEntryOk returns a tuple with the CatalogEntry field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestLinks2) GetCatalogEntryOk() (*Link, bool) {
-	if o == nil || o.CatalogEntry == nil {
+	if o == nil || IsNil(o.CatalogEntry) {
 		return nil, false
 	}
 	return o.CatalogEntry, true
@@ -76,7 +80,7 @@ func (o *RequestLinks2) GetCatalogEntryOk() (*Link, bool) {
 
 // HasCatalogEntry returns a boolean if a field has been set.
 func (o *RequestLinks2) HasCatalogEntry() bool {
-	if o != nil && o.CatalogEntry != nil {
+	if o != nil && !IsNil(o.CatalogEntry) {
 		return true
 	}
 
@@ -90,7 +94,7 @@ func (o *RequestLinks2) SetCatalogEntry(v Link) {
 
 // GetApprovalCondition returns the ApprovalCondition field value if set, zero value otherwise.
 func (o *RequestLinks2) GetApprovalCondition() Link {
-	if o == nil || o.ApprovalCondition == nil {
+	if o == nil || IsNil(o.ApprovalCondition) {
 		var ret Link
 		return ret
 	}
@@ -100,7 +104,7 @@ func (o *RequestLinks2) GetApprovalCondition() Link {
 // GetApprovalConditionOk returns a tuple with the ApprovalCondition field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestLinks2) GetApprovalConditionOk() (*Link, bool) {
-	if o == nil || o.ApprovalCondition == nil {
+	if o == nil || IsNil(o.ApprovalCondition) {
 		return nil, false
 	}
 	return o.ApprovalCondition, true
@@ -108,7 +112,7 @@ func (o *RequestLinks2) GetApprovalConditionOk() (*Link, bool) {
 
 // HasApprovalCondition returns a boolean if a field has been set.
 func (o *RequestLinks2) HasApprovalCondition() bool {
-	if o != nil && o.ApprovalCondition != nil {
+	if o != nil && !IsNil(o.ApprovalCondition) {
 		return true
 	}
 
@@ -122,7 +126,7 @@ func (o *RequestLinks2) SetApprovalCondition(v Link) {
 
 // GetApprovalSequence returns the ApprovalSequence field value if set, zero value otherwise.
 func (o *RequestLinks2) GetApprovalSequence() Link {
-	if o == nil || o.ApprovalSequence == nil {
+	if o == nil || IsNil(o.ApprovalSequence) {
 		var ret Link
 		return ret
 	}
@@ -132,7 +136,7 @@ func (o *RequestLinks2) GetApprovalSequence() Link {
 // GetApprovalSequenceOk returns a tuple with the ApprovalSequence field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestLinks2) GetApprovalSequenceOk() (*Link, bool) {
-	if o == nil || o.ApprovalSequence == nil {
+	if o == nil || IsNil(o.ApprovalSequence) {
 		return nil, false
 	}
 	return o.ApprovalSequence, true
@@ -140,7 +144,7 @@ func (o *RequestLinks2) GetApprovalSequenceOk() (*Link, bool) {
 
 // HasApprovalSequence returns a boolean if a field has been set.
 func (o *RequestLinks2) HasApprovalSequence() bool {
-	if o != nil && o.ApprovalSequence != nil {
+	if o != nil && !IsNil(o.ApprovalSequence) {
 		return true
 	}
 
@@ -177,48 +181,73 @@ func (o *RequestLinks2) SetSelf(v Link) {
 }
 
 func (o RequestLinks2) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RequestLinks2) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.CatalogEntry != nil {
+	if !IsNil(o.CatalogEntry) {
 		toSerialize["catalogEntry"] = o.CatalogEntry
 	}
-	if o.ApprovalCondition != nil {
+	if !IsNil(o.ApprovalCondition) {
 		toSerialize["approvalCondition"] = o.ApprovalCondition
 	}
-	if o.ApprovalSequence != nil {
+	if !IsNil(o.ApprovalSequence) {
 		toSerialize["approvalSequence"] = o.ApprovalSequence
 	}
-	if true {
-		toSerialize["self"] = o.Self
-	}
+	toSerialize["self"] = o.Self
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RequestLinks2) UnmarshalJSON(bytes []byte) (err error) {
-	varRequestLinks2 := _RequestLinks2{}
+func (o *RequestLinks2) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"self",
+	}
 
-	err = json.Unmarshal(bytes, &varRequestLinks2)
-	if err == nil {
-		*o = RequestLinks2(varRequestLinks2)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRequestLinks2 := _RequestLinks2{}
+
+	err = json.Unmarshal(data, &varRequestLinks2)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RequestLinks2(varRequestLinks2)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "catalogEntry")
 		delete(additionalProperties, "approvalCondition")
 		delete(additionalProperties, "approvalSequence")
 		delete(additionalProperties, "self")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

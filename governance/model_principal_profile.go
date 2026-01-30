@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the PrincipalProfile type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PrincipalProfile{}
 
 // PrincipalProfile A limited set of properties from the principal's profile
 type PrincipalProfile struct {
@@ -115,7 +119,7 @@ func (o *PrincipalProfile) SetEmail(v string) {
 
 // GetFirstName returns the FirstName field value if set, zero value otherwise.
 func (o *PrincipalProfile) GetFirstName() string {
-	if o == nil || o.FirstName == nil {
+	if o == nil || IsNil(o.FirstName) {
 		var ret string
 		return ret
 	}
@@ -125,7 +129,7 @@ func (o *PrincipalProfile) GetFirstName() string {
 // GetFirstNameOk returns a tuple with the FirstName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalProfile) GetFirstNameOk() (*string, bool) {
-	if o == nil || o.FirstName == nil {
+	if o == nil || IsNil(o.FirstName) {
 		return nil, false
 	}
 	return o.FirstName, true
@@ -133,7 +137,7 @@ func (o *PrincipalProfile) GetFirstNameOk() (*string, bool) {
 
 // HasFirstName returns a boolean if a field has been set.
 func (o *PrincipalProfile) HasFirstName() bool {
-	if o != nil && o.FirstName != nil {
+	if o != nil && !IsNil(o.FirstName) {
 		return true
 	}
 
@@ -147,7 +151,7 @@ func (o *PrincipalProfile) SetFirstName(v string) {
 
 // GetLastName returns the LastName field value if set, zero value otherwise.
 func (o *PrincipalProfile) GetLastName() string {
-	if o == nil || o.LastName == nil {
+	if o == nil || IsNil(o.LastName) {
 		var ret string
 		return ret
 	}
@@ -157,7 +161,7 @@ func (o *PrincipalProfile) GetLastName() string {
 // GetLastNameOk returns a tuple with the LastName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalProfile) GetLastNameOk() (*string, bool) {
-	if o == nil || o.LastName == nil {
+	if o == nil || IsNil(o.LastName) {
 		return nil, false
 	}
 	return o.LastName, true
@@ -165,7 +169,7 @@ func (o *PrincipalProfile) GetLastNameOk() (*string, bool) {
 
 // HasLastName returns a boolean if a field has been set.
 func (o *PrincipalProfile) HasLastName() bool {
-	if o != nil && o.LastName != nil {
+	if o != nil && !IsNil(o.LastName) {
 		return true
 	}
 
@@ -179,7 +183,7 @@ func (o *PrincipalProfile) SetLastName(v string) {
 
 // GetLogin returns the Login field value if set, zero value otherwise.
 func (o *PrincipalProfile) GetLogin() string {
-	if o == nil || o.Login == nil {
+	if o == nil || IsNil(o.Login) {
 		var ret string
 		return ret
 	}
@@ -189,7 +193,7 @@ func (o *PrincipalProfile) GetLogin() string {
 // GetLoginOk returns a tuple with the Login field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalProfile) GetLoginOk() (*string, bool) {
-	if o == nil || o.Login == nil {
+	if o == nil || IsNil(o.Login) {
 		return nil, false
 	}
 	return o.Login, true
@@ -197,7 +201,7 @@ func (o *PrincipalProfile) GetLoginOk() (*string, bool) {
 
 // HasLogin returns a boolean if a field has been set.
 func (o *PrincipalProfile) HasLogin() bool {
-	if o != nil && o.Login != nil {
+	if o != nil && !IsNil(o.Login) {
 		return true
 	}
 
@@ -234,47 +238,72 @@ func (o *PrincipalProfile) SetStatus(v PrincipalProfileStatus) {
 }
 
 func (o PrincipalProfile) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PrincipalProfile) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["email"] = o.Email
-	}
-	if o.FirstName != nil {
+	toSerialize["id"] = o.Id
+	toSerialize["email"] = o.Email
+	if !IsNil(o.FirstName) {
 		toSerialize["firstName"] = o.FirstName
 	}
-	if o.LastName != nil {
+	if !IsNil(o.LastName) {
 		toSerialize["lastName"] = o.LastName
 	}
-	if o.Login != nil {
+	if !IsNil(o.Login) {
 		toSerialize["login"] = o.Login
 	}
-	if true {
-		toSerialize["status"] = o.Status
-	}
+	toSerialize["status"] = o.Status
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PrincipalProfile) UnmarshalJSON(bytes []byte) (err error) {
-	varPrincipalProfile := _PrincipalProfile{}
+func (o *PrincipalProfile) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"email",
+		"status",
+	}
 
-	err = json.Unmarshal(bytes, &varPrincipalProfile)
-	if err == nil {
-		*o = PrincipalProfile(varPrincipalProfile)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPrincipalProfile := _PrincipalProfile{}
+
+	err = json.Unmarshal(data, &varPrincipalProfile)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PrincipalProfile(varPrincipalProfile)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "email")
 		delete(additionalProperties, "firstName")
@@ -282,8 +311,6 @@ func (o *PrincipalProfile) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "login")
 		delete(additionalProperties, "status")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

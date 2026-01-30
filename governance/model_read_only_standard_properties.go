@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,8 +25,12 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the ReadOnlyStandardProperties type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ReadOnlyStandardProperties{}
 
 // ReadOnlyStandardProperties struct for ReadOnlyStandardProperties
 type ReadOnlyStandardProperties struct {
@@ -190,7 +194,7 @@ func (o *ReadOnlyStandardProperties) SetLastUpdatedBy(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *ReadOnlyStandardProperties) GetLinks() map[string]Link {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret map[string]Link
 		return ret
 	}
@@ -200,7 +204,7 @@ func (o *ReadOnlyStandardProperties) GetLinks() map[string]Link {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReadOnlyStandardProperties) GetLinksOk() (*map[string]Link, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -208,7 +212,7 @@ func (o *ReadOnlyStandardProperties) GetLinksOk() (*map[string]Link, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *ReadOnlyStandardProperties) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -221,23 +225,21 @@ func (o *ReadOnlyStandardProperties) SetLinks(v map[string]Link) {
 }
 
 func (o ReadOnlyStandardProperties) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ReadOnlyStandardProperties) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["createdBy"] = o.CreatedBy
-	}
-	if true {
-		toSerialize["created"] = o.Created
-	}
-	if true {
-		toSerialize["lastUpdated"] = o.LastUpdated
-	}
-	if true {
-		toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
-	}
-	if o.Links != nil {
+	toSerialize["id"] = o.Id
+	toSerialize["createdBy"] = o.CreatedBy
+	toSerialize["created"] = o.Created
+	toSerialize["lastUpdated"] = o.LastUpdated
+	toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -245,23 +247,48 @@ func (o ReadOnlyStandardProperties) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ReadOnlyStandardProperties) UnmarshalJSON(bytes []byte) (err error) {
-	varReadOnlyStandardProperties := _ReadOnlyStandardProperties{}
+func (o *ReadOnlyStandardProperties) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"createdBy",
+		"created",
+		"lastUpdated",
+		"lastUpdatedBy",
+	}
 
-	err = json.Unmarshal(bytes, &varReadOnlyStandardProperties)
-	if err == nil {
-		*o = ReadOnlyStandardProperties(varReadOnlyStandardProperties)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varReadOnlyStandardProperties := _ReadOnlyStandardProperties{}
+
+	err = json.Unmarshal(data, &varReadOnlyStandardProperties)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ReadOnlyStandardProperties(varReadOnlyStandardProperties)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "createdBy")
 		delete(additionalProperties, "created")
@@ -269,8 +296,6 @@ func (o *ReadOnlyStandardProperties) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "lastUpdatedBy")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

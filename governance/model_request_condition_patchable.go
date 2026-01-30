@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package governance
 import (
 	"encoding/json"
 )
+
+// checks if the RequestConditionPatchable type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RequestConditionPatchable{}
 
 // RequestConditionPatchable A condition defines who can request which resource (with what resource permissions) and what is the approval process if requested.
 type RequestConditionPatchable struct {
@@ -64,7 +67,7 @@ func NewRequestConditionPatchableWithDefaults() *RequestConditionPatchable {
 
 // GetRequesterSettings returns the RequesterSettings field value if set, zero value otherwise.
 func (o *RequestConditionPatchable) GetRequesterSettings() RequesterSettingsCreatableRequesterSettings {
-	if o == nil || o.RequesterSettings == nil {
+	if o == nil || IsNil(o.RequesterSettings) {
 		var ret RequesterSettingsCreatableRequesterSettings
 		return ret
 	}
@@ -74,7 +77,7 @@ func (o *RequestConditionPatchable) GetRequesterSettings() RequesterSettingsCrea
 // GetRequesterSettingsOk returns a tuple with the RequesterSettings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestConditionPatchable) GetRequesterSettingsOk() (*RequesterSettingsCreatableRequesterSettings, bool) {
-	if o == nil || o.RequesterSettings == nil {
+	if o == nil || IsNil(o.RequesterSettings) {
 		return nil, false
 	}
 	return o.RequesterSettings, true
@@ -82,7 +85,7 @@ func (o *RequestConditionPatchable) GetRequesterSettingsOk() (*RequesterSettings
 
 // HasRequesterSettings returns a boolean if a field has been set.
 func (o *RequestConditionPatchable) HasRequesterSettings() bool {
-	if o != nil && o.RequesterSettings != nil {
+	if o != nil && !IsNil(o.RequesterSettings) {
 		return true
 	}
 
@@ -96,7 +99,7 @@ func (o *RequestConditionPatchable) SetRequesterSettings(v RequesterSettingsCrea
 
 // GetAccessScopeSettings returns the AccessScopeSettings field value if set, zero value otherwise.
 func (o *RequestConditionPatchable) GetAccessScopeSettings() AccessScopeSettingsCreatableAccessScopeSettings {
-	if o == nil || o.AccessScopeSettings == nil {
+	if o == nil || IsNil(o.AccessScopeSettings) {
 		var ret AccessScopeSettingsCreatableAccessScopeSettings
 		return ret
 	}
@@ -106,7 +109,7 @@ func (o *RequestConditionPatchable) GetAccessScopeSettings() AccessScopeSettings
 // GetAccessScopeSettingsOk returns a tuple with the AccessScopeSettings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestConditionPatchable) GetAccessScopeSettingsOk() (*AccessScopeSettingsCreatableAccessScopeSettings, bool) {
-	if o == nil || o.AccessScopeSettings == nil {
+	if o == nil || IsNil(o.AccessScopeSettings) {
 		return nil, false
 	}
 	return o.AccessScopeSettings, true
@@ -114,7 +117,7 @@ func (o *RequestConditionPatchable) GetAccessScopeSettingsOk() (*AccessScopeSett
 
 // HasAccessScopeSettings returns a boolean if a field has been set.
 func (o *RequestConditionPatchable) HasAccessScopeSettings() bool {
-	if o != nil && o.AccessScopeSettings != nil {
+	if o != nil && !IsNil(o.AccessScopeSettings) {
 		return true
 	}
 
@@ -128,7 +131,7 @@ func (o *RequestConditionPatchable) SetAccessScopeSettings(v AccessScopeSettings
 
 // GetAccessDurationSettings returns the AccessDurationSettings field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *RequestConditionPatchable) GetAccessDurationSettings() AccessDurationSettingsPatchable {
-	if o == nil || o.AccessDurationSettings.Get() == nil {
+	if o == nil || IsNil(o.AccessDurationSettings.Get()) {
 		var ret AccessDurationSettingsPatchable
 		return ret
 	}
@@ -171,7 +174,7 @@ func (o *RequestConditionPatchable) UnsetAccessDurationSettings() {
 
 // GetApprovalSequenceId returns the ApprovalSequenceId field value if set, zero value otherwise.
 func (o *RequestConditionPatchable) GetApprovalSequenceId() string {
-	if o == nil || o.ApprovalSequenceId == nil {
+	if o == nil || IsNil(o.ApprovalSequenceId) {
 		var ret string
 		return ret
 	}
@@ -181,7 +184,7 @@ func (o *RequestConditionPatchable) GetApprovalSequenceId() string {
 // GetApprovalSequenceIdOk returns a tuple with the ApprovalSequenceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestConditionPatchable) GetApprovalSequenceIdOk() (*string, bool) {
-	if o == nil || o.ApprovalSequenceId == nil {
+	if o == nil || IsNil(o.ApprovalSequenceId) {
 		return nil, false
 	}
 	return o.ApprovalSequenceId, true
@@ -189,7 +192,7 @@ func (o *RequestConditionPatchable) GetApprovalSequenceIdOk() (*string, bool) {
 
 // HasApprovalSequenceId returns a boolean if a field has been set.
 func (o *RequestConditionPatchable) HasApprovalSequenceId() bool {
-	if o != nil && o.ApprovalSequenceId != nil {
+	if o != nil && !IsNil(o.ApprovalSequenceId) {
 		return true
 	}
 
@@ -203,7 +206,7 @@ func (o *RequestConditionPatchable) SetApprovalSequenceId(v string) {
 
 // GetPriority returns the Priority field value if set, zero value otherwise.
 func (o *RequestConditionPatchable) GetPriority() int32 {
-	if o == nil || o.Priority == nil {
+	if o == nil || IsNil(o.Priority) {
 		var ret int32
 		return ret
 	}
@@ -213,7 +216,7 @@ func (o *RequestConditionPatchable) GetPriority() int32 {
 // GetPriorityOk returns a tuple with the Priority field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestConditionPatchable) GetPriorityOk() (*int32, bool) {
-	if o == nil || o.Priority == nil {
+	if o == nil || IsNil(o.Priority) {
 		return nil, false
 	}
 	return o.Priority, true
@@ -221,7 +224,7 @@ func (o *RequestConditionPatchable) GetPriorityOk() (*int32, bool) {
 
 // HasPriority returns a boolean if a field has been set.
 func (o *RequestConditionPatchable) HasPriority() bool {
-	if o != nil && o.Priority != nil {
+	if o != nil && !IsNil(o.Priority) {
 		return true
 	}
 
@@ -235,7 +238,7 @@ func (o *RequestConditionPatchable) SetPriority(v int32) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *RequestConditionPatchable) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -245,7 +248,7 @@ func (o *RequestConditionPatchable) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestConditionPatchable) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -253,7 +256,7 @@ func (o *RequestConditionPatchable) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *RequestConditionPatchable) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -267,7 +270,7 @@ func (o *RequestConditionPatchable) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *RequestConditionPatchable) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -277,7 +280,7 @@ func (o *RequestConditionPatchable) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestConditionPatchable) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -285,7 +288,7 @@ func (o *RequestConditionPatchable) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *RequestConditionPatchable) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -298,26 +301,34 @@ func (o *RequestConditionPatchable) SetDescription(v string) {
 }
 
 func (o RequestConditionPatchable) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RequestConditionPatchable) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.RequesterSettings != nil {
+	if !IsNil(o.RequesterSettings) {
 		toSerialize["requesterSettings"] = o.RequesterSettings
 	}
-	if o.AccessScopeSettings != nil {
+	if !IsNil(o.AccessScopeSettings) {
 		toSerialize["accessScopeSettings"] = o.AccessScopeSettings
 	}
 	if o.AccessDurationSettings.IsSet() {
 		toSerialize["accessDurationSettings"] = o.AccessDurationSettings.Get()
 	}
-	if o.ApprovalSequenceId != nil {
+	if !IsNil(o.ApprovalSequenceId) {
 		toSerialize["approvalSequenceId"] = o.ApprovalSequenceId
 	}
-	if o.Priority != nil {
+	if !IsNil(o.Priority) {
 		toSerialize["priority"] = o.Priority
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Description != nil {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
 
@@ -325,23 +336,23 @@ func (o RequestConditionPatchable) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RequestConditionPatchable) UnmarshalJSON(bytes []byte) (err error) {
+func (o *RequestConditionPatchable) UnmarshalJSON(data []byte) (err error) {
 	varRequestConditionPatchable := _RequestConditionPatchable{}
 
-	err = json.Unmarshal(bytes, &varRequestConditionPatchable)
-	if err == nil {
-		*o = RequestConditionPatchable(varRequestConditionPatchable)
-	} else {
+	err = json.Unmarshal(data, &varRequestConditionPatchable)
+
+	if err != nil {
 		return err
 	}
 
+	*o = RequestConditionPatchable(varRequestConditionPatchable)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "requesterSettings")
 		delete(additionalProperties, "accessScopeSettings")
 		delete(additionalProperties, "accessDurationSettings")
@@ -350,8 +361,6 @@ func (o *RequestConditionPatchable) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "description")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

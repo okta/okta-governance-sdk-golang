@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the PrincipalScopeSettingsMutable type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PrincipalScopeSettingsMutable{}
 
 // PrincipalScopeSettingsMutable User scope specific settings. If all the users of a resource under review are not part of the scope of certification, provide the scope of the user by means of a user expression.
 type PrincipalScopeSettingsMutable struct {
@@ -92,7 +96,7 @@ func (o *PrincipalScopeSettingsMutable) SetType(v PrincipalScopeType) {
 
 // GetUserScopeExpression returns the UserScopeExpression field value if set, zero value otherwise.
 func (o *PrincipalScopeSettingsMutable) GetUserScopeExpression() string {
-	if o == nil || o.UserScopeExpression == nil {
+	if o == nil || IsNil(o.UserScopeExpression) {
 		var ret string
 		return ret
 	}
@@ -102,7 +106,7 @@ func (o *PrincipalScopeSettingsMutable) GetUserScopeExpression() string {
 // GetUserScopeExpressionOk returns a tuple with the UserScopeExpression field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalScopeSettingsMutable) GetUserScopeExpressionOk() (*string, bool) {
-	if o == nil || o.UserScopeExpression == nil {
+	if o == nil || IsNil(o.UserScopeExpression) {
 		return nil, false
 	}
 	return o.UserScopeExpression, true
@@ -110,7 +114,7 @@ func (o *PrincipalScopeSettingsMutable) GetUserScopeExpressionOk() (*string, boo
 
 // HasUserScopeExpression returns a boolean if a field has been set.
 func (o *PrincipalScopeSettingsMutable) HasUserScopeExpression() bool {
-	if o != nil && o.UserScopeExpression != nil {
+	if o != nil && !IsNil(o.UserScopeExpression) {
 		return true
 	}
 
@@ -124,7 +128,7 @@ func (o *PrincipalScopeSettingsMutable) SetUserScopeExpression(v string) {
 
 // GetExcludedUserIds returns the ExcludedUserIds field value if set, zero value otherwise.
 func (o *PrincipalScopeSettingsMutable) GetExcludedUserIds() []string {
-	if o == nil || o.ExcludedUserIds == nil {
+	if o == nil || IsNil(o.ExcludedUserIds) {
 		var ret []string
 		return ret
 	}
@@ -134,7 +138,7 @@ func (o *PrincipalScopeSettingsMutable) GetExcludedUserIds() []string {
 // GetExcludedUserIdsOk returns a tuple with the ExcludedUserIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalScopeSettingsMutable) GetExcludedUserIdsOk() ([]string, bool) {
-	if o == nil || o.ExcludedUserIds == nil {
+	if o == nil || IsNil(o.ExcludedUserIds) {
 		return nil, false
 	}
 	return o.ExcludedUserIds, true
@@ -142,7 +146,7 @@ func (o *PrincipalScopeSettingsMutable) GetExcludedUserIdsOk() ([]string, bool) 
 
 // HasExcludedUserIds returns a boolean if a field has been set.
 func (o *PrincipalScopeSettingsMutable) HasExcludedUserIds() bool {
-	if o != nil && o.ExcludedUserIds != nil {
+	if o != nil && !IsNil(o.ExcludedUserIds) {
 		return true
 	}
 
@@ -167,7 +171,7 @@ func (o *PrincipalScopeSettingsMutable) GetUserIds() []string {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PrincipalScopeSettingsMutable) GetUserIdsOk() ([]string, bool) {
-	if o == nil || o.UserIds == nil {
+	if o == nil || IsNil(o.UserIds) {
 		return nil, false
 	}
 	return o.UserIds, true
@@ -175,7 +179,7 @@ func (o *PrincipalScopeSettingsMutable) GetUserIdsOk() ([]string, bool) {
 
 // HasUserIds returns a boolean if a field has been set.
 func (o *PrincipalScopeSettingsMutable) HasUserIds() bool {
-	if o != nil && o.UserIds != nil {
+	if o != nil && !IsNil(o.UserIds) {
 		return true
 	}
 
@@ -200,7 +204,7 @@ func (o *PrincipalScopeSettingsMutable) GetGroupIds() []string {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PrincipalScopeSettingsMutable) GetGroupIdsOk() ([]string, bool) {
-	if o == nil || o.GroupIds == nil {
+	if o == nil || IsNil(o.GroupIds) {
 		return nil, false
 	}
 	return o.GroupIds, true
@@ -208,7 +212,7 @@ func (o *PrincipalScopeSettingsMutable) GetGroupIdsOk() ([]string, bool) {
 
 // HasGroupIds returns a boolean if a field has been set.
 func (o *PrincipalScopeSettingsMutable) HasGroupIds() bool {
-	if o != nil && o.GroupIds != nil {
+	if o != nil && !IsNil(o.GroupIds) {
 		return true
 	}
 
@@ -222,7 +226,7 @@ func (o *PrincipalScopeSettingsMutable) SetGroupIds(v []string) {
 
 // GetIncludeOnlyActiveUsers returns the IncludeOnlyActiveUsers field value if set, zero value otherwise.
 func (o *PrincipalScopeSettingsMutable) GetIncludeOnlyActiveUsers() bool {
-	if o == nil || o.IncludeOnlyActiveUsers == nil {
+	if o == nil || IsNil(o.IncludeOnlyActiveUsers) {
 		var ret bool
 		return ret
 	}
@@ -232,7 +236,7 @@ func (o *PrincipalScopeSettingsMutable) GetIncludeOnlyActiveUsers() bool {
 // GetIncludeOnlyActiveUsersOk returns a tuple with the IncludeOnlyActiveUsers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalScopeSettingsMutable) GetIncludeOnlyActiveUsersOk() (*bool, bool) {
-	if o == nil || o.IncludeOnlyActiveUsers == nil {
+	if o == nil || IsNil(o.IncludeOnlyActiveUsers) {
 		return nil, false
 	}
 	return o.IncludeOnlyActiveUsers, true
@@ -240,7 +244,7 @@ func (o *PrincipalScopeSettingsMutable) GetIncludeOnlyActiveUsersOk() (*bool, bo
 
 // HasIncludeOnlyActiveUsers returns a boolean if a field has been set.
 func (o *PrincipalScopeSettingsMutable) HasIncludeOnlyActiveUsers() bool {
-	if o != nil && o.IncludeOnlyActiveUsers != nil {
+	if o != nil && !IsNil(o.IncludeOnlyActiveUsers) {
 		return true
 	}
 
@@ -254,7 +258,7 @@ func (o *PrincipalScopeSettingsMutable) SetIncludeOnlyActiveUsers(v bool) {
 
 // GetPredefinedInactiveUsersScope returns the PredefinedInactiveUsersScope field value if set, zero value otherwise.
 func (o *PrincipalScopeSettingsMutable) GetPredefinedInactiveUsersScope() PredefinedInactiveUsersScopeSettings {
-	if o == nil || o.PredefinedInactiveUsersScope == nil {
+	if o == nil || IsNil(o.PredefinedInactiveUsersScope) {
 		var ret PredefinedInactiveUsersScopeSettings
 		return ret
 	}
@@ -264,7 +268,7 @@ func (o *PrincipalScopeSettingsMutable) GetPredefinedInactiveUsersScope() Predef
 // GetPredefinedInactiveUsersScopeOk returns a tuple with the PredefinedInactiveUsersScope field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalScopeSettingsMutable) GetPredefinedInactiveUsersScopeOk() (*PredefinedInactiveUsersScopeSettings, bool) {
-	if o == nil || o.PredefinedInactiveUsersScope == nil {
+	if o == nil || IsNil(o.PredefinedInactiveUsersScope) {
 		return nil, false
 	}
 	return o.PredefinedInactiveUsersScope, true
@@ -272,7 +276,7 @@ func (o *PrincipalScopeSettingsMutable) GetPredefinedInactiveUsersScopeOk() (*Pr
 
 // HasPredefinedInactiveUsersScope returns a boolean if a field has been set.
 func (o *PrincipalScopeSettingsMutable) HasPredefinedInactiveUsersScope() bool {
-	if o != nil && o.PredefinedInactiveUsersScope != nil {
+	if o != nil && !IsNil(o.PredefinedInactiveUsersScope) {
 		return true
 	}
 
@@ -286,7 +290,7 @@ func (o *PrincipalScopeSettingsMutable) SetPredefinedInactiveUsersScope(v Predef
 
 // GetOnlyIncludeUsersWithSODConflicts returns the OnlyIncludeUsersWithSODConflicts field value if set, zero value otherwise.
 func (o *PrincipalScopeSettingsMutable) GetOnlyIncludeUsersWithSODConflicts() bool {
-	if o == nil || o.OnlyIncludeUsersWithSODConflicts == nil {
+	if o == nil || IsNil(o.OnlyIncludeUsersWithSODConflicts) {
 		var ret bool
 		return ret
 	}
@@ -296,7 +300,7 @@ func (o *PrincipalScopeSettingsMutable) GetOnlyIncludeUsersWithSODConflicts() bo
 // GetOnlyIncludeUsersWithSODConflictsOk returns a tuple with the OnlyIncludeUsersWithSODConflicts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalScopeSettingsMutable) GetOnlyIncludeUsersWithSODConflictsOk() (*bool, bool) {
-	if o == nil || o.OnlyIncludeUsersWithSODConflicts == nil {
+	if o == nil || IsNil(o.OnlyIncludeUsersWithSODConflicts) {
 		return nil, false
 	}
 	return o.OnlyIncludeUsersWithSODConflicts, true
@@ -304,7 +308,7 @@ func (o *PrincipalScopeSettingsMutable) GetOnlyIncludeUsersWithSODConflictsOk() 
 
 // HasOnlyIncludeUsersWithSODConflicts returns a boolean if a field has been set.
 func (o *PrincipalScopeSettingsMutable) HasOnlyIncludeUsersWithSODConflicts() bool {
-	if o != nil && o.OnlyIncludeUsersWithSODConflicts != nil {
+	if o != nil && !IsNil(o.OnlyIncludeUsersWithSODConflicts) {
 		return true
 	}
 
@@ -317,14 +321,20 @@ func (o *PrincipalScopeSettingsMutable) SetOnlyIncludeUsersWithSODConflicts(v bo
 }
 
 func (o PrincipalScopeSettingsMutable) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["type"] = o.Type
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.UserScopeExpression != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o PrincipalScopeSettingsMutable) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["type"] = o.Type
+	if !IsNil(o.UserScopeExpression) {
 		toSerialize["userScopeExpression"] = o.UserScopeExpression
 	}
-	if o.ExcludedUserIds != nil {
+	if !IsNil(o.ExcludedUserIds) {
 		toSerialize["excludedUserIds"] = o.ExcludedUserIds
 	}
 	if o.UserIds != nil {
@@ -333,13 +343,13 @@ func (o PrincipalScopeSettingsMutable) MarshalJSON() ([]byte, error) {
 	if o.GroupIds != nil {
 		toSerialize["groupIds"] = o.GroupIds
 	}
-	if o.IncludeOnlyActiveUsers != nil {
+	if !IsNil(o.IncludeOnlyActiveUsers) {
 		toSerialize["includeOnlyActiveUsers"] = o.IncludeOnlyActiveUsers
 	}
-	if o.PredefinedInactiveUsersScope != nil {
+	if !IsNil(o.PredefinedInactiveUsersScope) {
 		toSerialize["predefinedInactiveUsersScope"] = o.PredefinedInactiveUsersScope
 	}
-	if o.OnlyIncludeUsersWithSODConflicts != nil {
+	if !IsNil(o.OnlyIncludeUsersWithSODConflicts) {
 		toSerialize["onlyIncludeUsersWithSODConflicts"] = o.OnlyIncludeUsersWithSODConflicts
 	}
 
@@ -347,23 +357,44 @@ func (o PrincipalScopeSettingsMutable) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PrincipalScopeSettingsMutable) UnmarshalJSON(bytes []byte) (err error) {
-	varPrincipalScopeSettingsMutable := _PrincipalScopeSettingsMutable{}
+func (o *PrincipalScopeSettingsMutable) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"type",
+	}
 
-	err = json.Unmarshal(bytes, &varPrincipalScopeSettingsMutable)
-	if err == nil {
-		*o = PrincipalScopeSettingsMutable(varPrincipalScopeSettingsMutable)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPrincipalScopeSettingsMutable := _PrincipalScopeSettingsMutable{}
+
+	err = json.Unmarshal(data, &varPrincipalScopeSettingsMutable)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PrincipalScopeSettingsMutable(varPrincipalScopeSettingsMutable)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "userScopeExpression")
 		delete(additionalProperties, "excludedUserIds")
@@ -373,8 +404,6 @@ func (o *PrincipalScopeSettingsMutable) UnmarshalJSON(bytes []byte) (err error) 
 		delete(additionalProperties, "predefinedInactiveUsersScope")
 		delete(additionalProperties, "onlyIncludeUsersWithSODConflicts")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

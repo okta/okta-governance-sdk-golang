@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package governance
 import (
 	"encoding/json"
 )
+
+// checks if the CatalogEntryRequestFieldsMetadata type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CatalogEntryRequestFieldsMetadata{}
 
 // CatalogEntryRequestFieldsMetadata struct for CatalogEntryRequestFieldsMetadata
 type CatalogEntryRequestFieldsMetadata struct {
@@ -54,7 +57,7 @@ func NewCatalogEntryRequestFieldsMetadataWithDefaults() *CatalogEntryRequestFiel
 
 // GetRiskAssessment returns the RiskAssessment field value if set, zero value otherwise.
 func (o *CatalogEntryRequestFieldsMetadata) GetRiskAssessment() RiskAssessment {
-	if o == nil || o.RiskAssessment == nil {
+	if o == nil || IsNil(o.RiskAssessment) {
 		var ret RiskAssessment
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *CatalogEntryRequestFieldsMetadata) GetRiskAssessment() RiskAssessment {
 // GetRiskAssessmentOk returns a tuple with the RiskAssessment field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CatalogEntryRequestFieldsMetadata) GetRiskAssessmentOk() (*RiskAssessment, bool) {
-	if o == nil || o.RiskAssessment == nil {
+	if o == nil || IsNil(o.RiskAssessment) {
 		return nil, false
 	}
 	return o.RiskAssessment, true
@@ -72,7 +75,7 @@ func (o *CatalogEntryRequestFieldsMetadata) GetRiskAssessmentOk() (*RiskAssessme
 
 // HasRiskAssessment returns a boolean if a field has been set.
 func (o *CatalogEntryRequestFieldsMetadata) HasRiskAssessment() bool {
-	if o != nil && o.RiskAssessment != nil {
+	if o != nil && !IsNil(o.RiskAssessment) {
 		return true
 	}
 
@@ -85,8 +88,16 @@ func (o *CatalogEntryRequestFieldsMetadata) SetRiskAssessment(v RiskAssessment) 
 }
 
 func (o CatalogEntryRequestFieldsMetadata) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CatalogEntryRequestFieldsMetadata) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.RiskAssessment != nil {
+	if !IsNil(o.RiskAssessment) {
 		toSerialize["riskAssessment"] = o.RiskAssessment
 	}
 
@@ -94,27 +105,25 @@ func (o CatalogEntryRequestFieldsMetadata) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *CatalogEntryRequestFieldsMetadata) UnmarshalJSON(bytes []byte) (err error) {
+func (o *CatalogEntryRequestFieldsMetadata) UnmarshalJSON(data []byte) (err error) {
 	varCatalogEntryRequestFieldsMetadata := _CatalogEntryRequestFieldsMetadata{}
 
-	err = json.Unmarshal(bytes, &varCatalogEntryRequestFieldsMetadata)
-	if err == nil {
-		*o = CatalogEntryRequestFieldsMetadata(varCatalogEntryRequestFieldsMetadata)
-	} else {
+	err = json.Unmarshal(data, &varCatalogEntryRequestFieldsMetadata)
+
+	if err != nil {
 		return err
 	}
 
+	*o = CatalogEntryRequestFieldsMetadata(varCatalogEntryRequestFieldsMetadata)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "riskAssessment")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the RiskSettingsDefaultAllowedWithOverridesDetails type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RiskSettingsDefaultAllowedWithOverridesDetails{}
 
 // RiskSettingsDefaultAllowedWithOverridesDetails Risk settings where request submission is allowed with specified approval sequence and optional access duration settings
 type RiskSettingsDefaultAllowedWithOverridesDetails struct {
@@ -108,7 +112,7 @@ func (o *RiskSettingsDefaultAllowedWithOverridesDetails) SetApprovalSequenceId(v
 
 // GetAccessDurationSettings returns the AccessDurationSettings field value if set, zero value otherwise.
 func (o *RiskSettingsDefaultAllowedWithOverridesDetails) GetAccessDurationSettings() AccessDurationSettingsFull {
-	if o == nil || o.AccessDurationSettings == nil {
+	if o == nil || IsNil(o.AccessDurationSettings) {
 		var ret AccessDurationSettingsFull
 		return ret
 	}
@@ -118,7 +122,7 @@ func (o *RiskSettingsDefaultAllowedWithOverridesDetails) GetAccessDurationSettin
 // GetAccessDurationSettingsOk returns a tuple with the AccessDurationSettings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskSettingsDefaultAllowedWithOverridesDetails) GetAccessDurationSettingsOk() (*AccessDurationSettingsFull, bool) {
-	if o == nil || o.AccessDurationSettings == nil {
+	if o == nil || IsNil(o.AccessDurationSettings) {
 		return nil, false
 	}
 	return o.AccessDurationSettings, true
@@ -126,7 +130,7 @@ func (o *RiskSettingsDefaultAllowedWithOverridesDetails) GetAccessDurationSettin
 
 // HasAccessDurationSettings returns a boolean if a field has been set.
 func (o *RiskSettingsDefaultAllowedWithOverridesDetails) HasAccessDurationSettings() bool {
-	if o != nil && o.AccessDurationSettings != nil {
+	if o != nil && !IsNil(o.AccessDurationSettings) {
 		return true
 	}
 
@@ -140,7 +144,7 @@ func (o *RiskSettingsDefaultAllowedWithOverridesDetails) SetAccessDurationSettin
 
 // GetError returns the Error field value if set, zero value otherwise.
 func (o *RiskSettingsDefaultAllowedWithOverridesDetails) GetError() []RiskSettingsError {
-	if o == nil || o.Error == nil {
+	if o == nil || IsNil(o.Error) {
 		var ret []RiskSettingsError
 		return ret
 	}
@@ -150,7 +154,7 @@ func (o *RiskSettingsDefaultAllowedWithOverridesDetails) GetError() []RiskSettin
 // GetErrorOk returns a tuple with the Error field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskSettingsDefaultAllowedWithOverridesDetails) GetErrorOk() ([]RiskSettingsError, bool) {
-	if o == nil || o.Error == nil {
+	if o == nil || IsNil(o.Error) {
 		return nil, false
 	}
 	return o.Error, true
@@ -158,7 +162,7 @@ func (o *RiskSettingsDefaultAllowedWithOverridesDetails) GetErrorOk() ([]RiskSet
 
 // HasError returns a boolean if a field has been set.
 func (o *RiskSettingsDefaultAllowedWithOverridesDetails) HasError() bool {
-	if o != nil && o.Error != nil {
+	if o != nil && !IsNil(o.Error) {
 		return true
 	}
 
@@ -171,17 +175,21 @@ func (o *RiskSettingsDefaultAllowedWithOverridesDetails) SetError(v []RiskSettin
 }
 
 func (o RiskSettingsDefaultAllowedWithOverridesDetails) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RiskSettingsDefaultAllowedWithOverridesDetails) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["requestSubmissionType"] = o.RequestSubmissionType
-	}
-	if true {
-		toSerialize["approvalSequenceId"] = o.ApprovalSequenceId
-	}
-	if o.AccessDurationSettings != nil {
+	toSerialize["requestSubmissionType"] = o.RequestSubmissionType
+	toSerialize["approvalSequenceId"] = o.ApprovalSequenceId
+	if !IsNil(o.AccessDurationSettings) {
 		toSerialize["accessDurationSettings"] = o.AccessDurationSettings
 	}
-	if o.Error != nil {
+	if !IsNil(o.Error) {
 		toSerialize["error"] = o.Error
 	}
 
@@ -189,30 +197,50 @@ func (o RiskSettingsDefaultAllowedWithOverridesDetails) MarshalJSON() ([]byte, e
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RiskSettingsDefaultAllowedWithOverridesDetails) UnmarshalJSON(bytes []byte) (err error) {
-	varRiskSettingsDefaultAllowedWithOverridesDetails := _RiskSettingsDefaultAllowedWithOverridesDetails{}
+func (o *RiskSettingsDefaultAllowedWithOverridesDetails) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"requestSubmissionType",
+		"approvalSequenceId",
+	}
 
-	err = json.Unmarshal(bytes, &varRiskSettingsDefaultAllowedWithOverridesDetails)
-	if err == nil {
-		*o = RiskSettingsDefaultAllowedWithOverridesDetails(varRiskSettingsDefaultAllowedWithOverridesDetails)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRiskSettingsDefaultAllowedWithOverridesDetails := _RiskSettingsDefaultAllowedWithOverridesDetails{}
+
+	err = json.Unmarshal(data, &varRiskSettingsDefaultAllowedWithOverridesDetails)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RiskSettingsDefaultAllowedWithOverridesDetails(varRiskSettingsDefaultAllowedWithOverridesDetails)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "requestSubmissionType")
 		delete(additionalProperties, "approvalSequenceId")
 		delete(additionalProperties, "accessDurationSettings")
 		delete(additionalProperties, "error")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

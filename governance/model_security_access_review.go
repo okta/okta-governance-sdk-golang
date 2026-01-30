@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,8 +25,12 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the SecurityAccessReview type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SecurityAccessReview{}
 
 // SecurityAccessReview struct for SecurityAccessReview
 type SecurityAccessReview struct {
@@ -201,7 +205,7 @@ func (o *SecurityAccessReview) SetLastUpdatedBy(v string) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *SecurityAccessReview) GetLinks() map[string]Link {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret map[string]Link
 		return ret
 	}
@@ -211,7 +215,7 @@ func (o *SecurityAccessReview) GetLinks() map[string]Link {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityAccessReview) GetLinksOk() (*map[string]Link, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -219,7 +223,7 @@ func (o *SecurityAccessReview) GetLinksOk() (*map[string]Link, bool) {
 
 // HasLinks returns a boolean if a field has been set.
 func (o *SecurityAccessReview) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -329,7 +333,7 @@ func (o *SecurityAccessReview) SetReviewerSettings(v SecurityAccessReviewReviewe
 
 // GetSummary returns the Summary field value if set, zero value otherwise.
 func (o *SecurityAccessReview) GetSummary() ServerMessage {
-	if o == nil || o.Summary == nil {
+	if o == nil || IsNil(o.Summary) {
 		var ret ServerMessage
 		return ret
 	}
@@ -339,7 +343,7 @@ func (o *SecurityAccessReview) GetSummary() ServerMessage {
 // GetSummaryOk returns a tuple with the Summary field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityAccessReview) GetSummaryOk() (*ServerMessage, bool) {
-	if o == nil || o.Summary == nil {
+	if o == nil || IsNil(o.Summary) {
 		return nil, false
 	}
 	return o.Summary, true
@@ -347,7 +351,7 @@ func (o *SecurityAccessReview) GetSummaryOk() (*ServerMessage, bool) {
 
 // HasSummary returns a boolean if a field has been set.
 func (o *SecurityAccessReview) HasSummary() bool {
-	if o != nil && o.Summary != nil {
+	if o != nil && !IsNil(o.Summary) {
 		return true
 	}
 
@@ -360,38 +364,28 @@ func (o *SecurityAccessReview) SetSummary(v ServerMessage) {
 }
 
 func (o SecurityAccessReview) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SecurityAccessReview) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["createdBy"] = o.CreatedBy
-	}
-	if true {
-		toSerialize["created"] = o.Created
-	}
-	if true {
-		toSerialize["lastUpdated"] = o.LastUpdated
-	}
-	if true {
-		toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
-	}
-	if o.Links != nil {
+	toSerialize["id"] = o.Id
+	toSerialize["createdBy"] = o.CreatedBy
+	toSerialize["created"] = o.Created
+	toSerialize["lastUpdated"] = o.LastUpdated
+	toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
-	if true {
-		toSerialize["status"] = o.Status
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["endTime"] = o.EndTime
-	}
-	if true {
-		toSerialize["reviewerSettings"] = o.ReviewerSettings
-	}
-	if o.Summary != nil {
+	toSerialize["status"] = o.Status
+	toSerialize["name"] = o.Name
+	toSerialize["endTime"] = o.EndTime
+	toSerialize["reviewerSettings"] = o.ReviewerSettings
+	if !IsNil(o.Summary) {
 		toSerialize["summary"] = o.Summary
 	}
 
@@ -399,23 +393,52 @@ func (o SecurityAccessReview) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SecurityAccessReview) UnmarshalJSON(bytes []byte) (err error) {
-	varSecurityAccessReview := _SecurityAccessReview{}
+func (o *SecurityAccessReview) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"createdBy",
+		"created",
+		"lastUpdated",
+		"lastUpdatedBy",
+		"status",
+		"name",
+		"endTime",
+		"reviewerSettings",
+	}
 
-	err = json.Unmarshal(bytes, &varSecurityAccessReview)
-	if err == nil {
-		*o = SecurityAccessReview(varSecurityAccessReview)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSecurityAccessReview := _SecurityAccessReview{}
+
+	err = json.Unmarshal(data, &varSecurityAccessReview)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SecurityAccessReview(varSecurityAccessReview)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "createdBy")
 		delete(additionalProperties, "created")
@@ -428,8 +451,6 @@ func (o *SecurityAccessReview) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "reviewerSettings")
 		delete(additionalProperties, "summary")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

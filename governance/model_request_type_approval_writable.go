@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,7 +28,6 @@ import (
 	"fmt"
 )
 
-// model_oneof.mustache
 // RequestTypeApprovalWritable - request-type-approval-description.md
 type RequestTypeApprovalWritable struct {
 	RequestTypeApprovalManagerWritable       *RequestTypeApprovalManagerWritable
@@ -65,14 +64,14 @@ func RequestTypeApprovalUserWritableAsRequestTypeApprovalWritable(v *RequestType
 	}
 }
 
-// Unmarshal JSON data into one of the pointers in the struct  CUSTOM
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *RequestTypeApprovalWritable) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup
 	var jsonDict map[string]interface{}
 	err = newStrictDecoder(data).Decode(&jsonDict)
 	if err != nil {
-		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
 	// check if the discriminator value is 'MANAGER'
@@ -83,7 +82,7 @@ func (dst *RequestTypeApprovalWritable) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.RequestTypeApprovalManagerWritable, return on the first match
 		} else {
 			dst.RequestTypeApprovalManagerWritable = nil
-			return fmt.Errorf("Failed to unmarshal RequestTypeApprovalWritable as RequestTypeApprovalManagerWritable: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal RequestTypeApprovalWritable as RequestTypeApprovalManagerWritable: %s", err.Error())
 		}
 	}
 
@@ -95,7 +94,7 @@ func (dst *RequestTypeApprovalWritable) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.RequestTypeApprovalMemberOfWritable, return on the first match
 		} else {
 			dst.RequestTypeApprovalMemberOfWritable = nil
-			return fmt.Errorf("Failed to unmarshal RequestTypeApprovalWritable as RequestTypeApprovalMemberOfWritable: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal RequestTypeApprovalWritable as RequestTypeApprovalMemberOfWritable: %s", err.Error())
 		}
 	}
 
@@ -107,7 +106,7 @@ func (dst *RequestTypeApprovalWritable) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.RequestTypeApprovalResourceOwnerWritable, return on the first match
 		} else {
 			dst.RequestTypeApprovalResourceOwnerWritable = nil
-			return fmt.Errorf("Failed to unmarshal RequestTypeApprovalWritable as RequestTypeApprovalResourceOwnerWritable: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal RequestTypeApprovalWritable as RequestTypeApprovalResourceOwnerWritable: %s", err.Error())
 		}
 	}
 
@@ -119,55 +118,7 @@ func (dst *RequestTypeApprovalWritable) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.RequestTypeApprovalUserWritable, return on the first match
 		} else {
 			dst.RequestTypeApprovalUserWritable = nil
-			return fmt.Errorf("Failed to unmarshal RequestTypeApprovalWritable as RequestTypeApprovalUserWritable: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'request-type-approval-manager-writable'
-	if jsonDict["approverType"] == "request-type-approval-manager-writable" {
-		// try to unmarshal JSON data into RequestTypeApprovalManagerWritable
-		err = json.Unmarshal(data, &dst.RequestTypeApprovalManagerWritable)
-		if err == nil {
-			return nil // data stored in dst.RequestTypeApprovalManagerWritable, return on the first match
-		} else {
-			dst.RequestTypeApprovalManagerWritable = nil
-			return fmt.Errorf("Failed to unmarshal RequestTypeApprovalWritable as RequestTypeApprovalManagerWritable: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'request-type-approval-member-of-writable'
-	if jsonDict["approverType"] == "request-type-approval-member-of-writable" {
-		// try to unmarshal JSON data into RequestTypeApprovalMemberOfWritable
-		err = json.Unmarshal(data, &dst.RequestTypeApprovalMemberOfWritable)
-		if err == nil {
-			return nil // data stored in dst.RequestTypeApprovalMemberOfWritable, return on the first match
-		} else {
-			dst.RequestTypeApprovalMemberOfWritable = nil
-			return fmt.Errorf("Failed to unmarshal RequestTypeApprovalWritable as RequestTypeApprovalMemberOfWritable: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'request-type-approval-resource-owner-writable'
-	if jsonDict["approverType"] == "request-type-approval-resource-owner-writable" {
-		// try to unmarshal JSON data into RequestTypeApprovalResourceOwnerWritable
-		err = json.Unmarshal(data, &dst.RequestTypeApprovalResourceOwnerWritable)
-		if err == nil {
-			return nil // data stored in dst.RequestTypeApprovalResourceOwnerWritable, return on the first match
-		} else {
-			dst.RequestTypeApprovalResourceOwnerWritable = nil
-			return fmt.Errorf("Failed to unmarshal RequestTypeApprovalWritable as RequestTypeApprovalResourceOwnerWritable: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'request-type-approval-user-writable'
-	if jsonDict["approverType"] == "request-type-approval-user-writable" {
-		// try to unmarshal JSON data into RequestTypeApprovalUserWritable
-		err = json.Unmarshal(data, &dst.RequestTypeApprovalUserWritable)
-		if err == nil {
-			return nil // data stored in dst.RequestTypeApprovalUserWritable, return on the first match
-		} else {
-			dst.RequestTypeApprovalUserWritable = nil
-			return fmt.Errorf("Failed to unmarshal RequestTypeApprovalWritable as RequestTypeApprovalUserWritable: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal RequestTypeApprovalWritable as RequestTypeApprovalUserWritable: %s", err.Error())
 		}
 	}
 
@@ -214,6 +165,28 @@ func (obj *RequestTypeApprovalWritable) GetActualInstance() interface{} {
 
 	if obj.RequestTypeApprovalUserWritable != nil {
 		return obj.RequestTypeApprovalUserWritable
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj RequestTypeApprovalWritable) GetActualInstanceValue() interface{} {
+	if obj.RequestTypeApprovalManagerWritable != nil {
+		return *obj.RequestTypeApprovalManagerWritable
+	}
+
+	if obj.RequestTypeApprovalMemberOfWritable != nil {
+		return *obj.RequestTypeApprovalMemberOfWritable
+	}
+
+	if obj.RequestTypeApprovalResourceOwnerWritable != nil {
+		return *obj.RequestTypeApprovalResourceOwnerWritable
+	}
+
+	if obj.RequestTypeApprovalUserWritable != nil {
+		return *obj.RequestTypeApprovalUserWritable
 	}
 
 	// all schemas are nil

@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the RequestTypeApprovalUserWritable type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RequestTypeApprovalUserWritable{}
 
 // RequestTypeApprovalUserWritable An approval when the approver must be a particular user.
 type RequestTypeApprovalUserWritable struct {
@@ -85,7 +89,7 @@ func (o *RequestTypeApprovalUserWritable) SetApproverType(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *RequestTypeApprovalUserWritable) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -95,7 +99,7 @@ func (o *RequestTypeApprovalUserWritable) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestTypeApprovalUserWritable) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -103,7 +107,7 @@ func (o *RequestTypeApprovalUserWritable) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *RequestTypeApprovalUserWritable) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -141,7 +145,7 @@ func (o *RequestTypeApprovalUserWritable) SetApproverUserId(v string) {
 
 // GetApproverFields returns the ApproverFields field value if set, zero value otherwise.
 func (o *RequestTypeApprovalUserWritable) GetApproverFields() []FieldWritable {
-	if o == nil || o.ApproverFields == nil {
+	if o == nil || IsNil(o.ApproverFields) {
 		var ret []FieldWritable
 		return ret
 	}
@@ -151,7 +155,7 @@ func (o *RequestTypeApprovalUserWritable) GetApproverFields() []FieldWritable {
 // GetApproverFieldsOk returns a tuple with the ApproverFields field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestTypeApprovalUserWritable) GetApproverFieldsOk() ([]FieldWritable, bool) {
-	if o == nil || o.ApproverFields == nil {
+	if o == nil || IsNil(o.ApproverFields) {
 		return nil, false
 	}
 	return o.ApproverFields, true
@@ -159,7 +163,7 @@ func (o *RequestTypeApprovalUserWritable) GetApproverFieldsOk() ([]FieldWritable
 
 // HasApproverFields returns a boolean if a field has been set.
 func (o *RequestTypeApprovalUserWritable) HasApproverFields() bool {
-	if o != nil && o.ApproverFields != nil {
+	if o != nil && !IsNil(o.ApproverFields) {
 		return true
 	}
 
@@ -172,17 +176,21 @@ func (o *RequestTypeApprovalUserWritable) SetApproverFields(v []FieldWritable) {
 }
 
 func (o RequestTypeApprovalUserWritable) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["approverType"] = o.ApproverType
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.Description != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o RequestTypeApprovalUserWritable) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["approverType"] = o.ApproverType
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if true {
-		toSerialize["approverUserId"] = o.ApproverUserId
-	}
-	if o.ApproverFields != nil {
+	toSerialize["approverUserId"] = o.ApproverUserId
+	if !IsNil(o.ApproverFields) {
 		toSerialize["approverFields"] = o.ApproverFields
 	}
 
@@ -190,30 +198,50 @@ func (o RequestTypeApprovalUserWritable) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RequestTypeApprovalUserWritable) UnmarshalJSON(bytes []byte) (err error) {
-	varRequestTypeApprovalUserWritable := _RequestTypeApprovalUserWritable{}
+func (o *RequestTypeApprovalUserWritable) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"approverType",
+		"approverUserId",
+	}
 
-	err = json.Unmarshal(bytes, &varRequestTypeApprovalUserWritable)
-	if err == nil {
-		*o = RequestTypeApprovalUserWritable(varRequestTypeApprovalUserWritable)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRequestTypeApprovalUserWritable := _RequestTypeApprovalUserWritable{}
+
+	err = json.Unmarshal(data, &varRequestTypeApprovalUserWritable)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RequestTypeApprovalUserWritable(varRequestTypeApprovalUserWritable)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "approverType")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "approverUserId")
 		delete(additionalProperties, "approverFields")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the RequestTypeRequesterEveryoneWritable type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RequestTypeRequesterEveryoneWritable{}
 
 // RequestTypeRequesterEveryoneWritable A request where the requester may be any Okta user in the Okta organization.
 type RequestTypeRequesterEveryoneWritable struct {
@@ -81,7 +85,7 @@ func (o *RequestTypeRequesterEveryoneWritable) SetType(v string) {
 
 // GetRequesterFields returns the RequesterFields field value if set, zero value otherwise.
 func (o *RequestTypeRequesterEveryoneWritable) GetRequesterFields() []FieldWritable {
-	if o == nil || o.RequesterFields == nil {
+	if o == nil || IsNil(o.RequesterFields) {
 		var ret []FieldWritable
 		return ret
 	}
@@ -91,7 +95,7 @@ func (o *RequestTypeRequesterEveryoneWritable) GetRequesterFields() []FieldWrita
 // GetRequesterFieldsOk returns a tuple with the RequesterFields field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestTypeRequesterEveryoneWritable) GetRequesterFieldsOk() ([]FieldWritable, bool) {
-	if o == nil || o.RequesterFields == nil {
+	if o == nil || IsNil(o.RequesterFields) {
 		return nil, false
 	}
 	return o.RequesterFields, true
@@ -99,7 +103,7 @@ func (o *RequestTypeRequesterEveryoneWritable) GetRequesterFieldsOk() ([]FieldWr
 
 // HasRequesterFields returns a boolean if a field has been set.
 func (o *RequestTypeRequesterEveryoneWritable) HasRequesterFields() bool {
-	if o != nil && o.RequesterFields != nil {
+	if o != nil && !IsNil(o.RequesterFields) {
 		return true
 	}
 
@@ -112,11 +116,17 @@ func (o *RequestTypeRequesterEveryoneWritable) SetRequesterFields(v []FieldWrita
 }
 
 func (o RequestTypeRequesterEveryoneWritable) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["type"] = o.Type
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.RequesterFields != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o RequestTypeRequesterEveryoneWritable) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["type"] = o.Type
+	if !IsNil(o.RequesterFields) {
 		toSerialize["requesterFields"] = o.RequesterFields
 	}
 
@@ -124,28 +134,47 @@ func (o RequestTypeRequesterEveryoneWritable) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RequestTypeRequesterEveryoneWritable) UnmarshalJSON(bytes []byte) (err error) {
-	varRequestTypeRequesterEveryoneWritable := _RequestTypeRequesterEveryoneWritable{}
+func (o *RequestTypeRequesterEveryoneWritable) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"type",
+	}
 
-	err = json.Unmarshal(bytes, &varRequestTypeRequesterEveryoneWritable)
-	if err == nil {
-		*o = RequestTypeRequesterEveryoneWritable(varRequestTypeRequesterEveryoneWritable)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRequestTypeRequesterEveryoneWritable := _RequestTypeRequesterEveryoneWritable{}
+
+	err = json.Unmarshal(data, &varRequestTypeRequesterEveryoneWritable)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RequestTypeRequesterEveryoneWritable(varRequestTypeRequesterEveryoneWritable)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "requesterFields")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

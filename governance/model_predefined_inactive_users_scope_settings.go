@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package governance
 import (
 	"encoding/json"
 )
+
+// checks if the PredefinedInactiveUsersScopeSettings type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PredefinedInactiveUsersScopeSettings{}
 
 // PredefinedInactiveUsersScopeSettings struct for PredefinedInactiveUsersScopeSettings
 type PredefinedInactiveUsersScopeSettings struct {
@@ -52,7 +55,7 @@ func NewPredefinedInactiveUsersScopeSettingsWithDefaults() *PredefinedInactiveUs
 
 // GetInactiveDays returns the InactiveDays field value if set, zero value otherwise.
 func (o *PredefinedInactiveUsersScopeSettings) GetInactiveDays() int32 {
-	if o == nil || o.InactiveDays == nil {
+	if o == nil || IsNil(o.InactiveDays) {
 		var ret int32
 		return ret
 	}
@@ -62,7 +65,7 @@ func (o *PredefinedInactiveUsersScopeSettings) GetInactiveDays() int32 {
 // GetInactiveDaysOk returns a tuple with the InactiveDays field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PredefinedInactiveUsersScopeSettings) GetInactiveDaysOk() (*int32, bool) {
-	if o == nil || o.InactiveDays == nil {
+	if o == nil || IsNil(o.InactiveDays) {
 		return nil, false
 	}
 	return o.InactiveDays, true
@@ -70,7 +73,7 @@ func (o *PredefinedInactiveUsersScopeSettings) GetInactiveDaysOk() (*int32, bool
 
 // HasInactiveDays returns a boolean if a field has been set.
 func (o *PredefinedInactiveUsersScopeSettings) HasInactiveDays() bool {
-	if o != nil && o.InactiveDays != nil {
+	if o != nil && !IsNil(o.InactiveDays) {
 		return true
 	}
 
@@ -83,11 +86,19 @@ func (o *PredefinedInactiveUsersScopeSettings) SetInactiveDays(v int32) {
 }
 
 func (o PredefinedInactiveUsersScopeSettings) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.InactiveDays != nil {
-		toSerialize["inactiveDays"] = o.InactiveDays
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PredefinedInactiveUsersScopeSettings) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.InactiveDays) {
+		toSerialize["inactiveDays"] = o.InactiveDays
+	}
+	return toSerialize, nil
 }
 
 type NullablePredefinedInactiveUsersScopeSettings struct {

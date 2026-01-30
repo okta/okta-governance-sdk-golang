@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -29,7 +29,6 @@ import (
 	"encoding/xml"
 	"errors"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
@@ -57,11 +56,11 @@ func buildResponse(resp *http.Response, cli *OktaGovernanceAPIClient, v interfac
 	if err != nil {
 		return response, err
 	}
-	bodyBytes, _ := ioutil.ReadAll(resp.Body)
+	bodyBytes, _ := io.ReadAll(resp.Body)
 	copyBodyBytes := make([]byte, len(bodyBytes))
 	copy(copyBodyBytes, bodyBytes)
-	_ = resp.Body.Close()                                    // close it to avoid memory leaks
-	resp.Body = ioutil.NopCloser(bytes.NewBuffer(bodyBytes)) // restore the original response body
+	_ = resp.Body.Close()                                // close it to avoid memory leaks
+	resp.Body = io.NopCloser(bytes.NewBuffer(bodyBytes)) // restore the original response body
 	if len(copyBodyBytes) == 0 {
 		return response, nil
 	}
@@ -83,9 +82,9 @@ func buildResponse(resp *http.Response, cli *OktaGovernanceAPIClient, v interfac
 }
 
 func (c *OktaGovernanceAPIClient) checkResponseForError(resp *http.Response) error {
-	localVarBody, _ := ioutil.ReadAll(resp.Body)
+	localVarBody, _ := io.ReadAll(resp.Body)
 	resp.Body.Close()
-	resp.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	resp.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if resp.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,

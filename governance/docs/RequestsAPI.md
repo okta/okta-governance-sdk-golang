@@ -242,7 +242,7 @@ import (
 )
 
 func main() {
-	requestCreatable2 := *openapiclient.NewRequestCreatable2(openapiclient.request-resource-creatable{RequestResourceCatalogEntryCreatable: openapiclient.NewRequestResourceCatalogEntryCreatable("Type_example", "cenp2rjyxK1Js2Fc41d5")}, *openapiclient.NewTargetPrincipal("00ub0oNGTSWTBKOLGLNR", openapiclient.principal-type("OKTA_USER"))) // RequestCreatable2 | The writable attributes of a request
+	requestCreatable2 := *openapiclient.NewRequestCreatable2(*openapiclient.NewRequestResourceCatalogEntryCreatable("Type_example", "cenp2rjyxK1Js2Fc41d5"), *openapiclient.NewTargetPrincipal("00ub0oNGTSWTBKOLGLNR", openapiclient.principal-type("OKTA_USER"))) // RequestCreatable2 | The writable attributes of a request
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

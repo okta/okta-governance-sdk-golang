@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,17 +26,16 @@ package governance
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"reflect"
 	"strings"
 	"time"
-
-	"github.com/okta/okta-sdk-golang/v5/okta"
 )
 
 type GrantsAPI interface {
+
 	/*
 		CreateGrant Create a grant
 
@@ -216,7 +215,7 @@ func (a *GrantsAPIService) CreateGrantExecute(r ApiCreateGrantRequest) (*GrantFu
 	localVarPostBody = r.grantCreatable
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(okta.ContextAPIKeys).(map[string]okta.APIKey); ok {
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["ApiKey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -238,9 +237,9 @@ func (a *GrantsAPIService) CreateGrantExecute(r ApiCreateGrantRequest) (*GrantFu
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -424,7 +423,7 @@ func (a *GrantsAPIService) GetGrantExecute(r ApiGetGrantRequest) (*GetGrant200Re
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(okta.ContextAPIKeys).(map[string]okta.APIKey); ok {
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["ApiKey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -446,9 +445,9 @@ func (a *GrantsAPIService) GetGrantExecute(r ApiGetGrantRequest) (*GetGrant200Re
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -665,7 +664,7 @@ func (a *GrantsAPIService) ListGrantsExecute(r ApiListGrantsRequest) (*ListGrant
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(okta.ContextAPIKeys).(map[string]okta.APIKey); ok {
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["ApiKey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -687,9 +686,9 @@ func (a *GrantsAPIService) ListGrantsExecute(r ApiListGrantsRequest) (*ListGrant
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -882,7 +881,7 @@ func (a *GrantsAPIService) ReplaceGrantExecute(r ApiReplaceGrantRequest) (*Grant
 	localVarPostBody = r.grantFull
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(okta.ContextAPIKeys).(map[string]okta.APIKey); ok {
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["ApiKey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -904,9 +903,9 @@ func (a *GrantsAPIService) ReplaceGrantExecute(r ApiReplaceGrantRequest) (*Grant
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1086,7 +1085,7 @@ func (a *GrantsAPIService) UpdateGrantExecute(r ApiUpdateGrantRequest) (*GrantFu
 	localVarPostBody = r.grantPatch
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(okta.ContextAPIKeys).(map[string]okta.APIKey); ok {
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["ApiKey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1108,9 +1107,9 @@ func (a *GrantsAPIService) UpdateGrantExecute(r ApiUpdateGrantRequest) (*GrantFu
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err

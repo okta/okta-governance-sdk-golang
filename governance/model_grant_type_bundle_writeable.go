@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the GrantTypeBundleWriteable type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GrantTypeBundleWriteable{}
 
 // GrantTypeBundleWriteable entitlement bundle as the grant source
 type GrantTypeBundleWriteable struct {
@@ -142,7 +146,7 @@ func (o *GrantTypeBundleWriteable) SetTargetPrincipal(v TargetPrincipal) {
 
 // GetScheduleSettings returns the ScheduleSettings field value if set, zero value otherwise.
 func (o *GrantTypeBundleWriteable) GetScheduleSettings() ScheduleSettingsWriteable {
-	if o == nil || o.ScheduleSettings == nil {
+	if o == nil || IsNil(o.ScheduleSettings) {
 		var ret ScheduleSettingsWriteable
 		return ret
 	}
@@ -152,7 +156,7 @@ func (o *GrantTypeBundleWriteable) GetScheduleSettings() ScheduleSettingsWriteab
 // GetScheduleSettingsOk returns a tuple with the ScheduleSettings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GrantTypeBundleWriteable) GetScheduleSettingsOk() (*ScheduleSettingsWriteable, bool) {
-	if o == nil || o.ScheduleSettings == nil {
+	if o == nil || IsNil(o.ScheduleSettings) {
 		return nil, false
 	}
 	return o.ScheduleSettings, true
@@ -160,7 +164,7 @@ func (o *GrantTypeBundleWriteable) GetScheduleSettingsOk() (*ScheduleSettingsWri
 
 // HasScheduleSettings returns a boolean if a field has been set.
 func (o *GrantTypeBundleWriteable) HasScheduleSettings() bool {
-	if o != nil && o.ScheduleSettings != nil {
+	if o != nil && !IsNil(o.ScheduleSettings) {
 		return true
 	}
 
@@ -174,7 +178,7 @@ func (o *GrantTypeBundleWriteable) SetScheduleSettings(v ScheduleSettingsWriteab
 
 // GetAction returns the Action field value if set, zero value otherwise.
 func (o *GrantTypeBundleWriteable) GetAction() GrantAction {
-	if o == nil || o.Action == nil {
+	if o == nil || IsNil(o.Action) {
 		var ret GrantAction
 		return ret
 	}
@@ -184,7 +188,7 @@ func (o *GrantTypeBundleWriteable) GetAction() GrantAction {
 // GetActionOk returns a tuple with the Action field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GrantTypeBundleWriteable) GetActionOk() (*GrantAction, bool) {
-	if o == nil || o.Action == nil {
+	if o == nil || IsNil(o.Action) {
 		return nil, false
 	}
 	return o.Action, true
@@ -192,7 +196,7 @@ func (o *GrantTypeBundleWriteable) GetActionOk() (*GrantAction, bool) {
 
 // HasAction returns a boolean if a field has been set.
 func (o *GrantTypeBundleWriteable) HasAction() bool {
-	if o != nil && o.Action != nil {
+	if o != nil && !IsNil(o.Action) {
 		return true
 	}
 
@@ -206,7 +210,7 @@ func (o *GrantTypeBundleWriteable) SetAction(v GrantAction) {
 
 // GetActor returns the Actor field value if set, zero value otherwise.
 func (o *GrantTypeBundleWriteable) GetActor() GrantActor {
-	if o == nil || o.Actor == nil {
+	if o == nil || IsNil(o.Actor) {
 		var ret GrantActor
 		return ret
 	}
@@ -216,7 +220,7 @@ func (o *GrantTypeBundleWriteable) GetActor() GrantActor {
 // GetActorOk returns a tuple with the Actor field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GrantTypeBundleWriteable) GetActorOk() (*GrantActor, bool) {
-	if o == nil || o.Actor == nil {
+	if o == nil || IsNil(o.Actor) {
 		return nil, false
 	}
 	return o.Actor, true
@@ -224,7 +228,7 @@ func (o *GrantTypeBundleWriteable) GetActorOk() (*GrantActor, bool) {
 
 // HasActor returns a boolean if a field has been set.
 func (o *GrantTypeBundleWriteable) HasActor() bool {
-	if o != nil && o.Actor != nil {
+	if o != nil && !IsNil(o.Actor) {
 		return true
 	}
 
@@ -237,23 +241,25 @@ func (o *GrantTypeBundleWriteable) SetActor(v GrantActor) {
 }
 
 func (o GrantTypeBundleWriteable) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o GrantTypeBundleWriteable) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["grantType"] = o.GrantType
-	}
-	if true {
-		toSerialize["entitlementBundleId"] = o.EntitlementBundleId
-	}
-	if true {
-		toSerialize["targetPrincipal"] = o.TargetPrincipal
-	}
-	if o.ScheduleSettings != nil {
+	toSerialize["grantType"] = o.GrantType
+	toSerialize["entitlementBundleId"] = o.EntitlementBundleId
+	toSerialize["targetPrincipal"] = o.TargetPrincipal
+	if !IsNil(o.ScheduleSettings) {
 		toSerialize["scheduleSettings"] = o.ScheduleSettings
 	}
-	if o.Action != nil {
+	if !IsNil(o.Action) {
 		toSerialize["action"] = o.Action
 	}
-	if o.Actor != nil {
+	if !IsNil(o.Actor) {
 		toSerialize["actor"] = o.Actor
 	}
 
@@ -261,23 +267,46 @@ func (o GrantTypeBundleWriteable) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *GrantTypeBundleWriteable) UnmarshalJSON(bytes []byte) (err error) {
-	varGrantTypeBundleWriteable := _GrantTypeBundleWriteable{}
+func (o *GrantTypeBundleWriteable) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"grantType",
+		"entitlementBundleId",
+		"targetPrincipal",
+	}
 
-	err = json.Unmarshal(bytes, &varGrantTypeBundleWriteable)
-	if err == nil {
-		*o = GrantTypeBundleWriteable(varGrantTypeBundleWriteable)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varGrantTypeBundleWriteable := _GrantTypeBundleWriteable{}
+
+	err = json.Unmarshal(data, &varGrantTypeBundleWriteable)
+
+	if err != nil {
+		return err
+	}
+
+	*o = GrantTypeBundleWriteable(varGrantTypeBundleWriteable)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "grantType")
 		delete(additionalProperties, "entitlementBundleId")
 		delete(additionalProperties, "targetPrincipal")
@@ -285,8 +314,6 @@ func (o *GrantTypeBundleWriteable) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "action")
 		delete(additionalProperties, "actor")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

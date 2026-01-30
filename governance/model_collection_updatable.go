@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the CollectionUpdatable type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CollectionUpdatable{}
 
 // CollectionUpdatable Full representation of a collection to be updated
 type CollectionUpdatable struct {
@@ -82,7 +86,7 @@ func (o *CollectionUpdatable) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *CollectionUpdatable) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -92,7 +96,7 @@ func (o *CollectionUpdatable) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionUpdatable) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -100,7 +104,7 @@ func (o *CollectionUpdatable) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *CollectionUpdatable) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -113,11 +117,17 @@ func (o *CollectionUpdatable) SetDescription(v string) {
 }
 
 func (o CollectionUpdatable) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["name"] = o.Name
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.Description != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o CollectionUpdatable) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
 
@@ -125,28 +135,47 @@ func (o CollectionUpdatable) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *CollectionUpdatable) UnmarshalJSON(bytes []byte) (err error) {
-	varCollectionUpdatable := _CollectionUpdatable{}
+func (o *CollectionUpdatable) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+	}
 
-	err = json.Unmarshal(bytes, &varCollectionUpdatable)
-	if err == nil {
-		*o = CollectionUpdatable(varCollectionUpdatable)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varCollectionUpdatable := _CollectionUpdatable{}
+
+	err = json.Unmarshal(data, &varCollectionUpdatable)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CollectionUpdatable(varCollectionUpdatable)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "description")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

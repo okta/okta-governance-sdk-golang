@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,7 +28,6 @@ import (
 	"fmt"
 )
 
-// model_oneof.mustache
 // RequestTypeApprovalSettingsMutable - There are two `approvalSettings` types. NONE: this request type doesn't need any approval. SERIAL: this request type needs at least one approval.
 type RequestTypeApprovalSettingsMutable struct {
 	RequestTypeApprovalSettingsNone           *RequestTypeApprovalSettingsNone
@@ -49,14 +48,14 @@ func RequestTypeApprovalSettingsSerialWritableAsRequestTypeApprovalSettingsMutab
 	}
 }
 
-// Unmarshal JSON data into one of the pointers in the struct  CUSTOM
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *RequestTypeApprovalSettingsMutable) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup
 	var jsonDict map[string]interface{}
 	err = newStrictDecoder(data).Decode(&jsonDict)
 	if err != nil {
-		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
 	// check if the discriminator value is 'NONE'
@@ -67,7 +66,7 @@ func (dst *RequestTypeApprovalSettingsMutable) UnmarshalJSON(data []byte) error 
 			return nil // data stored in dst.RequestTypeApprovalSettingsNone, return on the first match
 		} else {
 			dst.RequestTypeApprovalSettingsNone = nil
-			return fmt.Errorf("Failed to unmarshal RequestTypeApprovalSettingsMutable as RequestTypeApprovalSettingsNone: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal RequestTypeApprovalSettingsMutable as RequestTypeApprovalSettingsNone: %s", err.Error())
 		}
 	}
 
@@ -79,31 +78,7 @@ func (dst *RequestTypeApprovalSettingsMutable) UnmarshalJSON(data []byte) error 
 			return nil // data stored in dst.RequestTypeApprovalSettingsSerialWritable, return on the first match
 		} else {
 			dst.RequestTypeApprovalSettingsSerialWritable = nil
-			return fmt.Errorf("Failed to unmarshal RequestTypeApprovalSettingsMutable as RequestTypeApprovalSettingsSerialWritable: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'request-type-approval-settings-none'
-	if jsonDict["type"] == "request-type-approval-settings-none" {
-		// try to unmarshal JSON data into RequestTypeApprovalSettingsNone
-		err = json.Unmarshal(data, &dst.RequestTypeApprovalSettingsNone)
-		if err == nil {
-			return nil // data stored in dst.RequestTypeApprovalSettingsNone, return on the first match
-		} else {
-			dst.RequestTypeApprovalSettingsNone = nil
-			return fmt.Errorf("Failed to unmarshal RequestTypeApprovalSettingsMutable as RequestTypeApprovalSettingsNone: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'request-type-approval-settings-serial-writable'
-	if jsonDict["type"] == "request-type-approval-settings-serial-writable" {
-		// try to unmarshal JSON data into RequestTypeApprovalSettingsSerialWritable
-		err = json.Unmarshal(data, &dst.RequestTypeApprovalSettingsSerialWritable)
-		if err == nil {
-			return nil // data stored in dst.RequestTypeApprovalSettingsSerialWritable, return on the first match
-		} else {
-			dst.RequestTypeApprovalSettingsSerialWritable = nil
-			return fmt.Errorf("Failed to unmarshal RequestTypeApprovalSettingsMutable as RequestTypeApprovalSettingsSerialWritable: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal RequestTypeApprovalSettingsMutable as RequestTypeApprovalSettingsSerialWritable: %s", err.Error())
 		}
 	}
 
@@ -134,6 +109,20 @@ func (obj *RequestTypeApprovalSettingsMutable) GetActualInstance() interface{} {
 
 	if obj.RequestTypeApprovalSettingsSerialWritable != nil {
 		return obj.RequestTypeApprovalSettingsSerialWritable
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj RequestTypeApprovalSettingsMutable) GetActualInstanceValue() interface{} {
+	if obj.RequestTypeApprovalSettingsNone != nil {
+		return *obj.RequestTypeApprovalSettingsNone
+	}
+
+	if obj.RequestTypeApprovalSettingsSerialWritable != nil {
+		return *obj.RequestTypeApprovalSettingsSerialWritable
 	}
 
 	// all schemas are nil

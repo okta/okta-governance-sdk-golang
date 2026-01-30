@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the RcarEntryGet type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RcarEntryGet{}
 
 // RcarEntryGet struct for RcarEntryGet
 type RcarEntryGet struct {
@@ -119,7 +123,7 @@ func (o *RcarEntryGet) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *RcarEntryGet) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -129,7 +133,7 @@ func (o *RcarEntryGet) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RcarEntryGet) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -137,7 +141,7 @@ func (o *RcarEntryGet) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *RcarEntryGet) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -151,7 +155,7 @@ func (o *RcarEntryGet) SetDescription(v string) {
 
 // GetLabel returns the Label field value if set, zero value otherwise.
 func (o *RcarEntryGet) GetLabel() string {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		var ret string
 		return ret
 	}
@@ -161,7 +165,7 @@ func (o *RcarEntryGet) GetLabel() string {
 // GetLabelOk returns a tuple with the Label field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RcarEntryGet) GetLabelOk() (*string, bool) {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		return nil, false
 	}
 	return o.Label, true
@@ -169,7 +173,7 @@ func (o *RcarEntryGet) GetLabelOk() (*string, bool) {
 
 // HasLabel returns a boolean if a field has been set.
 func (o *RcarEntryGet) HasLabel() bool {
-	if o != nil && o.Label != nil {
+	if o != nil && !IsNil(o.Label) {
 		return true
 	}
 
@@ -183,7 +187,7 @@ func (o *RcarEntryGet) SetLabel(v string) {
 
 // GetParent returns the Parent field value if set, zero value otherwise.
 func (o *RcarEntryGet) GetParent() string {
-	if o == nil || o.Parent == nil {
+	if o == nil || IsNil(o.Parent) {
 		var ret string
 		return ret
 	}
@@ -193,7 +197,7 @@ func (o *RcarEntryGet) GetParent() string {
 // GetParentOk returns a tuple with the Parent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RcarEntryGet) GetParentOk() (*string, bool) {
-	if o == nil || o.Parent == nil {
+	if o == nil || IsNil(o.Parent) {
 		return nil, false
 	}
 	return o.Parent, true
@@ -201,7 +205,7 @@ func (o *RcarEntryGet) GetParentOk() (*string, bool) {
 
 // HasParent returns a boolean if a field has been set.
 func (o *RcarEntryGet) HasParent() bool {
-	if o != nil && o.Parent != nil {
+	if o != nil && !IsNil(o.Parent) {
 		return true
 	}
 
@@ -239,7 +243,7 @@ func (o *RcarEntryGet) SetRequestable(v bool) {
 
 // GetCounts returns the Counts field value if set, zero value otherwise.
 func (o *RcarEntryGet) GetCounts() RcarEntryCounts {
-	if o == nil || o.Counts == nil {
+	if o == nil || IsNil(o.Counts) {
 		var ret RcarEntryCounts
 		return ret
 	}
@@ -249,7 +253,7 @@ func (o *RcarEntryGet) GetCounts() RcarEntryCounts {
 // GetCountsOk returns a tuple with the Counts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RcarEntryGet) GetCountsOk() (*RcarEntryCounts, bool) {
-	if o == nil || o.Counts == nil {
+	if o == nil || IsNil(o.Counts) {
 		return nil, false
 	}
 	return o.Counts, true
@@ -257,7 +261,7 @@ func (o *RcarEntryGet) GetCountsOk() (*RcarEntryCounts, bool) {
 
 // HasCounts returns a boolean if a field has been set.
 func (o *RcarEntryGet) HasCounts() bool {
-	if o != nil && o.Counts != nil {
+	if o != nil && !IsNil(o.Counts) {
 		return true
 	}
 
@@ -294,53 +298,77 @@ func (o *RcarEntryGet) SetLinks(v RcarEntryLinks) {
 }
 
 func (o RcarEntryGet) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RcarEntryGet) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Description != nil {
+	toSerialize["id"] = o.Id
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if o.Label != nil {
+	if !IsNil(o.Label) {
 		toSerialize["label"] = o.Label
 	}
-	if o.Parent != nil {
+	if !IsNil(o.Parent) {
 		toSerialize["parent"] = o.Parent
 	}
-	if true {
-		toSerialize["requestable"] = o.Requestable
-	}
-	if o.Counts != nil {
+	toSerialize["requestable"] = o.Requestable
+	if !IsNil(o.Counts) {
 		toSerialize["counts"] = o.Counts
 	}
-	if true {
-		toSerialize["_links"] = o.Links
-	}
+	toSerialize["_links"] = o.Links
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RcarEntryGet) UnmarshalJSON(bytes []byte) (err error) {
-	varRcarEntryGet := _RcarEntryGet{}
+func (o *RcarEntryGet) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"name",
+		"requestable",
+		"_links",
+	}
 
-	err = json.Unmarshal(bytes, &varRcarEntryGet)
-	if err == nil {
-		*o = RcarEntryGet(varRcarEntryGet)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRcarEntryGet := _RcarEntryGet{}
+
+	err = json.Unmarshal(data, &varRcarEntryGet)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RcarEntryGet(varRcarEntryGet)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "description")
@@ -350,8 +378,6 @@ func (o *RcarEntryGet) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "counts")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -28,7 +28,6 @@ import (
 	"fmt"
 )
 
-// model_oneof.mustache
 // RequesterSettingsCreatableRequesterSettings - Requester settings define who may submit an access request for the related resource and access scopes.
 type RequesterSettingsCreatableRequesterSettings struct {
 	EveryoneRequesterSettings                         *EveryoneRequesterSettings
@@ -49,14 +48,14 @@ func RequesterSettingsCreatableGroupsRequesterSettingsAsRequesterSettingsCreatab
 	}
 }
 
-// Unmarshal JSON data into one of the pointers in the struct  CUSTOM
+// Unmarshal JSON data into one of the pointers in the struct
 func (dst *RequesterSettingsCreatableRequesterSettings) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup
 	var jsonDict map[string]interface{}
 	err = newStrictDecoder(data).Decode(&jsonDict)
 	if err != nil {
-		return fmt.Errorf("Failed to unmarshal JSON into map for the discriminator lookup.")
+		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
 	// check if the discriminator value is 'EVERYONE'
@@ -67,7 +66,7 @@ func (dst *RequesterSettingsCreatableRequesterSettings) UnmarshalJSON(data []byt
 			return nil // data stored in dst.EveryoneRequesterSettings, return on the first match
 		} else {
 			dst.EveryoneRequesterSettings = nil
-			return fmt.Errorf("Failed to unmarshal RequesterSettingsCreatableRequesterSettings as EveryoneRequesterSettings: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal RequesterSettingsCreatableRequesterSettings as EveryoneRequesterSettings: %s", err.Error())
 		}
 	}
 
@@ -79,31 +78,7 @@ func (dst *RequesterSettingsCreatableRequesterSettings) UnmarshalJSON(data []byt
 			return nil // data stored in dst.RequesterSettingsCreatableGroupsRequesterSettings, return on the first match
 		} else {
 			dst.RequesterSettingsCreatableGroupsRequesterSettings = nil
-			return fmt.Errorf("Failed to unmarshal RequesterSettingsCreatableRequesterSettings as RequesterSettingsCreatableGroupsRequesterSettings: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'EveryoneRequesterSettings'
-	if jsonDict["type"] == "EveryoneRequesterSettings" {
-		// try to unmarshal JSON data into EveryoneRequesterSettings
-		err = json.Unmarshal(data, &dst.EveryoneRequesterSettings)
-		if err == nil {
-			return nil // data stored in dst.EveryoneRequesterSettings, return on the first match
-		} else {
-			dst.EveryoneRequesterSettings = nil
-			return fmt.Errorf("Failed to unmarshal RequesterSettingsCreatableRequesterSettings as EveryoneRequesterSettings: %s", err.Error())
-		}
-	}
-
-	// check if the discriminator value is 'requester-settings-creatable_GroupsRequesterSettings'
-	if jsonDict["type"] == "requester-settings-creatable_GroupsRequesterSettings" {
-		// try to unmarshal JSON data into RequesterSettingsCreatableGroupsRequesterSettings
-		err = json.Unmarshal(data, &dst.RequesterSettingsCreatableGroupsRequesterSettings)
-		if err == nil {
-			return nil // data stored in dst.RequesterSettingsCreatableGroupsRequesterSettings, return on the first match
-		} else {
-			dst.RequesterSettingsCreatableGroupsRequesterSettings = nil
-			return fmt.Errorf("Failed to unmarshal RequesterSettingsCreatableRequesterSettings as RequesterSettingsCreatableGroupsRequesterSettings: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal RequesterSettingsCreatableRequesterSettings as RequesterSettingsCreatableGroupsRequesterSettings: %s", err.Error())
 		}
 	}
 
@@ -134,6 +109,20 @@ func (obj *RequesterSettingsCreatableRequesterSettings) GetActualInstance() inte
 
 	if obj.RequesterSettingsCreatableGroupsRequesterSettings != nil {
 		return obj.RequesterSettingsCreatableGroupsRequesterSettings
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj RequesterSettingsCreatableRequesterSettings) GetActualInstanceValue() interface{} {
+	if obj.EveryoneRequesterSettings != nil {
+		return *obj.EveryoneRequesterSettings
+	}
+
+	if obj.RequesterSettingsCreatableGroupsRequesterSettings != nil {
+		return *obj.RequesterSettingsCreatableGroupsRequesterSettings
 	}
 
 	// all schemas are nil

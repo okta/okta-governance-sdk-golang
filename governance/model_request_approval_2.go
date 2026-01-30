@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,8 +25,12 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the RequestApproval2 type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RequestApproval2{}
 
 // RequestApproval2 A completed access request approval
 type RequestApproval2 struct {
@@ -116,7 +120,7 @@ func (o *RequestApproval2) SetProviderName(v string) {
 
 // GetProviderDescription returns the ProviderDescription field value if set, zero value otherwise.
 func (o *RequestApproval2) GetProviderDescription() string {
-	if o == nil || o.ProviderDescription == nil {
+	if o == nil || IsNil(o.ProviderDescription) {
 		var ret string
 		return ret
 	}
@@ -126,7 +130,7 @@ func (o *RequestApproval2) GetProviderDescription() string {
 // GetProviderDescriptionOk returns a tuple with the ProviderDescription field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestApproval2) GetProviderDescriptionOk() (*string, bool) {
-	if o == nil || o.ProviderDescription == nil {
+	if o == nil || IsNil(o.ProviderDescription) {
 		return nil, false
 	}
 	return o.ProviderDescription, true
@@ -134,7 +138,7 @@ func (o *RequestApproval2) GetProviderDescriptionOk() (*string, bool) {
 
 // HasProviderDescription returns a boolean if a field has been set.
 func (o *RequestApproval2) HasProviderDescription() bool {
-	if o != nil && o.ProviderDescription != nil {
+	if o != nil && !IsNil(o.ProviderDescription) {
 		return true
 	}
 
@@ -148,7 +152,7 @@ func (o *RequestApproval2) SetProviderDescription(v string) {
 
 // GetExternalRequestId returns the ExternalRequestId field value if set, zero value otherwise.
 func (o *RequestApproval2) GetExternalRequestId() string {
-	if o == nil || o.ExternalRequestId == nil {
+	if o == nil || IsNil(o.ExternalRequestId) {
 		var ret string
 		return ret
 	}
@@ -158,7 +162,7 @@ func (o *RequestApproval2) GetExternalRequestId() string {
 // GetExternalRequestIdOk returns a tuple with the ExternalRequestId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestApproval2) GetExternalRequestIdOk() (*string, bool) {
-	if o == nil || o.ExternalRequestId == nil {
+	if o == nil || IsNil(o.ExternalRequestId) {
 		return nil, false
 	}
 	return o.ExternalRequestId, true
@@ -166,7 +170,7 @@ func (o *RequestApproval2) GetExternalRequestIdOk() (*string, bool) {
 
 // HasExternalRequestId returns a boolean if a field has been set.
 func (o *RequestApproval2) HasExternalRequestId() bool {
-	if o != nil && o.ExternalRequestId != nil {
+	if o != nil && !IsNil(o.ExternalRequestId) {
 		return true
 	}
 
@@ -180,7 +184,7 @@ func (o *RequestApproval2) SetExternalRequestId(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *RequestApproval2) GetStatus() RequestApprovalStatus {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret RequestApprovalStatus
 		return ret
 	}
@@ -190,7 +194,7 @@ func (o *RequestApproval2) GetStatus() RequestApprovalStatus {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestApproval2) GetStatusOk() (*RequestApprovalStatus, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -198,7 +202,7 @@ func (o *RequestApproval2) GetStatusOk() (*RequestApprovalStatus, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *RequestApproval2) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -212,7 +216,7 @@ func (o *RequestApproval2) SetStatus(v RequestApprovalStatus) {
 
 // GetDecided returns the Decided field value if set, zero value otherwise.
 func (o *RequestApproval2) GetDecided() time.Time {
-	if o == nil || o.Decided == nil {
+	if o == nil || IsNil(o.Decided) {
 		var ret time.Time
 		return ret
 	}
@@ -222,7 +226,7 @@ func (o *RequestApproval2) GetDecided() time.Time {
 // GetDecidedOk returns a tuple with the Decided field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestApproval2) GetDecidedOk() (*time.Time, bool) {
-	if o == nil || o.Decided == nil {
+	if o == nil || IsNil(o.Decided) {
 		return nil, false
 	}
 	return o.Decided, true
@@ -230,7 +234,7 @@ func (o *RequestApproval2) GetDecidedOk() (*time.Time, bool) {
 
 // HasDecided returns a boolean if a field has been set.
 func (o *RequestApproval2) HasDecided() bool {
-	if o != nil && o.Decided != nil {
+	if o != nil && !IsNil(o.Decided) {
 		return true
 	}
 
@@ -244,7 +248,7 @@ func (o *RequestApproval2) SetDecided(v time.Time) {
 
 // GetDecisions returns the Decisions field value if set, zero value otherwise.
 func (o *RequestApproval2) GetDecisions() []RequestApprovalDecision {
-	if o == nil || o.Decisions == nil {
+	if o == nil || IsNil(o.Decisions) {
 		var ret []RequestApprovalDecision
 		return ret
 	}
@@ -254,7 +258,7 @@ func (o *RequestApproval2) GetDecisions() []RequestApprovalDecision {
 // GetDecisionsOk returns a tuple with the Decisions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RequestApproval2) GetDecisionsOk() ([]RequestApprovalDecision, bool) {
-	if o == nil || o.Decisions == nil {
+	if o == nil || IsNil(o.Decisions) {
 		return nil, false
 	}
 	return o.Decisions, true
@@ -262,7 +266,7 @@ func (o *RequestApproval2) GetDecisionsOk() ([]RequestApprovalDecision, bool) {
 
 // HasDecisions returns a boolean if a field has been set.
 func (o *RequestApproval2) HasDecisions() bool {
-	if o != nil && o.Decisions != nil {
+	if o != nil && !IsNil(o.Decisions) {
 		return true
 	}
 
@@ -275,26 +279,30 @@ func (o *RequestApproval2) SetDecisions(v []RequestApprovalDecision) {
 }
 
 func (o RequestApproval2) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RequestApproval2) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if true {
-		toSerialize["providerName"] = o.ProviderName
-	}
-	if o.ProviderDescription != nil {
+	toSerialize["type"] = o.Type
+	toSerialize["providerName"] = o.ProviderName
+	if !IsNil(o.ProviderDescription) {
 		toSerialize["providerDescription"] = o.ProviderDescription
 	}
-	if o.ExternalRequestId != nil {
+	if !IsNil(o.ExternalRequestId) {
 		toSerialize["externalRequestId"] = o.ExternalRequestId
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.Decided != nil {
+	if !IsNil(o.Decided) {
 		toSerialize["decided"] = o.Decided
 	}
-	if o.Decisions != nil {
+	if !IsNil(o.Decisions) {
 		toSerialize["decisions"] = o.Decisions
 	}
 
@@ -302,23 +310,45 @@ func (o RequestApproval2) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RequestApproval2) UnmarshalJSON(bytes []byte) (err error) {
-	varRequestApproval2 := _RequestApproval2{}
+func (o *RequestApproval2) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"type",
+		"providerName",
+	}
 
-	err = json.Unmarshal(bytes, &varRequestApproval2)
-	if err == nil {
-		*o = RequestApproval2(varRequestApproval2)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRequestApproval2 := _RequestApproval2{}
+
+	err = json.Unmarshal(data, &varRequestApproval2)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RequestApproval2(varRequestApproval2)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "providerName")
 		delete(additionalProperties, "providerDescription")
@@ -327,8 +357,6 @@ func (o *RequestApproval2) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "decided")
 		delete(additionalProperties, "decisions")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

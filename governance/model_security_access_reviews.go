@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package governance
 import (
 	"encoding/json"
 )
+
+// checks if the SecurityAccessReviews type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SecurityAccessReviews{}
 
 // SecurityAccessReviews struct for SecurityAccessReviews
 type SecurityAccessReviews struct {
@@ -56,7 +59,7 @@ func NewSecurityAccessReviewsWithDefaults() *SecurityAccessReviews {
 
 // GetData returns the Data field value if set, zero value otherwise.
 func (o *SecurityAccessReviews) GetData() []SecurityAccessReviewSparse {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		var ret []SecurityAccessReviewSparse
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *SecurityAccessReviews) GetData() []SecurityAccessReviewSparse {
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityAccessReviews) GetDataOk() ([]SecurityAccessReviewSparse, bool) {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		return nil, false
 	}
 	return o.Data, true
@@ -74,7 +77,7 @@ func (o *SecurityAccessReviews) GetDataOk() ([]SecurityAccessReviewSparse, bool)
 
 // HasData returns a boolean if a field has been set.
 func (o *SecurityAccessReviews) HasData() bool {
-	if o != nil && o.Data != nil {
+	if o != nil && !IsNil(o.Data) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *SecurityAccessReviews) SetData(v []SecurityAccessReviewSparse) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *SecurityAccessReviews) GetLinks() SecurityAccessReviewListLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret SecurityAccessReviewListLinks
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *SecurityAccessReviews) GetLinks() SecurityAccessReviewListLinks {
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityAccessReviews) GetLinksOk() (*SecurityAccessReviewListLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -106,7 +109,7 @@ func (o *SecurityAccessReviews) GetLinksOk() (*SecurityAccessReviewListLinks, bo
 
 // HasLinks returns a boolean if a field has been set.
 func (o *SecurityAccessReviews) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -119,11 +122,19 @@ func (o *SecurityAccessReviews) SetLinks(v SecurityAccessReviewListLinks) {
 }
 
 func (o SecurityAccessReviews) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SecurityAccessReviews) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Data != nil {
+	if !IsNil(o.Data) {
 		toSerialize["data"] = o.Data
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -131,28 +142,26 @@ func (o SecurityAccessReviews) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SecurityAccessReviews) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SecurityAccessReviews) UnmarshalJSON(data []byte) (err error) {
 	varSecurityAccessReviews := _SecurityAccessReviews{}
 
-	err = json.Unmarshal(bytes, &varSecurityAccessReviews)
-	if err == nil {
-		*o = SecurityAccessReviews(varSecurityAccessReviews)
-	} else {
+	err = json.Unmarshal(data, &varSecurityAccessReviews)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SecurityAccessReviews(varSecurityAccessReviews)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "data")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

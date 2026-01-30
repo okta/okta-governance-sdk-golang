@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package governance
 import (
 	"encoding/json"
 )
+
+// checks if the ResourceProfile type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ResourceProfile{}
 
 // ResourceProfile A limited set of properties from the resource's profile
 type ResourceProfile struct {
@@ -61,7 +64,7 @@ func NewResourceProfileWithDefaults() *ResourceProfile {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *ResourceProfile) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -71,7 +74,7 @@ func (o *ResourceProfile) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceProfile) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -79,7 +82,7 @@ func (o *ResourceProfile) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *ResourceProfile) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -93,7 +96,7 @@ func (o *ResourceProfile) SetId(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *ResourceProfile) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -103,7 +106,7 @@ func (o *ResourceProfile) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceProfile) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -111,7 +114,7 @@ func (o *ResourceProfile) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *ResourceProfile) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -125,7 +128,7 @@ func (o *ResourceProfile) SetName(v string) {
 
 // GetLabel returns the Label field value if set, zero value otherwise.
 func (o *ResourceProfile) GetLabel() string {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		var ret string
 		return ret
 	}
@@ -135,7 +138,7 @@ func (o *ResourceProfile) GetLabel() string {
 // GetLabelOk returns a tuple with the Label field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceProfile) GetLabelOk() (*string, bool) {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		return nil, false
 	}
 	return o.Label, true
@@ -143,7 +146,7 @@ func (o *ResourceProfile) GetLabelOk() (*string, bool) {
 
 // HasLabel returns a boolean if a field has been set.
 func (o *ResourceProfile) HasLabel() bool {
-	if o != nil && o.Label != nil {
+	if o != nil && !IsNil(o.Label) {
 		return true
 	}
 
@@ -157,7 +160,7 @@ func (o *ResourceProfile) SetLabel(v string) {
 
 // GetLogo returns the Logo field value if set, zero value otherwise.
 func (o *ResourceProfile) GetLogo() []Link {
-	if o == nil || o.Logo == nil {
+	if o == nil || IsNil(o.Logo) {
 		var ret []Link
 		return ret
 	}
@@ -167,7 +170,7 @@ func (o *ResourceProfile) GetLogo() []Link {
 // GetLogoOk returns a tuple with the Logo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceProfile) GetLogoOk() ([]Link, bool) {
-	if o == nil || o.Logo == nil {
+	if o == nil || IsNil(o.Logo) {
 		return nil, false
 	}
 	return o.Logo, true
@@ -175,7 +178,7 @@ func (o *ResourceProfile) GetLogoOk() ([]Link, bool) {
 
 // HasLogo returns a boolean if a field has been set.
 func (o *ResourceProfile) HasLogo() bool {
-	if o != nil && o.Logo != nil {
+	if o != nil && !IsNil(o.Logo) {
 		return true
 	}
 
@@ -188,17 +191,25 @@ func (o *ResourceProfile) SetLogo(v []Link) {
 }
 
 func (o ResourceProfile) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ResourceProfile) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Label != nil {
+	if !IsNil(o.Label) {
 		toSerialize["label"] = o.Label
 	}
-	if o.Logo != nil {
+	if !IsNil(o.Logo) {
 		toSerialize["logo"] = o.Logo
 	}
 
@@ -206,30 +217,28 @@ func (o ResourceProfile) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ResourceProfile) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ResourceProfile) UnmarshalJSON(data []byte) (err error) {
 	varResourceProfile := _ResourceProfile{}
 
-	err = json.Unmarshal(bytes, &varResourceProfile)
-	if err == nil {
-		*o = ResourceProfile(varResourceProfile)
-	} else {
+	err = json.Unmarshal(data, &varResourceProfile)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ResourceProfile(varResourceProfile)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "label")
 		delete(additionalProperties, "logo")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

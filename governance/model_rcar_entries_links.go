@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the RcarEntriesLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RcarEntriesLinks{}
 
 // RcarEntriesLinks Links available for the list of catalog entries. * `atspoke`: returned only for top level entries and if request types is supported * `match`: returned only if match is supported
 type RcarEntriesLinks struct {
@@ -82,7 +86,7 @@ func (o *RcarEntriesLinks) SetSelf(v Link) {
 
 // GetNext returns the Next field value if set, zero value otherwise.
 func (o *RcarEntriesLinks) GetNext() Link {
-	if o == nil || o.Next == nil {
+	if o == nil || IsNil(o.Next) {
 		var ret Link
 		return ret
 	}
@@ -92,7 +96,7 @@ func (o *RcarEntriesLinks) GetNext() Link {
 // GetNextOk returns a tuple with the Next field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RcarEntriesLinks) GetNextOk() (*Link, bool) {
-	if o == nil || o.Next == nil {
+	if o == nil || IsNil(o.Next) {
 		return nil, false
 	}
 	return o.Next, true
@@ -100,7 +104,7 @@ func (o *RcarEntriesLinks) GetNextOk() (*Link, bool) {
 
 // HasNext returns a boolean if a field has been set.
 func (o *RcarEntriesLinks) HasNext() bool {
-	if o != nil && o.Next != nil {
+	if o != nil && !IsNil(o.Next) {
 		return true
 	}
 
@@ -114,7 +118,7 @@ func (o *RcarEntriesLinks) SetNext(v Link) {
 
 // GetAtspoke returns the Atspoke field value if set, zero value otherwise.
 func (o *RcarEntriesLinks) GetAtspoke() Link {
-	if o == nil || o.Atspoke == nil {
+	if o == nil || IsNil(o.Atspoke) {
 		var ret Link
 		return ret
 	}
@@ -124,7 +128,7 @@ func (o *RcarEntriesLinks) GetAtspoke() Link {
 // GetAtspokeOk returns a tuple with the Atspoke field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RcarEntriesLinks) GetAtspokeOk() (*Link, bool) {
-	if o == nil || o.Atspoke == nil {
+	if o == nil || IsNil(o.Atspoke) {
 		return nil, false
 	}
 	return o.Atspoke, true
@@ -132,7 +136,7 @@ func (o *RcarEntriesLinks) GetAtspokeOk() (*Link, bool) {
 
 // HasAtspoke returns a boolean if a field has been set.
 func (o *RcarEntriesLinks) HasAtspoke() bool {
-	if o != nil && o.Atspoke != nil {
+	if o != nil && !IsNil(o.Atspoke) {
 		return true
 	}
 
@@ -146,7 +150,7 @@ func (o *RcarEntriesLinks) SetAtspoke(v Link) {
 
 // GetMatch returns the Match field value if set, zero value otherwise.
 func (o *RcarEntriesLinks) GetMatch() Link {
-	if o == nil || o.Match == nil {
+	if o == nil || IsNil(o.Match) {
 		var ret Link
 		return ret
 	}
@@ -156,7 +160,7 @@ func (o *RcarEntriesLinks) GetMatch() Link {
 // GetMatchOk returns a tuple with the Match field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RcarEntriesLinks) GetMatchOk() (*Link, bool) {
-	if o == nil || o.Match == nil {
+	if o == nil || IsNil(o.Match) {
 		return nil, false
 	}
 	return o.Match, true
@@ -164,7 +168,7 @@ func (o *RcarEntriesLinks) GetMatchOk() (*Link, bool) {
 
 // HasMatch returns a boolean if a field has been set.
 func (o *RcarEntriesLinks) HasMatch() bool {
-	if o != nil && o.Match != nil {
+	if o != nil && !IsNil(o.Match) {
 		return true
 	}
 
@@ -177,17 +181,23 @@ func (o *RcarEntriesLinks) SetMatch(v Link) {
 }
 
 func (o RcarEntriesLinks) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["self"] = o.Self
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.Next != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o RcarEntriesLinks) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["self"] = o.Self
+	if !IsNil(o.Next) {
 		toSerialize["next"] = o.Next
 	}
-	if o.Atspoke != nil {
+	if !IsNil(o.Atspoke) {
 		toSerialize["atspoke"] = o.Atspoke
 	}
-	if o.Match != nil {
+	if !IsNil(o.Match) {
 		toSerialize["match"] = o.Match
 	}
 
@@ -195,30 +205,49 @@ func (o RcarEntriesLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RcarEntriesLinks) UnmarshalJSON(bytes []byte) (err error) {
-	varRcarEntriesLinks := _RcarEntriesLinks{}
+func (o *RcarEntriesLinks) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"self",
+	}
 
-	err = json.Unmarshal(bytes, &varRcarEntriesLinks)
-	if err == nil {
-		*o = RcarEntriesLinks(varRcarEntriesLinks)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRcarEntriesLinks := _RcarEntriesLinks{}
+
+	err = json.Unmarshal(data, &varRcarEntriesLinks)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RcarEntriesLinks(varRcarEntriesLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "self")
 		delete(additionalProperties, "next")
 		delete(additionalProperties, "atspoke")
 		delete(additionalProperties, "match")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

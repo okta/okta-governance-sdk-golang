@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ import (
 	"encoding/json"
 	"time"
 )
+
+// checks if the ScheduleSettingsWriteable type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ScheduleSettingsWriteable{}
 
 // ScheduleSettingsWriteable Scheduler specific settings applicable to a grant.
 type ScheduleSettingsWriteable struct {
@@ -58,7 +61,7 @@ func NewScheduleSettingsWriteableWithDefaults() *ScheduleSettingsWriteable {
 
 // GetExpirationDate returns the ExpirationDate field value if set, zero value otherwise.
 func (o *ScheduleSettingsWriteable) GetExpirationDate() time.Time {
-	if o == nil || o.ExpirationDate == nil {
+	if o == nil || IsNil(o.ExpirationDate) {
 		var ret time.Time
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *ScheduleSettingsWriteable) GetExpirationDate() time.Time {
 // GetExpirationDateOk returns a tuple with the ExpirationDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ScheduleSettingsWriteable) GetExpirationDateOk() (*time.Time, bool) {
-	if o == nil || o.ExpirationDate == nil {
+	if o == nil || IsNil(o.ExpirationDate) {
 		return nil, false
 	}
 	return o.ExpirationDate, true
@@ -76,7 +79,7 @@ func (o *ScheduleSettingsWriteable) GetExpirationDateOk() (*time.Time, bool) {
 
 // HasExpirationDate returns a boolean if a field has been set.
 func (o *ScheduleSettingsWriteable) HasExpirationDate() bool {
-	if o != nil && o.ExpirationDate != nil {
+	if o != nil && !IsNil(o.ExpirationDate) {
 		return true
 	}
 
@@ -90,7 +93,7 @@ func (o *ScheduleSettingsWriteable) SetExpirationDate(v time.Time) {
 
 // GetTimeZone returns the TimeZone field value if set, zero value otherwise.
 func (o *ScheduleSettingsWriteable) GetTimeZone() string {
-	if o == nil || o.TimeZone == nil {
+	if o == nil || IsNil(o.TimeZone) {
 		var ret string
 		return ret
 	}
@@ -100,7 +103,7 @@ func (o *ScheduleSettingsWriteable) GetTimeZone() string {
 // GetTimeZoneOk returns a tuple with the TimeZone field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ScheduleSettingsWriteable) GetTimeZoneOk() (*string, bool) {
-	if o == nil || o.TimeZone == nil {
+	if o == nil || IsNil(o.TimeZone) {
 		return nil, false
 	}
 	return o.TimeZone, true
@@ -108,7 +111,7 @@ func (o *ScheduleSettingsWriteable) GetTimeZoneOk() (*string, bool) {
 
 // HasTimeZone returns a boolean if a field has been set.
 func (o *ScheduleSettingsWriteable) HasTimeZone() bool {
-	if o != nil && o.TimeZone != nil {
+	if o != nil && !IsNil(o.TimeZone) {
 		return true
 	}
 
@@ -121,11 +124,19 @@ func (o *ScheduleSettingsWriteable) SetTimeZone(v string) {
 }
 
 func (o ScheduleSettingsWriteable) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ScheduleSettingsWriteable) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ExpirationDate != nil {
+	if !IsNil(o.ExpirationDate) {
 		toSerialize["expirationDate"] = o.ExpirationDate
 	}
-	if o.TimeZone != nil {
+	if !IsNil(o.TimeZone) {
 		toSerialize["timeZone"] = o.TimeZone
 	}
 
@@ -133,28 +144,26 @@ func (o ScheduleSettingsWriteable) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ScheduleSettingsWriteable) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ScheduleSettingsWriteable) UnmarshalJSON(data []byte) (err error) {
 	varScheduleSettingsWriteable := _ScheduleSettingsWriteable{}
 
-	err = json.Unmarshal(bytes, &varScheduleSettingsWriteable)
-	if err == nil {
-		*o = ScheduleSettingsWriteable(varScheduleSettingsWriteable)
-	} else {
+	err = json.Unmarshal(data, &varScheduleSettingsWriteable)
+
+	if err != nil {
 		return err
 	}
 
+	*o = ScheduleSettingsWriteable(varScheduleSettingsWriteable)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "expirationDate")
 		delete(additionalProperties, "timeZone")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the ModelError type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ModelError{}
 
 // ModelError An Error Object
 type ModelError struct {
@@ -138,7 +142,7 @@ func (o *ModelError) SetErrorSummary(v string) {
 
 // GetErrorLink returns the ErrorLink field value if set, zero value otherwise.
 func (o *ModelError) GetErrorLink() string {
-	if o == nil || o.ErrorLink == nil {
+	if o == nil || IsNil(o.ErrorLink) {
 		var ret string
 		return ret
 	}
@@ -148,7 +152,7 @@ func (o *ModelError) GetErrorLink() string {
 // GetErrorLinkOk returns a tuple with the ErrorLink field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ModelError) GetErrorLinkOk() (*string, bool) {
-	if o == nil || o.ErrorLink == nil {
+	if o == nil || IsNil(o.ErrorLink) {
 		return nil, false
 	}
 	return o.ErrorLink, true
@@ -156,7 +160,7 @@ func (o *ModelError) GetErrorLinkOk() (*string, bool) {
 
 // HasErrorLink returns a boolean if a field has been set.
 func (o *ModelError) HasErrorLink() bool {
-	if o != nil && o.ErrorLink != nil {
+	if o != nil && !IsNil(o.ErrorLink) {
 		return true
 	}
 
@@ -170,7 +174,7 @@ func (o *ModelError) SetErrorLink(v string) {
 
 // GetErrorCauses returns the ErrorCauses field value if set, zero value otherwise.
 func (o *ModelError) GetErrorCauses() []ErrorCause {
-	if o == nil || o.ErrorCauses == nil {
+	if o == nil || IsNil(o.ErrorCauses) {
 		var ret []ErrorCause
 		return ret
 	}
@@ -180,7 +184,7 @@ func (o *ModelError) GetErrorCauses() []ErrorCause {
 // GetErrorCausesOk returns a tuple with the ErrorCauses field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ModelError) GetErrorCausesOk() ([]ErrorCause, bool) {
-	if o == nil || o.ErrorCauses == nil {
+	if o == nil || IsNil(o.ErrorCauses) {
 		return nil, false
 	}
 	return o.ErrorCauses, true
@@ -188,7 +192,7 @@ func (o *ModelError) GetErrorCausesOk() ([]ErrorCause, bool) {
 
 // HasErrorCauses returns a boolean if a field has been set.
 func (o *ModelError) HasErrorCauses() bool {
-	if o != nil && o.ErrorCauses != nil {
+	if o != nil && !IsNil(o.ErrorCauses) {
 		return true
 	}
 
@@ -201,20 +205,22 @@ func (o *ModelError) SetErrorCauses(v []ErrorCause) {
 }
 
 func (o ModelError) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ModelError) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["errorCode"] = o.ErrorCode
-	}
-	if true {
-		toSerialize["errorId"] = o.ErrorId
-	}
-	if true {
-		toSerialize["errorSummary"] = o.ErrorSummary
-	}
-	if o.ErrorLink != nil {
+	toSerialize["errorCode"] = o.ErrorCode
+	toSerialize["errorId"] = o.ErrorId
+	toSerialize["errorSummary"] = o.ErrorSummary
+	if !IsNil(o.ErrorLink) {
 		toSerialize["errorLink"] = o.ErrorLink
 	}
-	if o.ErrorCauses != nil {
+	if !IsNil(o.ErrorCauses) {
 		toSerialize["errorCauses"] = o.ErrorCauses
 	}
 
@@ -222,31 +228,52 @@ func (o ModelError) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ModelError) UnmarshalJSON(bytes []byte) (err error) {
-	varModelError := _ModelError{}
+func (o *ModelError) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"errorCode",
+		"errorId",
+		"errorSummary",
+	}
 
-	err = json.Unmarshal(bytes, &varModelError)
-	if err == nil {
-		*o = ModelError(varModelError)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varModelError := _ModelError{}
+
+	err = json.Unmarshal(data, &varModelError)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ModelError(varModelError)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "errorCode")
 		delete(additionalProperties, "errorId")
 		delete(additionalProperties, "errorSummary")
 		delete(additionalProperties, "errorLink")
 		delete(additionalProperties, "errorCauses")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

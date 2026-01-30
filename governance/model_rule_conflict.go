@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package governance
 import (
 	"encoding/json"
 )
+
+// checks if the RuleConflict type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RuleConflict{}
 
 // RuleConflict struct for RuleConflict
 type RuleConflict struct {
@@ -68,7 +71,7 @@ func NewRuleConflictWithDefaults() *RuleConflict {
 
 // GetPrincipalOrn returns the PrincipalOrn field value if set, zero value otherwise.
 func (o *RuleConflict) GetPrincipalOrn() string {
-	if o == nil || o.PrincipalOrn == nil {
+	if o == nil || IsNil(o.PrincipalOrn) {
 		var ret string
 		return ret
 	}
@@ -78,7 +81,7 @@ func (o *RuleConflict) GetPrincipalOrn() string {
 // GetPrincipalOrnOk returns a tuple with the PrincipalOrn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RuleConflict) GetPrincipalOrnOk() (*string, bool) {
-	if o == nil || o.PrincipalOrn == nil {
+	if o == nil || IsNil(o.PrincipalOrn) {
 		return nil, false
 	}
 	return o.PrincipalOrn, true
@@ -86,7 +89,7 @@ func (o *RuleConflict) GetPrincipalOrnOk() (*string, bool) {
 
 // HasPrincipalOrn returns a boolean if a field has been set.
 func (o *RuleConflict) HasPrincipalOrn() bool {
-	if o != nil && o.PrincipalOrn != nil {
+	if o != nil && !IsNil(o.PrincipalOrn) {
 		return true
 	}
 
@@ -100,7 +103,7 @@ func (o *RuleConflict) SetPrincipalOrn(v string) {
 
 // GetResourceOrn returns the ResourceOrn field value if set, zero value otherwise.
 func (o *RuleConflict) GetResourceOrn() string {
-	if o == nil || o.ResourceOrn == nil {
+	if o == nil || IsNil(o.ResourceOrn) {
 		var ret string
 		return ret
 	}
@@ -110,7 +113,7 @@ func (o *RuleConflict) GetResourceOrn() string {
 // GetResourceOrnOk returns a tuple with the ResourceOrn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RuleConflict) GetResourceOrnOk() (*string, bool) {
-	if o == nil || o.ResourceOrn == nil {
+	if o == nil || IsNil(o.ResourceOrn) {
 		return nil, false
 	}
 	return o.ResourceOrn, true
@@ -118,7 +121,7 @@ func (o *RuleConflict) GetResourceOrnOk() (*string, bool) {
 
 // HasResourceOrn returns a boolean if a field has been set.
 func (o *RuleConflict) HasResourceOrn() bool {
-	if o != nil && o.ResourceOrn != nil {
+	if o != nil && !IsNil(o.ResourceOrn) {
 		return true
 	}
 
@@ -132,7 +135,7 @@ func (o *RuleConflict) SetResourceOrn(v string) {
 
 // GetRuleId returns the RuleId field value if set, zero value otherwise.
 func (o *RuleConflict) GetRuleId() string {
-	if o == nil || o.RuleId == nil {
+	if o == nil || IsNil(o.RuleId) {
 		var ret string
 		return ret
 	}
@@ -142,7 +145,7 @@ func (o *RuleConflict) GetRuleId() string {
 // GetRuleIdOk returns a tuple with the RuleId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RuleConflict) GetRuleIdOk() (*string, bool) {
-	if o == nil || o.RuleId == nil {
+	if o == nil || IsNil(o.RuleId) {
 		return nil, false
 	}
 	return o.RuleId, true
@@ -150,7 +153,7 @@ func (o *RuleConflict) GetRuleIdOk() (*string, bool) {
 
 // HasRuleId returns a boolean if a field has been set.
 func (o *RuleConflict) HasRuleId() bool {
-	if o != nil && o.RuleId != nil {
+	if o != nil && !IsNil(o.RuleId) {
 		return true
 	}
 
@@ -164,7 +167,7 @@ func (o *RuleConflict) SetRuleId(v string) {
 
 // GetRuleName returns the RuleName field value if set, zero value otherwise.
 func (o *RuleConflict) GetRuleName() string {
-	if o == nil || o.RuleName == nil {
+	if o == nil || IsNil(o.RuleName) {
 		var ret string
 		return ret
 	}
@@ -174,7 +177,7 @@ func (o *RuleConflict) GetRuleName() string {
 // GetRuleNameOk returns a tuple with the RuleName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RuleConflict) GetRuleNameOk() (*string, bool) {
-	if o == nil || o.RuleName == nil {
+	if o == nil || IsNil(o.RuleName) {
 		return nil, false
 	}
 	return o.RuleName, true
@@ -182,7 +185,7 @@ func (o *RuleConflict) GetRuleNameOk() (*string, bool) {
 
 // HasRuleName returns a boolean if a field has been set.
 func (o *RuleConflict) HasRuleName() bool {
-	if o != nil && o.RuleName != nil {
+	if o != nil && !IsNil(o.RuleName) {
 		return true
 	}
 
@@ -196,7 +199,7 @@ func (o *RuleConflict) SetRuleName(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *RuleConflict) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -206,7 +209,7 @@ func (o *RuleConflict) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RuleConflict) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -214,7 +217,7 @@ func (o *RuleConflict) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *RuleConflict) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -228,7 +231,7 @@ func (o *RuleConflict) SetId(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *RuleConflict) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -238,7 +241,7 @@ func (o *RuleConflict) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RuleConflict) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -246,7 +249,7 @@ func (o *RuleConflict) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *RuleConflict) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -260,7 +263,7 @@ func (o *RuleConflict) SetDescription(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *RuleConflict) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -270,7 +273,7 @@ func (o *RuleConflict) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RuleConflict) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -278,7 +281,7 @@ func (o *RuleConflict) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *RuleConflict) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -292,7 +295,7 @@ func (o *RuleConflict) SetType(v string) {
 
 // GetConflictCriteria returns the ConflictCriteria field value if set, zero value otherwise.
 func (o *RuleConflict) GetConflictCriteria() ConflictCriteria {
-	if o == nil || o.ConflictCriteria == nil {
+	if o == nil || IsNil(o.ConflictCriteria) {
 		var ret ConflictCriteria
 		return ret
 	}
@@ -302,7 +305,7 @@ func (o *RuleConflict) GetConflictCriteria() ConflictCriteria {
 // GetConflictCriteriaOk returns a tuple with the ConflictCriteria field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RuleConflict) GetConflictCriteriaOk() (*ConflictCriteria, bool) {
-	if o == nil || o.ConflictCriteria == nil {
+	if o == nil || IsNil(o.ConflictCriteria) {
 		return nil, false
 	}
 	return o.ConflictCriteria, true
@@ -310,7 +313,7 @@ func (o *RuleConflict) GetConflictCriteriaOk() (*ConflictCriteria, bool) {
 
 // HasConflictCriteria returns a boolean if a field has been set.
 func (o *RuleConflict) HasConflictCriteria() bool {
-	if o != nil && o.ConflictCriteria != nil {
+	if o != nil && !IsNil(o.ConflictCriteria) {
 		return true
 	}
 
@@ -323,29 +326,37 @@ func (o *RuleConflict) SetConflictCriteria(v ConflictCriteria) {
 }
 
 func (o RuleConflict) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RuleConflict) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.PrincipalOrn != nil {
+	if !IsNil(o.PrincipalOrn) {
 		toSerialize["principalOrn"] = o.PrincipalOrn
 	}
-	if o.ResourceOrn != nil {
+	if !IsNil(o.ResourceOrn) {
 		toSerialize["resourceOrn"] = o.ResourceOrn
 	}
-	if o.RuleId != nil {
+	if !IsNil(o.RuleId) {
 		toSerialize["ruleId"] = o.RuleId
 	}
-	if o.RuleName != nil {
+	if !IsNil(o.RuleName) {
 		toSerialize["ruleName"] = o.RuleName
 	}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Description != nil {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.ConflictCriteria != nil {
+	if !IsNil(o.ConflictCriteria) {
 		toSerialize["conflictCriteria"] = o.ConflictCriteria
 	}
 
@@ -353,23 +364,23 @@ func (o RuleConflict) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *RuleConflict) UnmarshalJSON(bytes []byte) (err error) {
+func (o *RuleConflict) UnmarshalJSON(data []byte) (err error) {
 	varRuleConflict := _RuleConflict{}
 
-	err = json.Unmarshal(bytes, &varRuleConflict)
-	if err == nil {
-		*o = RuleConflict(varRuleConflict)
-	} else {
+	err = json.Unmarshal(data, &varRuleConflict)
+
+	if err != nil {
 		return err
 	}
 
+	*o = RuleConflict(varRuleConflict)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "principalOrn")
 		delete(additionalProperties, "resourceOrn")
 		delete(additionalProperties, "ruleId")
@@ -379,8 +390,6 @@ func (o *RuleConflict) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "conflictCriteria")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

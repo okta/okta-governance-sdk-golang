@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package governance
 import (
 	"encoding/json"
 )
+
+// checks if the Requested type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Requested{}
 
 // Requested A representation of the resource in request
 type Requested struct {
@@ -61,7 +64,7 @@ func NewRequestedWithDefaults() *Requested {
 
 // GetEntryId returns the EntryId field value if set, zero value otherwise.
 func (o *Requested) GetEntryId() string {
-	if o == nil || o.EntryId == nil {
+	if o == nil || IsNil(o.EntryId) {
 		var ret string
 		return ret
 	}
@@ -71,7 +74,7 @@ func (o *Requested) GetEntryId() string {
 // GetEntryIdOk returns a tuple with the EntryId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Requested) GetEntryIdOk() (*string, bool) {
-	if o == nil || o.EntryId == nil {
+	if o == nil || IsNil(o.EntryId) {
 		return nil, false
 	}
 	return o.EntryId, true
@@ -79,7 +82,7 @@ func (o *Requested) GetEntryIdOk() (*string, bool) {
 
 // HasEntryId returns a boolean if a field has been set.
 func (o *Requested) HasEntryId() bool {
-	if o != nil && o.EntryId != nil {
+	if o != nil && !IsNil(o.EntryId) {
 		return true
 	}
 
@@ -93,7 +96,7 @@ func (o *Requested) SetEntryId(v string) {
 
 // GetResourceId returns the ResourceId field value if set, zero value otherwise.
 func (o *Requested) GetResourceId() string {
-	if o == nil || o.ResourceId == nil {
+	if o == nil || IsNil(o.ResourceId) {
 		var ret string
 		return ret
 	}
@@ -103,7 +106,7 @@ func (o *Requested) GetResourceId() string {
 // GetResourceIdOk returns a tuple with the ResourceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Requested) GetResourceIdOk() (*string, bool) {
-	if o == nil || o.ResourceId == nil {
+	if o == nil || IsNil(o.ResourceId) {
 		return nil, false
 	}
 	return o.ResourceId, true
@@ -111,7 +114,7 @@ func (o *Requested) GetResourceIdOk() (*string, bool) {
 
 // HasResourceId returns a boolean if a field has been set.
 func (o *Requested) HasResourceId() bool {
-	if o != nil && o.ResourceId != nil {
+	if o != nil && !IsNil(o.ResourceId) {
 		return true
 	}
 
@@ -125,7 +128,7 @@ func (o *Requested) SetResourceId(v string) {
 
 // GetResourceType returns the ResourceType field value if set, zero value otherwise.
 func (o *Requested) GetResourceType() ResourceType3 {
-	if o == nil || o.ResourceType == nil {
+	if o == nil || IsNil(o.ResourceType) {
 		var ret ResourceType3
 		return ret
 	}
@@ -135,7 +138,7 @@ func (o *Requested) GetResourceType() ResourceType3 {
 // GetResourceTypeOk returns a tuple with the ResourceType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Requested) GetResourceTypeOk() (*ResourceType3, bool) {
-	if o == nil || o.ResourceType == nil {
+	if o == nil || IsNil(o.ResourceType) {
 		return nil, false
 	}
 	return o.ResourceType, true
@@ -143,7 +146,7 @@ func (o *Requested) GetResourceTypeOk() (*ResourceType3, bool) {
 
 // HasResourceType returns a boolean if a field has been set.
 func (o *Requested) HasResourceType() bool {
-	if o != nil && o.ResourceType != nil {
+	if o != nil && !IsNil(o.ResourceType) {
 		return true
 	}
 
@@ -157,7 +160,7 @@ func (o *Requested) SetResourceType(v ResourceType3) {
 
 // GetAccessScopeId returns the AccessScopeId field value if set, zero value otherwise.
 func (o *Requested) GetAccessScopeId() string {
-	if o == nil || o.AccessScopeId == nil {
+	if o == nil || IsNil(o.AccessScopeId) {
 		var ret string
 		return ret
 	}
@@ -167,7 +170,7 @@ func (o *Requested) GetAccessScopeId() string {
 // GetAccessScopeIdOk returns a tuple with the AccessScopeId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Requested) GetAccessScopeIdOk() (*string, bool) {
-	if o == nil || o.AccessScopeId == nil {
+	if o == nil || IsNil(o.AccessScopeId) {
 		return nil, false
 	}
 	return o.AccessScopeId, true
@@ -175,7 +178,7 @@ func (o *Requested) GetAccessScopeIdOk() (*string, bool) {
 
 // HasAccessScopeId returns a boolean if a field has been set.
 func (o *Requested) HasAccessScopeId() bool {
-	if o != nil && o.AccessScopeId != nil {
+	if o != nil && !IsNil(o.AccessScopeId) {
 		return true
 	}
 
@@ -189,7 +192,7 @@ func (o *Requested) SetAccessScopeId(v string) {
 
 // GetAccessScopeType returns the AccessScopeType field value if set, zero value otherwise.
 func (o *Requested) GetAccessScopeType() AccessScopeType {
-	if o == nil || o.AccessScopeType == nil {
+	if o == nil || IsNil(o.AccessScopeType) {
 		var ret AccessScopeType
 		return ret
 	}
@@ -199,7 +202,7 @@ func (o *Requested) GetAccessScopeType() AccessScopeType {
 // GetAccessScopeTypeOk returns a tuple with the AccessScopeType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Requested) GetAccessScopeTypeOk() (*AccessScopeType, bool) {
-	if o == nil || o.AccessScopeType == nil {
+	if o == nil || IsNil(o.AccessScopeType) {
 		return nil, false
 	}
 	return o.AccessScopeType, true
@@ -207,7 +210,7 @@ func (o *Requested) GetAccessScopeTypeOk() (*AccessScopeType, bool) {
 
 // HasAccessScopeType returns a boolean if a field has been set.
 func (o *Requested) HasAccessScopeType() bool {
-	if o != nil && o.AccessScopeType != nil {
+	if o != nil && !IsNil(o.AccessScopeType) {
 		return true
 	}
 
@@ -220,20 +223,28 @@ func (o *Requested) SetAccessScopeType(v AccessScopeType) {
 }
 
 func (o Requested) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Requested) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.EntryId != nil {
+	if !IsNil(o.EntryId) {
 		toSerialize["entryId"] = o.EntryId
 	}
-	if o.ResourceId != nil {
+	if !IsNil(o.ResourceId) {
 		toSerialize["resourceId"] = o.ResourceId
 	}
-	if o.ResourceType != nil {
+	if !IsNil(o.ResourceType) {
 		toSerialize["resourceType"] = o.ResourceType
 	}
-	if o.AccessScopeId != nil {
+	if !IsNil(o.AccessScopeId) {
 		toSerialize["accessScopeId"] = o.AccessScopeId
 	}
-	if o.AccessScopeType != nil {
+	if !IsNil(o.AccessScopeType) {
 		toSerialize["accessScopeType"] = o.AccessScopeType
 	}
 
@@ -241,31 +252,29 @@ func (o Requested) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *Requested) UnmarshalJSON(bytes []byte) (err error) {
+func (o *Requested) UnmarshalJSON(data []byte) (err error) {
 	varRequested := _Requested{}
 
-	err = json.Unmarshal(bytes, &varRequested)
-	if err == nil {
-		*o = Requested(varRequested)
-	} else {
+	err = json.Unmarshal(data, &varRequested)
+
+	if err != nil {
 		return err
 	}
 
+	*o = Requested(varRequested)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "entryId")
 		delete(additionalProperties, "resourceId")
 		delete(additionalProperties, "resourceType")
 		delete(additionalProperties, "accessScopeId")
 		delete(additionalProperties, "accessScopeType")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

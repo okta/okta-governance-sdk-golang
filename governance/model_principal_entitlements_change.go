@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package governance
 import (
 	"encoding/json"
 )
+
+// checks if the PrincipalEntitlementsChange type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PrincipalEntitlementsChange{}
 
 // PrincipalEntitlementsChange struct for PrincipalEntitlementsChange
 type PrincipalEntitlementsChange struct {
@@ -61,7 +64,7 @@ func NewPrincipalEntitlementsChangeWithDefaults() *PrincipalEntitlementsChange {
 
 // GetEntitlementsChanged returns the EntitlementsChanged field value if set, zero value otherwise.
 func (o *PrincipalEntitlementsChange) GetEntitlementsChanged() []EntitlementChangedFull {
-	if o == nil || o.EntitlementsChanged == nil {
+	if o == nil || IsNil(o.EntitlementsChanged) {
 		var ret []EntitlementChangedFull
 		return ret
 	}
@@ -71,7 +74,7 @@ func (o *PrincipalEntitlementsChange) GetEntitlementsChanged() []EntitlementChan
 // GetEntitlementsChangedOk returns a tuple with the EntitlementsChanged field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalEntitlementsChange) GetEntitlementsChangedOk() ([]EntitlementChangedFull, bool) {
-	if o == nil || o.EntitlementsChanged == nil {
+	if o == nil || IsNil(o.EntitlementsChanged) {
 		return nil, false
 	}
 	return o.EntitlementsChanged, true
@@ -79,7 +82,7 @@ func (o *PrincipalEntitlementsChange) GetEntitlementsChangedOk() ([]EntitlementC
 
 // HasEntitlementsChanged returns a boolean if a field has been set.
 func (o *PrincipalEntitlementsChange) HasEntitlementsChanged() bool {
-	if o != nil && o.EntitlementsChanged != nil {
+	if o != nil && !IsNil(o.EntitlementsChanged) {
 		return true
 	}
 
@@ -93,7 +96,7 @@ func (o *PrincipalEntitlementsChange) SetEntitlementsChanged(v []EntitlementChan
 
 // GetResourceOrn returns the ResourceOrn field value if set, zero value otherwise.
 func (o *PrincipalEntitlementsChange) GetResourceOrn() string {
-	if o == nil || o.ResourceOrn == nil {
+	if o == nil || IsNil(o.ResourceOrn) {
 		var ret string
 		return ret
 	}
@@ -103,7 +106,7 @@ func (o *PrincipalEntitlementsChange) GetResourceOrn() string {
 // GetResourceOrnOk returns a tuple with the ResourceOrn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalEntitlementsChange) GetResourceOrnOk() (*string, bool) {
-	if o == nil || o.ResourceOrn == nil {
+	if o == nil || IsNil(o.ResourceOrn) {
 		return nil, false
 	}
 	return o.ResourceOrn, true
@@ -111,7 +114,7 @@ func (o *PrincipalEntitlementsChange) GetResourceOrnOk() (*string, bool) {
 
 // HasResourceOrn returns a boolean if a field has been set.
 func (o *PrincipalEntitlementsChange) HasResourceOrn() bool {
-	if o != nil && o.ResourceOrn != nil {
+	if o != nil && !IsNil(o.ResourceOrn) {
 		return true
 	}
 
@@ -125,7 +128,7 @@ func (o *PrincipalEntitlementsChange) SetResourceOrn(v string) {
 
 // GetResource returns the Resource field value if set, zero value otherwise.
 func (o *PrincipalEntitlementsChange) GetResource() TargetResource {
-	if o == nil || o.Resource == nil {
+	if o == nil || IsNil(o.Resource) {
 		var ret TargetResource
 		return ret
 	}
@@ -135,7 +138,7 @@ func (o *PrincipalEntitlementsChange) GetResource() TargetResource {
 // GetResourceOk returns a tuple with the Resource field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalEntitlementsChange) GetResourceOk() (*TargetResource, bool) {
-	if o == nil || o.Resource == nil {
+	if o == nil || IsNil(o.Resource) {
 		return nil, false
 	}
 	return o.Resource, true
@@ -143,7 +146,7 @@ func (o *PrincipalEntitlementsChange) GetResourceOk() (*TargetResource, bool) {
 
 // HasResource returns a boolean if a field has been set.
 func (o *PrincipalEntitlementsChange) HasResource() bool {
-	if o != nil && o.Resource != nil {
+	if o != nil && !IsNil(o.Resource) {
 		return true
 	}
 
@@ -157,7 +160,7 @@ func (o *PrincipalEntitlementsChange) SetResource(v TargetResource) {
 
 // GetPrincipalOrn returns the PrincipalOrn field value if set, zero value otherwise.
 func (o *PrincipalEntitlementsChange) GetPrincipalOrn() string {
-	if o == nil || o.PrincipalOrn == nil {
+	if o == nil || IsNil(o.PrincipalOrn) {
 		var ret string
 		return ret
 	}
@@ -167,7 +170,7 @@ func (o *PrincipalEntitlementsChange) GetPrincipalOrn() string {
 // GetPrincipalOrnOk returns a tuple with the PrincipalOrn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalEntitlementsChange) GetPrincipalOrnOk() (*string, bool) {
-	if o == nil || o.PrincipalOrn == nil {
+	if o == nil || IsNil(o.PrincipalOrn) {
 		return nil, false
 	}
 	return o.PrincipalOrn, true
@@ -175,7 +178,7 @@ func (o *PrincipalEntitlementsChange) GetPrincipalOrnOk() (*string, bool) {
 
 // HasPrincipalOrn returns a boolean if a field has been set.
 func (o *PrincipalEntitlementsChange) HasPrincipalOrn() bool {
-	if o != nil && o.PrincipalOrn != nil {
+	if o != nil && !IsNil(o.PrincipalOrn) {
 		return true
 	}
 
@@ -189,7 +192,7 @@ func (o *PrincipalEntitlementsChange) SetPrincipalOrn(v string) {
 
 // GetPrincipal returns the Principal field value if set, zero value otherwise.
 func (o *PrincipalEntitlementsChange) GetPrincipal() TargetPrincipalFull {
-	if o == nil || o.Principal == nil {
+	if o == nil || IsNil(o.Principal) {
 		var ret TargetPrincipalFull
 		return ret
 	}
@@ -199,7 +202,7 @@ func (o *PrincipalEntitlementsChange) GetPrincipal() TargetPrincipalFull {
 // GetPrincipalOk returns a tuple with the Principal field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalEntitlementsChange) GetPrincipalOk() (*TargetPrincipalFull, bool) {
-	if o == nil || o.Principal == nil {
+	if o == nil || IsNil(o.Principal) {
 		return nil, false
 	}
 	return o.Principal, true
@@ -207,7 +210,7 @@ func (o *PrincipalEntitlementsChange) GetPrincipalOk() (*TargetPrincipalFull, bo
 
 // HasPrincipal returns a boolean if a field has been set.
 func (o *PrincipalEntitlementsChange) HasPrincipal() bool {
-	if o != nil && o.Principal != nil {
+	if o != nil && !IsNil(o.Principal) {
 		return true
 	}
 
@@ -221,7 +224,7 @@ func (o *PrincipalEntitlementsChange) SetPrincipal(v TargetPrincipalFull) {
 
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *PrincipalEntitlementsChange) GetLinks() PrincipalEntitlementsChangeLinks {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		var ret PrincipalEntitlementsChangeLinks
 		return ret
 	}
@@ -231,7 +234,7 @@ func (o *PrincipalEntitlementsChange) GetLinks() PrincipalEntitlementsChangeLink
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalEntitlementsChange) GetLinksOk() (*PrincipalEntitlementsChangeLinks, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil || IsNil(o.Links) {
 		return nil, false
 	}
 	return o.Links, true
@@ -239,7 +242,7 @@ func (o *PrincipalEntitlementsChange) GetLinksOk() (*PrincipalEntitlementsChange
 
 // HasLinks returns a boolean if a field has been set.
 func (o *PrincipalEntitlementsChange) HasLinks() bool {
-	if o != nil && o.Links != nil {
+	if o != nil && !IsNil(o.Links) {
 		return true
 	}
 
@@ -252,23 +255,31 @@ func (o *PrincipalEntitlementsChange) SetLinks(v PrincipalEntitlementsChangeLink
 }
 
 func (o PrincipalEntitlementsChange) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PrincipalEntitlementsChange) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.EntitlementsChanged != nil {
+	if !IsNil(o.EntitlementsChanged) {
 		toSerialize["entitlementsChanged"] = o.EntitlementsChanged
 	}
-	if o.ResourceOrn != nil {
+	if !IsNil(o.ResourceOrn) {
 		toSerialize["resourceOrn"] = o.ResourceOrn
 	}
-	if o.Resource != nil {
+	if !IsNil(o.Resource) {
 		toSerialize["resource"] = o.Resource
 	}
-	if o.PrincipalOrn != nil {
+	if !IsNil(o.PrincipalOrn) {
 		toSerialize["principalOrn"] = o.PrincipalOrn
 	}
-	if o.Principal != nil {
+	if !IsNil(o.Principal) {
 		toSerialize["principal"] = o.Principal
 	}
-	if o.Links != nil {
+	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
 	}
 
@@ -276,23 +287,23 @@ func (o PrincipalEntitlementsChange) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *PrincipalEntitlementsChange) UnmarshalJSON(bytes []byte) (err error) {
+func (o *PrincipalEntitlementsChange) UnmarshalJSON(data []byte) (err error) {
 	varPrincipalEntitlementsChange := _PrincipalEntitlementsChange{}
 
-	err = json.Unmarshal(bytes, &varPrincipalEntitlementsChange)
-	if err == nil {
-		*o = PrincipalEntitlementsChange(varPrincipalEntitlementsChange)
-	} else {
+	err = json.Unmarshal(data, &varPrincipalEntitlementsChange)
+
+	if err != nil {
 		return err
 	}
 
+	*o = PrincipalEntitlementsChange(varPrincipalEntitlementsChange)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "entitlementsChanged")
 		delete(additionalProperties, "resourceOrn")
 		delete(additionalProperties, "resource")
@@ -300,8 +311,6 @@ func (o *PrincipalEntitlementsChange) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "principal")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

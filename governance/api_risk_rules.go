@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,16 +26,15 @@ package governance
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 	"time"
-
-	"github.com/okta/okta-sdk-golang/v5/okta"
 )
 
 type RiskRulesAPI interface {
+
 	/*
 		CreateRiskRule Create a risk rule
 
@@ -212,7 +211,7 @@ func (a *RiskRulesAPIService) CreateRiskRuleExecute(r ApiCreateRiskRuleRequest) 
 	localVarPostBody = r.createRiskRuleRequest
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(okta.ContextAPIKeys).(map[string]okta.APIKey); ok {
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["ApiKey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -234,9 +233,9 @@ func (a *RiskRulesAPIService) CreateRiskRuleExecute(r ApiCreateRiskRuleRequest) 
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -399,7 +398,7 @@ func (a *RiskRulesAPIService) DeleteRiskRuleExecute(r ApiDeleteRiskRuleRequest) 
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(okta.ContextAPIKeys).(map[string]okta.APIKey); ok {
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["ApiKey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -421,9 +420,9 @@ func (a *RiskRulesAPIService) DeleteRiskRuleExecute(r ApiDeleteRiskRuleRequest) 
 		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
 		return localAPIResponse, err
@@ -587,7 +586,7 @@ func (a *RiskRulesAPIService) GeneratePotentialRiskAssessmentsExecute(r ApiGener
 	localVarPostBody = r.potentialRiskAssessmentRequest
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(okta.ContextAPIKeys).(map[string]okta.APIKey); ok {
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["ApiKey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -609,9 +608,9 @@ func (a *RiskRulesAPIService) GeneratePotentialRiskAssessmentsExecute(r ApiGener
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -777,7 +776,7 @@ func (a *RiskRulesAPIService) GetRiskRuleExecute(r ApiGetRiskRuleRequest) (*Risk
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(okta.ContextAPIKeys).(map[string]okta.APIKey); ok {
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["ApiKey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -799,9 +798,9 @@ func (a *RiskRulesAPIService) GetRiskRuleExecute(r ApiGetRiskRuleRequest) (*Risk
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -909,7 +908,7 @@ func (r ApiListRiskRulesRequest) After(after string) ApiListRiskRulesRequest {
 	return r
 }
 
-// A filter expression that returns entries based on the &#x60;resourceOrn&#x60; and &#x60;name&#x60; properties and supports the following operators: *  &#x60;eq&#x60; operator for the &#x60;resourceOrn&#x60; property *  &#x60;sw&#x60; and &#x60;co&#x60; operator for the &#x60;name&#x60; property   &gt; **Note:** Query parameter percent encoding is required. See [Special characters](https://developer.okta.com/docs/api/#special-characters).
+// A filter expression that returns entries based on the &#x60;resourceOrn&#x60; and &#x60;name&#x60; properties and supports the following operators: *  &#x60;eq&#x60; operator for the &#x60;resourceOrn&#x60; property *  &#x60;sw&#x60; and &#x60;co&#x60; operator for the &#x60;name&#x60; property  &gt; **Note:** Query parameter percent encoding is required. See [Special characters](https://developer.okta.com/docs/api/#special-characters).
 func (r ApiListRiskRulesRequest) Filter(filter string) ApiListRiskRulesRequest {
 	r.filter = &filter
 	return r
@@ -993,7 +992,7 @@ func (a *RiskRulesAPIService) ListRiskRulesExecute(r ApiListRiskRulesRequest) (*
 	}
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(okta.ContextAPIKeys).(map[string]okta.APIKey); ok {
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["ApiKey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1015,9 +1014,9 @@ func (a *RiskRulesAPIService) ListRiskRulesExecute(r ApiListRiskRulesRequest) (*
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err
@@ -1195,7 +1194,7 @@ func (a *RiskRulesAPIService) ReplaceRiskRuleExecute(r ApiReplaceRiskRuleRequest
 	localVarPostBody = r.updateRiskRuleRequest
 	if r.ctx != nil {
 		// API Key Authentication
-		if auth, ok := r.ctx.Value(okta.ContextAPIKeys).(map[string]okta.APIKey); ok {
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
 			if apiKey, ok := auth["ApiKey"]; ok {
 				var key string
 				if apiKey.Prefix != "" {
@@ -1217,9 +1216,9 @@ func (a *RiskRulesAPIService) ReplaceRiskRuleExecute(r ApiReplaceRiskRuleRequest
 		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
 		return localVarReturnValue, localAPIResponse, err

@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the Link type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Link{}
 
 // Link A link to a related RESTful resource
 type Link struct {
@@ -70,7 +74,7 @@ func NewLinkWithDefaults() *Link {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *Link) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -80,7 +84,7 @@ func (o *Link) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Link) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -88,7 +92,7 @@ func (o *Link) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *Link) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -102,7 +106,7 @@ func (o *Link) SetName(v string) {
 
 // GetRel returns the Rel field value if set, zero value otherwise.
 func (o *Link) GetRel() string {
-	if o == nil || o.Rel == nil {
+	if o == nil || IsNil(o.Rel) {
 		var ret string
 		return ret
 	}
@@ -112,7 +116,7 @@ func (o *Link) GetRel() string {
 // GetRelOk returns a tuple with the Rel field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Link) GetRelOk() (*string, bool) {
-	if o == nil || o.Rel == nil {
+	if o == nil || IsNil(o.Rel) {
 		return nil, false
 	}
 	return o.Rel, true
@@ -120,7 +124,7 @@ func (o *Link) GetRelOk() (*string, bool) {
 
 // HasRel returns a boolean if a field has been set.
 func (o *Link) HasRel() bool {
-	if o != nil && o.Rel != nil {
+	if o != nil && !IsNil(o.Rel) {
 		return true
 	}
 
@@ -158,7 +162,7 @@ func (o *Link) SetHref(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *Link) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -168,7 +172,7 @@ func (o *Link) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Link) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -176,7 +180,7 @@ func (o *Link) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *Link) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -191,7 +195,7 @@ func (o *Link) SetType(v string) {
 // GetMethod returns the Method field value if set, zero value otherwise.
 // Deprecated
 func (o *Link) GetMethod() string {
-	if o == nil || o.Method == nil {
+	if o == nil || IsNil(o.Method) {
 		var ret string
 		return ret
 	}
@@ -202,7 +206,7 @@ func (o *Link) GetMethod() string {
 // and a boolean to check if the value has been set.
 // Deprecated
 func (o *Link) GetMethodOk() (*string, bool) {
-	if o == nil || o.Method == nil {
+	if o == nil || IsNil(o.Method) {
 		return nil, false
 	}
 	return o.Method, true
@@ -210,7 +214,7 @@ func (o *Link) GetMethodOk() (*string, bool) {
 
 // HasMethod returns a boolean if a field has been set.
 func (o *Link) HasMethod() bool {
-	if o != nil && o.Method != nil {
+	if o != nil && !IsNil(o.Method) {
 		return true
 	}
 
@@ -225,7 +229,7 @@ func (o *Link) SetMethod(v string) {
 
 // GetTemplated returns the Templated field value if set, zero value otherwise.
 func (o *Link) GetTemplated() bool {
-	if o == nil || o.Templated == nil {
+	if o == nil || IsNil(o.Templated) {
 		var ret bool
 		return ret
 	}
@@ -235,7 +239,7 @@ func (o *Link) GetTemplated() bool {
 // GetTemplatedOk returns a tuple with the Templated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Link) GetTemplatedOk() (*bool, bool) {
-	if o == nil || o.Templated == nil {
+	if o == nil || IsNil(o.Templated) {
 		return nil, false
 	}
 	return o.Templated, true
@@ -243,7 +247,7 @@ func (o *Link) GetTemplatedOk() (*bool, bool) {
 
 // HasTemplated returns a boolean if a field has been set.
 func (o *Link) HasTemplated() bool {
-	if o != nil && o.Templated != nil {
+	if o != nil && !IsNil(o.Templated) {
 		return true
 	}
 
@@ -257,7 +261,7 @@ func (o *Link) SetTemplated(v bool) {
 
 // GetHints returns the Hints field value if set, zero value otherwise.
 func (o *Link) GetHints() map[string][]string {
-	if o == nil || o.Hints == nil {
+	if o == nil || IsNil(o.Hints) {
 		var ret map[string][]string
 		return ret
 	}
@@ -267,7 +271,7 @@ func (o *Link) GetHints() map[string][]string {
 // GetHintsOk returns a tuple with the Hints field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Link) GetHintsOk() (*map[string][]string, bool) {
-	if o == nil || o.Hints == nil {
+	if o == nil || IsNil(o.Hints) {
 		return nil, false
 	}
 	return o.Hints, true
@@ -275,7 +279,7 @@ func (o *Link) GetHintsOk() (*map[string][]string, bool) {
 
 // HasHints returns a boolean if a field has been set.
 func (o *Link) HasHints() bool {
-	if o != nil && o.Hints != nil {
+	if o != nil && !IsNil(o.Hints) {
 		return true
 	}
 
@@ -289,7 +293,7 @@ func (o *Link) SetHints(v map[string][]string) {
 
 // GetTitle returns the Title field value if set, zero value otherwise.
 func (o *Link) GetTitle() string {
-	if o == nil || o.Title == nil {
+	if o == nil || IsNil(o.Title) {
 		var ret string
 		return ret
 	}
@@ -299,7 +303,7 @@ func (o *Link) GetTitle() string {
 // GetTitleOk returns a tuple with the Title field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Link) GetTitleOk() (*string, bool) {
-	if o == nil || o.Title == nil {
+	if o == nil || IsNil(o.Title) {
 		return nil, false
 	}
 	return o.Title, true
@@ -307,7 +311,7 @@ func (o *Link) GetTitleOk() (*string, bool) {
 
 // HasTitle returns a boolean if a field has been set.
 func (o *Link) HasTitle() bool {
-	if o != nil && o.Title != nil {
+	if o != nil && !IsNil(o.Title) {
 		return true
 	}
 
@@ -320,29 +324,35 @@ func (o *Link) SetTitle(v string) {
 }
 
 func (o Link) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Link) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Rel != nil {
+	if !IsNil(o.Rel) {
 		toSerialize["rel"] = o.Rel
 	}
-	if true {
-		toSerialize["href"] = o.Href
-	}
-	if o.Type != nil {
+	toSerialize["href"] = o.Href
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.Method != nil {
+	if !IsNil(o.Method) {
 		toSerialize["method"] = o.Method
 	}
-	if o.Templated != nil {
+	if !IsNil(o.Templated) {
 		toSerialize["templated"] = o.Templated
 	}
-	if o.Hints != nil {
+	if !IsNil(o.Hints) {
 		toSerialize["hints"] = o.Hints
 	}
-	if o.Title != nil {
+	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
 
@@ -350,23 +360,44 @@ func (o Link) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *Link) UnmarshalJSON(bytes []byte) (err error) {
-	varLink := _Link{}
+func (o *Link) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"href",
+	}
 
-	err = json.Unmarshal(bytes, &varLink)
-	if err == nil {
-		*o = Link(varLink)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varLink := _Link{}
+
+	err = json.Unmarshal(data, &varLink)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Link(varLink)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "rel")
 		delete(additionalProperties, "href")
@@ -376,8 +407,6 @@ func (o *Link) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "hints")
 		delete(additionalProperties, "title")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

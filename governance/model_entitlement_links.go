@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the EntitlementLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EntitlementLinks{}
 
 // EntitlementLinks Links available in list response
 type EntitlementLinks struct {
@@ -80,7 +84,7 @@ func (o *EntitlementLinks) SetSelf(v Link) {
 
 // GetValues returns the Values field value if set, zero value otherwise.
 func (o *EntitlementLinks) GetValues() Link {
-	if o == nil || o.Values == nil {
+	if o == nil || IsNil(o.Values) {
 		var ret Link
 		return ret
 	}
@@ -90,7 +94,7 @@ func (o *EntitlementLinks) GetValues() Link {
 // GetValuesOk returns a tuple with the Values field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EntitlementLinks) GetValuesOk() (*Link, bool) {
-	if o == nil || o.Values == nil {
+	if o == nil || IsNil(o.Values) {
 		return nil, false
 	}
 	return o.Values, true
@@ -98,7 +102,7 @@ func (o *EntitlementLinks) GetValuesOk() (*Link, bool) {
 
 // HasValues returns a boolean if a field has been set.
 func (o *EntitlementLinks) HasValues() bool {
-	if o != nil && o.Values != nil {
+	if o != nil && !IsNil(o.Values) {
 		return true
 	}
 
@@ -111,11 +115,17 @@ func (o *EntitlementLinks) SetValues(v Link) {
 }
 
 func (o EntitlementLinks) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["self"] = o.Self
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.Values != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o EntitlementLinks) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["self"] = o.Self
+	if !IsNil(o.Values) {
 		toSerialize["values"] = o.Values
 	}
 
@@ -123,28 +133,47 @@ func (o EntitlementLinks) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *EntitlementLinks) UnmarshalJSON(bytes []byte) (err error) {
-	varEntitlementLinks := _EntitlementLinks{}
+func (o *EntitlementLinks) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"self",
+	}
 
-	err = json.Unmarshal(bytes, &varEntitlementLinks)
-	if err == nil {
-		*o = EntitlementLinks(varEntitlementLinks)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varEntitlementLinks := _EntitlementLinks{}
+
+	err = json.Unmarshal(data, &varEntitlementLinks)
+
+	if err != nil {
+		return err
+	}
+
+	*o = EntitlementLinks(varEntitlementLinks)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "self")
 		delete(additionalProperties, "values")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

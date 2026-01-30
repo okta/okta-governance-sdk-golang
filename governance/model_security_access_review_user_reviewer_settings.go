@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -26,6 +26,9 @@ package governance
 import (
 	"encoding/json"
 )
+
+// checks if the SecurityAccessReviewUserReviewerSettings type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SecurityAccessReviewUserReviewerSettings{}
 
 // SecurityAccessReviewUserReviewerSettings struct for SecurityAccessReviewUserReviewerSettings
 type SecurityAccessReviewUserReviewerSettings struct {
@@ -55,7 +58,7 @@ func NewSecurityAccessReviewUserReviewerSettingsWithDefaults() *SecurityAccessRe
 
 // GetIncludedUserIds returns the IncludedUserIds field value if set, zero value otherwise.
 func (o *SecurityAccessReviewUserReviewerSettings) GetIncludedUserIds() []string {
-	if o == nil || o.IncludedUserIds == nil {
+	if o == nil || IsNil(o.IncludedUserIds) {
 		var ret []string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *SecurityAccessReviewUserReviewerSettings) GetIncludedUserIds() []string
 // GetIncludedUserIdsOk returns a tuple with the IncludedUserIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityAccessReviewUserReviewerSettings) GetIncludedUserIdsOk() ([]string, bool) {
-	if o == nil || o.IncludedUserIds == nil {
+	if o == nil || IsNil(o.IncludedUserIds) {
 		return nil, false
 	}
 	return o.IncludedUserIds, true
@@ -73,7 +76,7 @@ func (o *SecurityAccessReviewUserReviewerSettings) GetIncludedUserIdsOk() ([]str
 
 // HasIncludedUserIds returns a boolean if a field has been set.
 func (o *SecurityAccessReviewUserReviewerSettings) HasIncludedUserIds() bool {
-	if o != nil && o.IncludedUserIds != nil {
+	if o != nil && !IsNil(o.IncludedUserIds) {
 		return true
 	}
 
@@ -86,8 +89,16 @@ func (o *SecurityAccessReviewUserReviewerSettings) SetIncludedUserIds(v []string
 }
 
 func (o SecurityAccessReviewUserReviewerSettings) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SecurityAccessReviewUserReviewerSettings) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.IncludedUserIds != nil {
+	if !IsNil(o.IncludedUserIds) {
 		toSerialize["includedUserIds"] = o.IncludedUserIds
 	}
 
@@ -95,27 +106,25 @@ func (o SecurityAccessReviewUserReviewerSettings) MarshalJSON() ([]byte, error) 
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *SecurityAccessReviewUserReviewerSettings) UnmarshalJSON(bytes []byte) (err error) {
+func (o *SecurityAccessReviewUserReviewerSettings) UnmarshalJSON(data []byte) (err error) {
 	varSecurityAccessReviewUserReviewerSettings := _SecurityAccessReviewUserReviewerSettings{}
 
-	err = json.Unmarshal(bytes, &varSecurityAccessReviewUserReviewerSettings)
-	if err == nil {
-		*o = SecurityAccessReviewUserReviewerSettings(varSecurityAccessReviewUserReviewerSettings)
-	} else {
+	err = json.Unmarshal(data, &varSecurityAccessReviewUserReviewerSettings)
+
+	if err != nil {
 		return err
 	}
 
+	*o = SecurityAccessReviewUserReviewerSettings(varSecurityAccessReviewUserReviewerSettings)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "includedUserIds")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err

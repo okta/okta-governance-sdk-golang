@@ -3,7 +3,7 @@ Okta Governance API
 
 Allows customers to easily access the Okta API
 
-Copyright 2018 - Present Okta, Inc.
+Copyright 2025 - Present Okta, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,8 +25,12 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the ReviewFull type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ReviewFull{}
 
 // ReviewFull Full representation of a Review resource
 type ReviewFull struct {
@@ -286,7 +290,7 @@ func (o *ReviewFull) SetResourceId(v string) {
 
 // GetEntitlementValue returns the EntitlementValue field value if set, zero value otherwise.
 func (o *ReviewFull) GetEntitlementValue() ReviewerEntitlementValue {
-	if o == nil || o.EntitlementValue == nil {
+	if o == nil || IsNil(o.EntitlementValue) {
 		var ret ReviewerEntitlementValue
 		return ret
 	}
@@ -296,7 +300,7 @@ func (o *ReviewFull) GetEntitlementValue() ReviewerEntitlementValue {
 // GetEntitlementValueOk returns a tuple with the EntitlementValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReviewFull) GetEntitlementValueOk() (*ReviewerEntitlementValue, bool) {
-	if o == nil || o.EntitlementValue == nil {
+	if o == nil || IsNil(o.EntitlementValue) {
 		return nil, false
 	}
 	return o.EntitlementValue, true
@@ -304,7 +308,7 @@ func (o *ReviewFull) GetEntitlementValueOk() (*ReviewerEntitlementValue, bool) {
 
 // HasEntitlementValue returns a boolean if a field has been set.
 func (o *ReviewFull) HasEntitlementValue() bool {
-	if o != nil && o.EntitlementValue != nil {
+	if o != nil && !IsNil(o.EntitlementValue) {
 		return true
 	}
 
@@ -318,7 +322,7 @@ func (o *ReviewFull) SetEntitlementValue(v ReviewerEntitlementValue) {
 
 // GetEntitlementBundle returns the EntitlementBundle field value if set, zero value otherwise.
 func (o *ReviewFull) GetEntitlementBundle() ReviewerEntitlementBundle {
-	if o == nil || o.EntitlementBundle == nil {
+	if o == nil || IsNil(o.EntitlementBundle) {
 		var ret ReviewerEntitlementBundle
 		return ret
 	}
@@ -328,7 +332,7 @@ func (o *ReviewFull) GetEntitlementBundle() ReviewerEntitlementBundle {
 // GetEntitlementBundleOk returns a tuple with the EntitlementBundle field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReviewFull) GetEntitlementBundleOk() (*ReviewerEntitlementBundle, bool) {
-	if o == nil || o.EntitlementBundle == nil {
+	if o == nil || IsNil(o.EntitlementBundle) {
 		return nil, false
 	}
 	return o.EntitlementBundle, true
@@ -336,7 +340,7 @@ func (o *ReviewFull) GetEntitlementBundleOk() (*ReviewerEntitlementBundle, bool)
 
 // HasEntitlementBundle returns a boolean if a field has been set.
 func (o *ReviewFull) HasEntitlementBundle() bool {
-	if o != nil && o.EntitlementBundle != nil {
+	if o != nil && !IsNil(o.EntitlementBundle) {
 		return true
 	}
 
@@ -374,7 +378,7 @@ func (o *ReviewFull) SetDecision(v Decision) {
 
 // GetDecided returns the Decided field value if set, zero value otherwise.
 func (o *ReviewFull) GetDecided() time.Time {
-	if o == nil || o.Decided == nil {
+	if o == nil || IsNil(o.Decided) {
 		var ret time.Time
 		return ret
 	}
@@ -384,7 +388,7 @@ func (o *ReviewFull) GetDecided() time.Time {
 // GetDecidedOk returns a tuple with the Decided field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReviewFull) GetDecidedOk() (*time.Time, bool) {
-	if o == nil || o.Decided == nil {
+	if o == nil || IsNil(o.Decided) {
 		return nil, false
 	}
 	return o.Decided, true
@@ -392,7 +396,7 @@ func (o *ReviewFull) GetDecidedOk() (*time.Time, bool) {
 
 // HasDecided returns a boolean if a field has been set.
 func (o *ReviewFull) HasDecided() bool {
-	if o != nil && o.Decided != nil {
+	if o != nil && !IsNil(o.Decided) {
 		return true
 	}
 
@@ -454,7 +458,7 @@ func (o *ReviewFull) SetPrincipalProfile(v PrincipalProfile) {
 
 // GetReviewerProfile returns the ReviewerProfile field value if set, zero value otherwise.
 func (o *ReviewFull) GetReviewerProfile() PrincipalProfile {
-	if o == nil || o.ReviewerProfile == nil {
+	if o == nil || IsNil(o.ReviewerProfile) {
 		var ret PrincipalProfile
 		return ret
 	}
@@ -464,7 +468,7 @@ func (o *ReviewFull) GetReviewerProfile() PrincipalProfile {
 // GetReviewerProfileOk returns a tuple with the ReviewerProfile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReviewFull) GetReviewerProfileOk() (*PrincipalProfile, bool) {
-	if o == nil || o.ReviewerProfile == nil {
+	if o == nil || IsNil(o.ReviewerProfile) {
 		return nil, false
 	}
 	return o.ReviewerProfile, true
@@ -472,7 +476,7 @@ func (o *ReviewFull) GetReviewerProfileOk() (*PrincipalProfile, bool) {
 
 // HasReviewerProfile returns a boolean if a field has been set.
 func (o *ReviewFull) HasReviewerProfile() bool {
-	if o != nil && o.ReviewerProfile != nil {
+	if o != nil && !IsNil(o.ReviewerProfile) {
 		return true
 	}
 
@@ -510,7 +514,7 @@ func (o *ReviewFull) SetReviewerType(v ReviewersReviewerType) {
 
 // GetReviewerGroupProfile returns the ReviewerGroupProfile field value if set, zero value otherwise.
 func (o *ReviewFull) GetReviewerGroupProfile() ReviewerGroupProfile {
-	if o == nil || o.ReviewerGroupProfile == nil {
+	if o == nil || IsNil(o.ReviewerGroupProfile) {
 		var ret ReviewerGroupProfile
 		return ret
 	}
@@ -520,7 +524,7 @@ func (o *ReviewFull) GetReviewerGroupProfile() ReviewerGroupProfile {
 // GetReviewerGroupProfileOk returns a tuple with the ReviewerGroupProfile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReviewFull) GetReviewerGroupProfileOk() (*ReviewerGroupProfile, bool) {
-	if o == nil || o.ReviewerGroupProfile == nil {
+	if o == nil || IsNil(o.ReviewerGroupProfile) {
 		return nil, false
 	}
 	return o.ReviewerGroupProfile, true
@@ -528,7 +532,7 @@ func (o *ReviewFull) GetReviewerGroupProfileOk() (*ReviewerGroupProfile, bool) {
 
 // HasReviewerGroupProfile returns a boolean if a field has been set.
 func (o *ReviewFull) HasReviewerGroupProfile() bool {
-	if o != nil && o.ReviewerGroupProfile != nil {
+	if o != nil && !IsNil(o.ReviewerGroupProfile) {
 		return true
 	}
 
@@ -542,7 +546,7 @@ func (o *ReviewFull) SetReviewerGroupProfile(v ReviewerGroupProfile) {
 
 // GetCurrentReviewerLevel returns the CurrentReviewerLevel field value if set, zero value otherwise.
 func (o *ReviewFull) GetCurrentReviewerLevel() ReviewerLevelType {
-	if o == nil || o.CurrentReviewerLevel == nil {
+	if o == nil || IsNil(o.CurrentReviewerLevel) {
 		var ret ReviewerLevelType
 		return ret
 	}
@@ -552,7 +556,7 @@ func (o *ReviewFull) GetCurrentReviewerLevel() ReviewerLevelType {
 // GetCurrentReviewerLevelOk returns a tuple with the CurrentReviewerLevel field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReviewFull) GetCurrentReviewerLevelOk() (*ReviewerLevelType, bool) {
-	if o == nil || o.CurrentReviewerLevel == nil {
+	if o == nil || IsNil(o.CurrentReviewerLevel) {
 		return nil, false
 	}
 	return o.CurrentReviewerLevel, true
@@ -560,7 +564,7 @@ func (o *ReviewFull) GetCurrentReviewerLevelOk() (*ReviewerLevelType, bool) {
 
 // HasCurrentReviewerLevel returns a boolean if a field has been set.
 func (o *ReviewFull) HasCurrentReviewerLevel() bool {
-	if o != nil && o.CurrentReviewerLevel != nil {
+	if o != nil && !IsNil(o.CurrentReviewerLevel) {
 		return true
 	}
 
@@ -585,7 +589,7 @@ func (o *ReviewFull) GetRiskRuleConflicts() []RiskRuleConflicts {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ReviewFull) GetRiskRuleConflictsOk() ([]RiskRuleConflicts, bool) {
-	if o == nil || o.RiskRuleConflicts == nil {
+	if o == nil || IsNil(o.RiskRuleConflicts) {
 		return nil, false
 	}
 	return o.RiskRuleConflicts, true
@@ -593,7 +597,7 @@ func (o *ReviewFull) GetRiskRuleConflictsOk() ([]RiskRuleConflicts, bool) {
 
 // HasRiskRuleConflicts returns a boolean if a field has been set.
 func (o *ReviewFull) HasRiskRuleConflicts() bool {
-	if o != nil && o.RiskRuleConflicts != nil {
+	if o != nil && !IsNil(o.RiskRuleConflicts) {
 		return true
 	}
 
@@ -607,7 +611,7 @@ func (o *ReviewFull) SetRiskRuleConflicts(v []RiskRuleConflicts) {
 
 // GetNote returns the Note field value if set, zero value otherwise.
 func (o *ReviewFull) GetNote() Note {
-	if o == nil || o.Note == nil {
+	if o == nil || IsNil(o.Note) {
 		var ret Note
 		return ret
 	}
@@ -617,7 +621,7 @@ func (o *ReviewFull) GetNote() Note {
 // GetNoteOk returns a tuple with the Note field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReviewFull) GetNoteOk() (*Note, bool) {
-	if o == nil || o.Note == nil {
+	if o == nil || IsNil(o.Note) {
 		return nil, false
 	}
 	return o.Note, true
@@ -625,7 +629,7 @@ func (o *ReviewFull) GetNoteOk() (*Note, bool) {
 
 // HasNote returns a boolean if a field has been set.
 func (o *ReviewFull) HasNote() bool {
-	if o != nil && o.Note != nil {
+	if o != nil && !IsNil(o.Note) {
 		return true
 	}
 
@@ -639,7 +643,7 @@ func (o *ReviewFull) SetNote(v Note) {
 
 // GetAllReviewerLevels returns the AllReviewerLevels field value if set, zero value otherwise.
 func (o *ReviewFull) GetAllReviewerLevels() []ReviewerLevelInfoFull {
-	if o == nil || o.AllReviewerLevels == nil {
+	if o == nil || IsNil(o.AllReviewerLevels) {
 		var ret []ReviewerLevelInfoFull
 		return ret
 	}
@@ -649,7 +653,7 @@ func (o *ReviewFull) GetAllReviewerLevels() []ReviewerLevelInfoFull {
 // GetAllReviewerLevelsOk returns a tuple with the AllReviewerLevels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReviewFull) GetAllReviewerLevelsOk() ([]ReviewerLevelInfoFull, bool) {
-	if o == nil || o.AllReviewerLevels == nil {
+	if o == nil || IsNil(o.AllReviewerLevels) {
 		return nil, false
 	}
 	return o.AllReviewerLevels, true
@@ -657,7 +661,7 @@ func (o *ReviewFull) GetAllReviewerLevelsOk() ([]ReviewerLevelInfoFull, bool) {
 
 // HasAllReviewerLevels returns a boolean if a field has been set.
 func (o *ReviewFull) HasAllReviewerLevels() bool {
-	if o != nil && o.AllReviewerLevels != nil {
+	if o != nil && !IsNil(o.AllReviewerLevels) {
 		return true
 	}
 
@@ -670,68 +674,52 @@ func (o *ReviewFull) SetAllReviewerLevels(v []ReviewerLevelInfoFull) {
 }
 
 func (o ReviewFull) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ReviewFull) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["createdBy"] = o.CreatedBy
-	}
-	if true {
-		toSerialize["created"] = o.Created
-	}
-	if true {
-		toSerialize["lastUpdated"] = o.LastUpdated
-	}
-	if true {
-		toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
-	}
-	if true {
-		toSerialize["_links"] = o.Links
-	}
-	if true {
-		toSerialize["campaignId"] = o.CampaignId
-	}
-	if true {
-		toSerialize["resourceId"] = o.ResourceId
-	}
-	if o.EntitlementValue != nil {
+	toSerialize["id"] = o.Id
+	toSerialize["createdBy"] = o.CreatedBy
+	toSerialize["created"] = o.Created
+	toSerialize["lastUpdated"] = o.LastUpdated
+	toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
+	toSerialize["_links"] = o.Links
+	toSerialize["campaignId"] = o.CampaignId
+	toSerialize["resourceId"] = o.ResourceId
+	if !IsNil(o.EntitlementValue) {
 		toSerialize["entitlementValue"] = o.EntitlementValue
 	}
-	if o.EntitlementBundle != nil {
+	if !IsNil(o.EntitlementBundle) {
 		toSerialize["entitlementBundle"] = o.EntitlementBundle
 	}
-	if true {
-		toSerialize["decision"] = o.Decision
-	}
-	if o.Decided != nil {
+	toSerialize["decision"] = o.Decision
+	if !IsNil(o.Decided) {
 		toSerialize["decided"] = o.Decided
 	}
-	if true {
-		toSerialize["remediationStatus"] = o.RemediationStatus
-	}
-	if true {
-		toSerialize["principalProfile"] = o.PrincipalProfile
-	}
-	if o.ReviewerProfile != nil {
+	toSerialize["remediationStatus"] = o.RemediationStatus
+	toSerialize["principalProfile"] = o.PrincipalProfile
+	if !IsNil(o.ReviewerProfile) {
 		toSerialize["reviewerProfile"] = o.ReviewerProfile
 	}
-	if true {
-		toSerialize["reviewerType"] = o.ReviewerType
-	}
-	if o.ReviewerGroupProfile != nil {
+	toSerialize["reviewerType"] = o.ReviewerType
+	if !IsNil(o.ReviewerGroupProfile) {
 		toSerialize["reviewerGroupProfile"] = o.ReviewerGroupProfile
 	}
-	if o.CurrentReviewerLevel != nil {
+	if !IsNil(o.CurrentReviewerLevel) {
 		toSerialize["currentReviewerLevel"] = o.CurrentReviewerLevel
 	}
 	if o.RiskRuleConflicts != nil {
 		toSerialize["riskRuleConflicts"] = o.RiskRuleConflicts
 	}
-	if o.Note != nil {
+	if !IsNil(o.Note) {
 		toSerialize["note"] = o.Note
 	}
-	if o.AllReviewerLevels != nil {
+	if !IsNil(o.AllReviewerLevels) {
 		toSerialize["allReviewerLevels"] = o.AllReviewerLevels
 	}
 
@@ -739,23 +727,55 @@ func (o ReviewFull) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ReviewFull) UnmarshalJSON(bytes []byte) (err error) {
-	varReviewFull := _ReviewFull{}
+func (o *ReviewFull) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"createdBy",
+		"created",
+		"lastUpdated",
+		"lastUpdatedBy",
+		"_links",
+		"campaignId",
+		"resourceId",
+		"decision",
+		"remediationStatus",
+		"principalProfile",
+		"reviewerType",
+	}
 
-	err = json.Unmarshal(bytes, &varReviewFull)
-	if err == nil {
-		*o = ReviewFull(varReviewFull)
-	} else {
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
 		return err
 	}
 
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varReviewFull := _ReviewFull{}
+
+	err = json.Unmarshal(data, &varReviewFull)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ReviewFull(varReviewFull)
+
 	additionalProperties := make(map[string]interface{})
 
-	err = json.Unmarshal(bytes, &additionalProperties)
-	if err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "createdBy")
 		delete(additionalProperties, "created")
@@ -778,8 +798,6 @@ func (o *ReviewFull) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "note")
 		delete(additionalProperties, "allReviewerLevels")
 		o.AdditionalProperties = additionalProperties
-	} else {
-		return err
 	}
 
 	return err
