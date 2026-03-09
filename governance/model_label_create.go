@@ -33,7 +33,7 @@ var _ MappedNullable = &LabelCreate{}
 
 // LabelCreate struct for LabelCreate
 type LabelCreate struct {
-	// Name of the label category
+	// Key name of the label
 	Name string `json:"name"`
 	// List of label values
 	Values               []LabelValueCreate `json:"values"`

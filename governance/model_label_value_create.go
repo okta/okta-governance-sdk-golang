@@ -33,7 +33,7 @@ var _ MappedNullable = &LabelValueCreate{}
 
 // LabelValueCreate struct for LabelValueCreate
 type LabelValueCreate struct {
-	// Name of the label value
+	// The label value
 	Name                 string         `json:"name"`
 	Metadata             *LabelMetadata `json:"metadata,omitempty"`
 	AdditionalProperties map[string]interface{}

@@ -41,11 +41,11 @@ type RequestMinimalReadOnlyFields2 struct {
 	Granted          NullableTime             `json:"granted,omitempty"`
 	RevocationStatus *RequestRevocationStatus `json:"revocationStatus,omitempty"`
 	// The date the granted access was revoked. Only set if request.grantStatus is GRANTED and request.revocationStatus is REVOKED.
-	Revoked              NullableTime     `json:"revoked,omitempty"`
-	RequestedBy          *TargetPrincipal `json:"requestedBy,omitempty"`
-	RequestedFor         *TargetPrincipal `json:"requestedFor,omitempty"`
-	Requested            *Requested       `json:"requested,omitempty"`
-	Links                *RequestLinks2   `json:"_links,omitempty"`
+	Revoked              NullableTime               `json:"revoked,omitempty"`
+	RequestedBy          *ClientCredentialPrincipal `json:"requestedBy,omitempty"`
+	RequestedFor         *TargetPrincipal           `json:"requestedFor,omitempty"`
+	Requested            *Requested                 `json:"requested,omitempty"`
+	Links                *RequestLinks2             `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -294,9 +294,9 @@ func (o *RequestMinimalReadOnlyFields2) UnsetRevoked() {
 }
 
 // GetRequestedBy returns the RequestedBy field value if set, zero value otherwise.
-func (o *RequestMinimalReadOnlyFields2) GetRequestedBy() TargetPrincipal {
+func (o *RequestMinimalReadOnlyFields2) GetRequestedBy() ClientCredentialPrincipal {
 	if o == nil || IsNil(o.RequestedBy) {
-		var ret TargetPrincipal
+		var ret ClientCredentialPrincipal
 		return ret
 	}
 	return *o.RequestedBy
@@ -304,7 +304,7 @@ func (o *RequestMinimalReadOnlyFields2) GetRequestedBy() TargetPrincipal {
 
 // GetRequestedByOk returns a tuple with the RequestedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RequestMinimalReadOnlyFields2) GetRequestedByOk() (*TargetPrincipal, bool) {
+func (o *RequestMinimalReadOnlyFields2) GetRequestedByOk() (*ClientCredentialPrincipal, bool) {
 	if o == nil || IsNil(o.RequestedBy) {
 		return nil, false
 	}
@@ -320,8 +320,8 @@ func (o *RequestMinimalReadOnlyFields2) HasRequestedBy() bool {
 	return false
 }
 
-// SetRequestedBy gets a reference to the given TargetPrincipal and assigns it to the RequestedBy field.
-func (o *RequestMinimalReadOnlyFields2) SetRequestedBy(v TargetPrincipal) {
+// SetRequestedBy gets a reference to the given ClientCredentialPrincipal and assigns it to the RequestedBy field.
+func (o *RequestMinimalReadOnlyFields2) SetRequestedBy(v ClientCredentialPrincipal) {
 	o.RequestedBy = &v
 }
 

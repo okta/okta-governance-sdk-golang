@@ -9,17 +9,17 @@ Name | Type | Description | Notes
 **Created** | **time.Time** | The ISO 8601 formatted date and time when the resource was created | [readonly] 
 **LastUpdated** | **time.Time** | The ISO 8601 formatted date and time when the object was last updated | [readonly] 
 **LastUpdatedBy** | **string** | The &#x60;id&#x60; of the Okta user who last updated the object | [readonly] 
-**Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
+**Links** | Pointer to [**map[string]Link**](Link.md) | Links to related resources | [optional] 
 **Status** | [**SecurityAccessReviewStatus**](SecurityAccessReviewStatus.md) |  | 
 **Name** | **string** | The name of the security access review | 
 **EndTime** | **time.Time** | The end time of the security access review | 
-**ReviewerSettings** | [**SecurityAccessReviewReviewerSettings**](SecurityAccessReviewReviewerSettings.md) |  | 
+**ReviewerSettings** | [**SecurityAccessReviewReviewerSettingsResponse**](SecurityAccessReviewReviewerSettingsResponse.md) |  | 
 
 ## Methods
 
 ### NewSecurityAccessReviewSparse
 
-`func NewSecurityAccessReviewSparse(id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, status SecurityAccessReviewStatus, name string, endTime time.Time, reviewerSettings SecurityAccessReviewReviewerSettings, ) *SecurityAccessReviewSparse`
+`func NewSecurityAccessReviewSparse(id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, status SecurityAccessReviewStatus, name string, endTime time.Time, reviewerSettings SecurityAccessReviewReviewerSettingsResponse, ) *SecurityAccessReviewSparse`
 
 NewSecurityAccessReviewSparse instantiates a new SecurityAccessReviewSparse object
 This constructor will assign default values to properties that have it defined,
@@ -221,20 +221,20 @@ SetEndTime sets EndTime field to given value.
 
 ### GetReviewerSettings
 
-`func (o *SecurityAccessReviewSparse) GetReviewerSettings() SecurityAccessReviewReviewerSettings`
+`func (o *SecurityAccessReviewSparse) GetReviewerSettings() SecurityAccessReviewReviewerSettingsResponse`
 
 GetReviewerSettings returns the ReviewerSettings field if non-nil, zero value otherwise.
 
 ### GetReviewerSettingsOk
 
-`func (o *SecurityAccessReviewSparse) GetReviewerSettingsOk() (*SecurityAccessReviewReviewerSettings, bool)`
+`func (o *SecurityAccessReviewSparse) GetReviewerSettingsOk() (*SecurityAccessReviewReviewerSettingsResponse, bool)`
 
 GetReviewerSettingsOk returns a tuple with the ReviewerSettings field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetReviewerSettings
 
-`func (o *SecurityAccessReviewSparse) SetReviewerSettings(v SecurityAccessReviewReviewerSettings)`
+`func (o *SecurityAccessReviewSparse) SetReviewerSettings(v SecurityAccessReviewReviewerSettingsResponse)`
 
 SetReviewerSettings sets ReviewerSettings field to given value.
 

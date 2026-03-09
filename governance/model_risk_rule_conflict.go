@@ -48,8 +48,9 @@ type RiskRuleConflict struct {
 	// The ISO 8601 formatted date and time when the object was last updated
 	LastUpdated time.Time `json:"lastUpdated"`
 	// The `id` of the Okta user who last updated the object
-	LastUpdatedBy string           `json:"lastUpdatedBy"`
-	Links         *map[string]Link `json:"_links,omitempty"`
+	LastUpdatedBy string `json:"lastUpdatedBy"`
+	// Links to related resources
+	Links *map[string]Link `json:"_links,omitempty"`
 	// Name of the resource risk rule
 	Name *string `json:"name,omitempty"`
 	// Additional information about the risk rule

@@ -32,9 +32,9 @@ var _ MappedNullable = &WritableStandardPropertiesRequestCondition{}
 
 // WritableStandardPropertiesRequestCondition struct for WritableStandardPropertiesRequestCondition
 type WritableStandardPropertiesRequestCondition struct {
-	// Writable unique key on Create. Modifiable on update.
+	// Writable unique key on create. Modifiable on update.
 	Name *string `json:"name,omitempty"`
-	// Human readable description.
+	// Human readable description
 	Description          *string `json:"description,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

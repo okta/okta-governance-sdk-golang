@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **Granted** | Pointer to **NullableTime** | The date the approved access was granted. Only set if request.status is APPROVED. | [optional] 
 **RevocationStatus** | Pointer to [**RequestRevocationStatus**](RequestRevocationStatus.md) |  | [optional] 
 **Revoked** | Pointer to **NullableTime** | The date the granted access was revoked. Only set if request.grantStatus is GRANTED and request.revocationStatus is REVOKED. | [optional] 
-**RequestedBy** | [**TargetPrincipal**](TargetPrincipal.md) |  | 
+**RequestedBy** | [**ClientCredentialPrincipal**](ClientCredentialPrincipal.md) |  | 
 **RequestedFor** | [**TargetPrincipal**](TargetPrincipal.md) |  | 
 **Requested** | [**Requested**](Requested.md) |  | 
 **AccessDuration** | Pointer to **NullableString** | How long the requester retains access after their request is approved and fulfilled.  Specified in [ISO 8601 duration format](https://en.wikipedia.org/wiki/ISO_8601#Durations).  #### Known limitation  Only single time unit ISO 8601 duration formats (D, H, M) are supported, for units (days, hours, minutes).  ##### Supported  | Unit       | Example | | ---------- | ------- | | D, days    | P40D    | | H, hours   | PT65H   | | M, minutes | PT90M   |  &gt; **Note:** Mixes of units, as well as month/year/week designations, are not supported. For example, &#x60;P40DT65H&#x60;, &#x60;P40M&#x60;, &#x60;P1W&#x60; and &#x60;P1Y&#x60; are not supported. | [optional] 
@@ -28,7 +28,7 @@ Name | Type | Description | Notes
 
 ### NewRequestSubmissionFull
 
-`func NewRequestSubmissionFull(id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, links RequestLinks2, status string, requestedBy TargetPrincipal, requestedFor TargetPrincipal, requested Requested, ) *RequestSubmissionFull`
+`func NewRequestSubmissionFull(id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, links RequestLinks2, status string, requestedBy ClientCredentialPrincipal, requestedFor TargetPrincipal, requested Requested, ) *RequestSubmissionFull`
 
 NewRequestSubmissionFull instantiates a new RequestSubmissionFull object
 This constructor will assign default values to properties that have it defined,
@@ -340,20 +340,20 @@ HasRevoked returns a boolean if a field has been set.
 UnsetRevoked ensures that no value is present for Revoked, not even an explicit nil
 ### GetRequestedBy
 
-`func (o *RequestSubmissionFull) GetRequestedBy() TargetPrincipal`
+`func (o *RequestSubmissionFull) GetRequestedBy() ClientCredentialPrincipal`
 
 GetRequestedBy returns the RequestedBy field if non-nil, zero value otherwise.
 
 ### GetRequestedByOk
 
-`func (o *RequestSubmissionFull) GetRequestedByOk() (*TargetPrincipal, bool)`
+`func (o *RequestSubmissionFull) GetRequestedByOk() (*ClientCredentialPrincipal, bool)`
 
 GetRequestedByOk returns a tuple with the RequestedBy field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRequestedBy
 
-`func (o *RequestSubmissionFull) SetRequestedBy(v TargetPrincipal)`
+`func (o *RequestSubmissionFull) SetRequestedBy(v ClientCredentialPrincipal)`
 
 SetRequestedBy sets RequestedBy field to given value.
 

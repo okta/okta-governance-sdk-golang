@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Id** | **string** | Okta user &#x60;id&#x60; or Okta group &#x60;id&#x60; | 
 **Name** | **string** | User name or Group Name | 
 **Email** | Pointer to **string** | Email of the resource owner, if applicable. | [optional] 
+**Metadata** | Pointer to [**ExternalPrincipalProfileMetadata**](ExternalPrincipalProfileMetadata.md) |  | [optional] 
 **Logo** | Pointer to [**[]Link**](Link.md) | List of logo resources | [optional] 
 **Links** | [**LinkSelf**](LinkSelf.md) |  | 
 
@@ -93,6 +94,31 @@ SetEmail sets Email field to given value.
 `func (o *ExternalPrincipalProfile) HasEmail() bool`
 
 HasEmail returns a boolean if a field has been set.
+
+### GetMetadata
+
+`func (o *ExternalPrincipalProfile) GetMetadata() ExternalPrincipalProfileMetadata`
+
+GetMetadata returns the Metadata field if non-nil, zero value otherwise.
+
+### GetMetadataOk
+
+`func (o *ExternalPrincipalProfile) GetMetadataOk() (*ExternalPrincipalProfileMetadata, bool)`
+
+GetMetadataOk returns a tuple with the Metadata field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMetadata
+
+`func (o *ExternalPrincipalProfile) SetMetadata(v ExternalPrincipalProfileMetadata)`
+
+SetMetadata sets Metadata field to given value.
+
+### HasMetadata
+
+`func (o *ExternalPrincipalProfile) HasMetadata() bool`
+
+HasMetadata returns a boolean if a field has been set.
 
 ### GetLogo
 

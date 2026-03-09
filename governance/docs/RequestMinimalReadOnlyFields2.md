@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Granted** | Pointer to **NullableTime** | The date the approved access was granted. Only set if request.status is APPROVED. | [optional] 
 **RevocationStatus** | Pointer to [**RequestRevocationStatus**](RequestRevocationStatus.md) |  | [optional] 
 **Revoked** | Pointer to **NullableTime** | The date the granted access was revoked. Only set if request.grantStatus is GRANTED and request.revocationStatus is REVOKED. | [optional] 
-**RequestedBy** | Pointer to [**TargetPrincipal**](TargetPrincipal.md) |  | [optional] 
+**RequestedBy** | Pointer to [**ClientCredentialPrincipal**](ClientCredentialPrincipal.md) |  | [optional] 
 **RequestedFor** | Pointer to [**TargetPrincipal**](TargetPrincipal.md) |  | [optional] 
 **Requested** | Pointer to [**Requested**](Requested.md) |  | [optional] 
 **Links** | Pointer to [**RequestLinks2**](RequestLinks2.md) |  | [optional] 
@@ -216,20 +216,20 @@ HasRevoked returns a boolean if a field has been set.
 UnsetRevoked ensures that no value is present for Revoked, not even an explicit nil
 ### GetRequestedBy
 
-`func (o *RequestMinimalReadOnlyFields2) GetRequestedBy() TargetPrincipal`
+`func (o *RequestMinimalReadOnlyFields2) GetRequestedBy() ClientCredentialPrincipal`
 
 GetRequestedBy returns the RequestedBy field if non-nil, zero value otherwise.
 
 ### GetRequestedByOk
 
-`func (o *RequestMinimalReadOnlyFields2) GetRequestedByOk() (*TargetPrincipal, bool)`
+`func (o *RequestMinimalReadOnlyFields2) GetRequestedByOk() (*ClientCredentialPrincipal, bool)`
 
 GetRequestedByOk returns a tuple with the RequestedBy field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRequestedBy
 
-`func (o *RequestMinimalReadOnlyFields2) SetRequestedBy(v TargetPrincipal)`
+`func (o *RequestMinimalReadOnlyFields2) SetRequestedBy(v ClientCredentialPrincipal)`
 
 SetRequestedBy sets RequestedBy field to given value.
 

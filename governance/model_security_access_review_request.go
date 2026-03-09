@@ -37,8 +37,8 @@ type SecurityAccessReviewRequest struct {
 	// The Okta user ID in the security access review
 	PrincipalId string `json:"principalId"`
 	// The name of the security access review
-	SecurityAccessReviewName string `json:"securityAccessReviewName"`
-	// The end time of the security access review. If not specified this defaults to seven days from the start time.
+	Name string `json:"name"`
+	// The date and time when the security access review closes, defaulting to seven days after the creation of the security access review. It must be at least one day and less than six months after creation.
 	EndTime              *time.Time                           `json:"endTime,omitempty"`
 	ReviewerSettings     SecurityAccessReviewReviewerSettings `json:"reviewerSettings"`
 	AdditionalProperties map[string]interface{}
@@ -50,10 +50,10 @@ type _SecurityAccessReviewRequest SecurityAccessReviewRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSecurityAccessReviewRequest(principalId string, securityAccessReviewName string, reviewerSettings SecurityAccessReviewReviewerSettings) *SecurityAccessReviewRequest {
+func NewSecurityAccessReviewRequest(principalId string, name string, reviewerSettings SecurityAccessReviewReviewerSettings) *SecurityAccessReviewRequest {
 	this := SecurityAccessReviewRequest{}
 	this.PrincipalId = principalId
-	this.SecurityAccessReviewName = securityAccessReviewName
+	this.Name = name
 	this.ReviewerSettings = reviewerSettings
 	return &this
 }
@@ -90,28 +90,28 @@ func (o *SecurityAccessReviewRequest) SetPrincipalId(v string) {
 	o.PrincipalId = v
 }
 
-// GetSecurityAccessReviewName returns the SecurityAccessReviewName field value
-func (o *SecurityAccessReviewRequest) GetSecurityAccessReviewName() string {
+// GetName returns the Name field value
+func (o *SecurityAccessReviewRequest) GetName() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.SecurityAccessReviewName
+	return o.Name
 }
 
-// GetSecurityAccessReviewNameOk returns a tuple with the SecurityAccessReviewName field value
+// GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
-func (o *SecurityAccessReviewRequest) GetSecurityAccessReviewNameOk() (*string, bool) {
+func (o *SecurityAccessReviewRequest) GetNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.SecurityAccessReviewName, true
+	return &o.Name, true
 }
 
-// SetSecurityAccessReviewName sets field value
-func (o *SecurityAccessReviewRequest) SetSecurityAccessReviewName(v string) {
-	o.SecurityAccessReviewName = v
+// SetName sets field value
+func (o *SecurityAccessReviewRequest) SetName(v string) {
+	o.Name = v
 }
 
 // GetEndTime returns the EndTime field value if set, zero value otherwise.
@@ -181,7 +181,7 @@ func (o SecurityAccessReviewRequest) MarshalJSON() ([]byte, error) {
 func (o SecurityAccessReviewRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["principalId"] = o.PrincipalId
-	toSerialize["securityAccessReviewName"] = o.SecurityAccessReviewName
+	toSerialize["name"] = o.Name
 	if !IsNil(o.EndTime) {
 		toSerialize["endTime"] = o.EndTime
 	}
@@ -200,7 +200,7 @@ func (o *SecurityAccessReviewRequest) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"principalId",
-		"securityAccessReviewName",
+		"name",
 		"reviewerSettings",
 	}
 
@@ -232,7 +232,7 @@ func (o *SecurityAccessReviewRequest) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "principalId")
-		delete(additionalProperties, "securityAccessReviewName")
+		delete(additionalProperties, "name")
 		delete(additionalProperties, "endTime")
 		delete(additionalProperties, "reviewerSettings")
 		o.AdditionalProperties = additionalProperties

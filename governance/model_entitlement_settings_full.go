@@ -28,61 +28,60 @@ import (
 	"fmt"
 )
 
-// checks if the SecurityAccessReviewReviewers type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &SecurityAccessReviewReviewers{}
+// checks if the EntitlementSettingsFull type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EntitlementSettingsFull{}
 
-// SecurityAccessReviewReviewers struct for SecurityAccessReviewReviewers
-type SecurityAccessReviewReviewers struct {
-	// Security access review reviewers
-	Data                 []PrincipalProfile `json:"data"`
+// EntitlementSettingsFull Entitlement settings for a resource
+type EntitlementSettingsFull struct {
+	Status               EntitlementSettingsResponseStatus `json:"status"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _SecurityAccessReviewReviewers SecurityAccessReviewReviewers
+type _EntitlementSettingsFull EntitlementSettingsFull
 
-// NewSecurityAccessReviewReviewers instantiates a new SecurityAccessReviewReviewers object
+// NewEntitlementSettingsFull instantiates a new EntitlementSettingsFull object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSecurityAccessReviewReviewers(data []PrincipalProfile) *SecurityAccessReviewReviewers {
-	this := SecurityAccessReviewReviewers{}
-	this.Data = data
+func NewEntitlementSettingsFull(status EntitlementSettingsResponseStatus) *EntitlementSettingsFull {
+	this := EntitlementSettingsFull{}
+	this.Status = status
 	return &this
 }
 
-// NewSecurityAccessReviewReviewersWithDefaults instantiates a new SecurityAccessReviewReviewers object
+// NewEntitlementSettingsFullWithDefaults instantiates a new EntitlementSettingsFull object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewSecurityAccessReviewReviewersWithDefaults() *SecurityAccessReviewReviewers {
-	this := SecurityAccessReviewReviewers{}
+func NewEntitlementSettingsFullWithDefaults() *EntitlementSettingsFull {
+	this := EntitlementSettingsFull{}
 	return &this
 }
 
-// GetData returns the Data field value
-func (o *SecurityAccessReviewReviewers) GetData() []PrincipalProfile {
+// GetStatus returns the Status field value
+func (o *EntitlementSettingsFull) GetStatus() EntitlementSettingsResponseStatus {
 	if o == nil {
-		var ret []PrincipalProfile
+		var ret EntitlementSettingsResponseStatus
 		return ret
 	}
 
-	return o.Data
+	return o.Status
 }
 
-// GetDataOk returns a tuple with the Data field value
+// GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
-func (o *SecurityAccessReviewReviewers) GetDataOk() ([]PrincipalProfile, bool) {
+func (o *EntitlementSettingsFull) GetStatusOk() (*EntitlementSettingsResponseStatus, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.Data, true
+	return &o.Status, true
 }
 
-// SetData sets field value
-func (o *SecurityAccessReviewReviewers) SetData(v []PrincipalProfile) {
-	o.Data = v
+// SetStatus sets field value
+func (o *EntitlementSettingsFull) SetStatus(v EntitlementSettingsResponseStatus) {
+	o.Status = v
 }
 
-func (o SecurityAccessReviewReviewers) MarshalJSON() ([]byte, error) {
+func (o EntitlementSettingsFull) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -90,9 +89,9 @@ func (o SecurityAccessReviewReviewers) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o SecurityAccessReviewReviewers) ToMap() (map[string]interface{}, error) {
+func (o EntitlementSettingsFull) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["data"] = o.Data
+	toSerialize["status"] = o.Status
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -101,12 +100,12 @@ func (o SecurityAccessReviewReviewers) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *SecurityAccessReviewReviewers) UnmarshalJSON(data []byte) (err error) {
+func (o *EntitlementSettingsFull) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"data",
+		"status",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -123,58 +122,58 @@ func (o *SecurityAccessReviewReviewers) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varSecurityAccessReviewReviewers := _SecurityAccessReviewReviewers{}
+	varEntitlementSettingsFull := _EntitlementSettingsFull{}
 
-	err = json.Unmarshal(data, &varSecurityAccessReviewReviewers)
+	err = json.Unmarshal(data, &varEntitlementSettingsFull)
 
 	if err != nil {
 		return err
 	}
 
-	*o = SecurityAccessReviewReviewers(varSecurityAccessReviewReviewers)
+	*o = EntitlementSettingsFull(varEntitlementSettingsFull)
 
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "data")
+		delete(additionalProperties, "status")
 		o.AdditionalProperties = additionalProperties
 	}
 
 	return err
 }
 
-type NullableSecurityAccessReviewReviewers struct {
-	value *SecurityAccessReviewReviewers
+type NullableEntitlementSettingsFull struct {
+	value *EntitlementSettingsFull
 	isSet bool
 }
 
-func (v NullableSecurityAccessReviewReviewers) Get() *SecurityAccessReviewReviewers {
+func (v NullableEntitlementSettingsFull) Get() *EntitlementSettingsFull {
 	return v.value
 }
 
-func (v *NullableSecurityAccessReviewReviewers) Set(val *SecurityAccessReviewReviewers) {
+func (v *NullableEntitlementSettingsFull) Set(val *EntitlementSettingsFull) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableSecurityAccessReviewReviewers) IsSet() bool {
+func (v NullableEntitlementSettingsFull) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableSecurityAccessReviewReviewers) Unset() {
+func (v *NullableEntitlementSettingsFull) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableSecurityAccessReviewReviewers(val *SecurityAccessReviewReviewers) *NullableSecurityAccessReviewReviewers {
-	return &NullableSecurityAccessReviewReviewers{value: val, isSet: true}
+func NewNullableEntitlementSettingsFull(val *EntitlementSettingsFull) *NullableEntitlementSettingsFull {
+	return &NullableEntitlementSettingsFull{value: val, isSet: true}
 }
 
-func (v NullableSecurityAccessReviewReviewers) MarshalJSON() ([]byte, error) {
+func (v NullableEntitlementSettingsFull) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableSecurityAccessReviewReviewers) UnmarshalJSON(src []byte) error {
+func (v *NullableEntitlementSettingsFull) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

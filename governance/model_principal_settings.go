@@ -25,7 +25,6 @@ package governance
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the PrincipalSettings type satisfies the MappedNullable interface at compile time
@@ -33,7 +32,7 @@ var _ MappedNullable = &PrincipalSettings{}
 
 // PrincipalSettings struct for PrincipalSettings
 type PrincipalSettings struct {
-	Delegates            PrincipalSettingsDelegates `json:"delegates"`
+	Delegates            *PrincipalSettingsDelegates `json:"delegates,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -43,9 +42,8 @@ type _PrincipalSettings PrincipalSettings
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPrincipalSettings(delegates PrincipalSettingsDelegates) *PrincipalSettings {
+func NewPrincipalSettings() *PrincipalSettings {
 	this := PrincipalSettings{}
-	this.Delegates = delegates
 	return &this
 }
 
@@ -57,28 +55,36 @@ func NewPrincipalSettingsWithDefaults() *PrincipalSettings {
 	return &this
 }
 
-// GetDelegates returns the Delegates field value
+// GetDelegates returns the Delegates field value if set, zero value otherwise.
 func (o *PrincipalSettings) GetDelegates() PrincipalSettingsDelegates {
-	if o == nil {
+	if o == nil || IsNil(o.Delegates) {
 		var ret PrincipalSettingsDelegates
 		return ret
 	}
-
-	return o.Delegates
+	return *o.Delegates
 }
 
-// GetDelegatesOk returns a tuple with the Delegates field value
+// GetDelegatesOk returns a tuple with the Delegates field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PrincipalSettings) GetDelegatesOk() (*PrincipalSettingsDelegates, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Delegates) {
 		return nil, false
 	}
-	return &o.Delegates, true
+	return o.Delegates, true
 }
 
-// SetDelegates sets field value
+// HasDelegates returns a boolean if a field has been set.
+func (o *PrincipalSettings) HasDelegates() bool {
+	if o != nil && !IsNil(o.Delegates) {
+		return true
+	}
+
+	return false
+}
+
+// SetDelegates gets a reference to the given PrincipalSettingsDelegates and assigns it to the Delegates field.
 func (o *PrincipalSettings) SetDelegates(v PrincipalSettingsDelegates) {
-	o.Delegates = v
+	o.Delegates = &v
 }
 
 func (o PrincipalSettings) MarshalJSON() ([]byte, error) {
@@ -91,7 +97,9 @@ func (o PrincipalSettings) MarshalJSON() ([]byte, error) {
 
 func (o PrincipalSettings) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["delegates"] = o.Delegates
+	if !IsNil(o.Delegates) {
+		toSerialize["delegates"] = o.Delegates
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -101,27 +109,6 @@ func (o PrincipalSettings) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *PrincipalSettings) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"delegates",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varPrincipalSettings := _PrincipalSettings{}
 
 	err = json.Unmarshal(data, &varPrincipalSettings)

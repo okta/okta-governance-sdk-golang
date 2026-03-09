@@ -37,12 +37,12 @@ type GrantFullWithEntitlements struct {
 	GrantType GrantType `json:"grantType"`
 	// The entitlement bundle `id`
 	EntitlementBundleId *string `json:"entitlementBundleId,omitempty" validate:"regexp=enb[0-9a-zA-Z]+"`
-	// The Okta user `id` in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format.  See [Supported resources](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
+	// The Okta user, in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format.
 	TargetPrincipalOrn string              `json:"targetPrincipalOrn"`
 	TargetPrincipal    TargetPrincipalFull `json:"targetPrincipal"`
 	Action             GrantAction         `json:"action"`
 	Actor              GrantActor          `json:"actor"`
-	// The Okta app instance, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for a specific app in [Supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
+	// The Okta resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for [supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
 	TargetResourceOrn string         `json:"targetResourceOrn"`
 	Target            TargetResource `json:"target"`
 	// Collection of entitlements with associated values

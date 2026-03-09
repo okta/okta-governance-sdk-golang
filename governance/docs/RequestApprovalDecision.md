@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **OriginalDeciderFullName** | Pointer to **string** | Full name of the original decider | [optional] 
 **OriginalDeciderEmail** | Pointer to **string** | Email of the original decider | [optional] 
 **DeciderDelegated** | Pointer to **bool** | Indicates if the decision was made by a delegated decider | [optional] 
+**DeciderEscalated** | Pointer to **bool** | Indicates if the decision was made by an escalated decider | [optional] 
 
 ## Methods
 
@@ -216,6 +217,31 @@ SetDeciderDelegated sets DeciderDelegated field to given value.
 `func (o *RequestApprovalDecision) HasDeciderDelegated() bool`
 
 HasDeciderDelegated returns a boolean if a field has been set.
+
+### GetDeciderEscalated
+
+`func (o *RequestApprovalDecision) GetDeciderEscalated() bool`
+
+GetDeciderEscalated returns the DeciderEscalated field if non-nil, zero value otherwise.
+
+### GetDeciderEscalatedOk
+
+`func (o *RequestApprovalDecision) GetDeciderEscalatedOk() (*bool, bool)`
+
+GetDeciderEscalatedOk returns a tuple with the DeciderEscalated field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDeciderEscalated
+
+`func (o *RequestApprovalDecision) SetDeciderEscalated(v bool)`
+
+SetDeciderEscalated sets DeciderEscalated field to given value.
+
+### HasDeciderEscalated
+
+`func (o *RequestApprovalDecision) HasDeciderEscalated() bool`
+
+HasDeciderEscalated returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **RequestOnBehalfOfSettings** | Pointer to [**RequestOnBehalfOfSettingsDetails**](RequestOnBehalfOfSettingsDetails.md) |  | [optional] 
 **ValidRiskSettings** | Pointer to [**ValidRiskSettingsDetails**](ValidRiskSettingsDetails.md) |  | [optional] 
 **RiskSettings** | Pointer to [**RiskSettingsDetails**](RiskSettingsDetails.md) |  | [optional] 
+**ValidRequestOnBehalfOfSettings** | Pointer to [**[]ValidRequestOnBehalfOfSetting**](ValidRequestOnBehalfOfSetting.md) | Request on behalf of settings that are eligible to be added to a request condition for the specified resource | [optional] 
 
 ## Methods
 
@@ -164,6 +165,31 @@ SetRiskSettings sets RiskSettings field to given value.
 `func (o *RequestSettings) HasRiskSettings() bool`
 
 HasRiskSettings returns a boolean if a field has been set.
+
+### GetValidRequestOnBehalfOfSettings
+
+`func (o *RequestSettings) GetValidRequestOnBehalfOfSettings() []ValidRequestOnBehalfOfSetting`
+
+GetValidRequestOnBehalfOfSettings returns the ValidRequestOnBehalfOfSettings field if non-nil, zero value otherwise.
+
+### GetValidRequestOnBehalfOfSettingsOk
+
+`func (o *RequestSettings) GetValidRequestOnBehalfOfSettingsOk() (*[]ValidRequestOnBehalfOfSetting, bool)`
+
+GetValidRequestOnBehalfOfSettingsOk returns a tuple with the ValidRequestOnBehalfOfSettings field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetValidRequestOnBehalfOfSettings
+
+`func (o *RequestSettings) SetValidRequestOnBehalfOfSettings(v []ValidRequestOnBehalfOfSetting)`
+
+SetValidRequestOnBehalfOfSettings sets ValidRequestOnBehalfOfSettings field to given value.
+
+### HasValidRequestOnBehalfOfSettings
+
+`func (o *RequestSettings) HasValidRequestOnBehalfOfSettings() bool`
+
+HasValidRequestOnBehalfOfSettings returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

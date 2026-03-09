@@ -47,7 +47,7 @@ type RequestActionCompleted struct {
 	AccessRemoved NullableTime `json:"accessRemoved,omitempty"`
 	// Human readable name of the resource
 	ResourceName string `json:"resourceName"`
-	// The Okta `app.id`, or `group.id` of the resource that can be requested with this Request Type.  See [list applications](https://developer.okta.com/docs/reference/api/apps/#list-applications) endpoint for reference on how to retrieve application IDs.  See [list groups](https://developer.okta.com/docs/reference/api/groups/#list-groups) endpoint for reference on how to retrieve group IDs.
+	// The Okta `app.id`, or `group.id` of the resource that can be requested with this Request Type.  * See [List applications](https://developer.okta.com/docs/reference/api/apps/#list-applications) to retrieve app IDs. * See [List groups](https://developer.okta.com/docs/reference/api/groups/#list-groups) to retrieve group IDs.
 	ResourceId string `json:"resourceId"`
 	// The type of resource
 	ResourceType         string `json:"resourceType"`

@@ -34,7 +34,9 @@ var _ MappedNullable = &AccessScopeSettingsCreatableGroupAccessScopeSettings{}
 
 // AccessScopeSettingsCreatableGroupAccessScopeSettings Access scope settings that resource permissions are groups.
 type AccessScopeSettingsCreatableGroupAccessScopeSettings struct {
-	Type   string                      `json:"type"`
+	// Request for access to groups
+	Type string `json:"type"`
+	// List of requestable groups  > **Note:** Both standard Okta groups and AD-sourced groups are supported in Access Requests. > Standard Okta groups have the `okta:user_group` value, whereas AD-sourced groups have the `okta:windows_security_principal` value in their `objectClass` property.
 	Groups []GroupsArrayCreatableInner `json:"groups"`
 }
 

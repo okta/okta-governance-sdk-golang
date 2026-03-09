@@ -34,7 +34,7 @@ var _ MappedNullable = &WritableStandardProperties{}
 type WritableStandardProperties struct {
 	// Writable unique key on Create. Not modifiable on update.
 	Name *string `json:"name,omitempty"`
-	// Human readable description.
+	// Human readable description
 	Description          *string `json:"description,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

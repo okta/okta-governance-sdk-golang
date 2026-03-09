@@ -66,13 +66,13 @@ func Test_governance_EntitlementBundlesAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test EntitlementBundlesAPIService GetentitlementBundle", func(t *testing.T) {
+	t.Run("Test EntitlementBundlesAPIService GetEntitlementBundle", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test
 
 		var entitlementBundleId string
 
-		resp, httpRes, err := apiClient.EntitlementBundlesAPI.GetentitlementBundle(context.Background(), entitlementBundleId).Execute()
+		resp, httpRes, err := apiClient.EntitlementBundlesAPI.GetEntitlementBundle(context.Background(), entitlementBundleId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

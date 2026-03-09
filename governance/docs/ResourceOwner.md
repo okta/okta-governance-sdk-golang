@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ParentResourceOrn** | **string** | The Okta app instance, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for a specific app in [Supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources). | 
-**Principals** | Pointer to [**[]ResourceOwnerPrincipal**](ResourceOwnerPrincipal.md) |  | [optional] 
+**ParentResourceOrn** | Pointer to **string** | The Okta resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for [supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources). | [optional] 
+**Principals** | Pointer to [**[]ResourceOwnerPrincipal**](ResourceOwnerPrincipal.md) | The principals that own the resource (users or groups) | [optional] 
 **Resource** | [**ResourceOwnerResource**](ResourceOwnerResource.md) |  | 
 
 ## Methods
 
 ### NewResourceOwner
 
-`func NewResourceOwner(parentResourceOrn string, resource ResourceOwnerResource, ) *ResourceOwner`
+`func NewResourceOwner(resource ResourceOwnerResource, ) *ResourceOwner`
 
 NewResourceOwner instantiates a new ResourceOwner object
 This constructor will assign default values to properties that have it defined,
@@ -46,6 +46,11 @@ and a boolean to check if the value has been set.
 
 SetParentResourceOrn sets ParentResourceOrn field to given value.
 
+### HasParentResourceOrn
+
+`func (o *ResourceOwner) HasParentResourceOrn() bool`
+
+HasParentResourceOrn returns a boolean if a field has been set.
 
 ### GetPrincipals
 

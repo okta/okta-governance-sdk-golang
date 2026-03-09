@@ -25,7 +25,6 @@ package governance
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the DelegatesPatchable type satisfies the MappedNullable interface at compile time
@@ -34,7 +33,7 @@ var _ MappedNullable = &DelegatesPatchable{}
 // DelegatesPatchable Delegates for the principal
 type DelegatesPatchable struct {
 	// Delegate appointments
-	Appointments         []DelegatePatchable `json:"appointments"`
+	Appointments         []DelegatePatchable `json:"appointments,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -44,9 +43,8 @@ type _DelegatesPatchable DelegatesPatchable
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDelegatesPatchable(appointments []DelegatePatchable) *DelegatesPatchable {
+func NewDelegatesPatchable() *DelegatesPatchable {
 	this := DelegatesPatchable{}
-	this.Appointments = appointments
 	return &this
 }
 
@@ -58,18 +56,16 @@ func NewDelegatesPatchableWithDefaults() *DelegatesPatchable {
 	return &this
 }
 
-// GetAppointments returns the Appointments field value
-// If the value is explicit nil, the zero value for []DelegatePatchable will be returned
+// GetAppointments returns the Appointments field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *DelegatesPatchable) GetAppointments() []DelegatePatchable {
 	if o == nil {
 		var ret []DelegatePatchable
 		return ret
 	}
-
 	return o.Appointments
 }
 
-// GetAppointmentsOk returns a tuple with the Appointments field value
+// GetAppointmentsOk returns a tuple with the Appointments field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *DelegatesPatchable) GetAppointmentsOk() ([]DelegatePatchable, bool) {
@@ -79,7 +75,16 @@ func (o *DelegatesPatchable) GetAppointmentsOk() ([]DelegatePatchable, bool) {
 	return o.Appointments, true
 }
 
-// SetAppointments sets field value
+// HasAppointments returns a boolean if a field has been set.
+func (o *DelegatesPatchable) HasAppointments() bool {
+	if o != nil && !IsNil(o.Appointments) {
+		return true
+	}
+
+	return false
+}
+
+// SetAppointments gets a reference to the given []DelegatePatchable and assigns it to the Appointments field.
 func (o *DelegatesPatchable) SetAppointments(v []DelegatePatchable) {
 	o.Appointments = v
 }
@@ -106,27 +111,6 @@ func (o DelegatesPatchable) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *DelegatesPatchable) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"appointments",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varDelegatesPatchable := _DelegatesPatchable{}
 
 	err = json.Unmarshal(data, &varDelegatesPatchable)

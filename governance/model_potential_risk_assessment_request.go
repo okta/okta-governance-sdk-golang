@@ -33,10 +33,10 @@ var _ MappedNullable = &PotentialRiskAssessmentRequest{}
 
 // PotentialRiskAssessmentRequest struct for PotentialRiskAssessmentRequest
 type PotentialRiskAssessmentRequest struct {
-	// The Okta user `id` in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format.  See [Supported resources](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
+	// The Okta user, in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format.
 	PrincipalOrn string `json:"principalOrn"`
-	// The `id` of the resource in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format. The resource can be an app, a collection, or a bundle.
-	ResourceOrn          string `json:"resourceOrn"`
+	// The `id` of the resource in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format. The resource can be a collection, a bundle, or an entitlement.
+	ResourceOrn          *string `json:"resourceOrn,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -46,10 +46,9 @@ type _PotentialRiskAssessmentRequest PotentialRiskAssessmentRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPotentialRiskAssessmentRequest(principalOrn string, resourceOrn string) *PotentialRiskAssessmentRequest {
+func NewPotentialRiskAssessmentRequest(principalOrn string) *PotentialRiskAssessmentRequest {
 	this := PotentialRiskAssessmentRequest{}
 	this.PrincipalOrn = principalOrn
-	this.ResourceOrn = resourceOrn
 	return &this
 }
 
@@ -85,28 +84,36 @@ func (o *PotentialRiskAssessmentRequest) SetPrincipalOrn(v string) {
 	o.PrincipalOrn = v
 }
 
-// GetResourceOrn returns the ResourceOrn field value
+// GetResourceOrn returns the ResourceOrn field value if set, zero value otherwise.
 func (o *PotentialRiskAssessmentRequest) GetResourceOrn() string {
-	if o == nil {
+	if o == nil || IsNil(o.ResourceOrn) {
 		var ret string
 		return ret
 	}
-
-	return o.ResourceOrn
+	return *o.ResourceOrn
 }
 
-// GetResourceOrnOk returns a tuple with the ResourceOrn field value
+// GetResourceOrnOk returns a tuple with the ResourceOrn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PotentialRiskAssessmentRequest) GetResourceOrnOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.ResourceOrn) {
 		return nil, false
 	}
-	return &o.ResourceOrn, true
+	return o.ResourceOrn, true
 }
 
-// SetResourceOrn sets field value
+// HasResourceOrn returns a boolean if a field has been set.
+func (o *PotentialRiskAssessmentRequest) HasResourceOrn() bool {
+	if o != nil && !IsNil(o.ResourceOrn) {
+		return true
+	}
+
+	return false
+}
+
+// SetResourceOrn gets a reference to the given string and assigns it to the ResourceOrn field.
 func (o *PotentialRiskAssessmentRequest) SetResourceOrn(v string) {
-	o.ResourceOrn = v
+	o.ResourceOrn = &v
 }
 
 func (o PotentialRiskAssessmentRequest) MarshalJSON() ([]byte, error) {
@@ -120,7 +127,9 @@ func (o PotentialRiskAssessmentRequest) MarshalJSON() ([]byte, error) {
 func (o PotentialRiskAssessmentRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["principalOrn"] = o.PrincipalOrn
-	toSerialize["resourceOrn"] = o.ResourceOrn
+	if !IsNil(o.ResourceOrn) {
+		toSerialize["resourceOrn"] = o.ResourceOrn
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -135,7 +144,6 @@ func (o *PotentialRiskAssessmentRequest) UnmarshalJSON(data []byte) (err error) 
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"principalOrn",
-		"resourceOrn",
 	}
 
 	allProperties := make(map[string]interface{})

@@ -5,20 +5,22 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | [**EntitlementLink**](EntitlementLink.md) |  | 
-**Id** | **string** | The &#x60;id&#x60; of an entitlement value | 
+**Id** | **string** | The &#x60;id&#x60; of the entitlement value | 
 **Name** | **string** | The display name for an entitlement value | 
 **ExternalValue** | **string** | The value of an entitlement property value | 
-**ExternalId** | Pointer to **string** | The read-only &#x60;id&#x60; of an entitlement property value in the downstream application. | [optional] 
+**ExternalId** | Pointer to **string** | The read-only ID of an entitlement property value in the downstream app | [optional] 
 **Description** | Pointer to **string** | The description of an entitlement value | [optional] 
+**Orn** | **string** | The entitlement value resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) | 
 **EntitlementId** | **string** | The &#x60;id&#x60; property of an entitlement | 
-**ParentResourceOrn** | **string** | The Okta app instance, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for a specific app in [Supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources). | 
+**ParentResourceOrn** | **string** | The Okta resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for [supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources). | 
 **Parent** | [**TargetResource**](TargetResource.md) |  | 
+**Labels** | Pointer to [**[]Label**](Label.md) | List of assigned labels | [optional] 
 
 ## Methods
 
 ### NewEntitlementValue2
 
-`func NewEntitlementValue2(links EntitlementLink, id string, name string, externalValue string, entitlementId string, parentResourceOrn string, parent TargetResource, ) *EntitlementValue2`
+`func NewEntitlementValue2(links EntitlementLink, id string, name string, externalValue string, orn string, entitlementId string, parentResourceOrn string, parent TargetResource, ) *EntitlementValue2`
 
 NewEntitlementValue2 instantiates a new EntitlementValue2 object
 This constructor will assign default values to properties that have it defined,
@@ -163,6 +165,26 @@ SetDescription sets Description field to given value.
 
 HasDescription returns a boolean if a field has been set.
 
+### GetOrn
+
+`func (o *EntitlementValue2) GetOrn() string`
+
+GetOrn returns the Orn field if non-nil, zero value otherwise.
+
+### GetOrnOk
+
+`func (o *EntitlementValue2) GetOrnOk() (*string, bool)`
+
+GetOrnOk returns a tuple with the Orn field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOrn
+
+`func (o *EntitlementValue2) SetOrn(v string)`
+
+SetOrn sets Orn field to given value.
+
+
 ### GetEntitlementId
 
 `func (o *EntitlementValue2) GetEntitlementId() string`
@@ -222,6 +244,31 @@ and a boolean to check if the value has been set.
 
 SetParent sets Parent field to given value.
 
+
+### GetLabels
+
+`func (o *EntitlementValue2) GetLabels() []Label`
+
+GetLabels returns the Labels field if non-nil, zero value otherwise.
+
+### GetLabelsOk
+
+`func (o *EntitlementValue2) GetLabelsOk() (*[]Label, bool)`
+
+GetLabelsOk returns a tuple with the Labels field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLabels
+
+`func (o *EntitlementValue2) SetLabels(v []Label)`
+
+SetLabels sets Labels field to given value.
+
+### HasLabels
+
+`func (o *EntitlementValue2) HasLabels() bool`
+
+HasLabels returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

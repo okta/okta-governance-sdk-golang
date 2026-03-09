@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** | Name of the label category | 
+**Name** | **string** | Key name of the label | 
 **Values** | [**[]LabelValueCreate**](LabelValueCreate.md) | List of label values | 
 
 ## Methods

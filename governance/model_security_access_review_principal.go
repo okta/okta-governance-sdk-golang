@@ -36,7 +36,7 @@ type SecurityAccessReviewPrincipal struct {
 	// The Okta user `id`
 	Id string `json:"id"`
 	// The Okta user's email address
-	Email string `json:"email"`
+	Email *string `json:"email,omitempty"`
 	// The Okta user's first name
 	FirstName *string `json:"firstName,omitempty"`
 	// The Okta user's last name
@@ -44,11 +44,12 @@ type SecurityAccessReviewPrincipal struct {
 	// The Okta user's login
 	Login  *string                `json:"login,omitempty"`
 	Status PrincipalProfileStatus `json:"status"`
-	// Department
+	Type   PrincipalProfileType   `json:"type"`
+	// The department of the Okta user
 	Department *string `json:"department,omitempty"`
-	// Manager
+	// The manager of the Okta user
 	Manager *string `json:"manager,omitempty"`
-	// Role
+	// The Okta user role
 	Role          *string                                     `json:"role,omitempty"`
 	HomeLocation  *SecurityAccessReviewPrincipalLocation      `json:"homeLocation,omitempty"`
 	LastLoginInfo *SecurityAccessReviewPrincipalLastLoginInfo `json:"lastLoginInfo,omitempty"`
@@ -64,11 +65,11 @@ type _SecurityAccessReviewPrincipal SecurityAccessReviewPrincipal
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSecurityAccessReviewPrincipal(id string, email string, status PrincipalProfileStatus) *SecurityAccessReviewPrincipal {
+func NewSecurityAccessReviewPrincipal(id string, status PrincipalProfileStatus, type_ PrincipalProfileType) *SecurityAccessReviewPrincipal {
 	this := SecurityAccessReviewPrincipal{}
 	this.Id = id
-	this.Email = email
 	this.Status = status
+	this.Type = type_
 	return &this
 }
 
@@ -104,28 +105,36 @@ func (o *SecurityAccessReviewPrincipal) SetId(v string) {
 	o.Id = v
 }
 
-// GetEmail returns the Email field value
+// GetEmail returns the Email field value if set, zero value otherwise.
 func (o *SecurityAccessReviewPrincipal) GetEmail() string {
-	if o == nil {
+	if o == nil || IsNil(o.Email) {
 		var ret string
 		return ret
 	}
-
-	return o.Email
+	return *o.Email
 }
 
-// GetEmailOk returns a tuple with the Email field value
+// GetEmailOk returns a tuple with the Email field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecurityAccessReviewPrincipal) GetEmailOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Email) {
 		return nil, false
 	}
-	return &o.Email, true
+	return o.Email, true
 }
 
-// SetEmail sets field value
+// HasEmail returns a boolean if a field has been set.
+func (o *SecurityAccessReviewPrincipal) HasEmail() bool {
+	if o != nil && !IsNil(o.Email) {
+		return true
+	}
+
+	return false
+}
+
+// SetEmail gets a reference to the given string and assigns it to the Email field.
 func (o *SecurityAccessReviewPrincipal) SetEmail(v string) {
-	o.Email = v
+	o.Email = &v
 }
 
 // GetFirstName returns the FirstName field value if set, zero value otherwise.
@@ -246,6 +255,30 @@ func (o *SecurityAccessReviewPrincipal) GetStatusOk() (*PrincipalProfileStatus, 
 // SetStatus sets field value
 func (o *SecurityAccessReviewPrincipal) SetStatus(v PrincipalProfileStatus) {
 	o.Status = v
+}
+
+// GetType returns the Type field value
+func (o *SecurityAccessReviewPrincipal) GetType() PrincipalProfileType {
+	if o == nil {
+		var ret PrincipalProfileType
+		return ret
+	}
+
+	return o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value
+// and a boolean to check if the value has been set.
+func (o *SecurityAccessReviewPrincipal) GetTypeOk() (*PrincipalProfileType, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Type, true
+}
+
+// SetType sets field value
+func (o *SecurityAccessReviewPrincipal) SetType(v PrincipalProfileType) {
+	o.Type = v
 }
 
 // GetDepartment returns the Department field value if set, zero value otherwise.
@@ -483,7 +516,9 @@ func (o SecurityAccessReviewPrincipal) MarshalJSON() ([]byte, error) {
 func (o SecurityAccessReviewPrincipal) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id
-	toSerialize["email"] = o.Email
+	if !IsNil(o.Email) {
+		toSerialize["email"] = o.Email
+	}
 	if !IsNil(o.FirstName) {
 		toSerialize["firstName"] = o.FirstName
 	}
@@ -494,6 +529,7 @@ func (o SecurityAccessReviewPrincipal) ToMap() (map[string]interface{}, error) {
 		toSerialize["login"] = o.Login
 	}
 	toSerialize["status"] = o.Status
+	toSerialize["type"] = o.Type
 	if !IsNil(o.Department) {
 		toSerialize["department"] = o.Department
 	}
@@ -529,8 +565,8 @@ func (o *SecurityAccessReviewPrincipal) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"id",
-		"email",
 		"status",
+		"type",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -566,6 +602,7 @@ func (o *SecurityAccessReviewPrincipal) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "lastName")
 		delete(additionalProperties, "login")
 		delete(additionalProperties, "status")
+		delete(additionalProperties, "type")
 		delete(additionalProperties, "department")
 		delete(additionalProperties, "manager")
 		delete(additionalProperties, "role")

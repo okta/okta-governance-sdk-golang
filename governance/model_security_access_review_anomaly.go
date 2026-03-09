@@ -35,7 +35,7 @@ var _ MappedNullable = &SecurityAccessReviewAnomaly{}
 type SecurityAccessReviewAnomaly struct {
 	Type     SecurityAccessReviewAnomalyType        `json:"type"`
 	Severity SecurityAccessReviewAccessItemSeverity `json:"severity"`
-	Subtext  ServerMessage                          `json:"subtext"`
+	Subtext  ServerExtendedMessage                  `json:"subtext"`
 	// A list of separation of duties (SOD) conflicts caused by a user's access to an entitlement
 	SodConflicts         []SecurityAccessReviewSodConflict `json:"sodConflicts,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -47,7 +47,7 @@ type _SecurityAccessReviewAnomaly SecurityAccessReviewAnomaly
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSecurityAccessReviewAnomaly(type_ SecurityAccessReviewAnomalyType, severity SecurityAccessReviewAccessItemSeverity, subtext ServerMessage) *SecurityAccessReviewAnomaly {
+func NewSecurityAccessReviewAnomaly(type_ SecurityAccessReviewAnomalyType, severity SecurityAccessReviewAccessItemSeverity, subtext ServerExtendedMessage) *SecurityAccessReviewAnomaly {
 	this := SecurityAccessReviewAnomaly{}
 	this.Type = type_
 	this.Severity = severity
@@ -112,9 +112,9 @@ func (o *SecurityAccessReviewAnomaly) SetSeverity(v SecurityAccessReviewAccessIt
 }
 
 // GetSubtext returns the Subtext field value
-func (o *SecurityAccessReviewAnomaly) GetSubtext() ServerMessage {
+func (o *SecurityAccessReviewAnomaly) GetSubtext() ServerExtendedMessage {
 	if o == nil {
-		var ret ServerMessage
+		var ret ServerExtendedMessage
 		return ret
 	}
 
@@ -123,7 +123,7 @@ func (o *SecurityAccessReviewAnomaly) GetSubtext() ServerMessage {
 
 // GetSubtextOk returns a tuple with the Subtext field value
 // and a boolean to check if the value has been set.
-func (o *SecurityAccessReviewAnomaly) GetSubtextOk() (*ServerMessage, bool) {
+func (o *SecurityAccessReviewAnomaly) GetSubtextOk() (*ServerExtendedMessage, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -131,7 +131,7 @@ func (o *SecurityAccessReviewAnomaly) GetSubtextOk() (*ServerMessage, bool) {
 }
 
 // SetSubtext sets field value
-func (o *SecurityAccessReviewAnomaly) SetSubtext(v ServerMessage) {
+func (o *SecurityAccessReviewAnomaly) SetSubtext(v ServerExtendedMessage) {
 	o.Subtext = v
 }
 

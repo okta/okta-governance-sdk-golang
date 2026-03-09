@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Entitlements** | Pointer to [**[]EntitlementFull**](EntitlementFull.md) | Collection of entitlements with associated values | [optional] 
 **EntitlementValueCount** | Pointer to **int32** | The number of entitlements associated with this resource in the collection. Use the &#x60;include&#x60; query parameter to return this count in the response. | [optional] 
 **ResourceOrn** | **string** | The ORN identifier for a specific app. Other resource types aren&#39;t supported.  See the [supported-resources](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources) endpoint for reference.  | 
-**ResourceId** | Pointer to **string** | The Okta &#x60;app.id&#x60; of the resource  See the [List applications](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Application/#tag/Application/operation/listApplications) endpoint to retrieve application IDs.  | [optional] 
+**ResourceId** | Pointer to **string** | The Okta &#x60;app.id&#x60; of the resource.  See [List applications](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Application/#tag/Application/operation/listApplications) to retrieve app IDs.  | [optional] 
 **Links** | [**CollectionResourceLinks**](CollectionResourceLinks.md) |  | 
 
 ## Methods

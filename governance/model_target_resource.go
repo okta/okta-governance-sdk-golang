@@ -33,7 +33,7 @@ var _ MappedNullable = &TargetResource{}
 
 // TargetResource Representation of a resource
 type TargetResource struct {
-	// The Okta `app.id` of the resource  See the [List applications](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Application/#tag/Application/operation/listApplications) endpoint to retrieve application IDs.
+	// The Okta `app.id` of the resource.  See [List applications](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Application/#tag/Application/operation/listApplications) to retrieve app IDs.
 	ExternalId           string        `json:"externalId"`
 	Type                 ResourceType2 `json:"type"`
 	AdditionalProperties map[string]interface{}

@@ -32,16 +32,18 @@ var _ MappedNullable = &EntitlementValueFull{}
 
 // EntitlementValueFull Attributes related to Entitlement value
 type EntitlementValueFull struct {
-	// The `id` of an entitlement value
+	// The `id` of the entitlement value
 	Id *string `json:"id,omitempty"`
 	// The display name for an entitlement value
 	Name *string `json:"name,omitempty"`
 	// The value of an entitlement property value
 	ExternalValue *string `json:"externalValue,omitempty"`
-	// The read-only `id` of an entitlement property value in the downstream application.
+	// The read-only ID of an entitlement property value in the downstream app
 	ExternalId *string `json:"externalId,omitempty"`
 	// The description of an entitlement value
-	Description          *string `json:"description,omitempty"`
+	Description *string `json:"description,omitempty"`
+	// The entitlement value resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)
+	Orn                  *string `json:"orn,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -224,6 +226,38 @@ func (o *EntitlementValueFull) SetDescription(v string) {
 	o.Description = &v
 }
 
+// GetOrn returns the Orn field value if set, zero value otherwise.
+func (o *EntitlementValueFull) GetOrn() string {
+	if o == nil || IsNil(o.Orn) {
+		var ret string
+		return ret
+	}
+	return *o.Orn
+}
+
+// GetOrnOk returns a tuple with the Orn field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EntitlementValueFull) GetOrnOk() (*string, bool) {
+	if o == nil || IsNil(o.Orn) {
+		return nil, false
+	}
+	return o.Orn, true
+}
+
+// HasOrn returns a boolean if a field has been set.
+func (o *EntitlementValueFull) HasOrn() bool {
+	if o != nil && !IsNil(o.Orn) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrn gets a reference to the given string and assigns it to the Orn field.
+func (o *EntitlementValueFull) SetOrn(v string) {
+	o.Orn = &v
+}
+
 func (o EntitlementValueFull) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -248,6 +282,9 @@ func (o EntitlementValueFull) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Orn) {
+		toSerialize["orn"] = o.Orn
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -276,6 +313,7 @@ func (o *EntitlementValueFull) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "externalValue")
 		delete(additionalProperties, "externalId")
 		delete(additionalProperties, "description")
+		delete(additionalProperties, "orn")
 		o.AdditionalProperties = additionalProperties
 	}
 

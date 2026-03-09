@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AdditionalPropertiesField** | Pointer to **map[string]interface{}** | (Optional) A map of key value pairs. Additional properties for the label. e.g {\\\&quot;backgroundColor\\\&quot;: \\\&quot;blue\\\&quot;, \\\&quot;font\\\&quot;: \\\&quot;Arial\\\&quot;}  | [optional] 
+**AdditionalPropertiesField** | Pointer to **map[string]interface{}** | Additional metadata properties for the label value.  Supported property and valid values: * &#x60;backgroundColor&#x60;: [&#x60;red&#x60;, &#x60;orange&#x60;, &#x60;yellow&#x60;, &#x60;green&#x60;, &#x60;blue&#x60;, &#x60;purple&#x60;, &#x60;teal&#x60;, &#x60;beige&#x60;, &#x60;gray&#x60;] | [optional] 
 
 ## Methods
 

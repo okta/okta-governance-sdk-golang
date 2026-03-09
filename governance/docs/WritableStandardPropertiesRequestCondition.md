@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** | Writable unique key on Create. Modifiable on update. | [optional] 
-**Description** | Pointer to **string** | Human readable description. | [optional] 
+**Name** | Pointer to **string** | Writable unique key on create. Modifiable on update. | [optional] 
+**Description** | Pointer to **string** | Human readable description | [optional] 
 
 ## Methods
 

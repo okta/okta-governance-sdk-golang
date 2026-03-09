@@ -3,7 +3,9 @@
 ## Enum
 
 
-* `ENTITLEMENT` (value: `"ENTITLEMENT"`)
+* `ENTITLEMENT_VALUE` (value: `"ENTITLEMENT_VALUE"`)
+
+* `ENTITLEMENT_BUNDLE` (value: `"ENTITLEMENT_BUNDLE"`)
 
 * `GROUP` (value: `"GROUP"`)
 

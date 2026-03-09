@@ -4,16 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** | The &#x60;id&#x60; of an entitlement value | 
+**Id** | **string** | The &#x60;id&#x60; of the entitlement value | 
 **Name** | **string** | The display name for an entitlement value | 
 **ExternalValue** | **string** | The value of an entitlement property value | 
+**Orn** | **string** | The entitlement value resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) | 
 **Effective** | Pointer to **bool** | A granted entitlement may not be effective if the same entitlement is granted by a higher priority additional grant | [optional] 
 
 ## Methods
 
 ### NewGrantedEntitlementValue
 
-`func NewGrantedEntitlementValue(id string, name string, externalValue string, ) *GrantedEntitlementValue`
+`func NewGrantedEntitlementValue(id string, name string, externalValue string, orn string, ) *GrantedEntitlementValue`
 
 NewGrantedEntitlementValue instantiates a new GrantedEntitlementValue object
 This constructor will assign default values to properties that have it defined,
@@ -86,6 +87,26 @@ and a boolean to check if the value has been set.
 `func (o *GrantedEntitlementValue) SetExternalValue(v string)`
 
 SetExternalValue sets ExternalValue field to given value.
+
+
+### GetOrn
+
+`func (o *GrantedEntitlementValue) GetOrn() string`
+
+GetOrn returns the Orn field if non-nil, zero value otherwise.
+
+### GetOrnOk
+
+`func (o *GrantedEntitlementValue) GetOrnOk() (*string, bool)`
+
+GetOrnOk returns a tuple with the Orn field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOrn
+
+`func (o *GrantedEntitlementValue) SetOrn(v string)`
+
+SetOrn sets Orn field to given value.
 
 
 ### GetEffective

@@ -33,7 +33,9 @@ var _ MappedNullable = &ServerMessage{}
 
 // ServerMessage struct for ServerMessage
 type ServerMessage struct {
-	Message              string                  `json:"message"`
+	// Server message with detailed content.
+	Message string `json:"message"`
+	// Dynamic arguments, used to construct the whole message, are supplied as an array of values.
 	Args                 []ServerMessageArgument `json:"args,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

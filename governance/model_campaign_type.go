@@ -28,7 +28,7 @@ import (
 	"fmt"
 )
 
-// CampaignType Identifies if it is a resource campaign or a user campaign. By default it is RESOURCE.
+// CampaignType Identifies the campaign as a resource or a user campaign
 type CampaignType string
 
 // List of campaign-type

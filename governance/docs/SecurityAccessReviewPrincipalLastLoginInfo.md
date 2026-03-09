@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Date** | Pointer to **time.Time** | Last login date | [optional] 
+**Date** | Pointer to **time.Time** | Last sign-in date | [optional] 
 **Location** | Pointer to [**SecurityAccessReviewPrincipalLocation**](SecurityAccessReviewPrincipalLocation.md) |  | [optional] 
-**Device** | Pointer to **string** | Last login device | [optional] 
-**IpAddress** | Pointer to **string** | Last login IP address | [optional] 
+**Device** | Pointer to **string** | Last sign-in device | [optional] 
+**IpAddress** | Pointer to **string** | Last sign-in IP address | [optional] 
 
 ## Methods
 

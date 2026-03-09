@@ -28,19 +28,25 @@ import (
 	"fmt"
 )
 
-// ResourceType The type of Okta resource.
+// ResourceType The type of Okta resource
 type ResourceType string
 
 // List of resource-type
 const (
-	RESOURCETYPE_GROUP       ResourceType = "GROUP"
-	RESOURCETYPE_APPLICATION ResourceType = "APPLICATION"
+	RESOURCETYPE_GROUP                  ResourceType = "GROUP"
+	RESOURCETYPE_APPLICATION            ResourceType = "APPLICATION"
+	RESOURCETYPE_GOVERNANCE_LABEL_VALUE ResourceType = "GOVERNANCE_LABEL_VALUE"
+	RESOURCETYPE_APP_SERVICE_ACCOUNT    ResourceType = "APP_SERVICE_ACCOUNT"
+	RESOURCETYPE_OKTA_SERVICE_ACCOUNT   ResourceType = "OKTA_SERVICE_ACCOUNT"
 )
 
 // All allowed values of ResourceType enum
 var AllowedResourceTypeEnumValues = []ResourceType{
 	"GROUP",
 	"APPLICATION",
+	"GOVERNANCE_LABEL_VALUE",
+	"APP_SERVICE_ACCOUNT",
+	"OKTA_SERVICE_ACCOUNT",
 }
 
 func (v *ResourceType) UnmarshalJSON(src []byte) error {

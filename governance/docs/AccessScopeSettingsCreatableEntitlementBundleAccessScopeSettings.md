@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** |  | 
+**Type** | **string** | Request for access to entitlement bundles | 
 **EntitlementBundles** | [**[]EntitlementBundlesArrayCreatableInner**](EntitlementBundlesArrayCreatableInner.md) | Entitlement bundles that are made requestable | 
 
 ## Methods

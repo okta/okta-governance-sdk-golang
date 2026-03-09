@@ -5,14 +5,15 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | The Okta user &#x60;id&#x60; | 
-**Email** | **string** | The Okta user&#39;s email address | 
+**Email** | Pointer to **string** | The Okta user&#39;s email address | [optional] 
 **FirstName** | Pointer to **string** | The Okta user&#39;s first name | [optional] 
 **LastName** | Pointer to **string** | The Okta user&#39;s last name | [optional] 
 **Login** | Pointer to **string** | The Okta user&#39;s login | [optional] 
 **Status** | [**PrincipalProfileStatus**](PrincipalProfileStatus.md) |  | 
-**Department** | Pointer to **string** | Department | [optional] 
-**Manager** | Pointer to **string** | Manager | [optional] 
-**Role** | Pointer to **string** | Role | [optional] 
+**Type** | [**PrincipalProfileType**](PrincipalProfileType.md) |  | 
+**Department** | Pointer to **string** | The department of the Okta user | [optional] 
+**Manager** | Pointer to **string** | The manager of the Okta user | [optional] 
+**Role** | Pointer to **string** | The Okta user role | [optional] 
 **HomeLocation** | Pointer to [**SecurityAccessReviewPrincipalLocation**](SecurityAccessReviewPrincipalLocation.md) |  | [optional] 
 **LastLoginInfo** | Pointer to [**SecurityAccessReviewPrincipalLastLoginInfo**](SecurityAccessReviewPrincipalLastLoginInfo.md) |  | [optional] 
 **OktaAdminRoles** | Pointer to [**[]SecurityAccessReviewPrincipalOktaAdminRole**](SecurityAccessReviewPrincipalOktaAdminRole.md) | List of Okta admin roles assigned to the principal | [optional] 
@@ -22,7 +23,7 @@ Name | Type | Description | Notes
 
 ### NewSecurityAccessReviewPrincipal
 
-`func NewSecurityAccessReviewPrincipal(id string, email string, status PrincipalProfileStatus, ) *SecurityAccessReviewPrincipal`
+`func NewSecurityAccessReviewPrincipal(id string, status PrincipalProfileStatus, type_ PrincipalProfileType, ) *SecurityAccessReviewPrincipal`
 
 NewSecurityAccessReviewPrincipal instantiates a new SecurityAccessReviewPrincipal object
 This constructor will assign default values to properties that have it defined,
@@ -76,6 +77,11 @@ and a boolean to check if the value has been set.
 
 SetEmail sets Email field to given value.
 
+### HasEmail
+
+`func (o *SecurityAccessReviewPrincipal) HasEmail() bool`
+
+HasEmail returns a boolean if a field has been set.
 
 ### GetFirstName
 
@@ -170,6 +176,26 @@ and a boolean to check if the value has been set.
 `func (o *SecurityAccessReviewPrincipal) SetStatus(v PrincipalProfileStatus)`
 
 SetStatus sets Status field to given value.
+
+
+### GetType
+
+`func (o *SecurityAccessReviewPrincipal) GetType() PrincipalProfileType`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *SecurityAccessReviewPrincipal) GetTypeOk() (*PrincipalProfileType, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *SecurityAccessReviewPrincipal) SetType(v PrincipalProfileType)`
+
+SetType sets Type field to given value.
 
 
 ### GetDepartment

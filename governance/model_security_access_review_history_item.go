@@ -38,9 +38,9 @@ type SecurityAccessReviewHistoryItem struct {
 	// Indicates if the action or change was made by Okta
 	SystemGenerated bool `json:"systemGenerated"`
 	// The date and time of the action or change
-	Timestamp            time.Time         `json:"timestamp"`
-	Message              string            `json:"message"`
-	PrincipalProfile     *PrincipalProfile `json:"principalProfile,omitempty"`
+	Timestamp            time.Time                 `json:"timestamp"`
+	Message              string                    `json:"message"`
+	PrincipalProfile     *PrincipalProfileEnriched `json:"principalProfile,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -164,9 +164,9 @@ func (o *SecurityAccessReviewHistoryItem) SetMessage(v string) {
 }
 
 // GetPrincipalProfile returns the PrincipalProfile field value if set, zero value otherwise.
-func (o *SecurityAccessReviewHistoryItem) GetPrincipalProfile() PrincipalProfile {
+func (o *SecurityAccessReviewHistoryItem) GetPrincipalProfile() PrincipalProfileEnriched {
 	if o == nil || IsNil(o.PrincipalProfile) {
-		var ret PrincipalProfile
+		var ret PrincipalProfileEnriched
 		return ret
 	}
 	return *o.PrincipalProfile
@@ -174,7 +174,7 @@ func (o *SecurityAccessReviewHistoryItem) GetPrincipalProfile() PrincipalProfile
 
 // GetPrincipalProfileOk returns a tuple with the PrincipalProfile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SecurityAccessReviewHistoryItem) GetPrincipalProfileOk() (*PrincipalProfile, bool) {
+func (o *SecurityAccessReviewHistoryItem) GetPrincipalProfileOk() (*PrincipalProfileEnriched, bool) {
 	if o == nil || IsNil(o.PrincipalProfile) {
 		return nil, false
 	}
@@ -190,8 +190,8 @@ func (o *SecurityAccessReviewHistoryItem) HasPrincipalProfile() bool {
 	return false
 }
 
-// SetPrincipalProfile gets a reference to the given PrincipalProfile and assigns it to the PrincipalProfile field.
-func (o *SecurityAccessReviewHistoryItem) SetPrincipalProfile(v PrincipalProfile) {
+// SetPrincipalProfile gets a reference to the given PrincipalProfileEnriched and assigns it to the PrincipalProfile field.
+func (o *SecurityAccessReviewHistoryItem) SetPrincipalProfile(v PrincipalProfileEnriched) {
 	o.PrincipalProfile = &v
 }
 
