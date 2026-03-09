@@ -25,11 +25,7 @@ package governance
 
 import (
 	"encoding/json"
-	"fmt"
 )
-
-// checks if the MySettings type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &MySettings{}
 
 // checks if the MySettings type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &MySettings{}
@@ -113,14 +109,6 @@ func (o MySettings) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *MySettings) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"delegates",
-	}
-
-func (o *MySettings) UnmarshalJSON(data []byte) (err error) {
 	varMySettings := _MySettings{}
 
 	err = json.Unmarshal(data, &varMySettings)
@@ -128,8 +116,6 @@ func (o *MySettings) UnmarshalJSON(data []byte) (err error) {
 	if err != nil {
 		return err
 	}
-
-	*o = MySettings(varMySettings)
 
 	*o = MySettings(varMySettings)
 
