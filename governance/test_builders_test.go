@@ -50,23 +50,7 @@ func BuildTestCampaign() CampaignMutable {
 	}
 }
 
-// BuildTestCollection creates a collection creatable object for testing
-func BuildTestCollection() CollectionCreatable {
-	desc := "Test collection created by SDK unit tests"
-	return CollectionCreatable{
-		Name:        "Test Collection",
-		Description: &desc,
-	}
-}
 
-// BuildTestCollectionWithName creates a collection with a custom name
-func BuildTestCollectionWithName(name string) CollectionCreatable {
-	desc := "Test collection: " + name
-	return CollectionCreatable{
-		Name:        name,
-		Description: &desc,
-	}
-}
 
 // BuildTestEntitlement creates an entitlement create object for testing
 func BuildTestEntitlement() EntitlementCreate {
@@ -126,50 +110,7 @@ func BuildTestEntitlementFull(entitlementId, appId string) EntitlementsFullWithP
 	}
 }
 
-// BuildTestGrant creates a grant creatable object for testing
-func BuildTestGrant() GrantCreatable {
-	return GrantCreatable{
-		GrantTypeBundleWriteable: &GrantTypeBundleWriteable{
-			TargetPrincipal: TargetPrincipal{
-				Type:       "OKTA_USER",
-				ExternalId: "00unkw1sfbTw08c0g1d7",
-			},
-			EntitlementBundleId: "enbzcco02Hw2i4qsDDE1d6",
-			GrantType:           "ENTITLEMENT-BUNDLE",
-		},
-	}
-}
 
-// BuildTestGrantCustom creates a custom grant for a specific principal and resource
-func BuildTestGrantCustom(principalId, resourceId string) GrantCreatable {
-	return GrantCreatable{
-		GrantTypeCustomWriteable: &GrantTypeCustomWriteable{
-			TargetPrincipal: TargetPrincipal{
-				Type:       "OKTA_USER",
-				ExternalId: principalId,
-			},
-			Target: TargetResource{
-				Type:       "APPLICATION",
-				ExternalId: resourceId,
-			},
-			GrantType: "CUSTOM",
-		},
-	}
-}
-
-// BuildTestGrantBundle creates a bundle grant for a specific principal
-func BuildTestGrantBundle(principalId, bundleId string) GrantCreatable {
-	return GrantCreatable{
-		GrantTypeBundleWriteable: &GrantTypeBundleWriteable{
-			TargetPrincipal: TargetPrincipal{
-				Type:       "OKTA_USER",
-				ExternalId: principalId,
-			},
-			EntitlementBundleId: bundleId,
-			GrantType:           "ENTITLEMENT-BUNDLE",
-		},
-	}
-}
 
 // BuildTestEntitlementBundle creates an entitlement bundle for testing
 func BuildTestEntitlementBundle() EntitlementBundleCreatable {

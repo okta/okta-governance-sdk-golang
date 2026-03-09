@@ -56,6 +56,10 @@ type RecorderTestClient struct {
 // The cassette name should be in the format "api_group/test_name" (e.g., "campaigns/list_campaigns").
 // When VCR_RECORD=true, real HTTP calls are made and recorded.
 // When VCR_RECORD is not set, previously recorded responses are played back.
+//
+// Recording requires valid Okta credentials configured via:
+//   - Environment variables: OKTA_CLIENT_ORGURL and OKTA_CLIENT_TOKEN
+//   - Or config file: ~/.okta/okta.yaml
 func NewRecorderClient(t *testing.T, cassetteName string) *RecorderTestClient {
 	t.Helper()
 
@@ -75,17 +79,42 @@ func NewRecorderClient(t *testing.T, cassetteName string) *RecorderTestClient {
 		t.Fatalf("Failed to create recorder: %v", err)
 	}
 
-	// If recording, we need real Okta credentials
-	cfg, err := okta.NewConfiguration()
-	if err != nil {
-		if mode == recorder.ModeRecordOnly {
-			t.Fatalf("Failed to get Okta configuration for recording: %v", err)
-		}
-		// For playback, create a minimal configuration with empty values
-		cfg, _ = okta.NewConfiguration(
-			okta.WithOrgUrl("https://test.okta.com"),
-			okta.WithToken("test-token"),
+	// Check for environment variable overrides first
+	orgUrl := os.Getenv("OKTA_CLIENT_ORGURL")
+	token := os.Getenv("OKTA_CLIENT_TOKEN")
+
+	var cfg *okta.Configuration
+	if orgUrl != "" && token != "" {
+		// Use environment variables
+		cfg, err = okta.NewConfiguration(
+			okta.WithOrgUrl(orgUrl),
+			okta.WithToken(token),
 		)
+		if err != nil {
+			t.Fatalf("Failed to create Okta configuration from env vars: %v", err)
+		}
+	} else {
+		// Fall back to config file (~/.okta/okta.yaml)
+		cfg, err = okta.NewConfiguration()
+		if err != nil {
+			if mode == recorder.ModeRecordOnly {
+				t.Fatalf("Failed to get Okta configuration for recording.\n"+
+					"Ensure valid credentials are configured via:\n"+
+					"  - Environment: OKTA_CLIENT_ORGURL and OKTA_CLIENT_TOKEN\n"+
+					"  - Or file: ~/.okta/okta.yaml\n"+
+					"Error: %v", err)
+			}
+			// For playback, create a minimal configuration with empty values
+			cfg, _ = okta.NewConfiguration(
+				okta.WithOrgUrl("https://test.okta.com"),
+				okta.WithToken("test-token"),
+			)
+		}
+	}
+
+	// Log the org URL being used when recording
+	if mode == recorder.ModeRecordOnly {
+		t.Logf("Recording mode: using Okta org %s", cfg.Okta.Client.OrgUrl)
 	}
 
 	// Create HTTP client with recorder transport
