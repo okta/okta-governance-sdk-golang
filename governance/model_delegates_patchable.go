@@ -25,11 +25,7 @@ package governance
 
 import (
 	"encoding/json"
-	"fmt"
 )
-
-// checks if the DelegatesPatchable type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &DelegatesPatchable{}
 
 // checks if the DelegatesPatchable type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &DelegatesPatchable{}
@@ -115,14 +111,6 @@ func (o DelegatesPatchable) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *DelegatesPatchable) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"appointments",
-	}
-
-func (o *DelegatesPatchable) UnmarshalJSON(data []byte) (err error) {
 	varDelegatesPatchable := _DelegatesPatchable{}
 
 	err = json.Unmarshal(data, &varDelegatesPatchable)
@@ -130,8 +118,6 @@ func (o *DelegatesPatchable) UnmarshalJSON(data []byte) (err error) {
 	if err != nil {
 		return err
 	}
-
-	*o = DelegatesPatchable(varDelegatesPatchable)
 
 	*o = DelegatesPatchable(varDelegatesPatchable)
 
