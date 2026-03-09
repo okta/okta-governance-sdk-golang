@@ -1,3 +1,5 @@
+//go:build integration
+
 package governance
 
 import (
@@ -5,7 +7,7 @@ import (
 )
 
 func TestReviewsAPIService_ListReviewsExecute(t *testing.T) {
-	t.Skip("Skipping test")
+	skipIfNoCredentials(t)
 	filter := `campaignId eq "icizc47q85Kdw1wzRxQ1d6"`
 	execute, a, err := apiClient.ReviewsAPI.ListReviews(apiClient.cfg.Context).Filter(filter).Limit(5).Execute()
 	if err != nil {
@@ -33,10 +35,15 @@ func TestReviewsAPIService_ListReviewsExecute(t *testing.T) {
 }
 
 func TestReviewsAPIService_GetReviewExecute(t *testing.T) {
-	t.Skip("Skipping test")
+	skipIfNoCredentials(t)
 	campaignId := "icizc47q85dqwK1wzRxQ1d6"
 	filter := `campaignId eq "icizc47qdqd85K1wzRxQ1d6"`
 	execute, _, _ := apiClient.ReviewsAPI.ListReviews(apiClient.cfg.Context).Filter(filter).Limit(5).Execute()
+	
+	if len(execute.Data) == 0 {
+		t.Skip("No reviews found to test GetReview")
+	}
+	
 	reviews, a, err := apiClient.ReviewsAPI.GetReview(apiClient.cfg.Context, execute.Data[0].Id).Execute()
 	if err != nil {
 		t.Errorf("Error getting review: %v", err)
@@ -55,7 +62,7 @@ func TestReviewsAPIService_GetReviewExecute(t *testing.T) {
 }
 
 func TestReviewsAPIService_ReassignReviewsExecute(t *testing.T) {
-	t.Skip("Skipping test")
+	skipIfNoCredentials(t)
 	campaignId := "icizc47q85K1wzRxQ1d6"
 	filter := `campaignId eq "icizc47q85K1wzRxQ1d6"`
 	reviews, _, _ := apiClient.ReviewsAPI.ListReviews(apiClient.cfg.Context).Filter(filter).Execute()
@@ -66,6 +73,10 @@ func TestReviewsAPIService_ReassignReviewsExecute(t *testing.T) {
 			reviewID = review.Id
 			break
 		}
+	}
+
+	if reviewID == "" {
+		t.Skip("No unreviewed reviews found to test ReassignReviews")
 	}
 
 	r := ReviewsReassign{ReviewerId: "00unli90kor62oF5Z1d7", ReviewIds: []string{reviewID}, Note: "testing"}

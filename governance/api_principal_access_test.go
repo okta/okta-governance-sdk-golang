@@ -1,3 +1,5 @@
+//go:build integration
+
 package governance
 
 import (
@@ -5,7 +7,7 @@ import (
 )
 
 func TestApiGetPrincipalAccessRequest_Execute(t *testing.T) {
-	t.Skip("Skipping test")
+	skipIfNoCredentials(t)
 	filter := `parent.externalId eq "0oao01ardu8rdw8qUP91d7" AND parent.type eq "APPLICATION" AND targetPrincipal.externalId eq "00unkw1sfbTw08c0g1d7" AND targetPrincipal.type eq "OKTA_USER"` // Replace with a valid principal ID
 	execute, a, err := apiClient.PrincipalAccessAPI.GetPrincipalAccess(apiClient.cfg.Context).Filter(filter).Execute()
 	if err != nil {

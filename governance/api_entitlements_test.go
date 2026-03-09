@@ -1,3 +1,5 @@
+//go:build integration
+
 package governance
 
 import (
@@ -5,7 +7,7 @@ import (
 )
 
 func TestCreateEntitlementExecute(t *testing.T) {
-	t.Skip("Skipping test")
+	skipIfNoCredentials(t)
 	applicationList, _, _ := apiClient.IdaasClient.ApplicationAPI.ListApplications(apiClient.cfg.Context).Execute()
 
 	for _, application := range applicationList {
@@ -40,7 +42,7 @@ func TestCreateEntitlementExecute(t *testing.T) {
 }
 
 func TestListEntitlements(t *testing.T) {
-	t.Skip("Skipping test")
+	skipIfNoCredentials(t)
 	//createdEntitlement, resp, err := apiClient.EntitlementsAPI.CreateEntitlement(apiClient.cfg.Context).EntitlementCreate(buildEntitlement()).Execute()
 	//if err != nil {
 	//	t.Errorf("Error creating entitlement: %v", err)
@@ -77,7 +79,7 @@ func TestListEntitlements(t *testing.T) {
 }
 
 func TestGetEntitlement(t *testing.T) {
-	t.Skip("Skipping test")
+	skipIfNoCredentials(t)
 	entitlementId := "espyyzpbwwzhBGRAf1d6" // Replace with a valid entitlement ID
 
 	entitlement, resp, err := apiClient.EntitlementsAPI.GetEntitlement(apiClient.cfg.Context, entitlementId).Execute()
@@ -97,7 +99,7 @@ func TestGetEntitlement(t *testing.T) {
 }
 
 func TestReplaceEntitlement(t *testing.T) {
-	t.Skip("Skipping test")
+	skipIfNoCredentials(t)
 	entitlementId := "espyyzpbwwzhBGRAf1d6" // Replace with a valid entitlement ID
 
 	// Build the new entitlement data
@@ -120,7 +122,7 @@ func TestReplaceEntitlement(t *testing.T) {
 }
 
 func TestUpdateEntitlement(t *testing.T) {
-	t.Skip("Skipping test")
+	skipIfNoCredentials(t)
 	//entitlementId := "espyyzpbwwzhBGRAf1d6" // Replace with a valid entitlement ID
 	//
 	//// Build the updated entitlement data
@@ -144,7 +146,7 @@ func TestUpdateEntitlement(t *testing.T) {
 }
 
 func TestApiListAllEntitlementValuesRequest_Execute(t *testing.T) {
-	t.Skip("Skipping test")
+	skipIfNoCredentials(t)
 	entitlementId := "espyyzpbwwzhBGRAf1d6"
 
 	entitlementValues, resp, err := apiClient.EntitlementsAPI.ListEntitlementValues(apiClient.cfg.Context, entitlementId).Execute()
@@ -164,7 +166,7 @@ func TestApiListAllEntitlementValuesRequest_Execute(t *testing.T) {
 }
 
 func TestRetrieveEntitlementValue(t *testing.T) {
-	t.Skip("Skipping test")
+	skipIfNoCredentials(t)
 	entitlementId := "espyyzpbwwzhBGRAf1d6" // Replace with a valid entitlement ID
 	valueId := "entyyzpbxQsQP2ej61d6"       // Replace with a valid value ID
 
@@ -185,7 +187,7 @@ func TestRetrieveEntitlementValue(t *testing.T) {
 }
 
 func TestRetrieveAllEntitlementValuesRequest_Execute(t *testing.T) {
-	t.Skip("Skipping test")
+	skipIfNoCredentials(t)
 	filter := `parent.externalId eq "0oao1otjwdwdc8OEd6z61d7" AND parent.type eq "APPLICATION"`
 	entitlementValues, resp, err := apiClient.EntitlementsAPI.ListAllEntitlementValues(apiClient.cfg.Context).Filter(filter).Execute()
 	if err != nil {

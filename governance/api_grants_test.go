@@ -1,3 +1,5 @@
+//go:build integration
+
 package governance
 
 import (
@@ -5,15 +7,15 @@ import (
 )
 
 func TestGrantsAPIService_CreateGrant(t *testing.T) {
-	t.Skip("Skipping test")
+	skipIfNoCredentials(t)
 	_, a, err := apiClient.GrantsAPI.CreateGrant(apiClient.cfg.Context).GrantCreatable(buildGrant()).Execute()
 	if err != nil {
-		t.Errorf("Error getting grants: %v", err)
+		t.Errorf("Error creating grant: %v", err)
 		return
 	}
 
 	if a.StatusCode != 201 {
-		t.Errorf("Expected status code 200, got %d", a.StatusCode)
+		t.Errorf("Expected status code 201, got %d", a.StatusCode)
 		return
 	}
 }
@@ -32,7 +34,7 @@ func buildGrant() GrantCreatable {
 }
 
 func TestGrantsAPIService_ListGrantsExecute(t *testing.T) {
-	t.Skip("Skipping test")
+	skipIfNoCredentials(t)
 	fields := []string{"full_entitlements"}
 	filter := `target.externalId eq "0oao01ardu8r8qdwUP91d7" AND target.type eq "APPLICATION" AND targetPrincipal.externalId eq "00unkw1sfbTw08c0g1d7" AND targetPrincipal.type eq "OKTA_USER"`
 	_, a, err := apiClient.GrantsAPI.ListGrants(apiClient.cfg.Context).Filter(filter).Include(fields).Execute()

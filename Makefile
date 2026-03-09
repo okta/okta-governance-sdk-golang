@@ -63,8 +63,29 @@ import: # Run goimports on all Go files
 check-golangci-lint:
 	@which $(GOLANGCI_LINT) > /dev/null || curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/HEAD/install.sh | sh -s -- -b $(shell go env GOPATH)/bin $(GOLANGCI_LINT_VERSION)
 
+.PHONY: test
 test:
 	go test -failfast -race ./governance -test.v
+
+.PHONY: test\:unit
+test\:unit:
+	@echo "$(COLOR_OKTA)Running unit tests...$(COLOR_NONE)"
+	go test -tags=unit -v ./governance/...
+
+.PHONY: test\:integration
+test\:integration:
+	@echo "$(COLOR_OKTA)Running integration tests...$(COLOR_NONE)"
+	go test -tags=integration -v ./governance/...
+
+.PHONY: test\:record
+test\:record:
+	@echo "$(COLOR_OKTA)Recording cassettes for unit tests...$(COLOR_NONE)"
+	VCR_RECORD=true go test -tags=unit -v ./governance/...
+
+.PHONY: test\:all
+test\:all:
+	@echo "$(COLOR_OKTA)Running all tests...$(COLOR_NONE)"
+	go test -failfast -race -v ./governance/...
 
 generate:
 	npx @openapitools/openapi-generator-cli generate -c ./.generator/config.yaml -i .generator/governance-production-combined-reference-minimal.yaml
