@@ -31,6 +31,9 @@ import (
 // checks if the ReviewerLevelStartReview type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ReviewerLevelStartReview{}
 
+// checks if the ReviewerLevelStartReview type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ReviewerLevelStartReview{}
+
 // ReviewerLevelStartReview Indicates rules for starting reviews at this level
 type ReviewerLevelStartReview struct {
 	// The day when reviewer level starts: 1. For the first level, this value is always `0` since the first level starts when the campaign starts. 2. For the second level, specify a value that's greater than `0`. This indicates the day when the reviews move to the second level.

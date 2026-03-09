@@ -31,6 +31,9 @@ import (
 // checks if the ResourceOwnersListLinks type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ResourceOwnersListLinks{}
 
+// checks if the ResourceOwnersListLinks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ResourceOwnersListLinks{}
+
 // ResourceOwnersListLinks Related links available in a list response
 type ResourceOwnersListLinks struct {
 	Self                 Link  `json:"self"`

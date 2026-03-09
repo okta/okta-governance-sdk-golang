@@ -300,6 +300,8 @@ func (o *ExternalPrincipalProfile) UnmarshalJSON(data []byte) (err error) {
 
 	*o = ExternalPrincipalProfile(varExternalPrincipalProfile)
 
+	*o = ExternalPrincipalProfile(varExternalPrincipalProfile)
+
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {

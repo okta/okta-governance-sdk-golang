@@ -25,7 +25,11 @@ package governance
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the PrincipalSettings type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PrincipalSettings{}
 
 // checks if the PrincipalSettings type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &PrincipalSettings{}
@@ -109,6 +113,14 @@ func (o PrincipalSettings) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *PrincipalSettings) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"delegates",
+	}
+
+func (o *PrincipalSettings) UnmarshalJSON(data []byte) (err error) {
 	varPrincipalSettings := _PrincipalSettings{}
 
 	err = json.Unmarshal(data, &varPrincipalSettings)
@@ -116,6 +128,8 @@ func (o *PrincipalSettings) UnmarshalJSON(data []byte) (err error) {
 	if err != nil {
 		return err
 	}
+
+	*o = PrincipalSettings(varPrincipalSettings)
 
 	*o = PrincipalSettings(varPrincipalSettings)
 

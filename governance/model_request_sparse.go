@@ -478,6 +478,8 @@ func (o *RequestSparse) UnmarshalJSON(data []byte) (err error) {
 
 	*o = RequestSparse(varRequestSparse)
 
+	*o = RequestSparse(varRequestSparse)
+
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {

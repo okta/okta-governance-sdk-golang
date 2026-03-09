@@ -31,6 +31,9 @@ import (
 // checks if the EntitlementValue type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &EntitlementValue{}
 
+// checks if the EntitlementValue type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EntitlementValue{}
+
 // EntitlementValue List of entitlement value IDs
 type EntitlementValue struct {
 	// The entitlement value `id`

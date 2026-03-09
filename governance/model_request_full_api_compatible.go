@@ -572,6 +572,8 @@ func (o *RequestFullApiCompatible) UnmarshalJSON(data []byte) (err error) {
 
 	*o = RequestFullApiCompatible(varRequestFullApiCompatible)
 
+	*o = RequestFullApiCompatible(varRequestFullApiCompatible)
+
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {

@@ -31,6 +31,9 @@ import (
 // checks if the EntitlementBundlesArrayCreatableInner type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &EntitlementBundlesArrayCreatableInner{}
 
+// checks if the EntitlementBundlesArrayCreatableInner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EntitlementBundlesArrayCreatableInner{}
+
 // EntitlementBundlesArrayCreatableInner Entitlement bundle ID that is made requestable
 type EntitlementBundlesArrayCreatableInner struct {
 	// Entitlement bundle ID

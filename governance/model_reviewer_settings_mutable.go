@@ -31,6 +31,9 @@ import (
 // checks if the ReviewerSettingsMutable type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ReviewerSettingsMutable{}
 
+// checks if the ReviewerSettingsMutable type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ReviewerSettingsMutable{}
+
 // ReviewerSettingsMutable Reviewer settings for the access certification campaign
 type ReviewerSettingsMutable struct {
 	Type CampaignReviewerType `json:"type"`

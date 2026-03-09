@@ -466,6 +466,8 @@ func (o *CampaignMutable) UnmarshalJSON(data []byte) (err error) {
 
 	*o = CampaignMutable(varCampaignMutable)
 
+	*o = CampaignMutable(varCampaignMutable)
+
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {

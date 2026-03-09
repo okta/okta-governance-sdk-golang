@@ -513,6 +513,8 @@ func (o *RequestFullApiIncompatible) UnmarshalJSON(data []byte) (err error) {
 
 	*o = RequestFullApiIncompatible(varRequestFullApiIncompatible)
 
+	*o = RequestFullApiIncompatible(varRequestFullApiIncompatible)
+
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {

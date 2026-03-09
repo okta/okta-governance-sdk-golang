@@ -206,6 +206,8 @@ func (o *ResourceOwner) UnmarshalJSON(data []byte) (err error) {
 
 	*o = ResourceOwner(varResourceOwner)
 
+	*o = ResourceOwner(varResourceOwner)
+
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {

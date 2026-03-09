@@ -420,6 +420,8 @@ func (o *SecurityAccessReviewSubAccessItem) UnmarshalJSON(data []byte) (err erro
 
 	*o = SecurityAccessReviewSubAccessItem(varSecurityAccessReviewSubAccessItem)
 
+	*o = SecurityAccessReviewSubAccessItem(varSecurityAccessReviewSubAccessItem)
+
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {

@@ -31,6 +31,9 @@ import (
 // checks if the ResourceOwnerResource type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ResourceOwnerResource{}
 
+// checks if the ResourceOwnerResource type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ResourceOwnerResource{}
+
 // ResourceOwnerResource Details of a resource that are owned by the principal, such as an app, an entitlement value, an entitlement bundle, or a collection
 type ResourceOwnerResource struct {
 	// A unique identifier for the resource in Okta

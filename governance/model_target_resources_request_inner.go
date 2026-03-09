@@ -31,6 +31,9 @@ import (
 // checks if the TargetResourcesRequestInner type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &TargetResourcesRequestInner{}
 
+// checks if the TargetResourcesRequestInner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TargetResourcesRequestInner{}
+
 // TargetResourcesRequestInner A resource that's included in the access certification campaign
 type TargetResourcesRequestInner struct {
 	// The resource ID to review. The `resourceId` value depends on the `resourceType` object.

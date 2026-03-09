@@ -31,6 +31,9 @@ import (
 // checks if the ResourceOwnerPrincipal type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ResourceOwnerPrincipal{}
 
+// checks if the ResourceOwnerPrincipal type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ResourceOwnerPrincipal{}
+
 // ResourceOwnerPrincipal Details of the principal, which can be a user or a group, that is an owner of a resource
 type ResourceOwnerPrincipal struct {
 	// A unique identifier for the principal in Okta
