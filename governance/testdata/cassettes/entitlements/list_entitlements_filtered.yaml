@@ -35,7 +35,7 @@ interactions:
             Content-Type:
                 - application/json
             Date:
-                - Mon, 09 Mar 2026 17:15:32 GMT
+                - Wed, 11 Mar 2026 04:01:42 GMT
             Expires:
                 - "0"
             Link:
@@ -57,11 +57,11 @@ interactions:
             X-Rate-Limit-Limit:
                 - "50"
             X-Rate-Limit-Remaining:
-                - "49"
+                - "46"
             X-Rate-Limit-Reset:
-                - "1773076592"
+                - "1773201740"
             X-Xss-Protection:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 334.987833ms
+        duration: 358.57975ms

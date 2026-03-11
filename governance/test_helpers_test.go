@@ -74,6 +74,11 @@ func NewRecorderClient(t *testing.T, cassetteName string) *RecorderTestClient {
 		opts = append(opts, recorder.WithHook(sanitizeHook, recorder.BeforeSaveHook))
 	}
 
+	// Add custom matcher that ignores the host (different orgs may be used for recording vs playback)
+	if mode == recorder.ModeReplayOnly {
+		opts = append(opts, recorder.WithMatcher(pathAndMethodMatcher))
+	}
+
 	rec, err := recorder.New(cassetteName, opts...)
 	if err != nil {
 		t.Fatalf("Failed to create recorder: %v", err)
@@ -162,4 +167,58 @@ func skipIfNotRecording(t *testing.T, cassetteName string) {
 	if _, err := os.Stat(cassettePath); os.IsNotExist(err) {
 		t.Skipf("Cassette %s does not exist. Run with VCR_RECORD=true to record.", cassetteName)
 	}
+}
+
+// pathAndMethodMatcher matches requests by path, query params, and method (ignoring host)
+// This allows cassettes recorded against one org to be played back against any org config
+func pathAndMethodMatcher(r *http.Request, i cassette.Request) bool {
+	// Match method
+	if r.Method != i.Method {
+		return false
+	}
+
+	// Parse both URLs to compare paths and query params
+	requestPath := r.URL.Path
+	requestQuery := r.URL.Query().Encode()
+
+	// Parse the cassette URL
+	cassetteURL := i.URL
+	// Extract path from cassette URL (after the host)
+	var cassettePath, cassetteQuery string
+	if idx := indexAfterHost(cassetteURL); idx != -1 {
+		pathAndQuery := cassetteURL[idx:]
+		if qIdx := indexOf(pathAndQuery, "?"); qIdx != -1 {
+			cassettePath = pathAndQuery[:qIdx]
+			cassetteQuery = pathAndQuery[qIdx+1:]
+		} else {
+			cassettePath = pathAndQuery
+			cassetteQuery = ""
+		}
+	}
+
+	return requestPath == cassettePath && requestQuery == cassetteQuery
+}
+
+// indexAfterHost finds the index after the host portion of a URL
+func indexAfterHost(url string) int {
+	// Skip scheme (https://)
+	start := 0
+	if idx := indexOf(url, "://"); idx != -1 {
+		start = idx + 3
+	}
+	// Find end of host (next /)
+	if idx := indexOf(url[start:], "/"); idx != -1 {
+		return start + idx
+	}
+	return -1
+}
+
+// indexOf returns the index of substr in s, or -1 if not found
+func indexOf(s, substr string) int {
+	for i := 0; i <= len(s)-len(substr); i++ {
+		if s[i:i+len(substr)] == substr {
+			return i
+		}
+	}
+	return -1
 }

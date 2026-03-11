@@ -6,38 +6,33 @@ interactions:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 546
+        content_length: 0
         host: dcp-testing-oig-2025-06-26.oktapreview.com
-        body: |
-            {"name":"Test Campaign | SDK Unit Test","remediationSettings":{"accessApproved":"NO_ACTION","accessRevoked":"DENY","noResponse":"NO_ACTION"},"resourceSettings":{"targetResources":[{"resourceId":"00gnkw1sdqL30MdGk1d7","resourceType":"GROUP"}],"type":"GROUP"},"reviewerSettings":{"reviewerGroupId":"00gnkw1sdqL30MdGk1d7","reviewerId":"00unkw1sfbTw08c0g1d7","reviewerScopeExpression":"user.profile.reviewerId","type":"USER"},"scheduleSettings":{"durationInDays":30,"startDate":"2025-10-04T13:43:40Z","timeZone":"America/New_York","type":"ONE_OFF"}}
         headers:
             Accept:
                 - application/json
-            Content-Type:
-                - application/json
             User-Agent:
                 - okta-governance-sdk-golang/1.0.1 golang/go1.26.0 darwin/arm64
-        url: https://dcp-testing-oig-2025-06-26.oktapreview.com/governance/api/v1/campaigns
-        method: POST
+        url: https://dcp-testing-oig-2025-06-26.oktapreview.com/governance/api/v1/settings
+        method: GET
       response:
         proto: HTTP/2.0
         proto_major: 2
         proto_minor: 0
-        content_length: 220
-        body: '{"errorCode":"E0000001","errorSummary":"Api validation failed: Campaign","errorLink":"E0000001","errorId":"oaes_3XacqlQJKK389UXZnGZA","errorCauses":[{"errorSummary":"Campaign template start date must be a future date"}]}'
+        content_length: -1
+        uncompressed: true
+        body: '{"delegates":{},"governanceAI":{"securityAccessReview":{"enabled":true},"governanceAnalyzer":{"recommendationsEnabled":true}},"escalations":{},"integrations":{"supported":[{"type":"SLACK"}]}}'
         headers:
             Accept-Ch:
                 - Sec-CH-UA-Platform-Version
             Cache-Control:
                 - no-cache, no-store
-            Content-Length:
-                - "220"
             Content-Security-Policy:
                 - 'default-src ''self'' dcp-testing-oig-2025-06-26.oktapreview.com *.oktacdn.com; connect-src ''self'' dcp-testing-oig-2025-06-26.oktapreview.com dcp-testing-oig-2025-06-26-admin.oktapreview.com *.oktacdn.com *.mixpanel.com *.mapbox.com dcp-testing-oig-2025-06-26.kerberos.oktapreview.com dcp-testing-oig-2025-06-26.mtls.oktapreview.com *.authenticatorlocalprod.com:8769 http://localhost:8769 http://127.0.0.1:8769 *.authenticatorlocalprod.com:65111 http://localhost:65111 http://127.0.0.1:65111 *.authenticatorlocalprod.com:65121 http://localhost:65121 http://127.0.0.1:65121 *.authenticatorlocalprod.com:65131 http://localhost:65131 http://127.0.0.1:65131 *.authenticatorlocalprod.com:65141 http://localhost:65141 http://127.0.0.1:65141 *.authenticatorlocalprod.com:65151 http://localhost:65151 http://127.0.0.1:65151 https://oinmanager.okta.com data: *.ingest.sentry.io; script-src ''unsafe-inline'' ''self'' ''report-sample'' dcp-testing-oig-2025-06-26.oktapreview.com *.oktacdn.com; style-src ''unsafe-inline'' ''self'' ''report-sample'' dcp-testing-oig-2025-06-26.oktapreview.com *.oktacdn.com; frame-src ''self'' dcp-testing-oig-2025-06-26.oktapreview.com dcp-testing-oig-2025-06-26-admin.oktapreview.com login.okta.com *.vidyard.com com-okta-authenticator:; img-src ''self'' dcp-testing-oig-2025-06-26.oktapreview.com *.oktacdn.com *.tiles.mapbox.com *.mapbox.com *.vidyard.com data: blob:; font-src ''self'' dcp-testing-oig-2025-06-26.oktapreview.com data: *.oktacdn.com fonts.gstatic.com; frame-ancestors ''self'''
             Content-Type:
                 - application/json
             Date:
-                - Wed, 11 Mar 2026 03:51:11 GMT
+                - Wed, 11 Mar 2026 04:01:53 GMT
             Expires:
                 - "0"
             P3p:
@@ -50,16 +45,18 @@ interactions:
                 - nginx
             Strict-Transport-Security:
                 - max-age=315360000; includeSubDomains
+            Vary:
+                - Accept-Encoding
             X-Content-Type-Options:
                 - nosniff
             X-Rate-Limit-Limit:
-                - "50"
+                - "5000"
             X-Rate-Limit-Remaining:
-                - "44"
+                - "4997"
             X-Rate-Limit-Reset:
-                - "1773201077"
+                - "1773201756"
             X-Xss-Protection:
                 - "0"
-        status: 400 Bad Request
-        code: 400
-        duration: 345.193167ms
+        status: 200 OK
+        code: 200
+        duration: 342.113208ms

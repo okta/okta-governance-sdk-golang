@@ -9,6 +9,8 @@ interactions:
         content_length: 0
         host: dcp-testing-oig-2025-06-26.oktapreview.com
         form:
+            filter:
+                - parent.externalId eq "0oankw1sc6z965dIC1d7" AND parent.type eq "APPLICATION"
             limit:
                 - "1"
         headers:
@@ -16,7 +18,7 @@ interactions:
                 - application/json
             User-Agent:
                 - okta-governance-sdk-golang/1.0.1 golang/go1.26.0 darwin/arm64
-        url: https://dcp-testing-oig-2025-06-26.oktapreview.com/governance/api/v1/campaigns?limit=1
+        url: https://dcp-testing-oig-2025-06-26.oktapreview.com/governance/api/v1/entitlements?filter=parent.externalId+eq+%220oankw1sc6z965dIC1d7%22+AND+parent.type+eq+%22APPLICATION%22&limit=1
         method: GET
       response:
         proto: HTTP/2.0
@@ -24,7 +26,7 @@ interactions:
         proto_minor: 0
         content_length: -1
         uncompressed: true
-        body: '{"data":[{"name":"Group Campaign | User Reviewer Expression","startDate":"2025-10-04T13:50:01Z","endDate":"2025-10-04T13:50:04Z","scheduleType":"ONE_OFF","reviewerType":"USER","_links":{"launchCampaign":{"href":"https://dcp-testing-oig-2025-06-26-admin.oktapreview.com/governance/api/v1/campaigns/iciz3qji61kXQjaFJ1d6/launch","hints":{}},"endCampaign":{"href":"https://dcp-testing-oig-2025-06-26-admin.oktapreview.com/governance/api/v1/campaigns/iciz3qji61kXQjaFJ1d6/end","hints":{}},"reviews":{"href":"https://dcp-testing-oig-2025-06-26-admin.oktapreview.com/governance/api/v1/reviews?filter=campaignId%20eq%20%22iciz3qji61kXQjaFJ1d6%22","hints":{}},"self":{"href":"https://dcp-testing-oig-2025-06-26-admin.oktapreview.com/governance/api/v1/campaigns/iciz3qji61kXQjaFJ1d6","hints":{}}},"id":"iciz3qji61kXQjaFJ1d6","createdBy":"00unkw1sfbTw08c0g1d7","created":"2025-07-01T10:40:04Z","lastUpdated":"2025-10-04T13:50:04Z","lastUpdatedBy":"sprnkw1sbv12bUefI1d7","status":"ERROR"}],"_links":{"self":{"href":"https://dcp-testing-oig-2025-06-26-admin.oktapreview.com/governance/api/v1/campaigns?limit=1&orderBy=created%20asc","hints":{}},"next":{"href":"https://dcp-testing-oig-2025-06-26-admin.oktapreview.com/governance/api/v1/campaigns?after=iciz3qji61kXQjaFJ1d6&limit=1&orderBy=created%20asc","hints":{}}}}'
+        body: '{"data":[{"parentResourceOrn":"orn:oktapreview:idp:00onkw1sbuAh3Q06I1d7:apps:saasure:0oankw1sc6z965dIC1d7","parent":{"externalId":"0oankw1sc6z965dIC1d7","type":"APPLICATION"},"_links":{"self":{"href":"https://dcp-testing-oig-2025-06-26-admin.oktapreview.com/governance/api/v1/entitlements/espyyxsx6rrrjGiIx1d6","hints":{}},"values":{"href":"https://dcp-testing-oig-2025-06-26-admin.oktapreview.com/governance/api/v1/entitlements/espyyxsx6rrrjGiIx1d6/values?limit=1","hints":{}}},"id":"espyyxsx6rrrjGiIx1d6","name":"ACCESS_REQUESTS_ADMIN","externalValue":"ACCESS_REQUESTS_ADMIN","description":"An IGA admin role for managing access requests","multiValue":true,"required":false,"dataType":"array","createdBy":"pcankwjew5WvKbIc81d7","created":"2025-06-27T12:18:37Z","lastUpdated":"2025-06-27T12:18:37Z","lastUpdatedBy":"pcankwjew5WvKbIc81d7"}],"_links":{"self":{"href":"https://dcp-testing-oig-2025-06-26-admin.oktapreview.com/governance/api/v1/entitlements?filter=parent.externalId%20eq%20%220oankw1sc6z965dIC1d7%22%20AND%20parent.type%20eq%20%22APPLICATION%22&limit=1&orderBy=name%20asc","hints":{}},"next":{"href":"https://dcp-testing-oig-2025-06-26-admin.oktapreview.com/governance/api/v1/entitlements?filter=parent.externalId%20eq%20%220oankw1sc6z965dIC1d7%22%20AND%20parent.type%20eq%20%22APPLICATION%22&after=espyyxsx6rrrjGiIx1d6&limit=1&orderBy=name%20asc","hints":{}}},"metadata":{"total":16}}'
         headers:
             Accept-Ch:
                 - Sec-CH-UA-Platform-Version
@@ -35,12 +37,12 @@ interactions:
             Content-Type:
                 - application/json
             Date:
-                - Wed, 11 Mar 2026 04:02:19 GMT
+                - Wed, 11 Mar 2026 04:01:40 GMT
             Expires:
                 - "0"
             Link:
-                - <https://dcp-testing-oig-2025-06-26-admin.oktapreview.com/governance/api/v1/campaigns?limit=1&orderBy=created%20asc>; rel="self"
-                - <https://dcp-testing-oig-2025-06-26-admin.oktapreview.com/governance/api/v1/campaigns?after=iciz3qji61kXQjaFJ1d6&limit=1&orderBy=created%20asc>; rel="next"
+                - <https://dcp-testing-oig-2025-06-26-admin.oktapreview.com/governance/api/v1/entitlements?filter=parent.externalId%20eq%20%220oankw1sc6z965dIC1d7%22%20AND%20parent.type%20eq%20%22APPLICATION%22&limit=1&orderBy=name%20asc>; rel="self"
+                - <https://dcp-testing-oig-2025-06-26-admin.oktapreview.com/governance/api/v1/entitlements?filter=parent.externalId%20eq%20%220oankw1sc6z965dIC1d7%22%20AND%20parent.type%20eq%20%22APPLICATION%22&after=espyyxsx6rrrjGiIx1d6&limit=1&orderBy=name%20asc>; rel="next"
             P3p:
                 - CP="HONK"
             Pragma:
@@ -58,14 +60,14 @@ interactions:
             X-Rate-Limit-Limit:
                 - "50"
             X-Rate-Limit-Remaining:
-                - "47"
+                - "48"
             X-Rate-Limit-Reset:
-                - "1773201749"
+                - "1773201740"
             X-Xss-Protection:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 402.664958ms
+        duration: 366.259792ms
     - id: 1
       request:
         proto: HTTP/1.1
@@ -73,15 +75,12 @@ interactions:
         proto_minor: 1
         content_length: 0
         host: dcp-testing-oig-2025-06-26.oktapreview.com
-        form:
-            filter:
-                - campaignId eq "iciz3qji61kXQjaFJ1d6"
         headers:
             Accept:
                 - application/json
             User-Agent:
                 - okta-governance-sdk-golang/1.0.1 golang/go1.26.0 darwin/arm64
-        url: https://dcp-testing-oig-2025-06-26.oktapreview.com/governance/api/v1/reviews?filter=campaignId+eq+%22iciz3qji61kXQjaFJ1d6%22
+        url: https://dcp-testing-oig-2025-06-26.oktapreview.com/governance/api/v2/resources/orn:oktapreview:idp:00onkw1sbuAh3Q06I1d7:apps:saasure:0oankw1sc6z965dIC1d7/entitlement-settings
         method: GET
       response:
         proto: HTTP/2.0
@@ -89,7 +88,7 @@ interactions:
         proto_minor: 0
         content_length: -1
         uncompressed: true
-        body: '{"data":[],"_links":{"self":{"href":"https://dcp-testing-oig-2025-06-26-admin.oktapreview.com/governance/api/v1/reviews?filter=campaignId%20eq%20%22iciz3qji61kXQjaFJ1d6%22&limit=20&orderBy=created%20asc","hints":{}}}}'
+        body: '{"status":"OPTED_IN"}'
         headers:
             Accept-Ch:
                 - Sec-CH-UA-Platform-Version
@@ -100,7 +99,7 @@ interactions:
             Content-Type:
                 - application/json
             Date:
-                - Wed, 11 Mar 2026 04:02:20 GMT
+                - Wed, 11 Mar 2026 04:01:41 GMT
             Expires:
                 - "0"
             P3p:
@@ -120,11 +119,11 @@ interactions:
             X-Rate-Limit-Limit:
                 - "50"
             X-Rate-Limit-Remaining:
-                - "46"
+                - "49"
             X-Rate-Limit-Reset:
-                - "1773201795"
+                - "1773201761"
             X-Xss-Protection:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 378.092375ms
+        duration: 361.8535ms

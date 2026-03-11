@@ -20,7 +20,9 @@ func TestEntitlementsAPI_ListEntitlements(t *testing.T) {
 	}()
 
 	ctx := context.Background()
-	resp, httpRes, err := client.EntitlementsAPI.ListEntitlements(ctx).Limit(10).Execute()
+	// Filter is required - must have both parent.externalId and parent.type
+	filter := `parent.externalId eq "` + TestApplicationId + `" AND parent.type eq "APPLICATION"`
+	resp, httpRes, err := client.EntitlementsAPI.ListEntitlements(ctx).Filter(filter).Limit(10).Execute()
 
 	require.NoError(t, err)
 	require.NotNil(t, resp)
@@ -59,8 +61,9 @@ func TestEntitlementsAPI_GetEntitlement(t *testing.T) {
 
 	ctx := context.Background()
 
-	// First list entitlements to get a valid entitlement ID
-	listResp, _, err := client.EntitlementsAPI.ListEntitlements(ctx).Limit(1).Execute()
+	// First list entitlements to get a valid entitlement ID (filter is required)
+	filter := `parent.externalId eq "` + TestApplicationId + `" AND parent.type eq "APPLICATION"`
+	listResp, _, err := client.EntitlementsAPI.ListEntitlements(ctx).Filter(filter).Limit(1).Execute()
 	require.NoError(t, err)
 
 	if len(listResp.Data) == 0 {
@@ -89,8 +92,9 @@ func TestEntitlementsAPI_ListEntitlementValues(t *testing.T) {
 
 	ctx := context.Background()
 
-	// First list entitlements to get a valid entitlement ID
-	listResp, _, err := client.EntitlementsAPI.ListEntitlements(ctx).Limit(1).Execute()
+	// First list entitlements to get a valid entitlement ID (filter is required)
+	filter := `parent.externalId eq "` + TestApplicationId + `" AND parent.type eq "APPLICATION"`
+	listResp, _, err := client.EntitlementsAPI.ListEntitlements(ctx).Filter(filter).Limit(1).Execute()
 	require.NoError(t, err)
 
 	if len(listResp.Data) == 0 {
@@ -138,8 +142,9 @@ func TestEntitlementsAPI_GetEntitlementValue(t *testing.T) {
 
 	ctx := context.Background()
 
-	// First list entitlements to get a valid entitlement ID
-	listResp, _, err := client.EntitlementsAPI.ListEntitlements(ctx).Limit(1).Execute()
+	// First list entitlements to get a valid entitlement ID (filter is required)
+	filter := `parent.externalId eq "` + TestApplicationId + `" AND parent.type eq "APPLICATION"`
+	listResp, _, err := client.EntitlementsAPI.ListEntitlements(ctx).Filter(filter).Limit(1).Execute()
 	require.NoError(t, err)
 
 	if len(listResp.Data) == 0 {

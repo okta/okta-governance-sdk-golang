@@ -6,41 +6,44 @@ interactions:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 0
+        content_length: 73
         host: dcp-testing-oig-2025-06-26.oktapreview.com
-        form:
-            limit:
-                - "1"
+        body: |
+            {"name":"test-sdk-label","values":[{"name":"value1"},{"name":"value2"}]}
         headers:
             Accept:
                 - application/json
+            Content-Type:
+                - application/json
             User-Agent:
                 - okta-governance-sdk-golang/1.0.1 golang/go1.26.0 darwin/arm64
-        url: https://dcp-testing-oig-2025-06-26.oktapreview.com/governance/api/v1/campaigns?limit=1
-        method: GET
+        url: https://dcp-testing-oig-2025-06-26.oktapreview.com/governance/api/v1/labels
+        method: POST
       response:
         proto: HTTP/2.0
         proto_major: 2
         proto_minor: 0
-        content_length: -1
-        uncompressed: true
-        body: '{"data":[{"name":"Group Campaign | User Reviewer Expression","startDate":"2025-10-04T13:50:01Z","endDate":"2025-10-04T13:50:04Z","scheduleType":"ONE_OFF","reviewerType":"USER","_links":{"launchCampaign":{"href":"https://dcp-testing-oig-2025-06-26-admin.oktapreview.com/governance/api/v1/campaigns/iciz3qji61kXQjaFJ1d6/launch","hints":{}},"endCampaign":{"href":"https://dcp-testing-oig-2025-06-26-admin.oktapreview.com/governance/api/v1/campaigns/iciz3qji61kXQjaFJ1d6/end","hints":{}},"reviews":{"href":"https://dcp-testing-oig-2025-06-26-admin.oktapreview.com/governance/api/v1/reviews?filter=campaignId%20eq%20%22iciz3qji61kXQjaFJ1d6%22","hints":{}},"self":{"href":"https://dcp-testing-oig-2025-06-26-admin.oktapreview.com/governance/api/v1/campaigns/iciz3qji61kXQjaFJ1d6","hints":{}}},"id":"iciz3qji61kXQjaFJ1d6","createdBy":"00unkw1sfbTw08c0g1d7","created":"2025-07-01T10:40:04Z","lastUpdated":"2025-10-04T13:50:04Z","lastUpdatedBy":"sprnkw1sbv12bUefI1d7","status":"ERROR"}],"_links":{"self":{"href":"https://dcp-testing-oig-2025-06-26-admin.oktapreview.com/governance/api/v1/campaigns?limit=1&orderBy=created%20asc","hints":{}},"next":{"href":"https://dcp-testing-oig-2025-06-26-admin.oktapreview.com/governance/api/v1/campaigns?after=iciz3qji61kXQjaFJ1d6&limit=1&orderBy=created%20asc","hints":{}}}}'
+        content_length: 324
+        body: '{"labelId":"lbc18ummn8R9BCoj21d7","name":"test-sdk-label","values":[{"labelValueId":"lbl18ummn9RYMz6GY1d7","name":"value1"},{"labelValueId":"lbl18ummnapYPxCp51d7","name":"value2"}],"_links":{"self":{"href":"https://dcp-testing-oig-2025-06-26-admin.oktapreview.com/governance/api/v1/labels/lbc18ummn8R9BCoj21d7","hints":{}}}}'
         headers:
             Accept-Ch:
                 - Sec-CH-UA-Platform-Version
             Cache-Control:
                 - no-cache, no-store
+            Content-Length:
+                - "324"
             Content-Security-Policy:
                 - 'default-src ''self'' dcp-testing-oig-2025-06-26.oktapreview.com *.oktacdn.com; connect-src ''self'' dcp-testing-oig-2025-06-26.oktapreview.com dcp-testing-oig-2025-06-26-admin.oktapreview.com *.oktacdn.com *.mixpanel.com *.mapbox.com dcp-testing-oig-2025-06-26.kerberos.oktapreview.com dcp-testing-oig-2025-06-26.mtls.oktapreview.com *.authenticatorlocalprod.com:8769 http://localhost:8769 http://127.0.0.1:8769 *.authenticatorlocalprod.com:65111 http://localhost:65111 http://127.0.0.1:65111 *.authenticatorlocalprod.com:65121 http://localhost:65121 http://127.0.0.1:65121 *.authenticatorlocalprod.com:65131 http://localhost:65131 http://127.0.0.1:65131 *.authenticatorlocalprod.com:65141 http://localhost:65141 http://127.0.0.1:65141 *.authenticatorlocalprod.com:65151 http://localhost:65151 http://127.0.0.1:65151 https://oinmanager.okta.com data: *.ingest.sentry.io; script-src ''unsafe-inline'' ''self'' ''report-sample'' dcp-testing-oig-2025-06-26.oktapreview.com *.oktacdn.com; style-src ''unsafe-inline'' ''self'' ''report-sample'' dcp-testing-oig-2025-06-26.oktapreview.com *.oktacdn.com; frame-src ''self'' dcp-testing-oig-2025-06-26.oktapreview.com dcp-testing-oig-2025-06-26-admin.oktapreview.com login.okta.com *.vidyard.com com-okta-authenticator:; img-src ''self'' dcp-testing-oig-2025-06-26.oktapreview.com *.oktacdn.com *.tiles.mapbox.com *.mapbox.com *.vidyard.com data: blob:; font-src ''self'' dcp-testing-oig-2025-06-26.oktapreview.com data: *.oktacdn.com fonts.gstatic.com; frame-ancestors ''self'''
             Content-Type:
                 - application/json
             Date:
-                - Wed, 11 Mar 2026 04:02:19 GMT
+                - Wed, 11 Mar 2026 04:01:52 GMT
             Expires:
                 - "0"
             Link:
-                - <https://dcp-testing-oig-2025-06-26-admin.oktapreview.com/governance/api/v1/campaigns?limit=1&orderBy=created%20asc>; rel="self"
-                - <https://dcp-testing-oig-2025-06-26-admin.oktapreview.com/governance/api/v1/campaigns?after=iciz3qji61kXQjaFJ1d6&limit=1&orderBy=created%20asc>; rel="next"
+                - <https://dcp-testing-oig-2025-06-26-admin.oktapreview.com/governance/api/v1/labels/lbc18ummn8R9BCoj21d7>; rel="self"
+            Location:
+                - https://dcp-testing-oig-2025-06-26-admin.oktapreview.com/governance/api/v1/labels/lbc18ummn8R9BCoj21d7
             P3p:
                 - CP="HONK"
             Pragma:
@@ -51,21 +54,19 @@ interactions:
                 - nginx
             Strict-Transport-Security:
                 - max-age=315360000; includeSubDomains
-            Vary:
-                - Accept-Encoding
             X-Content-Type-Options:
                 - nosniff
             X-Rate-Limit-Limit:
                 - "50"
             X-Rate-Limit-Remaining:
-                - "47"
+                - "49"
             X-Rate-Limit-Reset:
-                - "1773201749"
+                - "1773201772"
             X-Xss-Protection:
                 - "0"
-        status: 200 OK
-        code: 200
-        duration: 402.664958ms
+        status: 201 Created
+        code: 201
+        duration: 385.926709ms
     - id: 1
       request:
         proto: HTTP/1.1
@@ -73,23 +74,19 @@ interactions:
         proto_minor: 1
         content_length: 0
         host: dcp-testing-oig-2025-06-26.oktapreview.com
-        form:
-            filter:
-                - campaignId eq "iciz3qji61kXQjaFJ1d6"
         headers:
             Accept:
                 - application/json
             User-Agent:
                 - okta-governance-sdk-golang/1.0.1 golang/go1.26.0 darwin/arm64
-        url: https://dcp-testing-oig-2025-06-26.oktapreview.com/governance/api/v1/reviews?filter=campaignId+eq+%22iciz3qji61kXQjaFJ1d6%22
-        method: GET
+        url: https://dcp-testing-oig-2025-06-26.oktapreview.com/governance/api/v1/labels/lbc18ummn8R9BCoj21d7
+        method: DELETE
       response:
         proto: HTTP/2.0
         proto_major: 2
         proto_minor: 0
-        content_length: -1
-        uncompressed: true
-        body: '{"data":[],"_links":{"self":{"href":"https://dcp-testing-oig-2025-06-26-admin.oktapreview.com/governance/api/v1/reviews?filter=campaignId%20eq%20%22iciz3qji61kXQjaFJ1d6%22&limit=20&orderBy=created%20asc","hints":{}}}}'
+        content_length: 0
+        body: ""
         headers:
             Accept-Ch:
                 - Sec-CH-UA-Platform-Version
@@ -97,10 +94,8 @@ interactions:
                 - no-cache, no-store
             Content-Security-Policy:
                 - 'default-src ''self'' dcp-testing-oig-2025-06-26.oktapreview.com *.oktacdn.com; connect-src ''self'' dcp-testing-oig-2025-06-26.oktapreview.com dcp-testing-oig-2025-06-26-admin.oktapreview.com *.oktacdn.com *.mixpanel.com *.mapbox.com dcp-testing-oig-2025-06-26.kerberos.oktapreview.com dcp-testing-oig-2025-06-26.mtls.oktapreview.com *.authenticatorlocalprod.com:8769 http://localhost:8769 http://127.0.0.1:8769 *.authenticatorlocalprod.com:65111 http://localhost:65111 http://127.0.0.1:65111 *.authenticatorlocalprod.com:65121 http://localhost:65121 http://127.0.0.1:65121 *.authenticatorlocalprod.com:65131 http://localhost:65131 http://127.0.0.1:65131 *.authenticatorlocalprod.com:65141 http://localhost:65141 http://127.0.0.1:65141 *.authenticatorlocalprod.com:65151 http://localhost:65151 http://127.0.0.1:65151 https://oinmanager.okta.com data: *.ingest.sentry.io; script-src ''unsafe-inline'' ''self'' ''report-sample'' dcp-testing-oig-2025-06-26.oktapreview.com *.oktacdn.com; style-src ''unsafe-inline'' ''self'' ''report-sample'' dcp-testing-oig-2025-06-26.oktapreview.com *.oktacdn.com; frame-src ''self'' dcp-testing-oig-2025-06-26.oktapreview.com dcp-testing-oig-2025-06-26-admin.oktapreview.com login.okta.com *.vidyard.com com-okta-authenticator:; img-src ''self'' dcp-testing-oig-2025-06-26.oktapreview.com *.oktacdn.com *.tiles.mapbox.com *.mapbox.com *.vidyard.com data: blob:; font-src ''self'' dcp-testing-oig-2025-06-26.oktapreview.com data: *.oktacdn.com fonts.gstatic.com; frame-ancestors ''self'''
-            Content-Type:
-                - application/json
             Date:
-                - Wed, 11 Mar 2026 04:02:20 GMT
+                - Wed, 11 Mar 2026 04:01:52 GMT
             Expires:
                 - "0"
             P3p:
@@ -113,18 +108,16 @@ interactions:
                 - nginx
             Strict-Transport-Security:
                 - max-age=315360000; includeSubDomains
-            Vary:
-                - Accept-Encoding
-            X-Content-Type-Options:
-                - nosniff
+            X-Frame-Options:
+                - SAMEORIGIN
             X-Rate-Limit-Limit:
                 - "50"
             X-Rate-Limit-Remaining:
-                - "46"
+                - "48"
             X-Rate-Limit-Reset:
-                - "1773201795"
+                - "1773201772"
             X-Xss-Protection:
                 - "0"
-        status: 200 OK
-        code: 200
-        duration: 378.092375ms
+        status: 204 No Content
+        code: 204
+        duration: 372.462083ms

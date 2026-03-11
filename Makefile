@@ -70,17 +70,17 @@ test:
 .PHONY: test\:unit
 test\:unit:
 	@echo "$(COLOR_OKTA)Running unit tests...$(COLOR_NONE)"
-	go test -tags=unit -v ./governance/...
+	go test -tags=unit -v ./governance/. 
 
 .PHONY: test\:integration
 test\:integration:
 	@echo "$(COLOR_OKTA)Running integration tests...$(COLOR_NONE)"
-	go test -tags=integration -v ./governance/...
+	go test -tags=integration -v ./governance/.
 
 .PHONY: test\:record
 test\:record:
 	@echo "$(COLOR_OKTA)Recording cassettes for unit tests...$(COLOR_NONE)"
-	VCR_RECORD=true go test -tags=unit -v ./governance/...
+	VCR_RECORD=true go test -tags=unit -v ./governance/.
 
 .PHONY: test\:all
 test\:all:

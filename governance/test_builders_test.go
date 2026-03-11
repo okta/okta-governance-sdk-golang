@@ -156,4 +156,5 @@ const (
 	TestEntitlementId       = "espyyzpbwwzhBGRAf1d6"
 	TestEntitlementValueId  = "entyyzpbxQsQP2ej61d6"
 	TestEntitlementBundleId = "enbzcco02Hw2i4qsDDE1d6"
+	TestPrincipalId         = "00unkw1sfbTw08c0g1d7" // Same as TestUserId - principal can be a user
 )

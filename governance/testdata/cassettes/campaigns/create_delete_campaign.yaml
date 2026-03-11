@@ -24,7 +24,7 @@ interactions:
         proto_major: 2
         proto_minor: 0
         content_length: 220
-        body: '{"errorCode":"E0000001","errorSummary":"Api validation failed: Campaign","errorLink":"E0000001","errorId":"oae03mQbBx6SlKjSJRnHNFlHg","errorCauses":[{"errorSummary":"Campaign template start date must be a future date"}]}'
+        body: '{"errorCode":"E0000001","errorSummary":"Api validation failed: Campaign","errorLink":"E0000001","errorId":"oaeUui5Rf5cTEiglhFS4IxRzg","errorCauses":[{"errorSummary":"Campaign template start date must be a future date"}]}'
         headers:
             Accept-Ch:
                 - Sec-CH-UA-Platform-Version
@@ -37,7 +37,7 @@ interactions:
             Content-Type:
                 - application/json
             Date:
-                - Mon, 09 Mar 2026 17:15:54 GMT
+                - Wed, 11 Mar 2026 03:51:10 GMT
             Expires:
                 - "0"
             P3p:
@@ -57,9 +57,9 @@ interactions:
             X-Rate-Limit-Remaining:
                 - "46"
             X-Rate-Limit-Reset:
-                - "1773076586"
+                - "1773201077"
             X-Xss-Protection:
                 - "0"
         status: 400 Bad Request
         code: 400
-        duration: 1.273225417s
+        duration: 345.391208ms
