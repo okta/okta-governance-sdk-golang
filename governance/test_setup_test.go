@@ -34,14 +34,14 @@ func init() {
 
 // hasOktaCredentials checks if Okta credentials are configured via environment variables
 func hasOktaCredentials() bool {
-	orgUrl := os.Getenv("OKTA_ORG_URL")
-	token := os.Getenv("OKTA_API_TOKEN")
+	orgUrl := os.Getenv("OKTA_CLIENT_ORGURL")
+	token := os.Getenv("OKTA_CLIENT_TOKEN")
 	return orgUrl != "" && token != ""
 }
 
 // skipIfNoCredentials skips the test if Okta credentials are not configured
 func skipIfNoCredentials(t *testing.T) {
 	if apiClient == nil || !hasOktaCredentials() {
-		t.Skip("Skipping integration test: Okta credentials not configured (set OKTA_ORG_URL and OKTA_API_TOKEN)")
+		t.Skip("Skipping integration test: Okta credentials not configured (set OKTA_CLIENT_ORGURL and OKTA_CLIENT_TOKEN)")
 	}
 }
