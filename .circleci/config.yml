@@ -21,6 +21,17 @@ jobs:
           name: "test stage"
           command: make test
 
+  unit-tests:
+    docker:
+      - image: cimg/go:1.23.0
+    steps:
+      - checkout
+      - run: go version
+      - general-platform-helpers/step-load-dependencies
+      - run:
+          name: "Run VCR unit tests"
+          command: make test:unit
+
   snyk-scan:
     docker:
       - image: cimg/go:1.23.0
@@ -82,6 +93,7 @@ workflows:
   "Circle CI Tests":
     jobs:
       - test-v4
+      - unit-tests
       - snyk-scan:
           name: execute-snyk
           context:
