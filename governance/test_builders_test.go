@@ -9,8 +9,8 @@ import (
 
 // BuildTestCampaign creates a campaign mutable object for testing
 func BuildTestCampaign() CampaignMutable {
-	reviewerGroupID := "00gnkw1sdqL30MdGk1d7"
-	reviewerId := "00unkw1sfbTw08c0g1d7"
+	reviewerGroupID := TestGroupId
+	reviewerId := TestUserId
 	reviewerScopeExpression := "user.profile.reviewerId"
 	str := "2025-10-04T13:43:40.000Z"
 	rt := "GROUP"
@@ -149,12 +149,11 @@ func BuildTestResourceOwnerPatch(userOrns []string) ResourceOwnersPatch {
 
 // Test IDs - Constants for test fixtures
 // These can be overridden in tests that need specific IDs
+// Note: These IDs are for dcp-sep25.oktapreview.com test org
 const (
-	TestApplicationId       = "0oankw1sc6z965dIC1d7"
-	TestUserId              = "00unkw1sfbTw08c0g1d7"
-	TestGroupId             = "00gnkw1sdqL30MdGk1d7"
-	TestEntitlementId       = "espyyzpbwwzhBGRAf1d6"
-	TestEntitlementValueId  = "entyyzpbxQsQP2ej61d6"
-	TestEntitlementBundleId = "enbzcco02Hw2i4qsDDE1d6"
-	TestPrincipalId         = "00unkw1sfbTw08c0g1d7" // Same as TestUserId - principal can be a user
+	TestApplicationId       = "0oaqd21lm797hdT4q1d7" // Okta Identity Governance app
+	TestUserId              = "00uqd1g3jmuDjGhpE1d7"
+	TestGroupId             = "00gqd1g3h7drGOpDL1d7" // Everyone group
+	TestEntitlementBundleId = "enb18v0ta5boKOyxA1d7" // Group Administrator bundle
+	TestPrincipalId         = "00uqd1g3jmuDjGhpE1d7" // Same as TestUserId - principal can be a user
 )

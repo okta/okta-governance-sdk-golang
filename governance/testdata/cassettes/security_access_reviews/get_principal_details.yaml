@@ -7,7 +7,7 @@ interactions:
         proto_major: 1
         proto_minor: 1
         content_length: 0
-        host: dcp-testing-oig-2025-06-26.oktapreview.com
+        host: dcp-sep25.oktapreview.com
         form:
             limit:
                 - "1"
@@ -16,7 +16,7 @@ interactions:
                 - application/json
             User-Agent:
                 - okta-governance-sdk-golang/1.0.1 golang/go1.26.0 darwin/arm64
-        url: https://dcp-testing-oig-2025-06-26.oktapreview.com/governance/api/v2/security-access-reviews?limit=1
+        url: https://dcp-sep25.oktapreview.com/governance/api/v2/security-access-reviews?limit=1
         method: GET
       response:
         proto: HTTP/2.0
@@ -24,22 +24,22 @@ interactions:
         proto_minor: 0
         content_length: -1
         uncompressed: true
-        body: '{"data":[],"_links":{"self":{"href":"https://dcp-testing-oig-2025-06-26-admin.oktapreview.com/governance/api/v2/security-access-reviews?limit=1&orderBy=created%20asc","hints":{}}}}'
+        body: '{"data":[],"_links":{"self":{"href":"https://dcp-sep25-admin.oktapreview.com/governance/api/v2/security-access-reviews?limit=1&orderBy=created%20asc","hints":{}}}}'
         headers:
             Accept-Ch:
                 - Sec-CH-UA-Platform-Version
             Cache-Control:
                 - no-cache, no-store
             Content-Security-Policy:
-                - 'default-src ''self'' dcp-testing-oig-2025-06-26.oktapreview.com *.oktacdn.com; connect-src ''self'' dcp-testing-oig-2025-06-26.oktapreview.com dcp-testing-oig-2025-06-26-admin.oktapreview.com *.oktacdn.com *.mixpanel.com *.mapbox.com dcp-testing-oig-2025-06-26.kerberos.oktapreview.com dcp-testing-oig-2025-06-26.mtls.oktapreview.com *.authenticatorlocalprod.com:8769 http://localhost:8769 http://127.0.0.1:8769 *.authenticatorlocalprod.com:65111 http://localhost:65111 http://127.0.0.1:65111 *.authenticatorlocalprod.com:65121 http://localhost:65121 http://127.0.0.1:65121 *.authenticatorlocalprod.com:65131 http://localhost:65131 http://127.0.0.1:65131 *.authenticatorlocalprod.com:65141 http://localhost:65141 http://127.0.0.1:65141 *.authenticatorlocalprod.com:65151 http://localhost:65151 http://127.0.0.1:65151 https://oinmanager.okta.com data: *.ingest.sentry.io; script-src ''unsafe-inline'' ''self'' ''report-sample'' dcp-testing-oig-2025-06-26.oktapreview.com *.oktacdn.com; style-src ''unsafe-inline'' ''self'' ''report-sample'' dcp-testing-oig-2025-06-26.oktapreview.com *.oktacdn.com; frame-src ''self'' dcp-testing-oig-2025-06-26.oktapreview.com dcp-testing-oig-2025-06-26-admin.oktapreview.com login.okta.com *.vidyard.com com-okta-authenticator:; img-src ''self'' dcp-testing-oig-2025-06-26.oktapreview.com *.oktacdn.com *.tiles.mapbox.com *.mapbox.com *.vidyard.com data: blob:; font-src ''self'' dcp-testing-oig-2025-06-26.oktapreview.com data: *.oktacdn.com fonts.gstatic.com; frame-ancestors ''self'''
+                - 'default-src ''self'' dcp-sep25.oktapreview.com *.oktacdn.com; connect-src ''self'' dcp-sep25.oktapreview.com dcp-sep25-admin.oktapreview.com *.oktacdn.com *.mixpanel.com *.mapbox.com dcp-sep25.kerberos.oktapreview.com dcp-sep25.mtls.oktapreview.com *.authenticatorlocalprod.com:8769 http://localhost:8769 http://127.0.0.1:8769 *.authenticatorlocalprod.com:65111 http://localhost:65111 http://127.0.0.1:65111 *.authenticatorlocalprod.com:65121 http://localhost:65121 http://127.0.0.1:65121 *.authenticatorlocalprod.com:65131 http://localhost:65131 http://127.0.0.1:65131 *.authenticatorlocalprod.com:65141 http://localhost:65141 http://127.0.0.1:65141 *.authenticatorlocalprod.com:65151 http://localhost:65151 http://127.0.0.1:65151 https://oinmanager.okta.com data: *.ingest.sentry.io; script-src ''unsafe-inline'' ''self'' ''report-sample'' dcp-sep25.oktapreview.com *.oktacdn.com; style-src ''unsafe-inline'' ''self'' ''report-sample'' dcp-sep25.oktapreview.com *.oktacdn.com; frame-src ''self'' dcp-sep25.oktapreview.com dcp-sep25-admin.oktapreview.com login.okta.com *.vidyard.com com-okta-authenticator:; img-src ''self'' dcp-sep25.oktapreview.com *.oktacdn.com *.tiles.mapbox.com *.mapbox.com *.vidyard.com data: blob:; font-src ''self'' dcp-sep25.oktapreview.com data: *.oktacdn.com fonts.gstatic.com; frame-ancestors ''self'''
             Content-Type:
                 - application/json
             Date:
-                - Wed, 11 Mar 2026 04:02:24 GMT
+                - Wed, 11 Mar 2026 09:26:03 GMT
             Expires:
                 - "0"
             Link:
-                - <https://dcp-testing-oig-2025-06-26-admin.oktapreview.com/governance/api/v2/security-access-reviews?limit=1&orderBy=created%20asc>; rel="self"
+                - <https://dcp-sep25-admin.oktapreview.com/governance/api/v2/security-access-reviews?limit=1&orderBy=created%20asc>; rel="self"
             P3p:
                 - CP="HONK"
             Pragma:
@@ -57,11 +57,11 @@ interactions:
             X-Rate-Limit-Limit:
                 - "50"
             X-Rate-Limit-Remaining:
-                - "46"
+                - "47"
             X-Rate-Limit-Reset:
-                - "1773201801"
+                - "1773221221"
             X-Xss-Protection:
                 - "0"
         status: 200 OK
         code: 200
-        duration: 354.210417ms
+        duration: 371.70125ms
