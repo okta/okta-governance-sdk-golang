@@ -29,8 +29,11 @@ jobs:
       - run: go version
       - general-platform-helpers/step-load-dependencies
       - run:
-          name: "Run VCR unit tests"
-          command: make test:unit
+          name: "Run VCR tests (cassette playback)"
+          command: make test:vcr
+      - run:
+          name: "Run contract tests (model validation)"
+          command: make test:contract
 
   snyk-scan:
     docker:

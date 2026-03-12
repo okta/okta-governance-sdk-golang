@@ -1,4 +1,4 @@
-//go:build unit
+//go:build vcr
 
 package governance
 
@@ -10,8 +10,8 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestOrgGovernanceSettingsAPI_GetOrgSettings(t *testing.T) {
-	cassetteName := CassetteName("org_governance_settings", "get_org_settings")
+func TestRequestSettingsAPI_GetOrgRequestSettingsV2(t *testing.T) {
+	cassetteName := CassetteName("request_settings", "get_org_request_settings")
 	skipIfNotRecording(t, cassetteName)
 
 	client := NewRecorderClient(t, cassetteName)
@@ -20,7 +20,7 @@ func TestOrgGovernanceSettingsAPI_GetOrgSettings(t *testing.T) {
 	}()
 
 	ctx := context.Background()
-	resp, httpRes, err := client.OrgGovernanceSettingsAPI.GetOrgSettings(ctx).Execute()
+	resp, httpRes, err := client.RequestSettingsAPI.GetOrgRequestSettingsV2(ctx).Execute()
 
 	require.NoError(t, err)
 	require.NotNil(t, resp)

@@ -1,4 +1,4 @@
-//go:build unit
+//go:build vcr
 
 package governance
 
@@ -25,7 +25,14 @@ func TestEntitlementBundlesAPI_ListEntitlementBundles(t *testing.T) {
 	require.NoError(t, err)
 	require.NotNil(t, resp)
 	assert.Equal(t, 200, httpRes.StatusCode)
-	assert.NotNil(t, resp.Data)
+
+	// Verify we got real bundle data with expected structure
+	require.True(t, len(resp.Data) > 0, "Expected at least one entitlement bundle")
+	bundle := resp.Data[0]
+	assert.NotEmpty(t, bundle.Id, "Bundle should have an ID")
+	assert.NotEmpty(t, bundle.Name, "Bundle should have a name")
+	assert.NotEmpty(t, bundle.Orn, "Bundle should have an ORN")
+	assert.NotEmpty(t, bundle.Status, "Bundle should have a status")
 }
 
 func TestEntitlementBundlesAPI_GetEntitlementBundle(t *testing.T) {
@@ -47,7 +54,8 @@ func TestEntitlementBundlesAPI_GetEntitlementBundle(t *testing.T) {
 		t.Skip("No entitlement bundles available to test GetEntitlementBundle")
 	}
 
-	bundleId := listResp.Data[0].Id
+	bundleFromList := listResp.Data[0]
+	bundleId := bundleFromList.Id
 
 	// Get the specific entitlement bundle
 	resp, httpRes, err := client.EntitlementBundlesAPI.GetEntitlementBundle(ctx, bundleId).Execute()
@@ -55,5 +63,11 @@ func TestEntitlementBundlesAPI_GetEntitlementBundle(t *testing.T) {
 	require.NoError(t, err)
 	require.NotNil(t, resp)
 	assert.Equal(t, 200, httpRes.StatusCode)
+
+	// Verify the retrieved bundle matches what we listed
 	assert.Equal(t, bundleId, resp.Id)
+	assert.Equal(t, bundleFromList.Name, resp.Name)
+	assert.Equal(t, bundleFromList.Orn, resp.Orn)
+	assert.NotEmpty(t, resp.Description, "Bundle should have a description")
+	assert.NotNil(t, resp.Created, "Bundle should have a created timestamp")
 }

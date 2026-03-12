@@ -1,4 +1,4 @@
-//go:build unit
+//go:build vcr
 
 package governance
 
@@ -87,7 +87,7 @@ func TestLabelsAPI_CreateAndDeleteLabel(t *testing.T) {
 
 	ctx := context.Background()
 
-	// Create a new label
+	// Create a new label with specific test data
 	labelName := "test-sdk-label"
 	labelValues := []LabelValueCreate{
 		{Name: "value1"},
@@ -100,10 +100,21 @@ func TestLabelsAPI_CreateAndDeleteLabel(t *testing.T) {
 
 	createResp, httpRes, err := client.LabelsAPI.CreateLabel(ctx).LabelCreate(createReq).Execute()
 
+	// Verify the response contains the correct data
 	require.NoError(t, err)
 	require.NotNil(t, createResp)
 	assert.Equal(t, 201, httpRes.StatusCode)
+
+	// Verify the label was created with the correct name
 	assert.Equal(t, labelName, createResp.Name)
+	assert.NotEmpty(t, createResp.LabelId, "Label should have an ID")
+
+	// Verify the label values were created
+	require.Len(t, createResp.Values, 2, "Label should have 2 values")
+	assert.Equal(t, "value1", createResp.Values[0].Name)
+	assert.Equal(t, "value2", createResp.Values[1].Name)
+	assert.NotEmpty(t, createResp.Values[0].LabelValueId, "Label value should have an ID")
+	assert.NotEmpty(t, createResp.Values[1].LabelValueId, "Label value should have an ID")
 
 	// Delete the label
 	_, err = client.LabelsAPI.DeleteLabel(ctx, createResp.LabelId).Execute()

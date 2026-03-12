@@ -67,20 +67,34 @@ check-golangci-lint:
 test:
 	go test -failfast -race ./governance -test.v
 
-.PHONY: test\:unit
-test\:unit:
-	@echo "$(COLOR_OKTA)Running unit tests...$(COLOR_NONE)"
-	go test -tags=unit -v ./governance/. 
+# =============================================================================
+# Test Targets
+# =============================================================================
+# test:vcr       - Run VCR tests
+# test:contract  - Run contract tests
+# test:e2e       - Run E2E tests (live API, requires credentials)
+# test:record    - Record new VCR cassettes (requires credentials)
+# =============================================================================
 
-.PHONY: test\:integration
-test\:integration:
-	@echo "$(COLOR_OKTA)Running integration tests...$(COLOR_NONE)"
-	go test -tags=integration -v ./governance/.
+.PHONY: test\:vcr
+test\:vcr:
+	@echo "$(COLOR_OKTA)Running VCR tests (cassette playback)...$(COLOR_NONE)"
+	go test -tags=vcr -v ./governance/.
+
+.PHONY: test\:contract
+test\:contract:
+	@echo "$(COLOR_OKTA)Running contract tests (model validation)...$(COLOR_NONE)"
+	go test -tags=contract -v ./governance/.
+
+.PHONY: test\:e2e
+test\:e2e:
+	@echo "$(COLOR_OKTA)Running E2E tests (live API)...$(COLOR_NONE)"
+	go test -tags=e2e -v ./governance/.
 
 .PHONY: test\:record
 test\:record:
-	@echo "$(COLOR_OKTA)Recording cassettes for unit tests...$(COLOR_NONE)"
-	VCR_RECORD=true go test -tags=unit -v ./governance/.
+	@echo "$(COLOR_OKTA)Recording cassettes for VCR tests...$(COLOR_NONE)"
+	VCR_RECORD=true go test -tags=vcr -v ./governance/.
 
 .PHONY: test\:all
 test\:all:
