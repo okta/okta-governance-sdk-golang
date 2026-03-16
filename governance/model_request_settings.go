@@ -41,7 +41,9 @@ type RequestSettings struct {
 	RequestOnBehalfOfSettings   *RequestOnBehalfOfSettingsDetails  `json:"requestOnBehalfOfSettings,omitempty"`
 	ValidRiskSettings           *ValidRiskSettingsDetails          `json:"validRiskSettings,omitempty"`
 	RiskSettings                *RiskSettingsDetails               `json:"riskSettings,omitempty"`
-	AdditionalProperties        map[string]interface{}
+	// Request on behalf of settings that are eligible to be added to a request condition for the specified resource
+	ValidRequestOnBehalfOfSettings []ValidRequestOnBehalfOfSetting `json:"validRequestOnBehalfOfSettings,omitempty"`
+	AdditionalProperties           map[string]interface{}
 }
 
 type _RequestSettings RequestSettings
@@ -234,6 +236,38 @@ func (o *RequestSettings) SetRiskSettings(v RiskSettingsDetails) {
 	o.RiskSettings = &v
 }
 
+// GetValidRequestOnBehalfOfSettings returns the ValidRequestOnBehalfOfSettings field value if set, zero value otherwise.
+func (o *RequestSettings) GetValidRequestOnBehalfOfSettings() []ValidRequestOnBehalfOfSetting {
+	if o == nil || IsNil(o.ValidRequestOnBehalfOfSettings) {
+		var ret []ValidRequestOnBehalfOfSetting
+		return ret
+	}
+	return o.ValidRequestOnBehalfOfSettings
+}
+
+// GetValidRequestOnBehalfOfSettingsOk returns a tuple with the ValidRequestOnBehalfOfSettings field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RequestSettings) GetValidRequestOnBehalfOfSettingsOk() ([]ValidRequestOnBehalfOfSetting, bool) {
+	if o == nil || IsNil(o.ValidRequestOnBehalfOfSettings) {
+		return nil, false
+	}
+	return o.ValidRequestOnBehalfOfSettings, true
+}
+
+// HasValidRequestOnBehalfOfSettings returns a boolean if a field has been set.
+func (o *RequestSettings) HasValidRequestOnBehalfOfSettings() bool {
+	if o != nil && !IsNil(o.ValidRequestOnBehalfOfSettings) {
+		return true
+	}
+
+	return false
+}
+
+// SetValidRequestOnBehalfOfSettings gets a reference to the given []ValidRequestOnBehalfOfSetting and assigns it to the ValidRequestOnBehalfOfSettings field.
+func (o *RequestSettings) SetValidRequestOnBehalfOfSettings(v []ValidRequestOnBehalfOfSetting) {
+	o.ValidRequestOnBehalfOfSettings = v
+}
+
 func (o RequestSettings) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -255,6 +289,9 @@ func (o RequestSettings) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.RiskSettings) {
 		toSerialize["riskSettings"] = o.RiskSettings
+	}
+	if !IsNil(o.ValidRequestOnBehalfOfSettings) {
+		toSerialize["validRequestOnBehalfOfSettings"] = o.ValidRequestOnBehalfOfSettings
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -307,6 +344,7 @@ func (o *RequestSettings) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "requestOnBehalfOfSettings")
 		delete(additionalProperties, "validRiskSettings")
 		delete(additionalProperties, "riskSettings")
+		delete(additionalProperties, "validRequestOnBehalfOfSettings")
 		o.AdditionalProperties = additionalProperties
 	}
 

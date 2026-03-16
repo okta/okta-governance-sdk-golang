@@ -32,7 +32,7 @@ var _ MappedNullable = &RuleConflictResource{}
 
 // RuleConflictResource struct for RuleConflictResource
 type RuleConflictResource struct {
-	// The Okta app instance, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for a specific app in [Supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
+	// The Okta resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for [supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
 	ResourceOrn          *string `json:"resourceOrn,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

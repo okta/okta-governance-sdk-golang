@@ -168,7 +168,7 @@ import (
 )
 
 func main() {
-	potentialRiskAssessmentRequest := *openapiclient.NewPotentialRiskAssessmentRequest("orn:okta:directory:00o8rk36Bp5eZKOrw0g4:users:00u1ktfFMZ5HNoj7k0g4", "ResourceOrn_example") // PotentialRiskAssessmentRequest | Description of the requested access resource by user
+	potentialRiskAssessmentRequest := *openapiclient.NewPotentialRiskAssessmentRequest("orn:okta:directory:00o8rk36Bp5eZKOrw0g4:users:00u1ktfFMZ5HNoj7k0g4") // PotentialRiskAssessmentRequest | Description of the requested access resource by user.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -193,7 +193,7 @@ Other parameters are passed through a pointer to a apiGeneratePotentialRiskAsses
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **potentialRiskAssessmentRequest** | [**PotentialRiskAssessmentRequest**](PotentialRiskAssessmentRequest.md) | Description of the requested access resource by user | 
+ **potentialRiskAssessmentRequest** | [**PotentialRiskAssessmentRequest**](PotentialRiskAssessmentRequest.md) | Description of the requested access resource by user. | 
 
 ### Return type
 

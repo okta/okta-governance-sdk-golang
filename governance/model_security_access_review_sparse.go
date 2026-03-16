@@ -43,14 +43,15 @@ type SecurityAccessReviewSparse struct {
 	// The ISO 8601 formatted date and time when the object was last updated
 	LastUpdated time.Time `json:"lastUpdated"`
 	// The `id` of the Okta user who last updated the object
-	LastUpdatedBy string                     `json:"lastUpdatedBy"`
-	Links         *map[string]Link           `json:"_links,omitempty"`
-	Status        SecurityAccessReviewStatus `json:"status"`
+	LastUpdatedBy string `json:"lastUpdatedBy"`
+	// Links to related resources
+	Links  *map[string]Link           `json:"_links,omitempty"`
+	Status SecurityAccessReviewStatus `json:"status"`
 	// The name of the security access review
 	Name string `json:"name"`
 	// The end time of the security access review
-	EndTime              time.Time                            `json:"endTime"`
-	ReviewerSettings     SecurityAccessReviewReviewerSettings `json:"reviewerSettings"`
+	EndTime              time.Time                                    `json:"endTime"`
+	ReviewerSettings     SecurityAccessReviewReviewerSettingsResponse `json:"reviewerSettings"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -60,7 +61,7 @@ type _SecurityAccessReviewSparse SecurityAccessReviewSparse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSecurityAccessReviewSparse(id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, status SecurityAccessReviewStatus, name string, endTime time.Time, reviewerSettings SecurityAccessReviewReviewerSettings) *SecurityAccessReviewSparse {
+func NewSecurityAccessReviewSparse(id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, status SecurityAccessReviewStatus, name string, endTime time.Time, reviewerSettings SecurityAccessReviewReviewerSettingsResponse) *SecurityAccessReviewSparse {
 	this := SecurityAccessReviewSparse{}
 	this.Id = id
 	this.CreatedBy = createdBy
@@ -307,9 +308,9 @@ func (o *SecurityAccessReviewSparse) SetEndTime(v time.Time) {
 }
 
 // GetReviewerSettings returns the ReviewerSettings field value
-func (o *SecurityAccessReviewSparse) GetReviewerSettings() SecurityAccessReviewReviewerSettings {
+func (o *SecurityAccessReviewSparse) GetReviewerSettings() SecurityAccessReviewReviewerSettingsResponse {
 	if o == nil {
-		var ret SecurityAccessReviewReviewerSettings
+		var ret SecurityAccessReviewReviewerSettingsResponse
 		return ret
 	}
 
@@ -318,7 +319,7 @@ func (o *SecurityAccessReviewSparse) GetReviewerSettings() SecurityAccessReviewR
 
 // GetReviewerSettingsOk returns a tuple with the ReviewerSettings field value
 // and a boolean to check if the value has been set.
-func (o *SecurityAccessReviewSparse) GetReviewerSettingsOk() (*SecurityAccessReviewReviewerSettings, bool) {
+func (o *SecurityAccessReviewSparse) GetReviewerSettingsOk() (*SecurityAccessReviewReviewerSettingsResponse, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -326,7 +327,7 @@ func (o *SecurityAccessReviewSparse) GetReviewerSettingsOk() (*SecurityAccessRev
 }
 
 // SetReviewerSettings sets field value
-func (o *SecurityAccessReviewSparse) SetReviewerSettings(v SecurityAccessReviewReviewerSettings) {
+func (o *SecurityAccessReviewSparse) SetReviewerSettings(v SecurityAccessReviewReviewerSettingsResponse) {
 	o.ReviewerSettings = v
 }
 

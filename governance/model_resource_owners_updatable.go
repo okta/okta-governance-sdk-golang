@@ -33,9 +33,9 @@ var _ MappedNullable = &ResourceOwnersUpdatable{}
 
 // ResourceOwnersUpdatable The properties expected in create or update request for a resource owner.
 type ResourceOwnersUpdatable struct {
-	// Owners for the resource. If this is not provided, all current owners will be removed.
+	// Owners of the resource. If no owners are provided (empty list), then all current owners are removed.
 	PrincipalOrns []string `json:"principalOrns,omitempty"`
-	// Resources that are being owned
+	// The resources to assign owners
 	ResourceOrns         []string `json:"resourceOrns"`
 	AdditionalProperties map[string]interface{}
 }

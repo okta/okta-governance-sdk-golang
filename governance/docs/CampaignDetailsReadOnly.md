@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | Name of the campaign. Maintain some uniqueness when naming the campaign as it helps to identify and filter for campaigns when needed. | 
-**Description** | Pointer to **string** | Human readable description. | [optional] 
-**CampaignType** | Pointer to [**CampaignType**](CampaignType.md) |  | [optional] 
+**Description** | Pointer to **string** | Human readable description | [optional] 
+**CampaignType** | Pointer to [**CampaignType**](CampaignType.md) |  | [optional] [default to CAMPAIGNTYPE_RESOURCE]
 **ScheduleSettings** | [**ScheduleSettingsReadOnly**](ScheduleSettingsReadOnly.md) |  | 
 **ResourceSettings** | [**ResourceSettingsMutable**](ResourceSettingsMutable.md) |  | 
 **PrincipalScopeSettings** | Pointer to [**PrincipalScopeSettingsMutable**](PrincipalScopeSettingsMutable.md) |  | [optional] 
@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **NotificationSettings** | Pointer to [**NotificationSettings**](NotificationSettings.md) |  | [optional] 
 **RemediationSettings** | [**RemediationSettings**](RemediationSettings.md) |  | 
 **RecurringCampaignId** | Pointer to **NullableString** | ID of the recurring campaign if this campaign was created as part of a recurring schedule. | [optional] 
+**ReportingSettings** | Pointer to [**ReportingSettingsMutable**](ReportingSettingsMutable.md) |  | [optional] 
 
 ## Methods
 
@@ -269,6 +270,31 @@ HasRecurringCampaignId returns a boolean if a field has been set.
 `func (o *CampaignDetailsReadOnly) UnsetRecurringCampaignId()`
 
 UnsetRecurringCampaignId ensures that no value is present for RecurringCampaignId, not even an explicit nil
+### GetReportingSettings
+
+`func (o *CampaignDetailsReadOnly) GetReportingSettings() ReportingSettingsMutable`
+
+GetReportingSettings returns the ReportingSettings field if non-nil, zero value otherwise.
+
+### GetReportingSettingsOk
+
+`func (o *CampaignDetailsReadOnly) GetReportingSettingsOk() (*ReportingSettingsMutable, bool)`
+
+GetReportingSettingsOk returns a tuple with the ReportingSettings field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetReportingSettings
+
+`func (o *CampaignDetailsReadOnly) SetReportingSettings(v ReportingSettingsMutable)`
+
+SetReportingSettings sets ReportingSettings field to given value.
+
+### HasReportingSettings
+
+`func (o *CampaignDetailsReadOnly) HasReportingSettings() bool`
+
+HasReportingSettings returns a boolean if a field has been set.
+
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

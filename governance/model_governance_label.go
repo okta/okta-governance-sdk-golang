@@ -67,7 +67,6 @@ func (o *GovernanceLabel) GetValue() string {
 		var ret string
 		return ret
 	}
-
 	return o.Value
 }
 
@@ -91,7 +90,6 @@ func (o *GovernanceLabel) GetColor() string {
 		var ret string
 		return ret
 	}
-
 	return o.Color
 }
 

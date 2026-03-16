@@ -36,12 +36,15 @@ import (
 type EntitlementsAPI interface {
 
 	/*
-		CreateEntitlement Create an entitlement
+			CreateEntitlement Create an entitlement
 
-		Creates a new entitlement
+			Creates a new entitlement
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiCreateEntitlementRequest
+		> **Note:** An HTTP 404 Not Found error is returned for app entitlements that aren't enabled with entitlement management.
+		> See [Enable Entitlement management](https://help.okta.com/okta_help.htm?type=oie&id=csh-enable-ge).
+
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiCreateEntitlementRequest
 	*/
 	CreateEntitlement(ctx context.Context) ApiCreateEntitlementRequest
 
@@ -191,7 +194,10 @@ func (r ApiCreateEntitlementRequest) Execute() (*EntitlementsFullWithParent, *AP
 /*
 CreateEntitlement Create an entitlement
 
-Creates a new entitlement
+# Creates a new entitlement
+
+> **Note:** An HTTP 404 Not Found error is returned for app entitlements that aren't enabled with entitlement management.
+> See [Enable Entitlement management](https://help.okta.com/okta_help.htm?type=oie&id=csh-enable-ge).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiCreateEntitlementRequest
@@ -318,6 +324,18 @@ func (a *EntitlementsAPIService) CreateEntitlementExecute(r ApiCreateEntitlement
 			return localVarReturnValue, localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
+			var v ModelError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+				return localVarReturnValue, localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+			return localVarReturnValue, localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
 			var v ModelError
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {

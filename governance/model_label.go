@@ -33,9 +33,9 @@ var _ MappedNullable = &Label{}
 
 // Label struct for Label
 type Label struct {
-	// The `id` property of a label
+	// The ID of a label
 	LabelId string `json:"labelId"`
-	// Name of the label
+	// Key name of the label
 	Name string `json:"name"`
 	// List of label values
 	Values               []LabelValue `json:"values"`

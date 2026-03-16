@@ -34,7 +34,9 @@ var _ MappedNullable = &EntitlementBundleFullWithEntitlements{}
 
 // EntitlementBundleFullWithEntitlements Full representation of a entitlement bundle resource
 type EntitlementBundleFullWithEntitlements struct {
-	// The Okta app instance, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for a specific app in [Supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
+	// The `id` of the bundle in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).
+	Orn string `json:"orn"`
+	// The Okta resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for [supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
 	TargetResourceOrn string                  `json:"targetResourceOrn"`
 	Target            TargetResource          `json:"target"`
 	Status            EntitlementBundleStatus `json:"status"`
@@ -64,7 +66,7 @@ type _EntitlementBundleFullWithEntitlements EntitlementBundleFullWithEntitlement
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEntitlementBundleFullWithEntitlements(targetResourceOrn string, target TargetResource, status EntitlementBundleStatus, links EntitlementBundleLinks, name string, id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string) *EntitlementBundleFullWithEntitlements {
+func NewEntitlementBundleFullWithEntitlements(orn string, targetResourceOrn string, target TargetResource, status EntitlementBundleStatus, links EntitlementBundleLinks, name string, id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string) *EntitlementBundleFullWithEntitlements {
 	this := EntitlementBundleFullWithEntitlements{}
 	this.Name = name
 	this.Id = id
@@ -82,6 +84,30 @@ func NewEntitlementBundleFullWithEntitlements(targetResourceOrn string, target T
 func NewEntitlementBundleFullWithEntitlementsWithDefaults() *EntitlementBundleFullWithEntitlements {
 	this := EntitlementBundleFullWithEntitlements{}
 	return &this
+}
+
+// GetOrn returns the Orn field value
+func (o *EntitlementBundleFullWithEntitlements) GetOrn() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Orn
+}
+
+// GetOrnOk returns a tuple with the Orn field value
+// and a boolean to check if the value has been set.
+func (o *EntitlementBundleFullWithEntitlements) GetOrnOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Orn, true
+}
+
+// SetOrn sets field value
+func (o *EntitlementBundleFullWithEntitlements) SetOrn(v string) {
+	o.Orn = v
 }
 
 // GetTargetResourceOrn returns the TargetResourceOrn field value
@@ -398,6 +424,7 @@ func (o EntitlementBundleFullWithEntitlements) MarshalJSON() ([]byte, error) {
 
 func (o EntitlementBundleFullWithEntitlements) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["orn"] = o.Orn
 	toSerialize["targetResourceOrn"] = o.TargetResourceOrn
 	toSerialize["target"] = o.Target
 	toSerialize["status"] = o.Status
@@ -427,6 +454,7 @@ func (o *EntitlementBundleFullWithEntitlements) UnmarshalJSON(data []byte) (err 
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"orn",
 		"targetResourceOrn",
 		"target",
 		"status",
@@ -466,6 +494,7 @@ func (o *EntitlementBundleFullWithEntitlements) UnmarshalJSON(data []byte) (err 
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "orn")
 		delete(additionalProperties, "targetResourceOrn")
 		delete(additionalProperties, "target")
 		delete(additionalProperties, "status")

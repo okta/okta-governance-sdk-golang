@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** | The &#x60;id&#x60; of an entitlement value | [optional] 
+**Id** | Pointer to **string** | The &#x60;id&#x60; of the entitlement value | [optional] 
 
 ## Methods
 

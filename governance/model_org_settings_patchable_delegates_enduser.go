@@ -1,0 +1,167 @@
+/*
+Okta Governance API
+
+Allows customers to easily access the Okta API
+
+Copyright 2025 - Present Okta, Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+API version: 3.2.0
+Contact: devex-public@okta.com
+*/
+
+package governance
+
+import (
+	"encoding/json"
+)
+
+// checks if the OrgSettingsPatchableDelegatesEnduser type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OrgSettingsPatchableDelegatesEnduser{}
+
+// OrgSettingsPatchableDelegatesEnduser Delegate permission settings for end users
+type OrgSettingsPatchableDelegatesEnduser struct {
+	// The permission that applies to this setting  | Permission | Description | |------|------| | `READ` | Allow end users to view their delegates | | `WRITE` | Allow end users to set their own delegates |
+	Permissions          []string `json:"permissions,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _OrgSettingsPatchableDelegatesEnduser OrgSettingsPatchableDelegatesEnduser
+
+// NewOrgSettingsPatchableDelegatesEnduser instantiates a new OrgSettingsPatchableDelegatesEnduser object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewOrgSettingsPatchableDelegatesEnduser() *OrgSettingsPatchableDelegatesEnduser {
+	this := OrgSettingsPatchableDelegatesEnduser{}
+	return &this
+}
+
+// NewOrgSettingsPatchableDelegatesEnduserWithDefaults instantiates a new OrgSettingsPatchableDelegatesEnduser object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewOrgSettingsPatchableDelegatesEnduserWithDefaults() *OrgSettingsPatchableDelegatesEnduser {
+	this := OrgSettingsPatchableDelegatesEnduser{}
+	return &this
+}
+
+// GetPermissions returns the Permissions field value if set, zero value otherwise.
+func (o *OrgSettingsPatchableDelegatesEnduser) GetPermissions() []string {
+	if o == nil || IsNil(o.Permissions) {
+		var ret []string
+		return ret
+	}
+	return o.Permissions
+}
+
+// GetPermissionsOk returns a tuple with the Permissions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OrgSettingsPatchableDelegatesEnduser) GetPermissionsOk() ([]string, bool) {
+	if o == nil || IsNil(o.Permissions) {
+		return nil, false
+	}
+	return o.Permissions, true
+}
+
+// HasPermissions returns a boolean if a field has been set.
+func (o *OrgSettingsPatchableDelegatesEnduser) HasPermissions() bool {
+	if o != nil && !IsNil(o.Permissions) {
+		return true
+	}
+
+	return false
+}
+
+// SetPermissions gets a reference to the given []string and assigns it to the Permissions field.
+func (o *OrgSettingsPatchableDelegatesEnduser) SetPermissions(v []string) {
+	o.Permissions = v
+}
+
+func (o OrgSettingsPatchableDelegatesEnduser) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o OrgSettingsPatchableDelegatesEnduser) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Permissions) {
+		toSerialize["permissions"] = o.Permissions
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *OrgSettingsPatchableDelegatesEnduser) UnmarshalJSON(data []byte) (err error) {
+	varOrgSettingsPatchableDelegatesEnduser := _OrgSettingsPatchableDelegatesEnduser{}
+
+	err = json.Unmarshal(data, &varOrgSettingsPatchableDelegatesEnduser)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OrgSettingsPatchableDelegatesEnduser(varOrgSettingsPatchableDelegatesEnduser)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "permissions")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableOrgSettingsPatchableDelegatesEnduser struct {
+	value *OrgSettingsPatchableDelegatesEnduser
+	isSet bool
+}
+
+func (v NullableOrgSettingsPatchableDelegatesEnduser) Get() *OrgSettingsPatchableDelegatesEnduser {
+	return v.value
+}
+
+func (v *NullableOrgSettingsPatchableDelegatesEnduser) Set(val *OrgSettingsPatchableDelegatesEnduser) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableOrgSettingsPatchableDelegatesEnduser) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableOrgSettingsPatchableDelegatesEnduser) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableOrgSettingsPatchableDelegatesEnduser(val *OrgSettingsPatchableDelegatesEnduser) *NullableOrgSettingsPatchableDelegatesEnduser {
+	return &NullableOrgSettingsPatchableDelegatesEnduser{value: val, isSet: true}
+}
+
+func (v NullableOrgSettingsPatchableDelegatesEnduser) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableOrgSettingsPatchableDelegatesEnduser) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}

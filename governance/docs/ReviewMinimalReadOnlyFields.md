@@ -11,19 +11,23 @@ Name | Type | Description | Notes
 **Decision** | [**Decision**](Decision.md) |  | 
 **Decided** | Pointer to **time.Time** |  | [optional] 
 **RemediationStatus** | [**RemediationStatus**](RemediationStatus.md) |  | 
-**PrincipalProfile** | [**PrincipalProfile**](PrincipalProfile.md) |  | 
-**ReviewerProfile** | Pointer to [**PrincipalProfile**](PrincipalProfile.md) |  | [optional] 
+**PrincipalProfile** | [**PrincipalProfileEnriched**](PrincipalProfileEnriched.md) |  | 
+**ReviewerProfile** | Pointer to [**PrincipalProfileEnriched**](PrincipalProfileEnriched.md) |  | [optional] 
 **ReviewerType** | [**ReviewersReviewerType**](ReviewersReviewerType.md) |  | 
 **ReviewerGroupProfile** | Pointer to [**ReviewerGroupProfile**](ReviewerGroupProfile.md) |  | [optional] 
 **CurrentReviewerLevel** | Pointer to [**ReviewerLevelType**](ReviewerLevelType.md) |  | [optional] 
 **Links** | [**ReviewLinks**](ReviewLinks.md) |  | 
 **RiskRuleConflicts** | Pointer to [**[]RiskRuleConflicts**](RiskRuleConflicts.md) | List of risk rule conflicts caused by this entitlement value. Only applies to review item that has entitlement value. | [optional] 
+**DelegatorProfile** | Pointer to [**PrincipalProfileEnriched**](PrincipalProfileEnriched.md) |  | [optional] 
+**Delegated** | Pointer to **bool** | Specifies if this review was delegated by the original reviewer based on their governance delegate settings | [optional] 
+**AppServiceAccount** | Pointer to [**ReviewerServiceAccount**](ReviewerServiceAccount.md) |  | [optional] 
+**OktaServiceAccount** | Pointer to [**ReviewerServiceAccount**](ReviewerServiceAccount.md) |  | [optional] 
 
 ## Methods
 
 ### NewReviewMinimalReadOnlyFields
 
-`func NewReviewMinimalReadOnlyFields(campaignId string, resourceId string, decision Decision, remediationStatus RemediationStatus, principalProfile PrincipalProfile, reviewerType ReviewersReviewerType, links ReviewLinks, ) *ReviewMinimalReadOnlyFields`
+`func NewReviewMinimalReadOnlyFields(campaignId string, resourceId string, decision Decision, remediationStatus RemediationStatus, principalProfile PrincipalProfileEnriched, reviewerType ReviewersReviewerType, links ReviewLinks, ) *ReviewMinimalReadOnlyFields`
 
 NewReviewMinimalReadOnlyFields instantiates a new ReviewMinimalReadOnlyFields object
 This constructor will assign default values to properties that have it defined,
@@ -195,40 +199,40 @@ SetRemediationStatus sets RemediationStatus field to given value.
 
 ### GetPrincipalProfile
 
-`func (o *ReviewMinimalReadOnlyFields) GetPrincipalProfile() PrincipalProfile`
+`func (o *ReviewMinimalReadOnlyFields) GetPrincipalProfile() PrincipalProfileEnriched`
 
 GetPrincipalProfile returns the PrincipalProfile field if non-nil, zero value otherwise.
 
 ### GetPrincipalProfileOk
 
-`func (o *ReviewMinimalReadOnlyFields) GetPrincipalProfileOk() (*PrincipalProfile, bool)`
+`func (o *ReviewMinimalReadOnlyFields) GetPrincipalProfileOk() (*PrincipalProfileEnriched, bool)`
 
 GetPrincipalProfileOk returns a tuple with the PrincipalProfile field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPrincipalProfile
 
-`func (o *ReviewMinimalReadOnlyFields) SetPrincipalProfile(v PrincipalProfile)`
+`func (o *ReviewMinimalReadOnlyFields) SetPrincipalProfile(v PrincipalProfileEnriched)`
 
 SetPrincipalProfile sets PrincipalProfile field to given value.
 
 
 ### GetReviewerProfile
 
-`func (o *ReviewMinimalReadOnlyFields) GetReviewerProfile() PrincipalProfile`
+`func (o *ReviewMinimalReadOnlyFields) GetReviewerProfile() PrincipalProfileEnriched`
 
 GetReviewerProfile returns the ReviewerProfile field if non-nil, zero value otherwise.
 
 ### GetReviewerProfileOk
 
-`func (o *ReviewMinimalReadOnlyFields) GetReviewerProfileOk() (*PrincipalProfile, bool)`
+`func (o *ReviewMinimalReadOnlyFields) GetReviewerProfileOk() (*PrincipalProfileEnriched, bool)`
 
 GetReviewerProfileOk returns a tuple with the ReviewerProfile field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetReviewerProfile
 
-`func (o *ReviewMinimalReadOnlyFields) SetReviewerProfile(v PrincipalProfile)`
+`func (o *ReviewMinimalReadOnlyFields) SetReviewerProfile(v PrincipalProfileEnriched)`
 
 SetReviewerProfile sets ReviewerProfile field to given value.
 
@@ -363,6 +367,106 @@ HasRiskRuleConflicts returns a boolean if a field has been set.
 `func (o *ReviewMinimalReadOnlyFields) UnsetRiskRuleConflicts()`
 
 UnsetRiskRuleConflicts ensures that no value is present for RiskRuleConflicts, not even an explicit nil
+### GetDelegatorProfile
+
+`func (o *ReviewMinimalReadOnlyFields) GetDelegatorProfile() PrincipalProfileEnriched`
+
+GetDelegatorProfile returns the DelegatorProfile field if non-nil, zero value otherwise.
+
+### GetDelegatorProfileOk
+
+`func (o *ReviewMinimalReadOnlyFields) GetDelegatorProfileOk() (*PrincipalProfileEnriched, bool)`
+
+GetDelegatorProfileOk returns a tuple with the DelegatorProfile field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDelegatorProfile
+
+`func (o *ReviewMinimalReadOnlyFields) SetDelegatorProfile(v PrincipalProfileEnriched)`
+
+SetDelegatorProfile sets DelegatorProfile field to given value.
+
+### HasDelegatorProfile
+
+`func (o *ReviewMinimalReadOnlyFields) HasDelegatorProfile() bool`
+
+HasDelegatorProfile returns a boolean if a field has been set.
+
+### GetDelegated
+
+`func (o *ReviewMinimalReadOnlyFields) GetDelegated() bool`
+
+GetDelegated returns the Delegated field if non-nil, zero value otherwise.
+
+### GetDelegatedOk
+
+`func (o *ReviewMinimalReadOnlyFields) GetDelegatedOk() (*bool, bool)`
+
+GetDelegatedOk returns a tuple with the Delegated field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDelegated
+
+`func (o *ReviewMinimalReadOnlyFields) SetDelegated(v bool)`
+
+SetDelegated sets Delegated field to given value.
+
+### HasDelegated
+
+`func (o *ReviewMinimalReadOnlyFields) HasDelegated() bool`
+
+HasDelegated returns a boolean if a field has been set.
+
+### GetAppServiceAccount
+
+`func (o *ReviewMinimalReadOnlyFields) GetAppServiceAccount() ReviewerServiceAccount`
+
+GetAppServiceAccount returns the AppServiceAccount field if non-nil, zero value otherwise.
+
+### GetAppServiceAccountOk
+
+`func (o *ReviewMinimalReadOnlyFields) GetAppServiceAccountOk() (*ReviewerServiceAccount, bool)`
+
+GetAppServiceAccountOk returns a tuple with the AppServiceAccount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAppServiceAccount
+
+`func (o *ReviewMinimalReadOnlyFields) SetAppServiceAccount(v ReviewerServiceAccount)`
+
+SetAppServiceAccount sets AppServiceAccount field to given value.
+
+### HasAppServiceAccount
+
+`func (o *ReviewMinimalReadOnlyFields) HasAppServiceAccount() bool`
+
+HasAppServiceAccount returns a boolean if a field has been set.
+
+### GetOktaServiceAccount
+
+`func (o *ReviewMinimalReadOnlyFields) GetOktaServiceAccount() ReviewerServiceAccount`
+
+GetOktaServiceAccount returns the OktaServiceAccount field if non-nil, zero value otherwise.
+
+### GetOktaServiceAccountOk
+
+`func (o *ReviewMinimalReadOnlyFields) GetOktaServiceAccountOk() (*ReviewerServiceAccount, bool)`
+
+GetOktaServiceAccountOk returns a tuple with the OktaServiceAccount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOktaServiceAccount
+
+`func (o *ReviewMinimalReadOnlyFields) SetOktaServiceAccount(v ReviewerServiceAccount)`
+
+SetOktaServiceAccount sets OktaServiceAccount field to given value.
+
+### HasOktaServiceAccount
+
+`func (o *ReviewMinimalReadOnlyFields) HasOktaServiceAccount() bool`
+
+HasOktaServiceAccount returns a boolean if a field has been set.
+
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

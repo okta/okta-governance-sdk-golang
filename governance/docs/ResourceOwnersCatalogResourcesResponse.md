@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ParentResourceOrn** | **string** | The Okta app instance, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for a specific app in [Supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources). | 
-**Data** | Pointer to [**[]ResourceOwnerResource**](ResourceOwnerResource.md) | Resource owner details. | [optional] 
+**ParentResourceOrn** | **string** | The Okta resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for [supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources). | 
+**Data** | Pointer to [**[]ResourceOwnerResource**](ResourceOwnerResource.md) | Resource owner details | [optional] 
 **Links** | [**ResourceOwnersListLinks**](ResourceOwnersListLinks.md) |  | 
 
 ## Methods

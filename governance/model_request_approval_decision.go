@@ -48,7 +48,9 @@ type RequestApprovalDecision struct {
 	// Email of the original decider
 	OriginalDeciderEmail *string `json:"originalDeciderEmail,omitempty"`
 	// Indicates if the decision was made by a delegated decider
-	DeciderDelegated     *bool `json:"deciderDelegated,omitempty"`
+	DeciderDelegated *bool `json:"deciderDelegated,omitempty"`
+	// Indicates if the decision was made by an escalated decider
+	DeciderEscalated     *bool `json:"deciderEscalated,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -306,6 +308,38 @@ func (o *RequestApprovalDecision) SetDeciderDelegated(v bool) {
 	o.DeciderDelegated = &v
 }
 
+// GetDeciderEscalated returns the DeciderEscalated field value if set, zero value otherwise.
+func (o *RequestApprovalDecision) GetDeciderEscalated() bool {
+	if o == nil || IsNil(o.DeciderEscalated) {
+		var ret bool
+		return ret
+	}
+	return *o.DeciderEscalated
+}
+
+// GetDeciderEscalatedOk returns a tuple with the DeciderEscalated field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RequestApprovalDecision) GetDeciderEscalatedOk() (*bool, bool) {
+	if o == nil || IsNil(o.DeciderEscalated) {
+		return nil, false
+	}
+	return o.DeciderEscalated, true
+}
+
+// HasDeciderEscalated returns a boolean if a field has been set.
+func (o *RequestApprovalDecision) HasDeciderEscalated() bool {
+	if o != nil && !IsNil(o.DeciderEscalated) {
+		return true
+	}
+
+	return false
+}
+
+// SetDeciderEscalated gets a reference to the given bool and assigns it to the DeciderEscalated field.
+func (o *RequestApprovalDecision) SetDeciderEscalated(v bool) {
+	o.DeciderEscalated = &v
+}
+
 func (o RequestApprovalDecision) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -333,6 +367,9 @@ func (o RequestApprovalDecision) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.DeciderDelegated) {
 		toSerialize["deciderDelegated"] = o.DeciderDelegated
+	}
+	if !IsNil(o.DeciderEscalated) {
+		toSerialize["deciderEscalated"] = o.DeciderEscalated
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -387,6 +424,7 @@ func (o *RequestApprovalDecision) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "originalDeciderFullName")
 		delete(additionalProperties, "originalDeciderEmail")
 		delete(additionalProperties, "deciderDelegated")
+		delete(additionalProperties, "deciderEscalated")
 		o.AdditionalProperties = additionalProperties
 	}
 

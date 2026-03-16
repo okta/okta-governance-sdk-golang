@@ -36,6 +36,7 @@ const (
 	ACCESSSCOPETYPE_ENTITLEMENT_BUNDLE AccessScopeType = "ENTITLEMENT_BUNDLE"
 	ACCESSSCOPETYPE_GROUP              AccessScopeType = "GROUP"
 	ACCESSSCOPETYPE_APPLICATION        AccessScopeType = "APPLICATION"
+	ACCESSSCOPETYPE_REQUEST_TYPE       AccessScopeType = "REQUEST_TYPE"
 )
 
 // All allowed values of AccessScopeType enum
@@ -43,6 +44,7 @@ var AllowedAccessScopeTypeEnumValues = []AccessScopeType{
 	"ENTITLEMENT_BUNDLE",
 	"GROUP",
 	"APPLICATION",
+	"REQUEST_TYPE",
 }
 
 func (v *AccessScopeType) UnmarshalJSON(src []byte) error {

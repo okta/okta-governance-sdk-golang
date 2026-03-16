@@ -30,9 +30,9 @@ import (
 // checks if the LabelMetadata type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &LabelMetadata{}
 
-// LabelMetadata struct for LabelMetadata
+// LabelMetadata Metadata for a label value
 type LabelMetadata struct {
-	// (Optional) A map of key value pairs. Additional properties for the label. e.g {\\\"backgroundColor\\\": \\\"blue\\\", \\\"font\\\": \\\"Arial\\\"}
+	// Additional metadata properties for the label value.  Supported property and valid values: * `backgroundColor`: [`red`, `orange`, `yellow`, `green`, `blue`, `purple`, `teal`, `beige`, `gray`]
 	AdditionalPropertiesField map[string]interface{} `json:"additionalProperties,omitempty"`
 	AdditionalProperties      map[string]interface{}
 }

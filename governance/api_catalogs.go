@@ -36,25 +36,14 @@ import (
 type CatalogsAPI interface {
 
 	/*
-			GetCatalogEntryRequestFieldsV2 Retrieve an entry's request fields
+			GetCatalogEntryRequestFieldsV2 Retrieve the request fields
 
-			Retrieves request fields for catalog entry
+			Retrieves request fields for a catalog entry:
 
-		Request fields are determined by evaluating the entry's associated
-		request conditions for the requester.
-
-		The highest priority matching
-		condition determines the approval sequence that will be used for the
-		requester.
-
-		If that approval sequence has requester fields, then they will
-		be returned as a request field.
-
-		If the request can lead to any separation of duty conflicts, then
-		the risk assessment is present. The risk assessment indicates whether
-		request submission is allowed or restricted and includes rules that
-		lead to the possible conflicts. If request submission is allowed, then
-		the request fields are determined by the associated approval sequence.
+		* Request fields are determined by evaluating the entry's associated request conditions for the requester.
+		* The highest priority matching condition determines the approval sequence that's used for the requester.
+		* If that approval sequence has requester fields, then they are returned as request fields.
+		* If the request can lead to any separation of duty conflicts, then the risk assessment (`metadata.riskAssessment`) is present. The risk assessment indicates whether the request submission is allowed or restricted, and includes rules that lead to the possible conflicts. If the request submission is allowed, then the request fields are determined by the associated approval sequence.
 
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -86,9 +75,9 @@ type CatalogsAPI interface {
 	/*
 			ListAllDefaultEntriesV2 List all entries for the default access request catalog
 
-			Lists entries for the default access request catalog based on a filter.
+			Lists entries for the default access request catalog based on a required `filter` query parameter.
 
-		The following are request examples with query parameters:
+		The following are request examples with a filter expression. In each example, the filter expression includes the mandatory `parent` property.
 
 		1. Lists at most 20 parent (top-level) entries
 		    ```
@@ -175,25 +164,14 @@ func (r ApiGetCatalogEntryRequestFieldsV2Request) Execute() (*CatalogEntryReques
 }
 
 /*
-GetCatalogEntryRequestFieldsV2 Retrieve an entry's request fields
+GetCatalogEntryRequestFieldsV2 Retrieve the request fields
 
-# Retrieves request fields for catalog entry
+Retrieves request fields for a catalog entry:
 
-Request fields are determined by evaluating the entry's associated
-request conditions for the requester.
-
-The highest priority matching
-condition determines the approval sequence that will be used for the
-requester.
-
-If that approval sequence has requester fields, then they will
-be returned as a request field.
-
-If the request can lead to any separation of duty conflicts, then
-the risk assessment is present. The risk assessment indicates whether
-request submission is allowed or restricted and includes rules that
-lead to the possible conflicts. If request submission is allowed, then
-the request fields are determined by the associated approval sequence.
+* Request fields are determined by evaluating the entry's associated request conditions for the requester.
+* The highest priority matching condition determines the approval sequence that's used for the requester.
+* If that approval sequence has requester fields, then they are returned as request fields.
+* If the request can lead to any separation of duty conflicts, then the risk assessment (`metadata.riskAssessment`) is present. The risk assessment indicates whether the request submission is allowed or restricted, and includes rules that lead to the possible conflicts. If the request submission is allowed, then the request fields are determined by the associated approval sequence.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param entryId The ID of the catalog entry
@@ -538,7 +516,7 @@ type ApiListAllDefaultEntriesV2Request struct {
 	retryCount int32
 }
 
-// A required filter expression that returns entries based on the [&#x60;parent&#x60;](https://developer.okta.com/docs/api/iga/openapi/governance.requests.admin.v2/tag/Catalogs/#tag/Catalogs/operation/listAllDefaultEntriesV2!c&#x3D;200&amp;path&#x3D;data/parent&amp;t&#x3D;response) property. This [filter](https://developer.okta.com/docs/api/#filter) expression supports the &#x60;eq&#x60; and &#x60;pr&#x60; [operators](https://developer.okta.com/docs/api/#operators).  **Note:** Query parameter percent encoding is required. See [Special characters]( https://developer.okta.com/docs/api/#special-characters ).
+// A required [filter](https://developer.okta.com/docs/api/#filter) expression that returns entries based on the [&#x60;parent&#x60;](https://developer.okta.com/docs/api/iga/openapi/governance.requests.admin.v2/tag/Catalogs/#tag/Catalogs/operation/listAllDefaultEntriesV2!c&#x3D;200&amp;path&#x3D;data/parent&amp;t&#x3D;response) property: * This filter expression only supports the &#x60;parent&#x60; property and the &#x60;eq&#x60; and &#x60;pr&#x60; [operators](https://developer.okta.com/docs/api/#operators). * If you want the query to return child entries, then you must specify the &#x60;parent&#x60; ID with the &#x60;eq&#x60; operator.  &gt; **Notes:** &gt; * If you don&#39;t use the &#x60;parent&#x60; property in the filter expression, undesireable results are returned. &gt; * Query parameter percent encoding is required. See [Special characters]( https://developer.okta.com/docs/api/#special-characters ).
 func (r ApiListAllDefaultEntriesV2Request) Filter(filter string) ApiListAllDefaultEntriesV2Request {
 	r.filter = &filter
 	return r
@@ -569,9 +547,9 @@ func (r ApiListAllDefaultEntriesV2Request) Execute() (*RcarEntriesListV2, *APIRe
 /*
 ListAllDefaultEntriesV2 List all entries for the default access request catalog
 
-Lists entries for the default access request catalog based on a filter.
+Lists entries for the default access request catalog based on a required `filter` query parameter.
 
-The following are request examples with query parameters:
+The following are request examples with a filter expression. In each example, the filter expression includes the mandatory `parent` property.
 
  1. Lists at most 20 parent (top-level) entries
     ```
@@ -791,7 +769,7 @@ type ApiListAllDefaultUserEntriesV2Request struct {
 	retryCount int32
 }
 
-// A required filter expression that returns entries based on the [&#x60;parent&#x60;](https://developer.okta.com/docs/api/iga/openapi/governance.requests.admin.v2/tag/Catalogs/#tag/Catalogs/operation/listAllDefaultEntriesV2!c&#x3D;200&amp;path&#x3D;data/parent&amp;t&#x3D;response) property. This [filter](https://developer.okta.com/docs/api/#filter) expression supports the &#x60;eq&#x60; and &#x60;pr&#x60; [operators](https://developer.okta.com/docs/api/#operators).  **Note:** Query parameter percent encoding is required. See [Special characters]( https://developer.okta.com/docs/api/#special-characters ).
+// A required [filter](https://developer.okta.com/docs/api/#filter) expression that returns entries based on the [&#x60;parent&#x60;](https://developer.okta.com/docs/api/iga/openapi/governance.requests.admin.v2/tag/Catalogs/#tag/Catalogs/operation/listAllDefaultEntriesV2!c&#x3D;200&amp;path&#x3D;data/parent&amp;t&#x3D;response) property: * This filter expression only supports the &#x60;parent&#x60; property and the &#x60;eq&#x60; and &#x60;pr&#x60; [operators](https://developer.okta.com/docs/api/#operators). * If you want the query to return child entries, then you must specify the &#x60;parent&#x60; ID with the &#x60;eq&#x60; operator.  &gt; **Notes:** &gt; * If you don&#39;t use the &#x60;parent&#x60; property in the filter expression, undesireable results are returned. &gt; * Query parameter percent encoding is required. See [Special characters]( https://developer.okta.com/docs/api/#special-characters ).
 func (r ApiListAllDefaultUserEntriesV2Request) Filter(filter string) ApiListAllDefaultUserEntriesV2Request {
 	r.filter = &filter
 	return r

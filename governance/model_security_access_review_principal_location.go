@@ -30,13 +30,13 @@ import (
 // checks if the SecurityAccessReviewPrincipalLocation type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SecurityAccessReviewPrincipalLocation{}
 
-// SecurityAccessReviewPrincipalLocation struct for SecurityAccessReviewPrincipalLocation
+// SecurityAccessReviewPrincipalLocation The location details of the Okta user
 type SecurityAccessReviewPrincipalLocation struct {
-	// City of the location
+	// The city of the location
 	City *string `json:"city,omitempty"`
-	// State of the location
+	// The state of the location
 	State *string `json:"state,omitempty"`
-	// Country of the location
+	// The country of the location
 	Country              *string `json:"country,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

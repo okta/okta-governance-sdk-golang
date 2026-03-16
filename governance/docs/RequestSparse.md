@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Type** | **string** | Whether the request&#39;s request type has CUSTOM settings or not. | 
 **RequestStatus** | [**RequestRequestStatus**](RequestRequestStatus.md) |  | 
 **Resolved** | **NullableTime** | The date the request was resolved. The property may transition from having a value to null if the request is reopened. | 
+**PermalinkId** | **int32** | The immutable, persistent identifier that always resolves to the request | 
 **Links** | [**RequestLinks**](RequestLinks.md) |  | 
 **Id** | **string** | Unique identifier for the object | 
 **CreatedBy** | **string** | The &#x60;id&#x60; of the Okta user who created the resource | [readonly] 
@@ -21,7 +22,7 @@ Name | Type | Description | Notes
 
 ### NewRequestSparse
 
-`func NewRequestSparse(type_ string, requestStatus RequestRequestStatus, resolved NullableTime, links RequestLinks, id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, requestTypeId string, subject string, requesterUserIds []string, ) *RequestSparse`
+`func NewRequestSparse(type_ string, requestStatus RequestRequestStatus, resolved NullableTime, permalinkId int32, links RequestLinks, id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, requestTypeId string, subject string, requesterUserIds []string, ) *RequestSparse`
 
 NewRequestSparse instantiates a new RequestSparse object
 This constructor will assign default values to properties that have it defined,
@@ -106,6 +107,26 @@ SetResolved sets Resolved field to given value.
 `func (o *RequestSparse) UnsetResolved()`
 
 UnsetResolved ensures that no value is present for Resolved, not even an explicit nil
+### GetPermalinkId
+
+`func (o *RequestSparse) GetPermalinkId() int32`
+
+GetPermalinkId returns the PermalinkId field if non-nil, zero value otherwise.
+
+### GetPermalinkIdOk
+
+`func (o *RequestSparse) GetPermalinkIdOk() (*int32, bool)`
+
+GetPermalinkIdOk returns a tuple with the PermalinkId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPermalinkId
+
+`func (o *RequestSparse) SetPermalinkId(v int32)`
+
+SetPermalinkId sets PermalinkId field to given value.
+
+
 ### GetLinks
 
 `func (o *RequestSparse) GetLinks() RequestLinks`

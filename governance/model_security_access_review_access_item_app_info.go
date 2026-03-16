@@ -32,7 +32,7 @@ import (
 // checks if the SecurityAccessReviewAccessItemAppInfo type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SecurityAccessReviewAccessItemAppInfo{}
 
-// SecurityAccessReviewAccessItemAppInfo struct for SecurityAccessReviewAccessItemAppInfo
+// SecurityAccessReviewAccessItemAppInfo The details of an app access item
 type SecurityAccessReviewAccessItemAppInfo struct {
 	// The Okta app ID
 	Id string `json:"id"`
@@ -58,7 +58,7 @@ type SecurityAccessReviewAccessItemAppInfo struct {
 	// Any active entitlements for this app
 	ActiveEntitlements []EntitlementPropertyFull `json:"activeEntitlements,omitempty"`
 	// All governance labels applied to the app
-	GovernanceLabels     []GovernanceLabel `json:"governanceLabels,omitempty"`
+	GovernanceLabels     []TargetGovernanceLabel `json:"governanceLabels,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -445,9 +445,9 @@ func (o *SecurityAccessReviewAccessItemAppInfo) SetActiveEntitlements(v []Entitl
 }
 
 // GetGovernanceLabels returns the GovernanceLabels field value if set, zero value otherwise.
-func (o *SecurityAccessReviewAccessItemAppInfo) GetGovernanceLabels() []GovernanceLabel {
+func (o *SecurityAccessReviewAccessItemAppInfo) GetGovernanceLabels() []TargetGovernanceLabel {
 	if o == nil || IsNil(o.GovernanceLabels) {
-		var ret []GovernanceLabel
+		var ret []TargetGovernanceLabel
 		return ret
 	}
 	return o.GovernanceLabels
@@ -455,7 +455,7 @@ func (o *SecurityAccessReviewAccessItemAppInfo) GetGovernanceLabels() []Governan
 
 // GetGovernanceLabelsOk returns a tuple with the GovernanceLabels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SecurityAccessReviewAccessItemAppInfo) GetGovernanceLabelsOk() ([]GovernanceLabel, bool) {
+func (o *SecurityAccessReviewAccessItemAppInfo) GetGovernanceLabelsOk() ([]TargetGovernanceLabel, bool) {
 	if o == nil || IsNil(o.GovernanceLabels) {
 		return nil, false
 	}
@@ -471,8 +471,8 @@ func (o *SecurityAccessReviewAccessItemAppInfo) HasGovernanceLabels() bool {
 	return false
 }
 
-// SetGovernanceLabels gets a reference to the given []GovernanceLabel and assigns it to the GovernanceLabels field.
-func (o *SecurityAccessReviewAccessItemAppInfo) SetGovernanceLabels(v []GovernanceLabel) {
+// SetGovernanceLabels gets a reference to the given []TargetGovernanceLabel and assigns it to the GovernanceLabels field.
+func (o *SecurityAccessReviewAccessItemAppInfo) SetGovernanceLabels(v []TargetGovernanceLabel) {
 	o.GovernanceLabels = v
 }
 

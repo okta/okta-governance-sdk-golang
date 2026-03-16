@@ -28,7 +28,7 @@ import (
 	"fmt"
 )
 
-// ReviewerType Identifies the kind of reviewer for Access Certification. For example, a reviewer can be a user or an expression.
+// ReviewerType Identifies the type of reviewer at this level for the campaign
 type ReviewerType string
 
 // List of reviewer-type

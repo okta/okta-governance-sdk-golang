@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** | id of entitlement bundle | 
+**Id** | **string** | Entitlement bundle ID | 
 
 ## Methods
 

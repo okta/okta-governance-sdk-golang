@@ -34,7 +34,8 @@ var _ MappedNullable = &RequesterSettingsCreatableGroupsRequesterSettings{}
 
 // RequesterSettingsCreatableGroupsRequesterSettings A requester settings indicating that access request can be submitted by specific groups.
 type RequesterSettingsCreatableGroupsRequesterSettings struct {
-	Type   string                      `json:"type"`
+	Type string `json:"type"`
+	// List of requestable groups  > **Note:** Both standard Okta groups and AD-sourced groups are supported in Access Requests. > Standard Okta groups have the `okta:user_group` value, whereas AD-sourced groups have the `okta:windows_security_principal` value in their `objectClass` property.
 	Groups []GroupsArrayCreatableInner `json:"groups"`
 }
 

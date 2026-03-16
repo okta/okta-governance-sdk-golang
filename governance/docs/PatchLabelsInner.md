@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Op** | [**LabelValuePatchOp**](LabelValuePatchOp.md) |  | 
-**Path** | **string** | The path of the property to update. For example:  * &#x60;/values/-&#x60; for the &#x60;ADD&#x60; operation * &#x60;/values/{id}&#x60; for the &#x60;REMOVE&#x60; operation *&#x60;/values/{id}/...&#x60; for the &#x60;REPLACE&#x60; operation  | 
+**Path** | **string** | The path of the property to update.  Use the following path format:  * &#x60;/values/-&#x60; for the &#x60;ADD&#x60; operation * &#x60;/values/{id}&#x60; for the &#x60;REMOVE&#x60; operation * &#x60;/values/{id}/...&#x60; for the &#x60;REPLACE&#x60; operation  | 
 **Value** | Pointer to [**LabelValueUpdate**](LabelValueUpdate.md) |  | [optional] 
-**RefType** | **string** |  | 
+**RefType** | **string** | The label property for the update operation | 
 
 ## Methods
 

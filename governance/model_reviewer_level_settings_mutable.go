@@ -35,18 +35,18 @@ var _ MappedNullable = &ReviewerLevelSettingsMutable{}
 type ReviewerLevelSettingsMutable struct {
 	Type        ReviewerType             `json:"type"`
 	StartReview ReviewerLevelStartReview `json:"startReview"`
-	// This property is required when `type=USER`  The `id` of an Okta user who will be assigned as a reviewer. By specifying `reviewerId`, all reviews will be assigned only to that reviewer. This is a conditional property to be provided only if the `reviewerScopeExpression` can't be specified.
+	// This property is required when `reviewerSettings.reviewerLevels.type` is `USER`  The `id` of an Okta user to assign all reviews. Use this reviewer type when you can't specify `reviewerScopeExpression`.
 	ReviewerId *string `json:"reviewerId,omitempty"`
-	// This property is required when `type=REVIEWER_EXPRESSION`  The Okta specific user expression to fetch the reviewers from a connected identity source.  If a user is found using the provided expression, that user is assigned as a reviewer.  If a user is not found using the provided expression, the `fallbackReviewerId` is used.
+	// Required when `reviewerSettings.reviewerLevels.type` is `REVIEWER_EXPRESSION`.  The Okta-specific user expression to fetch the reviewers from a connected identity source:  * If a user is found with the provided expression, that user is assigned as the reviewer. * If a user isn't found with the provided expression, the `fallBackReviewerId` user is assigned as the reviewer. * See [Okta Expression Language (EL)](https://developer.okta.com/docs/reference/okta-expression-language/#okta-user-profile) to build the expression based on user profile attributes.
 	ReviewerScopeExpression *string `json:"reviewerScopeExpression,omitempty"`
-	// Required when the `type=REVIEWER_EXPRESSION` or `type=RESOURCE_OWNER`  If the reviewer(s) can't be identified using `reviewerScopeExpression` or using the owners of groups (the owners of the group identified through the property `resourceSettings.type = GROUP`), the fallback reviewer (`id` of an Okta user) is assigned as a reviewer.
+	// Required when reviewer setting `type` is `REVIEWER_EXPRESSION` or `RESOURCE_OWNER`. The fallback reviewer is assigned as the reviewer if:  * reviewer setting `reviewerScopeExpression` fails to identify reviewers, or * reviewers aren't identified through resource owners
 	FallBackReviewerId *string `json:"fallBackReviewerId,omitempty"`
-	// This property is required when `type=GROUP`  The `id` of an Okta group who will be assigned as a reviewer. By specifying `reviewerGroupId`, all reviews will be assigned to that group. Any user part of that group will automatically be the reviewers of the campaign. This is a conditional property to be provided, only when one wants to assign more than one reviewer and cannot use `reviewerId` or `reviewerScopeExpression`.  Note that, if the provided Okta group has more than 10 members, when the campaign gets launched, only a max of 10 members will be pulled from the group. Those 10 members would be the reviewers of the campaign. When fetching members of the group, there is no order guaranteed.  Additionally, if the Okta group specified has only one member, then that member will be assigned as a reviewer to all reviewers and `type` for those reviews changes to `USER`.
+	// Required when `reviewerSettings.reviewerLevels.type` is `GROUP`.  The `id` of the Okta group: * All members of the specified group are assigned as reviewers. * Use this reviewer group assignment to assign more than one reviewer if you can't use `reviewerId` or `reviewerScopeExpression`. * If the Okta group has more than 10 members when the campaign launches, only 10 members are randomly selected as reviewers. * If the Okta group has only one member, then that member is assigned as the reviewer for all reviews, and `reviewerType` is set to `USER` for those reviews.
 	ReviewerGroupId *string `json:"reviewerGroupId,omitempty"`
-	// if 'true', users will not able to review their own review items  > **Note:** This field is deprecated. Use ['selfReviewDisabled'](/openapi/governance.api/tag/Campaigns/#tag/Campaigns/operation/createCampaign!path=reviewerSettings/reviewerLevels/selfReviewDisabled&t=request)
+	// If `true`, users can't review their own review items.  > **Note:** This field is deprecated. Use 'selfReviewDisabled'.
 	// Deprecated
 	IsSelfReviewDisabled *bool `json:"isSelfReviewDisabled,omitempty"`
-	// If `true`, users aren't able to review their own review items.  This property is required to be `true` for resource-centric campaigns when the Okta Admin Console is one of the resources
+	// If `true`, users can't review their own review items.  This property must be `true` for resource-centric campaigns when the Okta Admin Console is one of the resources.
 	SelfReviewDisabled   *bool `json:"selfReviewDisabled,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | Name of the campaign. Maintain some uniqueness when naming the campaign as it helps to identify and filter for campaigns when needed. | 
-**Description** | Pointer to **string** | Human readable description. | [optional] 
+**Description** | Pointer to **string** | Campaign description | [optional] 
 **StartDate** | **time.Time** | The date on which the campaign is scheduled to start. Accepts date in ISO 8601 format. | 
 **EndDate** | **time.Time** | The date on which the campaign is supposed to end. Accepts date in ISO 8601 format. | 
 **ScheduleType** | [**ScheduleType**](ScheduleType.md) |  | 

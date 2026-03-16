@@ -30,11 +30,11 @@ import (
 // checks if the ResourceSettingsMutableExcludedResourcesInner type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ResourceSettingsMutableExcludedResourcesInner{}
 
-// ResourceSettingsMutableExcludedResourcesInner Represents a resource that will be excluded from access certification
+// ResourceSettingsMutableExcludedResourcesInner A resource that's excluded from the user campaign
 type ResourceSettingsMutableExcludedResourcesInner struct {
 	// Okta specific resource ID
-	ResourceId           *string       `json:"resourceId,omitempty"`
-	ResourceType         *ResourceType `json:"resourceType,omitempty"`
+	ResourceId           *string              `json:"resourceId,omitempty"`
+	ResourceType         *ResourceTypeExclude `json:"resourceType,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -90,9 +90,9 @@ func (o *ResourceSettingsMutableExcludedResourcesInner) SetResourceId(v string) 
 }
 
 // GetResourceType returns the ResourceType field value if set, zero value otherwise.
-func (o *ResourceSettingsMutableExcludedResourcesInner) GetResourceType() ResourceType {
+func (o *ResourceSettingsMutableExcludedResourcesInner) GetResourceType() ResourceTypeExclude {
 	if o == nil || IsNil(o.ResourceType) {
-		var ret ResourceType
+		var ret ResourceTypeExclude
 		return ret
 	}
 	return *o.ResourceType
@@ -100,7 +100,7 @@ func (o *ResourceSettingsMutableExcludedResourcesInner) GetResourceType() Resour
 
 // GetResourceTypeOk returns a tuple with the ResourceType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ResourceSettingsMutableExcludedResourcesInner) GetResourceTypeOk() (*ResourceType, bool) {
+func (o *ResourceSettingsMutableExcludedResourcesInner) GetResourceTypeOk() (*ResourceTypeExclude, bool) {
 	if o == nil || IsNil(o.ResourceType) {
 		return nil, false
 	}
@@ -116,8 +116,8 @@ func (o *ResourceSettingsMutableExcludedResourcesInner) HasResourceType() bool {
 	return false
 }
 
-// SetResourceType gets a reference to the given ResourceType and assigns it to the ResourceType field.
-func (o *ResourceSettingsMutableExcludedResourcesInner) SetResourceType(v ResourceType) {
+// SetResourceType gets a reference to the given ResourceTypeExclude and assigns it to the ResourceType field.
+func (o *ResourceSettingsMutableExcludedResourcesInner) SetResourceType(v ResourceTypeExclude) {
 	o.ResourceType = &v
 }
 

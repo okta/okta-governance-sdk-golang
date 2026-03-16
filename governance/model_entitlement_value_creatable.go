@@ -32,7 +32,7 @@ var _ MappedNullable = &EntitlementValueCreatable{}
 
 // EntitlementValueCreatable Entitlement value id
 type EntitlementValueCreatable struct {
-	// The `id` of an entitlement value
+	// The `id` of the entitlement value
 	Id                   *string `json:"id,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

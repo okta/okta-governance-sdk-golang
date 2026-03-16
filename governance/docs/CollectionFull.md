@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Orn** | **string** | The &#x60;id&#x60; of the collection in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn). | 
 **Counts** | Pointer to [**CollectionCounts**](CollectionCounts.md) |  | [optional] 
 **Links** | [**CollectionLinks**](CollectionLinks.md) |  | 
 **Name** | **string** | The name of a resource collection | 
@@ -18,7 +19,7 @@ Name | Type | Description | Notes
 
 ### NewCollectionFull
 
-`func NewCollectionFull(links CollectionLinks, name string, id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, ) *CollectionFull`
+`func NewCollectionFull(orn string, links CollectionLinks, name string, id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, ) *CollectionFull`
 
 NewCollectionFull instantiates a new CollectionFull object
 This constructor will assign default values to properties that have it defined,
@@ -32,6 +33,26 @@ will change when the set of required properties is changed
 NewCollectionFullWithDefaults instantiates a new CollectionFull object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetOrn
+
+`func (o *CollectionFull) GetOrn() string`
+
+GetOrn returns the Orn field if non-nil, zero value otherwise.
+
+### GetOrnOk
+
+`func (o *CollectionFull) GetOrnOk() (*string, bool)`
+
+GetOrnOk returns a tuple with the Orn field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOrn
+
+`func (o *CollectionFull) SetOrn(v string)`
+
+SetOrn sets Orn field to given value.
+
 
 ### GetCounts
 

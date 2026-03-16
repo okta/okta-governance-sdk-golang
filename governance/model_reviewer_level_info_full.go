@@ -34,11 +34,11 @@ var _ MappedNullable = &ReviewerLevelInfoFull{}
 
 // ReviewerLevelInfoFull Full representation of a reviewer level. Applicable for multi level campaigns only.
 type ReviewerLevelInfoFull struct {
-	ReviewerLevel        ReviewerLevelType     `json:"reviewerLevel"`
-	Decision             Decision              `json:"decision"`
-	ReviewerProfile      *PrincipalProfile     `json:"reviewerProfile,omitempty"`
-	ReviewerType         ReviewersReviewerType `json:"reviewerType"`
-	ReviewerGroupProfile *ReviewerGroupProfile `json:"reviewerGroupProfile,omitempty"`
+	ReviewerLevel        ReviewerLevelType         `json:"reviewerLevel"`
+	Decision             Decision                  `json:"decision"`
+	ReviewerProfile      *PrincipalProfileEnriched `json:"reviewerProfile,omitempty"`
+	ReviewerType         ReviewersReviewerType     `json:"reviewerType"`
+	ReviewerGroupProfile *ReviewerGroupProfile     `json:"reviewerGroupProfile,omitempty"`
 	// Unique identifier for the object
 	Id string `json:"id"`
 	// The `id` of the Okta user who created the resource
@@ -48,7 +48,8 @@ type ReviewerLevelInfoFull struct {
 	// The ISO 8601 formatted date and time when the object was last updated
 	LastUpdated time.Time `json:"lastUpdated"`
 	// The `id` of the Okta user who last updated the object
-	LastUpdatedBy        string           `json:"lastUpdatedBy"`
+	LastUpdatedBy string `json:"lastUpdatedBy"`
+	// Links to related resources
 	Links                *map[string]Link `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -126,9 +127,9 @@ func (o *ReviewerLevelInfoFull) SetDecision(v Decision) {
 }
 
 // GetReviewerProfile returns the ReviewerProfile field value if set, zero value otherwise.
-func (o *ReviewerLevelInfoFull) GetReviewerProfile() PrincipalProfile {
+func (o *ReviewerLevelInfoFull) GetReviewerProfile() PrincipalProfileEnriched {
 	if o == nil || IsNil(o.ReviewerProfile) {
-		var ret PrincipalProfile
+		var ret PrincipalProfileEnriched
 		return ret
 	}
 	return *o.ReviewerProfile
@@ -136,7 +137,7 @@ func (o *ReviewerLevelInfoFull) GetReviewerProfile() PrincipalProfile {
 
 // GetReviewerProfileOk returns a tuple with the ReviewerProfile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReviewerLevelInfoFull) GetReviewerProfileOk() (*PrincipalProfile, bool) {
+func (o *ReviewerLevelInfoFull) GetReviewerProfileOk() (*PrincipalProfileEnriched, bool) {
 	if o == nil || IsNil(o.ReviewerProfile) {
 		return nil, false
 	}
@@ -152,8 +153,8 @@ func (o *ReviewerLevelInfoFull) HasReviewerProfile() bool {
 	return false
 }
 
-// SetReviewerProfile gets a reference to the given PrincipalProfile and assigns it to the ReviewerProfile field.
-func (o *ReviewerLevelInfoFull) SetReviewerProfile(v PrincipalProfile) {
+// SetReviewerProfile gets a reference to the given PrincipalProfileEnriched and assigns it to the ReviewerProfile field.
+func (o *ReviewerLevelInfoFull) SetReviewerProfile(v PrincipalProfileEnriched) {
 	o.ReviewerProfile = &v
 }
 

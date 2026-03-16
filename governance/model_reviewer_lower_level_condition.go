@@ -28,7 +28,7 @@ import (
 	"fmt"
 )
 
-// ReviewerLowerLevelCondition The condition for which, the lower level reviews will move to that level for further review.  This property should not be set for `FIRST` reviewer level. Only `SECOND` reviewer level will have the appropriate condition.  `LOWER_LEVEL_APPROVES` means only approved reviews from lower level moves to that level.  `LOWER_LEVEL_APPROVES_OR_REJECTS` means both approved and revoked reviews from lower level moves to that level.
+// ReviewerLowerLevelCondition The condition for reviews to move from the first to the second level reviewer.  Don't set a condition for the first level. A condition is only appropriate for the second level.
 type ReviewerLowerLevelCondition string
 
 // List of reviewer-lower-level-condition

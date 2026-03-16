@@ -34,7 +34,9 @@ var _ MappedNullable = &MySettingsDelegates{}
 // MySettingsDelegates My delegates
 type MySettingsDelegates struct {
 	// My delegate appointments
-	Appointments         []DelegateReadonly `json:"appointments"`
+	Appointments []DelegateReadonly `json:"appointments"`
+	// My delegate permission settings  | Permission | Description | |------------|-------------| | `READ` | I can view my delegates | | `WRITE` | I can view and set my own delegates |
+	Permissions          []string `json:"permissions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -82,6 +84,38 @@ func (o *MySettingsDelegates) SetAppointments(v []DelegateReadonly) {
 	o.Appointments = v
 }
 
+// GetPermissions returns the Permissions field value if set, zero value otherwise.
+func (o *MySettingsDelegates) GetPermissions() []string {
+	if o == nil || IsNil(o.Permissions) {
+		var ret []string
+		return ret
+	}
+	return o.Permissions
+}
+
+// GetPermissionsOk returns a tuple with the Permissions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MySettingsDelegates) GetPermissionsOk() ([]string, bool) {
+	if o == nil || IsNil(o.Permissions) {
+		return nil, false
+	}
+	return o.Permissions, true
+}
+
+// HasPermissions returns a boolean if a field has been set.
+func (o *MySettingsDelegates) HasPermissions() bool {
+	if o != nil && !IsNil(o.Permissions) {
+		return true
+	}
+
+	return false
+}
+
+// SetPermissions gets a reference to the given []string and assigns it to the Permissions field.
+func (o *MySettingsDelegates) SetPermissions(v []string) {
+	o.Permissions = v
+}
+
 func (o MySettingsDelegates) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -93,6 +127,9 @@ func (o MySettingsDelegates) MarshalJSON() ([]byte, error) {
 func (o MySettingsDelegates) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["appointments"] = o.Appointments
+	if !IsNil(o.Permissions) {
+		toSerialize["permissions"] = o.Permissions
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -137,6 +174,7 @@ func (o *MySettingsDelegates) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "appointments")
+		delete(additionalProperties, "permissions")
 		o.AdditionalProperties = additionalProperties
 	}
 

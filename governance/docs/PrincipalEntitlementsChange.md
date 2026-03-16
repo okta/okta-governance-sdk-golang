@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**EntitlementsChanged** | Pointer to [**[]EntitlementChangedFull**](EntitlementChangedFull.md) |  | [optional] 
-**ResourceOrn** | Pointer to **string** | The Okta app instance, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for a specific app in [Supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources). | [optional] 
+**EntitlementsChanged** | Pointer to [**[]EntitlementChangedFull**](EntitlementChangedFull.md) | List of changed entitlements | [optional] 
+**ResourceOrn** | Pointer to **string** | The Okta resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for [supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources). | [optional] 
 **Resource** | Pointer to [**TargetResource**](TargetResource.md) |  | [optional] 
-**PrincipalOrn** | Pointer to **string** | The Okta user &#x60;id&#x60; in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format.  See [Supported resources](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources). | [optional] 
+**PrincipalOrn** | Pointer to **string** | The Okta user, in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format. | [optional] 
 **Principal** | Pointer to [**TargetPrincipalFull**](TargetPrincipalFull.md) |  | [optional] 
 **Links** | Pointer to [**PrincipalEntitlementsChangeLinks**](PrincipalEntitlementsChangeLinks.md) |  | [optional] 
 

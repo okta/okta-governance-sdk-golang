@@ -70,11 +70,11 @@ type RequestSettingsAPI interface {
 		- `validRequesterSettings` indicates what `requesterSettings` may be passed in a `Create request condition` or `Update request condition` operation.
 		- `validAccessDurationSettings` indicates the maximum duration the user will have access to the resources.
 		- `validRiskSettings` indicates what `riskSettings` may be passed. Currently, it can be at the resource request settings.
+		- `validRequestOnBehalfOfSettings` indicates the available request on behalf of settings for the resource.
 		- `requestOnBehalfOfSettings` if they exist, they indicate the settings specified for request on behalf of.
 		- `riskSettings` if they exist, they indicate the risk settings specified for the resource.
 
 		See response examples for various possible request setting scenarios.
-
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@param resourceId The `id` of the resource in Okta ID format or ORN format
@@ -338,6 +338,7 @@ For example:
 - `validRequesterSettings` indicates what `requesterSettings` may be passed in a `Create request condition` or `Update request condition` operation.
 - `validAccessDurationSettings` indicates the maximum duration the user will have access to the resources.
 - `validRiskSettings` indicates what `riskSettings` may be passed. Currently, it can be at the resource request settings.
+- `validRequestOnBehalfOfSettings` indicates the available request on behalf of settings for the resource.
 - `requestOnBehalfOfSettings` if they exist, they indicate the settings specified for request on behalf of.
 - `riskSettings` if they exist, they indicate the risk settings specified for the resource.
 

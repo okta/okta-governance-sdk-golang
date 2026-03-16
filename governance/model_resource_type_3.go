@@ -33,12 +33,14 @@ type ResourceType3 string
 
 // List of resource-type-3
 const (
-	RESOURCETYPE3_APPLICATION ResourceType3 = "APPLICATION"
+	RESOURCETYPE3_APPLICATION  ResourceType3 = "APPLICATION"
+	RESOURCETYPE3_REQUEST_TYPE ResourceType3 = "REQUEST_TYPE"
 )
 
 // All allowed values of ResourceType3 enum
 var AllowedResourceType3EnumValues = []ResourceType3{
 	"APPLICATION",
+	"REQUEST_TYPE",
 }
 
 func (v *ResourceType3) UnmarshalJSON(src []byte) error {

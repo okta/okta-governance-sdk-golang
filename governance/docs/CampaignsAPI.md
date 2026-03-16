@@ -35,7 +35,7 @@ import (
 )
 
 func main() {
-	campaignMutable := *openapiclient.NewCampaignMutable("Name_example", *openapiclient.NewScheduleSettingsMutable(openapiclient.schedule-type("ONE_OFF"), time.Now(), float32(123), "TimeZone_example"), *openapiclient.NewResourceSettingsMutable(openapiclient.campaign-resource-type("GROUP")), *openapiclient.NewReviewerSettingsMutable(openapiclient.campaign-reviewer-type("USER")), *openapiclient.NewRemediationSettings(openapiclient.approved-remediation-action("NO_ACTION"), openapiclient.revoked-remediation-action("NO_ACTION"), openapiclient.no-response-remediation-action("NO_ACTION"))) // CampaignMutable | Creates a single campaign with all the required characteristics
+	campaignMutable := *openapiclient.NewCampaignMutable("Name_example", *openapiclient.NewScheduleSettingsMutable(openapiclient.schedule-type("ONE_OFF"), time.Now(), float32(123), "TimeZone_example"), *openapiclient.NewResourceSettingsMutable(openapiclient.campaign-resource-type("GROUP")), *openapiclient.NewReviewerSettingsMutable(openapiclient.campaign-reviewer-type("USER")), *openapiclient.NewRemediationSettings(openapiclient.approved-remediation-action("NO_ACTION"), openapiclient.revoked-remediation-action("NO_ACTION"), openapiclient.no-response-remediation-action("NO_ACTION"))) // CampaignMutable | Specifies the characteristics of a single campaign
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -60,7 +60,7 @@ Other parameters are passed through a pointer to a apiCreateCampaignRequest stru
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **campaignMutable** | [**CampaignMutable**](CampaignMutable.md) | Creates a single campaign with all the required characteristics | 
+ **campaignMutable** | [**CampaignMutable**](CampaignMutable.md) | Specifies the characteristics of a single campaign | 
 
 ### Return type
 

@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Appointments** | [**[]DelegatePatchable**](DelegatePatchable.md) | Delegate appointments | 
+**Appointments** | Pointer to [**[]DelegatePatchable**](DelegatePatchable.md) | Delegate appointments | [optional] 
 
 ## Methods
 
 ### NewDelegatesPatchable
 
-`func NewDelegatesPatchable(appointments []DelegatePatchable, ) *DelegatesPatchable`
+`func NewDelegatesPatchable() *DelegatesPatchable`
 
 NewDelegatesPatchable instantiates a new DelegatesPatchable object
 This constructor will assign default values to properties that have it defined,
@@ -44,6 +44,11 @@ and a boolean to check if the value has been set.
 
 SetAppointments sets Appointments field to given value.
 
+### HasAppointments
+
+`func (o *DelegatesPatchable) HasAppointments() bool`
+
+HasAppointments returns a boolean if a field has been set.
 
 ### SetAppointmentsNil
 

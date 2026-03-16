@@ -35,12 +35,14 @@ type RequesterSettingsType string
 const (
 	REQUESTERSETTINGSTYPE_EVERYONE RequesterSettingsType = "EVERYONE"
 	REQUESTERSETTINGSTYPE_GROUPS   RequesterSettingsType = "GROUPS"
+	REQUESTERSETTINGSTYPE_TEAMS    RequesterSettingsType = "TEAMS"
 )
 
 // All allowed values of RequesterSettingsType enum
 var AllowedRequesterSettingsTypeEnumValues = []RequesterSettingsType{
 	"EVERYONE",
 	"GROUPS",
+	"TEAMS",
 }
 
 func (v *RequesterSettingsType) UnmarshalJSON(src []byte) error {

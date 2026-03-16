@@ -33,12 +33,14 @@ var _ MappedNullable = &GrantedEntitlementValue{}
 
 // GrantedEntitlementValue struct for GrantedEntitlementValue
 type GrantedEntitlementValue struct {
-	// The `id` of an entitlement value
+	// The `id` of the entitlement value
 	Id string `json:"id"`
 	// The display name for an entitlement value
 	Name string `json:"name"`
 	// The value of an entitlement property value
 	ExternalValue string `json:"externalValue"`
+	// The entitlement value resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)
+	Orn string `json:"orn"`
 	// A granted entitlement may not be effective if the same entitlement is granted by a higher priority additional grant
 	Effective            *bool `json:"effective,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -50,11 +52,12 @@ type _GrantedEntitlementValue GrantedEntitlementValue
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGrantedEntitlementValue(id string, name string, externalValue string) *GrantedEntitlementValue {
+func NewGrantedEntitlementValue(id string, name string, externalValue string, orn string) *GrantedEntitlementValue {
 	this := GrantedEntitlementValue{}
 	this.Id = id
 	this.Name = name
 	this.ExternalValue = externalValue
+	this.Orn = orn
 	return &this
 }
 
@@ -138,6 +141,30 @@ func (o *GrantedEntitlementValue) SetExternalValue(v string) {
 	o.ExternalValue = v
 }
 
+// GetOrn returns the Orn field value
+func (o *GrantedEntitlementValue) GetOrn() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Orn
+}
+
+// GetOrnOk returns a tuple with the Orn field value
+// and a boolean to check if the value has been set.
+func (o *GrantedEntitlementValue) GetOrnOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Orn, true
+}
+
+// SetOrn sets field value
+func (o *GrantedEntitlementValue) SetOrn(v string) {
+	o.Orn = v
+}
+
 // GetEffective returns the Effective field value if set, zero value otherwise.
 func (o *GrantedEntitlementValue) GetEffective() bool {
 	if o == nil || IsNil(o.Effective) {
@@ -183,6 +210,7 @@ func (o GrantedEntitlementValue) ToMap() (map[string]interface{}, error) {
 	toSerialize["id"] = o.Id
 	toSerialize["name"] = o.Name
 	toSerialize["externalValue"] = o.ExternalValue
+	toSerialize["orn"] = o.Orn
 	if !IsNil(o.Effective) {
 		toSerialize["effective"] = o.Effective
 	}
@@ -202,6 +230,7 @@ func (o *GrantedEntitlementValue) UnmarshalJSON(data []byte) (err error) {
 		"id",
 		"name",
 		"externalValue",
+		"orn",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -234,6 +263,7 @@ func (o *GrantedEntitlementValue) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "externalValue")
+		delete(additionalProperties, "orn")
 		delete(additionalProperties, "effective")
 		o.AdditionalProperties = additionalProperties
 	}

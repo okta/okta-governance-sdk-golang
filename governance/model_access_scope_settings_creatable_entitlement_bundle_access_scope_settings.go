@@ -34,6 +34,7 @@ var _ MappedNullable = &AccessScopeSettingsCreatableEntitlementBundleAccessScope
 
 // AccessScopeSettingsCreatableEntitlementBundleAccessScopeSettings Access scope settings that resource permissions are entitlement bundles.
 type AccessScopeSettingsCreatableEntitlementBundleAccessScopeSettings struct {
+	// Request for access to entitlement bundles
 	Type string `json:"type"`
 	// Entitlement bundles that are made requestable
 	EntitlementBundles []EntitlementBundlesArrayCreatableInner `json:"entitlementBundles"`

@@ -39,9 +39,9 @@ type RequestConditionFull struct {
 	AccessDurationSettings *AccessDurationSettingsFull                `json:"accessDurationSettings,omitempty"`
 	// If an approval sequence was deleted, then conditions referencing it will become invalid and the approvalSequenceId will not be present.
 	ApprovalSequenceId *string `json:"approvalSequenceId,omitempty"`
-	// Writable unique key on Create. Modifiable on update.
+	// Writable unique key on create. Modifiable on update.
 	Name string `json:"name"`
-	// Human readable description.
+	// Human readable description
 	Description *string `json:"description,omitempty"`
 	// The ID of the request condition
 	Id string `json:"id" validate:"regexp=rco[0-9a-zA-Z]+"`

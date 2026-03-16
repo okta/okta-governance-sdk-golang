@@ -38,6 +38,9 @@ const (
 	ASSIGNMENTTYPE_GROUP_RULE     AssignmentType = "GROUP_RULE"
 	ASSIGNMENTTYPE_APP_GROUP      AssignmentType = "APP_GROUP"
 	ASSIGNMENTTYPE_ACCESS_REQUEST AssignmentType = "ACCESS_REQUEST"
+	ASSIGNMENTTYPE_ADMIN          AssignmentType = "ADMIN"
+	ASSIGNMENTTYPE_POLICY         AssignmentType = "POLICY"
+	ASSIGNMENTTYPE_ENTITLEMENT    AssignmentType = "ENTITLEMENT"
 )
 
 // All allowed values of AssignmentType enum
@@ -47,6 +50,9 @@ var AllowedAssignmentTypeEnumValues = []AssignmentType{
 	"GROUP_RULE",
 	"APP_GROUP",
 	"ACCESS_REQUEST",
+	"ADMIN",
+	"POLICY",
+	"ENTITLEMENT",
 }
 
 func (v *AssignmentType) UnmarshalJSON(src []byte) error {

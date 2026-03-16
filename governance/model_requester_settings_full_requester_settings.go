@@ -32,6 +32,7 @@ import (
 type RequesterSettingsFullRequesterSettings struct {
 	EveryoneRequesterSettings *EveryoneRequesterSettings
 	GroupsRequesterSettings   *GroupsRequesterSettings
+	TeamsRequesterSettings    *TeamsRequesterSettings
 }
 
 // EveryoneRequesterSettingsAsRequesterSettingsFullRequesterSettings is a convenience function that returns EveryoneRequesterSettings wrapped in RequesterSettingsFullRequesterSettings
@@ -45,6 +46,13 @@ func EveryoneRequesterSettingsAsRequesterSettingsFullRequesterSettings(v *Everyo
 func GroupsRequesterSettingsAsRequesterSettingsFullRequesterSettings(v *GroupsRequesterSettings) RequesterSettingsFullRequesterSettings {
 	return RequesterSettingsFullRequesterSettings{
 		GroupsRequesterSettings: v,
+	}
+}
+
+// TeamsRequesterSettingsAsRequesterSettingsFullRequesterSettings is a convenience function that returns TeamsRequesterSettings wrapped in RequesterSettingsFullRequesterSettings
+func TeamsRequesterSettingsAsRequesterSettingsFullRequesterSettings(v *TeamsRequesterSettings) RequesterSettingsFullRequesterSettings {
+	return RequesterSettingsFullRequesterSettings{
+		TeamsRequesterSettings: v,
 	}
 }
 
@@ -82,6 +90,18 @@ func (dst *RequesterSettingsFullRequesterSettings) UnmarshalJSON(data []byte) er
 		}
 	}
 
+	// check if the discriminator value is 'TEAMS'
+	if jsonDict["type"] == "TEAMS" {
+		// try to unmarshal JSON data into TeamsRequesterSettings
+		err = json.Unmarshal(data, &dst.TeamsRequesterSettings)
+		if err == nil {
+			return nil // data stored in dst.TeamsRequesterSettings, return on the first match
+		} else {
+			dst.TeamsRequesterSettings = nil
+			return fmt.Errorf("failed to unmarshal RequesterSettingsFullRequesterSettings as TeamsRequesterSettings: %s", err.Error())
+		}
+	}
+
 	return nil
 }
 
@@ -93,6 +113,10 @@ func (src RequesterSettingsFullRequesterSettings) MarshalJSON() ([]byte, error) 
 
 	if src.GroupsRequesterSettings != nil {
 		return json.Marshal(&src.GroupsRequesterSettings)
+	}
+
+	if src.TeamsRequesterSettings != nil {
+		return json.Marshal(&src.TeamsRequesterSettings)
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -111,6 +135,10 @@ func (obj *RequesterSettingsFullRequesterSettings) GetActualInstance() interface
 		return obj.GroupsRequesterSettings
 	}
 
+	if obj.TeamsRequesterSettings != nil {
+		return obj.TeamsRequesterSettings
+	}
+
 	// all schemas are nil
 	return nil
 }
@@ -123,6 +151,10 @@ func (obj RequesterSettingsFullRequesterSettings) GetActualInstanceValue() inter
 
 	if obj.GroupsRequesterSettings != nil {
 		return *obj.GroupsRequesterSettings
+	}
+
+	if obj.TeamsRequesterSettings != nil {
+		return *obj.TeamsRequesterSettings
 	}
 
 	// all schemas are nil

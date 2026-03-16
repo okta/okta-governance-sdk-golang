@@ -34,11 +34,12 @@ var _ MappedNullable = &PatchLabelOperation{}
 // PatchLabelOperation The properties for updating a label
 type PatchLabelOperation struct {
 	Op LabelPatchOp `json:"op"`
-	// The path of the property being updated. ex - `/name` label category update.
+	// The path of the property to update. Use the `/name` path to update the label category name.
 	Path string `json:"path"`
-	// The value of the property being updated.
-	Value                *string `json:"value,omitempty"`
-	RefType              string  `json:"refType"`
+	// The value of the updated property
+	Value *string `json:"value,omitempty"`
+	// The label property for the update operation
+	RefType              string `json:"refType"`
 	AdditionalProperties map[string]interface{}
 }
 
