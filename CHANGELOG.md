@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## v1.1.0
+
+- Update the `openapi` spec and regenerate the SDK. Thanks [@pranav-okta](https://github.com/pranav-okta)
+
 ## v1.0.1
 
 - Fixes bug in Get and List Entitlement Bundles APIs. Thanks [@aditya-okta](https://github.com/aditya-okta).
