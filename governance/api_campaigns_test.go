@@ -1,3 +1,5 @@
+//go:build integration
+
 package governance
 
 import (
@@ -6,7 +8,7 @@ import (
 )
 
 func TestApiCreateCampaignRequest_Execute(t *testing.T) {
-	t.Skip("Skipping test")
+	skipIfNoCredentials(t)
 	createdCampaign, resp, err := apiClient.CampaignsAPI.CreateCampaign(apiClient.cfg.Context).CampaignMutable(buildCampaign()).Execute()
 	if err != nil {
 		t.Errorf("Error creating campaign: %v", err)
@@ -31,22 +33,25 @@ func TestApiCreateCampaignRequest_Execute(t *testing.T) {
 
 	t.Cleanup(func() {
 		if createdCampaign.Id != "" {
-			execute, err := apiClient.CampaignsAPI.DeleteCampaign(apiClient.cfg.Context, createdCampaign.Id).Execute()
-			if execute.StatusCode != 201 || err != nil {
-				return
-			} // nolint
+			_, _ = apiClient.CampaignsAPI.DeleteCampaign(apiClient.cfg.Context, createdCampaign.Id).Execute()
 		}
 	})
 }
 
 func TestApiGetCampaignRequest_Execute(t *testing.T) {
-	t.Skip("Skipping test")
+	skipIfNoCredentials(t)
 	campaign, _, err := apiClient.CampaignsAPI.CreateCampaign(apiClient.cfg.Context).
 		CampaignMutable(buildCampaign()).
 		Execute()
 	if err != nil {
 		t.Fatalf("Error creating campaign: %v", err)
 	}
+
+	t.Cleanup(func() {
+		if campaign.Id != "" {
+			_, _ = apiClient.CampaignsAPI.DeleteCampaign(apiClient.cfg.Context, campaign.Id).Execute()
+		}
+	})
 
 	gotCampaign, resp, err := apiClient.CampaignsAPI.GetCampaign(apiClient.cfg.Context, campaign.Id).Execute()
 	if err != nil {
@@ -59,33 +64,32 @@ func TestApiGetCampaignRequest_Execute(t *testing.T) {
 	if gotCampaign.Id != campaign.Id {
 		t.Errorf("Expected campaign ID %s, got %s", campaign.Id, gotCampaign.Id)
 	}
-
-	t.Cleanup(func() {
-		if campaign.Id != "" {
-			execute, err := apiClient.CampaignsAPI.DeleteCampaign(apiClient.cfg.Context, campaign.Id).Execute()
-			if execute.StatusCode != 201 || err != nil {
-				return
-			} // nolint
-		}
-	})
 }
 
 func TestApiEndCampaignRequest_Execute(t *testing.T) {
-	t.Skip("Skipping test")
+	skipIfNoCredentials(t)
 	campaign, _, err := apiClient.CampaignsAPI.CreateCampaign(apiClient.cfg.Context).
 		CampaignMutable(buildCampaign()).
 		Execute()
+	if err != nil {
+		t.Fatalf("Error creating campaign: %v", err)
+	}
 
-	if campaign != nil {
-		execute, err := apiClient.CampaignsAPI.LaunchCampaign(apiClient.cfg.Context, campaign.Id).Execute()
-		if err != nil {
-			return
+	t.Cleanup(func() {
+		if campaign.Id != "" {
+			_, _ = apiClient.CampaignsAPI.DeleteCampaign(apiClient.cfg.Context, campaign.Id).Execute()
 		}
+	})
 
-		if execute.StatusCode != 202 {
-			t.Errorf("Expected status code 202, got %d", execute.StatusCode)
-			return
-		}
+	execute, err := apiClient.CampaignsAPI.LaunchCampaign(apiClient.cfg.Context, campaign.Id).Execute()
+	if err != nil {
+		t.Errorf("Error launching campaign: %v", err)
+		return
+	}
+
+	if execute.StatusCode != 202 {
+		t.Errorf("Expected status code 202, got %d", execute.StatusCode)
+		return
 	}
 
 	_, err = apiClient.CampaignsAPI.EndCampaign(apiClient.cfg.Context, campaign.Id).Execute()
@@ -95,7 +99,7 @@ func TestApiEndCampaignRequest_Execute(t *testing.T) {
 }
 
 func TestApiDeleteCampaignRequest_Execute(t *testing.T) {
-	t.Skip("Skipping test")
+	skipIfNoCredentials(t)
 	campaign, _, err := apiClient.CampaignsAPI.CreateCampaign(apiClient.cfg.Context).
 		CampaignMutable(buildCampaign()).
 		Execute()
