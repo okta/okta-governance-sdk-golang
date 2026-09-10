@@ -36,9 +36,9 @@ type IdentityAssertionCustomAsConnection struct {
 	// Type of connection authentication method
 	ConnectionType      string                    `json:"connectionType"`
 	AuthorizationServer CustomAuthorizationServer `json:"authorizationServer"`
-	// Unique identifier for the managed connection
+	// Unique identifier for the resource connection
 	Id *string `json:"id,omitempty"`
-	// The [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) of the managed connection
+	// The [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) of the resource connection
 	Orn *string `json:"orn,omitempty"`
 	// The status of the connection
 	Status               *string `json:"status,omitempty"`

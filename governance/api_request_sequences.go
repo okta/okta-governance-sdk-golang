@@ -36,13 +36,14 @@ import (
 type RequestSequencesAPI interface {
 
 	/*
-		DeleteRequestSequenceV2 Delete a request sequence
+			DeleteRequestSequenceV2 Delete a request sequence
 
-		Deletes the access request sequence given its `id`
+			Deletes the access request sequence that's referenced by the sequence ID
+		> **Note:** The request sequence is known as the approval sequence in the Okta Access Requests app.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param sequenceId The `id` of the sequence
-		@return ApiDeleteRequestSequenceV2Request
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param sequenceId The `id` of the sequence
+			@return ApiDeleteRequestSequenceV2Request
 	*/
 	DeleteRequestSequenceV2(ctx context.Context, sequenceId string) ApiDeleteRequestSequenceV2Request
 
@@ -50,14 +51,15 @@ type RequestSequencesAPI interface {
 	DeleteRequestSequenceV2Execute(r ApiDeleteRequestSequenceV2Request) (*APIResponse, error)
 
 	/*
-		GetResourceRequestSequenceV2 Retrieve a resource request sequence
+			GetResourceRequestSequenceV2 Retrieve a resource request sequence
 
-		Retrieves a access request sequence referenced by the specified resource
+			Retrieves an access request sequence that's referenced by a resource ID and a sequence ID
+		> **Note:** The request sequence is known as the approval sequence in the Okta Access Requests app.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param resourceId The `id` of the resource in Okta ID format or ORN format
-		@param sequenceId The `id` of the sequence
-		@return ApiGetResourceRequestSequenceV2Request
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param resourceId Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)
+			@param sequenceId The `id` of the sequence
+			@return ApiGetResourceRequestSequenceV2Request
 	*/
 	GetResourceRequestSequenceV2(ctx context.Context, resourceId string, sequenceId string) ApiGetResourceRequestSequenceV2Request
 
@@ -66,13 +68,14 @@ type RequestSequencesAPI interface {
 	GetResourceRequestSequenceV2Execute(r ApiGetResourceRequestSequenceV2Request) (*RequestSequence, *APIResponse, error)
 
 	/*
-		ListResourceRequestSequencesV2 List all resource request sequences
+			ListResourceRequestSequencesV2 List all resource request sequences
 
-		Lists access request sequences for a resource in your org
+			Lists access request sequences for a resource in your org
+		> **Note:** The request sequence is known as the approval sequence in the Okta Access Requests app.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param resourceId The `id` of the resource in Okta ID format or ORN format
-		@return ApiListResourceRequestSequencesV2Request
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param resourceId Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)
+			@return ApiListResourceRequestSequencesV2Request
 	*/
 	ListResourceRequestSequencesV2(ctx context.Context, resourceId string) ApiListResourceRequestSequencesV2Request
 
@@ -98,7 +101,8 @@ func (r ApiDeleteRequestSequenceV2Request) Execute() (*APIResponse, error) {
 /*
 DeleteRequestSequenceV2 Delete a request sequence
 
-Deletes the access request sequence given its `id`
+Deletes the access request sequence that's referenced by the sequence ID
+> **Note:** The request sequence is known as the approval sequence in the Okta Access Requests app.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param sequenceId The `id` of the sequence
@@ -282,10 +286,11 @@ func (r ApiGetResourceRequestSequenceV2Request) Execute() (*RequestSequence, *AP
 /*
 GetResourceRequestSequenceV2 Retrieve a resource request sequence
 
-Retrieves a access request sequence referenced by the specified resource
+Retrieves an access request sequence that's referenced by a resource ID and a sequence ID
+> **Note:** The request sequence is known as the approval sequence in the Okta Access Requests app.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceId The `id` of the resource in Okta ID format or ORN format
+	@param resourceId Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)
 	@param sequenceId The `id` of the sequence
 	@return ApiGetResourceRequestSequenceV2Request
 */
@@ -482,9 +487,10 @@ func (r ApiListResourceRequestSequencesV2Request) Execute() (*RequestSequencesLi
 ListResourceRequestSequencesV2 List all resource request sequences
 
 Lists access request sequences for a resource in your org
+> **Note:** The request sequence is known as the approval sequence in the Okta Access Requests app.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceId The `id` of the resource in Okta ID format or ORN format
+	@param resourceId Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)
 	@return ApiListResourceRequestSequencesV2Request
 */
 func (a *RequestSequencesAPIService) ListResourceRequestSequencesV2(ctx context.Context, resourceId string) ApiListResourceRequestSequencesV2Request {

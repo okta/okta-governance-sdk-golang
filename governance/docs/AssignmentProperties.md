@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ExpirationTime** | Pointer to **time.Time** | The date on which the principal&#39;s access expires. This property is specified in [ISO 8601 duration format](https://en.wikipedia.org/wiki/ISO_8601#Durations). | [optional] 
-**TimeZone** | Pointer to **string** | The time zone, in IANA format, for the end date of the user access. | [optional] 
+**TimeZone** | Pointer to **string** | The time zone, in IANA format, for the end date of the user access | [optional] 
 
 ## Methods
 

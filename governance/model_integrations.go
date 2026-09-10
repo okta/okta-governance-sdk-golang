@@ -30,10 +30,10 @@ import (
 // checks if the Integrations type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &Integrations{}
 
-// Integrations struct for Integrations
+// Integrations Access certification integration settings for the org
 type Integrations struct {
 	// Integration settings
-	Data                 []Integration `json:"data,omitempty"`
+	Settings             []IntegrationsSettings `json:"settings,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,36 +56,36 @@ func NewIntegrationsWithDefaults() *Integrations {
 	return &this
 }
 
-// GetData returns the Data field value if set, zero value otherwise.
-func (o *Integrations) GetData() []Integration {
-	if o == nil || IsNil(o.Data) {
-		var ret []Integration
+// GetSettings returns the Settings field value if set, zero value otherwise.
+func (o *Integrations) GetSettings() []IntegrationsSettings {
+	if o == nil || IsNil(o.Settings) {
+		var ret []IntegrationsSettings
 		return ret
 	}
-	return o.Data
+	return o.Settings
 }
 
-// GetDataOk returns a tuple with the Data field value if set, nil otherwise
+// GetSettingsOk returns a tuple with the Settings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Integrations) GetDataOk() ([]Integration, bool) {
-	if o == nil || IsNil(o.Data) {
+func (o *Integrations) GetSettingsOk() ([]IntegrationsSettings, bool) {
+	if o == nil || IsNil(o.Settings) {
 		return nil, false
 	}
-	return o.Data, true
+	return o.Settings, true
 }
 
-// HasData returns a boolean if a field has been set.
-func (o *Integrations) HasData() bool {
-	if o != nil && !IsNil(o.Data) {
+// HasSettings returns a boolean if a field has been set.
+func (o *Integrations) HasSettings() bool {
+	if o != nil && !IsNil(o.Settings) {
 		return true
 	}
 
 	return false
 }
 
-// SetData gets a reference to the given []Integration and assigns it to the Data field.
-func (o *Integrations) SetData(v []Integration) {
-	o.Data = v
+// SetSettings gets a reference to the given []IntegrationsSettings and assigns it to the Settings field.
+func (o *Integrations) SetSettings(v []IntegrationsSettings) {
+	o.Settings = v
 }
 
 func (o Integrations) MarshalJSON() ([]byte, error) {
@@ -98,8 +98,8 @@ func (o Integrations) MarshalJSON() ([]byte, error) {
 
 func (o Integrations) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Data) {
-		toSerialize["data"] = o.Data
+	if !IsNil(o.Settings) {
+		toSerialize["settings"] = o.Settings
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -123,7 +123,7 @@ func (o *Integrations) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "data")
+		delete(additionalProperties, "settings")
 		o.AdditionalProperties = additionalProperties
 	}
 

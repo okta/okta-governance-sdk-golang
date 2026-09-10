@@ -103,7 +103,7 @@ import (
 )
 
 func main() {
-	entitlementId := "entitlementId_example" // string | The `id` of the entitlement
+	entitlementId := "entitlementId_example" // string | Unique identifier for the entitlement
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -121,7 +121,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**entitlementId** | **string** | The &#x60;id&#x60; of the entitlement | 
+**entitlementId** | **string** | Unique identifier for the entitlement | 
 
 ### Other Parameters
 
@@ -171,7 +171,7 @@ import (
 )
 
 func main() {
-	entitlementId := "entitlementId_example" // string | The `id` of the entitlement
+	entitlementId := "entitlementId_example" // string | Unique identifier for the entitlement
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -191,7 +191,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**entitlementId** | **string** | The &#x60;id&#x60; of the entitlement | 
+**entitlementId** | **string** | Unique identifier for the entitlement | 
 
 ### Other Parameters
 
@@ -241,7 +241,7 @@ import (
 )
 
 func main() {
-	entitlementId := "entitlementId_example" // string | The `id` of the entitlement
+	entitlementId := "entitlementId_example" // string | Unique identifier for the entitlement
 	valueId := "valueId_example" // string | The `id` of the entitlement value
 
 	configuration := openapiclient.NewConfiguration()
@@ -262,7 +262,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**entitlementId** | **string** | The &#x60;id&#x60; of the entitlement | 
+**entitlementId** | **string** | Unique identifier for the entitlement | 
 **valueId** | **string** | The &#x60;id&#x60; of the entitlement value | 
 
 ### Other Parameters
@@ -314,9 +314,9 @@ import (
 )
 
 func main() {
-	filter := "parent.externalId eq "0oafxqCAJWWGELFTYASJ" AND parent.type eq "APPLICATION"" // string | A [filter](https://developer.okta.com/docs/api/#filter) expression that returns entries based on the following properties and supported operators: * `parent.externalId`: supports `eq` * `parent.type`: supports `eq` * `parentResourceOrn`: supports `eq` * `name`:  supports `sw` and `co` * `externalValue`: supports `eq`  > **Note:** Query parameter percent encoding is required. See [Special characters](https://developer.okta.com/docs/api/#special-characters). 
+	filter := "parent.externalId eq "0oafxqCAJWWGELFTYASJ" AND parent.type eq "APPLICATION"" // string | A [filter](https://developer.okta.com/docs/api/#filter) expression that returns entries based on the following properties and supported operators: * `parent.externalId`: supports `eq` * `parent.type`: supports `eq` * `parentResourceOrn`: supports `eq` * `name`:  supports `sw` and `co` * `externalValue`: supports `eq` * `created`: supports `eq`, `gt`, `ge`, `lt`, and `le` operators with ISO-8601 datetime format  > **Note:** Query parameter percent encoding is required. See [Special characters](https://developer.okta.com/docs/api/#special-characters). 
 	limit := int32(56) // int32 | The maximum number of records returned in a response (optional) (default to 200)
-	after := "00u68w6vzKLultXS97g6" // string | The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request. (optional)
+	after := "00u68w6vzKLultXS97g6" // string | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination). (optional)
 	orderBy := []string{"Inner_example"} // []string | A field by which results can be sorted. For now, sorting by a single field is supported.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding)  (optional) (default to ["id asc"])
 
 	configuration := openapiclient.NewConfiguration()
@@ -342,9 +342,9 @@ Other parameters are passed through a pointer to a apiListAllEntitlementValuesRe
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **filter** | **string** | A [filter](https://developer.okta.com/docs/api/#filter) expression that returns entries based on the following properties and supported operators: * &#x60;parent.externalId&#x60;: supports &#x60;eq&#x60; * &#x60;parent.type&#x60;: supports &#x60;eq&#x60; * &#x60;parentResourceOrn&#x60;: supports &#x60;eq&#x60; * &#x60;name&#x60;:  supports &#x60;sw&#x60; and &#x60;co&#x60; * &#x60;externalValue&#x60;: supports &#x60;eq&#x60;  &gt; **Note:** Query parameter percent encoding is required. See [Special characters](https://developer.okta.com/docs/api/#special-characters).  | 
+ **filter** | **string** | A [filter](https://developer.okta.com/docs/api/#filter) expression that returns entries based on the following properties and supported operators: * &#x60;parent.externalId&#x60;: supports &#x60;eq&#x60; * &#x60;parent.type&#x60;: supports &#x60;eq&#x60; * &#x60;parentResourceOrn&#x60;: supports &#x60;eq&#x60; * &#x60;name&#x60;:  supports &#x60;sw&#x60; and &#x60;co&#x60; * &#x60;externalValue&#x60;: supports &#x60;eq&#x60; * &#x60;created&#x60;: supports &#x60;eq&#x60;, &#x60;gt&#x60;, &#x60;ge&#x60;, &#x60;lt&#x60;, and &#x60;le&#x60; operators with ISO-8601 datetime format  &gt; **Note:** Query parameter percent encoding is required. See [Special characters](https://developer.okta.com/docs/api/#special-characters).  | 
  **limit** | **int32** | The maximum number of records returned in a response | [default to 200]
- **after** | **string** | The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request. | 
+ **after** | **string** | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination). | 
  **orderBy** | **[]string** | A field by which results can be sorted. For now, sorting by a single field is supported.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding)  | [default to [&quot;id asc&quot;]]
 
 ### Return type
@@ -386,10 +386,10 @@ import (
 )
 
 func main() {
-	entitlementId := "entitlementId_example" // string | The `id` of the entitlement
+	entitlementId := "entitlementId_example" // string | Unique identifier for the entitlement
 	limit := int32(56) // int32 | The maximum number of records returned in a response (optional) (default to 20)
-	after := "00u68w6vzKLultXS97g6" // string | The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request. (optional)
-	filter := "name sw "License"" // string | A [filter](https://developer.okta.com/docs/api/#filter) expression that returns entries based on the following properties and supported operators: * `name`:supports the `sw` and `co` operators. * `labelValueId`: supports `eq`  > **Note:** Query parameter percent encoding is required. See [Special characters](https://developer.okta.com/docs/api/#special-characters).  (optional)
+	after := "00u68w6vzKLultXS97g6" // string | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination). (optional)
+	filter := "name sw "License"" // string | A [filter](https://developer.okta.com/docs/api/#filter) expression that returns entries based on the following properties and supported operators: * `name`:supports the `sw` and `co` operators. * `labelValueId`: supports `eq` * `created`: supports `eq`, `gt`, `ge`, `lt`,  and `le` operators with ISO-8601 datetime format  > **Note:** Query parameter percent encoding is required. See [Special characters](https://developer.okta.com/docs/api/#special-characters).  (optional)
 	orderBy := []string{"Inner_example"} // []string | A field by which results can be sorted. For now, sorting by a single field is supported.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding)  (optional) (default to ["name asc"])
 
 	configuration := openapiclient.NewConfiguration()
@@ -410,7 +410,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**entitlementId** | **string** | The &#x60;id&#x60; of the entitlement | 
+**entitlementId** | **string** | Unique identifier for the entitlement | 
 
 ### Other Parameters
 
@@ -421,8 +421,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **limit** | **int32** | The maximum number of records returned in a response | [default to 20]
- **after** | **string** | The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request. | 
- **filter** | **string** | A [filter](https://developer.okta.com/docs/api/#filter) expression that returns entries based on the following properties and supported operators: * &#x60;name&#x60;:supports the &#x60;sw&#x60; and &#x60;co&#x60; operators. * &#x60;labelValueId&#x60;: supports &#x60;eq&#x60;  &gt; **Note:** Query parameter percent encoding is required. See [Special characters](https://developer.okta.com/docs/api/#special-characters).  | 
+ **after** | **string** | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination). | 
+ **filter** | **string** | A [filter](https://developer.okta.com/docs/api/#filter) expression that returns entries based on the following properties and supported operators: * &#x60;name&#x60;:supports the &#x60;sw&#x60; and &#x60;co&#x60; operators. * &#x60;labelValueId&#x60;: supports &#x60;eq&#x60; * &#x60;created&#x60;: supports &#x60;eq&#x60;, &#x60;gt&#x60;, &#x60;ge&#x60;, &#x60;lt&#x60;,  and &#x60;le&#x60; operators with ISO-8601 datetime format  &gt; **Note:** Query parameter percent encoding is required. See [Special characters](https://developer.okta.com/docs/api/#special-characters).  | 
  **orderBy** | **[]string** | A field by which results can be sorted. For now, sorting by a single field is supported.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding)  | [default to [&quot;name asc&quot;]]
 
 ### Return type
@@ -464,9 +464,9 @@ import (
 )
 
 func main() {
-	filter := "parent.externalId eq "0oafxqCAJWWGELFTYASJ" AND parent.type eq "APPLICATION"" // string | A [filter](https://developer.okta.com/docs/api/#filter) expression that returns entries based on the following properties and supported operators: * `parent.externalId`: supports `eq` * `parent.type`: supports `eq` * `parentResourceOrn`: supports `eq` * `name`:  supports `sw` and `co`  > **Note:** Query parameter percent encoding is required. See [Special characters](https://developer.okta.com/docs/api/#special-characters). 
+	filter := "parent.externalId eq "0oafxqCAJWWGELFTYASJ" AND parent.type eq "APPLICATION"" // string | A [filter](https://developer.okta.com/docs/api/#filter) expression that returns entries based on the following properties and supported operators: * `parent.externalId`: supports `eq` * `parent.type`: supports `eq` * `parentResourceOrn`: supports `eq` * `name`:  supports `sw` and `co` * `created`: supports `eq`, `gt`, `ge`, `lt`,  and `le` operators with ISO-8601 datetime format  > **Note:** Query parameter percent encoding is required. See [Special characters](https://developer.okta.com/docs/api/#special-characters). 
 	limit := int32(56) // int32 | The maximum number of records returned in a response (optional) (default to 20)
-	after := "00u68w6vzKLultXS97g6" // string | The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request. (optional)
+	after := "00u68w6vzKLultXS97g6" // string | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination). (optional)
 	orderBy := []string{"Inner_example"} // []string | A field by which results can be sorted. For now, sorting by a single field is supported.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding)  (optional) (default to ["name asc"])
 
 	configuration := openapiclient.NewConfiguration()
@@ -492,9 +492,9 @@ Other parameters are passed through a pointer to a apiListEntitlementsRequest st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **filter** | **string** | A [filter](https://developer.okta.com/docs/api/#filter) expression that returns entries based on the following properties and supported operators: * &#x60;parent.externalId&#x60;: supports &#x60;eq&#x60; * &#x60;parent.type&#x60;: supports &#x60;eq&#x60; * &#x60;parentResourceOrn&#x60;: supports &#x60;eq&#x60; * &#x60;name&#x60;:  supports &#x60;sw&#x60; and &#x60;co&#x60;  &gt; **Note:** Query parameter percent encoding is required. See [Special characters](https://developer.okta.com/docs/api/#special-characters).  | 
+ **filter** | **string** | A [filter](https://developer.okta.com/docs/api/#filter) expression that returns entries based on the following properties and supported operators: * &#x60;parent.externalId&#x60;: supports &#x60;eq&#x60; * &#x60;parent.type&#x60;: supports &#x60;eq&#x60; * &#x60;parentResourceOrn&#x60;: supports &#x60;eq&#x60; * &#x60;name&#x60;:  supports &#x60;sw&#x60; and &#x60;co&#x60; * &#x60;created&#x60;: supports &#x60;eq&#x60;, &#x60;gt&#x60;, &#x60;ge&#x60;, &#x60;lt&#x60;,  and &#x60;le&#x60; operators with ISO-8601 datetime format  &gt; **Note:** Query parameter percent encoding is required. See [Special characters](https://developer.okta.com/docs/api/#special-characters).  | 
  **limit** | **int32** | The maximum number of records returned in a response | [default to 20]
- **after** | **string** | The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request. | 
+ **after** | **string** | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination). | 
  **orderBy** | **[]string** | A field by which results can be sorted. For now, sorting by a single field is supported.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding)  | [default to [&quot;name asc&quot;]]
 
 ### Return type
@@ -517,7 +517,7 @@ Name | Type | Description  | Notes
 
 ## ReplaceEntitlement
 
-> EntitlementsFullWithParent ReplaceEntitlement(ctx, entitlementId).EntitlementsFullWithParent(entitlementsFullWithParent).Execute()
+> EntitlementsFullWithParent ReplaceEntitlement(ctx, entitlementId).EntitlementUpdatable(entitlementUpdatable).Execute()
 
 Replace an entitlement
 
@@ -536,12 +536,12 @@ import (
 )
 
 func main() {
-	entitlementId := "entitlementId_example" // string | The `id` of the entitlement
-	entitlementsFullWithParent := *openapiclient.NewEntitlementsFullWithParent("ParentResourceOrn_example", *openapiclient.NewTargetResource("ExternalId_example", openapiclient.resource-type-2("APPLICATION")), []openapiclient.EntitlementValueFull{*openapiclient.NewEntitlementValueFull()}, "Id_example", "Name_example", "ExternalValue_example", false, openapiclient.entitlement-property-datatype("string")) // EntitlementsFullWithParent | The writable attributes of an entitlement
+	entitlementId := "entitlementId_example" // string | Unique identifier for the entitlement
+	entitlementUpdatable := *openapiclient.NewEntitlementUpdatable("Id_example", "ParentResourceOrn_example", *openapiclient.NewTargetResource("ExternalId_example", openapiclient.resource-type-2("APPLICATION")), []openapiclient.EntitlementValueUpdatable{*openapiclient.NewEntitlementValueUpdatable("Name_example", "ExternalValue_example")}, "Name_example", "ExternalValue_example", false, openapiclient.entitlement-property-datatype("string")) // EntitlementUpdatable | The writable attributes of an entitlement
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EntitlementsAPI.ReplaceEntitlement(context.Background(), entitlementId).EntitlementsFullWithParent(entitlementsFullWithParent).Execute()
+	resp, r, err := apiClient.EntitlementsAPI.ReplaceEntitlement(context.Background(), entitlementId).EntitlementUpdatable(entitlementUpdatable).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EntitlementsAPI.ReplaceEntitlement``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -557,7 +557,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**entitlementId** | **string** | The &#x60;id&#x60; of the entitlement | 
+**entitlementId** | **string** | Unique identifier for the entitlement | 
 
 ### Other Parameters
 
@@ -567,7 +567,7 @@ Other parameters are passed through a pointer to a apiReplaceEntitlementRequest 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **entitlementsFullWithParent** | [**EntitlementsFullWithParent**](EntitlementsFullWithParent.md) | The writable attributes of an entitlement | 
+ **entitlementUpdatable** | [**EntitlementUpdatable**](EntitlementUpdatable.md) | The writable attributes of an entitlement | 
 
 ### Return type
 
@@ -608,7 +608,7 @@ import (
 )
 
 func main() {
-	entitlementId := "entitlementId_example" // string | The `id` of the entitlement
+	entitlementId := "entitlementId_example" // string | Unique identifier for the entitlement
 	entitlementPatchInner := []openapiclient.EntitlementPatchInner{openapiclient.entitlement_patch_inner{EntitlementPatchOperation: openapiclient.NewEntitlementPatchOperation(openapiclient.entitlement-patch-op("ADD"), "Path_example", "RefType_example")}} // []EntitlementPatchInner | The writable attributes of an entitlement.
 
 	configuration := openapiclient.NewConfiguration()
@@ -629,7 +629,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**entitlementId** | **string** | The &#x60;id&#x60; of the entitlement | 
+**entitlementId** | **string** | Unique identifier for the entitlement | 
 
 ### Other Parameters
 

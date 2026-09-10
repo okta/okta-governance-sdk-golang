@@ -31,7 +31,7 @@ import (
 // checks if the GrantedEntitlementValue type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &GrantedEntitlementValue{}
 
-// GrantedEntitlementValue struct for GrantedEntitlementValue
+// GrantedEntitlementValue Representation of an entitlement value granted to a principal
 type GrantedEntitlementValue struct {
 	// The `id` of the entitlement value
 	Id string `json:"id"`
@@ -41,7 +41,7 @@ type GrantedEntitlementValue struct {
 	ExternalValue string `json:"externalValue"`
 	// The entitlement value resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)
 	Orn string `json:"orn"`
-	// A granted entitlement may not be effective if the same entitlement is granted by a higher priority additional grant
+	// A granted entitlement may not be effective if the same entitlement is granted by a higher priority additional grant.
 	Effective            *bool `json:"effective,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

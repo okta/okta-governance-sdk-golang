@@ -99,7 +99,7 @@ import (
 )
 
 func main() {
-	grantId := "grantId_example" // string | The `id` of the grant
+	grantId := "grantId_example" // string | Unique identifier for the grant
 	include := []string{"Include_example"} // []string | The `include` parameter adds additional properties to the response. (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -120,7 +120,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**grantId** | **string** | The &#x60;id&#x60; of the grant | 
+**grantId** | **string** | Unique identifier for the grant | 
 
 ### Other Parameters
 
@@ -244,7 +244,7 @@ import (
 )
 
 func main() {
-	grantId := "grantId_example" // string | The `id` of the grant
+	grantId := "grantId_example" // string | Unique identifier for the grant
 	grantFull := *openapiclient.NewGrantFull(openapiclient.grant-type("CUSTOM"), "orn:okta:directory:00o8rk36Bp5eZKOrw0g4:users:00u1ktfFMZ5HNoj7k0g4", *openapiclient.NewTargetPrincipalFull("00ub0oNGTSWTBKOLGLNR", openapiclient.principal-type("OKTA_USER")), openapiclient.grant-action("ALLOW"), openapiclient.grant-actor("API"), "TargetResourceOrn_example", *openapiclient.NewTargetResource("ExternalId_example", openapiclient.resource-type-2("APPLICATION")), *openapiclient.NewResourceGrantLinks(*openapiclient.NewLink("Href_example")), openapiclient.grant-status("ACTIVE"), "Id_example", "CreatedBy_example", time.Now(), time.Now(), "LastUpdatedBy_example") // GrantFull | The grant request parameters depend on the selected `grantType`
 
 	configuration := openapiclient.NewConfiguration()
@@ -265,7 +265,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**grantId** | **string** | The &#x60;id&#x60; of the grant | 
+**grantId** | **string** | Unique identifier for the grant | 
 
 ### Other Parameters
 
@@ -316,7 +316,7 @@ import (
 )
 
 func main() {
-	grantId := "grantId_example" // string | The `id` of the grant
+	grantId := "grantId_example" // string | Unique identifier for the grant
 	grantPatch := *openapiclient.NewGrantPatch("Id_example", *openapiclient.NewScheduleSettingsWriteable()) // GrantPatch | Request parameters for a grant expiration date update
 
 	configuration := openapiclient.NewConfiguration()
@@ -337,7 +337,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**grantId** | **string** | The &#x60;id&#x60; of the grant | 
+**grantId** | **string** | Unique identifier for the grant | 
 
 ### Other Parameters
 

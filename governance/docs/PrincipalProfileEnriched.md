@@ -4,11 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** | The Okta user &#x60;id&#x60; | 
-**Email** | Pointer to **string** | The Okta user&#39;s email address | [optional] 
-**FirstName** | Pointer to **string** | The Okta user&#39;s first name | [optional] 
-**LastName** | Pointer to **string** | The Okta user&#39;s last name | [optional] 
-**Login** | Pointer to **string** | The Okta user&#39;s login | [optional] 
+**Id** | **string** | Okta user &#x60;id&#x60; | 
+**Email** | Pointer to **string** | Okta user&#39;s email address | [optional] 
+**FirstName** | Pointer to **string** | Okta user&#39;s first name | [optional] 
+**LastName** | Pointer to **string** | Okta user&#39;s last name | [optional] 
+**Login** | Pointer to **string** | Okta user&#39;s sign-in credentials, which is often their email address | [optional] 
+**Name** | Pointer to **string** | Principal&#39;s name (populated if &#x60;type&#x60; is &#x60;AI_AGENT&#x60;) | [optional] 
 **Status** | [**PrincipalProfileStatus**](PrincipalProfileStatus.md) |  | 
 **Type** | [**PrincipalProfileType**](PrincipalProfileType.md) |  | 
 
@@ -150,6 +151,31 @@ SetLogin sets Login field to given value.
 `func (o *PrincipalProfileEnriched) HasLogin() bool`
 
 HasLogin returns a boolean if a field has been set.
+
+### GetName
+
+`func (o *PrincipalProfileEnriched) GetName() string`
+
+GetName returns the Name field if non-nil, zero value otherwise.
+
+### GetNameOk
+
+`func (o *PrincipalProfileEnriched) GetNameOk() (*string, bool)`
+
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetName
+
+`func (o *PrincipalProfileEnriched) SetName(v string)`
+
+SetName sets Name field to given value.
+
+### HasName
+
+`func (o *PrincipalProfileEnriched) HasName() bool`
+
+HasName returns a boolean if a field has been set.
 
 ### GetStatus
 

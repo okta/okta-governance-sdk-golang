@@ -28,7 +28,7 @@ import (
 	"fmt"
 )
 
-// AccessDurationSettingsFull - Settings that control who may specify the access duration allowed by this request condition or risk settings, as well as what duration may be requested.  **Note:** The resource request settings affect what access duration settings are valid. See the `validAccessDurationSettings` property.
+// AccessDurationSettingsFull - Settings that control who may specify the access duration allowed by this request condition or risk settings, as well as what duration may be requested.  > **Note:** The resource request settings affect which access duration settings are valid. See the `validAccessDurationSettings` property.
 type AccessDurationSettingsFull struct {
 	AccessDurationSettingsAdminFixedDuration         *AccessDurationSettingsAdminFixedDuration
 	AccessDurationSettingsRequesterSpecifiedDuration *AccessDurationSettingsRequesterSpecifiedDuration

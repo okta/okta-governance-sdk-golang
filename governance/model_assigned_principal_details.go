@@ -35,7 +35,7 @@ var _ MappedNullable = &AssignedPrincipalDetails{}
 type AssignedPrincipalDetails struct {
 	// The date on which the principal's access expires. This property is specified in [ISO 8601 duration format](https://en.wikipedia.org/wiki/ISO_8601#Durations).
 	ExpirationTime *time.Time `json:"expirationTime,omitempty"`
-	// The time zone, in IANA format, for the end date of the user access.
+	// The time zone, in IANA format, for the end date of the user access
 	TimeZone  *string              `json:"timeZone,omitempty"`
 	Principal *TargetPrincipalFull `json:"principal,omitempty"`
 	Actor     *GrantActor          `json:"actor,omitempty"`

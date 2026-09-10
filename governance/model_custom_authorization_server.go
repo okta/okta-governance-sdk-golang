@@ -31,7 +31,7 @@ import (
 // checks if the CustomAuthorizationServer type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &CustomAuthorizationServer{}
 
-// CustomAuthorizationServer Custom authorization server for the managed connection
+// CustomAuthorizationServer Custom authorization server for the resource connection
 type CustomAuthorizationServer struct {
 	// The [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) of the authorization server
 	Orn string `json:"orn"`

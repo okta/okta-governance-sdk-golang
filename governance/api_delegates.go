@@ -42,6 +42,9 @@ type DelegatesAPI interface {
 		You can filter delegate appointments for a specific user with the `filter` query parameter.
 		You can also manage the number of records in the response with the `limit` and `after` query parameters.
 
+		> **Note:** To list all delegate appointments, you must be assigned to either the SUPER_ADMIN role or
+		> both the ACCESS_CERTIFICATION_ADMIN and the ACCESS_REQUESTS_ADMIN roles.
+
 		The following are request examples with query parameters:
 
 		1. Lists at most 20 delegate appointments
@@ -91,7 +94,7 @@ func (r ApiListDelegateAppointmentsRequest) Limit(limit int32) ApiListDelegateAp
 	return r
 }
 
-// The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request.
+// Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination).
 func (r ApiListDelegateAppointmentsRequest) After(after string) ApiListDelegateAppointmentsRequest {
 	r.after = &after
 	return r
@@ -108,6 +111,9 @@ Lists all delegate appointments in your org.
 
 You can filter delegate appointments for a specific user with the `filter` query parameter.
 You can also manage the number of records in the response with the `limit` and `after` query parameters.
+
+> **Note:** To list all delegate appointments, you must be assigned to either the SUPER_ADMIN role or
+> both the ACCESS_CERTIFICATION_ADMIN and the ACCESS_REQUESTS_ADMIN roles.
 
 The following are request examples with query parameters:
 

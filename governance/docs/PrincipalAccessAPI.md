@@ -29,7 +29,7 @@ import (
 )
 
 func main() {
-	filter := "parent.externalId%20eq%20%220oafxqCAJWWGELFTYASJ%22%20AND%20parent.type%20eq%20%22APPLICATION%22%20AND%20targetPrincipal.externalId%20eq%20%2200ub0oNGTSWTBKOLGLNR%22%20AND%20targetPrincipal.type%20eq%20%22OKTA_USER%22" // string | Apply various filters by using supported principal access filtering properties.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding) 
+	filter := "parent.externalId eq "0oafxqCAJWWGELFTYASJ" AND parent.type eq "APPLICATION" AND targetPrincipal.externalId eq "00ub0oNGTSWTBKOLGLNR" AND targetPrincipal.type eq "OKTA_USER"" // string | Apply various filters by using supported principal access filtering properties.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding) 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

@@ -5,16 +5,16 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ConnectionType** | **string** | Type of connection authentication method | 
-**Secret** | [**ManagedConnectionVaultedSecret**](ManagedConnectionVaultedSecret.md) |  | 
-**Id** | Pointer to **string** | Unique identifier for the managed connection | [optional] 
-**Orn** | Pointer to **string** | The [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) of the managed connection | [optional] 
+**Secret** | [**ResourceConnectionVaultedSecret**](ResourceConnectionVaultedSecret.md) |  | 
+**Id** | Pointer to **string** | Unique identifier for the resource connection | [optional] 
+**Orn** | Pointer to **string** | The [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) of the resource connection | [optional] 
 **Status** | Pointer to **string** | The status of the connection | [optional] 
 
 ## Methods
 
 ### NewStsVaultSecretConnection
 
-`func NewStsVaultSecretConnection(connectionType string, secret ManagedConnectionVaultedSecret, ) *StsVaultSecretConnection`
+`func NewStsVaultSecretConnection(connectionType string, secret ResourceConnectionVaultedSecret, ) *StsVaultSecretConnection`
 
 NewStsVaultSecretConnection instantiates a new StsVaultSecretConnection object
 This constructor will assign default values to properties that have it defined,
@@ -51,20 +51,20 @@ SetConnectionType sets ConnectionType field to given value.
 
 ### GetSecret
 
-`func (o *StsVaultSecretConnection) GetSecret() ManagedConnectionVaultedSecret`
+`func (o *StsVaultSecretConnection) GetSecret() ResourceConnectionVaultedSecret`
 
 GetSecret returns the Secret field if non-nil, zero value otherwise.
 
 ### GetSecretOk
 
-`func (o *StsVaultSecretConnection) GetSecretOk() (*ManagedConnectionVaultedSecret, bool)`
+`func (o *StsVaultSecretConnection) GetSecretOk() (*ResourceConnectionVaultedSecret, bool)`
 
 GetSecretOk returns a tuple with the Secret field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSecret
 
-`func (o *StsVaultSecretConnection) SetSecret(v ManagedConnectionVaultedSecret)`
+`func (o *StsVaultSecretConnection) SetSecret(v ResourceConnectionVaultedSecret)`
 
 SetSecret sets Secret field to given value.
 

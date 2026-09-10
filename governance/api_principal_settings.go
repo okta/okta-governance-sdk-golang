@@ -36,13 +36,16 @@ import (
 type PrincipalSettingsAPI interface {
 
 	/*
-		UpdatePrincipalSettings Update the principal settings
+			UpdatePrincipalSettings Update the principal settings
 
-		Updates the settings for a principal
+			Updates the settings for a principal
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param targetPrincipalId The `id` of the resource in Okta ID format or [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format
-		@return ApiUpdatePrincipalSettingsRequest
+		> **Note:** To update the principal settings, you must be assigned to either the SUPER_ADMIN role or
+		> both the ACCESS_CERTIFICATION_ADMIN and the ACCESS_REQUESTS_ADMIN roles.
+
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param targetPrincipalId Unique identifier for the target principal in Okta ID format or [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format
+			@return ApiUpdatePrincipalSettingsRequest
 	*/
 	UpdatePrincipalSettings(ctx context.Context, targetPrincipalId string) ApiUpdatePrincipalSettingsRequest
 
@@ -74,10 +77,13 @@ func (r ApiUpdatePrincipalSettingsRequest) Execute() (*PrincipalSettings, *APIRe
 /*
 UpdatePrincipalSettings Update the principal settings
 
-Updates the settings for a principal
+# Updates the settings for a principal
+
+> **Note:** To update the principal settings, you must be assigned to either the SUPER_ADMIN role or
+> both the ACCESS_CERTIFICATION_ADMIN and the ACCESS_REQUESTS_ADMIN roles.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param targetPrincipalId The `id` of the resource in Okta ID format or [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format
+	@param targetPrincipalId Unique identifier for the target principal in Okta ID format or [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format
 	@return ApiUpdatePrincipalSettingsRequest
 */
 func (a *PrincipalSettingsAPIService) UpdatePrincipalSettings(ctx context.Context, targetPrincipalId string) ApiUpdatePrincipalSettingsRequest {

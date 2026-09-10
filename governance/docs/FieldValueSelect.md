@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | [**FieldSelectType**](FieldSelectType.md) |  | 
-**Value** | **[]string** | Values provided by a user, only 1 supported. | 
-**Id** | **string** | A &#x60;read-only&#x60; field id.  Useful for specifying requesterFieldValues when adding a request.  The generated value is a UUID v4 from [RFC4122](https://www.ietf.org/rfc/rfc4122.txt).  | [readonly] 
+**Value** | **[]string** | Values provided by a user, only &#x60;1&#x60; is supported | 
+**Id** | **string** | A &#x60;read-only&#x60; field ID.  This field is useful for specifying &#x60;requesterFieldValues&#x60; when adding a request.  The generated value is a UUID v4 from [RFC4122](https://www.ietf.org/rfc/rfc4122.txt). | [readonly] 
 **Prompt** | **string** | Text to prompt the user with | 
 **Required** | **bool** | Whether a value to this field is required to advance the request | [default to true]
 

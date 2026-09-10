@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** | Writable unique key on Create. Not modifiable on update. | [optional] 
+**Name** | Pointer to **string** | A user-defined unique key that&#39;s set during the create operation and can&#39;t be updated afterwards | [optional] 
 **Description** | Pointer to **string** | Human readable description | [optional] 
 
 ## Methods

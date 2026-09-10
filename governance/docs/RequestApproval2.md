@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **ProviderName** | **string** | A human readable name of the request approval system, for example, Okta Access Requests or ServiceNow | 
 **ProviderDescription** | Pointer to **string** | A description of the request approval system | [optional] 
 **ExternalRequestId** | Pointer to **string** | The external request &#x60;id&#x60; from a request approval system, for example, ServiceNow or JIRA | [optional] 
+**PermalinkId** | Pointer to **int32** | The immutable, persistent identifier that always resolves to the request | [optional] 
 **Status** | Pointer to [**RequestApprovalStatus**](RequestApprovalStatus.md) |  | [optional] 
 **Decided** | Pointer to **time.Time** | The date the approval decision is made. | [optional] 
 **Decisions** | Pointer to [**[]RequestApprovalDecision**](RequestApprovalDecision.md) | The approval decisions | [optional] 
@@ -120,6 +121,31 @@ SetExternalRequestId sets ExternalRequestId field to given value.
 `func (o *RequestApproval2) HasExternalRequestId() bool`
 
 HasExternalRequestId returns a boolean if a field has been set.
+
+### GetPermalinkId
+
+`func (o *RequestApproval2) GetPermalinkId() int32`
+
+GetPermalinkId returns the PermalinkId field if non-nil, zero value otherwise.
+
+### GetPermalinkIdOk
+
+`func (o *RequestApproval2) GetPermalinkIdOk() (*int32, bool)`
+
+GetPermalinkIdOk returns a tuple with the PermalinkId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPermalinkId
+
+`func (o *RequestApproval2) SetPermalinkId(v int32)`
+
+SetPermalinkId sets PermalinkId field to given value.
+
+### HasPermalinkId
+
+`func (o *RequestApproval2) HasPermalinkId() bool`
+
+HasPermalinkId returns a boolean if a field has been set.
 
 ### GetStatus
 

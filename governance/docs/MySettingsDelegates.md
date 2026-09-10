@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Appointments** | [**[]DelegateReadonly**](DelegateReadonly.md) | My delegate appointments | 
-**Permissions** | Pointer to **[]string** | My delegate permission settings  | Permission | Description | |------------|-------------| | &#x60;READ&#x60; | I can view my delegates | | &#x60;WRITE&#x60; | I can view and set my own delegates |  | [optional] 
+**Permissions** | Pointer to **[]string** | My delegate permission settings  | Permission | Description | |------------|-------------| | &#x60;READ&#x60; | I can view my delegates | | &#x60;WRITE&#x60; | I can view and set my own delegates | | [optional] 
 
 ## Methods
 

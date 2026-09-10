@@ -7,8 +7,8 @@ Name | Type | Description | Notes
 **ErrorCode** | **string** | An error code unique to the error | 
 **ErrorId** | **string** | An error identifier useful for troubleshooting an error with support | 
 **ErrorSummary** | **string** | An error code description detailing the error | 
-**ErrorLink** | Pointer to **string** | An indicator where to look out to troubleshoot the error | [optional] 
-**ErrorCauses** | Pointer to [**[]ErrorCause**](ErrorCause.md) | An optional array of string values that explains possible reasons for the error. | [optional] 
+**ErrorLink** | Pointer to **string** | An indicator of where to look to troubleshoot the error | [optional] 
+**ErrorCauses** | Pointer to [**[]ErrorCause**](ErrorCause.md) | An optional array of string values that explain possible reasons for the error | [optional] 
 
 ## Methods
 

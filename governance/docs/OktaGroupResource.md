@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ResourceId** | **string** | Okta group ID  &gt; **Note:** See [List all groups](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Group/#tag/Group/operation/listGroups) for reference on how to retrieve group IDs. | 
+**ResourceId** | **string** | Okta group ID.  &gt; **Note:** See [List all groups](https://developer.okta.com/docs/api/openapi/okta-management/management/group/listgroups) for more information on how to retrieve group IDs.  | 
 
 ## Methods
 

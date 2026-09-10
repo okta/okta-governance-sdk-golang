@@ -4,7 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Permissions** | Pointer to **[]string** | The permission that applies to this setting  | Permission | Description | |------|------| | &#x60;READ&#x60; | Allow end users to view their delegates | | &#x60;WRITE&#x60; | Allow end users to set their own delegates | | [optional] 
+**Permissions** | Pointer to **[]string** | The permission that applies to this setting:  | Permission | Description | |------|------| | &#x60;READ&#x60; | Allow end users to view their delegates | | &#x60;WRITE&#x60; | Allow end users to set their own delegates | | [optional] 
+**OnlyFor** | Pointer to [**[]DelegateScope**](DelegateScope.md) | Restricts the scope of delegate assignment for end users when &#x60;permissions&#x60; is set to &#x60;WRITE&#x60;. If this list is empty, end users can assign any user as their delegate. | [optional] 
 
 ## Methods
 
@@ -49,6 +50,31 @@ SetPermissions sets Permissions field to given value.
 `func (o *OrgSettingsPatchableDelegatesEnduser) HasPermissions() bool`
 
 HasPermissions returns a boolean if a field has been set.
+
+### GetOnlyFor
+
+`func (o *OrgSettingsPatchableDelegatesEnduser) GetOnlyFor() []DelegateScope`
+
+GetOnlyFor returns the OnlyFor field if non-nil, zero value otherwise.
+
+### GetOnlyForOk
+
+`func (o *OrgSettingsPatchableDelegatesEnduser) GetOnlyForOk() (*[]DelegateScope, bool)`
+
+GetOnlyForOk returns a tuple with the OnlyFor field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOnlyFor
+
+`func (o *OrgSettingsPatchableDelegatesEnduser) SetOnlyFor(v []DelegateScope)`
+
+SetOnlyFor sets OnlyFor field to given value.
+
+### HasOnlyFor
+
+`func (o *OrgSettingsPatchableDelegatesEnduser) HasOnlyFor() bool`
+
+HasOnlyFor returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

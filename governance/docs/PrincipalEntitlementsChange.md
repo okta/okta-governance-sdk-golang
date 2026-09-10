@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **EntitlementsChanged** | Pointer to [**[]EntitlementChangedFull**](EntitlementChangedFull.md) | List of changed entitlements | [optional] 
-**ResourceOrn** | Pointer to **string** | The Okta resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for [supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources). | [optional] 
+**ResourceOrn** | Pointer to **string** | The Okta resource in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)  See the ORN format for [supported resources](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).  | [optional] 
 **Resource** | Pointer to [**TargetResource**](TargetResource.md) |  | [optional] 
-**PrincipalOrn** | Pointer to **string** | The Okta user, in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format. | [optional] 
+**PrincipalOrn** | Pointer to **string** | The Okta user in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format | [optional] 
 **Principal** | Pointer to [**TargetPrincipalFull**](TargetPrincipalFull.md) |  | [optional] 
 **Links** | Pointer to [**PrincipalEntitlementsChangeLinks**](PrincipalEntitlementsChangeLinks.md) |  | [optional] 
 

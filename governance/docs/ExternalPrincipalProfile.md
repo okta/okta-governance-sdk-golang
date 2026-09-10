@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | Okta user &#x60;id&#x60; or Okta group &#x60;id&#x60; | 
-**Name** | **string** | User name or Group Name | 
-**Email** | Pointer to **string** | Email of the resource owner, if applicable. | [optional] 
+**Name** | **string** | User name or group name | 
+**Email** | Pointer to **string** | Email of the resource owner, if applicable | [optional] 
 **Metadata** | Pointer to [**ExternalPrincipalProfileMetadata**](ExternalPrincipalProfileMetadata.md) |  | [optional] 
 **Logo** | Pointer to [**[]Link**](Link.md) | List of logo resources | [optional] 
 **Links** | [**LinkSelf**](LinkSelf.md) |  | 

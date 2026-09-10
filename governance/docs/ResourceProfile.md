@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** | Okta application instance &#x60;id&#x60; | [optional] 
-**Name** | Pointer to **string** | The name of the Okta application | [optional] 
-**Label** | Pointer to **string** | The label of the Okta application | [optional] 
+**Name** | Pointer to **string** | The name of the Okta app | [optional] 
+**Label** | Pointer to **string** | The label of the Okta app | [optional] 
 **Logo** | Pointer to [**[]Link**](Link.md) | List of app logo resources | [optional] 
 
 ## Methods

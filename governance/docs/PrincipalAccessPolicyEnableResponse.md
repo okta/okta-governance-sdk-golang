@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**PrincipalOrn** | **string** | The Okta user, in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format. | 
-**ResourceOrn** | **string** | The Okta resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for [supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources). | 
+**PrincipalOrn** | **string** | The Okta user in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format | 
+**ResourceOrn** | **string** | The Okta resource in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)  See the ORN format for [supported resources](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).  | 
 **AccessDuration** | Pointer to [**AssignmentProperties**](AssignmentProperties.md) |  | [optional] 
 **EffectiveEntitlements** | [**[]EntitlementFull**](EntitlementFull.md) | Collection of entitlements with associated values | 
 **EntitlementAccessDetails** | Pointer to [**[]EntitlementAccessDetailsObject**](EntitlementAccessDetailsObject.md) | Entitlement access details | [optional] 

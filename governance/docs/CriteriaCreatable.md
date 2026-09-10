@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **string** | Name of the criteria | [optional] 
-**Attribute** | Pointer to **string** | Attribute that the criteria applies to. Supported attribute: &#x60;principal.effective_grants&#x60; | [optional] 
+**Attribute** | Pointer to **string** | Attribute that the criteria applies to. For entitlement SOD rules use &#x60;principal.effective_grants&#x60;. | [optional] 
 **Operation** | Pointer to **string** | Operation performed on the criteria value | [optional] 
-**Value** | Pointer to [**CriteriaValueCreatable**](CriteriaValueCreatable.md) |  | [optional] 
+**Value** | Pointer to [**CriteriaValueCreatableEntitlements**](CriteriaValueCreatableEntitlements.md) |  | [optional] 
 
 ## Methods
 
@@ -105,20 +105,20 @@ HasOperation returns a boolean if a field has been set.
 
 ### GetValue
 
-`func (o *CriteriaCreatable) GetValue() CriteriaValueCreatable`
+`func (o *CriteriaCreatable) GetValue() CriteriaValueCreatableEntitlements`
 
 GetValue returns the Value field if non-nil, zero value otherwise.
 
 ### GetValueOk
 
-`func (o *CriteriaCreatable) GetValueOk() (*CriteriaValueCreatable, bool)`
+`func (o *CriteriaCreatable) GetValueOk() (*CriteriaValueCreatableEntitlements, bool)`
 
 GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetValue
 
-`func (o *CriteriaCreatable) SetValue(v CriteriaValueCreatable)`
+`func (o *CriteriaCreatable) SetValue(v CriteriaValueCreatableEntitlements)`
 
 SetValue sets Value field to given value.
 

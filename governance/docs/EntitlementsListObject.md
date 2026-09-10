@@ -4,23 +4,27 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ParentResourceOrn** | **string** | The Okta resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for [supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources). | 
+**ParentResourceOrn** | **string** | The Okta resource in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)  See the ORN format for [supported resources](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).  | 
 **Parent** | [**TargetResource**](TargetResource.md) |  | 
 **Links** | Pointer to [**EntitlementLinks**](EntitlementLinks.md) |  | [optional] 
 **Metadata** | Pointer to [**ListMetadata**](ListMetadata.md) |  | [optional] 
-**Id** | **string** | The &#x60;id&#x60; property of an entitlement | 
+**Id** | **string** | Unique identifier for the object | 
 **Name** | **string** | The display name for an entitlement property | 
 **ExternalValue** | **string** | The value of an entitlement property | 
 **Description** | Pointer to **string** | The description of an entitlement property | [optional] 
-**MultiValue** | **bool** | Indicate if the entitlement property can hold multiple values. If this property is &#x60;true&#x60;, then the &#x60;dataType&#x60; property is set to  &#x60;array&#x60;. | 
+**MultiValue** | **bool** | Indicates if the entitlement property can hold multiple values. If this property is &#x60;true&#x60;, then the &#x60;dataType&#x60; property is set to &#x60;array&#x60;. | 
 **Required** | Pointer to **bool** | The property that determines if the entitlement property is a required attribute | [optional] 
 **DataType** | [**EntitlementPropertyDatatype**](EntitlementPropertyDatatype.md) |  | 
+**CreatedBy** | **string** | The &#x60;id&#x60; of the Okta user who created the resource | [readonly] 
+**Created** | **time.Time** | The ISO 8601 formatted date and time when the resource was created | [readonly] 
+**LastUpdated** | **time.Time** | The ISO 8601 formatted date and time when the object was last updated | [readonly] 
+**LastUpdatedBy** | **string** | The &#x60;id&#x60; of the Okta user who last updated the object | [readonly] 
 
 ## Methods
 
 ### NewEntitlementsListObject
 
-`func NewEntitlementsListObject(parentResourceOrn string, parent TargetResource, id string, name string, externalValue string, multiValue bool, dataType EntitlementPropertyDatatype, ) *EntitlementsListObject`
+`func NewEntitlementsListObject(parentResourceOrn string, parent TargetResource, id string, name string, externalValue string, multiValue bool, dataType EntitlementPropertyDatatype, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, ) *EntitlementsListObject`
 
 NewEntitlementsListObject instantiates a new EntitlementsListObject object
 This constructor will assign default values to properties that have it defined,
@@ -273,6 +277,86 @@ and a boolean to check if the value has been set.
 `func (o *EntitlementsListObject) SetDataType(v EntitlementPropertyDatatype)`
 
 SetDataType sets DataType field to given value.
+
+
+### GetCreatedBy
+
+`func (o *EntitlementsListObject) GetCreatedBy() string`
+
+GetCreatedBy returns the CreatedBy field if non-nil, zero value otherwise.
+
+### GetCreatedByOk
+
+`func (o *EntitlementsListObject) GetCreatedByOk() (*string, bool)`
+
+GetCreatedByOk returns a tuple with the CreatedBy field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatedBy
+
+`func (o *EntitlementsListObject) SetCreatedBy(v string)`
+
+SetCreatedBy sets CreatedBy field to given value.
+
+
+### GetCreated
+
+`func (o *EntitlementsListObject) GetCreated() time.Time`
+
+GetCreated returns the Created field if non-nil, zero value otherwise.
+
+### GetCreatedOk
+
+`func (o *EntitlementsListObject) GetCreatedOk() (*time.Time, bool)`
+
+GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreated
+
+`func (o *EntitlementsListObject) SetCreated(v time.Time)`
+
+SetCreated sets Created field to given value.
+
+
+### GetLastUpdated
+
+`func (o *EntitlementsListObject) GetLastUpdated() time.Time`
+
+GetLastUpdated returns the LastUpdated field if non-nil, zero value otherwise.
+
+### GetLastUpdatedOk
+
+`func (o *EntitlementsListObject) GetLastUpdatedOk() (*time.Time, bool)`
+
+GetLastUpdatedOk returns a tuple with the LastUpdated field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLastUpdated
+
+`func (o *EntitlementsListObject) SetLastUpdated(v time.Time)`
+
+SetLastUpdated sets LastUpdated field to given value.
+
+
+### GetLastUpdatedBy
+
+`func (o *EntitlementsListObject) GetLastUpdatedBy() string`
+
+GetLastUpdatedBy returns the LastUpdatedBy field if non-nil, zero value otherwise.
+
+### GetLastUpdatedByOk
+
+`func (o *EntitlementsListObject) GetLastUpdatedByOk() (*string, bool)`
+
+GetLastUpdatedByOk returns a tuple with the LastUpdatedBy field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLastUpdatedBy
+
+`func (o *EntitlementsListObject) SetLastUpdatedBy(v string)`
+
+SetLastUpdatedBy sets LastUpdatedBy field to given value.
 
 
 

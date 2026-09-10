@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **UserId** | **string** | The Okta user &#x60;id&#x60; | 
-**UserEmail** | **string** | E-mail of the user. | 
-**UserName** | **string** | Name of the user. | 
+**UserEmail** | **string** | E-mail of the user | 
+**UserName** | **string** | Name of the user | 
 **Decision** | [**ApprovalDecisionEnum**](ApprovalDecisionEnum.md) |  | 
 **Decided** | **time.Time** | The date the approval decision is made. | 
 **OriginalDeciderId** | Pointer to **string** | The Okta user &#x60;id&#x60; | [optional] 
-**OriginalDeciderFullName** | Pointer to **string** | Name of the user. | [optional] 
-**OriginalDeciderEmail** | Pointer to **string** | E-mail of the user. | [optional] 
+**OriginalDeciderFullName** | Pointer to **string** | Name of the user | [optional] 
+**OriginalDeciderEmail** | Pointer to **string** | E-mail of the user | [optional] 
 **DeciderDelegated** | Pointer to **bool** | Indicates if the decision was made by a delegated decider | [optional] 
 **DeciderEscalated** | Pointer to **bool** | Indicates if the decision was made by an escalated decider | [optional] 
 

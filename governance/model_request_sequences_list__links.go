@@ -31,7 +31,7 @@ import (
 // checks if the RequestSequencesListLinks type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &RequestSequencesListLinks{}
 
-// RequestSequencesListLinks struct for RequestSequencesListLinks
+// RequestSequencesListLinks Links to related resources and actions
 type RequestSequencesListLinks struct {
 	Self                 Link  `json:"self"`
 	NewSequence          *Link `json:"newSequence,omitempty"`

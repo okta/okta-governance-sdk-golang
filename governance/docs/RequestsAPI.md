@@ -102,7 +102,7 @@ import (
 )
 
 func main() {
-	requestId := "requestId_example" // string | The `id` of the request
+	requestId := "requestId_example" // string | Unique identifier for the request
 	requestMessageCreatable := *openapiclient.NewRequestMessageCreatable("Message_example") // RequestMessageCreatable | The writable attributes of a request message
 
 	configuration := openapiclient.NewConfiguration()
@@ -121,7 +121,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**requestId** | **string** | The &#x60;id&#x60; of the request | 
+**requestId** | **string** | Unique identifier for the request | 
 
 ### Other Parameters
 
@@ -172,7 +172,7 @@ import (
 )
 
 func main() {
-	requestId := "requestId_example" // string | The `id` of the request
+	requestId := "requestId_example" // string | Unique identifier for the Resource-Centric Access Requests (RCAR) request
 	requestMessageCreatable := *openapiclient.NewRequestMessageCreatable("Message_example") // RequestMessageCreatable | The writable attributes of a request message
 
 	configuration := openapiclient.NewConfiguration()
@@ -191,7 +191,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**requestId** | **string** | The &#x60;id&#x60; of the request | 
+**requestId** | **string** | Unique identifier for the Resource-Centric Access Requests (RCAR) request | 
 
 ### Other Parameters
 
@@ -308,7 +308,7 @@ import (
 )
 
 func main() {
-	requestId := "requestId_example" // string | The `id` of the request
+	requestId := "requestId_example" // string | Unique identifier for the request
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -328,7 +328,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**requestId** | **string** | The &#x60;id&#x60; of the request | 
+**requestId** | **string** | Unique identifier for the request | 
 
 ### Other Parameters
 
@@ -378,7 +378,7 @@ import (
 )
 
 func main() {
-	requestId := "requestId_example" // string | The `id` of the request
+	requestId := "requestId_example" // string | Unique identifier for the Resource-Centric Access Requests (RCAR) request
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -398,7 +398,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**requestId** | **string** | The &#x60;id&#x60; of the request | 
+**requestId** | **string** | Unique identifier for the Resource-Centric Access Requests (RCAR) request | 
 
 ### Other Parameters
 
@@ -448,10 +448,10 @@ import (
 )
 
 func main() {
-	filter := "requestStatus%20eq%20%22RESOLVED%22" // string | Apply various filters by using supported request filtering properties.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding)  (optional)
+	filter := "requestStatus eq "RESOLVED"" // string | Apply various filters by using supported request filtering properties.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding)  (optional)
 	after := "after_example" // string | The after cursor provided by a prior request. (optional)
 	limit := int32(56) // int32 | The maximum number of records returned in a response (optional) (default to 20)
-	orderBy := "created%20desc" // string | Apply an ordering of requests by specifying a supported request property name with `%20asc` or `%20desc` suffix.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding)  (optional)
+	orderBy := "created desc" // string | Apply an ordering of requests by specifying a supported request property name with `%20asc` or `%20desc` suffix.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding)  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -520,10 +520,10 @@ import (
 )
 
 func main() {
-	filter := "status%20eq%20%22APPROVED%22" // string | Apply various filters by using supported request filtering properties.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding)  (optional)
+	filter := "status eq "APPROVED"" // string | Apply various filters by using supported request filtering properties.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding)  (optional)
 	after := "after_example" // string | The after cursor provided by a prior request. (optional)
 	limit := int32(56) // int32 | The maximum number of records returned in a response (optional) (default to 20)
-	orderBy := "created%20desc" // string | Apply an ordering of requests by specifying a supported request property name with `%20asc` or `%20desc` suffix.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding)  (optional)
+	orderBy := "created desc" // string | Apply an ordering of requests by specifying a supported request property name with `%20asc` or `%20desc` suffix.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding)  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Orn** | **string** | The &#x60;id&#x60; of the bundle in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn). | 
-**TargetResourceOrn** | **string** | The Okta resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for [supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources). | 
+**TargetResourceOrn** | **string** | The Okta resource in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)  See the ORN format for [supported resources](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).  | 
 **Target** | [**TargetResource**](TargetResource.md) |  | 
 **Status** | [**EntitlementBundleStatus**](EntitlementBundleStatus.md) |  | 
 **Entitlements** | Pointer to [**[]EntitlementFull**](EntitlementFull.md) | Collection of entitlements with associated values | [optional] 

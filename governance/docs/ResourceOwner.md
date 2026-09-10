@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ParentResourceOrn** | Pointer to **string** | The Okta resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for [supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources). | [optional] 
+**ParentResourceOrn** | Pointer to **string** | The Okta resource in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)  See the ORN format for [supported resources](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).  | [optional] 
 **Principals** | Pointer to [**[]ResourceOwnerPrincipal**](ResourceOwnerPrincipal.md) | The principals that own the resource (users or groups) | [optional] 
 **Resource** | [**ResourceOwnerResource**](ResourceOwnerResource.md) |  | 
 

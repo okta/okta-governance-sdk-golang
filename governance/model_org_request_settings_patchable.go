@@ -25,7 +25,6 @@ package governance
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the OrgRequestSettingsPatchable type satisfies the MappedNullable interface at compile time
@@ -33,8 +32,10 @@ var _ MappedNullable = &OrgRequestSettingsPatchable{}
 
 // OrgRequestSettingsPatchable Request settings for the org for patch
 type OrgRequestSettingsPatchable struct {
-	// Whether a customer has acknowledged Access Requests subprocessors
-	SubprocessorsAcknowledged bool `json:"subprocessorsAcknowledged"`
+	// Indicates that Access Requests provisioning was triggered by the customer (such as in [Govern Okta admin roles](https://help.okta.com/okta_help.htm?type=oie&id=csh-governance-admin-roles))
+	SubprocessorsAcknowledged *bool                      `json:"subprocessorsAcknowledged,omitempty"`
+	ResourceCatalogVisibility *ResourceCatalogVisibility `json:"resourceCatalogVisibility,omitempty"`
+	Integrations              *RequestIntegrations       `json:"integrations,omitempty"`
 	AdditionalProperties      map[string]interface{}
 }
 
@@ -44,9 +45,8 @@ type _OrgRequestSettingsPatchable OrgRequestSettingsPatchable
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewOrgRequestSettingsPatchable(subprocessorsAcknowledged bool) *OrgRequestSettingsPatchable {
+func NewOrgRequestSettingsPatchable() *OrgRequestSettingsPatchable {
 	this := OrgRequestSettingsPatchable{}
-	this.SubprocessorsAcknowledged = subprocessorsAcknowledged
 	return &this
 }
 
@@ -58,28 +58,100 @@ func NewOrgRequestSettingsPatchableWithDefaults() *OrgRequestSettingsPatchable {
 	return &this
 }
 
-// GetSubprocessorsAcknowledged returns the SubprocessorsAcknowledged field value
+// GetSubprocessorsAcknowledged returns the SubprocessorsAcknowledged field value if set, zero value otherwise.
 func (o *OrgRequestSettingsPatchable) GetSubprocessorsAcknowledged() bool {
-	if o == nil {
+	if o == nil || IsNil(o.SubprocessorsAcknowledged) {
 		var ret bool
 		return ret
 	}
-
-	return o.SubprocessorsAcknowledged
+	return *o.SubprocessorsAcknowledged
 }
 
-// GetSubprocessorsAcknowledgedOk returns a tuple with the SubprocessorsAcknowledged field value
+// GetSubprocessorsAcknowledgedOk returns a tuple with the SubprocessorsAcknowledged field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OrgRequestSettingsPatchable) GetSubprocessorsAcknowledgedOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.SubprocessorsAcknowledged) {
 		return nil, false
 	}
-	return &o.SubprocessorsAcknowledged, true
+	return o.SubprocessorsAcknowledged, true
 }
 
-// SetSubprocessorsAcknowledged sets field value
+// HasSubprocessorsAcknowledged returns a boolean if a field has been set.
+func (o *OrgRequestSettingsPatchable) HasSubprocessorsAcknowledged() bool {
+	if o != nil && !IsNil(o.SubprocessorsAcknowledged) {
+		return true
+	}
+
+	return false
+}
+
+// SetSubprocessorsAcknowledged gets a reference to the given bool and assigns it to the SubprocessorsAcknowledged field.
 func (o *OrgRequestSettingsPatchable) SetSubprocessorsAcknowledged(v bool) {
-	o.SubprocessorsAcknowledged = v
+	o.SubprocessorsAcknowledged = &v
+}
+
+// GetResourceCatalogVisibility returns the ResourceCatalogVisibility field value if set, zero value otherwise.
+func (o *OrgRequestSettingsPatchable) GetResourceCatalogVisibility() ResourceCatalogVisibility {
+	if o == nil || IsNil(o.ResourceCatalogVisibility) {
+		var ret ResourceCatalogVisibility
+		return ret
+	}
+	return *o.ResourceCatalogVisibility
+}
+
+// GetResourceCatalogVisibilityOk returns a tuple with the ResourceCatalogVisibility field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OrgRequestSettingsPatchable) GetResourceCatalogVisibilityOk() (*ResourceCatalogVisibility, bool) {
+	if o == nil || IsNil(o.ResourceCatalogVisibility) {
+		return nil, false
+	}
+	return o.ResourceCatalogVisibility, true
+}
+
+// HasResourceCatalogVisibility returns a boolean if a field has been set.
+func (o *OrgRequestSettingsPatchable) HasResourceCatalogVisibility() bool {
+	if o != nil && !IsNil(o.ResourceCatalogVisibility) {
+		return true
+	}
+
+	return false
+}
+
+// SetResourceCatalogVisibility gets a reference to the given ResourceCatalogVisibility and assigns it to the ResourceCatalogVisibility field.
+func (o *OrgRequestSettingsPatchable) SetResourceCatalogVisibility(v ResourceCatalogVisibility) {
+	o.ResourceCatalogVisibility = &v
+}
+
+// GetIntegrations returns the Integrations field value if set, zero value otherwise.
+func (o *OrgRequestSettingsPatchable) GetIntegrations() RequestIntegrations {
+	if o == nil || IsNil(o.Integrations) {
+		var ret RequestIntegrations
+		return ret
+	}
+	return *o.Integrations
+}
+
+// GetIntegrationsOk returns a tuple with the Integrations field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OrgRequestSettingsPatchable) GetIntegrationsOk() (*RequestIntegrations, bool) {
+	if o == nil || IsNil(o.Integrations) {
+		return nil, false
+	}
+	return o.Integrations, true
+}
+
+// HasIntegrations returns a boolean if a field has been set.
+func (o *OrgRequestSettingsPatchable) HasIntegrations() bool {
+	if o != nil && !IsNil(o.Integrations) {
+		return true
+	}
+
+	return false
+}
+
+// SetIntegrations gets a reference to the given RequestIntegrations and assigns it to the Integrations field.
+func (o *OrgRequestSettingsPatchable) SetIntegrations(v RequestIntegrations) {
+	o.Integrations = &v
 }
 
 func (o OrgRequestSettingsPatchable) MarshalJSON() ([]byte, error) {
@@ -92,7 +164,15 @@ func (o OrgRequestSettingsPatchable) MarshalJSON() ([]byte, error) {
 
 func (o OrgRequestSettingsPatchable) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["subprocessorsAcknowledged"] = o.SubprocessorsAcknowledged
+	if !IsNil(o.SubprocessorsAcknowledged) {
+		toSerialize["subprocessorsAcknowledged"] = o.SubprocessorsAcknowledged
+	}
+	if !IsNil(o.ResourceCatalogVisibility) {
+		toSerialize["resourceCatalogVisibility"] = o.ResourceCatalogVisibility
+	}
+	if !IsNil(o.Integrations) {
+		toSerialize["integrations"] = o.Integrations
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -102,27 +182,6 @@ func (o OrgRequestSettingsPatchable) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *OrgRequestSettingsPatchable) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"subprocessorsAcknowledged",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varOrgRequestSettingsPatchable := _OrgRequestSettingsPatchable{}
 
 	err = json.Unmarshal(data, &varOrgRequestSettingsPatchable)
@@ -137,6 +196,8 @@ func (o *OrgRequestSettingsPatchable) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "subprocessorsAcknowledged")
+		delete(additionalProperties, "resourceCatalogVisibility")
+		delete(additionalProperties, "integrations")
 		o.AdditionalProperties = additionalProperties
 	}
 

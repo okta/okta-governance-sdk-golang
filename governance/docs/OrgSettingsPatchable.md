@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Delegates** | Pointer to [**OrgSettingsPatchableDelegates**](OrgSettingsPatchableDelegates.md) |  | [optional] 
-**GovernanceAI** | Pointer to [**OrgSettingsGovernanceAI**](OrgSettingsGovernanceAI.md) |  | [optional] 
+**GovernanceAI** | Pointer to [**OrgSettingsPatchableGovernanceAI**](OrgSettingsPatchableGovernanceAI.md) |  | [optional] 
 **Escalations** | Pointer to [**OrgSettingsEscalations**](OrgSettingsEscalations.md) |  | [optional] 
 
 ## Methods
@@ -54,20 +54,20 @@ HasDelegates returns a boolean if a field has been set.
 
 ### GetGovernanceAI
 
-`func (o *OrgSettingsPatchable) GetGovernanceAI() OrgSettingsGovernanceAI`
+`func (o *OrgSettingsPatchable) GetGovernanceAI() OrgSettingsPatchableGovernanceAI`
 
 GetGovernanceAI returns the GovernanceAI field if non-nil, zero value otherwise.
 
 ### GetGovernanceAIOk
 
-`func (o *OrgSettingsPatchable) GetGovernanceAIOk() (*OrgSettingsGovernanceAI, bool)`
+`func (o *OrgSettingsPatchable) GetGovernanceAIOk() (*OrgSettingsPatchableGovernanceAI, bool)`
 
 GetGovernanceAIOk returns a tuple with the GovernanceAI field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGovernanceAI
 
-`func (o *OrgSettingsPatchable) SetGovernanceAI(v OrgSettingsGovernanceAI)`
+`func (o *OrgSettingsPatchable) SetGovernanceAI(v OrgSettingsPatchableGovernanceAI)`
 
 SetGovernanceAI sets GovernanceAI field to given value.
 

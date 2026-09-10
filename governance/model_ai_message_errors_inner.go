@@ -37,7 +37,7 @@ type AiMessageErrorsInner struct {
 	ErrorCode string `json:"errorCode"`
 	// An error message detailing the problem
 	ErrorMsg string `json:"errorMsg"`
-	// Any dynamic arguments that are needed to construct the whole message are supplied as an array of values.
+	// Any dynamic arguments that are needed to construct the whole message are supplied as an array of values
 	Args                 []ServerMessageArgument `json:"args,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

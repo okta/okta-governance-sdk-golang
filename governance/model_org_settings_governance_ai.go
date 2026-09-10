@@ -30,9 +30,10 @@ import (
 // checks if the OrgSettingsGovernanceAI type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &OrgSettingsGovernanceAI{}
 
-// OrgSettingsGovernanceAI Governance AI settings
+// OrgSettingsGovernanceAI Governance AI settings  > **Note:** This feature is excluded from the Okta for AI Agents - Core SKU, > which is the version of Okta for AI Agents available to FedRAMP Moderate and FedRAMP High customers. > Okta for AI Agents - Core isn't available in Okta for US Military cells. > For a current list of features that are excluded from the Okta for AI Agents - Core SKU, > please refer to the [Okta US Public Sector Limitations or Exceptions](https://support.okta.com/help/s/article/okta-us-public-sector-limitations-or-exceptions?language=en_US) documentation.
 type OrgSettingsGovernanceAI struct {
 	SecurityAccessReview *OrgSettingsGovernanceAISecurityAccessReview `json:"securityAccessReview,omitempty"`
+	GovernanceAnalyzer   *OrgSettingsGovernanceAIGovernanceAnalyzer   `json:"governanceAnalyzer,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -87,6 +88,38 @@ func (o *OrgSettingsGovernanceAI) SetSecurityAccessReview(v OrgSettingsGovernanc
 	o.SecurityAccessReview = &v
 }
 
+// GetGovernanceAnalyzer returns the GovernanceAnalyzer field value if set, zero value otherwise.
+func (o *OrgSettingsGovernanceAI) GetGovernanceAnalyzer() OrgSettingsGovernanceAIGovernanceAnalyzer {
+	if o == nil || IsNil(o.GovernanceAnalyzer) {
+		var ret OrgSettingsGovernanceAIGovernanceAnalyzer
+		return ret
+	}
+	return *o.GovernanceAnalyzer
+}
+
+// GetGovernanceAnalyzerOk returns a tuple with the GovernanceAnalyzer field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OrgSettingsGovernanceAI) GetGovernanceAnalyzerOk() (*OrgSettingsGovernanceAIGovernanceAnalyzer, bool) {
+	if o == nil || IsNil(o.GovernanceAnalyzer) {
+		return nil, false
+	}
+	return o.GovernanceAnalyzer, true
+}
+
+// HasGovernanceAnalyzer returns a boolean if a field has been set.
+func (o *OrgSettingsGovernanceAI) HasGovernanceAnalyzer() bool {
+	if o != nil && !IsNil(o.GovernanceAnalyzer) {
+		return true
+	}
+
+	return false
+}
+
+// SetGovernanceAnalyzer gets a reference to the given OrgSettingsGovernanceAIGovernanceAnalyzer and assigns it to the GovernanceAnalyzer field.
+func (o *OrgSettingsGovernanceAI) SetGovernanceAnalyzer(v OrgSettingsGovernanceAIGovernanceAnalyzer) {
+	o.GovernanceAnalyzer = &v
+}
+
 func (o OrgSettingsGovernanceAI) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -99,6 +132,9 @@ func (o OrgSettingsGovernanceAI) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.SecurityAccessReview) {
 		toSerialize["securityAccessReview"] = o.SecurityAccessReview
+	}
+	if !IsNil(o.GovernanceAnalyzer) {
+		toSerialize["governanceAnalyzer"] = o.GovernanceAnalyzer
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -123,6 +159,7 @@ func (o *OrgSettingsGovernanceAI) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "securityAccessReview")
+		delete(additionalProperties, "governanceAnalyzer")
 		o.AdditionalProperties = additionalProperties
 	}
 

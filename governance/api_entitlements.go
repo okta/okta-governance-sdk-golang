@@ -58,7 +58,7 @@ type EntitlementsAPI interface {
 		Deletes entitlement
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param entitlementId The `id` of the entitlement
+		@param entitlementId Unique identifier for the entitlement
 		@return ApiDeleteEntitlementRequest
 	*/
 	DeleteEntitlement(ctx context.Context, entitlementId string) ApiDeleteEntitlementRequest
@@ -72,7 +72,7 @@ type EntitlementsAPI interface {
 		Retrieves a single entitlement
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param entitlementId The `id` of the entitlement
+		@param entitlementId Unique identifier for the entitlement
 		@return ApiGetEntitlementRequest
 	*/
 	GetEntitlement(ctx context.Context, entitlementId string) ApiGetEntitlementRequest
@@ -87,7 +87,7 @@ type EntitlementsAPI interface {
 		Retrieves a single entitlement value
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param entitlementId The `id` of the entitlement
+		@param entitlementId Unique identifier for the entitlement
 		@param valueId The `id` of the entitlement value
 		@return ApiGetEntitlementValueRequest
 	*/
@@ -117,7 +117,7 @@ type EntitlementsAPI interface {
 		Lists all values for an entitlement
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param entitlementId The `id` of the entitlement
+		@param entitlementId Unique identifier for the entitlement
 		@return ApiListEntitlementValuesRequest
 	*/
 	ListEntitlementValues(ctx context.Context, entitlementId string) ApiListEntitlementValuesRequest
@@ -143,10 +143,10 @@ type EntitlementsAPI interface {
 	/*
 		ReplaceEntitlement Replace an entitlement
 
-		Replaces an entitlement's name, description, or values. This API requires a complete list of updated values, which may present limitations for certain use cases. For more practical and flexible usage, consider using the [Update the entitlement](/iga/openapi/governance.api/tag/Entitlements/#tag/Entitlements/operation/updateEntitlement).
+		Replaces an entitlement's name, description, or values. This API requires a complete list of updated values, which may present limitations for certain use cases. For more practical and flexible usage, consider using the [Update the entitlement](/iga/openapi/governance-production-reference/entitlements/updateentitlement).
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param entitlementId The `id` of the entitlement
+		@param entitlementId Unique identifier for the entitlement
 		@return ApiReplaceEntitlementRequest
 	*/
 	ReplaceEntitlement(ctx context.Context, entitlementId string) ApiReplaceEntitlementRequest
@@ -161,7 +161,7 @@ type EntitlementsAPI interface {
 		Updates an entitlement `name`, `description` or a particular `value` property. The `values` array in the response contains only the updated entitlement values. No entitlement values are returned if the name and description is updated or values are only removed in the update.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param entitlementId The `id` of the entitlement
+		@param entitlementId Unique identifier for the entitlement
 		@return ApiUpdateEntitlementRequest
 	*/
 	UpdateEntitlement(ctx context.Context, entitlementId string) ApiUpdateEntitlementRequest
@@ -404,7 +404,7 @@ DeleteEntitlement Delete an entitlement
 Deletes entitlement
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param entitlementId The `id` of the entitlement
+	@param entitlementId Unique identifier for the entitlement
 	@return ApiDeleteEntitlementRequest
 */
 func (a *EntitlementsAPIService) DeleteEntitlement(ctx context.Context, entitlementId string) ApiDeleteEntitlementRequest {
@@ -569,7 +569,7 @@ GetEntitlement Retrieve an entitlement
 Retrieves a single entitlement
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param entitlementId The `id` of the entitlement
+	@param entitlementId Unique identifier for the entitlement
 	@return ApiGetEntitlementRequest
 */
 func (a *EntitlementsAPIService) GetEntitlement(ctx context.Context, entitlementId string) ApiGetEntitlementRequest {
@@ -760,7 +760,7 @@ GetEntitlementValue Retrieve an entitlement value
 Retrieves a single entitlement value
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param entitlementId The `id` of the entitlement
+	@param entitlementId Unique identifier for the entitlement
 	@param valueId The `id` of the entitlement value
 	@return ApiGetEntitlementValueRequest
 */
@@ -946,7 +946,7 @@ type ApiListAllEntitlementValuesRequest struct {
 	retryCount int32
 }
 
-// A [filter](https://developer.okta.com/docs/api/#filter) expression that returns entries based on the following properties and supported operators: * &#x60;parent.externalId&#x60;: supports &#x60;eq&#x60; * &#x60;parent.type&#x60;: supports &#x60;eq&#x60; * &#x60;parentResourceOrn&#x60;: supports &#x60;eq&#x60; * &#x60;name&#x60;:  supports &#x60;sw&#x60; and &#x60;co&#x60; * &#x60;externalValue&#x60;: supports &#x60;eq&#x60;  &gt; **Note:** Query parameter percent encoding is required. See [Special characters](https://developer.okta.com/docs/api/#special-characters).
+// A [filter](https://developer.okta.com/docs/api/#filter) expression that returns entries based on the following properties and supported operators: * &#x60;parent.externalId&#x60;: supports &#x60;eq&#x60; * &#x60;parent.type&#x60;: supports &#x60;eq&#x60; * &#x60;parentResourceOrn&#x60;: supports &#x60;eq&#x60; * &#x60;name&#x60;:  supports &#x60;sw&#x60; and &#x60;co&#x60; * &#x60;externalValue&#x60;: supports &#x60;eq&#x60; * &#x60;created&#x60;: supports &#x60;eq&#x60;, &#x60;gt&#x60;, &#x60;ge&#x60;, &#x60;lt&#x60;, and &#x60;le&#x60; operators with ISO-8601 datetime format  &gt; **Note:** Query parameter percent encoding is required. See [Special characters](https://developer.okta.com/docs/api/#special-characters).
 func (r ApiListAllEntitlementValuesRequest) Filter(filter string) ApiListAllEntitlementValuesRequest {
 	r.filter = &filter
 	return r
@@ -958,7 +958,7 @@ func (r ApiListAllEntitlementValuesRequest) Limit(limit int32) ApiListAllEntitle
 	return r
 }
 
-// The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request.
+// Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination).
 func (r ApiListAllEntitlementValuesRequest) After(after string) ApiListAllEntitlementValuesRequest {
 	r.after = &after
 	return r
@@ -1180,13 +1180,13 @@ func (r ApiListEntitlementValuesRequest) Limit(limit int32) ApiListEntitlementVa
 	return r
 }
 
-// The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request.
+// Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination).
 func (r ApiListEntitlementValuesRequest) After(after string) ApiListEntitlementValuesRequest {
 	r.after = &after
 	return r
 }
 
-// A [filter](https://developer.okta.com/docs/api/#filter) expression that returns entries based on the following properties and supported operators: * &#x60;name&#x60;:supports the &#x60;sw&#x60; and &#x60;co&#x60; operators. * &#x60;labelValueId&#x60;: supports &#x60;eq&#x60;  &gt; **Note:** Query parameter percent encoding is required. See [Special characters](https://developer.okta.com/docs/api/#special-characters).
+// A [filter](https://developer.okta.com/docs/api/#filter) expression that returns entries based on the following properties and supported operators: * &#x60;name&#x60;:supports the &#x60;sw&#x60; and &#x60;co&#x60; operators. * &#x60;labelValueId&#x60;: supports &#x60;eq&#x60; * &#x60;created&#x60;: supports &#x60;eq&#x60;, &#x60;gt&#x60;, &#x60;ge&#x60;, &#x60;lt&#x60;,  and &#x60;le&#x60; operators with ISO-8601 datetime format  &gt; **Note:** Query parameter percent encoding is required. See [Special characters](https://developer.okta.com/docs/api/#special-characters).
 func (r ApiListEntitlementValuesRequest) Filter(filter string) ApiListEntitlementValuesRequest {
 	r.filter = &filter
 	return r
@@ -1208,7 +1208,7 @@ ListEntitlementValues List all values for an entitlement
 Lists all values for an entitlement
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param entitlementId The `id` of the entitlement
+	@param entitlementId Unique identifier for the entitlement
 	@return ApiListEntitlementValuesRequest
 */
 func (a *EntitlementsAPIService) ListEntitlementValues(ctx context.Context, entitlementId string) ApiListEntitlementValuesRequest {
@@ -1403,7 +1403,7 @@ type ApiListEntitlementsRequest struct {
 	retryCount int32
 }
 
-// A [filter](https://developer.okta.com/docs/api/#filter) expression that returns entries based on the following properties and supported operators: * &#x60;parent.externalId&#x60;: supports &#x60;eq&#x60; * &#x60;parent.type&#x60;: supports &#x60;eq&#x60; * &#x60;parentResourceOrn&#x60;: supports &#x60;eq&#x60; * &#x60;name&#x60;:  supports &#x60;sw&#x60; and &#x60;co&#x60;  &gt; **Note:** Query parameter percent encoding is required. See [Special characters](https://developer.okta.com/docs/api/#special-characters).
+// A [filter](https://developer.okta.com/docs/api/#filter) expression that returns entries based on the following properties and supported operators: * &#x60;parent.externalId&#x60;: supports &#x60;eq&#x60; * &#x60;parent.type&#x60;: supports &#x60;eq&#x60; * &#x60;parentResourceOrn&#x60;: supports &#x60;eq&#x60; * &#x60;name&#x60;:  supports &#x60;sw&#x60; and &#x60;co&#x60; * &#x60;created&#x60;: supports &#x60;eq&#x60;, &#x60;gt&#x60;, &#x60;ge&#x60;, &#x60;lt&#x60;,  and &#x60;le&#x60; operators with ISO-8601 datetime format  &gt; **Note:** Query parameter percent encoding is required. See [Special characters](https://developer.okta.com/docs/api/#special-characters).
 func (r ApiListEntitlementsRequest) Filter(filter string) ApiListEntitlementsRequest {
 	r.filter = &filter
 	return r
@@ -1415,7 +1415,7 @@ func (r ApiListEntitlementsRequest) Limit(limit int32) ApiListEntitlementsReques
 	return r
 }
 
-// The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request.
+// Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination).
 func (r ApiListEntitlementsRequest) After(after string) ApiListEntitlementsRequest {
 	r.after = &after
 	return r
@@ -1633,16 +1633,16 @@ func (a *EntitlementsAPIService) ListEntitlementsExecute(r ApiListEntitlementsRe
 }
 
 type ApiReplaceEntitlementRequest struct {
-	ctx                        context.Context
-	ApiService                 EntitlementsAPI
-	entitlementId              string
-	entitlementsFullWithParent *EntitlementsFullWithParent
-	retryCount                 int32
+	ctx                  context.Context
+	ApiService           EntitlementsAPI
+	entitlementId        string
+	entitlementUpdatable *EntitlementUpdatable
+	retryCount           int32
 }
 
 // The writable attributes of an entitlement
-func (r ApiReplaceEntitlementRequest) EntitlementsFullWithParent(entitlementsFullWithParent EntitlementsFullWithParent) ApiReplaceEntitlementRequest {
-	r.entitlementsFullWithParent = &entitlementsFullWithParent
+func (r ApiReplaceEntitlementRequest) EntitlementUpdatable(entitlementUpdatable EntitlementUpdatable) ApiReplaceEntitlementRequest {
+	r.entitlementUpdatable = &entitlementUpdatable
 	return r
 }
 
@@ -1653,10 +1653,10 @@ func (r ApiReplaceEntitlementRequest) Execute() (*EntitlementsFullWithParent, *A
 /*
 ReplaceEntitlement Replace an entitlement
 
-Replaces an entitlement's name, description, or values. This API requires a complete list of updated values, which may present limitations for certain use cases. For more practical and flexible usage, consider using the [Update the entitlement](/iga/openapi/governance.api/tag/Entitlements/#tag/Entitlements/operation/updateEntitlement).
+Replaces an entitlement's name, description, or values. This API requires a complete list of updated values, which may present limitations for certain use cases. For more practical and flexible usage, consider using the [Update the entitlement](/iga/openapi/governance-production-reference/entitlements/updateentitlement).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param entitlementId The `id` of the entitlement
+	@param entitlementId Unique identifier for the entitlement
 	@return ApiReplaceEntitlementRequest
 */
 func (a *EntitlementsAPIService) ReplaceEntitlement(ctx context.Context, entitlementId string) ApiReplaceEntitlementRequest {
@@ -1698,8 +1698,8 @@ func (a *EntitlementsAPIService) ReplaceEntitlementExecute(r ApiReplaceEntitleme
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.entitlementsFullWithParent == nil {
-		return localVarReturnValue, nil, reportError("entitlementsFullWithParent is required and must be specified")
+	if r.entitlementUpdatable == nil {
+		return localVarReturnValue, nil, reportError("entitlementUpdatable is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1720,7 +1720,7 @@ func (a *EntitlementsAPIService) ReplaceEntitlementExecute(r ApiReplaceEntitleme
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.entitlementsFullWithParent
+	localVarPostBody = r.entitlementUpdatable
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1858,7 +1858,7 @@ UpdateEntitlement Update the entitlement
 Updates an entitlement `name`, `description` or a particular `value` property. The `values` array in the response contains only the updated entitlement values. No entitlement values are returned if the name and description is updated or values are only removed in the update.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param entitlementId The `id` of the entitlement
+	@param entitlementId Unique identifier for the entitlement
 	@return ApiUpdateEntitlementRequest
 */
 func (a *EntitlementsAPIService) UpdateEntitlement(ctx context.Context, entitlementId string) ApiUpdateEntitlementRequest {

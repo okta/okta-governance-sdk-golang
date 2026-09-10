@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Name** | **string** | The display name for an entitlement value | 
 **ExternalValue** | **string** | The value of an entitlement property value | 
 **Orn** | **string** | The entitlement value resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) | 
-**Effective** | Pointer to **bool** | A granted entitlement may not be effective if the same entitlement is granted by a higher priority additional grant | [optional] 
+**Effective** | Pointer to **bool** | A granted entitlement may not be effective if the same entitlement is granted by a higher priority additional grant. | [optional] 
 
 ## Methods
 

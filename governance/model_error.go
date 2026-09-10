@@ -31,7 +31,7 @@ import (
 // checks if the ModelError type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ModelError{}
 
-// ModelError An Error Object
+// ModelError An Error object
 type ModelError struct {
 	// An error code unique to the error
 	ErrorCode string `json:"errorCode"`
@@ -39,9 +39,9 @@ type ModelError struct {
 	ErrorId string `json:"errorId"`
 	// An error code description detailing the error
 	ErrorSummary string `json:"errorSummary"`
-	// An indicator where to look out to troubleshoot the error
+	// An indicator of where to look to troubleshoot the error
 	ErrorLink *string `json:"errorLink,omitempty"`
-	// An optional array of string values that explains possible reasons for the error.
+	// An optional array of string values that explain possible reasons for the error
 	ErrorCauses          []ErrorCause `json:"errorCauses,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

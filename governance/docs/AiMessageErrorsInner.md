@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ErrorCode** | **string** | A unique error code. Error codes are useful to execute additional actions. | 
 **ErrorMsg** | **string** | An error message detailing the problem | 
-**Args** | Pointer to [**[]ServerMessageArgument**](ServerMessageArgument.md) | Any dynamic arguments that are needed to construct the whole message are supplied as an array of values. | [optional] 
+**Args** | Pointer to [**[]ServerMessageArgument**](ServerMessageArgument.md) | Any dynamic arguments that are needed to construct the whole message are supplied as an array of values | [optional] 
 
 ## Methods
 

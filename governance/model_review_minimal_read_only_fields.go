@@ -51,9 +51,10 @@ type ReviewMinimalReadOnlyFields struct {
 	RiskRuleConflicts []RiskRuleConflicts       `json:"riskRuleConflicts,omitempty"`
 	DelegatorProfile  *PrincipalProfileEnriched `json:"delegatorProfile,omitempty"`
 	// Specifies if this review was delegated by the original reviewer based on their governance delegate settings
-	Delegated            *bool                   `json:"delegated,omitempty"`
-	AppServiceAccount    *ReviewerServiceAccount `json:"appServiceAccount,omitempty"`
-	OktaServiceAccount   *ReviewerServiceAccount `json:"oktaServiceAccount,omitempty"`
+	Delegated            *bool                      `json:"delegated,omitempty"`
+	AppServiceAccount    *ReviewerServiceAccount    `json:"appServiceAccount,omitempty"`
+	OktaServiceAccount   *ReviewerServiceAccount    `json:"oktaServiceAccount,omitempty"`
+	AiAgentConnection    *ReviewerAiAgentConnection `json:"aiAgentConnection,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -604,6 +605,38 @@ func (o *ReviewMinimalReadOnlyFields) SetOktaServiceAccount(v ReviewerServiceAcc
 	o.OktaServiceAccount = &v
 }
 
+// GetAiAgentConnection returns the AiAgentConnection field value if set, zero value otherwise.
+func (o *ReviewMinimalReadOnlyFields) GetAiAgentConnection() ReviewerAiAgentConnection {
+	if o == nil || IsNil(o.AiAgentConnection) {
+		var ret ReviewerAiAgentConnection
+		return ret
+	}
+	return *o.AiAgentConnection
+}
+
+// GetAiAgentConnectionOk returns a tuple with the AiAgentConnection field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ReviewMinimalReadOnlyFields) GetAiAgentConnectionOk() (*ReviewerAiAgentConnection, bool) {
+	if o == nil || IsNil(o.AiAgentConnection) {
+		return nil, false
+	}
+	return o.AiAgentConnection, true
+}
+
+// HasAiAgentConnection returns a boolean if a field has been set.
+func (o *ReviewMinimalReadOnlyFields) HasAiAgentConnection() bool {
+	if o != nil && !IsNil(o.AiAgentConnection) {
+		return true
+	}
+
+	return false
+}
+
+// SetAiAgentConnection gets a reference to the given ReviewerAiAgentConnection and assigns it to the AiAgentConnection field.
+func (o *ReviewMinimalReadOnlyFields) SetAiAgentConnection(v ReviewerAiAgentConnection) {
+	o.AiAgentConnection = &v
+}
+
 func (o ReviewMinimalReadOnlyFields) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -653,6 +686,9 @@ func (o ReviewMinimalReadOnlyFields) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.OktaServiceAccount) {
 		toSerialize["oktaServiceAccount"] = o.OktaServiceAccount
+	}
+	if !IsNil(o.AiAgentConnection) {
+		toSerialize["aiAgentConnection"] = o.AiAgentConnection
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -721,6 +757,7 @@ func (o *ReviewMinimalReadOnlyFields) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "delegated")
 		delete(additionalProperties, "appServiceAccount")
 		delete(additionalProperties, "oktaServiceAccount")
+		delete(additionalProperties, "aiAgentConnection")
 		o.AdditionalProperties = additionalProperties
 	}
 

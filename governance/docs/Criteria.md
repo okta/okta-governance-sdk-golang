@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Name** | Pointer to **string** | Name of the criteria | [optional] 
 **Attribute** | Pointer to **string** | Attribute that the criteria applies to | [optional] 
 **Operation** | Pointer to **string** | Operation performed on the criteria value | [optional] 
-**Value** | Pointer to [**CriteriaValue**](CriteriaValue.md) |  | [optional] 
+**Value** | Pointer to [**CriteriaValueEntitlements**](CriteriaValueEntitlements.md) |  | [optional] 
 
 ## Methods
 
@@ -105,20 +105,20 @@ HasOperation returns a boolean if a field has been set.
 
 ### GetValue
 
-`func (o *Criteria) GetValue() CriteriaValue`
+`func (o *Criteria) GetValue() CriteriaValueEntitlements`
 
 GetValue returns the Value field if non-nil, zero value otherwise.
 
 ### GetValueOk
 
-`func (o *Criteria) GetValueOk() (*CriteriaValue, bool)`
+`func (o *Criteria) GetValueOk() (*CriteriaValueEntitlements, bool)`
 
 GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetValue
 
-`func (o *Criteria) SetValue(v CriteriaValue)`
+`func (o *Criteria) SetValue(v CriteriaValueEntitlements)`
 
 SetValue sets Value field to given value.
 

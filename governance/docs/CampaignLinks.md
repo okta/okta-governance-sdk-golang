@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**LaunchCampaign** | [**Link**](Link.md) |  | 
-**EndCampaign** | [**Link**](Link.md) |  | 
+**LaunchCampaign** | Pointer to [**Link**](Link.md) |  | [optional] 
+**EndCampaign** | Pointer to [**Link**](Link.md) |  | [optional] 
 **Reviews** | [**Link**](Link.md) |  | 
 **Self** | [**Link**](Link.md) |  | 
 
@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 
 ### NewCampaignLinks
 
-`func NewCampaignLinks(launchCampaign Link, endCampaign Link, reviews Link, self Link, ) *CampaignLinks`
+`func NewCampaignLinks(reviews Link, self Link, ) *CampaignLinks`
 
 NewCampaignLinks instantiates a new CampaignLinks object
 This constructor will assign default values to properties that have it defined,
@@ -47,6 +47,11 @@ and a boolean to check if the value has been set.
 
 SetLaunchCampaign sets LaunchCampaign field to given value.
 
+### HasLaunchCampaign
+
+`func (o *CampaignLinks) HasLaunchCampaign() bool`
+
+HasLaunchCampaign returns a boolean if a field has been set.
 
 ### GetEndCampaign
 
@@ -67,6 +72,11 @@ and a boolean to check if the value has been set.
 
 SetEndCampaign sets EndCampaign field to given value.
 
+### HasEndCampaign
+
+`func (o *CampaignLinks) HasEndCampaign() bool`
+
+HasEndCampaign returns a boolean if a field has been set.
 
 ### GetReviews
 

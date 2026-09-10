@@ -32,7 +32,7 @@ var _ MappedNullable = &Requested{}
 
 // Requested A representation of the resource in request
 type Requested struct {
-	// The ID of the resource catalog entry
+	// Unique identifier of the resource catalog entry
 	EntryId *string `json:"entryId,omitempty"`
 	// the requested resource ID
 	ResourceId   *string        `json:"resourceId,omitempty"`

@@ -92,8 +92,8 @@ import (
 )
 
 func main() {
-	filter := "firstName sw "John" OR lastName sw "John"" // string | A required filter expression that returns users based on the `firstName` or `lastName` properties. This [filter](https://developer.okta.com/docs/api/#filter) expression supports the `sw` [operator](https://developer.okta.com/docs/api/#operators).  **Note:** Query parameter percent encoding is required. See [Special characters]( https://developer.okta.com/docs/api/#special-characters ). 
-	after := "00u68w6vzKLultXS97g6" // string | The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request. (optional)
+	filter := "firstName sw "John" OR lastName sw "John"" // string | An optional filter expression that returns users based on the `firstName` or `lastName` properties. This [filter](https://developer.okta.com/docs/api/#filter) expression supports the `sw` [operator](https://developer.okta.com/docs/api/#operators).  When omitted, the endpoint returns all eligible delegates for the current user. However, if the org's delegate scope settings are unrestricted (the `onlyFor` list is empty), the filter parameter is required and omitting it returns a 400 error.  **Note:** Query parameter percent encoding is required. See [Special characters](https://developer.okta.com/docs/api/#special-characters).  (optional)
+	after := "00u68w6vzKLultXS97g6" // string | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination). (optional)
 	limit := int32(56) // int32 | The maximum number of records returned in a response (optional) (default to 20)
 
 	configuration := openapiclient.NewConfiguration()
@@ -119,8 +119,8 @@ Other parameters are passed through a pointer to a apiListMyDelegateUsersRequest
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **filter** | **string** | A required filter expression that returns users based on the &#x60;firstName&#x60; or &#x60;lastName&#x60; properties. This [filter](https://developer.okta.com/docs/api/#filter) expression supports the &#x60;sw&#x60; [operator](https://developer.okta.com/docs/api/#operators).  **Note:** Query parameter percent encoding is required. See [Special characters]( https://developer.okta.com/docs/api/#special-characters ).  | 
- **after** | **string** | The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request. | 
+ **filter** | **string** | An optional filter expression that returns users based on the &#x60;firstName&#x60; or &#x60;lastName&#x60; properties. This [filter](https://developer.okta.com/docs/api/#filter) expression supports the &#x60;sw&#x60; [operator](https://developer.okta.com/docs/api/#operators).  When omitted, the endpoint returns all eligible delegates for the current user. However, if the org&#39;s delegate scope settings are unrestricted (the &#x60;onlyFor&#x60; list is empty), the filter parameter is required and omitting it returns a 400 error.  **Note:** Query parameter percent encoding is required. See [Special characters](https://developer.okta.com/docs/api/#special-characters).  | 
+ **after** | **string** | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination). | 
  **limit** | **int32** | The maximum number of records returned in a response | [default to 20]
 
 ### Return type

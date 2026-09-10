@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Message** | **string** | Generated summary message | 
 **DeltaMessage** | Pointer to **string** | Generated summary message as a delta (for streaming) | [optional] 
-**Errors** | Pointer to [**[]AiMessageErrorsInner**](AiMessageErrorsInner.md) | Whenever summary generation has resulted in an error or blocked, the array of errors will detail the reasons. | [optional] 
+**Errors** | Pointer to [**[]AiMessageErrorsInner**](AiMessageErrorsInner.md) | Whenever summary generation has resulted in an error or blocked, the array of errors details the reasons | [optional] 
 
 ## Methods
 

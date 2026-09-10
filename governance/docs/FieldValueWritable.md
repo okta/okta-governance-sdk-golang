@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** | The &#x60;id&#x60; of a &#x60;requesterField&#x60; in the related request type&#39;s &#x60;requestSettings.requesterFields&#x60;.  | 
+**Id** | **string** | The &#x60;id&#x60; of a &#x60;requesterField&#x60; in the related request type&#39;s &#x60;requestSettings.requesterFields&#x60; | 
 **Value** | [**FieldValueWritableAllowedValues**](FieldValueWritableAllowedValues.md) |  | 
 
 ## Methods

@@ -600,9 +600,9 @@ import (
 
 func main() {
 	securityAccessReviewId := "securityAccessReviewId_example" // string | The ID of the security access review
-	filter := "name%20co%20%22Git%22" // string | A [filter](https://developer.okta.com/docs/api/#filter) expression that filters access items.  > **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding). (optional)
+	filter := "name co "Git"" // string | A [filter](https://developer.okta.com/docs/api/#filter) expression that filters access items.  > **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding). (optional)
 	orderBy := []string{"Inner_example"} // []string | The field to sort the results, in ascending (asc) or descending (desc) order. Sorting is applied to only one field.  > **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding) (optional) (default to ["priority desc"])
-	after := "00u68w6vzKLultXS97g6" // string | The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request. (optional)
+	after := "00u68w6vzKLultXS97g6" // string | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination). (optional)
 	limit := int32(56) // int32 | The maximum number of records returned in a response (optional) (default to 20)
 
 	configuration := openapiclient.NewConfiguration()
@@ -635,7 +635,7 @@ Name | Type | Description  | Notes
 
  **filter** | **string** | A [filter](https://developer.okta.com/docs/api/#filter) expression that filters access items.  &gt; **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding). | 
  **orderBy** | **[]string** | The field to sort the results, in ascending (asc) or descending (desc) order. Sorting is applied to only one field.  &gt; **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding) | [default to [&quot;priority desc&quot;]]
- **after** | **string** | The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request. | 
+ **after** | **string** | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination). | 
  **limit** | **int32** | The maximum number of records returned in a response | [default to 20]
 
 ### Return type
@@ -821,7 +821,7 @@ import (
 
 func main() {
 	securityAccessReviewId := "securityAccessReviewId_example" // string | The ID of the security access review
-	after := "00u68w6vzKLultXS97g6" // string | The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request. (optional)
+	after := "00u68w6vzKLultXS97g6" // string | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination). (optional)
 	limit := int32(56) // int32 | The maximum number of records returned in a response (optional) (default to 20)
 
 	configuration := openapiclient.NewConfiguration()
@@ -852,7 +852,7 @@ Other parameters are passed through a pointer to a apiListMySecurityAccessReview
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **after** | **string** | The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request. | 
+ **after** | **string** | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination). | 
  **limit** | **int32** | The maximum number of records returned in a response | [default to 20]
 
 ### Return type
@@ -896,9 +896,9 @@ import (
 func main() {
 	securityAccessReviewId := "securityAccessReviewId_example" // string | The ID of the security access review
 	securityAccessReviewAccessId := "securityAccessReviewAccessId_example" // string | The ID of the access item in a security access review
-	filter := "name%20co%20%22Git%22" // string | A [filter](https://developer.okta.com/docs/api/#filter) expression that filters sub-access items.  > **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding).  (optional)
+	filter := "name co "Git"" // string | A [filter](https://developer.okta.com/docs/api/#filter) expression that filters sub-access items.  > **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding).  (optional)
 	orderBy := []string{"Inner_example"} // []string | A field by which results can be sorted. For now, sorting by a single field is supported.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding)  (optional) (default to ["priority desc"])
-	after := "00u68w6vzKLultXS97g6" // string | The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request. (optional)
+	after := "00u68w6vzKLultXS97g6" // string | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination). (optional)
 	limit := int32(56) // int32 | The maximum number of records returned in a response (optional) (default to 20)
 
 	configuration := openapiclient.NewConfiguration()
@@ -933,7 +933,7 @@ Name | Type | Description  | Notes
 
  **filter** | **string** | A [filter](https://developer.okta.com/docs/api/#filter) expression that filters sub-access items.  &gt; **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding).  | 
  **orderBy** | **[]string** | A field by which results can be sorted. For now, sorting by a single field is supported.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding)  | [default to [&quot;priority desc&quot;]]
- **after** | **string** | The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request. | 
+ **after** | **string** | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination). | 
  **limit** | **int32** | The maximum number of records returned in a response | [default to 20]
 
 ### Return type
@@ -975,9 +975,9 @@ import (
 )
 
 func main() {
-	filter := "name%20co%20%22Git%22" // string | A [filter](https://developer.okta.com/docs/api/#filter) expression that filters security access reviews. The `eq` and `co` [operators](https://developer.okta.com/docs/api/#operators) are supported for string properties. The `gt` and `lt` operators are supported for date properties.  > **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding). (optional)
+	filter := "name co "Git"" // string | A [filter](https://developer.okta.com/docs/api/#filter) expression that filters security access reviews. The `eq` and `co` [operators](https://developer.okta.com/docs/api/#operators) are supported for string properties. The `gt` and `lt` operators are supported for date properties.  > **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding). (optional)
 	orderBy := []string{"Inner_example"} // []string | The field to sort the results, in ascending (`asc`) or descending (`desc`) order. Sorting is applied to only one field.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding)  (optional) (default to ["created asc"])
-	after := "00u68w6vzKLultXS97g6" // string | The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request. (optional)
+	after := "00u68w6vzKLultXS97g6" // string | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination). (optional)
 	limit := int32(56) // int32 | The maximum number of records returned in a response (optional) (default to 20)
 
 	configuration := openapiclient.NewConfiguration()
@@ -1005,7 +1005,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **filter** | **string** | A [filter](https://developer.okta.com/docs/api/#filter) expression that filters security access reviews. The &#x60;eq&#x60; and &#x60;co&#x60; [operators](https://developer.okta.com/docs/api/#operators) are supported for string properties. The &#x60;gt&#x60; and &#x60;lt&#x60; operators are supported for date properties.  &gt; **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding). | 
  **orderBy** | **[]string** | The field to sort the results, in ascending (&#x60;asc&#x60;) or descending (&#x60;desc&#x60;) order. Sorting is applied to only one field.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding)  | [default to [&quot;created asc&quot;]]
- **after** | **string** | The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request. | 
+ **after** | **string** | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination). | 
  **limit** | **int32** | The maximum number of records returned in a response | [default to 20]
 
 ### Return type

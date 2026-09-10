@@ -31,16 +31,13 @@ import (
 // checks if the ResourceOwnerResource type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ResourceOwnerResource{}
 
-// checks if the ResourceOwnerResource type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &ResourceOwnerResource{}
-
-// ResourceOwnerResource Details of a resource that are owned by the principal, such as an app, an entitlement value, an entitlement bundle, or a collection
+// ResourceOwnerResource Details of a resource that are owned by the principal, such as an app, an entitlement value, an entitlement bundle, a collection, or an AI agent
 type ResourceOwnerResource struct {
 	// A unique identifier for the resource in Okta
 	Id string `json:"id"`
-	// The resource type. This value is the `{objectType}` attribute from the [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) string.  Examples: `apps`, `entitlement-bundles`, `entitlement-values`, or `collections`
+	// The resource type. This value is the `{objectType}` attribute from the [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) string.  Examples: `apps`, `entitlement-bundles`, `entitlement-values`, `collections`, or `ai-agents`
 	Type string `json:"type"`
-	// The ID of the resource in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format. The resource can be an app, an entitlement value, an entitlement bundle, or a collection. See [supported resources](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
+	// The ID of the resource in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format. The resource can be an app, an entitlement value, an entitlement bundle, a collection, or an AI agent. See [supported resources](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
 	Orn                  string                  `json:"orn"`
 	Profile              ExternalResourceProfile `json:"profile"`
 	AdditionalProperties map[string]interface{}

@@ -36,6 +36,7 @@ const (
 	PRINCIPALPROFILETYPE_USER       PrincipalProfileType = "USER"
 	PRINCIPALPROFILETYPE_CLIENT_APP PrincipalProfileType = "CLIENT_APP"
 	PRINCIPALPROFILETYPE_UNKNOWN    PrincipalProfileType = "UNKNOWN"
+	PRINCIPALPROFILETYPE_AI_AGENT   PrincipalProfileType = "AI_AGENT"
 )
 
 // All allowed values of PrincipalProfileType enum
@@ -43,6 +44,7 @@ var AllowedPrincipalProfileTypeEnumValues = []PrincipalProfileType{
 	"USER",
 	"CLIENT_APP",
 	"UNKNOWN",
+	"AI_AGENT",
 }
 
 func (v *PrincipalProfileType) UnmarshalJSON(src []byte) error {

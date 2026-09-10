@@ -35,8 +35,8 @@ var _ MappedNullable = &MySettingsGetDelegateReadonly{}
 // MySettingsGetDelegateReadonly Delegate appointment settings
 type MySettingsGetDelegateReadonly struct {
 	// Unique identifier for the delegate appointment
-	Id       string                      `json:"id"`
-	Delegate DelegateAppointmentDelegate `json:"delegate"`
+	Id       string                                `json:"id"`
+	Delegate MySettingsGetDelegateReadonlyDelegate `json:"delegate"`
 	// The start time of the delegate appointment, in [RFC3339](https://www.rfc-editor.org/rfc/rfc3339.html) date and time format
 	StartTime *time.Time `json:"startTime,omitempty"`
 	// The time when the delegate appointment expires, in [RFC3339](https://www.rfc-editor.org/rfc/rfc3339.html) date and time format
@@ -60,7 +60,7 @@ type _MySettingsGetDelegateReadonly MySettingsGetDelegateReadonly
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMySettingsGetDelegateReadonly(id string, delegate DelegateAppointmentDelegate, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string) *MySettingsGetDelegateReadonly {
+func NewMySettingsGetDelegateReadonly(id string, delegate MySettingsGetDelegateReadonlyDelegate, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string) *MySettingsGetDelegateReadonly {
 	this := MySettingsGetDelegateReadonly{}
 	this.Id = id
 	this.Delegate = delegate
@@ -104,9 +104,9 @@ func (o *MySettingsGetDelegateReadonly) SetId(v string) {
 }
 
 // GetDelegate returns the Delegate field value
-func (o *MySettingsGetDelegateReadonly) GetDelegate() DelegateAppointmentDelegate {
+func (o *MySettingsGetDelegateReadonly) GetDelegate() MySettingsGetDelegateReadonlyDelegate {
 	if o == nil {
-		var ret DelegateAppointmentDelegate
+		var ret MySettingsGetDelegateReadonlyDelegate
 		return ret
 	}
 
@@ -115,7 +115,7 @@ func (o *MySettingsGetDelegateReadonly) GetDelegate() DelegateAppointmentDelegat
 
 // GetDelegateOk returns a tuple with the Delegate field value
 // and a boolean to check if the value has been set.
-func (o *MySettingsGetDelegateReadonly) GetDelegateOk() (*DelegateAppointmentDelegate, bool) {
+func (o *MySettingsGetDelegateReadonly) GetDelegateOk() (*MySettingsGetDelegateReadonlyDelegate, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -123,7 +123,7 @@ func (o *MySettingsGetDelegateReadonly) GetDelegateOk() (*DelegateAppointmentDel
 }
 
 // SetDelegate sets field value
-func (o *MySettingsGetDelegateReadonly) SetDelegate(v DelegateAppointmentDelegate) {
+func (o *MySettingsGetDelegateReadonly) SetDelegate(v MySettingsGetDelegateReadonlyDelegate) {
 	o.Delegate = v
 }
 

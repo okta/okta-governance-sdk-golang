@@ -32,8 +32,10 @@ var _ MappedNullable = &OrgSettingsDelegatesEnduser{}
 
 // OrgSettingsDelegatesEnduser Delegate permission settings for end users
 type OrgSettingsDelegatesEnduser struct {
-	// The permission that applies to this setting  | Permission | Description | |------|------| | `READ` | Allow end users to view their delegates | | `WRITE` | Allow end users to set their own delegates |
-	Permissions          []string `json:"permissions,omitempty"`
+	// The permission that applies to this setting:  | Permission | Description | |------|------| | `READ` | Allow end users to view their delegates | | `WRITE` | Allow end users to set their own delegates |
+	Permissions []string `json:"permissions,omitempty"`
+	// Restricts the scope of delegate assignment for end users when `permissions` is set to `WRITE`. If this list is empty, end users can assign any user as their delegate.
+	OnlyFor              []DelegateScope `json:"onlyFor,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -88,6 +90,38 @@ func (o *OrgSettingsDelegatesEnduser) SetPermissions(v []string) {
 	o.Permissions = v
 }
 
+// GetOnlyFor returns the OnlyFor field value if set, zero value otherwise.
+func (o *OrgSettingsDelegatesEnduser) GetOnlyFor() []DelegateScope {
+	if o == nil || IsNil(o.OnlyFor) {
+		var ret []DelegateScope
+		return ret
+	}
+	return o.OnlyFor
+}
+
+// GetOnlyForOk returns a tuple with the OnlyFor field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OrgSettingsDelegatesEnduser) GetOnlyForOk() ([]DelegateScope, bool) {
+	if o == nil || IsNil(o.OnlyFor) {
+		return nil, false
+	}
+	return o.OnlyFor, true
+}
+
+// HasOnlyFor returns a boolean if a field has been set.
+func (o *OrgSettingsDelegatesEnduser) HasOnlyFor() bool {
+	if o != nil && !IsNil(o.OnlyFor) {
+		return true
+	}
+
+	return false
+}
+
+// SetOnlyFor gets a reference to the given []DelegateScope and assigns it to the OnlyFor field.
+func (o *OrgSettingsDelegatesEnduser) SetOnlyFor(v []DelegateScope) {
+	o.OnlyFor = v
+}
+
 func (o OrgSettingsDelegatesEnduser) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -100,6 +134,9 @@ func (o OrgSettingsDelegatesEnduser) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Permissions) {
 		toSerialize["permissions"] = o.Permissions
+	}
+	if !IsNil(o.OnlyFor) {
+		toSerialize["onlyFor"] = o.OnlyFor
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -124,6 +161,7 @@ func (o *OrgSettingsDelegatesEnduser) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "permissions")
+		delete(additionalProperties, "onlyFor")
 		o.AdditionalProperties = additionalProperties
 	}
 

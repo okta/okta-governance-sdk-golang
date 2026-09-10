@@ -14,6 +14,7 @@ func BuildTestCampaign() CampaignMutable {
 	reviewerScopeExpression := "user.profile.reviewerId"
 	str := "2025-10-04T13:43:40.000Z"
 	rt := "GROUP"
+	resourceSettingsType := CampaignResourceType("GROUP")
 	parsedTime, err := time.Parse(time.RFC3339, str)
 	if err != nil {
 		return CampaignMutable{}
@@ -27,7 +28,7 @@ func BuildTestCampaign() CampaignMutable {
 			NoResponse:     "NO_ACTION",
 		},
 		ResourceSettings: ResourceSettingsMutable{
-			Type: "GROUP",
+			Type: &resourceSettingsType,
 			TargetResources: []TargetResourcesRequestInner{
 				{
 					ResourceId:   "00gnkw1sdqL30MdGk1d7",

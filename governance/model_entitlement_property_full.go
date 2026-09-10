@@ -30,7 +30,7 @@ import (
 // checks if the EntitlementPropertyFull type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &EntitlementPropertyFull{}
 
-// EntitlementPropertyFull Attributes related to Entitlement
+// EntitlementPropertyFull Attributes related to an entitlement
 type EntitlementPropertyFull struct {
 	// The `id` property of an entitlement
 	Id *string `json:"id,omitempty"`
@@ -40,7 +40,7 @@ type EntitlementPropertyFull struct {
 	ExternalValue *string `json:"externalValue,omitempty"`
 	// The description of an entitlement property
 	Description *string `json:"description,omitempty"`
-	// Indicate if the entitlement property can hold multiple values. If this property is `true`, then the `dataType` property is set to  `array`.
+	// Indicates if the entitlement property can hold multiple values. If this property is `true`, then the `dataType` property is set to `array`.
 	MultiValue *bool `json:"multiValue,omitempty"`
 	// The property that determines if the entitlement property is a required attribute
 	Required             *bool                        `json:"required,omitempty"`

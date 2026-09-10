@@ -32,7 +32,7 @@ import (
 // checks if the AccessScopeSettingsCreatableEntitlementBundleAccessScopeSettings type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &AccessScopeSettingsCreatableEntitlementBundleAccessScopeSettings{}
 
-// AccessScopeSettingsCreatableEntitlementBundleAccessScopeSettings Access scope settings that resource permissions are entitlement bundles.
+// AccessScopeSettingsCreatableEntitlementBundleAccessScopeSettings Access scope settings where resource permissions are entitlement bundles.
 type AccessScopeSettingsCreatableEntitlementBundleAccessScopeSettings struct {
 	// Request for access to entitlement bundles
 	Type string `json:"type"`

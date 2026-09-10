@@ -27,6 +27,7 @@ Name | Type | Description | Notes
 **Delegated** | Pointer to **bool** | Specifies if this review was delegated by the original reviewer based on their governance delegate settings | [optional] 
 **AppServiceAccount** | Pointer to [**ReviewerServiceAccount**](ReviewerServiceAccount.md) |  | [optional] 
 **OktaServiceAccount** | Pointer to [**ReviewerServiceAccount**](ReviewerServiceAccount.md) |  | [optional] 
+**AiAgentConnection** | Pointer to [**ReviewerAiAgentConnection**](ReviewerAiAgentConnection.md) |  | [optional] 
 **Note** | Pointer to [**Note**](Note.md) |  | [optional] 
 **AllReviewerLevels** | Pointer to [**[]ReviewerLevelInfoFull**](ReviewerLevelInfoFull.md) | Applicable only for multi level campaign. Provides details about the reviewer and decisions (if any) made at each reviewer level is captured here. | [optional] 
 
@@ -573,6 +574,31 @@ SetOktaServiceAccount sets OktaServiceAccount field to given value.
 `func (o *ReviewFull) HasOktaServiceAccount() bool`
 
 HasOktaServiceAccount returns a boolean if a field has been set.
+
+### GetAiAgentConnection
+
+`func (o *ReviewFull) GetAiAgentConnection() ReviewerAiAgentConnection`
+
+GetAiAgentConnection returns the AiAgentConnection field if non-nil, zero value otherwise.
+
+### GetAiAgentConnectionOk
+
+`func (o *ReviewFull) GetAiAgentConnectionOk() (*ReviewerAiAgentConnection, bool)`
+
+GetAiAgentConnectionOk returns a tuple with the AiAgentConnection field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAiAgentConnection
+
+`func (o *ReviewFull) SetAiAgentConnection(v ReviewerAiAgentConnection)`
+
+SetAiAgentConnection sets AiAgentConnection field to given value.
+
+### HasAiAgentConnection
+
+`func (o *ReviewFull) HasAiAgentConnection() bool`
+
+HasAiAgentConnection returns a boolean if a field has been set.
 
 ### GetNote
 

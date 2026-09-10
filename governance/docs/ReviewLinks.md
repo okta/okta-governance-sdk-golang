@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Self** | [**Link**](Link.md) |  | 
-**ReassignReview** | [**Link**](Link.md) |  | 
+**ReassignReview** | Pointer to [**Link**](Link.md) |  | [optional] 
 
 ## Methods
 
 ### NewReviewLinks
 
-`func NewReviewLinks(self Link, reassignReview Link, ) *ReviewLinks`
+`func NewReviewLinks(self Link, ) *ReviewLinks`
 
 NewReviewLinks instantiates a new ReviewLinks object
 This constructor will assign default values to properties that have it defined,
@@ -65,6 +65,11 @@ and a boolean to check if the value has been set.
 
 SetReassignReview sets ReassignReview field to given value.
 
+### HasReassignReview
+
+`func (o *ReviewLinks) HasReassignReview() bool`
+
+HasReassignReview returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

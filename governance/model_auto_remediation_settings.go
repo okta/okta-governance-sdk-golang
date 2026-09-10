@@ -30,11 +30,11 @@ import (
 // checks if the AutoRemediationSettings type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &AutoRemediationSettings{}
 
-// AutoRemediationSettings When a group is selected to be automatically remediated, if a user is assigned to an app through this group, the user will be automatically removed from the group if their access to the app is revoked in the Access Certification Campaign. Group is currently the only supported type of resources that can be automatically remediated.
+// AutoRemediationSettings When a group is selected to be automatically remediated, if a user is assigned to an app through this group, the user is automatically removed from the group if their access to the app is revoked in the Access Certification Campaign. `Group` is currently the only supported type of resource that can be automatically remediated.
 type AutoRemediationSettings struct {
 	// An array of resources to be automatically remediated
 	IncludeOnly []AutoRemediationSettingsIncludeOnlyInner `json:"includeOnly,omitempty"`
-	// If `includeAllIndirectAssignments` is set to `true`, the user's access to all groups that can assign the user to the application(s) will be removed during remediation. Only app assignments through groups can be automatically remediated. **Note:** You can only specify either  `includeAllIndirectAssignments` or `includeOnly`.
+	// If `includeAllIndirectAssignments` is set to `true`, the user's access to all groups that can assign the user to the app(s) is removed during remediation. Only app assignments through groups can be automatically remediated. > **Note:** You can specify only `includeAllIndirectAssignments` or `includeOnly`.
 	IncludeAllIndirectAssignments *bool `json:"includeAllIndirectAssignments,omitempty"`
 	AdditionalProperties          map[string]interface{}
 }

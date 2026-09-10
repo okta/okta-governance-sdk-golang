@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**InactiveDays** | Pointer to **int32** | The duration the users have not used single sign on (SSO) to access their account within the specific time frame. Minimum 30 days and maximum 365 days are supported. | [optional] 
+**InactiveDays** | Pointer to **int32** | The duration the users have not used single sign on (SSO) to access their account within the specific time frame. Minimum 30 days and maximum 90 days are supported. | [optional] 
 
 ## Methods
 

@@ -35,8 +35,8 @@ var _ MappedNullable = &RequesterSettingsCreatableGroupsRequesterSettings{}
 // RequesterSettingsCreatableGroupsRequesterSettings A requester settings indicating that access request can be submitted by specific groups.
 type RequesterSettingsCreatableGroupsRequesterSettings struct {
 	Type string `json:"type"`
-	// List of requestable groups  > **Note:** Both standard Okta groups and AD-sourced groups are supported in Access Requests. > Standard Okta groups have the `okta:user_group` value, whereas AD-sourced groups have the `okta:windows_security_principal` value in their `objectClass` property.
-	Groups []GroupsArrayCreatableInner `json:"groups"`
+	// List of groups whose members can request access. The maximum number of groups that can be specified is 500.  > **Note:** Both standard Okta groups and AD-sourced groups are supported in Access Requests. > Standard Okta groups have the `okta:user_group` value, whereas AD-sourced groups have the `okta:windows_security_principal` value in their `objectClass` property.
+	Groups []GroupsArrayRequesterSettingsCreatableInner `json:"groups"`
 }
 
 type _RequesterSettingsCreatableGroupsRequesterSettings RequesterSettingsCreatableGroupsRequesterSettings
@@ -45,7 +45,7 @@ type _RequesterSettingsCreatableGroupsRequesterSettings RequesterSettingsCreatab
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRequesterSettingsCreatableGroupsRequesterSettings(type_ string, groups []GroupsArrayCreatableInner) *RequesterSettingsCreatableGroupsRequesterSettings {
+func NewRequesterSettingsCreatableGroupsRequesterSettings(type_ string, groups []GroupsArrayRequesterSettingsCreatableInner) *RequesterSettingsCreatableGroupsRequesterSettings {
 	this := RequesterSettingsCreatableGroupsRequesterSettings{}
 	this.Type = type_
 	this.Groups = groups
@@ -85,9 +85,9 @@ func (o *RequesterSettingsCreatableGroupsRequesterSettings) SetType(v string) {
 }
 
 // GetGroups returns the Groups field value
-func (o *RequesterSettingsCreatableGroupsRequesterSettings) GetGroups() []GroupsArrayCreatableInner {
+func (o *RequesterSettingsCreatableGroupsRequesterSettings) GetGroups() []GroupsArrayRequesterSettingsCreatableInner {
 	if o == nil {
-		var ret []GroupsArrayCreatableInner
+		var ret []GroupsArrayRequesterSettingsCreatableInner
 		return ret
 	}
 
@@ -96,7 +96,7 @@ func (o *RequesterSettingsCreatableGroupsRequesterSettings) GetGroups() []Groups
 
 // GetGroupsOk returns a tuple with the Groups field value
 // and a boolean to check if the value has been set.
-func (o *RequesterSettingsCreatableGroupsRequesterSettings) GetGroupsOk() ([]GroupsArrayCreatableInner, bool) {
+func (o *RequesterSettingsCreatableGroupsRequesterSettings) GetGroupsOk() ([]GroupsArrayRequesterSettingsCreatableInner, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -104,7 +104,7 @@ func (o *RequesterSettingsCreatableGroupsRequesterSettings) GetGroupsOk() ([]Gro
 }
 
 // SetGroups sets field value
-func (o *RequesterSettingsCreatableGroupsRequesterSettings) SetGroups(v []GroupsArrayCreatableInner) {
+func (o *RequesterSettingsCreatableGroupsRequesterSettings) SetGroups(v []GroupsArrayRequesterSettingsCreatableInner) {
 	o.Groups = v
 }
 

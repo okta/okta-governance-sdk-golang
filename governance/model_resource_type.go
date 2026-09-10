@@ -38,6 +38,7 @@ const (
 	RESOURCETYPE_GOVERNANCE_LABEL_VALUE ResourceType = "GOVERNANCE_LABEL_VALUE"
 	RESOURCETYPE_APP_SERVICE_ACCOUNT    ResourceType = "APP_SERVICE_ACCOUNT"
 	RESOURCETYPE_OKTA_SERVICE_ACCOUNT   ResourceType = "OKTA_SERVICE_ACCOUNT"
+	RESOURCETYPE_COLLECTION             ResourceType = "COLLECTION"
 )
 
 // All allowed values of ResourceType enum
@@ -47,6 +48,7 @@ var AllowedResourceTypeEnumValues = []ResourceType{
 	"GOVERNANCE_LABEL_VALUE",
 	"APP_SERVICE_ACCOUNT",
 	"OKTA_SERVICE_ACCOUNT",
+	"COLLECTION",
 }
 
 func (v *ResourceType) UnmarshalJSON(src []byte) error {

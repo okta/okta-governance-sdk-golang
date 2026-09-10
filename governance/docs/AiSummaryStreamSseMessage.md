@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** | The event ID | [optional] 
 **Event** | Pointer to **string** | The event type | [optional] 
-**Data** | **string** | The event data, in JSON string format | 
+**Data** | **string** | The event data in JSON string format | 
 
 ## Methods
 

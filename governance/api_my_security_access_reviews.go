@@ -83,7 +83,10 @@ type MySecurityAccessReviewsAPI interface {
 
 			Generates a summary for an access item in a security access review
 
-		> **Note:** The [`governanceAI.securityAccessReview.enabled`](https://developer.okta.com/docs/api/iga/openapi/governance.api/tag/Org-Governance-Settings/#tag/Org-Governance-Settings/operation/updateOrgSettings!path=governanceAI&t=request) org governance setting must be enabled for users to generate summaries for security access reviews.
+		> **Notes:**
+		> * The [`governanceAI.securityAccessReview.enabled`](https://developer.okta.com/docs/api/iga/openapi/governance.api/tag/Org-Governance-Settings/#tag/Org-Governance-Settings/operation/updateOrgSettings!path=governanceAI&t=request) org governance setting must be enabled for users to generate summaries for security access reviews.
+		> * This feature is excluded from the Okta for AI Agents - Core SKU, which is the version of Okta for AI Agents available to FedRAMP Moderate and FedRAMP High customers.
+		>   Okta for AI Agents - Core isn't available in Okta for US Military cells. For a current list of features that are excluded from the Okta for AI Agents - Core SKU, please refer to the [Okta US Public Sector Limitations or Exceptions](https://support.okta.com/help/s/article/okta-us-public-sector-limitations-or-exceptions?language=en_US) documentation.
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@param securityAccessReviewId The ID of the security access review
@@ -801,7 +804,10 @@ GenerateMySecurityAccessReviewAccessesSummary Generate a summary for an access i
 
 # Generates a summary for an access item in a security access review
 
-> **Note:** The [`governanceAI.securityAccessReview.enabled`](https://developer.okta.com/docs/api/iga/openapi/governance.api/tag/Org-Governance-Settings/#tag/Org-Governance-Settings/operation/updateOrgSettings!path=governanceAI&t=request) org governance setting must be enabled for users to generate summaries for security access reviews.
+> **Notes:**
+> * The [`governanceAI.securityAccessReview.enabled`](https://developer.okta.com/docs/api/iga/openapi/governance.api/tag/Org-Governance-Settings/#tag/Org-Governance-Settings/operation/updateOrgSettings!path=governanceAI&t=request) org governance setting must be enabled for users to generate summaries for security access reviews.
+> * This feature is excluded from the Okta for AI Agents - Core SKU, which is the version of Okta for AI Agents available to FedRAMP Moderate and FedRAMP High customers.
+>   Okta for AI Agents - Core isn't available in Okta for US Military cells. For a current list of features that are excluded from the Okta for AI Agents - Core SKU, please refer to the [Okta US Public Sector Limitations or Exceptions](https://support.okta.com/help/s/article/okta-us-public-sector-limitations-or-exceptions?language=en_US) documentation.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param securityAccessReviewId The ID of the security access review
@@ -1691,7 +1697,7 @@ func (r ApiListMySecurityAccessReviewAccessesRequest) OrderBy(orderBy []string) 
 	return r
 }
 
-// The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request.
+// Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination).
 func (r ApiListMySecurityAccessReviewAccessesRequest) After(after string) ApiListMySecurityAccessReviewAccessesRequest {
 	r.after = &after
 	return r
@@ -2252,7 +2258,7 @@ type ApiListMySecurityAccessReviewHistoryRequest struct {
 	retryCount             int32
 }
 
-// The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request.
+// Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination).
 func (r ApiListMySecurityAccessReviewHistoryRequest) After(after string) ApiListMySecurityAccessReviewHistoryRequest {
 	r.after = &after
 	return r
@@ -2463,7 +2469,7 @@ func (r ApiListMySecurityAccessReviewSubAccessesRequest) OrderBy(orderBy []strin
 	return r
 }
 
-// The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request.
+// Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination).
 func (r ApiListMySecurityAccessReviewSubAccessesRequest) After(after string) ApiListMySecurityAccessReviewSubAccessesRequest {
 	r.after = &after
 	return r
@@ -2684,7 +2690,7 @@ func (r ApiListMySecurityAccessReviewsRequest) OrderBy(orderBy []string) ApiList
 	return r
 }
 
-// The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request.
+// Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination).
 func (r ApiListMySecurityAccessReviewsRequest) After(after string) ApiListMySecurityAccessReviewsRequest {
 	r.after = &after
 	return r

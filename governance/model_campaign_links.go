@@ -33,10 +33,10 @@ var _ MappedNullable = &CampaignLinks{}
 
 // CampaignLinks Links available on a single campaign representation.
 type CampaignLinks struct {
-	LaunchCampaign       Link `json:"launchCampaign"`
-	EndCampaign          Link `json:"endCampaign"`
-	Reviews              Link `json:"reviews"`
-	Self                 Link `json:"self"`
+	LaunchCampaign       *Link `json:"launchCampaign,omitempty"`
+	EndCampaign          *Link `json:"endCampaign,omitempty"`
+	Reviews              Link  `json:"reviews"`
+	Self                 Link  `json:"self"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -46,10 +46,8 @@ type _CampaignLinks CampaignLinks
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCampaignLinks(launchCampaign Link, endCampaign Link, reviews Link, self Link) *CampaignLinks {
+func NewCampaignLinks(reviews Link, self Link) *CampaignLinks {
 	this := CampaignLinks{}
-	this.LaunchCampaign = launchCampaign
-	this.EndCampaign = endCampaign
 	this.Reviews = reviews
 	this.Self = self
 	return &this
@@ -63,52 +61,68 @@ func NewCampaignLinksWithDefaults() *CampaignLinks {
 	return &this
 }
 
-// GetLaunchCampaign returns the LaunchCampaign field value
+// GetLaunchCampaign returns the LaunchCampaign field value if set, zero value otherwise.
 func (o *CampaignLinks) GetLaunchCampaign() Link {
-	if o == nil {
+	if o == nil || IsNil(o.LaunchCampaign) {
 		var ret Link
 		return ret
 	}
-
-	return o.LaunchCampaign
+	return *o.LaunchCampaign
 }
 
-// GetLaunchCampaignOk returns a tuple with the LaunchCampaign field value
+// GetLaunchCampaignOk returns a tuple with the LaunchCampaign field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CampaignLinks) GetLaunchCampaignOk() (*Link, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.LaunchCampaign) {
 		return nil, false
 	}
-	return &o.LaunchCampaign, true
+	return o.LaunchCampaign, true
 }
 
-// SetLaunchCampaign sets field value
+// HasLaunchCampaign returns a boolean if a field has been set.
+func (o *CampaignLinks) HasLaunchCampaign() bool {
+	if o != nil && !IsNil(o.LaunchCampaign) {
+		return true
+	}
+
+	return false
+}
+
+// SetLaunchCampaign gets a reference to the given Link and assigns it to the LaunchCampaign field.
 func (o *CampaignLinks) SetLaunchCampaign(v Link) {
-	o.LaunchCampaign = v
+	o.LaunchCampaign = &v
 }
 
-// GetEndCampaign returns the EndCampaign field value
+// GetEndCampaign returns the EndCampaign field value if set, zero value otherwise.
 func (o *CampaignLinks) GetEndCampaign() Link {
-	if o == nil {
+	if o == nil || IsNil(o.EndCampaign) {
 		var ret Link
 		return ret
 	}
-
-	return o.EndCampaign
+	return *o.EndCampaign
 }
 
-// GetEndCampaignOk returns a tuple with the EndCampaign field value
+// GetEndCampaignOk returns a tuple with the EndCampaign field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CampaignLinks) GetEndCampaignOk() (*Link, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.EndCampaign) {
 		return nil, false
 	}
-	return &o.EndCampaign, true
+	return o.EndCampaign, true
 }
 
-// SetEndCampaign sets field value
+// HasEndCampaign returns a boolean if a field has been set.
+func (o *CampaignLinks) HasEndCampaign() bool {
+	if o != nil && !IsNil(o.EndCampaign) {
+		return true
+	}
+
+	return false
+}
+
+// SetEndCampaign gets a reference to the given Link and assigns it to the EndCampaign field.
 func (o *CampaignLinks) SetEndCampaign(v Link) {
-	o.EndCampaign = v
+	o.EndCampaign = &v
 }
 
 // GetReviews returns the Reviews field value
@@ -169,8 +183,12 @@ func (o CampaignLinks) MarshalJSON() ([]byte, error) {
 
 func (o CampaignLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["launchCampaign"] = o.LaunchCampaign
-	toSerialize["endCampaign"] = o.EndCampaign
+	if !IsNil(o.LaunchCampaign) {
+		toSerialize["launchCampaign"] = o.LaunchCampaign
+	}
+	if !IsNil(o.EndCampaign) {
+		toSerialize["endCampaign"] = o.EndCampaign
+	}
 	toSerialize["reviews"] = o.Reviews
 	toSerialize["self"] = o.Self
 
@@ -186,8 +204,6 @@ func (o *CampaignLinks) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"launchCampaign",
-		"endCampaign",
 		"reviews",
 		"self",
 	}

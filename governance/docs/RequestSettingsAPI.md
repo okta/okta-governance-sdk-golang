@@ -4,9 +4,9 @@ All URIs are relative to *https://subdomain.okta.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetOrgRequestSettingsV2**](RequestSettingsAPI.md#GetOrgRequestSettingsV2) | **Get** /governance/api/v2/request-settings | Retrieve the request settings for the organization
-[**GetRequestSettingsV2**](RequestSettingsAPI.md#GetRequestSettingsV2) | **Get** /governance/api/v2/resources/{resourceId}/request-settings | Retrieve the request settings for a resource
-[**UpdateOrgRequestSettingsV2**](RequestSettingsAPI.md#UpdateOrgRequestSettingsV2) | **Patch** /governance/api/v2/request-settings | Update the request settings for the organization
+[**GetOrgRequestSettingsV2**](RequestSettingsAPI.md#GetOrgRequestSettingsV2) | **Get** /governance/api/v2/request-settings | Retrieve the org request settings
+[**GetRequestSettingsV2**](RequestSettingsAPI.md#GetRequestSettingsV2) | **Get** /governance/api/v2/resources/{resourceId}/request-settings | Retrieve the resource request settings
+[**UpdateOrgRequestSettingsV2**](RequestSettingsAPI.md#UpdateOrgRequestSettingsV2) | **Patch** /governance/api/v2/request-settings | Update the org request settings
 [**UpdateResourceRequestSettingsV2**](RequestSettingsAPI.md#UpdateResourceRequestSettingsV2) | **Patch** /governance/api/v2/resources/{resourceId}/request-settings | Update the resource request settings
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > OrgRequestSettings GetOrgRequestSettingsV2(ctx).Execute()
 
-Retrieve the request settings for the organization
+Retrieve the org request settings
 
 
 
@@ -76,7 +76,7 @@ Other parameters are passed through a pointer to a apiGetOrgRequestSettingsV2Req
 
 > RequestSettings GetRequestSettingsV2(ctx, resourceId).Execute()
 
-Retrieve the request settings for a resource
+Retrieve the resource request settings
 
 
 
@@ -93,7 +93,7 @@ import (
 )
 
 func main() {
-	resourceId := "resourceId_example" // string | The `id` of the resource in Okta ID format or ORN format
+	resourceId := "resourceId_example" // string | Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -113,7 +113,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**resourceId** | **string** | The &#x60;id&#x60; of the resource in Okta ID format or ORN format | 
+**resourceId** | **string** | Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) | 
 
 ### Other Parameters
 
@@ -146,7 +146,7 @@ Name | Type | Description  | Notes
 
 > OrgRequestSettingsPatchable UpdateOrgRequestSettingsV2(ctx).OrgRequestSettingsPatchable(orgRequestSettingsPatchable).Execute()
 
-Update the request settings for the organization
+Update the org request settings
 
 
 
@@ -163,7 +163,7 @@ import (
 )
 
 func main() {
-	orgRequestSettingsPatchable := *openapiclient.NewOrgRequestSettingsPatchable(false) // OrgRequestSettingsPatchable | 
+	orgRequestSettingsPatchable := *openapiclient.NewOrgRequestSettingsPatchable() // OrgRequestSettingsPatchable | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -229,7 +229,7 @@ import (
 )
 
 func main() {
-	resourceId := "resourceId_example" // string | The `id` of the resource in Okta ID format or ORN format
+	resourceId := "resourceId_example" // string | Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)
 	resourceRequestSettingsPatchable := *openapiclient.NewResourceRequestSettingsPatchable() // ResourceRequestSettingsPatchable | 
 
 	configuration := openapiclient.NewConfiguration()
@@ -250,7 +250,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**resourceId** | **string** | The &#x60;id&#x60; of the resource in Okta ID format or ORN format | 
+**resourceId** | **string** | Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) | 
 
 ### Other Parameters
 

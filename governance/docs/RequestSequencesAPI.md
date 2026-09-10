@@ -99,7 +99,7 @@ import (
 )
 
 func main() {
-	resourceId := "resourceId_example" // string | The `id` of the resource in Okta ID format or ORN format
+	resourceId := "resourceId_example" // string | Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)
 	sequenceId := "sequenceId_example" // string | The `id` of the sequence
 
 	configuration := openapiclient.NewConfiguration()
@@ -120,7 +120,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**resourceId** | **string** | The &#x60;id&#x60; of the resource in Okta ID format or ORN format | 
+**resourceId** | **string** | Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) | 
 **sequenceId** | **string** | The &#x60;id&#x60; of the sequence | 
 
 ### Other Parameters
@@ -172,7 +172,7 @@ import (
 )
 
 func main() {
-	resourceId := "resourceId_example" // string | The `id` of the resource in Okta ID format or ORN format
+	resourceId := "resourceId_example" // string | Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -192,7 +192,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**resourceId** | **string** | The &#x60;id&#x60; of the resource in Okta ID format or ORN format | 
+**resourceId** | **string** | Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) | 
 
 ### Other Parameters
 

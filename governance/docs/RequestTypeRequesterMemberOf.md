@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** |  | 
-**RequesterMemberOf** | **[]string** | Okta groups the user persona must be a member of | 
-**RequesterFields** | Pointer to [**[]Field**](Field.md) | A list of fields with which to gather input. The order of the field object controls the order with which the fields are presented to users. | [optional] [default to []]
+**RequesterMemberOf** | **[]string** | Okta groups that the user persona must be a member of | 
+**RequesterFields** | Pointer to [**[]Field**](Field.md) | A list of fields to gather input. The order of the fields in the array controls the order that the fields are presented to users. | [optional] [default to []]
 
 ## Methods
 

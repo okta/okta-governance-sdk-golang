@@ -31,9 +31,9 @@ import (
 // checks if the ServerExtendedMessage type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ServerExtendedMessage{}
 
-// ServerExtendedMessage An extended version of server message which includes few additional properties.
+// ServerExtendedMessage An extended version of the server message that includes a few additional properties
 type ServerExtendedMessage struct {
-	// Server message with detailed content.
+	// Server message with detailed content
 	Message string `json:"message"`
 	// Dynamic arguments, used to construct the whole message, are supplied as an array of values.
 	Args []ServerMessageArgument `json:"args,omitempty"`

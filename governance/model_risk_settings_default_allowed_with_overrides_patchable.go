@@ -34,7 +34,7 @@ var _ MappedNullable = &RiskSettingsDefaultAllowedWithOverridesPatchable{}
 // RiskSettingsDefaultAllowedWithOverridesPatchable Risk settings where request submission is allowed with specified approval sequence and optional access duration settings
 type RiskSettingsDefaultAllowedWithOverridesPatchable struct {
 	RequestSubmissionType string `json:"requestSubmissionType"`
-	// The ID of the approval sequence
+	// Unique identifier for the approval sequence
 	ApprovalSequenceId     string                                  `json:"approvalSequenceId"`
 	AccessDurationSettings NullableAccessDurationSettingsPatchable `json:"accessDurationSettings,omitempty"`
 	AdditionalProperties   map[string]interface{}

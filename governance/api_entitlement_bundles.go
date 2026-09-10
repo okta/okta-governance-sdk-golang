@@ -58,7 +58,7 @@ type EntitlementBundlesAPI interface {
 
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param entitlementBundleId The `id` of the entitlement bundle
+		@param entitlementBundleId Unique identifier for the entitlement bundle
 		@return ApiDeleteEntitlementBundleRequest
 	*/
 	DeleteEntitlementBundle(ctx context.Context, entitlementBundleId string) ApiDeleteEntitlementBundleRequest
@@ -72,7 +72,7 @@ type EntitlementBundlesAPI interface {
 		Retrieves the full representation of a entitlement bundle
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param entitlementBundleId The `id` of the entitlement bundle
+		@param entitlementBundleId Unique identifier for the entitlement bundle
 		@return ApiGetEntitlementBundleRequest
 	*/
 	GetEntitlementBundle(ctx context.Context, entitlementBundleId string) ApiGetEntitlementBundleRequest
@@ -104,7 +104,7 @@ type EntitlementBundlesAPI interface {
 
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param entitlementBundleId The `id` of the entitlement bundle
+			@param entitlementBundleId Unique identifier for the entitlement bundle
 			@return ApiReplaceEntitlementBundleRequest
 	*/
 	ReplaceEntitlementBundle(ctx context.Context, entitlementBundleId string) ApiReplaceEntitlementBundleRequest
@@ -332,7 +332,7 @@ DeleteEntitlementBundle Delete an entitlement bundle
 # Deletes a entitlement bundle
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param entitlementBundleId The `id` of the entitlement bundle
+	@param entitlementBundleId Unique identifier for the entitlement bundle
 	@return ApiDeleteEntitlementBundleRequest
 */
 func (a *EntitlementBundlesAPIService) DeleteEntitlementBundle(ctx context.Context, entitlementBundleId string) ApiDeleteEntitlementBundleRequest {
@@ -528,7 +528,7 @@ GetEntitlementBundle Retrieve an entitlement bundle
 Retrieves the full representation of a entitlement bundle
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param entitlementBundleId The `id` of the entitlement bundle
+	@param entitlementBundleId Unique identifier for the entitlement bundle
 	@return ApiGetEntitlementBundleRequest
 */
 func (a *EntitlementBundlesAPIService) GetEntitlementBundle(ctx context.Context, entitlementBundleId string) ApiGetEntitlementBundleRequest {
@@ -723,7 +723,7 @@ type ApiListEntitlementBundlesRequest struct {
 	retryCount int32
 }
 
-// A [filter](https://developer.okta.com/docs/api/#filter) expression that returns entries based on the following properties and supported operators: * &#x60;id&#x60;: supports &#x60;gt&#x60; * &#x60;lastUpdated&#x60;: supports &#x60;gt&#x60;, &#x60;ge&#x60;, &#x60;le&#x60;, and &#x60;lt&#x60; * &#x60;targetResourceOrn&#x60;: supports &#x60;eq&#x60; * &#x60;target.externalId&#x60;:  supports &#x60;eq&#x60; * &#x60;target.type&#x60;:  supports &#x60;eq&#x60; * &#x60;status&#x60;:  supports &#x60;eq&#x60; * &#x60;name&#x60;:  supports &#x60;eq&#x60; and &#x60;co&#x60;  &gt; **Note:** Query parameter percent encoding is required. See [Special characters](https://developer.okta.com/docs/api/#special-characters).
+// A [filter](https://developer.okta.com/docs/api/#filter) expression that returns entries based on the following properties and supported operators: * &#x60;id&#x60;: supports &#x60;eq&#x60;, &#x60;gt&#x60; * &#x60;lastUpdated&#x60;: supports &#x60;gt&#x60;, &#x60;ge&#x60;, &#x60;le&#x60;, and &#x60;lt&#x60; * &#x60;targetResourceOrn&#x60;: supports &#x60;eq&#x60; * &#x60;target.externalId&#x60;:  supports &#x60;eq&#x60; * &#x60;target.type&#x60;:  supports &#x60;eq&#x60; * &#x60;status&#x60;:  supports &#x60;eq&#x60; * &#x60;name&#x60;:  supports &#x60;eq&#x60; and &#x60;co&#x60;  &gt; **Note:** Query parameter percent encoding is required. See [Special characters](https://developer.okta.com/docs/api/#special-characters).
 func (r ApiListEntitlementBundlesRequest) Filter(filter string) ApiListEntitlementBundlesRequest {
 	r.filter = &filter
 	return r
@@ -994,7 +994,7 @@ Replaces an entitlement bundle's name, description or entitlements.
 Entitlement updates will be applied to existing grants referencing this bundle and may change principal entitlements.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param entitlementBundleId The `id` of the entitlement bundle
+	@param entitlementBundleId Unique identifier for the entitlement bundle
 	@return ApiReplaceEntitlementBundleRequest
 */
 func (a *EntitlementBundlesAPIService) ReplaceEntitlementBundle(ctx context.Context, entitlementBundleId string) ApiReplaceEntitlementBundleRequest {

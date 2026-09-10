@@ -33,7 +33,7 @@ var _ MappedNullable = &TeamsArrayFullInner{}
 
 // TeamsArrayFullInner struct for TeamsArrayFullInner
 type TeamsArrayFullInner struct {
-	// The access request team `id`.
+	// Unique identifier for the access request team
 	Id                   string `json:"id" validate:"regexp=^[a-fA-F\\\\d]{24}$"`
 	AdditionalProperties map[string]interface{}
 }

@@ -10,6 +10,10 @@ Name | Type | Description | Notes
 **ExternalId** | Pointer to **string** | The read-only ID of an entitlement property value in the downstream app | [optional] 
 **Description** | Pointer to **string** | The description of an entitlement value | [optional] 
 **Orn** | Pointer to **string** | The entitlement value resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) | [optional] 
+**CreatedBy** | Pointer to **string** | The &#x60;id&#x60; of the Okta user who created the resource | [optional] [readonly] 
+**Created** | Pointer to **time.Time** | The ISO 8601 formatted date and time when the resource was created | [optional] [readonly] 
+**LastUpdated** | Pointer to **time.Time** | The ISO 8601 formatted date and time when the object was last updated | [optional] [readonly] 
+**LastUpdatedBy** | Pointer to **string** | The &#x60;id&#x60; of the Okta user who last updated the object | [optional] [readonly] 
 
 ## Methods
 
@@ -179,6 +183,106 @@ SetOrn sets Orn field to given value.
 `func (o *EntitlementValueFull) HasOrn() bool`
 
 HasOrn returns a boolean if a field has been set.
+
+### GetCreatedBy
+
+`func (o *EntitlementValueFull) GetCreatedBy() string`
+
+GetCreatedBy returns the CreatedBy field if non-nil, zero value otherwise.
+
+### GetCreatedByOk
+
+`func (o *EntitlementValueFull) GetCreatedByOk() (*string, bool)`
+
+GetCreatedByOk returns a tuple with the CreatedBy field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatedBy
+
+`func (o *EntitlementValueFull) SetCreatedBy(v string)`
+
+SetCreatedBy sets CreatedBy field to given value.
+
+### HasCreatedBy
+
+`func (o *EntitlementValueFull) HasCreatedBy() bool`
+
+HasCreatedBy returns a boolean if a field has been set.
+
+### GetCreated
+
+`func (o *EntitlementValueFull) GetCreated() time.Time`
+
+GetCreated returns the Created field if non-nil, zero value otherwise.
+
+### GetCreatedOk
+
+`func (o *EntitlementValueFull) GetCreatedOk() (*time.Time, bool)`
+
+GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreated
+
+`func (o *EntitlementValueFull) SetCreated(v time.Time)`
+
+SetCreated sets Created field to given value.
+
+### HasCreated
+
+`func (o *EntitlementValueFull) HasCreated() bool`
+
+HasCreated returns a boolean if a field has been set.
+
+### GetLastUpdated
+
+`func (o *EntitlementValueFull) GetLastUpdated() time.Time`
+
+GetLastUpdated returns the LastUpdated field if non-nil, zero value otherwise.
+
+### GetLastUpdatedOk
+
+`func (o *EntitlementValueFull) GetLastUpdatedOk() (*time.Time, bool)`
+
+GetLastUpdatedOk returns a tuple with the LastUpdated field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLastUpdated
+
+`func (o *EntitlementValueFull) SetLastUpdated(v time.Time)`
+
+SetLastUpdated sets LastUpdated field to given value.
+
+### HasLastUpdated
+
+`func (o *EntitlementValueFull) HasLastUpdated() bool`
+
+HasLastUpdated returns a boolean if a field has been set.
+
+### GetLastUpdatedBy
+
+`func (o *EntitlementValueFull) GetLastUpdatedBy() string`
+
+GetLastUpdatedBy returns the LastUpdatedBy field if non-nil, zero value otherwise.
+
+### GetLastUpdatedByOk
+
+`func (o *EntitlementValueFull) GetLastUpdatedByOk() (*string, bool)`
+
+GetLastUpdatedByOk returns a tuple with the LastUpdatedBy field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLastUpdatedBy
+
+`func (o *EntitlementValueFull) SetLastUpdatedBy(v string)`
+
+SetLastUpdatedBy sets LastUpdatedBy field to given value.
+
+### HasLastUpdatedBy
+
+`func (o *EntitlementValueFull) HasLastUpdatedBy() bool`
+
+HasLastUpdatedBy returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

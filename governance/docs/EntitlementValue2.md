@@ -5,22 +5,26 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | [**EntitlementLink**](EntitlementLink.md) |  | 
-**Id** | **string** | The &#x60;id&#x60; of the entitlement value | 
+**Id** | **string** | Unique identifier for the object | 
 **Name** | **string** | The display name for an entitlement value | 
 **ExternalValue** | **string** | The value of an entitlement property value | 
 **ExternalId** | Pointer to **string** | The read-only ID of an entitlement property value in the downstream app | [optional] 
 **Description** | Pointer to **string** | The description of an entitlement value | [optional] 
 **Orn** | **string** | The entitlement value resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) | 
 **EntitlementId** | **string** | The &#x60;id&#x60; property of an entitlement | 
-**ParentResourceOrn** | **string** | The Okta resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for [supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources). | 
+**ParentResourceOrn** | **string** | The Okta resource in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)  See the ORN format for [supported resources](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).  | 
 **Parent** | [**TargetResource**](TargetResource.md) |  | 
+**CreatedBy** | **string** | The &#x60;id&#x60; of the Okta user who created the resource | [readonly] 
+**Created** | **time.Time** | The ISO 8601 formatted date and time when the resource was created | [readonly] 
+**LastUpdated** | **time.Time** | The ISO 8601 formatted date and time when the object was last updated | [readonly] 
+**LastUpdatedBy** | **string** | The &#x60;id&#x60; of the Okta user who last updated the object | [readonly] 
 **Labels** | Pointer to [**[]Label**](Label.md) | List of assigned labels | [optional] 
 
 ## Methods
 
 ### NewEntitlementValue2
 
-`func NewEntitlementValue2(links EntitlementLink, id string, name string, externalValue string, orn string, entitlementId string, parentResourceOrn string, parent TargetResource, ) *EntitlementValue2`
+`func NewEntitlementValue2(links EntitlementLink, id string, name string, externalValue string, orn string, entitlementId string, parentResourceOrn string, parent TargetResource, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, ) *EntitlementValue2`
 
 NewEntitlementValue2 instantiates a new EntitlementValue2 object
 This constructor will assign default values to properties that have it defined,
@@ -243,6 +247,86 @@ and a boolean to check if the value has been set.
 `func (o *EntitlementValue2) SetParent(v TargetResource)`
 
 SetParent sets Parent field to given value.
+
+
+### GetCreatedBy
+
+`func (o *EntitlementValue2) GetCreatedBy() string`
+
+GetCreatedBy returns the CreatedBy field if non-nil, zero value otherwise.
+
+### GetCreatedByOk
+
+`func (o *EntitlementValue2) GetCreatedByOk() (*string, bool)`
+
+GetCreatedByOk returns a tuple with the CreatedBy field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatedBy
+
+`func (o *EntitlementValue2) SetCreatedBy(v string)`
+
+SetCreatedBy sets CreatedBy field to given value.
+
+
+### GetCreated
+
+`func (o *EntitlementValue2) GetCreated() time.Time`
+
+GetCreated returns the Created field if non-nil, zero value otherwise.
+
+### GetCreatedOk
+
+`func (o *EntitlementValue2) GetCreatedOk() (*time.Time, bool)`
+
+GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreated
+
+`func (o *EntitlementValue2) SetCreated(v time.Time)`
+
+SetCreated sets Created field to given value.
+
+
+### GetLastUpdated
+
+`func (o *EntitlementValue2) GetLastUpdated() time.Time`
+
+GetLastUpdated returns the LastUpdated field if non-nil, zero value otherwise.
+
+### GetLastUpdatedOk
+
+`func (o *EntitlementValue2) GetLastUpdatedOk() (*time.Time, bool)`
+
+GetLastUpdatedOk returns a tuple with the LastUpdated field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLastUpdated
+
+`func (o *EntitlementValue2) SetLastUpdated(v time.Time)`
+
+SetLastUpdated sets LastUpdated field to given value.
+
+
+### GetLastUpdatedBy
+
+`func (o *EntitlementValue2) GetLastUpdatedBy() string`
+
+GetLastUpdatedBy returns the LastUpdatedBy field if non-nil, zero value otherwise.
+
+### GetLastUpdatedByOk
+
+`func (o *EntitlementValue2) GetLastUpdatedByOk() (*string, bool)`
+
+GetLastUpdatedByOk returns a tuple with the LastUpdatedBy field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLastUpdatedBy
+
+`func (o *EntitlementValue2) SetLastUpdatedBy(v string)`
+
+SetLastUpdatedBy sets LastUpdatedBy field to given value.
 
 
 ### GetLabels

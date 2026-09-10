@@ -32,7 +32,7 @@ var _ MappedNullable = &WritableStandardProperties{}
 
 // WritableStandardProperties struct for WritableStandardProperties
 type WritableStandardProperties struct {
-	// Writable unique key on Create. Not modifiable on update.
+	// A user-defined unique key that's set during the create operation and can't be updated afterwards
 	Name *string `json:"name,omitempty"`
 	// Human readable description
 	Description          *string `json:"description,omitempty"`

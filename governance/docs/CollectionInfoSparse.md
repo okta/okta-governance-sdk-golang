@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** | collection id | 
-**Name** | **string** | name of the collection | 
+**Id** | **string** | Unique identifier of the collection | 
+**Name** | **string** | Name of the collection | 
 
 ## Methods
 

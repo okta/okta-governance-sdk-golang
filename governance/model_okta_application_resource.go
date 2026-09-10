@@ -33,7 +33,7 @@ var _ MappedNullable = &OktaApplicationResource{}
 
 // OktaApplicationResource Identifies a unique Okta resource
 type OktaApplicationResource struct {
-	// An Okta app ID.  See [list apps](https://developer.okta.com/docs/reference/api/apps/#list-applications) endpoint for reference on how to retrieve app ids.
+	// An Okta app ID  See [List all apps](https://developer.okta.com/docs/api/openapi/okta-management/management/tags/application/other/listapplications) endpoint for more information on how to retrieve app IDs.
 	ResourceId           string `json:"resourceId" validate:"regexp=0oa[0-9a-zA-Z]+"`
 	AdditionalProperties map[string]interface{}
 }

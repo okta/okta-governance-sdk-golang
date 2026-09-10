@@ -50,9 +50,9 @@ type ResourceOwnersAPI interface {
 	ConfigureResourceOwnersExecute(r ApiConfigureResourceOwnersRequest) (*ResourceOwnersResponse, *APIResponse, error)
 
 	/*
-			ListResourceOwnerCatalogResources List all resources without owners
+			ListResourceOwnerCatalogResources List all unowned resources
 
-			Lists all resources without assigned owners for an app (the parent resource).
+			Lists all unowned resources for an app (the parent resource).
 
 		For this request, you must specify the `filter` query parameter with a `parentResourceOrn` filter expression.
 		This method returns all the resources for an app, such as entitlements or entitlement bundles, that don't have owners assigned.
@@ -69,11 +69,12 @@ type ResourceOwnersAPI interface {
 	/*
 			ListResourceOwners List all resources with owners
 
-			Lists all resources with assigned owners for an app (the parent resource).
+			Lists all resources with assigned owners for an app (the parent resource) or for standalone AI agents.
 
-		For this request, you must specify the `filter` query parameter with either a `parentResourceOrn` (for apps, groups, entitlements, and bundles)
-		or a `resource.orn` filter expression (for `collections` resource type).
-		This method returns all the resources, such as entitlements or entitlement bundles, that have owners assigned.
+		For this request, you must specify the `filter` query parameter with either a `parentResourceOrn` (for apps, entitlements, and bundles),
+		a `resource.orn` filter expression (for `collections` resource type),
+		or `resource.type eq "ai-agents"` (for AI agents, optionally combined with `parentResourceOrn` to scope to a specific AI agent or `principal.orn` to filter by owner).
+		This method returns all the resources, such as entitlements, entitlement bundles, or AI agents, that have owners assigned.
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@return ApiListResourceOwnersRequest
@@ -319,7 +320,7 @@ func (r ApiListResourceOwnerCatalogResourcesRequest) Limit(limit int32) ApiListR
 	return r
 }
 
-// The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request.
+// Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination).
 func (r ApiListResourceOwnerCatalogResourcesRequest) After(after string) ApiListResourceOwnerCatalogResourcesRequest {
 	r.after = &after
 	return r
@@ -330,9 +331,9 @@ func (r ApiListResourceOwnerCatalogResourcesRequest) Execute() (*ResourceOwnersC
 }
 
 /*
-ListResourceOwnerCatalogResources List all resources without owners
+ListResourceOwnerCatalogResources List all unowned resources
 
-Lists all resources without assigned owners for an app (the parent resource).
+Lists all unowned resources for an app (the parent resource).
 
 For this request, you must specify the `filter` query parameter with a `parentResourceOrn` filter expression.
 This method returns all the resources for an app, such as entitlements or entitlement bundles, that don't have owners assigned.
@@ -528,7 +529,7 @@ type ApiListResourceOwnersRequest struct {
 	retryCount int32
 }
 
-// A [filter](https://developer.okta.com/docs/api/#filter) expression that returns entries based on the following properties and supported operators: * &#x60;parentResourceOrn&#x60;: supports &#x60;eq&#x60; * &#x60;resource.orn&#x60;: supports &#x60;eq&#x60; * &#x60;resource.type&#x60;: supports &#x60;eq&#x60; * &#x60;resource.profile.name&#x60;:  supports &#x60;sw&#x60; and &#x60;co&#x60; (both &#x60;parentResourceOrn&#x60; and &#x60;resource.type&#x60; filters are required for &#x60;resource.profile.name&#x60; filtering)  &gt; **Note:** Query parameter percent encoding is required. See [Special characters](https://developer.okta.com/docs/api/#special-characters).
+// A [filter](https://developer.okta.com/docs/api/#filter) expression that returns entries based on the following properties and supported operators: * &#x60;parentResourceOrn&#x60;: supports &#x60;eq&#x60; * &#x60;resource.orn&#x60;: supports &#x60;eq&#x60; * &#x60;resource.type&#x60;: supports &#x60;eq&#x60; * &#x60;resource.profile.name&#x60;:  supports &#x60;sw&#x60; and &#x60;co&#x60; (both &#x60;parentResourceOrn&#x60; and &#x60;resource.type&#x60; filters are required for &#x60;resource.profile.name&#x60; filtering) * &#x60;principal.orn&#x60;: supports &#x60;eq&#x60; (must be combined with &#x60;resource.type eq \&quot;ai-agents\&quot;&#x60;)  &gt; **Note:** Query parameter percent encoding is required. See [Special characters](https://developer.okta.com/docs/api/#special-characters).  &gt; **Note:** The principal referenced by &#x60;principal.orn&#x60; must already exist as a registered resource owner in the system. If the principal has never been assigned as an owner, the API returns a &#x60;400&#x60; error rather than an empty result set.
 func (r ApiListResourceOwnersRequest) Filter(filter string) ApiListResourceOwnersRequest {
 	r.filter = &filter
 	return r
@@ -540,7 +541,7 @@ func (r ApiListResourceOwnersRequest) Limit(limit int32) ApiListResourceOwnersRe
 	return r
 }
 
-// The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request.
+// Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination).
 func (r ApiListResourceOwnersRequest) After(after string) ApiListResourceOwnersRequest {
 	r.after = &after
 	return r
@@ -559,11 +560,12 @@ func (r ApiListResourceOwnersRequest) Execute() (*ResourceOwnersListResponse, *A
 /*
 ListResourceOwners List all resources with owners
 
-Lists all resources with assigned owners for an app (the parent resource).
+Lists all resources with assigned owners for an app (the parent resource) or for standalone AI agents.
 
-For this request, you must specify the `filter` query parameter with either a `parentResourceOrn` (for apps, groups, entitlements, and bundles)
-or a `resource.orn` filter expression (for `collections` resource type).
-This method returns all the resources, such as entitlements or entitlement bundles, that have owners assigned.
+For this request, you must specify the `filter` query parameter with either a `parentResourceOrn` (for apps, entitlements, and bundles),
+a `resource.orn` filter expression (for `collections` resource type),
+or `resource.type eq "ai-agents"` (for AI agents, optionally combined with `parentResourceOrn` to scope to a specific AI agent or `principal.orn` to filter by owner).
+This method returns all the resources, such as entitlements, entitlement bundles, or AI agents, that have owners assigned.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiListResourceOwnersRequest

@@ -168,7 +168,7 @@ import (
 )
 
 func main() {
-	labelId := "labelId_example" // string | The ID of the label
+	labelId := "labelId_example" // string | Unique identifier for the label
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -186,7 +186,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**labelId** | **string** | The ID of the label | 
+**labelId** | **string** | Unique identifier for the label | 
 
 ### Other Parameters
 
@@ -236,7 +236,7 @@ import (
 )
 
 func main() {
-	labelId := "labelId_example" // string | The ID of the label
+	labelId := "labelId_example" // string | Unique identifier for the label
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -256,7 +256,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**labelId** | **string** | The ID of the label | 
+**labelId** | **string** | Unique identifier for the label | 
 
 ### Other Parameters
 
@@ -308,7 +308,7 @@ import (
 func main() {
 	filter := "orn eq "orn:okta:idp:00o11edPwGqbUrsDm0g4:apps:oidc:0oafxqCAJWWGELFTYASJ"" // string | A [filter](https://developer.okta.com/docs/api/#filter) expression that returns entries based on the following properties and supported operators: * `orn`:  supports `eq` * `labelValueId`: supports `eq` * `resourceType`: supports `eq` (The `resourceType` value is taken from the `{objectType}` attribute in the resource [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn). For example, `entitlement-values` for entitlement value resources.)  > **Note:** Query parameter percent encoding is required. See [Special characters](https://developer.okta.com/docs/api/#special-characters). 
 	limit := int32(56) // int32 | The maximum number of records returned in a response (optional) (default to 20)
-	after := "00u68w6vzKLultXS97g6" // string | The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request. (optional)
+	after := "00u68w6vzKLultXS97g6" // string | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination). (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -335,7 +335,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **filter** | **string** | A [filter](https://developer.okta.com/docs/api/#filter) expression that returns entries based on the following properties and supported operators: * &#x60;orn&#x60;:  supports &#x60;eq&#x60; * &#x60;labelValueId&#x60;: supports &#x60;eq&#x60; * &#x60;resourceType&#x60;: supports &#x60;eq&#x60; (The &#x60;resourceType&#x60; value is taken from the &#x60;{objectType}&#x60; attribute in the resource [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn). For example, &#x60;entitlement-values&#x60; for entitlement value resources.)  &gt; **Note:** Query parameter percent encoding is required. See [Special characters](https://developer.okta.com/docs/api/#special-characters).  | 
  **limit** | **int32** | The maximum number of records returned in a response | [default to 20]
- **after** | **string** | The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request. | 
+ **after** | **string** | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination). | 
 
 ### Return type
 
@@ -506,7 +506,7 @@ import (
 )
 
 func main() {
-	labelId := "labelId_example" // string | The ID of the label
+	labelId := "labelId_example" // string | Unique identifier for the label
 	patchLabelsInner := []openapiclient.PatchLabelsInner{openapiclient.patch_labels_inner{PatchLabelOperation: openapiclient.NewPatchLabelOperation(openapiclient.label-patch-op("REPLACE"), "Path_example", "RefType_example")}} // []PatchLabelsInner | 
 
 	configuration := openapiclient.NewConfiguration()
@@ -527,7 +527,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**labelId** | **string** | The ID of the label | 
+**labelId** | **string** | Unique identifier for the label | 
 
 ### Other Parameters
 

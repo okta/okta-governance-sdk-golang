@@ -25,7 +25,6 @@ package governance
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the ResourceSettingsMutable type satisfies the MappedNullable interface at compile time
@@ -33,8 +32,10 @@ var _ MappedNullable = &ResourceSettingsMutable{}
 
 // ResourceSettingsMutable Resource specific properties
 type ResourceSettingsMutable struct {
-	Type CampaignResourceType `json:"type"`
-	//  Specific resources that are included in the access certification campaign:  * If `resourceSettings.targetResources.resourceType` is `APPLICATION` and the app is enabled with entitlement management, you can also review entitlements and entitlement bundles:     * Review all entitlements and bundles by setting `resourceSettings.targetResources.includeAllEntitlementsAndBundles` to `true` (`false` is set by default).     * Restrict the review to non-policy entitlement grants by setting `resourceSettings.onlyIncludeOutOfPolicyEntitlements` to `true` (`false` is set by default).     * If `resourceSettings.targetResources.includeAllEntitlementsAndBundles` is `false`, then you must specify a list of `resourceSettings.targetResources.entitlementBundles` and/or `resourceSettings.targetResources.entitlements`. * If `resourceSettings.type` is `OKTA_SERVICE_ACCOUNT`, then specify `OKTA_SERVICE_ACCOUNT` as `resourceSettings.targetResources.resourceType`, and `resourceId` as the ID of the Okta service account. * If `resourceSettings.type` is `APP_SERVICE_ACCOUNT`, then specify `APPLICATION` as the `resourceSettings.targetResources.resourceType`, `resourceSettings.targetResources.resourceId` as the ID of the Okta app instance, and add service account IDs into `resourceSettings.targetResources.appServiceAccounts`.
+	Type *CampaignResourceType `json:"type,omitempty"`
+	// Include the list of resource types to be certified in this campaign. * Identity campaigns (`campaignType=USER`) support more than one resource type in the list. * Resource campaigns support one resource type per campaign. See examples for details.
+	TargetTypes []ResourceTargetType `json:"targetTypes,omitempty"`
+	//  Specific resources that are included in the access certification campaign:  * If `resourceSettings.targetResources.resourceType` is `APPLICATION` and the app is enabled with entitlement management, you can also review entitlements and entitlement bundles:     * Review all entitlements and bundles by setting `resourceSettings.targetResources.includeAllEntitlementsAndBundles` to `true` (`false` is set by default).     * Restrict the review to non-policy entitlement grants by setting `resourceSettings.onlyIncludeOutOfPolicyEntitlements` to `true` (`false` is set by default).     * If `resourceSettings.targetResources.includeAllEntitlementsAndBundles` is `false`, then you must specify a list of `resourceSettings.targetResources.entitlementBundles` and/or `resourceSettings.targetResources.entitlements`. * If `resourceSettings.targetTypes` includes `OKTA_SERVICE_ACCOUNT`, then specify `OKTA_SERVICE_ACCOUNT` as `resourceSettings.targetResources.resourceType`, and `resourceId` as the ID of the Okta service account. * If `resourceSettings.targetTypes` includes `APP_SERVICE_ACCOUNT`, then specify `APPLICATION` as the `resourceSettings.targetResources.resourceType`, `resourceSettings.targetResources.resourceId` as the ID of the Okta app instance, and add service account IDs into `resourceSettings.targetResources.appServiceAccounts`.
 	TargetResources []TargetResourcesRequestInner `json:"targetResources,omitempty"`
 	// Only applicable if `campaignType` is `USER`.  A list of resources that are excluded from the review.
 	ExcludedResources []ResourceSettingsMutableExcludedResourcesInner `json:"excludedResources,omitempty"`
@@ -59,9 +60,8 @@ type _ResourceSettingsMutable ResourceSettingsMutable
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewResourceSettingsMutable(type_ CampaignResourceType) *ResourceSettingsMutable {
+func NewResourceSettingsMutable() *ResourceSettingsMutable {
 	this := ResourceSettingsMutable{}
-	this.Type = type_
 	var includeEntitlements bool = false
 	this.IncludeEntitlements = &includeEntitlements
 	return &this
@@ -77,28 +77,68 @@ func NewResourceSettingsMutableWithDefaults() *ResourceSettingsMutable {
 	return &this
 }
 
-// GetType returns the Type field value
+// GetType returns the Type field value if set, zero value otherwise.
 func (o *ResourceSettingsMutable) GetType() CampaignResourceType {
-	if o == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret CampaignResourceType
 		return ret
 	}
-
-	return o.Type
+	return *o.Type
 }
 
-// GetTypeOk returns a tuple with the Type field value
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceSettingsMutable) GetTypeOk() (*CampaignResourceType, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
-	return &o.Type, true
+	return o.Type, true
 }
 
-// SetType sets field value
+// HasType returns a boolean if a field has been set.
+func (o *ResourceSettingsMutable) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given CampaignResourceType and assigns it to the Type field.
 func (o *ResourceSettingsMutable) SetType(v CampaignResourceType) {
-	o.Type = v
+	o.Type = &v
+}
+
+// GetTargetTypes returns the TargetTypes field value if set, zero value otherwise.
+func (o *ResourceSettingsMutable) GetTargetTypes() []ResourceTargetType {
+	if o == nil || IsNil(o.TargetTypes) {
+		var ret []ResourceTargetType
+		return ret
+	}
+	return o.TargetTypes
+}
+
+// GetTargetTypesOk returns a tuple with the TargetTypes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ResourceSettingsMutable) GetTargetTypesOk() ([]ResourceTargetType, bool) {
+	if o == nil || IsNil(o.TargetTypes) {
+		return nil, false
+	}
+	return o.TargetTypes, true
+}
+
+// HasTargetTypes returns a boolean if a field has been set.
+func (o *ResourceSettingsMutable) HasTargetTypes() bool {
+	if o != nil && !IsNil(o.TargetTypes) {
+		return true
+	}
+
+	return false
+}
+
+// SetTargetTypes gets a reference to the given []ResourceTargetType and assigns it to the TargetTypes field.
+func (o *ResourceSettingsMutable) SetTargetTypes(v []ResourceTargetType) {
+	o.TargetTypes = v
 }
 
 // GetTargetResources returns the TargetResources field value if set, zero value otherwise.
@@ -367,7 +407,12 @@ func (o ResourceSettingsMutable) MarshalJSON() ([]byte, error) {
 
 func (o ResourceSettingsMutable) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["type"] = o.Type
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.TargetTypes) {
+		toSerialize["targetTypes"] = o.TargetTypes
+	}
 	if !IsNil(o.TargetResources) {
 		toSerialize["targetResources"] = o.TargetResources
 	}
@@ -401,27 +446,6 @@ func (o ResourceSettingsMutable) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *ResourceSettingsMutable) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"type",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varResourceSettingsMutable := _ResourceSettingsMutable{}
 
 	err = json.Unmarshal(data, &varResourceSettingsMutable)
@@ -436,6 +460,7 @@ func (o *ResourceSettingsMutable) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
+		delete(additionalProperties, "targetTypes")
 		delete(additionalProperties, "targetResources")
 		delete(additionalProperties, "excludedResources")
 		delete(additionalProperties, "individuallyAssignedAppsOnly")

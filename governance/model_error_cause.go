@@ -33,13 +33,13 @@ var _ MappedNullable = &ErrorCause{}
 
 // ErrorCause A specific cause of an error
 type ErrorCause struct {
-	// A more specific summary for the error containing the error cause.
+	// A more specific summary for the error that contains the error cause
 	ErrorSummary string `json:"errorSummary"`
 	// An enumerated value to represent the reason why the error occurred. This enumeration allows codes to adapt to different conditions in which an error code can occur.
 	Reason *string `json:"reason,omitempty"`
-	// A value that represents the key where the error cause occurred. This is used with `locationType` to give a holistic view of where the error cause occurred. For example, if `locationType` is body and the location is username and the reason was UNIQUE_CONSTRAINT, you can derive that the username was already taken.
+	// A value that represents the key where the error cause occurred. This is used with `locationType` to give a holistic view of where the error cause occurred. For example, if `locationType` is `body`, `location` is `username`, and the `reason` was `UNIQUE_CONSTRAINT`, you can derive that the username was already taken.
 	Location *string `json:"location,omitempty"`
-	// A value that represents where the error cause occurred. For example, in the body or header of the request. This value is not required for cases where the request is correct, but there was another reason why the error occurred (server-side state conflict, rate limit violation, and so on)
+	// A value that represents where the error cause occurred. For example, in the body or header of the request. This value isn't required for cases where the request is correct, but there was another reason why the error occurred (server-side state conflict, rate limit violation, and so on).
 	LocationType *string `json:"locationType,omitempty"`
 	// A value that represents the domain of the service in which the error occurs. This value is used to isolate the error cause reason.
 	Domain               *string `json:"domain,omitempty"`

@@ -32,7 +32,7 @@ var _ MappedNullable = &RequestCreatableOnly{}
 
 // RequestCreatableOnly struct for RequestCreatableOnly
 type RequestCreatableOnly struct {
-	// Field values provided when adding the request.  If a request type has required requesterFields, they must be provided when the request is created.  Non-required fields may be omitted when creating the request.
+	// Field values provided when adding the request.  If a request type has required `requesterFields`, they must be provided when the request is created.  Non-required fields may be omitted when creating the request.
 	RequesterFieldValues []FieldValueWritable `json:"requesterFieldValues,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

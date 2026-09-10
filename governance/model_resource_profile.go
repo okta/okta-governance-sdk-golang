@@ -34,9 +34,9 @@ var _ MappedNullable = &ResourceProfile{}
 type ResourceProfile struct {
 	// Okta application instance `id`
 	Id *string `json:"id,omitempty"`
-	// The name of the Okta application
+	// The name of the Okta app
 	Name *string `json:"name,omitempty"`
-	// The label of the Okta application
+	// The label of the Okta app
 	Label *string `json:"label,omitempty"`
 	// List of app logo resources
 	Logo                 []Link `json:"logo,omitempty"`

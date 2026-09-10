@@ -26,6 +26,7 @@ package governance
 import (
 	"encoding/json"
 	"fmt"
+	"time"
 )
 
 // checks if the EntitlementsFullWithParent type satisfies the MappedNullable interface at compile time
@@ -33,14 +34,14 @@ var _ MappedNullable = &EntitlementsFullWithParent{}
 
 // EntitlementsFullWithParent Representation of all entitlement. Entitlement values are optional
 type EntitlementsFullWithParent struct {
-	// The Okta resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for [supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
+	// The Okta resource in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)  See the ORN format for [supported resources](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
 	ParentResourceOrn string         `json:"parentResourceOrn"`
 	Parent            TargetResource `json:"parent"`
-	// Collection of entitlement values.
+	// Collection of entitlement values
 	Values   []EntitlementValueFull `json:"values"`
 	Links    *EntitlementLinks      `json:"_links,omitempty"`
 	Metadata *ListMetadata          `json:"metadata,omitempty"`
-	// The `id` property of an entitlement
+	// Unique identifier for the object
 	Id string `json:"id"`
 	// The display name for an entitlement property
 	Name string `json:"name"`
@@ -48,11 +49,19 @@ type EntitlementsFullWithParent struct {
 	ExternalValue string `json:"externalValue"`
 	// The description of an entitlement property
 	Description *string `json:"description,omitempty"`
-	// Indicate if the entitlement property can hold multiple values. If this property is `true`, then the `dataType` property is set to  `array`.
+	// Indicates if the entitlement property can hold multiple values. If this property is `true`, then the `dataType` property is set to `array`.
 	MultiValue bool `json:"multiValue"`
 	// The property that determines if the entitlement property is a required attribute
-	Required             *bool                       `json:"required,omitempty"`
-	DataType             EntitlementPropertyDatatype `json:"dataType"`
+	Required *bool                       `json:"required,omitempty"`
+	DataType EntitlementPropertyDatatype `json:"dataType"`
+	// The `id` of the Okta user who created the resource
+	CreatedBy string `json:"createdBy"`
+	// The ISO 8601 formatted date and time when the resource was created
+	Created time.Time `json:"created"`
+	// The ISO 8601 formatted date and time when the object was last updated
+	LastUpdated time.Time `json:"lastUpdated"`
+	// The `id` of the Okta user who last updated the object
+	LastUpdatedBy        string `json:"lastUpdatedBy"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -62,13 +71,17 @@ type _EntitlementsFullWithParent EntitlementsFullWithParent
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEntitlementsFullWithParent(parentResourceOrn string, parent TargetResource, values []EntitlementValueFull, id string, name string, externalValue string, multiValue bool, dataType EntitlementPropertyDatatype) *EntitlementsFullWithParent {
+func NewEntitlementsFullWithParent(parentResourceOrn string, parent TargetResource, values []EntitlementValueFull, id string, name string, externalValue string, multiValue bool, dataType EntitlementPropertyDatatype, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string) *EntitlementsFullWithParent {
 	this := EntitlementsFullWithParent{}
 	this.Id = id
 	this.Name = name
 	this.ExternalValue = externalValue
 	this.MultiValue = multiValue
 	this.DataType = dataType
+	this.CreatedBy = createdBy
+	this.Created = created
+	this.LastUpdated = lastUpdated
+	this.LastUpdatedBy = lastUpdatedBy
 	return &this
 }
 
@@ -400,6 +413,102 @@ func (o *EntitlementsFullWithParent) SetDataType(v EntitlementPropertyDatatype) 
 	o.DataType = v
 }
 
+// GetCreatedBy returns the CreatedBy field value
+func (o *EntitlementsFullWithParent) GetCreatedBy() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.CreatedBy
+}
+
+// GetCreatedByOk returns a tuple with the CreatedBy field value
+// and a boolean to check if the value has been set.
+func (o *EntitlementsFullWithParent) GetCreatedByOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.CreatedBy, true
+}
+
+// SetCreatedBy sets field value
+func (o *EntitlementsFullWithParent) SetCreatedBy(v string) {
+	o.CreatedBy = v
+}
+
+// GetCreated returns the Created field value
+func (o *EntitlementsFullWithParent) GetCreated() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.Created
+}
+
+// GetCreatedOk returns a tuple with the Created field value
+// and a boolean to check if the value has been set.
+func (o *EntitlementsFullWithParent) GetCreatedOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Created, true
+}
+
+// SetCreated sets field value
+func (o *EntitlementsFullWithParent) SetCreated(v time.Time) {
+	o.Created = v
+}
+
+// GetLastUpdated returns the LastUpdated field value
+func (o *EntitlementsFullWithParent) GetLastUpdated() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.LastUpdated
+}
+
+// GetLastUpdatedOk returns a tuple with the LastUpdated field value
+// and a boolean to check if the value has been set.
+func (o *EntitlementsFullWithParent) GetLastUpdatedOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.LastUpdated, true
+}
+
+// SetLastUpdated sets field value
+func (o *EntitlementsFullWithParent) SetLastUpdated(v time.Time) {
+	o.LastUpdated = v
+}
+
+// GetLastUpdatedBy returns the LastUpdatedBy field value
+func (o *EntitlementsFullWithParent) GetLastUpdatedBy() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.LastUpdatedBy
+}
+
+// GetLastUpdatedByOk returns a tuple with the LastUpdatedBy field value
+// and a boolean to check if the value has been set.
+func (o *EntitlementsFullWithParent) GetLastUpdatedByOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.LastUpdatedBy, true
+}
+
+// SetLastUpdatedBy sets field value
+func (o *EntitlementsFullWithParent) SetLastUpdatedBy(v string) {
+	o.LastUpdatedBy = v
+}
+
 func (o EntitlementsFullWithParent) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -430,6 +539,10 @@ func (o EntitlementsFullWithParent) ToMap() (map[string]interface{}, error) {
 		toSerialize["required"] = o.Required
 	}
 	toSerialize["dataType"] = o.DataType
+	toSerialize["createdBy"] = o.CreatedBy
+	toSerialize["created"] = o.Created
+	toSerialize["lastUpdated"] = o.LastUpdated
+	toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -451,6 +564,10 @@ func (o *EntitlementsFullWithParent) UnmarshalJSON(data []byte) (err error) {
 		"externalValue",
 		"multiValue",
 		"dataType",
+		"createdBy",
+		"created",
+		"lastUpdated",
+		"lastUpdatedBy",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -492,6 +609,10 @@ func (o *EntitlementsFullWithParent) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "multiValue")
 		delete(additionalProperties, "required")
 		delete(additionalProperties, "dataType")
+		delete(additionalProperties, "createdBy")
+		delete(additionalProperties, "created")
+		delete(additionalProperties, "lastUpdated")
+		delete(additionalProperties, "lastUpdatedBy")
 		o.AdditionalProperties = additionalProperties
 	}
 

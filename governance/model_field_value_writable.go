@@ -31,9 +31,9 @@ import (
 // checks if the FieldValueWritable type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &FieldValueWritable{}
 
-// FieldValueWritable An `id` and `value` corresponding to the `id` of a field in the request type's `requestSettings.requesterFields`.  If the `id` corresponds to a `DATE-TIME` field, the value must an `ISO-8601` date-time. If the `id` corresponds to a `SELECT` field, the value must be an array of strings, where each string is a value from the select field's options. If the `id` corresponds to a `TEXT` field, the value must be a string.  A field `id` must only be provided once, duplicates will result in a `409 Conflict` response.  A non-required field may be omitted from the list.
+// FieldValueWritable An `id` and `value` that corresponds to the `id` of a field in the request type's `requestSettings.requesterFields`.  If the `id` corresponds to a `DATE-TIME` field, the value must be an `ISO-8601` date-time. If the `id` corresponds to a `SELECT` field, the value must be an array of strings where each string is a value from the select field's options. If the `id` corresponds to a `TEXT` field, the value must be a string.  Only provide the field `id` once. Duplicates result in a `409 Conflict` response.  A non-required field may be omitted from the list.
 type FieldValueWritable struct {
-	// The `id` of a `requesterField` in the related request type's `requestSettings.requesterFields`.
+	// The `id` of a `requesterField` in the related request type's `requestSettings.requesterFields`
 	Id                   string                          `json:"id"`
 	Value                FieldValueWritableAllowedValues `json:"value"`
 	AdditionalProperties map[string]interface{}

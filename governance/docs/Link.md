@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Href** | **string** | Link URI | 
 **Type** | Pointer to **string** | The media type of the link. If omitted, it&#39;s implicitly &#x60;application/json&#x60;. | [optional] 
 **Method** | Pointer to **string** |  | [optional] 
-**Templated** | Pointer to **bool** | Indicates whether the link object&#39;s &#x60;href&#x60; property is a URI template. | [optional] 
+**Templated** | Pointer to **bool** | Indicates whether the link object&#39;s &#x60;href&#x60; property is a URI template | [optional] 
 **Hints** | Pointer to **map[string][]string** | Link hints | [optional] 
 **Title** | Pointer to **string** | Link title or label | [optional] 
 

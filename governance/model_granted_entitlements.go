@@ -31,8 +31,9 @@ import (
 // checks if the GrantedEntitlements type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &GrantedEntitlements{}
 
-// GrantedEntitlements struct for GrantedEntitlements
+// GrantedEntitlements Representation of an entitlement granted to a principal, along with the granted values
 type GrantedEntitlements struct {
+	// The entitlement values granted to the principal
 	Values []GrantedEntitlementValue `json:"values"`
 	// The `id` property of an entitlement
 	Id string `json:"id"`
@@ -42,7 +43,7 @@ type GrantedEntitlements struct {
 	ExternalValue string `json:"externalValue"`
 	// The description of an entitlement property
 	Description *string `json:"description,omitempty"`
-	// Indicate if the entitlement property can hold multiple values. If this property is `true`, then the `dataType` property is set to  `array`.
+	// Indicates if the entitlement property can hold multiple values. If this property is `true`, then the `dataType` property is set to `array`.
 	MultiValue bool `json:"multiValue"`
 	// The property that determines if the entitlement property is a required attribute
 	Required             bool                        `json:"required"`

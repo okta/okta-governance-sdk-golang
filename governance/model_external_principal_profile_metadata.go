@@ -30,9 +30,9 @@ import (
 // checks if the ExternalPrincipalProfileMetadata type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ExternalPrincipalProfileMetadata{}
 
-// ExternalPrincipalProfileMetadata Additional metadata about the resource owner, if applicable.
+// ExternalPrincipalProfileMetadata Additional metadata about the resource owner, if applicable
 type ExternalPrincipalProfileMetadata struct {
-	// Total number of users assigned to the group.
+	// Total number of users assigned to the group
 	UserAssignmentCount  *int32 `json:"userAssignmentCount,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

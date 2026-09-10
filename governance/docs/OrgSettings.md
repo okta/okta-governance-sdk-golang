@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Delegates** | Pointer to [**OrgSettingsDelegates**](OrgSettingsDelegates.md) |  | [optional] 
 **GovernanceAI** | Pointer to [**OrgSettingsGovernanceAI**](OrgSettingsGovernanceAI.md) |  | [optional] 
 **Escalations** | Pointer to [**OrgSettingsEscalations**](OrgSettingsEscalations.md) |  | [optional] 
+**Integrations** | Pointer to [**OrgSettingsIntegrations**](OrgSettingsIntegrations.md) |  | [optional] 
 
 ## Methods
 
@@ -101,6 +102,31 @@ SetEscalations sets Escalations field to given value.
 `func (o *OrgSettings) HasEscalations() bool`
 
 HasEscalations returns a boolean if a field has been set.
+
+### GetIntegrations
+
+`func (o *OrgSettings) GetIntegrations() OrgSettingsIntegrations`
+
+GetIntegrations returns the Integrations field if non-nil, zero value otherwise.
+
+### GetIntegrationsOk
+
+`func (o *OrgSettings) GetIntegrationsOk() (*OrgSettingsIntegrations, bool)`
+
+GetIntegrationsOk returns a tuple with the Integrations field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIntegrations
+
+`func (o *OrgSettings) SetIntegrations(v OrgSettingsIntegrations)`
+
+SetIntegrations sets Integrations field to given value.
+
+### HasIntegrations
+
+`func (o *OrgSettings) HasIntegrations() bool`
+
+HasIntegrations returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

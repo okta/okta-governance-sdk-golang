@@ -32,17 +32,17 @@ var _ MappedNullable = &NotificationSettings{}
 
 // NotificationSettings Settings for email notifications to be sent to the reviewers at different stages of a campaign. All properties are optional.
 type NotificationSettings struct {
-	// A Boolean value to indicate whether a notification should be sent to the reviewer when actionable reviews are assigned.
+	// A Boolean value to indicate whether a notification should be sent to the reviewer when actionable reviews are assigned
 	NotifyReviewerWhenReviewAssigned *bool `json:"notifyReviewerWhenReviewAssigned,omitempty"`
-	// A Boolean value to indicate whether a notification should be sent to the reviewers when campaign has come to an end.
+	// A Boolean value to indicate whether a notification should be sent to the reviewers when the campaign has come to an end
 	NotifyReviewerAtCampaignEnd *bool `json:"notifyReviewerAtCampaignEnd,omitempty"`
-	// Specifies, in seconds, the time a reminder is sent to reviewers before the campaign closes. You can send up to three notifications. For example, the following array, `[86400, 172800, 604800]`, sends reminder notifications 7 days, 2 days, and 1 day before the campaign closes. By default, reminders are sent 2 days and 1 day before the campaign closes.
+	// Specifies, in seconds, the time a reminder is sent to reviewers before the campaign closes. You can send up to three notifications For example, this array `[86400, 172800, 604800]` sends reminder notifications seven days, two days, and one day before the campaign closes. By default, reminders are sent two days and one day before the campaign closes.
 	RemindersReviewerBeforeCampaignCloseInSecs []int32 `json:"remindersReviewerBeforeCampaignCloseInSecs,omitempty"`
-	// A boolean value to indicate whether a notification should be sent to the reviewer when reviews are over due.
+	// A Boolean value to indicate whether a notification is sent to the reviewer when reviews are overdue
 	NotifyReviewerWhenOverdue NullableBool `json:"notifyReviewerWhenOverdue,omitempty"`
-	// A boolean value to indicate whether a notification should be sent to the reviewer during the midpoint of the review process.
+	// A Boolean value to indicate whether a notification should be sent to the reviewer during the midpoint of the review process
 	NotifyReviewerDuringMidpointOfReview NullableBool `json:"notifyReviewerDuringMidpointOfReview,omitempty"`
-	// Applicable for multi level campaigns. A boolean value to indicate whether a notification should be sent to the reviewer when a given reviewer level period is about to end.
+	// Applicable for multi-level campaigns. A Boolean value to indicate whether a notification is sent to the reviewer when a given reviewer level period is about to end
 	NotifyReviewPeriodEnd NullableBool `json:"notifyReviewPeriodEnd,omitempty"`
 	AdditionalProperties  map[string]interface{}
 }

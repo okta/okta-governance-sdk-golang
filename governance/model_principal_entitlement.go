@@ -32,12 +32,12 @@ var _ MappedNullable = &PrincipalEntitlement{}
 
 // PrincipalEntitlement struct for PrincipalEntitlement
 type PrincipalEntitlement struct {
-	// The Okta resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for [supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
+	// The Okta resource in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)  See the ORN format for [supported resources](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
 	ParentResourceOrn *string         `json:"parentResourceOrn,omitempty"`
 	Parent            *TargetResource `json:"parent,omitempty"`
-	// Collection of entitlement values.
+	// Collection of entitlement values
 	Values []EntitlementValueFull `json:"values,omitempty"`
-	// The Okta user, in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format.
+	// The Okta user in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format
 	TargetPrincipalOrn *string              `json:"targetPrincipalOrn,omitempty"`
 	TargetPrincipal    *TargetPrincipalFull `json:"targetPrincipal,omitempty"`
 	// The `id` property of an entitlement
@@ -48,7 +48,7 @@ type PrincipalEntitlement struct {
 	ExternalValue *string `json:"externalValue,omitempty"`
 	// The description of an entitlement property
 	Description *string `json:"description,omitempty"`
-	// Indicate if the entitlement property can hold multiple values. If this property is `true`, then the `dataType` property is set to  `array`.
+	// Indicates if the entitlement property can hold multiple values. If this property is `true`, then the `dataType` property is set to `array`.
 	MultiValue *bool `json:"multiValue,omitempty"`
 	// The property that determines if the entitlement property is a required attribute
 	Required             *bool                        `json:"required,omitempty"`

@@ -33,7 +33,7 @@ var _ MappedNullable = &RevokePrincipalAccessCreatable{}
 
 // RevokePrincipalAccessCreatable struct for RevokePrincipalAccessCreatable
 type RevokePrincipalAccessCreatable struct {
-	// The Okta user, in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format.
+	// The Okta user in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format
 	PrincipalOrn string      `json:"principalOrn"`
 	Actor        *GrantActor `json:"actor,omitempty"`
 	// List of resource [ORNs](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) to revoke access:   * Entitlement value and entitlement bundle resources can be combined in a single request (with a maximum of five resources in a request).   * App resources must be revoked separately (a request can only contain one app ORN).

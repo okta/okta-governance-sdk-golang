@@ -34,12 +34,14 @@ type ResourceType3 string
 // List of resource-type-3
 const (
 	RESOURCETYPE3_APPLICATION  ResourceType3 = "APPLICATION"
+	RESOURCETYPE3_COLLECTION   ResourceType3 = "COLLECTION"
 	RESOURCETYPE3_REQUEST_TYPE ResourceType3 = "REQUEST_TYPE"
 )
 
 // All allowed values of ResourceType3 enum
 var AllowedResourceType3EnumValues = []ResourceType3{
 	"APPLICATION",
+	"COLLECTION",
 	"REQUEST_TYPE",
 }
 

@@ -33,14 +33,16 @@ var _ MappedNullable = &OrgRequestSettings{}
 
 // OrgRequestSettings Request settings for the org
 type OrgRequestSettings struct {
-	// Whether a customer has acknowledged Access Requests subprocessors
+	// Indicates that Access Requests provisioning was triggered by the customer (such as in [Govern Okta admin roles](https://help.okta.com/okta_help.htm?type=oie&id=csh-governance-admin-roles))
 	SubprocessorsAcknowledged bool               `json:"subprocessorsAcknowledged"`
 	ProvisioningStatus        ProvisioningStatus `json:"provisioningStatus"`
-	// Which request experiences this org supports
+	// The supported request experiences in the org
 	RequestExperiences []RequestExperience `json:"requestExperiences"`
-	// Whether it has been a long time since the Access Requests org has been provisioned
-	LongTimePastProvisioned bool `json:"longTimePastProvisioned"`
-	AdditionalProperties    map[string]interface{}
+	// Indicates that Access Request provisioning was triggered more than 10 minutes ago
+	LongTimePastProvisioned   bool                       `json:"longTimePastProvisioned"`
+	ResourceCatalogVisibility *ResourceCatalogVisibility `json:"resourceCatalogVisibility,omitempty"`
+	Integrations              *RequestIntegrations       `json:"integrations,omitempty"`
+	AdditionalProperties      map[string]interface{}
 }
 
 type _OrgRequestSettings OrgRequestSettings
@@ -162,6 +164,70 @@ func (o *OrgRequestSettings) SetLongTimePastProvisioned(v bool) {
 	o.LongTimePastProvisioned = v
 }
 
+// GetResourceCatalogVisibility returns the ResourceCatalogVisibility field value if set, zero value otherwise.
+func (o *OrgRequestSettings) GetResourceCatalogVisibility() ResourceCatalogVisibility {
+	if o == nil || IsNil(o.ResourceCatalogVisibility) {
+		var ret ResourceCatalogVisibility
+		return ret
+	}
+	return *o.ResourceCatalogVisibility
+}
+
+// GetResourceCatalogVisibilityOk returns a tuple with the ResourceCatalogVisibility field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OrgRequestSettings) GetResourceCatalogVisibilityOk() (*ResourceCatalogVisibility, bool) {
+	if o == nil || IsNil(o.ResourceCatalogVisibility) {
+		return nil, false
+	}
+	return o.ResourceCatalogVisibility, true
+}
+
+// HasResourceCatalogVisibility returns a boolean if a field has been set.
+func (o *OrgRequestSettings) HasResourceCatalogVisibility() bool {
+	if o != nil && !IsNil(o.ResourceCatalogVisibility) {
+		return true
+	}
+
+	return false
+}
+
+// SetResourceCatalogVisibility gets a reference to the given ResourceCatalogVisibility and assigns it to the ResourceCatalogVisibility field.
+func (o *OrgRequestSettings) SetResourceCatalogVisibility(v ResourceCatalogVisibility) {
+	o.ResourceCatalogVisibility = &v
+}
+
+// GetIntegrations returns the Integrations field value if set, zero value otherwise.
+func (o *OrgRequestSettings) GetIntegrations() RequestIntegrations {
+	if o == nil || IsNil(o.Integrations) {
+		var ret RequestIntegrations
+		return ret
+	}
+	return *o.Integrations
+}
+
+// GetIntegrationsOk returns a tuple with the Integrations field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OrgRequestSettings) GetIntegrationsOk() (*RequestIntegrations, bool) {
+	if o == nil || IsNil(o.Integrations) {
+		return nil, false
+	}
+	return o.Integrations, true
+}
+
+// HasIntegrations returns a boolean if a field has been set.
+func (o *OrgRequestSettings) HasIntegrations() bool {
+	if o != nil && !IsNil(o.Integrations) {
+		return true
+	}
+
+	return false
+}
+
+// SetIntegrations gets a reference to the given RequestIntegrations and assigns it to the Integrations field.
+func (o *OrgRequestSettings) SetIntegrations(v RequestIntegrations) {
+	o.Integrations = &v
+}
+
 func (o OrgRequestSettings) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -176,6 +242,12 @@ func (o OrgRequestSettings) ToMap() (map[string]interface{}, error) {
 	toSerialize["provisioningStatus"] = o.ProvisioningStatus
 	toSerialize["requestExperiences"] = o.RequestExperiences
 	toSerialize["longTimePastProvisioned"] = o.LongTimePastProvisioned
+	if !IsNil(o.ResourceCatalogVisibility) {
+		toSerialize["resourceCatalogVisibility"] = o.ResourceCatalogVisibility
+	}
+	if !IsNil(o.Integrations) {
+		toSerialize["integrations"] = o.Integrations
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -226,6 +298,8 @@ func (o *OrgRequestSettings) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "provisioningStatus")
 		delete(additionalProperties, "requestExperiences")
 		delete(additionalProperties, "longTimePastProvisioned")
+		delete(additionalProperties, "resourceCatalogVisibility")
+		delete(additionalProperties, "integrations")
 		o.AdditionalProperties = additionalProperties
 	}
 

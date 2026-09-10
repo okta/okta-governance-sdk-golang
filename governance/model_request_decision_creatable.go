@@ -36,18 +36,18 @@ var _ MappedNullable = &RequestDecisionCreatable{}
 type RequestDecisionCreatable struct {
 	// The Okta user `id`
 	UserId string `json:"userId" validate:"regexp=00u[0-9a-zA-Z]+"`
-	// E-mail of the user.
+	// E-mail of the user
 	UserEmail string `json:"userEmail"`
-	// Name of the user.
+	// Name of the user
 	UserName string               `json:"userName"`
 	Decision ApprovalDecisionEnum `json:"decision"`
 	// The date the approval decision is made.
 	Decided time.Time `json:"decided"`
 	// The Okta user `id`
 	OriginalDeciderId *string `json:"originalDeciderId,omitempty" validate:"regexp=00u[0-9a-zA-Z]+"`
-	// Name of the user.
+	// Name of the user
 	OriginalDeciderFullName *string `json:"originalDeciderFullName,omitempty"`
-	// E-mail of the user.
+	// E-mail of the user
 	OriginalDeciderEmail *string `json:"originalDeciderEmail,omitempty"`
 	// Indicates if the decision was made by a delegated decider
 	DeciderDelegated *bool `json:"deciderDelegated,omitempty"`

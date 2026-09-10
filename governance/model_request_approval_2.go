@@ -40,8 +40,10 @@ type RequestApproval2 struct {
 	// A description of the request approval system
 	ProviderDescription *string `json:"providerDescription,omitempty"`
 	// The external request `id` from a request approval system, for example, ServiceNow or JIRA
-	ExternalRequestId *string                `json:"externalRequestId,omitempty"`
-	Status            *RequestApprovalStatus `json:"status,omitempty"`
+	ExternalRequestId *string `json:"externalRequestId,omitempty"`
+	// The immutable, persistent identifier that always resolves to the request
+	PermalinkId *int32                 `json:"permalinkId,omitempty"`
+	Status      *RequestApprovalStatus `json:"status,omitempty"`
 	// The date the approval decision is made.
 	Decided *time.Time `json:"decided,omitempty"`
 	// The approval decisions
@@ -182,6 +184,38 @@ func (o *RequestApproval2) SetExternalRequestId(v string) {
 	o.ExternalRequestId = &v
 }
 
+// GetPermalinkId returns the PermalinkId field value if set, zero value otherwise.
+func (o *RequestApproval2) GetPermalinkId() int32 {
+	if o == nil || IsNil(o.PermalinkId) {
+		var ret int32
+		return ret
+	}
+	return *o.PermalinkId
+}
+
+// GetPermalinkIdOk returns a tuple with the PermalinkId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RequestApproval2) GetPermalinkIdOk() (*int32, bool) {
+	if o == nil || IsNil(o.PermalinkId) {
+		return nil, false
+	}
+	return o.PermalinkId, true
+}
+
+// HasPermalinkId returns a boolean if a field has been set.
+func (o *RequestApproval2) HasPermalinkId() bool {
+	if o != nil && !IsNil(o.PermalinkId) {
+		return true
+	}
+
+	return false
+}
+
+// SetPermalinkId gets a reference to the given int32 and assigns it to the PermalinkId field.
+func (o *RequestApproval2) SetPermalinkId(v int32) {
+	o.PermalinkId = &v
+}
+
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *RequestApproval2) GetStatus() RequestApprovalStatus {
 	if o == nil || IsNil(o.Status) {
@@ -296,6 +330,9 @@ func (o RequestApproval2) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ExternalRequestId) {
 		toSerialize["externalRequestId"] = o.ExternalRequestId
 	}
+	if !IsNil(o.PermalinkId) {
+		toSerialize["permalinkId"] = o.PermalinkId
+	}
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
@@ -353,6 +390,7 @@ func (o *RequestApproval2) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "providerName")
 		delete(additionalProperties, "providerDescription")
 		delete(additionalProperties, "externalRequestId")
+		delete(additionalProperties, "permalinkId")
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "decided")
 		delete(additionalProperties, "decisions")

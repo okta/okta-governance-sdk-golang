@@ -31,9 +31,6 @@ import (
 // checks if the ReviewerSettingsMutable type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ReviewerSettingsMutable{}
 
-// checks if the ReviewerSettingsMutable type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &ReviewerSettingsMutable{}
-
 // ReviewerSettingsMutable Reviewer settings for the access certification campaign
 type ReviewerSettingsMutable struct {
 	Type CampaignReviewerType `json:"type"`
@@ -45,20 +42,21 @@ type ReviewerSettingsMutable struct {
 	FallBackReviewerId *string `json:"fallBackReviewerId,omitempty"`
 	// Required when `reviewerSettings.type` is `GROUP`.  The `id` of the Okta group: * All members of the specified group are assigned as reviewers. * Use this reviewer group assignment if you can't use `reviewerId` or `reviewerScopeExpression`. * If the Okta group has more than 10 members when the campaign launches, only 10 members are randomly selected as reviewers. * If the Okta group has only one member, then that member is assigned as the reviewer for all reviews, and `reviewerType` is set to `USER` for those reviews.
 	ReviewerGroupId *string `json:"reviewerGroupId,omitempty"`
-	// If `true`, users can't review their own review items.  > **Note:** This field is deprecated. Use ['selfReviewDisabled'](/openapi/governance.api/tag/Campaigns/#tag/Campaigns/operation/createCampaign!path=reviewerSettings/selfReviewDisabled&t=request)
+	// If `true`, users can't review their own review items.  > **Note:** This field is deprecated. Use ['selfReviewDisabled'](/iga/openapi/governance-production-reference/campaigns/createcampaign#campaigns/createcampaign/t=request&path=reviewersettings/selfreviewdisabled)
 	// Deprecated
 	IsSelfReviewDisabled *bool `json:"isSelfReviewDisabled,omitempty"`
-	// If true, users won't be able to review their own review items.  This property is required to be `true` for resource-centric campaigns when the Okta Admin Console is one of the resources.
+	// If `true`, users can't review their own review items
 	SelfReviewDisabled *bool `json:"selfReviewDisabled,omitempty"`
-	// If true, a justification is required when review items are approved or revoked.  This property must be `true` for resource-centric campaigns that have the Okta Admin Console as one of the resources.
+	// If true, a justification is required when review items are approved or revoked.  This property must be `true` for resource campaigns that have the Okta Admin Console as one of the resources. > **Note:** Use the `justificationRequirement` property to control review justification for all new campaigns instead of `justificationRequired`. This property provides you with more control over your review justification settings.
 	JustificationRequired *bool `json:"justificationRequired,omitempty"`
 	// If true, bulk actions are disabled for approving or revoking review items.
 	BulkDecisionDisabled *bool `json:"bulkDecisionDisabled,omitempty"`
 	// If true, reassignment is disabled for reviewers.
 	ReassignmentDisabled *bool `json:"reassignmentDisabled,omitempty"`
 	// Defines the reviewer level in a campaign. A campaign can have a maximum of two reviewer levels.
-	ReviewerLevels       []ReviewerLevelSettingsMutable `json:"reviewerLevels,omitempty"`
-	AdditionalProperties map[string]interface{}
+	ReviewerLevels           []ReviewerLevelSettingsMutable `json:"reviewerLevels,omitempty"`
+	JustificationRequirement *JustificationRequirement      `json:"justificationRequirement,omitempty"`
+	AdditionalProperties     map[string]interface{}
 }
 
 type _ReviewerSettingsMutable ReviewerSettingsMutable
@@ -428,6 +426,38 @@ func (o *ReviewerSettingsMutable) SetReviewerLevels(v []ReviewerLevelSettingsMut
 	o.ReviewerLevels = v
 }
 
+// GetJustificationRequirement returns the JustificationRequirement field value if set, zero value otherwise.
+func (o *ReviewerSettingsMutable) GetJustificationRequirement() JustificationRequirement {
+	if o == nil || IsNil(o.JustificationRequirement) {
+		var ret JustificationRequirement
+		return ret
+	}
+	return *o.JustificationRequirement
+}
+
+// GetJustificationRequirementOk returns a tuple with the JustificationRequirement field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ReviewerSettingsMutable) GetJustificationRequirementOk() (*JustificationRequirement, bool) {
+	if o == nil || IsNil(o.JustificationRequirement) {
+		return nil, false
+	}
+	return o.JustificationRequirement, true
+}
+
+// HasJustificationRequirement returns a boolean if a field has been set.
+func (o *ReviewerSettingsMutable) HasJustificationRequirement() bool {
+	if o != nil && !IsNil(o.JustificationRequirement) {
+		return true
+	}
+
+	return false
+}
+
+// SetJustificationRequirement gets a reference to the given JustificationRequirement and assigns it to the JustificationRequirement field.
+func (o *ReviewerSettingsMutable) SetJustificationRequirement(v JustificationRequirement) {
+	o.JustificationRequirement = &v
+}
+
 func (o ReviewerSettingsMutable) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -468,6 +498,9 @@ func (o ReviewerSettingsMutable) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.ReviewerLevels) {
 		toSerialize["reviewerLevels"] = o.ReviewerLevels
+	}
+	if !IsNil(o.JustificationRequirement) {
+		toSerialize["justificationRequirement"] = o.JustificationRequirement
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -523,6 +556,7 @@ func (o *ReviewerSettingsMutable) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "bulkDecisionDisabled")
 		delete(additionalProperties, "reassignmentDisabled")
 		delete(additionalProperties, "reviewerLevels")
+		delete(additionalProperties, "justificationRequirement")
 		o.AdditionalProperties = additionalProperties
 	}
 

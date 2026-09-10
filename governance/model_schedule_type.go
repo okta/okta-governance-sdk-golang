@@ -28,7 +28,7 @@ import (
 	"fmt"
 )
 
-// ScheduleType The type of of campaign.
+// ScheduleType The type of campaign
 type ScheduleType string
 
 // List of schedule-type

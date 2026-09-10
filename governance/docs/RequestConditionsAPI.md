@@ -35,8 +35,8 @@ import (
 )
 
 func main() {
-	resourceId := "resourceId_example" // string | The `id` of the resource in Okta ID format or ORN format
-	requestConditionId := "requestConditionId_example" // string | The `id` of the request condition
+	resourceId := "resourceId_example" // string | Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)
+	requestConditionId := "requestConditionId_example" // string | Unique identifier for the request condition
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -56,8 +56,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**resourceId** | **string** | The &#x60;id&#x60; of the resource in Okta ID format or ORN format | 
-**requestConditionId** | **string** | The &#x60;id&#x60; of the request condition | 
+**resourceId** | **string** | Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) | 
+**requestConditionId** | **string** | Unique identifier for the request condition | 
 
 ### Other Parameters
 
@@ -108,7 +108,7 @@ import (
 )
 
 func main() {
-	resourceId := "resourceId_example" // string | The `id` of the resource in Okta ID format or ORN format
+	resourceId := "resourceId_example" // string | Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)
 	requestConditionCreatable := *openapiclient.NewRequestConditionCreatable(openapiclient.requester-settings-creatable_RequesterSettings{EveryoneRequesterSettings: openapiclient.NewEveryoneRequesterSettings("Type_example")}, openapiclient.access-scope-settings-creatable_AccessScopeSettings{AccessScopeSettingsCreatableEntitlementBundleAccessScopeSettings: openapiclient.NewAccessScopeSettingsCreatableEntitlementBundleAccessScopeSettings("Type_example", []openapiclient.EntitlementBundlesArrayCreatableInner{*openapiclient.NewEntitlementBundlesArrayCreatableInner("Id_example")})}, "ApprovalSequenceId_example", "Name_example") // RequestConditionCreatable | 
 
 	configuration := openapiclient.NewConfiguration()
@@ -129,7 +129,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**resourceId** | **string** | The &#x60;id&#x60; of the resource in Okta ID format or ORN format | 
+**resourceId** | **string** | Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) | 
 
 ### Other Parameters
 
@@ -180,8 +180,8 @@ import (
 )
 
 func main() {
-	resourceId := "resourceId_example" // string | The `id` of the resource in Okta ID format or ORN format
-	requestConditionId := "requestConditionId_example" // string | The `id` of the request condition
+	resourceId := "resourceId_example" // string | Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)
+	requestConditionId := "requestConditionId_example" // string | Unique identifier for the request condition
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -201,8 +201,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**resourceId** | **string** | The &#x60;id&#x60; of the resource in Okta ID format or ORN format | 
-**requestConditionId** | **string** | The &#x60;id&#x60; of the request condition | 
+**resourceId** | **string** | Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) | 
+**requestConditionId** | **string** | Unique identifier for the request condition | 
 
 ### Other Parameters
 
@@ -253,8 +253,8 @@ import (
 )
 
 func main() {
-	resourceId := "resourceId_example" // string | The `id` of the resource in Okta ID format or ORN format
-	requestConditionId := "requestConditionId_example" // string | The `id` of the request condition
+	resourceId := "resourceId_example" // string | Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)
+	requestConditionId := "requestConditionId_example" // string | Unique identifier for the request condition
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -272,8 +272,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**resourceId** | **string** | The &#x60;id&#x60; of the resource in Okta ID format or ORN format | 
-**requestConditionId** | **string** | The &#x60;id&#x60; of the request condition | 
+**resourceId** | **string** | Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) | 
+**requestConditionId** | **string** | Unique identifier for the request condition | 
 
 ### Other Parameters
 
@@ -324,8 +324,8 @@ import (
 )
 
 func main() {
-	resourceId := "resourceId_example" // string | The `id` of the resource in Okta ID format or ORN format
-	requestConditionId := "requestConditionId_example" // string | The `id` of the request condition
+	resourceId := "resourceId_example" // string | Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)
+	requestConditionId := "requestConditionId_example" // string | Unique identifier for the request condition
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -345,8 +345,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**resourceId** | **string** | The &#x60;id&#x60; of the resource in Okta ID format or ORN format | 
-**requestConditionId** | **string** | The &#x60;id&#x60; of the request condition | 
+**resourceId** | **string** | Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) | 
+**requestConditionId** | **string** | Unique identifier for the request condition | 
 
 ### Other Parameters
 
@@ -397,7 +397,7 @@ import (
 )
 
 func main() {
-	resourceId := "resourceId_example" // string | The `id` of the resource in Okta ID format or ORN format
+	resourceId := "resourceId_example" // string | Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -417,7 +417,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**resourceId** | **string** | The &#x60;id&#x60; of the resource in Okta ID format or ORN format | 
+**resourceId** | **string** | Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) | 
 
 ### Other Parameters
 
@@ -467,8 +467,8 @@ import (
 )
 
 func main() {
-	resourceId := "resourceId_example" // string | The `id` of the resource in Okta ID format or ORN format
-	requestConditionId := "requestConditionId_example" // string | The `id` of the request condition
+	resourceId := "resourceId_example" // string | Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)
+	requestConditionId := "requestConditionId_example" // string | Unique identifier for the request condition
 	requestConditionPatchable := *openapiclient.NewRequestConditionPatchable() // RequestConditionPatchable | 
 
 	configuration := openapiclient.NewConfiguration()
@@ -489,8 +489,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**resourceId** | **string** | The &#x60;id&#x60; of the resource in Okta ID format or ORN format | 
-**requestConditionId** | **string** | The &#x60;id&#x60; of the request condition | 
+**resourceId** | **string** | Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) | 
+**requestConditionId** | **string** | Unique identifier for the request condition | 
 
 ### Other Parameters
 

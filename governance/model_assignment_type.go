@@ -28,7 +28,7 @@ import (
 	"fmt"
 )
 
-// AssignmentType the model 'AssignmentType'
+// AssignmentType The assignment type
 type AssignmentType string
 
 // List of assignment-type

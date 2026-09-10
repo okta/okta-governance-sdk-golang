@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Email** | **string** | The Okta user&#39;s email address | 
 **FirstName** | Pointer to **string** | The Okta user&#39;s first name | [optional] 
 **LastName** | Pointer to **string** | The Okta user&#39;s last name | [optional] 
-**Login** | Pointer to **string** | The Okta user&#39;s login | [optional] 
+**Login** | Pointer to **string** | The Okta user&#39;s sign-in credentials, which is often their email address | [optional] 
 **Status** | [**PrincipalProfileStatus**](PrincipalProfileStatus.md) |  | 
 
 ## Methods

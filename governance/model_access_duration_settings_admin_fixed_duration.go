@@ -32,10 +32,10 @@ import (
 // checks if the AccessDurationSettingsAdminFixedDuration type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &AccessDurationSettingsAdminFixedDuration{}
 
-// AccessDurationSettingsAdminFixedDuration Settings when the access duration is specified by the admin.
+// AccessDurationSettingsAdminFixedDuration Settings when the access duration is specified by the admin
 type AccessDurationSettingsAdminFixedDuration struct {
 	Type string `json:"type"`
-	// The duration set by the admin for access durations. Use ISO8061 notation for duration values, see https://tc39.es/proposal-temporal/docs/duration.html. You can set up an access duration to a maximum of 72 hours (`PT72H`), 90 days (`90D`), or 12 weeks (`P12W`). For example:    - 24 hours (`PT24H`)   - 7 days (`P7D`)   - 2 weeks (`P2W`)
+	// The duration set by the admin for access durations. Use the [ISO 8601](https://tc39.es/proposal-temporal/docs/duration.html) duration notation for duration values. You can configure up to 365 days (`P365D`) or 52 weeks (`P52W`) as the maximum access duration of a request.
 	Duration string `json:"duration"`
 }
 

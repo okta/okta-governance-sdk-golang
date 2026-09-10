@@ -25,12 +25,13 @@ package governance
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // checks if the EntitlementValueFull type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &EntitlementValueFull{}
 
-// EntitlementValueFull Attributes related to Entitlement value
+// EntitlementValueFull Attributes related to an entitlement value
 type EntitlementValueFull struct {
 	// The `id` of the entitlement value
 	Id *string `json:"id,omitempty"`
@@ -43,7 +44,15 @@ type EntitlementValueFull struct {
 	// The description of an entitlement value
 	Description *string `json:"description,omitempty"`
 	// The entitlement value resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)
-	Orn                  *string `json:"orn,omitempty"`
+	Orn *string `json:"orn,omitempty"`
+	// The `id` of the Okta user who created the resource
+	CreatedBy *string `json:"createdBy,omitempty"`
+	// The ISO 8601 formatted date and time when the resource was created
+	Created *time.Time `json:"created,omitempty"`
+	// The ISO 8601 formatted date and time when the object was last updated
+	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
+	// The `id` of the Okta user who last updated the object
+	LastUpdatedBy        *string `json:"lastUpdatedBy,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -258,6 +267,134 @@ func (o *EntitlementValueFull) SetOrn(v string) {
 	o.Orn = &v
 }
 
+// GetCreatedBy returns the CreatedBy field value if set, zero value otherwise.
+func (o *EntitlementValueFull) GetCreatedBy() string {
+	if o == nil || IsNil(o.CreatedBy) {
+		var ret string
+		return ret
+	}
+	return *o.CreatedBy
+}
+
+// GetCreatedByOk returns a tuple with the CreatedBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EntitlementValueFull) GetCreatedByOk() (*string, bool) {
+	if o == nil || IsNil(o.CreatedBy) {
+		return nil, false
+	}
+	return o.CreatedBy, true
+}
+
+// HasCreatedBy returns a boolean if a field has been set.
+func (o *EntitlementValueFull) HasCreatedBy() bool {
+	if o != nil && !IsNil(o.CreatedBy) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatedBy gets a reference to the given string and assigns it to the CreatedBy field.
+func (o *EntitlementValueFull) SetCreatedBy(v string) {
+	o.CreatedBy = &v
+}
+
+// GetCreated returns the Created field value if set, zero value otherwise.
+func (o *EntitlementValueFull) GetCreated() time.Time {
+	if o == nil || IsNil(o.Created) {
+		var ret time.Time
+		return ret
+	}
+	return *o.Created
+}
+
+// GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EntitlementValueFull) GetCreatedOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.Created) {
+		return nil, false
+	}
+	return o.Created, true
+}
+
+// HasCreated returns a boolean if a field has been set.
+func (o *EntitlementValueFull) HasCreated() bool {
+	if o != nil && !IsNil(o.Created) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreated gets a reference to the given time.Time and assigns it to the Created field.
+func (o *EntitlementValueFull) SetCreated(v time.Time) {
+	o.Created = &v
+}
+
+// GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
+func (o *EntitlementValueFull) GetLastUpdated() time.Time {
+	if o == nil || IsNil(o.LastUpdated) {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastUpdated
+}
+
+// GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EntitlementValueFull) GetLastUpdatedOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.LastUpdated) {
+		return nil, false
+	}
+	return o.LastUpdated, true
+}
+
+// HasLastUpdated returns a boolean if a field has been set.
+func (o *EntitlementValueFull) HasLastUpdated() bool {
+	if o != nil && !IsNil(o.LastUpdated) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastUpdated gets a reference to the given time.Time and assigns it to the LastUpdated field.
+func (o *EntitlementValueFull) SetLastUpdated(v time.Time) {
+	o.LastUpdated = &v
+}
+
+// GetLastUpdatedBy returns the LastUpdatedBy field value if set, zero value otherwise.
+func (o *EntitlementValueFull) GetLastUpdatedBy() string {
+	if o == nil || IsNil(o.LastUpdatedBy) {
+		var ret string
+		return ret
+	}
+	return *o.LastUpdatedBy
+}
+
+// GetLastUpdatedByOk returns a tuple with the LastUpdatedBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EntitlementValueFull) GetLastUpdatedByOk() (*string, bool) {
+	if o == nil || IsNil(o.LastUpdatedBy) {
+		return nil, false
+	}
+	return o.LastUpdatedBy, true
+}
+
+// HasLastUpdatedBy returns a boolean if a field has been set.
+func (o *EntitlementValueFull) HasLastUpdatedBy() bool {
+	if o != nil && !IsNil(o.LastUpdatedBy) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastUpdatedBy gets a reference to the given string and assigns it to the LastUpdatedBy field.
+func (o *EntitlementValueFull) SetLastUpdatedBy(v string) {
+	o.LastUpdatedBy = &v
+}
+
 func (o EntitlementValueFull) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -285,6 +422,18 @@ func (o EntitlementValueFull) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Orn) {
 		toSerialize["orn"] = o.Orn
+	}
+	if !IsNil(o.CreatedBy) {
+		toSerialize["createdBy"] = o.CreatedBy
+	}
+	if !IsNil(o.Created) {
+		toSerialize["created"] = o.Created
+	}
+	if !IsNil(o.LastUpdated) {
+		toSerialize["lastUpdated"] = o.LastUpdated
+	}
+	if !IsNil(o.LastUpdatedBy) {
+		toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -314,6 +463,10 @@ func (o *EntitlementValueFull) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "externalId")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "orn")
+		delete(additionalProperties, "createdBy")
+		delete(additionalProperties, "created")
+		delete(additionalProperties, "lastUpdated")
+		delete(additionalProperties, "lastUpdatedBy")
 		o.AdditionalProperties = additionalProperties
 	}
 

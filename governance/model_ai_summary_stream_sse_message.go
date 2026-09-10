@@ -37,7 +37,7 @@ type AiSummaryStreamSseMessage struct {
 	Id *string `json:"id,omitempty"`
 	// The event type
 	Event *string `json:"event,omitempty"`
-	// The event data, in JSON string format
+	// The event data in JSON string format
 	Data                 string `json:"data"`
 	AdditionalProperties map[string]interface{}
 }

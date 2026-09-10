@@ -37,7 +37,7 @@ type BaseField struct {
 	Prompt string `json:"prompt"`
 	// Whether a value to this field is required to advance the request
 	Required *bool `json:"required,omitempty"`
-	// A `read-only` field id.  Useful for specifying requesterFieldValues when adding a request.  The generated value is a UUID v4 from [RFC4122](https://www.ietf.org/rfc/rfc4122.txt).
+	// A `read-only` field ID.  This field is useful for specifying `requesterFieldValues` when adding a request.  The generated value is a UUID v4 from [RFC4122](https://www.ietf.org/rfc/rfc4122.txt).
 	Id                   string `json:"id"`
 	AdditionalProperties map[string]interface{}
 }

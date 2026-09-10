@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** |  | 
-**RequesterFields** | Pointer to [**[]FieldWritable**](FieldWritable.md) | A list of fields with which to gather input. The order of the field object controls the order with which the fields are presented to users. | [optional] [default to []]
+**RequesterFields** | Pointer to [**[]FieldWritable**](FieldWritable.md) | A list of fields with which to gather input. The order of the fields in the array controls the order that the fields are presented to users. | [optional] [default to []]
 
 ## Methods
 

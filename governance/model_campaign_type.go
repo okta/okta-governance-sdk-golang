@@ -28,7 +28,7 @@ import (
 	"fmt"
 )
 
-// CampaignType Identifies the campaign as a resource or a user campaign
+// CampaignType Identifies the campaign as a resource (`RESOURCE`) or an identity (`USER`) campaign
 type CampaignType string
 
 // List of campaign-type

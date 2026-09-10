@@ -33,6 +33,8 @@ var _ MappedNullable = &EntitlementHistoryRecord{}
 
 // EntitlementHistoryRecord A single entry in the entitlement history, showing all effective entitlements at a specific point in time.
 type EntitlementHistoryRecord struct {
+	// Unique identifier for an entitlement history entry
+	Id *string `json:"id,omitempty" validate:"regexp=gra[0-9a-zA-Z]+"`
 	// The start date and time when the entitlements became effective
 	StartDate *time.Time `json:"startDate,omitempty"`
 	// The end date and time when the entitlements were superseded (if empty, the entitlements are currently effective)
@@ -61,6 +63,38 @@ func NewEntitlementHistoryRecord() *EntitlementHistoryRecord {
 func NewEntitlementHistoryRecordWithDefaults() *EntitlementHistoryRecord {
 	this := EntitlementHistoryRecord{}
 	return &this
+}
+
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *EntitlementHistoryRecord) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EntitlementHistoryRecord) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *EntitlementHistoryRecord) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *EntitlementHistoryRecord) SetId(v string) {
+	o.Id = &v
 }
 
 // GetStartDate returns the StartDate field value if set, zero value otherwise.
@@ -201,6 +235,9 @@ func (o EntitlementHistoryRecord) MarshalJSON() ([]byte, error) {
 
 func (o EntitlementHistoryRecord) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
 	if !IsNil(o.StartDate) {
 		toSerialize["startDate"] = o.StartDate
 	}
@@ -235,6 +272,7 @@ func (o *EntitlementHistoryRecord) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
 		delete(additionalProperties, "startDate")
 		delete(additionalProperties, "endDate")
 		delete(additionalProperties, "lifecycle")

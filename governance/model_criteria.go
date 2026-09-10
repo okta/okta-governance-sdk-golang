@@ -37,8 +37,8 @@ type Criteria struct {
 	// Attribute that the criteria applies to
 	Attribute *string `json:"attribute,omitempty"`
 	// Operation performed on the criteria value
-	Operation            *string        `json:"operation,omitempty"`
-	Value                *CriteriaValue `json:"value,omitempty"`
+	Operation            *string                    `json:"operation,omitempty"`
+	Value                *CriteriaValueEntitlements `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -158,9 +158,9 @@ func (o *Criteria) SetOperation(v string) {
 }
 
 // GetValue returns the Value field value if set, zero value otherwise.
-func (o *Criteria) GetValue() CriteriaValue {
+func (o *Criteria) GetValue() CriteriaValueEntitlements {
 	if o == nil || IsNil(o.Value) {
-		var ret CriteriaValue
+		var ret CriteriaValueEntitlements
 		return ret
 	}
 	return *o.Value
@@ -168,7 +168,7 @@ func (o *Criteria) GetValue() CriteriaValue {
 
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Criteria) GetValueOk() (*CriteriaValue, bool) {
+func (o *Criteria) GetValueOk() (*CriteriaValueEntitlements, bool) {
 	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
@@ -184,8 +184,8 @@ func (o *Criteria) HasValue() bool {
 	return false
 }
 
-// SetValue gets a reference to the given CriteriaValue and assigns it to the Value field.
-func (o *Criteria) SetValue(v CriteriaValue) {
+// SetValue gets a reference to the given CriteriaValueEntitlements and assigns it to the Value field.
+func (o *Criteria) SetValue(v CriteriaValueEntitlements) {
 	o.Value = &v
 }
 

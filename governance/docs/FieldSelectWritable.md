@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | [**FieldSelectType**](FieldSelectType.md) |  | 
-**Options** | [**[]FieldOption**](FieldOption.md) | The options available for the select input. | 
+**Options** | [**[]FieldOption**](FieldOption.md) | The options available for the select input | 
 **Prompt** | **string** | Text to prompt the user with | 
 **Required** | Pointer to **bool** | Whether a value to this field is required to advance the request | [optional] [default to true]
 

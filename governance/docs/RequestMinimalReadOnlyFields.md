@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **RequestStatus** | Pointer to [**RequestRequestStatus**](RequestRequestStatus.md) |  | [optional] 
 **RequestTypeId** | Pointer to **string** | The Request Type enabling this Request. | [optional] 
 **Resolved** | Pointer to **NullableTime** | The date the request was resolved. The property may transition from having a value to null if the request is reopened. | [optional] 
-**RequesterFieldValues** | Pointer to [**[]FieldValue**](FieldValue.md) | Field values provided when adding the request.  If a request type has required requesterFields, they must be provided when the request is created.  Non-required fields may be omitted when creating the request.  | [optional] 
+**RequesterFieldValues** | Pointer to [**[]FieldValue**](FieldValue.md) | Field values provided when adding the request.  If a request type has required &#x60;requesterFields&#x60;, they must be provided when the request is created.  Non-required fields may be omitted when creating the request.  | [optional] 
 **Links** | Pointer to [**RequestLinks**](RequestLinks.md) |  | [optional] 
 
 ## Methods

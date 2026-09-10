@@ -36,15 +36,15 @@ import (
 type RequestSettingsAPI interface {
 
 	/*
-			GetOrgRequestSettingsV2 Retrieve the request settings for the organization
+			GetOrgRequestSettingsV2 Retrieve the org request settings
 
-			Retrieves the request settings for the org
+			Retrieves the request settings for the org.
 
-		The org settings currently encapsulates:
-		- Whether a customer has acknowledged Access Requests sub-processors
-		- Whether Access Requests org has been provisioned
-		- Which request experiences are supported
-		- Whether it has been a long time since the Access Requests org has been provisioned
+		Org request settings indicate:
+		- If the Access Requests app has been provisioned
+		- If a customer has triggered Access Requests app provisioning in their org
+		- The request experiences that are supported
+		- If the provisioning for the Access Requests app was triggered a while ago
 
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -57,7 +57,7 @@ type RequestSettingsAPI interface {
 	GetOrgRequestSettingsV2Execute(r ApiGetOrgRequestSettingsV2Request) (*OrgRequestSettings, *APIResponse, error)
 
 	/*
-			GetRequestSettingsV2 Retrieve the request settings for a resource
+			GetRequestSettingsV2 Retrieve the resource request settings
 
 			Retrieves the request settings for a resource
 
@@ -77,7 +77,7 @@ type RequestSettingsAPI interface {
 		See response examples for various possible request setting scenarios.
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param resourceId The `id` of the resource in Okta ID format or ORN format
+			@param resourceId Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)
 			@return ApiGetRequestSettingsV2Request
 	*/
 	GetRequestSettingsV2(ctx context.Context, resourceId string) ApiGetRequestSettingsV2Request
@@ -87,7 +87,7 @@ type RequestSettingsAPI interface {
 	GetRequestSettingsV2Execute(r ApiGetRequestSettingsV2Request) (*RequestSettings, *APIResponse, error)
 
 	/*
-		UpdateOrgRequestSettingsV2 Update the request settings for the organization
+		UpdateOrgRequestSettingsV2 Update the org request settings
 
 		Updates the request settings for the org
 
@@ -108,7 +108,7 @@ type RequestSettingsAPI interface {
 
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param resourceId The `id` of the resource in Okta ID format or ORN format
+		@param resourceId Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)
 		@return ApiUpdateResourceRequestSettingsV2Request
 	*/
 	UpdateResourceRequestSettingsV2(ctx context.Context, resourceId string) ApiUpdateResourceRequestSettingsV2Request
@@ -132,15 +132,15 @@ func (r ApiGetOrgRequestSettingsV2Request) Execute() (*OrgRequestSettings, *APIR
 }
 
 /*
-GetOrgRequestSettingsV2 Retrieve the request settings for the organization
+GetOrgRequestSettingsV2 Retrieve the org request settings
 
-# Retrieves the request settings for the org
+Retrieves the request settings for the org.
 
-The org settings currently encapsulates:
-- Whether a customer has acknowledged Access Requests sub-processors
-- Whether Access Requests org has been provisioned
-- Which request experiences are supported
-- Whether it has been a long time since the Access Requests org has been provisioned
+Org request settings indicate:
+- If the Access Requests app has been provisioned
+- If a customer has triggered Access Requests app provisioning in their org
+- The request experiences that are supported
+- If the provisioning for the Access Requests app was triggered a while ago
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiGetOrgRequestSettingsV2Request
@@ -325,7 +325,7 @@ func (r ApiGetRequestSettingsV2Request) Execute() (*RequestSettings, *APIRespons
 }
 
 /*
-GetRequestSettingsV2 Retrieve the request settings for a resource
+GetRequestSettingsV2 Retrieve the resource request settings
 
 # Retrieves the request settings for a resource
 
@@ -345,7 +345,7 @@ For example:
 See response examples for various possible request setting scenarios.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceId The `id` of the resource in Okta ID format or ORN format
+	@param resourceId Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)
 	@return ApiGetRequestSettingsV2Request
 */
 func (a *RequestSettingsAPIService) GetRequestSettingsV2(ctx context.Context, resourceId string) ApiGetRequestSettingsV2Request {
@@ -535,7 +535,7 @@ func (r ApiUpdateOrgRequestSettingsV2Request) Execute() (*OrgRequestSettingsPatc
 }
 
 /*
-UpdateOrgRequestSettingsV2 Update the request settings for the organization
+UpdateOrgRequestSettingsV2 Update the org request settings
 
 # Updates the request settings for the org
 
@@ -738,7 +738,7 @@ UpdateResourceRequestSettingsV2 Update the resource request settings
 # Updates the resource request settings
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceId The `id` of the resource in Okta ID format or ORN format
+	@param resourceId Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)
 	@return ApiUpdateResourceRequestSettingsV2Request
 */
 func (a *RequestSettingsAPIService) UpdateResourceRequestSettingsV2(ctx context.Context, resourceId string) ApiUpdateResourceRequestSettingsV2Request {

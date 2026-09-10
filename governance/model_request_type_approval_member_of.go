@@ -35,7 +35,7 @@ var _ MappedNullable = &RequestTypeApprovalMemberOf{}
 type RequestTypeApprovalMemberOf struct {
 	ApproverType string  `json:"approverType"`
 	Description  *string `json:"description,omitempty"`
-	// Okta groups the user persona must be a member of
+	// Okta groups that the user persona must be a member of
 	ApproverMemberOf []string `json:"approverMemberOf"`
 	// A list of fields with which to gather input.  The order of field object controls the order with which the fields are presented to users.  #### Known limitation  Unlike requester fields, all approver fields are *required* and may not be set as optional.
 	ApproverFields       []Field `json:"approverFields,omitempty"`

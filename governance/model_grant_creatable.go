@@ -30,9 +30,10 @@ import (
 
 // GrantCreatable - The properties expected in an initial add entitlement bundle
 type GrantCreatable struct {
-	GrantTypeBundleWriteable *GrantTypeBundleWriteable
-	GrantTypeCustomWriteable *GrantTypeCustomWriteable
-	GrantTypePolicyWriteable *GrantTypePolicyWriteable
+	GrantTypeBundleWriteable      *GrantTypeBundleWriteable
+	GrantTypeCustomWriteable      *GrantTypeCustomWriteable
+	GrantTypeEntitlementWriteable *GrantTypeEntitlementWriteable
+	GrantTypePolicyWriteable      *GrantTypePolicyWriteable
 }
 
 // GrantTypeBundleWriteableAsGrantCreatable is a convenience function that returns GrantTypeBundleWriteable wrapped in GrantCreatable
@@ -46,6 +47,13 @@ func GrantTypeBundleWriteableAsGrantCreatable(v *GrantTypeBundleWriteable) Grant
 func GrantTypeCustomWriteableAsGrantCreatable(v *GrantTypeCustomWriteable) GrantCreatable {
 	return GrantCreatable{
 		GrantTypeCustomWriteable: v,
+	}
+}
+
+// GrantTypeEntitlementWriteableAsGrantCreatable is a convenience function that returns GrantTypeEntitlementWriteable wrapped in GrantCreatable
+func GrantTypeEntitlementWriteableAsGrantCreatable(v *GrantTypeEntitlementWriteable) GrantCreatable {
+	return GrantCreatable{
+		GrantTypeEntitlementWriteable: v,
 	}
 }
 
@@ -75,6 +83,18 @@ func (dst *GrantCreatable) UnmarshalJSON(data []byte) error {
 		} else {
 			dst.GrantTypeCustomWriteable = nil
 			return fmt.Errorf("failed to unmarshal GrantCreatable as GrantTypeCustomWriteable: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'ENTITLEMENT'
+	if jsonDict["grantType"] == "ENTITLEMENT" {
+		// try to unmarshal JSON data into GrantTypeEntitlementWriteable
+		err = json.Unmarshal(data, &dst.GrantTypeEntitlementWriteable)
+		if err == nil {
+			return nil // data stored in dst.GrantTypeEntitlementWriteable, return on the first match
+		} else {
+			dst.GrantTypeEntitlementWriteable = nil
+			return fmt.Errorf("failed to unmarshal GrantCreatable as GrantTypeEntitlementWriteable: %s", err.Error())
 		}
 	}
 
@@ -115,6 +135,10 @@ func (src GrantCreatable) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.GrantTypeCustomWriteable)
 	}
 
+	if src.GrantTypeEntitlementWriteable != nil {
+		return json.Marshal(&src.GrantTypeEntitlementWriteable)
+	}
+
 	if src.GrantTypePolicyWriteable != nil {
 		return json.Marshal(&src.GrantTypePolicyWriteable)
 	}
@@ -135,6 +159,10 @@ func (obj *GrantCreatable) GetActualInstance() interface{} {
 		return obj.GrantTypeCustomWriteable
 	}
 
+	if obj.GrantTypeEntitlementWriteable != nil {
+		return obj.GrantTypeEntitlementWriteable
+	}
+
 	if obj.GrantTypePolicyWriteable != nil {
 		return obj.GrantTypePolicyWriteable
 	}
@@ -151,6 +179,10 @@ func (obj GrantCreatable) GetActualInstanceValue() interface{} {
 
 	if obj.GrantTypeCustomWriteable != nil {
 		return *obj.GrantTypeCustomWriteable
+	}
+
+	if obj.GrantTypeEntitlementWriteable != nil {
+		return *obj.GrantTypeEntitlementWriteable
 	}
 
 	if obj.GrantTypePolicyWriteable != nil {

@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** |  | 
-**Groups** | [**[]GroupsArrayCreatableInner**](GroupsArrayCreatableInner.md) | List of requestable groups  &gt; **Note:** Both standard Okta groups and AD-sourced groups are supported in Access Requests. &gt; Standard Okta groups have the &#x60;okta:user_group&#x60; value, whereas AD-sourced groups have the &#x60;okta:windows_security_principal&#x60; value in their &#x60;objectClass&#x60; property. | 
+**Groups** | [**[]GroupsArrayRequesterSettingsCreatableInner**](GroupsArrayRequesterSettingsCreatableInner.md) | List of groups whose members can request access. The maximum number of groups that can be specified is 500.  &gt; **Note:** Both standard Okta groups and AD-sourced groups are supported in Access Requests. &gt; Standard Okta groups have the &#x60;okta:user_group&#x60; value, whereas AD-sourced groups have the &#x60;okta:windows_security_principal&#x60; value in their &#x60;objectClass&#x60; property. | 
 
 ## Methods
 
 ### NewRequesterSettingsCreatableGroupsRequesterSettings
 
-`func NewRequesterSettingsCreatableGroupsRequesterSettings(type_ string, groups []GroupsArrayCreatableInner, ) *RequesterSettingsCreatableGroupsRequesterSettings`
+`func NewRequesterSettingsCreatableGroupsRequesterSettings(type_ string, groups []GroupsArrayRequesterSettingsCreatableInner, ) *RequesterSettingsCreatableGroupsRequesterSettings`
 
 NewRequesterSettingsCreatableGroupsRequesterSettings instantiates a new RequesterSettingsCreatableGroupsRequesterSettings object
 This constructor will assign default values to properties that have it defined,
@@ -48,20 +48,20 @@ SetType sets Type field to given value.
 
 ### GetGroups
 
-`func (o *RequesterSettingsCreatableGroupsRequesterSettings) GetGroups() []GroupsArrayCreatableInner`
+`func (o *RequesterSettingsCreatableGroupsRequesterSettings) GetGroups() []GroupsArrayRequesterSettingsCreatableInner`
 
 GetGroups returns the Groups field if non-nil, zero value otherwise.
 
 ### GetGroupsOk
 
-`func (o *RequesterSettingsCreatableGroupsRequesterSettings) GetGroupsOk() (*[]GroupsArrayCreatableInner, bool)`
+`func (o *RequesterSettingsCreatableGroupsRequesterSettings) GetGroupsOk() (*[]GroupsArrayRequesterSettingsCreatableInner, bool)`
 
 GetGroupsOk returns a tuple with the Groups field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGroups
 
-`func (o *RequesterSettingsCreatableGroupsRequesterSettings) SetGroups(v []GroupsArrayCreatableInner)`
+`func (o *RequesterSettingsCreatableGroupsRequesterSettings) SetGroups(v []GroupsArrayRequesterSettingsCreatableInner)`
 
 SetGroups sets Groups field to given value.
 

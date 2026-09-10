@@ -35,12 +35,14 @@ type IntegrationStatus string
 const (
 	INTEGRATIONSTATUS_CONNECTED   IntegrationStatus = "CONNECTED"
 	INTEGRATIONSTATUS_IN_PROGRESS IntegrationStatus = "IN_PROGRESS"
+	INTEGRATIONSTATUS_FAILED      IntegrationStatus = "FAILED"
 )
 
 // All allowed values of IntegrationStatus enum
 var AllowedIntegrationStatusEnumValues = []IntegrationStatus{
 	"CONNECTED",
 	"IN_PROGRESS",
+	"FAILED",
 }
 
 func (v *IntegrationStatus) UnmarshalJSON(src []byte) error {

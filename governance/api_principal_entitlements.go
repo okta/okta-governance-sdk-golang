@@ -56,7 +56,7 @@ type PrincipalEntitlementsAPI interface {
 		Retrieves the principal's old and new effective entitlement changes for a resource
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param principalEntitlementsChangeId The entitlement change ID, in the format of `{old_effective_grant_id}:{new_effective_grant_id}`.  Only the `{new_effective_grant_id}` value is required if the `{old_effective_grant_id}` value isn't available.
+		@param principalEntitlementsChangeId Unique identifier for the principal entitlements change. The entitlement change is Base64-encoded.
 		@return ApiGetPrincipalEntitlementsChangesRequest
 	*/
 	GetPrincipalEntitlementsChanges(ctx context.Context, principalEntitlementsChangeId string) ApiGetPrincipalEntitlementsChangesRequest
@@ -313,7 +313,7 @@ GetPrincipalEntitlementsChanges Retrieve the principal entitlement changes
 Retrieves the principal's old and new effective entitlement changes for a resource
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param principalEntitlementsChangeId The entitlement change ID, in the format of `{old_effective_grant_id}:{new_effective_grant_id}`.  Only the `{new_effective_grant_id}` value is required if the `{old_effective_grant_id}` value isn't available.
+	@param principalEntitlementsChangeId Unique identifier for the principal entitlements change. The entitlement change is Base64-encoded.
 	@return ApiGetPrincipalEntitlementsChangesRequest
 */
 func (a *PrincipalEntitlementsAPIService) GetPrincipalEntitlementsChanges(ctx context.Context, principalEntitlementsChangeId string) ApiGetPrincipalEntitlementsChangesRequest {
@@ -508,7 +508,7 @@ func (r ApiGetPrincipalEntitlementsHistoryRequest) Limit(limit int32) ApiGetPrin
 	return r
 }
 
-// The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request.
+// Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination).
 func (r ApiGetPrincipalEntitlementsHistoryRequest) After(after string) ApiGetPrincipalEntitlementsHistoryRequest {
 	r.after = &after
 	return r

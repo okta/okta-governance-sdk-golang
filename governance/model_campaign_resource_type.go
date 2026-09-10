@@ -28,7 +28,7 @@ import (
 	"fmt"
 )
 
-// CampaignResourceType The type of Okta resources certified by the campaign
+// CampaignResourceType The type of Okta resources certified by the campaign. > **Note:** Okta recommends that you use `resourceSettings.targetTypes` to indicate Okta resources to certify for new certification campaigns instead of this parameter. See `resourceSettings.targetTypes` in the examples. Use `resourceSettings.targetTypes` for certifying all supported resources for new campaigns.
 type CampaignResourceType string
 
 // List of campaign-resource-type
@@ -38,6 +38,7 @@ const (
 	CAMPAIGNRESOURCETYPE_APPLICATION_AND_GROUP CampaignResourceType = "APPLICATION_AND_GROUP"
 	CAMPAIGNRESOURCETYPE_OKTA_SERVICE_ACCOUNT  CampaignResourceType = "OKTA_SERVICE_ACCOUNT"
 	CAMPAIGNRESOURCETYPE_APP_SERVICE_ACCOUNT   CampaignResourceType = "APP_SERVICE_ACCOUNT"
+	CAMPAIGNRESOURCETYPE_COLLECTION            CampaignResourceType = "COLLECTION"
 )
 
 // All allowed values of CampaignResourceType enum
@@ -47,6 +48,7 @@ var AllowedCampaignResourceTypeEnumValues = []CampaignResourceType{
 	"APPLICATION_AND_GROUP",
 	"OKTA_SERVICE_ACCOUNT",
 	"APP_SERVICE_ACCOUNT",
+	"COLLECTION",
 }
 
 func (v *CampaignResourceType) UnmarshalJSON(src []byte) error {

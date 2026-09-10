@@ -32,10 +32,10 @@ import (
 // checks if the AccessDurationSettingsRequesterSpecifiedDuration type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &AccessDurationSettingsRequesterSpecifiedDuration{}
 
-// AccessDurationSettingsRequesterSpecifiedDuration Setting to specify the maximum duration that an end user can request access for when making a request.
+// AccessDurationSettingsRequesterSpecifiedDuration Setting to specify the maximum duration that an end user can request access for when making a request
 type AccessDurationSettingsRequesterSpecifiedDuration struct {
 	Type string `json:"type"`
-	// The maximum duration set by the requester for access durations. Use ISO8061 notation for duration values, see https://tc39.es/proposal-temporal/docs/duration.html. The admin sets the maximum duration that can be requested and can't exceed 72 hours (`PT72H`), 90 days (`90D`), or 12 weeks (`P12W`). For example:    - 24 hours (`PT24H`)   - 7 days (`P7D`)   - 2 weeks (`P2W`)
+	// The maximum duration set by the requester for access durations. Use the [ISO 8601](https://tc39.es/proposal-temporal/docs/duration.html) duration notation for duration values. You can configure up to 365 days (`P365D`) or 52 weeks (`P52W`) as the maximum access duration of a request.
 	MaximumDuration string `json:"maximumDuration"`
 }
 

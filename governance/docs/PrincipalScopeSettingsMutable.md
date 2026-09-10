@@ -7,11 +7,12 @@ Name | Type | Description | Notes
 **Type** | [**PrincipalScopeType**](PrincipalScopeType.md) |  | 
 **UserScopeExpression** | Pointer to **string** | The Okta expression language user expression on the &#x60;resourceSettings&#x60; to include users in the campaign. | [optional] 
 **ExcludedUserIds** | Pointer to **[]string** | An array of Okta user IDs excluded from access certification or the campaign. This field is optional. A maximum of 50 users can be specified in the array. | [optional] 
-**UserIds** | Pointer to **[]string** | An array of Okta user IDs included from access certification or the campaign. &#x60;userIds&#x60;, &#x60;groupIds&#x60; or &#x60;userScopeExpression&#x60; is required if campaign type is &#x60;USER&#x60;. A maximum of 100 users can be specified in the array. | [optional] 
+**UserIds** | Pointer to **[]string** | An array of Okta user IDs included from access certification or the campaign. This list is required if &#x60;campaignType&#x60; is &#x60;USER&#x60; and you want to certify user access. A maximum of 100 users can be specified in the array. | [optional] 
 **GroupIds** | Pointer to **[]string** | An array of Okta group IDs included from access certification or the campaign. &#x60;userIds&#x60;, &#x60;groupIds&#x60; or &#x60;userScopeExpression&#x60; is required if campaign type is &#x60;USER&#x60;. A maximum of 5 groups can be specified in the array. | [optional] 
 **IncludeOnlyActiveUsers** | Pointer to **bool** | If set to &#x60;true&#x60;, only active Okta users are included in the campaign | [optional] 
 **PredefinedInactiveUsersScope** | Pointer to [**PredefinedInactiveUsersScopeSettings**](PredefinedInactiveUsersScopeSettings.md) |  | [optional] 
 **OnlyIncludeUsersWithSODConflicts** | Pointer to **bool** | If set to &#x60;true&#x60;, only includes users that have at least one SOD conflict that was caused due to entitlement(s) within Campaign scope | [optional] 
+**AiAgentIds** | Pointer to **[]string** | A list of Okta registered AI agent IDs included in the campaign. This list is required if &#x60;campaignType&#x60; is &#x60;USER&#x60; and you want to certify AI agents. You can specify up to a maximum of 100 AI agent IDs. | [optional] 
 
 ## Methods
 
@@ -247,6 +248,41 @@ SetOnlyIncludeUsersWithSODConflicts sets OnlyIncludeUsersWithSODConflicts field 
 
 HasOnlyIncludeUsersWithSODConflicts returns a boolean if a field has been set.
 
+### GetAiAgentIds
+
+`func (o *PrincipalScopeSettingsMutable) GetAiAgentIds() []string`
+
+GetAiAgentIds returns the AiAgentIds field if non-nil, zero value otherwise.
+
+### GetAiAgentIdsOk
+
+`func (o *PrincipalScopeSettingsMutable) GetAiAgentIdsOk() (*[]string, bool)`
+
+GetAiAgentIdsOk returns a tuple with the AiAgentIds field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAiAgentIds
+
+`func (o *PrincipalScopeSettingsMutable) SetAiAgentIds(v []string)`
+
+SetAiAgentIds sets AiAgentIds field to given value.
+
+### HasAiAgentIds
+
+`func (o *PrincipalScopeSettingsMutable) HasAiAgentIds() bool`
+
+HasAiAgentIds returns a boolean if a field has been set.
+
+### SetAiAgentIdsNil
+
+`func (o *PrincipalScopeSettingsMutable) SetAiAgentIdsNil(b bool)`
+
+ SetAiAgentIdsNil sets the value for AiAgentIds to be an explicit nil
+
+### UnsetAiAgentIds
+`func (o *PrincipalScopeSettingsMutable) UnsetAiAgentIds()`
+
+UnsetAiAgentIds ensures that no value is present for AiAgentIds, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

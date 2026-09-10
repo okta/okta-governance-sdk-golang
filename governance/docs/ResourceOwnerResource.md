@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | A unique identifier for the resource in Okta | 
-**Type** | **string** | The resource type. This value is the &#x60;{objectType}&#x60; attribute from the [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) string.  Examples: &#x60;apps&#x60;, &#x60;entitlement-bundles&#x60;, &#x60;entitlement-values&#x60;, or &#x60;collections&#x60; | 
-**Orn** | **string** | The ID of the resource in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format. The resource can be an app, an entitlement value, an entitlement bundle, or a collection. See [supported resources](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources). | 
+**Type** | **string** | The resource type. This value is the &#x60;{objectType}&#x60; attribute from the [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) string.  Examples: &#x60;apps&#x60;, &#x60;entitlement-bundles&#x60;, &#x60;entitlement-values&#x60;, &#x60;collections&#x60;, or &#x60;ai-agents&#x60; | 
+**Orn** | **string** | The ID of the resource in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format. The resource can be an app, an entitlement value, an entitlement bundle, a collection, or an AI agent. See [supported resources](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources). | 
 **Profile** | [**ExternalResourceProfile**](ExternalResourceProfile.md) |  | 
 
 ## Methods

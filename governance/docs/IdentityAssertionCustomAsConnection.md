@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ConnectionType** | **string** | Type of connection authentication method | 
 **AuthorizationServer** | [**CustomAuthorizationServer**](CustomAuthorizationServer.md) |  | 
-**Id** | Pointer to **string** | Unique identifier for the managed connection | [optional] 
-**Orn** | Pointer to **string** | The [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) of the managed connection | [optional] 
+**Id** | Pointer to **string** | Unique identifier for the resource connection | [optional] 
+**Orn** | Pointer to **string** | The [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) of the resource connection | [optional] 
 **Status** | Pointer to **string** | The status of the connection | [optional] 
 
 ## Methods

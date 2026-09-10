@@ -33,8 +33,10 @@ var _ MappedNullable = &PotentialRiskAssessmentRequest{}
 
 // PotentialRiskAssessmentRequest struct for PotentialRiskAssessmentRequest
 type PotentialRiskAssessmentRequest struct {
-	// The Okta user, in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format.
+	// The Okta user in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format
 	PrincipalOrn string `json:"principalOrn"`
+	// List of resources in ORN format. The resource can be a collection, a bundle, or an entitlement. The list must contain the same resource type. The maximum items in the list depends on the resource type: * Maximum list size for a collection is 1. * Maximum list size for a bundle is 1. * Maximum list size for entitlements is 20.
+	ResourceOrnList []string `json:"resourceOrnList,omitempty"`
 	// The `id` of the resource in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format. The resource can be a collection, a bundle, or an entitlement.
 	ResourceOrn          *string `json:"resourceOrn,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -84,6 +86,38 @@ func (o *PotentialRiskAssessmentRequest) SetPrincipalOrn(v string) {
 	o.PrincipalOrn = v
 }
 
+// GetResourceOrnList returns the ResourceOrnList field value if set, zero value otherwise.
+func (o *PotentialRiskAssessmentRequest) GetResourceOrnList() []string {
+	if o == nil || IsNil(o.ResourceOrnList) {
+		var ret []string
+		return ret
+	}
+	return o.ResourceOrnList
+}
+
+// GetResourceOrnListOk returns a tuple with the ResourceOrnList field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PotentialRiskAssessmentRequest) GetResourceOrnListOk() ([]string, bool) {
+	if o == nil || IsNil(o.ResourceOrnList) {
+		return nil, false
+	}
+	return o.ResourceOrnList, true
+}
+
+// HasResourceOrnList returns a boolean if a field has been set.
+func (o *PotentialRiskAssessmentRequest) HasResourceOrnList() bool {
+	if o != nil && !IsNil(o.ResourceOrnList) {
+		return true
+	}
+
+	return false
+}
+
+// SetResourceOrnList gets a reference to the given []string and assigns it to the ResourceOrnList field.
+func (o *PotentialRiskAssessmentRequest) SetResourceOrnList(v []string) {
+	o.ResourceOrnList = v
+}
+
 // GetResourceOrn returns the ResourceOrn field value if set, zero value otherwise.
 func (o *PotentialRiskAssessmentRequest) GetResourceOrn() string {
 	if o == nil || IsNil(o.ResourceOrn) {
@@ -127,6 +161,9 @@ func (o PotentialRiskAssessmentRequest) MarshalJSON() ([]byte, error) {
 func (o PotentialRiskAssessmentRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["principalOrn"] = o.PrincipalOrn
+	if !IsNil(o.ResourceOrnList) {
+		toSerialize["resourceOrnList"] = o.ResourceOrnList
+	}
 	if !IsNil(o.ResourceOrn) {
 		toSerialize["resourceOrn"] = o.ResourceOrn
 	}
@@ -174,6 +211,7 @@ func (o *PotentialRiskAssessmentRequest) UnmarshalJSON(data []byte) (err error) 
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "principalOrn")
+		delete(additionalProperties, "resourceOrnList")
 		delete(additionalProperties, "resourceOrn")
 		o.AdditionalProperties = additionalProperties
 	}

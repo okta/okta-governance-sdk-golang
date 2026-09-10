@@ -32,7 +32,7 @@ var _ MappedNullable = &EntitlementDetail{}
 
 // EntitlementDetail A single entitlement entry in the entitlements list of one historical record
 type EntitlementDetail struct {
-	// Collection of entitlement values.
+	// Collection of entitlement values
 	Values []EntitlementValueFull `json:"values,omitempty"`
 	// The `id` property of an entitlement
 	Id *string `json:"id,omitempty"`
@@ -42,7 +42,7 @@ type EntitlementDetail struct {
 	ExternalValue *string `json:"externalValue,omitempty"`
 	// The description of an entitlement property
 	Description *string `json:"description,omitempty"`
-	// Indicate if the entitlement property can hold multiple values. If this property is `true`, then the `dataType` property is set to  `array`.
+	// Indicates if the entitlement property can hold multiple values. If this property is `true`, then the `dataType` property is set to `array`.
 	MultiValue *bool `json:"multiValue,omitempty"`
 	// The property that determines if the entitlement property is a required attribute
 	Required             *bool                        `json:"required,omitempty"`

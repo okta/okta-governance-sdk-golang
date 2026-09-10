@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **RequesterSettings** | Pointer to [**RequesterSettingsCreatableRequesterSettings**](RequesterSettingsCreatableRequesterSettings.md) |  | [optional] 
 **AccessScopeSettings** | Pointer to [**AccessScopeSettingsCreatableAccessScopeSettings**](AccessScopeSettingsCreatableAccessScopeSettings.md) |  | [optional] 
 **AccessDurationSettings** | Pointer to [**NullableAccessDurationSettingsPatchable**](AccessDurationSettingsPatchable.md) |  | [optional] 
-**ApprovalSequenceId** | Pointer to **string** | The ID of the approval sequence | [optional] 
+**ApprovalSequenceId** | Pointer to **string** | Unique identifier for the approval sequence | [optional] 
 **Priority** | Pointer to **int32** | The priority of the condition. The smaller the number, the higher the priority. The highest priority is 0. A new condition will default to the lowest priority. | [optional] 
 **Name** | Pointer to **string** | Writable unique key on create. Modifiable on update. | [optional] 
 **Description** | Pointer to **string** | Human readable description | [optional] 

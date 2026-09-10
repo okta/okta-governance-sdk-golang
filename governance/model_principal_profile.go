@@ -41,7 +41,7 @@ type PrincipalProfile struct {
 	FirstName *string `json:"firstName,omitempty"`
 	// The Okta user's last name
 	LastName *string `json:"lastName,omitempty"`
-	// The Okta user's login
+	// The Okta user's sign-in credentials, which is often their email address
 	Login                *string                `json:"login,omitempty"`
 	Status               PrincipalProfileStatus `json:"status"`
 	AdditionalProperties map[string]interface{}

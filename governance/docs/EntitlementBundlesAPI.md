@@ -99,7 +99,7 @@ import (
 )
 
 func main() {
-	entitlementBundleId := "entitlementBundleId_example" // string | The `id` of the entitlement bundle
+	entitlementBundleId := "entitlementBundleId_example" // string | Unique identifier for the entitlement bundle
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -117,7 +117,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**entitlementBundleId** | **string** | The &#x60;id&#x60; of the entitlement bundle | 
+**entitlementBundleId** | **string** | Unique identifier for the entitlement bundle | 
 
 ### Other Parameters
 
@@ -167,7 +167,7 @@ import (
 )
 
 func main() {
-	entitlementBundleId := "entitlementBundleId_example" // string | The `id` of the entitlement bundle
+	entitlementBundleId := "entitlementBundleId_example" // string | Unique identifier for the entitlement bundle
 	include := []string{"Include_example"} // []string | The `include` filter adds additional properties that are available in the retrieve an entitlement bundle operation, but are omitted from the list response normally. (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -188,7 +188,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**entitlementBundleId** | **string** | The &#x60;id&#x60; of the entitlement bundle | 
+**entitlementBundleId** | **string** | Unique identifier for the entitlement bundle | 
 
 ### Other Parameters
 
@@ -239,10 +239,10 @@ import (
 )
 
 func main() {
-	filter := "lastUpdated gt "2022-05-24T14:15:22Z"" // string | A [filter](https://developer.okta.com/docs/api/#filter) expression that returns entries based on the following properties and supported operators: * `id`: supports `gt` * `lastUpdated`: supports `gt`, `ge`, `le`, and `lt` * `targetResourceOrn`: supports `eq` * `target.externalId`:  supports `eq` * `target.type`:  supports `eq` * `status`:  supports `eq` * `name`:  supports `eq` and `co`  > **Note:** Query parameter percent encoding is required. See [Special characters](https://developer.okta.com/docs/api/#special-characters).  (optional)
+	filter := "lastUpdated gt "2022-05-24T14:15:22Z"" // string | A [filter](https://developer.okta.com/docs/api/#filter) expression that returns entries based on the following properties and supported operators: * `id`: supports `eq`, `gt` * `lastUpdated`: supports `gt`, `ge`, `le`, and `lt` * `targetResourceOrn`: supports `eq` * `target.externalId`:  supports `eq` * `target.type`:  supports `eq` * `status`:  supports `eq` * `name`:  supports `eq` and `co`  > **Note:** Query parameter percent encoding is required. See [Special characters](https://developer.okta.com/docs/api/#special-characters).  (optional)
 	after := "after_example" // string | The after cursor provided by a prior request. (optional)
 	limit := int32(56) // int32 | The maximum number of records returned in a response (optional) (default to 20)
-	orderBy := "created%20desc" // string | Apply an ordering of entitlement-bundles by specifying a supported entitlement bundle property name with `%20asc` or `%20desc` suffix.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding)  (optional)
+	orderBy := "created desc" // string | Apply an ordering of entitlement-bundles by specifying a supported entitlement bundle property name with `%20asc` or `%20desc` suffix.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding)  (optional)
 	include := []string{"Include_example"} // []string | The `include` filter adds additional properties that are available in the retrieve an entitlement bundle operation, but are omitted from the list response normally. (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -268,7 +268,7 @@ Other parameters are passed through a pointer to a apiListEntitlementBundlesRequ
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **filter** | **string** | A [filter](https://developer.okta.com/docs/api/#filter) expression that returns entries based on the following properties and supported operators: * &#x60;id&#x60;: supports &#x60;gt&#x60; * &#x60;lastUpdated&#x60;: supports &#x60;gt&#x60;, &#x60;ge&#x60;, &#x60;le&#x60;, and &#x60;lt&#x60; * &#x60;targetResourceOrn&#x60;: supports &#x60;eq&#x60; * &#x60;target.externalId&#x60;:  supports &#x60;eq&#x60; * &#x60;target.type&#x60;:  supports &#x60;eq&#x60; * &#x60;status&#x60;:  supports &#x60;eq&#x60; * &#x60;name&#x60;:  supports &#x60;eq&#x60; and &#x60;co&#x60;  &gt; **Note:** Query parameter percent encoding is required. See [Special characters](https://developer.okta.com/docs/api/#special-characters).  | 
+ **filter** | **string** | A [filter](https://developer.okta.com/docs/api/#filter) expression that returns entries based on the following properties and supported operators: * &#x60;id&#x60;: supports &#x60;eq&#x60;, &#x60;gt&#x60; * &#x60;lastUpdated&#x60;: supports &#x60;gt&#x60;, &#x60;ge&#x60;, &#x60;le&#x60;, and &#x60;lt&#x60; * &#x60;targetResourceOrn&#x60;: supports &#x60;eq&#x60; * &#x60;target.externalId&#x60;:  supports &#x60;eq&#x60; * &#x60;target.type&#x60;:  supports &#x60;eq&#x60; * &#x60;status&#x60;:  supports &#x60;eq&#x60; * &#x60;name&#x60;:  supports &#x60;eq&#x60; and &#x60;co&#x60;  &gt; **Note:** Query parameter percent encoding is required. See [Special characters](https://developer.okta.com/docs/api/#special-characters).  | 
  **after** | **string** | The after cursor provided by a prior request. | 
  **limit** | **int32** | The maximum number of records returned in a response | [default to 20]
  **orderBy** | **string** | Apply an ordering of entitlement-bundles by specifying a supported entitlement bundle property name with &#x60;%20asc&#x60; or &#x60;%20desc&#x60; suffix.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding)  | 
@@ -313,7 +313,7 @@ import (
 )
 
 func main() {
-	entitlementBundleId := "entitlementBundleId_example" // string | The `id` of the entitlement bundle
+	entitlementBundleId := "entitlementBundleId_example" // string | Unique identifier for the entitlement bundle
 	entitlementBundleUpdatable := *openapiclient.NewEntitlementBundleUpdatable("Id_example", "TargetResourceOrn_example", *openapiclient.NewTargetResource("ExternalId_example", openapiclient.resource-type-2("APPLICATION")), "Name_example") // EntitlementBundleUpdatable | The writable attributes of an entitlement bundle
 
 	configuration := openapiclient.NewConfiguration()
@@ -334,7 +334,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**entitlementBundleId** | **string** | The &#x60;id&#x60; of the entitlement bundle | 
+**entitlementBundleId** | **string** | Unique identifier for the entitlement bundle | 
 
 ### Other Parameters
 

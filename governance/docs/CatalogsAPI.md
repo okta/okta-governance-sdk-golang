@@ -32,8 +32,8 @@ import (
 )
 
 func main() {
-	entryId := "entryId_example" // string | The ID of the catalog entry
-	userId := "00ucvnr9rbONeZdRp1d7" // string | The `id` of the user
+	entryId := "entryId_example" // string | Unique identifier for the catalog entry
+	userId := "00ucvnr9rbONeZdRp1d7" // string | Unique identifier for the user
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -53,8 +53,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**entryId** | **string** | The ID of the catalog entry | 
-**userId** | **string** | The &#x60;id&#x60; of the user | 
+**entryId** | **string** | Unique identifier for the catalog entry | 
+**userId** | **string** | Unique identifier for the user | 
 
 ### Other Parameters
 
@@ -105,7 +105,7 @@ import (
 )
 
 func main() {
-	entryId := "entryId_example" // string | The ID of the catalog entry
+	entryId := "entryId_example" // string | Unique identifier for the catalog entry
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -125,7 +125,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**entryId** | **string** | The ID of the catalog entry | 
+**entryId** | **string** | Unique identifier for the catalog entry | 
 
 ### Other Parameters
 
@@ -247,7 +247,7 @@ import (
 )
 
 func main() {
-	userId := "00ucvnr9rbONeZdRp1d7" // string | The `id` of the user
+	userId := "00ucvnr9rbONeZdRp1d7" // string | Unique identifier for the user
 	filter := "not(parent pr)" // string | A required [filter](https://developer.okta.com/docs/api/#filter) expression that returns entries based on the [`parent`](https://developer.okta.com/docs/api/iga/openapi/governance.requests.admin.v2/tag/Catalogs/#tag/Catalogs/operation/listAllDefaultEntriesV2!c=200&path=data/parent&t=response) property: * This filter expression only supports the `parent` property and the `eq` and `pr` [operators](https://developer.okta.com/docs/api/#operators). * If you want the query to return child entries, then you must specify the `parent` ID with the `eq` operator.  > **Notes:** > * If you don't use the `parent` property in the filter expression, undesireable results are returned. > * Query parameter percent encoding is required. See [Special characters]( https://developer.okta.com/docs/api/#special-characters ). 
 	after := "after_example" // string | The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous response.  The maximum number of entries returned in a response is determined by the [`limit`](https://developer.okta.com/docs/api/iga/openapi/governance.requests.admin.v2/tag/Catalogs/#tag/Catalogs/operation/listAllDefaultEntriesV2!in=query&path=limit&t=request) query parameter. If there are more entries to return, the `_links.next.href` link contains the `after` cursor for the next page of results. (optional)
 	match := "figma" // string | Return catalog entries that match a substring value in the [`name`](https://developer.okta.com/docs/api/iga/openapi/governance.requests.enduser.v2/tag/My-Catalogs/#tag/My-Catalogs/operation/listMyDefaultEntriesV2!c=200&path=data/name&t=response) or [`description`](https://developer.okta.com/docs/api/iga/openapi/governance.requests.enduser.v2/tag/My-Catalogs/#tag/My-Catalogs/operation/listMyDefaultEntriesV2!c=200&path=data/description&t=response) properties. At least three characters are required for fuzzy search. (optional)
@@ -271,7 +271,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userId** | **string** | The &#x60;id&#x60; of the user | 
+**userId** | **string** | Unique identifier for the user | 
 
 ### Other Parameters
 

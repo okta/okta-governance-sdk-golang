@@ -31,7 +31,7 @@ import (
 )
 
 func main() {
-	reviewId := "reviewId_example" // string | The `id` of the review
+	reviewId := "reviewId_example" // string | Unique identifier for the review
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -51,7 +51,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**reviewId** | **string** | The &#x60;id&#x60; of the review | 
+**reviewId** | **string** | Unique identifier for the review | 
 
 ### Other Parameters
 
@@ -101,10 +101,10 @@ import (
 )
 
 func main() {
-	filter := "campaignId%20eq%20%22icitdyhndQ6qstyvR8g5%22" // string | Apply various filters by using supported review filtering properties.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding)  (optional)
-	after := "00u68w6vzKLultXS97g6" // string | The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request. (optional)
+	filter := "campaignId eq "icitdyhndQ6qstyvR8g5"" // string | A [filter](https://developer.okta.com/docs/api/#filter) expression that filters a collection of reviews in the response. The filter expression supports the `eq` [operator](https://developer.okta.com/docs/api/#operators) and the following properties: * `campaignId` * `principalId` (corresponds to `principalProfile.id`) * `reviewerId` (corresponds to `reviewerProfile.id`) * `decision` * `resourceId` * `reviewerType` * `reviewerLevel` (corresponds to `currentReviewerLevel`) * `entitlementValueId` (corresponds to `entitlementValue.id`) * `entitlementBundleId` (corresponds to `entitlementBundle.id`)  > **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding).  (optional)
+	after := "00u68w6vzKLultXS97g6" // string | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination). (optional)
 	limit := int32(56) // int32 | The maximum number of records returned in a response (optional) (default to 20)
-	orderBy := []string{"Inner_example"} // []string | A field by which results can be sorted. For now, sorting by a single field is supported.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding)  (optional) (default to ["created asc"])
+	orderBy := []string{"Inner_example"} // []string | Specifies a property to sort the results. The following properties are supported: - `decided` - `decision` - `remediationStatus` - `created`  Append `desc` or `asc` to indicate the sorting direction.  By default, the results are sorted by `created` in ascending order (`created asc`).  > **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding).  (optional) (default to ["created asc"])
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -129,10 +129,10 @@ Other parameters are passed through a pointer to a apiListReviewsRequest struct 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **filter** | **string** | Apply various filters by using supported review filtering properties.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding)  | 
- **after** | **string** | The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request. | 
+ **filter** | **string** | A [filter](https://developer.okta.com/docs/api/#filter) expression that filters a collection of reviews in the response. The filter expression supports the &#x60;eq&#x60; [operator](https://developer.okta.com/docs/api/#operators) and the following properties: * &#x60;campaignId&#x60; * &#x60;principalId&#x60; (corresponds to &#x60;principalProfile.id&#x60;) * &#x60;reviewerId&#x60; (corresponds to &#x60;reviewerProfile.id&#x60;) * &#x60;decision&#x60; * &#x60;resourceId&#x60; * &#x60;reviewerType&#x60; * &#x60;reviewerLevel&#x60; (corresponds to &#x60;currentReviewerLevel&#x60;) * &#x60;entitlementValueId&#x60; (corresponds to &#x60;entitlementValue.id&#x60;) * &#x60;entitlementBundleId&#x60; (corresponds to &#x60;entitlementBundle.id&#x60;)  &gt; **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding).  | 
+ **after** | **string** | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination). | 
  **limit** | **int32** | The maximum number of records returned in a response | [default to 20]
- **orderBy** | **[]string** | A field by which results can be sorted. For now, sorting by a single field is supported.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding)  | [default to [&quot;created asc&quot;]]
+ **orderBy** | **[]string** | Specifies a property to sort the results. The following properties are supported: - &#x60;decided&#x60; - &#x60;decision&#x60; - &#x60;remediationStatus&#x60; - &#x60;created&#x60;  Append &#x60;desc&#x60; or &#x60;asc&#x60; to indicate the sorting direction.  By default, the results are sorted by &#x60;created&#x60; in ascending order (&#x60;created asc&#x60;).  &gt; **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding).  | [default to [&quot;created asc&quot;]]
 
 ### Return type
 
@@ -173,7 +173,7 @@ import (
 )
 
 func main() {
-	campaignId := "campaignId_example" // string | The `id` of the campaign
+	campaignId := "campaignId_example" // string | Unique identifier for the campaign
 	reviewsReassign := *openapiclient.NewReviewsReassign("ReviewerId_example", []string{"ReviewIds_example"}, "Note_example") // ReviewsReassign | The operation payload for reviews reassignment
 
 	configuration := openapiclient.NewConfiguration()
@@ -194,7 +194,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**campaignId** | **string** | The &#x60;id&#x60; of the campaign | 
+**campaignId** | **string** | Unique identifier for the campaign | 
 
 ### Other Parameters
 

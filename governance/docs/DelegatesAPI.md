@@ -31,7 +31,7 @@ import (
 func main() {
 	filter := "delegatorId eq "00ub0oNGTSWTBKOLGLNR" OR delegatorId eq "00ub0oNGTSWTBKOLGLNS"" // string | Filter expression for retrieving delegates based on specific criteria. Only the `delegatorId` property is supported with the `eq` operator.  (optional)
 	limit := int32(56) // int32 | The maximum number of records returned in a response (optional) (default to 20)
-	after := "00u68w6vzKLultXS97g6" // string | The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request. (optional)
+	after := "00u68w6vzKLultXS97g6" // string | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination). (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -58,7 +58,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **filter** | **string** | Filter expression for retrieving delegates based on specific criteria. Only the &#x60;delegatorId&#x60; property is supported with the &#x60;eq&#x60; operator.  | 
  **limit** | **int32** | The maximum number of records returned in a response | [default to 20]
- **after** | **string** | The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request. | 
+ **after** | **string** | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination). | 
 
 ### Return type
 

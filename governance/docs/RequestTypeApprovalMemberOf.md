@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ApproverType** | **string** |  | 
 **Description** | Pointer to **string** |  | [optional] 
-**ApproverMemberOf** | **[]string** | Okta groups the user persona must be a member of | 
+**ApproverMemberOf** | **[]string** | Okta groups that the user persona must be a member of | 
 **ApproverFields** | Pointer to [**[]Field**](Field.md) | A list of fields with which to gather input.  The order of field object controls the order with which the fields are presented to users.  #### Known limitation  Unlike requester fields, all approver fields are *required* and may not be set as optional.  | [optional] [default to []]
 
 ## Methods

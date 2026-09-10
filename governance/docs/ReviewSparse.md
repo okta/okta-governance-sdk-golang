@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | [**ReviewLinks**](ReviewLinks.md) |  | 
 **Id** | **string** | Unique identifier for the object | 
 **CreatedBy** | **string** | The &#x60;id&#x60; of the Okta user who created the resource | [readonly] 
 **Created** | **time.Time** | The ISO 8601 formatted date and time when the resource was created | [readonly] 
 **LastUpdated** | **time.Time** | The ISO 8601 formatted date and time when the object was last updated | [readonly] 
 **LastUpdatedBy** | **string** | The &#x60;id&#x60; of the Okta user who last updated the object | [readonly] 
+**Links** | [**ReviewLinks**](ReviewLinks.md) |  | 
 **CampaignId** | **string** |  | 
 **ResourceId** | **string** |  | 
 **EntitlementValue** | Pointer to [**ReviewerEntitlementValue**](ReviewerEntitlementValue.md) |  | [optional] 
@@ -27,12 +27,13 @@ Name | Type | Description | Notes
 **Delegated** | Pointer to **bool** | Specifies if this review was delegated by the original reviewer based on their governance delegate settings | [optional] 
 **AppServiceAccount** | Pointer to [**ReviewerServiceAccount**](ReviewerServiceAccount.md) |  | [optional] 
 **OktaServiceAccount** | Pointer to [**ReviewerServiceAccount**](ReviewerServiceAccount.md) |  | [optional] 
+**AiAgentConnection** | Pointer to [**ReviewerAiAgentConnection**](ReviewerAiAgentConnection.md) |  | [optional] 
 
 ## Methods
 
 ### NewReviewSparse
 
-`func NewReviewSparse(links ReviewLinks, id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, campaignId string, resourceId string, decision Decision, remediationStatus RemediationStatus, principalProfile PrincipalProfileEnriched, reviewerType ReviewersReviewerType, ) *ReviewSparse`
+`func NewReviewSparse(id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, links ReviewLinks, campaignId string, resourceId string, decision Decision, remediationStatus RemediationStatus, principalProfile PrincipalProfileEnriched, reviewerType ReviewersReviewerType, ) *ReviewSparse`
 
 NewReviewSparse instantiates a new ReviewSparse object
 This constructor will assign default values to properties that have it defined,
@@ -46,26 +47,6 @@ will change when the set of required properties is changed
 NewReviewSparseWithDefaults instantiates a new ReviewSparse object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetLinks
-
-`func (o *ReviewSparse) GetLinks() ReviewLinks`
-
-GetLinks returns the Links field if non-nil, zero value otherwise.
-
-### GetLinksOk
-
-`func (o *ReviewSparse) GetLinksOk() (*ReviewLinks, bool)`
-
-GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetLinks
-
-`func (o *ReviewSparse) SetLinks(v ReviewLinks)`
-
-SetLinks sets Links field to given value.
-
 
 ### GetId
 
@@ -165,6 +146,26 @@ and a boolean to check if the value has been set.
 `func (o *ReviewSparse) SetLastUpdatedBy(v string)`
 
 SetLastUpdatedBy sets LastUpdatedBy field to given value.
+
+
+### GetLinks
+
+`func (o *ReviewSparse) GetLinks() ReviewLinks`
+
+GetLinks returns the Links field if non-nil, zero value otherwise.
+
+### GetLinksOk
+
+`func (o *ReviewSparse) GetLinksOk() (*ReviewLinks, bool)`
+
+GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLinks
+
+`func (o *ReviewSparse) SetLinks(v ReviewLinks)`
+
+SetLinks sets Links field to given value.
 
 
 ### GetCampaignId
@@ -571,6 +572,31 @@ SetOktaServiceAccount sets OktaServiceAccount field to given value.
 `func (o *ReviewSparse) HasOktaServiceAccount() bool`
 
 HasOktaServiceAccount returns a boolean if a field has been set.
+
+### GetAiAgentConnection
+
+`func (o *ReviewSparse) GetAiAgentConnection() ReviewerAiAgentConnection`
+
+GetAiAgentConnection returns the AiAgentConnection field if non-nil, zero value otherwise.
+
+### GetAiAgentConnectionOk
+
+`func (o *ReviewSparse) GetAiAgentConnectionOk() (*ReviewerAiAgentConnection, bool)`
+
+GetAiAgentConnectionOk returns a tuple with the AiAgentConnection field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAiAgentConnection
+
+`func (o *ReviewSparse) SetAiAgentConnection(v ReviewerAiAgentConnection)`
+
+SetAiAgentConnection sets AiAgentConnection field to given value.
+
+### HasAiAgentConnection
+
+`func (o *ReviewSparse) HasAiAgentConnection() bool`
+
+HasAiAgentConnection returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

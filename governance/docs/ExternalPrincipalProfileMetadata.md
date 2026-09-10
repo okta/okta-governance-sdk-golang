@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**UserAssignmentCount** | Pointer to **int32** | Total number of users assigned to the group. | [optional] 
+**UserAssignmentCount** | Pointer to **int32** | Total number of users assigned to the group | [optional] 
 
 ## Methods
 

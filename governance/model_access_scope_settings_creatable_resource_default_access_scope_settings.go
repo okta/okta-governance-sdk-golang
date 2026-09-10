@@ -32,9 +32,6 @@ import (
 // checks if the AccessScopeSettingsCreatableResourceDefaultAccessScopeSettings type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &AccessScopeSettingsCreatableResourceDefaultAccessScopeSettings{}
 
-// checks if the AccessScopeSettingsCreatableResourceDefaultAccessScopeSettings type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &AccessScopeSettingsCreatableResourceDefaultAccessScopeSettings{}
-
 // AccessScopeSettingsCreatableResourceDefaultAccessScopeSettings Default access scope settings associated with the requesting resource
 type AccessScopeSettingsCreatableResourceDefaultAccessScopeSettings struct {
 	// Request for resource access

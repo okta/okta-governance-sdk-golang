@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**EntryId** | Pointer to **string** | The ID of the resource catalog entry | [optional] 
+**EntryId** | Pointer to **string** | Unique identifier of the resource catalog entry | [optional] 
 **ResourceId** | Pointer to **string** | the requested resource ID | [optional] 
 **ResourceType** | Pointer to [**ResourceType3**](ResourceType3.md) |  | [optional] 
 **AccessScopeId** | Pointer to **string** | ID of the access scope | [optional] 

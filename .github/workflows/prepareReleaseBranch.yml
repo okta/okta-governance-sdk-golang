@@ -21,10 +21,10 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 16.16.0
+          node-version: 22.17.0
 
       - name: Install openapi generator
-        run: npm install @openapitools/openapi-generator-cli -g
+        run: npm install @openapitools/openapi-generator-cli@2.39.0 -g
 
       - name: Set openapi generator version
         run: openapi-generator-cli version-manager set 7.15.0

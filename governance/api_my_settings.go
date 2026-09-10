@@ -51,10 +51,20 @@ type MySettingsAPI interface {
 	/*
 			ListMyDelegateUsers List my eligible delegates
 
-			Lists the users who match the filtered query and are eligible delegates for the current authenticated user.
+			Lists the users who are eligible delegates for the current authenticated user.
 
-		Request examples with the mandatory `filter` query parameter:
+		The `filter` query parameter is optional when the org's delegate scope is restricted (the `onlyFor` list contains MANAGER or both MANAGER and PEERS).
+		When omitted in this case, the endpoint returns all eligible delegates.
 
+		However, if the org's delegate scope is unrestricted (the `onlyFor` list is empty), the `filter` parameter is required.
+		Omitting the filter with an unrestricted scope returns a 400 error.
+
+		Request examples:
+
+		1. List all eligible delegates (only works with restricted delegate scope)
+		    ```
+		    /governance/api/v1/my/settings/delegates/users
+		    ```
 		1. Filter users with a last name that starts with "Smi"
 		    ```
 		    /governance/api/v1/my/settings/delegates/users?filter=lastName%20sw%20%22Smi%22
@@ -277,13 +287,13 @@ type ApiListMyDelegateUsersRequest struct {
 	retryCount int32
 }
 
-// A required filter expression that returns users based on the &#x60;firstName&#x60; or &#x60;lastName&#x60; properties. This [filter](https://developer.okta.com/docs/api/#filter) expression supports the &#x60;sw&#x60; [operator](https://developer.okta.com/docs/api/#operators).  **Note:** Query parameter percent encoding is required. See [Special characters]( https://developer.okta.com/docs/api/#special-characters ).
+// An optional filter expression that returns users based on the &#x60;firstName&#x60; or &#x60;lastName&#x60; properties. This [filter](https://developer.okta.com/docs/api/#filter) expression supports the &#x60;sw&#x60; [operator](https://developer.okta.com/docs/api/#operators).  When omitted, the endpoint returns all eligible delegates for the current user. However, if the org&#39;s delegate scope settings are unrestricted (the &#x60;onlyFor&#x60; list is empty), the filter parameter is required and omitting it returns a 400 error.  **Note:** Query parameter percent encoding is required. See [Special characters](https://developer.okta.com/docs/api/#special-characters).
 func (r ApiListMyDelegateUsersRequest) Filter(filter string) ApiListMyDelegateUsersRequest {
 	r.filter = &filter
 	return r
 }
 
-// The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request.
+// Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination).
 func (r ApiListMyDelegateUsersRequest) After(after string) ApiListMyDelegateUsersRequest {
 	r.after = &after
 	return r
@@ -302,9 +312,20 @@ func (r ApiListMyDelegateUsersRequest) Execute() (*DelegateUsersList, *APIRespon
 /*
 ListMyDelegateUsers List my eligible delegates
 
-Lists the users who match the filtered query and are eligible delegates for the current authenticated user.
+Lists the users who are eligible delegates for the current authenticated user.
 
-Request examples with the mandatory `filter` query parameter:
+The `filter` query parameter is optional when the org's delegate scope is restricted (the `onlyFor` list contains MANAGER or both MANAGER and PEERS).
+When omitted in this case, the endpoint returns all eligible delegates.
+
+However, if the org's delegate scope is unrestricted (the `onlyFor` list is empty), the `filter` parameter is required.
+Omitting the filter with an unrestricted scope returns a 400 error.
+
+Request examples:
+
+ 1. List all eligible delegates (only works with restricted delegate scope)
+    ```
+    /governance/api/v1/my/settings/delegates/users
+    ```
 
  1. Filter users with a last name that starts with "Smi"
     ```
@@ -361,11 +382,10 @@ func (a *MySettingsAPIService) ListMyDelegateUsersExecute(r ApiListMyDelegateUse
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.filter == nil {
-		return localVarReturnValue, nil, reportError("filter is required and must be specified")
-	}
 
-	localVarQueryParams.Add("filter", parameterToString(*r.filter, ""))
+	if r.filter != nil {
+		localVarQueryParams.Add("filter", parameterToString(*r.filter, ""))
+	}
 	if r.after != nil {
 		localVarQueryParams.Add("after", parameterToString(*r.after, ""))
 	}

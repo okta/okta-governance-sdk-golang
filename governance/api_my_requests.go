@@ -41,14 +41,14 @@ type MyRequestsAPI interface {
 		Creates a request for my catalog entry specified by `entryId`
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param entryId The ID of the catalog entry
+		@param entryId Unique identifier for the catalog entry
 		@return ApiCreateMyRequestV2Request
 	*/
 	CreateMyRequestV2(ctx context.Context, entryId string) ApiCreateMyRequestV2Request
 
 	// CreateMyRequestV2Execute executes the request
-	//  @return RequestFull2
-	CreateMyRequestV2Execute(r ApiCreateMyRequestV2Request) (*RequestFull2, *APIResponse, error)
+	//  @return MyRequestFull
+	CreateMyRequestV2Execute(r ApiCreateMyRequestV2Request) (*MyRequestFull, *APIResponse, error)
 
 	/*
 		GetMyRequestV2 Retrieve my request
@@ -56,15 +56,15 @@ type MyRequestsAPI interface {
 		Retrieves a request belonging to the authenticated requester
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param entryId The ID of the catalog entry
-		@param requestId The `id` of the request
+		@param entryId Unique identifier for the catalog entry
+		@param requestId Unique identifier for the Resource-Centric Access Requests (RCAR) request
 		@return ApiGetMyRequestV2Request
 	*/
 	GetMyRequestV2(ctx context.Context, entryId string, requestId string) ApiGetMyRequestV2Request
 
 	// GetMyRequestV2Execute executes the request
-	//  @return RequestFull2
-	GetMyRequestV2Execute(r ApiGetMyRequestV2Request) (*RequestFull2, *APIResponse, error)
+	//  @return MyRequestFull
+	GetMyRequestV2Execute(r ApiGetMyRequestV2Request) (*MyRequestFull, *APIResponse, error)
 }
 
 // MyRequestsAPIService MyRequestsAPI service
@@ -84,7 +84,7 @@ func (r ApiCreateMyRequestV2Request) MyRequestCreatable(myRequestCreatable MyReq
 	return r
 }
 
-func (r ApiCreateMyRequestV2Request) Execute() (*RequestFull2, *APIResponse, error) {
+func (r ApiCreateMyRequestV2Request) Execute() (*MyRequestFull, *APIResponse, error) {
 	return r.ApiService.CreateMyRequestV2Execute(r)
 }
 
@@ -94,7 +94,7 @@ CreateMyRequestV2 Create a request
 Creates a request for my catalog entry specified by `entryId`
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param entryId The ID of the catalog entry
+	@param entryId Unique identifier for the catalog entry
 	@return ApiCreateMyRequestV2Request
 */
 func (a *MyRequestsAPIService) CreateMyRequestV2(ctx context.Context, entryId string) ApiCreateMyRequestV2Request {
@@ -108,13 +108,13 @@ func (a *MyRequestsAPIService) CreateMyRequestV2(ctx context.Context, entryId st
 
 // Execute executes the request
 //
-//	@return RequestFull2
-func (a *MyRequestsAPIService) CreateMyRequestV2Execute(r ApiCreateMyRequestV2Request) (*RequestFull2, *APIResponse, error) {
+//	@return MyRequestFull
+func (a *MyRequestsAPIService) CreateMyRequestV2Execute(r ApiCreateMyRequestV2Request) (*MyRequestFull, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *RequestFull2
+		localVarReturnValue  *MyRequestFull
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error
@@ -248,7 +248,7 @@ type ApiGetMyRequestV2Request struct {
 	retryCount int32
 }
 
-func (r ApiGetMyRequestV2Request) Execute() (*RequestFull2, *APIResponse, error) {
+func (r ApiGetMyRequestV2Request) Execute() (*MyRequestFull, *APIResponse, error) {
 	return r.ApiService.GetMyRequestV2Execute(r)
 }
 
@@ -258,8 +258,8 @@ GetMyRequestV2 Retrieve my request
 Retrieves a request belonging to the authenticated requester
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param entryId The ID of the catalog entry
-	@param requestId The `id` of the request
+	@param entryId Unique identifier for the catalog entry
+	@param requestId Unique identifier for the Resource-Centric Access Requests (RCAR) request
 	@return ApiGetMyRequestV2Request
 */
 func (a *MyRequestsAPIService) GetMyRequestV2(ctx context.Context, entryId string, requestId string) ApiGetMyRequestV2Request {
@@ -274,13 +274,13 @@ func (a *MyRequestsAPIService) GetMyRequestV2(ctx context.Context, entryId strin
 
 // Execute executes the request
 //
-//	@return RequestFull2
-func (a *MyRequestsAPIService) GetMyRequestV2Execute(r ApiGetMyRequestV2Request) (*RequestFull2, *APIResponse, error) {
+//	@return MyRequestFull
+func (a *MyRequestsAPIService) GetMyRequestV2Execute(r ApiGetMyRequestV2Request) (*MyRequestFull, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *RequestFull2
+		localVarReturnValue  *MyRequestFull
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error

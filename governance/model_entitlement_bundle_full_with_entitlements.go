@@ -36,7 +36,7 @@ var _ MappedNullable = &EntitlementBundleFullWithEntitlements{}
 type EntitlementBundleFullWithEntitlements struct {
 	// The `id` of the bundle in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).
 	Orn string `json:"orn"`
-	// The Okta resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for [supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
+	// The Okta resource in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)  See the ORN format for [supported resources](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
 	TargetResourceOrn string                  `json:"targetResourceOrn"`
 	Target            TargetResource          `json:"target"`
 	Status            EntitlementBundleStatus `json:"status"`

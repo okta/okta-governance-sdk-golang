@@ -5,17 +5,17 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ConnectionType** | **string** | Type of connection authentication method | 
-**App** | [**ManagedConnectionAppInstance**](ManagedConnectionAppInstance.md) |  | 
-**ServiceAccount** | [**ManagedConnectionServiceAccount**](ManagedConnectionServiceAccount.md) |  | 
-**Id** | Pointer to **string** | Unique identifier for the managed connection | [optional] 
-**Orn** | Pointer to **string** | The [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) of the managed connection | [optional] 
+**App** | [**ResourceConnectionAppInstance**](ResourceConnectionAppInstance.md) |  | 
+**ServiceAccount** | [**ResourceConnectionServiceAccount**](ResourceConnectionServiceAccount.md) |  | 
+**Id** | Pointer to **string** | Unique identifier for the resource connection | [optional] 
+**Orn** | Pointer to **string** | The [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) of the resource connection | [optional] 
 **Status** | Pointer to **string** | The status of the connection | [optional] 
 
 ## Methods
 
 ### NewStsServiceAccountConnection
 
-`func NewStsServiceAccountConnection(connectionType string, app ManagedConnectionAppInstance, serviceAccount ManagedConnectionServiceAccount, ) *StsServiceAccountConnection`
+`func NewStsServiceAccountConnection(connectionType string, app ResourceConnectionAppInstance, serviceAccount ResourceConnectionServiceAccount, ) *StsServiceAccountConnection`
 
 NewStsServiceAccountConnection instantiates a new StsServiceAccountConnection object
 This constructor will assign default values to properties that have it defined,
@@ -52,40 +52,40 @@ SetConnectionType sets ConnectionType field to given value.
 
 ### GetApp
 
-`func (o *StsServiceAccountConnection) GetApp() ManagedConnectionAppInstance`
+`func (o *StsServiceAccountConnection) GetApp() ResourceConnectionAppInstance`
 
 GetApp returns the App field if non-nil, zero value otherwise.
 
 ### GetAppOk
 
-`func (o *StsServiceAccountConnection) GetAppOk() (*ManagedConnectionAppInstance, bool)`
+`func (o *StsServiceAccountConnection) GetAppOk() (*ResourceConnectionAppInstance, bool)`
 
 GetAppOk returns a tuple with the App field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetApp
 
-`func (o *StsServiceAccountConnection) SetApp(v ManagedConnectionAppInstance)`
+`func (o *StsServiceAccountConnection) SetApp(v ResourceConnectionAppInstance)`
 
 SetApp sets App field to given value.
 
 
 ### GetServiceAccount
 
-`func (o *StsServiceAccountConnection) GetServiceAccount() ManagedConnectionServiceAccount`
+`func (o *StsServiceAccountConnection) GetServiceAccount() ResourceConnectionServiceAccount`
 
 GetServiceAccount returns the ServiceAccount field if non-nil, zero value otherwise.
 
 ### GetServiceAccountOk
 
-`func (o *StsServiceAccountConnection) GetServiceAccountOk() (*ManagedConnectionServiceAccount, bool)`
+`func (o *StsServiceAccountConnection) GetServiceAccountOk() (*ResourceConnectionServiceAccount, bool)`
 
 GetServiceAccountOk returns a tuple with the ServiceAccount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetServiceAccount
 
-`func (o *StsServiceAccountConnection) SetServiceAccount(v ManagedConnectionServiceAccount)`
+`func (o *StsServiceAccountConnection) SetServiceAccount(v ResourceConnectionServiceAccount)`
 
 SetServiceAccount sets ServiceAccount field to given value.
 

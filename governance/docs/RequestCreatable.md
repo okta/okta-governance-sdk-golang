@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **RequestTypeId** | **string** | The request type &#x60;id&#x60;.  | 
 **Subject** | **string** | The subject of the request | 
 **RequesterUserIds** | Pointer to **[]string** | A list of requester Okta user &#x60;id&#x60;s. | [optional] 
-**RequesterFieldValues** | Pointer to [**[]FieldValueWritable**](FieldValueWritable.md) | Field values provided when adding the request.  If a request type has required requesterFields, they must be provided when the request is created.  Non-required fields may be omitted when creating the request.  | [optional] 
+**RequesterFieldValues** | Pointer to [**[]FieldValueWritable**](FieldValueWritable.md) | Field values provided when adding the request.  If a request type has required &#x60;requesterFields&#x60;, they must be provided when the request is created.  Non-required fields may be omitted when creating the request.  | [optional] 
 
 ## Methods
 

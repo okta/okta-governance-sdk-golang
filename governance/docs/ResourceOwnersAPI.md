@@ -5,7 +5,7 @@ All URIs are relative to *https://subdomain.okta.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**ConfigureResourceOwners**](ResourceOwnersAPI.md#ConfigureResourceOwners) | **Post** /governance/api/v1/resource-owners | Configure the resource owners
-[**ListResourceOwnerCatalogResources**](ResourceOwnersAPI.md#ListResourceOwnerCatalogResources) | **Get** /governance/api/v1/resource-owners/catalog/resources | List all resources without owners
+[**ListResourceOwnerCatalogResources**](ResourceOwnersAPI.md#ListResourceOwnerCatalogResources) | **Get** /governance/api/v1/resource-owners/catalog/resources | List all unowned resources
 [**ListResourceOwners**](ResourceOwnersAPI.md#ListResourceOwners) | **Get** /governance/api/v1/resource-owners | List all resources with owners
 [**UpdateResourceOwners**](ResourceOwnersAPI.md#UpdateResourceOwners) | **Patch** /governance/api/v1/resource-owners | Update a resource owner
 
@@ -81,7 +81,7 @@ Name | Type | Description  | Notes
 
 > ResourceOwnersCatalogResourcesResponse ListResourceOwnerCatalogResources(ctx).Filter(filter).Limit(limit).After(after).Execute()
 
-List all resources without owners
+List all unowned resources
 
 
 
@@ -100,7 +100,7 @@ import (
 func main() {
 	filter := "parentResourceOrn eq "orn:okta:idp:00o11edPwGqbUrsDm0g4:apps:salesforce:0oafxqCAJWWGELFTYASJ" AND resource.type eq "entitlement-bundles"" // string | A [filter](https://developer.okta.com/docs/api/#filter) expression that returns entries based on the following properties and supported operators: * `parentResourceOrn`: supports `eq` (required) * `resource.type`: supports `eq` * `resource.profile.*`:  supports `sw` and `co` (both `parentResourceOrn` and `resource.type` filters are required for `resource.profile.*` filtering)  > **Note:** Query parameter percent encoding is required. See [Special characters](https://developer.okta.com/docs/api/#special-characters). 
 	limit := int32(56) // int32 | The maximum number of records returned in a response (optional) (default to 20)
-	after := "00u68w6vzKLultXS97g6" // string | The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request. (optional)
+	after := "00u68w6vzKLultXS97g6" // string | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination). (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -127,7 +127,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **filter** | **string** | A [filter](https://developer.okta.com/docs/api/#filter) expression that returns entries based on the following properties and supported operators: * &#x60;parentResourceOrn&#x60;: supports &#x60;eq&#x60; (required) * &#x60;resource.type&#x60;: supports &#x60;eq&#x60; * &#x60;resource.profile.*&#x60;:  supports &#x60;sw&#x60; and &#x60;co&#x60; (both &#x60;parentResourceOrn&#x60; and &#x60;resource.type&#x60; filters are required for &#x60;resource.profile.*&#x60; filtering)  &gt; **Note:** Query parameter percent encoding is required. See [Special characters](https://developer.okta.com/docs/api/#special-characters).  | 
  **limit** | **int32** | The maximum number of records returned in a response | [default to 20]
- **after** | **string** | The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request. | 
+ **after** | **string** | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination). | 
 
 ### Return type
 
@@ -168,9 +168,9 @@ import (
 )
 
 func main() {
-	filter := "parentResourceOrn eq "orn:okta:idp:00o11edPwGqbUrsDm0g4:apps:salesforce:0oafxqCAJWWGELFTYASJ"" // string | A [filter](https://developer.okta.com/docs/api/#filter) expression that returns entries based on the following properties and supported operators: * `parentResourceOrn`: supports `eq` * `resource.orn`: supports `eq` * `resource.type`: supports `eq` * `resource.profile.name`:  supports `sw` and `co` (both `parentResourceOrn` and `resource.type` filters are required for `resource.profile.name` filtering)  > **Note:** Query parameter percent encoding is required. See [Special characters](https://developer.okta.com/docs/api/#special-characters). 
+	filter := "parentResourceOrn eq "orn:okta:idp:00o11edPwGqbUrsDm0g4:apps:salesforce:0oafxqCAJWWGELFTYASJ"" // string | A [filter](https://developer.okta.com/docs/api/#filter) expression that returns entries based on the following properties and supported operators: * `parentResourceOrn`: supports `eq` * `resource.orn`: supports `eq` * `resource.type`: supports `eq` * `resource.profile.name`:  supports `sw` and `co` (both `parentResourceOrn` and `resource.type` filters are required for `resource.profile.name` filtering) * `principal.orn`: supports `eq` (must be combined with `resource.type eq \"ai-agents\"`)  > **Note:** Query parameter percent encoding is required. See [Special characters](https://developer.okta.com/docs/api/#special-characters).  > **Note:** The principal referenced by `principal.orn` must already exist as a registered resource owner in the system. If the principal has never been assigned as an owner, the API returns a `400` error rather than an empty result set. 
 	limit := int32(56) // int32 | The maximum number of records returned in a response (optional) (default to 20)
-	after := "00u68w6vzKLultXS97g6" // string | The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request. (optional)
+	after := "00u68w6vzKLultXS97g6" // string | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination). (optional)
 	include := []string{"Include_example"} // []string | Adds additional properties in the response (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -196,9 +196,9 @@ Other parameters are passed through a pointer to a apiListResourceOwnersRequest 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **filter** | **string** | A [filter](https://developer.okta.com/docs/api/#filter) expression that returns entries based on the following properties and supported operators: * &#x60;parentResourceOrn&#x60;: supports &#x60;eq&#x60; * &#x60;resource.orn&#x60;: supports &#x60;eq&#x60; * &#x60;resource.type&#x60;: supports &#x60;eq&#x60; * &#x60;resource.profile.name&#x60;:  supports &#x60;sw&#x60; and &#x60;co&#x60; (both &#x60;parentResourceOrn&#x60; and &#x60;resource.type&#x60; filters are required for &#x60;resource.profile.name&#x60; filtering)  &gt; **Note:** Query parameter percent encoding is required. See [Special characters](https://developer.okta.com/docs/api/#special-characters).  | 
+ **filter** | **string** | A [filter](https://developer.okta.com/docs/api/#filter) expression that returns entries based on the following properties and supported operators: * &#x60;parentResourceOrn&#x60;: supports &#x60;eq&#x60; * &#x60;resource.orn&#x60;: supports &#x60;eq&#x60; * &#x60;resource.type&#x60;: supports &#x60;eq&#x60; * &#x60;resource.profile.name&#x60;:  supports &#x60;sw&#x60; and &#x60;co&#x60; (both &#x60;parentResourceOrn&#x60; and &#x60;resource.type&#x60; filters are required for &#x60;resource.profile.name&#x60; filtering) * &#x60;principal.orn&#x60;: supports &#x60;eq&#x60; (must be combined with &#x60;resource.type eq \&quot;ai-agents\&quot;&#x60;)  &gt; **Note:** Query parameter percent encoding is required. See [Special characters](https://developer.okta.com/docs/api/#special-characters).  &gt; **Note:** The principal referenced by &#x60;principal.orn&#x60; must already exist as a registered resource owner in the system. If the principal has never been assigned as an owner, the API returns a &#x60;400&#x60; error rather than an empty result set.  | 
  **limit** | **int32** | The maximum number of records returned in a response | [default to 20]
- **after** | **string** | The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request. | 
+ **after** | **string** | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination). | 
  **include** | **[]string** | Adds additional properties in the response | 
 
 ### Return type

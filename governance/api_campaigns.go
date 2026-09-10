@@ -49,6 +49,10 @@ type CampaignsAPI interface {
 		- `remediationSettings`: What needs to be done after access is reviewed
 		- `notificationSettings`: Configure automatic notifications to a campaign creator or reviewer
 
+		> **Notes:**
+		> * You can certify access to service accounts that are managed in Okta Privileged Access if you're also subscribed to [Okta Privileged Access](https://help.okta.com/okta_help.htm?type=oie&id=ext-pam-overview). See [Certify service accounts](https://help.okta.com/okta_help.htm?type=oie&id=csh-certify-service-accounts) in the product documentation.
+		> * You can certify AI agent access to resource connections if you're also subscribed to [Okta for AI Agents](https://help.okta.com/okta_help.htm?type=oie&id=ai-agents). See [Create identity campaigns to certify resource connections](https://help.okta.com/okta_help.htm?type=oie&id=ai-agents-create-identity-campaigns-to-certify-resource-connections). This is a self-service Early Access feature. Enable the **Resource Access Certifications for AI Agents** feature in your org. See [Enable self-service features](https://help.okta.com/okta_help.htm?type=oie&id=ext_Manage_Early_Access_features).
+
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@return ApiCreateCampaignRequest
@@ -72,7 +76,7 @@ type CampaignsAPI interface {
 
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param campaignId The `id` of the campaign
+			@param campaignId Unique identifier for the campaign
 			@return ApiDeleteCampaignRequest
 	*/
 	DeleteCampaign(ctx context.Context, campaignId string) ApiDeleteCampaignRequest
@@ -93,7 +97,7 @@ type CampaignsAPI interface {
 
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param campaignId The `id` of the campaign
+			@param campaignId Unique identifier for the campaign
 			@return ApiEndCampaignRequest
 	*/
 	EndCampaign(ctx context.Context, campaignId string) ApiEndCampaignRequest
@@ -109,7 +113,7 @@ type CampaignsAPI interface {
 		More information is returned than the abbreviated representation in a List campaigns operation.
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param campaignId The `id` of the campaign
+			@param campaignId Unique identifier for the campaign
 			@return ApiGetCampaignRequest
 	*/
 	GetCampaign(ctx context.Context, campaignId string) ApiGetCampaignRequest
@@ -134,7 +138,7 @@ type CampaignsAPI interface {
 		>**Note:** This operation is optional. Typically, campaigns are launched automatically according to the campaign's schedule settings (`scheduleSettings`).
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param campaignId The `id` of the campaign
+			@param campaignId Unique identifier for the campaign
 			@return ApiLaunchCampaignRequest
 	*/
 	LaunchCampaign(ctx context.Context, campaignId string) ApiLaunchCampaignRequest
@@ -147,7 +151,7 @@ type CampaignsAPI interface {
 
 			Lists all or a subset of campaigns in your organization.
 
-		Use the `?filter=` parameter to narrow results with the following campaign properties - `name`, `status`, `scheduleType`, `reviewerType` and `recurringCampaignId`.
+		Use the `?filter=` parameter to narrow results with the following campaign properties - `name`, `status`, `scheduleType`, `reviewerType`, `startDate`, `endDate`, and `recurringCampaignId`.
 
 		Use the `?orderBy=` parameter to get ordered results with the following campaign properties - `name`, `created`, `startDate`, `endDate`, and `status`.
 
@@ -197,6 +201,10 @@ Specify the following for a campaign:
 - `reviewerSettings`: Who needs to review access
 - `remediationSettings`: What needs to be done after access is reviewed
 - `notificationSettings`: Configure automatic notifications to a campaign creator or reviewer
+
+> **Notes:**
+> * You can certify access to service accounts that are managed in Okta Privileged Access if you're also subscribed to [Okta Privileged Access](https://help.okta.com/okta_help.htm?type=oie&id=ext-pam-overview). See [Certify service accounts](https://help.okta.com/okta_help.htm?type=oie&id=csh-certify-service-accounts) in the product documentation.
+> * You can certify AI agent access to resource connections if you're also subscribed to [Okta for AI Agents](https://help.okta.com/okta_help.htm?type=oie&id=ai-agents). See [Create identity campaigns to certify resource connections](https://help.okta.com/okta_help.htm?type=oie&id=ai-agents-create-identity-campaigns-to-certify-resource-connections). This is a self-service Early Access feature. Enable the **Resource Access Certifications for AI Agents** feature in your org. See [Enable self-service features](https://help.okta.com/okta_help.htm?type=oie&id=ext_Manage_Early_Access_features).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiCreateCampaignRequest
@@ -397,7 +405,7 @@ If the campaign being deleted has a schedule type `RECURRING`, then any occurenc
 >**Note:** There is a limit on the number of campaigns with a status of `SCHEDULED`. Deleting campaigns that are never meant to be launched (whether through the launch operation or automatically through `scheduleSettings`), can be useful to remain under this limit.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param campaignId The `id` of the campaign
+	@param campaignId Unique identifier for the campaign
 	@return ApiDeleteCampaignRequest
 */
 func (a *CampaignsAPIService) DeleteCampaign(ctx context.Context, campaignId string) ApiDeleteCampaignRequest {
@@ -599,7 +607,7 @@ Only campaigns with a status of `ACTIVE` can be completed. A valid end operation
 >**Note:** This operation is optional. Typically, campaigns are completed automatically according to the campaign's schedule settings `scheduleSettings`.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param campaignId The `id` of the campaign
+	@param campaignId Unique identifier for the campaign
 	@return ApiEndCampaignRequest
 */
 func (a *CampaignsAPIService) EndCampaign(ctx context.Context, campaignId string) ApiEndCampaignRequest {
@@ -792,7 +800,7 @@ Retrieves the full representation of a specific campaign.
 More information is returned than the abbreviated representation in a List campaigns operation.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param campaignId The `id` of the campaign
+	@param campaignId Unique identifier for the campaign
 	@return ApiGetCampaignRequest
 */
 func (a *CampaignsAPIService) GetCampaign(ctx context.Context, campaignId string) ApiGetCampaignRequest {
@@ -992,7 +1000,7 @@ If the campaign being launched has a recurring definition, on successful respons
 >**Note:** This operation is optional. Typically, campaigns are launched automatically according to the campaign's schedule settings (`scheduleSettings`).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param campaignId The `id` of the campaign
+	@param campaignId Unique identifier for the campaign
 	@return ApiLaunchCampaignRequest
 */
 func (a *CampaignsAPIService) LaunchCampaign(ctx context.Context, campaignId string) ApiLaunchCampaignRequest {
@@ -1180,7 +1188,7 @@ func (r ApiListCampaignsRequest) Filter(filter string) ApiListCampaignsRequest {
 	return r
 }
 
-// The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request.
+// Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination).
 func (r ApiListCampaignsRequest) After(after string) ApiListCampaignsRequest {
 	r.after = &after
 	return r
@@ -1207,7 +1215,7 @@ ListCampaigns List all campaigns
 
 Lists all or a subset of campaigns in your organization.
 
-Use the `?filter=` parameter to narrow results with the following campaign properties - `name`, `status`, `scheduleType`, `reviewerType` and `recurringCampaignId`.
+Use the `?filter=` parameter to narrow results with the following campaign properties - `name`, `status`, `scheduleType`, `reviewerType`, `startDate`, `endDate`, and `recurringCampaignId`.
 
 Use the `?orderBy=` parameter to get ordered results with the following campaign properties - `name`, `created`, `startDate`, `endDate`, and `status`.
 

@@ -28,7 +28,7 @@ import (
 	"fmt"
 )
 
-// IntegrationType Integration type (eg. SLACK)
+// IntegrationType Integration type
 type IntegrationType string
 
 // List of integration-type
