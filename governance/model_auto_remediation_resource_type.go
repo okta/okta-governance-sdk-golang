@@ -28,7 +28,7 @@ import (
 	"fmt"
 )
 
-// AutoRemediationResourceType The type of the resource to be automatically remediated. Only GROUP is supported.
+// AutoRemediationResourceType The type of the resource to be automatically remediated. Only `GROUP` is supported.
 type AutoRemediationResourceType string
 
 // List of auto-remediation-resource-type

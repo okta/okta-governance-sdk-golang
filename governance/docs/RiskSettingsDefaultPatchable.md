@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **RequestSubmissionType** | **string** |  | 
-**ApprovalSequenceId** | **string** | The ID of the approval sequence | 
+**ApprovalSequenceId** | **string** | Unique identifier for the approval sequence | 
 **AccessDurationSettings** | Pointer to [**NullableAccessDurationSettingsPatchable**](AccessDurationSettingsPatchable.md) |  | [optional] 
 
 ## Methods

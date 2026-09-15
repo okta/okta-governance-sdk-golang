@@ -31,7 +31,7 @@ import (
 // checks if the FieldOption type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &FieldOption{}
 
-// FieldOption An option to for the user to select for a field prompt.
+// FieldOption An option for the user to select for a field prompt
 type FieldOption struct {
 	// The value of a select option
 	Value                string `json:"value"`

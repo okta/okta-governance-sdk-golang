@@ -46,8 +46,8 @@ type RequestConditionsAPI interface {
 
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param resourceId The `id` of the resource in Okta ID format or ORN format
-			@param requestConditionId The `id` of the request condition
+			@param resourceId Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)
+			@param requestConditionId Unique identifier for the request condition
 			@return ApiActivateResourceRequestConditionV2Request
 	*/
 	ActivateResourceRequestConditionV2(ctx context.Context, resourceId string, requestConditionId string) ApiActivateResourceRequestConditionV2Request
@@ -59,22 +59,23 @@ type RequestConditionsAPI interface {
 	/*
 			CreateResourceRequestConditionV2 Create a request condition
 
-			Creates a request condition, which governs how a resource can be requested.
+			Creates a request condition to govern how a resource can be requested.
 
-		When creating a request condition, you specify:
+		Specify the following to create a request condition:
 
 		- What resource can be requested? (`resourceId` in path)
 		- What access scope can be requested? (`accessScopeSettings` in request body)
 		- Who can request access? (`requesterSettings` in request body)
 		- What is the approval process? (`approvalSequenceId` in request body)
 
-		Any `requesterSettings`, `accessScopeSettings` in the update request body will be validated against the resource's current request settings.
+		Any `requesterSettings` or `accessScopeSettings` parameters in the request body are validated against the resource's current request settings.
+		After a request condition is created successfully, its `status` is set to `INACTIVE`.
 
-		Request conditions will have an inactive status after succesful creation.
+		> **Note:** You can define a maximum of 100 conditions for each resource (app).
 
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param resourceId The `id` of the resource in Okta ID format or ORN format
+			@param resourceId Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)
 			@return ApiCreateResourceRequestConditionV2Request
 	*/
 	CreateResourceRequestConditionV2(ctx context.Context, resourceId string) ApiCreateResourceRequestConditionV2Request
@@ -94,8 +95,8 @@ type RequestConditionsAPI interface {
 
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param resourceId The `id` of the resource in Okta ID format or ORN format
-			@param requestConditionId The `id` of the request condition
+			@param resourceId Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)
+			@param requestConditionId Unique identifier for the request condition
 			@return ApiDeactivateResourceRequestConditionV2Request
 	*/
 	DeactivateResourceRequestConditionV2(ctx context.Context, resourceId string, requestConditionId string) ApiDeactivateResourceRequestConditionV2Request
@@ -110,8 +111,8 @@ type RequestConditionsAPI interface {
 		Deletes a request condition
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param resourceId The `id` of the resource in Okta ID format or ORN format
-		@param requestConditionId The `id` of the request condition
+		@param resourceId Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)
+		@param requestConditionId Unique identifier for the request condition
 		@return ApiDeleteResourceRequestConditionV2Request
 	*/
 	DeleteResourceRequestConditionV2(ctx context.Context, resourceId string, requestConditionId string) ApiDeleteResourceRequestConditionV2Request
@@ -125,8 +126,8 @@ type RequestConditionsAPI interface {
 		Retrieves a resource request condition
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param resourceId The `id` of the resource in Okta ID format or ORN format
-		@param requestConditionId The `id` of the request condition
+		@param resourceId Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)
+		@param requestConditionId Unique identifier for the request condition
 		@return ApiGetResourceRequestConditionV2Request
 	*/
 	GetResourceRequestConditionV2(ctx context.Context, resourceId string, requestConditionId string) ApiGetResourceRequestConditionV2Request
@@ -138,11 +139,11 @@ type RequestConditionsAPI interface {
 	/*
 		ListResourceRequestConditionsV2 List all resource request conditions
 
-		Lists request conditions for the resource specified by resourceId
+		Lists request conditions for a resource specified by `resourceId`
 
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param resourceId The `id` of the resource in Okta ID format or ORN format
+		@param resourceId Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)
 		@return ApiListResourceRequestConditionsV2Request
 	*/
 	ListResourceRequestConditionsV2(ctx context.Context, resourceId string) ApiListResourceRequestConditionsV2Request
@@ -166,8 +167,8 @@ type RequestConditionsAPI interface {
 
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param resourceId The `id` of the resource in Okta ID format or ORN format
-			@param requestConditionId The `id` of the request condition
+			@param resourceId Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)
+			@param requestConditionId Unique identifier for the request condition
 			@return ApiUpdateResourceRequestConditionV2Request
 	*/
 	UpdateResourceRequestConditionV2(ctx context.Context, resourceId string, requestConditionId string) ApiUpdateResourceRequestConditionV2Request
@@ -202,8 +203,8 @@ Conditions can be activated while their status is INACTIVE.
 Activating a condition allows it to provide catalog entries to endusers.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceId The `id` of the resource in Okta ID format or ORN format
-	@param requestConditionId The `id` of the request condition
+	@param resourceId Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)
+	@param requestConditionId Unique identifier for the request condition
 	@return ApiActivateResourceRequestConditionV2Request
 */
 func (a *RequestConditionsAPIService) ActivateResourceRequestConditionV2(ctx context.Context, resourceId string, requestConditionId string) ApiActivateResourceRequestConditionV2Request {
@@ -402,21 +403,22 @@ func (r ApiCreateResourceRequestConditionV2Request) Execute() (*RequestCondition
 /*
 CreateResourceRequestConditionV2 Create a request condition
 
-Creates a request condition, which governs how a resource can be requested.
+Creates a request condition to govern how a resource can be requested.
 
-When creating a request condition, you specify:
+Specify the following to create a request condition:
 
 - What resource can be requested? (`resourceId` in path)
 - What access scope can be requested? (`accessScopeSettings` in request body)
 - Who can request access? (`requesterSettings` in request body)
 - What is the approval process? (`approvalSequenceId` in request body)
 
-Any `requesterSettings`, `accessScopeSettings` in the update request body will be validated against the resource's current request settings.
+Any `requesterSettings` or `accessScopeSettings` parameters in the request body are validated against the resource's current request settings.
+After a request condition is created successfully, its `status` is set to `INACTIVE`.
 
-Request conditions will have an inactive status after succesful creation.
+> **Note:** You can define a maximum of 100 conditions for each resource (app).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceId The `id` of the resource in Okta ID format or ORN format
+	@param resourceId Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)
 	@return ApiCreateResourceRequestConditionV2Request
 */
 func (a *RequestConditionsAPIService) CreateResourceRequestConditionV2(ctx context.Context, resourceId string) ApiCreateResourceRequestConditionV2Request {
@@ -616,8 +618,8 @@ Conditions can be deactivated while their status is ACTIVE.
 Deactivating a condition prevents the condition from providing catalog entries to endusers.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceId The `id` of the resource in Okta ID format or ORN format
-	@param requestConditionId The `id` of the request condition
+	@param resourceId Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)
+	@param requestConditionId Unique identifier for the request condition
 	@return ApiDeactivateResourceRequestConditionV2Request
 */
 func (a *RequestConditionsAPIService) DeactivateResourceRequestConditionV2(ctx context.Context, resourceId string, requestConditionId string) ApiDeactivateResourceRequestConditionV2Request {
@@ -828,8 +830,8 @@ DeleteResourceRequestConditionV2 Delete a request condition
 Deletes a request condition
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceId The `id` of the resource in Okta ID format or ORN format
-	@param requestConditionId The `id` of the request condition
+	@param resourceId Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)
+	@param requestConditionId Unique identifier for the request condition
 	@return ApiDeleteResourceRequestConditionV2Request
 */
 func (a *RequestConditionsAPIService) DeleteResourceRequestConditionV2(ctx context.Context, resourceId string, requestConditionId string) ApiDeleteResourceRequestConditionV2Request {
@@ -1015,8 +1017,8 @@ GetResourceRequestConditionV2 Retrieve a resource request condition
 Retrieves a resource request condition
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceId The `id` of the resource in Okta ID format or ORN format
-	@param requestConditionId The `id` of the request condition
+	@param resourceId Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)
+	@param requestConditionId Unique identifier for the request condition
 	@return ApiGetResourceRequestConditionV2Request
 */
 func (a *RequestConditionsAPIService) GetResourceRequestConditionV2(ctx context.Context, resourceId string, requestConditionId string) ApiGetResourceRequestConditionV2Request {
@@ -1211,10 +1213,10 @@ func (r ApiListResourceRequestConditionsV2Request) Execute() (*RequestConditions
 /*
 ListResourceRequestConditionsV2 List all resource request conditions
 
-# Lists request conditions for the resource specified by resourceId
+Lists request conditions for a resource specified by `resourceId`
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceId The `id` of the resource in Okta ID format or ORN format
+	@param resourceId Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)
 	@return ApiListResourceRequestConditionsV2Request
 */
 func (a *RequestConditionsAPIService) ListResourceRequestConditionsV2(ctx context.Context, resourceId string) ApiListResourceRequestConditionsV2Request {
@@ -1419,8 +1421,8 @@ While an update request body may not contain `status`, a successful update reque
 Any `requesterSettings`, `accessScopeSettings` in the update request body will be validated against the resource's current request settings.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resourceId The `id` of the resource in Okta ID format or ORN format
-	@param requestConditionId The `id` of the request condition
+	@param resourceId Unique identifier for the resource in Okta instance ID format or [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)
+	@param requestConditionId Unique identifier for the request condition
 	@return ApiUpdateResourceRequestConditionV2Request
 */
 func (a *RequestConditionsAPIService) UpdateResourceRequestConditionV2(ctx context.Context, resourceId string, requestConditionId string) ApiUpdateResourceRequestConditionV2Request {

@@ -28,7 +28,7 @@ import (
 	"fmt"
 )
 
-// RevokedRemediationAction Specifies the action if the reviewer revokes access. `NO_ACTION` indicates the user retains the same access. `DENY` indicates the user will have their access revoked as long as they are not assigned to a group through Group Rules. >**Note:** If a user is assigned to a resource by way of group and the campaign is targeted to users assigned directly to the application, the user won't be revoked and marked with “Manual Intervention required”. If the same campaign is configured to use the Enhanced Group Remediation, and the group the user is assigned to is included in the campaign the user is revoked. If the user is assigned through Group Rules and a campaign attempts to remove the user from the group, the user won't be removed and the review marked as “Manual Intervention required”.
+// RevokedRemediationAction Specifies the action if the reviewer revokes access. `NO_ACTION` indicates that the user retains the same access. `DENY` indicates that the user's access is revoked as long as they aren't assigned to a group through Group Rules. >**Note:** If a user is assigned to a resource by way of a group and the campaign is targeted to users assigned directly to the app, the user's access isn't revoked and the review is flagged as `Manual Intervention required`. If the same campaign is configured to use the Enhanced Group Remediation, and the group the user is assigned to is included in the campaign, the user's access is revoked. If the user is assigned through Group Rules and a campaign attempts to remove the user from the group, the user's access isn't revoked and the review is flagged as `Manual Intervention required`.
 type RevokedRemediationAction string
 
 // List of revoked-remediation-action

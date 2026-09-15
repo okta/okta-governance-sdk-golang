@@ -44,7 +44,7 @@ import (
 )
 
 func main() {
-	collectionId := "collectionId_example" // string | The `id` of the collection
+	collectionId := "collectionId_example" // string | Unique identifier for the collection
 	collectionResourceCreatable := []openapiclient.CollectionResourceCreatable{*openapiclient.NewCollectionResourceCreatable("ResourceOrn_example")} // []CollectionResourceCreatable |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -65,7 +65,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**collectionId** | **string** | The &#x60;id&#x60; of the collection | 
+**collectionId** | **string** | Unique identifier for the collection | 
 
 ### Other Parameters
 
@@ -116,7 +116,7 @@ import (
 )
 
 func main() {
-	collectionId := "collectionId_example" // string | The `id` of the collection
+	collectionId := "collectionId_example" // string | Unique identifier for the collection
 	assignedPrincipal := []openapiclient.AssignedPrincipal{*openapiclient.NewAssignedPrincipal()} // []AssignedPrincipal | Attributes of collection assignment
 
 	configuration := openapiclient.NewConfiguration()
@@ -137,7 +137,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**collectionId** | **string** | The &#x60;id&#x60; of the collection | 
+**collectionId** | **string** | Unique identifier for the collection | 
 
 ### Other Parameters
 
@@ -254,7 +254,7 @@ import (
 )
 
 func main() {
-	collectionId := "collectionId_example" // string | The `id` of the collection
+	collectionId := "collectionId_example" // string | Unique identifier for the collection
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -272,7 +272,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**collectionId** | **string** | The &#x60;id&#x60; of the collection | 
+**collectionId** | **string** | Unique identifier for the collection | 
 
 ### Other Parameters
 
@@ -322,8 +322,8 @@ import (
 )
 
 func main() {
-	collectionId := "collectionId_example" // string | The `id` of the collection
-	resourceId := "resourceId_example" // string | The `id` of the resource in ORN format
+	collectionId := "collectionId_example" // string | Unique identifier for the collection
+	resourceId := "resourceId_example" // string | Unique identifier for the resource
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -341,8 +341,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**collectionId** | **string** | The &#x60;id&#x60; of the collection | 
-**resourceId** | **string** | The &#x60;id&#x60; of the resource in ORN format | 
+**collectionId** | **string** | Unique identifier for the collection | 
+**resourceId** | **string** | Unique identifier for the resource | 
 
 ### Other Parameters
 
@@ -393,8 +393,8 @@ import (
 )
 
 func main() {
-	collectionId := "collectionId_example" // string | The `id` of the collection
-	assignmentId := "assignmentId_example" // string | The `id` of the collection assignment
+	collectionId := "collectionId_example" // string | Unique identifier for the collection
+	assignmentId := "assignmentId_example" // string | Unique identifier for the collection assignment
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -412,8 +412,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**collectionId** | **string** | The &#x60;id&#x60; of the collection | 
-**assignmentId** | **string** | The &#x60;id&#x60; of the collection assignment | 
+**collectionId** | **string** | Unique identifier for the collection | 
+**assignmentId** | **string** | Unique identifier for the collection assignment | 
 
 ### Other Parameters
 
@@ -464,7 +464,7 @@ import (
 )
 
 func main() {
-	collectionId := "collectionId_example" // string | The `id` of the collection
+	collectionId := "collectionId_example" // string | Unique identifier for the collection
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -484,7 +484,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**collectionId** | **string** | The &#x60;id&#x60; of the collection | 
+**collectionId** | **string** | Unique identifier for the collection | 
 
 ### Other Parameters
 
@@ -534,8 +534,8 @@ import (
 )
 
 func main() {
-	collectionId := "collectionId_example" // string | The `id` of the collection
-	resourceId := "resourceId_example" // string | The `id` of the resource in ORN format
+	collectionId := "collectionId_example" // string | Unique identifier for the collection
+	resourceId := "resourceId_example" // string | Unique identifier for the resource
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -555,8 +555,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**collectionId** | **string** | The &#x60;id&#x60; of the collection | 
-**resourceId** | **string** | The &#x60;id&#x60; of the resource in ORN format | 
+**collectionId** | **string** | Unique identifier for the collection | 
+**resourceId** | **string** | Unique identifier for the resource | 
 
 ### Other Parameters
 
@@ -607,8 +607,8 @@ import (
 )
 
 func main() {
-	collectionId := "collectionId_example" // string | The `id` of the collection
-	filter := "firstName%20sw%20%22John%22" // string | A [filter](https://developer.okta.com/docs/api/#filter) expression that filters users based on `firstName`, `lastName`, or `email` properties. The `sw` [operator](https://developer.okta.com/docs/api/#operators) is supported for these properties.  > **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding).  (optional)
+	collectionId := "collectionId_example" // string | Unique identifier for the collection
+	filter := "firstName sw "John"" // string | A [filter](https://developer.okta.com/docs/api/#filter) expression that filters users based on `firstName`, `lastName`, or `email` properties. The `sw` [operator](https://developer.okta.com/docs/api/#operators) is supported for these properties.  > **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding).  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -628,7 +628,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**collectionId** | **string** | The &#x60;id&#x60; of the collection | 
+**collectionId** | **string** | Unique identifier for the collection | 
 
 ### Other Parameters
 
@@ -679,10 +679,10 @@ import (
 )
 
 func main() {
-	collectionId := "collectionId_example" // string | The `id` of the collection
-	filter := "principal.externalId%20eq%20%2200ub0oNGTSWTBKOLGLNR%22%20AND%20principal.type%20eq%20%22OKTA_USER%22" // string | A [filter](https://developer.okta.com/docs/api/#filter) expression that filters principals based on `principal` or `principalProfile` properties. The `sw` [operator](https://developer.okta.com/docs/api/#operators) is supported for these properties.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding).  (optional)
+	collectionId := "collectionId_example" // string | Unique identifier for the collection
+	filter := "principal.externalId eq "00ub0oNGTSWTBKOLGLNR" AND principal.type eq "OKTA_USER"" // string | A [filter](https://developer.okta.com/docs/api/#filter) expression that filters principals based on `principal` or `principalProfile` properties. The `sw` [operator](https://developer.okta.com/docs/api/#operators) is supported for these properties.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding).  (optional)
 	limit := int32(56) // int32 | The maximum number of records returned in a response (optional) (default to 20)
-	after := "00u68w6vzKLultXS97g6" // string | The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request. (optional)
+	after := "00u68w6vzKLultXS97g6" // string | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination). (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -702,7 +702,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**collectionId** | **string** | The &#x60;id&#x60; of the collection | 
+**collectionId** | **string** | Unique identifier for the collection | 
 
 ### Other Parameters
 
@@ -714,7 +714,7 @@ Name | Type | Description  | Notes
 
  **filter** | **string** | A [filter](https://developer.okta.com/docs/api/#filter) expression that filters principals based on &#x60;principal&#x60; or &#x60;principalProfile&#x60; properties. The &#x60;sw&#x60; [operator](https://developer.okta.com/docs/api/#operators) is supported for these properties.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding).  | 
  **limit** | **int32** | The maximum number of records returned in a response | [default to 20]
- **after** | **string** | The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request. | 
+ **after** | **string** | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination). | 
 
 ### Return type
 
@@ -755,10 +755,10 @@ import (
 )
 
 func main() {
-	collectionId := "collectionId_example" // string | The `id` of the collection
+	collectionId := "collectionId_example" // string | Unique identifier for the collection
 	include := []string{"Include_example"} // []string | The `include` query parameter returns additional properties in the response. (optional)
 	limit := int32(56) // int32 | The maximum number of records returned in a response (optional) (default to 20)
-	after := "00u68w6vzKLultXS97g6" // string | The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request. (optional)
+	after := "00u68w6vzKLultXS97g6" // string | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination). (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -778,7 +778,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**collectionId** | **string** | The &#x60;id&#x60; of the collection | 
+**collectionId** | **string** | Unique identifier for the collection | 
 
 ### Other Parameters
 
@@ -790,7 +790,7 @@ Name | Type | Description  | Notes
 
  **include** | **[]string** | The &#x60;include&#x60; query parameter returns additional properties in the response. | 
  **limit** | **int32** | The maximum number of records returned in a response | [default to 20]
- **after** | **string** | The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request. | 
+ **after** | **string** | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination). | 
 
 ### Return type
 
@@ -833,7 +833,7 @@ import (
 func main() {
 	include := []string{"Include_example"} // []string | The `include` filter adds additional properties in the response. (optional)
 	limit := int32(56) // int32 | The maximum number of records returned in a response (optional) (default to 20)
-	after := "00u68w6vzKLultXS97g6" // string | The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request. (optional)
+	after := "00u68w6vzKLultXS97g6" // string | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination). (optional)
 	filter := "name sw "Sales"" // string | A [filter](https://developer.okta.com/docs/api/#filter) expression that filters data based on `id` or `name` resource collection properties. The `sw` and `co` [operators](https://developer.okta.com/docs/api/#operators) are supported for `name`, and the `eq` operator is supported for `id`.  > **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding).  (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -861,7 +861,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **include** | **[]string** | The &#x60;include&#x60; filter adds additional properties in the response. | 
  **limit** | **int32** | The maximum number of records returned in a response | [default to 20]
- **after** | **string** | The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request. | 
+ **after** | **string** | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination). | 
  **filter** | **string** | A [filter](https://developer.okta.com/docs/api/#filter) expression that filters data based on &#x60;id&#x60; or &#x60;name&#x60; resource collection properties. The &#x60;sw&#x60; and &#x60;co&#x60; [operators](https://developer.okta.com/docs/api/#operators) are supported for &#x60;name&#x60;, and the &#x60;eq&#x60; operator is supported for &#x60;id&#x60;.  &gt; **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding).  | 
 
 ### Return type
@@ -903,9 +903,9 @@ import (
 )
 
 func main() {
-	filter := "principal.externalId%20eq%20%2200ub0oNGTSWTBKOLGLNR%22%20AND%20principal.type%20eq%20%22OKTA_USER%22" // string | A [filter](https://developer.okta.com/docs/api/#filter) expression that filters principals based on `principal` or `principalProfile` properties. The `sw` [operator](https://developer.okta.com/docs/api/#operators) is supported for these properties.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding).  (optional)
+	filter := "principal.externalId eq "00ub0oNGTSWTBKOLGLNR" AND principal.type eq "OKTA_USER"" // string | A [filter](https://developer.okta.com/docs/api/#filter) expression that filters principals based on `principal` or `principalProfile` properties. The `sw` [operator](https://developer.okta.com/docs/api/#operators) is supported for these properties.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding).  (optional)
 	limit := int32(56) // int32 | The maximum number of records returned in a response (optional) (default to 20)
-	after := "00u68w6vzKLultXS97g6" // string | The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request. (optional)
+	after := "00u68w6vzKLultXS97g6" // string | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination). (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -932,7 +932,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **filter** | **string** | A [filter](https://developer.okta.com/docs/api/#filter) expression that filters principals based on &#x60;principal&#x60; or &#x60;principalProfile&#x60; properties. The &#x60;sw&#x60; [operator](https://developer.okta.com/docs/api/#operators) is supported for these properties.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding).  | 
  **limit** | **int32** | The maximum number of records returned in a response | [default to 20]
- **after** | **string** | The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request. | 
+ **after** | **string** | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination). | 
 
 ### Return type
 
@@ -973,7 +973,7 @@ import (
 )
 
 func main() {
-	collectionId := "collectionId_example" // string | The `id` of the collection
+	collectionId := "collectionId_example" // string | Unique identifier for the collection
 	collectionUpdatable := *openapiclient.NewCollectionUpdatable("Name_example") // CollectionUpdatable | The writeable attributes of a resource collection
 
 	configuration := openapiclient.NewConfiguration()
@@ -994,7 +994,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**collectionId** | **string** | The &#x60;id&#x60; of the collection | 
+**collectionId** | **string** | Unique identifier for the collection | 
 
 ### Other Parameters
 
@@ -1045,8 +1045,8 @@ import (
 )
 
 func main() {
-	collectionId := "collectionId_example" // string | The `id` of the collection
-	resourceId := "resourceId_example" // string | The `id` of the resource in ORN format
+	collectionId := "collectionId_example" // string | Unique identifier for the collection
+	resourceId := "resourceId_example" // string | Unique identifier for the resource
 	collectionResourceUpdatable := *openapiclient.NewCollectionResourceUpdatable() // CollectionResourceUpdatable | The updatable attributes of a collection resource
 
 	configuration := openapiclient.NewConfiguration()
@@ -1067,8 +1067,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**collectionId** | **string** | The &#x60;id&#x60; of the collection | 
-**resourceId** | **string** | The &#x60;id&#x60; of the resource in ORN format | 
+**collectionId** | **string** | Unique identifier for the collection | 
+**resourceId** | **string** | Unique identifier for the resource | 
 
 ### Other Parameters
 
@@ -1120,8 +1120,8 @@ import (
 )
 
 func main() {
-	collectionId := "collectionId_example" // string | The `id` of the collection
-	assignmentId := "assignmentId_example" // string | The `id` of the collection assignment
+	collectionId := "collectionId_example" // string | Unique identifier for the collection
+	assignmentId := "assignmentId_example" // string | Unique identifier for the collection assignment
 	assignmentPatchOperation := []openapiclient.AssignmentPatchOperation{*openapiclient.NewAssignmentPatchOperation(openapiclient.assignment-patch-op("ADD"), "Path_example")} // []AssignmentPatchOperation | The writable attributes of a collection assignment
 
 	configuration := openapiclient.NewConfiguration()
@@ -1140,8 +1140,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**collectionId** | **string** | The &#x60;id&#x60; of the collection | 
-**assignmentId** | **string** | The &#x60;id&#x60; of the collection assignment | 
+**collectionId** | **string** | Unique identifier for the collection | 
+**assignmentId** | **string** | Unique identifier for the collection assignment | 
 
 ### Other Parameters
 

@@ -38,9 +38,9 @@ type RequestTypesAPI interface {
 	/*
 			CreateRequestType Create a request type
 
-			Creates a request type, which governs whether requests are allowed and who is associated with the request.
+			Creates a request type that governs the requests allowed in your org.
 
-		When creating a request type, you specify:
+		Specify the following to create a request type:
 
 		- What resource access can be requested
 		- Who can request access
@@ -48,6 +48,11 @@ type RequestTypesAPI interface {
 		- Who can approve access
 		- What question(s) approvers must answer (optional)
 		- How long access should be granted for (optional)
+
+		> **Notes**:
+		>
+		> * You can have a maximum of 100 combined items across `approvalSettings.approvals`, `approvalSettings.approvals.approverFields`, and `requestSettings.requesterFields` objects for each request type. This translates to a maximum of 100 combined questions, tasks, or actions for each request type.
+		> * The limit on the JSON response payload of a request type is 100,000 characters.
 
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -74,7 +79,7 @@ type RequestTypesAPI interface {
 
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param requestTypeId The `id` of the request type
+			@param requestTypeId Unique identifier for the request type
 			@return ApiDeleteRequestTypeRequest
 	*/
 	DeleteRequestType(ctx context.Context, requestTypeId string) ApiDeleteRequestTypeRequest
@@ -90,7 +95,7 @@ type RequestTypesAPI interface {
 		More information is returned than the abbreviated representation in a List request types operation.
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param requestTypeId The `id` of the request type
+			@param requestTypeId Unique identifier for the request type
 			@return ApiGetRequestTypeRequest
 	*/
 	GetRequestType(ctx context.Context, requestTypeId string) ApiGetRequestTypeRequest
@@ -102,9 +107,9 @@ type RequestTypesAPI interface {
 	/*
 			ListAllRequestTeams List all teams
 
-			Lists all or a subset of teams in your organization.
+			Lists all or a subset of teams in your org.
 
-		Use the `?filter=` parameter to narrow results with the request type property `name`. This query is useful for specifying the `ownerId` of a request type.
+		Use the `?filter=` parameter to narrow results with the request type property `name`. This query is useful for specifying the team `id` (Team ID) of a request type.
 
 		Pagination parameters are accepted, and standard link headers are in the response.
 
@@ -151,7 +156,7 @@ type RequestTypesAPI interface {
 
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param requestTypeId The `id` of the request type
+			@param requestTypeId Unique identifier for the request type
 			@return ApiPublishRequestTypeRequest
 	*/
 	PublishRequestType(ctx context.Context, requestTypeId string) ApiPublishRequestTypeRequest
@@ -176,7 +181,7 @@ type RequestTypesAPI interface {
 
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param requestTypeId The `id` of the request type
+			@param requestTypeId Unique identifier for the request type
 			@return ApiUnpublishRequestTypeRequest
 	*/
 	UnpublishRequestType(ctx context.Context, requestTypeId string) ApiUnpublishRequestTypeRequest
@@ -209,9 +214,9 @@ func (r ApiCreateRequestTypeRequest) Execute() (*RequestTypeFull, *APIResponse, 
 /*
 CreateRequestType Create a request type
 
-Creates a request type, which governs whether requests are allowed and who is associated with the request.
+Creates a request type that governs the requests allowed in your org.
 
-When creating a request type, you specify:
+Specify the following to create a request type:
 
 - What resource access can be requested
 - Who can request access
@@ -219,6 +224,11 @@ When creating a request type, you specify:
 - Who can approve access
 - What question(s) approvers must answer (optional)
 - How long access should be granted for (optional)
+
+> **Notes**:
+>
+> * You can have a maximum of 100 combined items across `approvalSettings.approvals`, `approvalSettings.approvals.approverFields`, and `requestSettings.requesterFields` objects for each request type. This translates to a maximum of 100 combined questions, tasks, or actions for each request type.
+> * The limit on the JSON response payload of a request type is 100,000 characters.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiCreateRequestTypeRequest
@@ -421,7 +431,7 @@ A deleted request type:
 >**Note:** In-flight requests using the `DELETED` request type continue in their lifecycle operations using the state of the request type at the time the request was made.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param requestTypeId The `id` of the request type
+	@param requestTypeId Unique identifier for the request type
 	@return ApiDeleteRequestTypeRequest
 */
 func (a *RequestTypesAPIService) DeleteRequestType(ctx context.Context, requestTypeId string) ApiDeleteRequestTypeRequest {
@@ -606,7 +616,7 @@ Retrieves the full representation of a specific request type.
 More information is returned than the abbreviated representation in a List request types operation.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param requestTypeId The `id` of the request type
+	@param requestTypeId Unique identifier for the request type
 	@return ApiGetRequestTypeRequest
 */
 func (a *RequestTypesAPIService) GetRequestType(ctx context.Context, requestTypeId string) ApiGetRequestTypeRequest {
@@ -819,9 +829,9 @@ func (r ApiListAllRequestTeamsRequest) Execute() (*TeamsList, *APIResponse, erro
 /*
 ListAllRequestTeams List all teams
 
-Lists all or a subset of teams in your organization.
+Lists all or a subset of teams in your org.
 
-Use the `?filter=` parameter to narrow results with the request type property `name`. This query is useful for specifying the `ownerId` of a request type.
+Use the `?filter=` parameter to narrow results with the request type property `name`. This query is useful for specifying the team `id` (Team ID) of a request type.
 
 Pagination parameters are accepted, and standard link headers are in the response.
 
@@ -1260,7 +1270,7 @@ A published request type:
 A request type with a status of `ACTIVE` can be unpublished or deleted at any time.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param requestTypeId The `id` of the request type
+	@param requestTypeId Unique identifier for the request type
 	@return ApiPublishRequestTypeRequest
 */
 func (a *RequestTypesAPIService) PublishRequestType(ctx context.Context, requestTypeId string) ApiPublishRequestTypeRequest {
@@ -1477,7 +1487,7 @@ An unpublished Request Type:
 A request type with a status of `DRAFT` can be published or deleted at any time.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param requestTypeId The `id` of the request type
+	@param requestTypeId Unique identifier for the request type
 	@return ApiUnpublishRequestTypeRequest
 */
 func (a *RequestTypesAPIService) UnpublishRequestType(ctx context.Context, requestTypeId string) ApiUnpublishRequestTypeRequest {

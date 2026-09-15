@@ -35,8 +35,11 @@ var _ MappedNullable = &ReviewerEntitlementValue{}
 type ReviewerEntitlementValue struct {
 	// The entitlement value id
 	Id string `json:"id"`
-	// The entitlement value name
-	Name                 string `json:"name"`
+	// The entitlement value display name
+	Name string `json:"name"`
+	// The value of the entitlement property value
+	ExternalValue        *string              `json:"externalValue,omitempty"`
+	Entitlement          *ReviewerEntitlement `json:"entitlement,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -109,6 +112,70 @@ func (o *ReviewerEntitlementValue) SetName(v string) {
 	o.Name = v
 }
 
+// GetExternalValue returns the ExternalValue field value if set, zero value otherwise.
+func (o *ReviewerEntitlementValue) GetExternalValue() string {
+	if o == nil || IsNil(o.ExternalValue) {
+		var ret string
+		return ret
+	}
+	return *o.ExternalValue
+}
+
+// GetExternalValueOk returns a tuple with the ExternalValue field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ReviewerEntitlementValue) GetExternalValueOk() (*string, bool) {
+	if o == nil || IsNil(o.ExternalValue) {
+		return nil, false
+	}
+	return o.ExternalValue, true
+}
+
+// HasExternalValue returns a boolean if a field has been set.
+func (o *ReviewerEntitlementValue) HasExternalValue() bool {
+	if o != nil && !IsNil(o.ExternalValue) {
+		return true
+	}
+
+	return false
+}
+
+// SetExternalValue gets a reference to the given string and assigns it to the ExternalValue field.
+func (o *ReviewerEntitlementValue) SetExternalValue(v string) {
+	o.ExternalValue = &v
+}
+
+// GetEntitlement returns the Entitlement field value if set, zero value otherwise.
+func (o *ReviewerEntitlementValue) GetEntitlement() ReviewerEntitlement {
+	if o == nil || IsNil(o.Entitlement) {
+		var ret ReviewerEntitlement
+		return ret
+	}
+	return *o.Entitlement
+}
+
+// GetEntitlementOk returns a tuple with the Entitlement field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ReviewerEntitlementValue) GetEntitlementOk() (*ReviewerEntitlement, bool) {
+	if o == nil || IsNil(o.Entitlement) {
+		return nil, false
+	}
+	return o.Entitlement, true
+}
+
+// HasEntitlement returns a boolean if a field has been set.
+func (o *ReviewerEntitlementValue) HasEntitlement() bool {
+	if o != nil && !IsNil(o.Entitlement) {
+		return true
+	}
+
+	return false
+}
+
+// SetEntitlement gets a reference to the given ReviewerEntitlement and assigns it to the Entitlement field.
+func (o *ReviewerEntitlementValue) SetEntitlement(v ReviewerEntitlement) {
+	o.Entitlement = &v
+}
+
 func (o ReviewerEntitlementValue) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -121,6 +188,12 @@ func (o ReviewerEntitlementValue) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["id"] = o.Id
 	toSerialize["name"] = o.Name
+	if !IsNil(o.ExternalValue) {
+		toSerialize["externalValue"] = o.ExternalValue
+	}
+	if !IsNil(o.Entitlement) {
+		toSerialize["entitlement"] = o.Entitlement
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -167,6 +240,8 @@ func (o *ReviewerEntitlementValue) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "name")
+		delete(additionalProperties, "externalValue")
+		delete(additionalProperties, "entitlement")
 		o.AdditionalProperties = additionalProperties
 	}
 

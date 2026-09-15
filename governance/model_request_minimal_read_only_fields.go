@@ -38,7 +38,7 @@ type RequestMinimalReadOnlyFields struct {
 	RequestTypeId *string `json:"requestTypeId,omitempty" validate:"regexp=^[a-fA-F\\\\d]{24}$"`
 	// The date the request was resolved. The property may transition from having a value to null if the request is reopened.
 	Resolved NullableTime `json:"resolved,omitempty"`
-	// Field values provided when adding the request.  If a request type has required requesterFields, they must be provided when the request is created.  Non-required fields may be omitted when creating the request.
+	// Field values provided when adding the request.  If a request type has required `requesterFields`, they must be provided when the request is created.  Non-required fields may be omitted when creating the request.
 	RequesterFieldValues []FieldValue  `json:"requesterFieldValues,omitempty"`
 	Links                *RequestLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}

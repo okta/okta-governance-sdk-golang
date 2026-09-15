@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **RequesterUserIds** | **[]string** | A list of requester Okta user &#x60;id&#x60;s. | 
 **RequestStatus** | [**RequestRequestStatus**](RequestRequestStatus.md) |  | 
 **Resolved** | **NullableTime** | The date the request was resolved. The property may transition from having a value to null if the request is reopened. | 
-**RequesterFieldValues** | [**[]FieldValue**](FieldValue.md) | Field values provided when adding the request.  If a request type has required requesterFields, they must be provided when the request is created.  Non-required fields may be omitted when creating the request.  | 
+**RequesterFieldValues** | [**[]FieldValue**](FieldValue.md) | Field values provided when adding the request.  If a request type has required &#x60;requesterFields&#x60;, they must be provided when the request is created.  Non-required fields may be omitted when creating the request.  | 
 
 ## Methods
 

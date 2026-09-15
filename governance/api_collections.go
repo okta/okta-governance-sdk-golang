@@ -42,7 +42,7 @@ type CollectionsAPI interface {
 		Adds the resources to a collection
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param collectionId The `id` of the collection
+		@param collectionId Unique identifier for the collection
 		@return ApiAddResourcesToCollectionRequest
 	*/
 	AddResourcesToCollection(ctx context.Context, collectionId string) ApiAddResourcesToCollectionRequest
@@ -59,7 +59,7 @@ type CollectionsAPI interface {
 		The assignment can be for a limited time or indefinite. This operation is idempotent. If the assignment already exists, it will be updated with the new values.
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param collectionId The `id` of the collection
+			@param collectionId Unique identifier for the collection
 			@return ApiAssignCollectionRequest
 	*/
 	AssignCollection(ctx context.Context, collectionId string) ApiAssignCollectionRequest
@@ -88,7 +88,7 @@ type CollectionsAPI interface {
 		Deletes a resource collection specified by an `id`
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param collectionId The `id` of the collection
+		@param collectionId Unique identifier for the collection
 		@return ApiDeleteCollectionRequest
 	*/
 	DeleteCollection(ctx context.Context, collectionId string) ApiDeleteCollectionRequest
@@ -102,8 +102,8 @@ type CollectionsAPI interface {
 		Deletes a specified resource from a collection
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param collectionId The `id` of the collection
-		@param resourceId The `id` of the resource in ORN format
+		@param collectionId Unique identifier for the collection
+		@param resourceId Unique identifier for the resource
 		@return ApiDeleteCollectionResourceRequest
 	*/
 	DeleteCollectionResource(ctx context.Context, collectionId string, resourceId string) ApiDeleteCollectionResourceRequest
@@ -117,8 +117,8 @@ type CollectionsAPI interface {
 		Deletes principal assignment
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param collectionId The `id` of the collection
-		@param assignmentId The `id` of the collection assignment
+		@param collectionId Unique identifier for the collection
+		@param assignmentId Unique identifier for the collection assignment
 		@return ApiDeletePrincipalAssignmentRequest
 	*/
 	DeletePrincipalAssignment(ctx context.Context, collectionId string, assignmentId string) ApiDeletePrincipalAssignmentRequest
@@ -132,7 +132,7 @@ type CollectionsAPI interface {
 		Retrieves a resource collection
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param collectionId The `id` of the collection
+		@param collectionId Unique identifier for the collection
 		@return ApiGetCollectionRequest
 	*/
 	GetCollection(ctx context.Context, collectionId string) ApiGetCollectionRequest
@@ -147,8 +147,8 @@ type CollectionsAPI interface {
 		Retrieves a collection resource with entitlements
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param collectionId The `id` of the collection
-		@param resourceId The `id` of the resource in ORN format
+		@param collectionId Unique identifier for the collection
+		@param resourceId Unique identifier for the resource
 		@return ApiGetCollectionResourceRequest
 	*/
 	GetCollectionResource(ctx context.Context, collectionId string, resourceId string) ApiGetCollectionResourceRequest
@@ -163,7 +163,7 @@ type CollectionsAPI interface {
 		Retrieves unassigned users for a collection based on the provided filter
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param collectionId The `id` of the collection
+		@param collectionId Unique identifier for the collection
 		@return ApiGetUnassignedUsersRequest
 	*/
 	GetUnassignedUsers(ctx context.Context, collectionId string) ApiGetUnassignedUsersRequest
@@ -180,7 +180,7 @@ type CollectionsAPI interface {
 		Assignments for a collection are sorted by last assigned principals first.
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param collectionId The `id` of the collection
+			@param collectionId Unique identifier for the collection
 			@return ApiListCollectionAssignmentsRequest
 	*/
 	ListCollectionAssignments(ctx context.Context, collectionId string) ApiListCollectionAssignmentsRequest
@@ -195,7 +195,7 @@ type CollectionsAPI interface {
 		Lists all the resources in a given collection
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param collectionId The `id` of the collection
+		@param collectionId Unique identifier for the collection
 		@return ApiListCollectionResourcesRequest
 	*/
 	ListCollectionResources(ctx context.Context, collectionId string) ApiListCollectionResourcesRequest
@@ -240,7 +240,7 @@ type CollectionsAPI interface {
 		Replaces a resource collection
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param collectionId The `id` of the collection
+		@param collectionId Unique identifier for the collection
 		@return ApiReplaceCollectionRequest
 	*/
 	ReplaceCollection(ctx context.Context, collectionId string) ApiReplaceCollectionRequest
@@ -255,8 +255,8 @@ type CollectionsAPI interface {
 		Replaces a specified resource in a collection
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param collectionId The `id` of the collection
-		@param resourceId The `id` of the resource in ORN format
+		@param collectionId Unique identifier for the collection
+		@param resourceId Unique identifier for the resource
 		@return ApiReplaceCollectionResourceRequest
 	*/
 	ReplaceCollectionResource(ctx context.Context, collectionId string, resourceId string) ApiReplaceCollectionResourceRequest
@@ -271,8 +271,8 @@ type CollectionsAPI interface {
 		Updates a principal assignment
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param collectionId The `id` of the collection
-		@param assignmentId The `id` of the collection assignment
+		@param collectionId Unique identifier for the collection
+		@param assignmentId Unique identifier for the collection assignment
 		@return ApiUpdatePrincipalAssignmentRequest
 	*/
 	UpdatePrincipalAssignment(ctx context.Context, collectionId string, assignmentId string) ApiUpdatePrincipalAssignmentRequest
@@ -307,7 +307,7 @@ AddResourcesToCollection Add the resources to a collection
 Adds the resources to a collection
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param collectionId The `id` of the collection
+	@param collectionId Unique identifier for the collection
 	@return ApiAddResourcesToCollectionRequest
 */
 func (a *CollectionsAPIService) AddResourcesToCollection(ctx context.Context, collectionId string) ApiAddResourcesToCollectionRequest {
@@ -508,7 +508,7 @@ AssignCollection Assign a collection to principals
 The assignment can be for a limited time or indefinite. This operation is idempotent. If the assignment already exists, it will be updated with the new values.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param collectionId The `id` of the collection
+	@param collectionId Unique identifier for the collection
 	@return ApiAssignCollectionRequest
 */
 func (a *CollectionsAPIService) AssignCollection(ctx context.Context, collectionId string) ApiAssignCollectionRequest {
@@ -907,7 +907,7 @@ DeleteCollection Delete a collection
 Deletes a resource collection specified by an `id`
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param collectionId The `id` of the collection
+	@param collectionId Unique identifier for the collection
 	@return ApiDeleteCollectionRequest
 */
 func (a *CollectionsAPIService) DeleteCollection(ctx context.Context, collectionId string) ApiDeleteCollectionRequest {
@@ -1085,8 +1085,8 @@ DeleteCollectionResource Delete a collection resource
 Deletes a specified resource from a collection
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param collectionId The `id` of the collection
-	@param resourceId The `id` of the resource in ORN format
+	@param collectionId Unique identifier for the collection
+	@param resourceId Unique identifier for the resource
 	@return ApiDeleteCollectionResourceRequest
 */
 func (a *CollectionsAPIService) DeleteCollectionResource(ctx context.Context, collectionId string, resourceId string) ApiDeleteCollectionResourceRequest {
@@ -1266,8 +1266,8 @@ DeletePrincipalAssignment Delete a principal assignment
 Deletes principal assignment
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param collectionId The `id` of the collection
-	@param assignmentId The `id` of the collection assignment
+	@param collectionId Unique identifier for the collection
+	@param assignmentId Unique identifier for the collection assignment
 	@return ApiDeletePrincipalAssignmentRequest
 */
 func (a *CollectionsAPIService) DeletePrincipalAssignment(ctx context.Context, collectionId string, assignmentId string) ApiDeletePrincipalAssignmentRequest {
@@ -1434,7 +1434,7 @@ GetCollection Retrieve a resource collection
 Retrieves a resource collection
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param collectionId The `id` of the collection
+	@param collectionId Unique identifier for the collection
 	@return ApiGetCollectionRequest
 */
 func (a *CollectionsAPIService) GetCollection(ctx context.Context, collectionId string) ApiGetCollectionRequest {
@@ -1625,8 +1625,8 @@ GetCollectionResource Retrieve a collection resource
 Retrieves a collection resource with entitlements
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param collectionId The `id` of the collection
-	@param resourceId The `id` of the resource in ORN format
+	@param collectionId Unique identifier for the collection
+	@param resourceId Unique identifier for the resource
 	@return ApiGetCollectionResourceRequest
 */
 func (a *CollectionsAPIService) GetCollectionResource(ctx context.Context, collectionId string, resourceId string) ApiGetCollectionResourceRequest {
@@ -1825,7 +1825,7 @@ GetUnassignedUsers Retrieve the unassigned users
 Retrieves unassigned users for a collection based on the provided filter
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param collectionId The `id` of the collection
+	@param collectionId Unique identifier for the collection
 	@return ApiGetUnassignedUsersRequest
 */
 func (a *CollectionsAPIService) GetUnassignedUsers(ctx context.Context, collectionId string) ApiGetUnassignedUsersRequest {
@@ -2023,7 +2023,7 @@ func (r ApiListCollectionAssignmentsRequest) Limit(limit int32) ApiListCollectio
 	return r
 }
 
-// The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request.
+// Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination).
 func (r ApiListCollectionAssignmentsRequest) After(after string) ApiListCollectionAssignmentsRequest {
 	r.after = &after
 	return r
@@ -2041,7 +2041,7 @@ ListCollectionAssignments List all assignments for a collection
 Assignments for a collection are sorted by last assigned principals first.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param collectionId The `id` of the collection
+	@param collectionId Unique identifier for the collection
 	@return ApiListCollectionAssignmentsRequest
 */
 func (a *CollectionsAPIService) ListCollectionAssignments(ctx context.Context, collectionId string) ApiListCollectionAssignmentsRequest {
@@ -2245,7 +2245,7 @@ func (r ApiListCollectionResourcesRequest) Limit(limit int32) ApiListCollectionR
 	return r
 }
 
-// The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request.
+// Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination).
 func (r ApiListCollectionResourcesRequest) After(after string) ApiListCollectionResourcesRequest {
 	r.after = &after
 	return r
@@ -2261,7 +2261,7 @@ ListCollectionResources List all collection resources
 Lists all the resources in a given collection
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param collectionId The `id` of the collection
+	@param collectionId Unique identifier for the collection
 	@return ApiListCollectionResourcesRequest
 */
 func (a *CollectionsAPIService) ListCollectionResources(ctx context.Context, collectionId string) ApiListCollectionResourcesRequest {
@@ -2473,7 +2473,7 @@ func (r ApiListCollectionsRequest) Limit(limit int32) ApiListCollectionsRequest 
 	return r
 }
 
-// The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request.
+// Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination).
 func (r ApiListCollectionsRequest) After(after string) ApiListCollectionsRequest {
 	r.after = &after
 	return r
@@ -2706,7 +2706,7 @@ func (r ApiListCollectionsAssignmentsRequest) Limit(limit int32) ApiListCollecti
 	return r
 }
 
-// The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request.
+// Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination).
 func (r ApiListCollectionsAssignmentsRequest) After(after string) ApiListCollectionsAssignmentsRequest {
 	r.after = &after
 	return r
@@ -2927,7 +2927,7 @@ ReplaceCollection Replace a resource collection
 Replaces a resource collection
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param collectionId The `id` of the collection
+	@param collectionId Unique identifier for the collection
 	@return ApiReplaceCollectionRequest
 */
 func (a *CollectionsAPIService) ReplaceCollection(ctx context.Context, collectionId string) ApiReplaceCollectionRequest {
@@ -3130,8 +3130,8 @@ ReplaceCollectionResource Replace a collection resource
 Replaces a specified resource in a collection
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param collectionId The `id` of the collection
-	@param resourceId The `id` of the resource in ORN format
+	@param collectionId Unique identifier for the collection
+	@param resourceId Unique identifier for the resource
 	@return ApiReplaceCollectionResourceRequest
 */
 func (a *CollectionsAPIService) ReplaceCollectionResource(ctx context.Context, collectionId string, resourceId string) ApiReplaceCollectionResourceRequest {
@@ -3336,8 +3336,8 @@ UpdatePrincipalAssignment Update a principal assignment
 Updates a principal assignment
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param collectionId The `id` of the collection
-	@param assignmentId The `id` of the collection assignment
+	@param collectionId Unique identifier for the collection
+	@param assignmentId Unique identifier for the collection assignment
 	@return ApiUpdatePrincipalAssignmentRequest
 */
 func (a *CollectionsAPIService) UpdatePrincipalAssignment(ctx context.Context, collectionId string, assignmentId string) ApiUpdatePrincipalAssignmentRequest {

@@ -26,6 +26,7 @@ package governance
 import (
 	"encoding/json"
 	"fmt"
+	"time"
 )
 
 // checks if the EntitlementValue2 type satisfies the MappedNullable interface at compile time
@@ -34,7 +35,7 @@ var _ MappedNullable = &EntitlementValue2{}
 // EntitlementValue2 struct for EntitlementValue2
 type EntitlementValue2 struct {
 	Links EntitlementLink `json:"_links"`
-	// The `id` of the entitlement value
+	// Unique identifier for the object
 	Id string `json:"id"`
 	// The display name for an entitlement value
 	Name string `json:"name"`
@@ -48,9 +49,17 @@ type EntitlementValue2 struct {
 	Orn string `json:"orn"`
 	// The `id` property of an entitlement
 	EntitlementId string `json:"entitlementId"`
-	// The Okta resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for [supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
+	// The Okta resource in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)  See the ORN format for [supported resources](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
 	ParentResourceOrn string         `json:"parentResourceOrn"`
 	Parent            TargetResource `json:"parent"`
+	// The `id` of the Okta user who created the resource
+	CreatedBy string `json:"createdBy"`
+	// The ISO 8601 formatted date and time when the resource was created
+	Created time.Time `json:"created"`
+	// The ISO 8601 formatted date and time when the object was last updated
+	LastUpdated time.Time `json:"lastUpdated"`
+	// The `id` of the Okta user who last updated the object
+	LastUpdatedBy string `json:"lastUpdatedBy"`
 	// List of assigned labels
 	Labels               []Label `json:"labels,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -62,7 +71,7 @@ type _EntitlementValue2 EntitlementValue2
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEntitlementValue2(links EntitlementLink, id string, name string, externalValue string, orn string, entitlementId string, parentResourceOrn string, parent TargetResource) *EntitlementValue2 {
+func NewEntitlementValue2(links EntitlementLink, id string, name string, externalValue string, orn string, entitlementId string, parentResourceOrn string, parent TargetResource, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string) *EntitlementValue2 {
 	this := EntitlementValue2{}
 	this.Id = id
 	this.Name = name
@@ -71,6 +80,11 @@ func NewEntitlementValue2(links EntitlementLink, id string, name string, externa
 	this.EntitlementId = entitlementId
 	this.ParentResourceOrn = parentResourceOrn
 	this.Parent = parent
+	this.CreatedBy = createdBy
+	this.Created = created
+	this.LastUpdated = lastUpdated
+	this.LastUpdatedBy = lastUpdatedBy
+	this.Links = links
 	return &this
 }
 
@@ -338,6 +352,102 @@ func (o *EntitlementValue2) SetParent(v TargetResource) {
 	o.Parent = v
 }
 
+// GetCreatedBy returns the CreatedBy field value
+func (o *EntitlementValue2) GetCreatedBy() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.CreatedBy
+}
+
+// GetCreatedByOk returns a tuple with the CreatedBy field value
+// and a boolean to check if the value has been set.
+func (o *EntitlementValue2) GetCreatedByOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.CreatedBy, true
+}
+
+// SetCreatedBy sets field value
+func (o *EntitlementValue2) SetCreatedBy(v string) {
+	o.CreatedBy = v
+}
+
+// GetCreated returns the Created field value
+func (o *EntitlementValue2) GetCreated() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.Created
+}
+
+// GetCreatedOk returns a tuple with the Created field value
+// and a boolean to check if the value has been set.
+func (o *EntitlementValue2) GetCreatedOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Created, true
+}
+
+// SetCreated sets field value
+func (o *EntitlementValue2) SetCreated(v time.Time) {
+	o.Created = v
+}
+
+// GetLastUpdated returns the LastUpdated field value
+func (o *EntitlementValue2) GetLastUpdated() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.LastUpdated
+}
+
+// GetLastUpdatedOk returns a tuple with the LastUpdated field value
+// and a boolean to check if the value has been set.
+func (o *EntitlementValue2) GetLastUpdatedOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.LastUpdated, true
+}
+
+// SetLastUpdated sets field value
+func (o *EntitlementValue2) SetLastUpdated(v time.Time) {
+	o.LastUpdated = v
+}
+
+// GetLastUpdatedBy returns the LastUpdatedBy field value
+func (o *EntitlementValue2) GetLastUpdatedBy() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.LastUpdatedBy
+}
+
+// GetLastUpdatedByOk returns a tuple with the LastUpdatedBy field value
+// and a boolean to check if the value has been set.
+func (o *EntitlementValue2) GetLastUpdatedByOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.LastUpdatedBy, true
+}
+
+// SetLastUpdatedBy sets field value
+func (o *EntitlementValue2) SetLastUpdatedBy(v string) {
+	o.LastUpdatedBy = v
+}
+
 // GetLabels returns the Labels field value if set, zero value otherwise.
 func (o *EntitlementValue2) GetLabels() []Label {
 	if o == nil || IsNil(o.Labels) {
@@ -394,6 +504,10 @@ func (o EntitlementValue2) ToMap() (map[string]interface{}, error) {
 	toSerialize["entitlementId"] = o.EntitlementId
 	toSerialize["parentResourceOrn"] = o.ParentResourceOrn
 	toSerialize["parent"] = o.Parent
+	toSerialize["createdBy"] = o.CreatedBy
+	toSerialize["created"] = o.Created
+	toSerialize["lastUpdated"] = o.LastUpdated
+	toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
 	if !IsNil(o.Labels) {
 		toSerialize["labels"] = o.Labels
 	}
@@ -418,6 +532,10 @@ func (o *EntitlementValue2) UnmarshalJSON(data []byte) (err error) {
 		"entitlementId",
 		"parentResourceOrn",
 		"parent",
+		"createdBy",
+		"created",
+		"lastUpdated",
+		"lastUpdatedBy",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -457,6 +575,10 @@ func (o *EntitlementValue2) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "entitlementId")
 		delete(additionalProperties, "parentResourceOrn")
 		delete(additionalProperties, "parent")
+		delete(additionalProperties, "createdBy")
+		delete(additionalProperties, "created")
+		delete(additionalProperties, "lastUpdated")
+		delete(additionalProperties, "lastUpdatedBy")
 		delete(additionalProperties, "labels")
 		o.AdditionalProperties = additionalProperties
 	}

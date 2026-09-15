@@ -47,8 +47,8 @@ type CatalogsAPI interface {
 
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param entryId The ID of the catalog entry
-			@param userId The `id` of the user
+			@param entryId Unique identifier for the catalog entry
+			@param userId Unique identifier for the user
 			@return ApiGetCatalogEntryRequestFieldsV2Request
 	*/
 	GetCatalogEntryRequestFieldsV2(ctx context.Context, entryId string, userId string) ApiGetCatalogEntryRequestFieldsV2Request
@@ -63,7 +63,7 @@ type CatalogsAPI interface {
 		Retrieves a catalog entry
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param entryId The ID of the catalog entry
+		@param entryId Unique identifier for the catalog entry
 		@return ApiGetCatalogEntryV2Request
 	*/
 	GetCatalogEntryV2(ctx context.Context, entryId string) ApiGetCatalogEntryV2Request
@@ -138,7 +138,7 @@ type CatalogsAPI interface {
 		    ```
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param userId The `id` of the user
+			@param userId Unique identifier for the user
 			@return ApiListAllDefaultUserEntriesV2Request
 	*/
 	ListAllDefaultUserEntriesV2(ctx context.Context, userId string) ApiListAllDefaultUserEntriesV2Request
@@ -174,8 +174,8 @@ Retrieves request fields for a catalog entry:
 * If the request can lead to any separation of duty conflicts, then the risk assessment (`metadata.riskAssessment`) is present. The risk assessment indicates whether the request submission is allowed or restricted, and includes rules that lead to the possible conflicts. If the request submission is allowed, then the request fields are determined by the associated approval sequence.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param entryId The ID of the catalog entry
-	@param userId The `id` of the user
+	@param entryId Unique identifier for the catalog entry
+	@param userId Unique identifier for the user
 	@return ApiGetCatalogEntryRequestFieldsV2Request
 */
 func (a *CatalogsAPIService) GetCatalogEntryRequestFieldsV2(ctx context.Context, entryId string, userId string) ApiGetCatalogEntryRequestFieldsV2Request {
@@ -329,7 +329,7 @@ GetCatalogEntryV2 Retrieve a catalog entry
 Retrieves a catalog entry
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param entryId The ID of the catalog entry
+	@param entryId Unique identifier for the catalog entry
 	@return ApiGetCatalogEntryV2Request
 */
 func (a *CatalogsAPIService) GetCatalogEntryV2(ctx context.Context, entryId string) ApiGetCatalogEntryV2Request {
@@ -830,7 +830,7 @@ The following are request examples with query parameters:
     ```
 
     @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-    @param userId The `id` of the user
+    @param userId Unique identifier for the user
     @return ApiListAllDefaultUserEntriesV2Request
 */
 func (a *CatalogsAPIService) ListAllDefaultUserEntriesV2(ctx context.Context, userId string) ApiListAllDefaultUserEntriesV2Request {

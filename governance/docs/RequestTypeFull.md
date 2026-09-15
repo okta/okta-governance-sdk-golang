@@ -8,11 +8,11 @@ Name | Type | Description | Notes
 **ResourceSettings** | [**RequestTypeResourceSettingsReadable**](RequestTypeResourceSettingsReadable.md) |  | 
 **RequestSettings** | [**RequestTypeRequestSettingsReadable**](RequestTypeRequestSettingsReadable.md) |  | 
 **ApprovalSettings** | [**RequestTypeApprovalSettingsReadable**](RequestTypeApprovalSettingsReadable.md) |  | 
-**AccessDuration** | **NullableString** | How long the requester retains access after their request is approved and fulfilled.  Specified in [ISO 8601 duration format](https://en.wikipedia.org/wiki/ISO_8601#Durations).  #### Known limitation  Only single time unit ISO 8601 duration formats (D, H, M) are supported, for units (days, hours, minutes).  ##### Supported  | Unit       | Example | | ---------- | ------- | | D, days    | P40D    | | H, hours   | PT65H   | | M, minutes | PT90M   |  &gt; **Note:** Mixes of units, as well as month/year/week designations, are not supported. For example, &#x60;P40DT65H&#x60;, &#x60;P40M&#x60;, &#x60;P1W&#x60; and &#x60;P1Y&#x60; are not supported. | 
+**AccessDuration** | **NullableString** | How long the requester retains access after their request is approved and fulfilled.  Specified in [ISO 8601 duration format](https://en.wikipedia.org/wiki/ISO_8601#Durations).  #### Known limitation  Only single time unit ISO 8601 duration formats (D, H, M) are supported for units (days, hours, minutes).  ##### Supported  | Unit       | Example | | ---------- | ------- | | D, days    | P40D    | | H, hours   | PT65H   | | M, minutes | PT90M   |  &gt; **Note:** Mixes of units, as well as month/year/week designations, aren&#39;t supported. For example, &#x60;P40DT65H&#x60;, &#x60;P40M&#x60;, &#x60;P1W&#x60;, and &#x60;P1Y&#x60; aren&#39;t supported.  | 
 **Status** | [**RequestTypeStatus**](RequestTypeStatus.md) |  | 
 **LastUpdateSource** | [**RequestTypeLastUpdateSource**](RequestTypeLastUpdateSource.md) |  | 
 **Links** | [**RequestTypeLinks**](RequestTypeLinks.md) |  | 
-**Name** | **string** | Writable unique key on Create. Not modifiable on update. | 
+**Name** | **string** | A user-defined unique key that&#39;s set during the create operation and can&#39;t be updated afterwards | 
 **Description** | **string** | Human readable description | 
 **Id** | **string** | Unique identifier for the object | 
 **CreatedBy** | **string** | The &#x60;id&#x60; of the Okta user who created the resource | [readonly] 

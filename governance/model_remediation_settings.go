@@ -31,7 +31,7 @@ import (
 // checks if the RemediationSettings type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &RemediationSettings{}
 
-// RemediationSettings Specify the action to be taken after a reviewer makes a decision to `APPROVE` or `REVOKE` the access, or if the campaign was `CLOSED` and there was no response from the reviewer.
+// RemediationSettings Specifies the action to be taken after a reviewer makes a decision to `APPROVE` or `REVOKE` the access, or if the campaign was `CLOSED` and there was no response from the reviewer
 type RemediationSettings struct {
 	AccessApproved          ApprovedRemediationAction   `json:"accessApproved"`
 	AccessRevoked           RevokedRemediationAction    `json:"accessRevoked"`

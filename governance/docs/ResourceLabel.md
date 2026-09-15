@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Orn** | Pointer to **string** | The Okta resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for [supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources). | [optional] 
+**Orn** | Pointer to **string** | The Okta resource in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)  See the ORN format for [supported resources](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).  | [optional] 
 **Profile** | Pointer to [**ExternalResourceProfile**](ExternalResourceProfile.md) |  | [optional] 
 **Labels** | Pointer to [**[]Label**](Label.md) | List of assigned labels | [optional] 
 **Links** | [**LinkSelf**](LinkSelf.md) |  | 

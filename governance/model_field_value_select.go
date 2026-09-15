@@ -34,9 +34,9 @@ var _ MappedNullable = &FieldValueSelect{}
 // FieldValueSelect struct for FieldValueSelect
 type FieldValueSelect struct {
 	Type FieldSelectType `json:"type"`
-	// Values provided by a user, only 1 supported.
+	// Values provided by a user, only `1` is supported
 	Value []string `json:"value"`
-	// A `read-only` field id.  Useful for specifying requesterFieldValues when adding a request.  The generated value is a UUID v4 from [RFC4122](https://www.ietf.org/rfc/rfc4122.txt).
+	// A `read-only` field ID.  This field is useful for specifying `requesterFieldValues` when adding a request.  The generated value is a UUID v4 from [RFC4122](https://www.ietf.org/rfc/rfc4122.txt).
 	Id string `json:"id"`
 	// Text to prompt the user with
 	Prompt string `json:"prompt"`

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | Unique identifier for the delegate appointment | 
-**Delegate** | [**DelegateAppointmentDelegate**](DelegateAppointmentDelegate.md) |  | 
+**Delegate** | [**MySettingsGetDelegateReadonlyDelegate**](MySettingsGetDelegateReadonlyDelegate.md) |  | 
 **StartTime** | Pointer to **time.Time** | The start time of the delegate appointment, in [RFC3339](https://www.rfc-editor.org/rfc/rfc3339.html) date and time format | [optional] 
 **EndTime** | Pointer to **time.Time** | The time when the delegate appointment expires, in [RFC3339](https://www.rfc-editor.org/rfc/rfc3339.html) date and time format | [optional] 
 **Note** | Pointer to **string** | A note that describes the delegate appointment | [optional] 
@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 
 ### NewMySettingsGetDelegateReadonly
 
-`func NewMySettingsGetDelegateReadonly(id string, delegate DelegateAppointmentDelegate, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, ) *MySettingsGetDelegateReadonly`
+`func NewMySettingsGetDelegateReadonly(id string, delegate MySettingsGetDelegateReadonlyDelegate, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, ) *MySettingsGetDelegateReadonly`
 
 NewMySettingsGetDelegateReadonly instantiates a new MySettingsGetDelegateReadonly object
 This constructor will assign default values to properties that have it defined,
@@ -55,20 +55,20 @@ SetId sets Id field to given value.
 
 ### GetDelegate
 
-`func (o *MySettingsGetDelegateReadonly) GetDelegate() DelegateAppointmentDelegate`
+`func (o *MySettingsGetDelegateReadonly) GetDelegate() MySettingsGetDelegateReadonlyDelegate`
 
 GetDelegate returns the Delegate field if non-nil, zero value otherwise.
 
 ### GetDelegateOk
 
-`func (o *MySettingsGetDelegateReadonly) GetDelegateOk() (*DelegateAppointmentDelegate, bool)`
+`func (o *MySettingsGetDelegateReadonly) GetDelegateOk() (*MySettingsGetDelegateReadonlyDelegate, bool)`
 
 GetDelegateOk returns a tuple with the Delegate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDelegate
 
-`func (o *MySettingsGetDelegateReadonly) SetDelegate(v DelegateAppointmentDelegate)`
+`func (o *MySettingsGetDelegateReadonly) SetDelegate(v MySettingsGetDelegateReadonlyDelegate)`
 
 SetDelegate sets Delegate field to given value.
 

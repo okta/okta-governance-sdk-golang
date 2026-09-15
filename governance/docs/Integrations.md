@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | Pointer to [**[]Integration**](Integration.md) | Integration settings | [optional] 
+**Settings** | Pointer to [**[]IntegrationsSettings**](IntegrationsSettings.md) | Integration settings | [optional] 
 
 ## Methods
 
@@ -25,30 +25,30 @@ NewIntegrationsWithDefaults instantiates a new Integrations object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetData
+### GetSettings
 
-`func (o *Integrations) GetData() []Integration`
+`func (o *Integrations) GetSettings() []IntegrationsSettings`
 
-GetData returns the Data field if non-nil, zero value otherwise.
+GetSettings returns the Settings field if non-nil, zero value otherwise.
 
-### GetDataOk
+### GetSettingsOk
 
-`func (o *Integrations) GetDataOk() (*[]Integration, bool)`
+`func (o *Integrations) GetSettingsOk() (*[]IntegrationsSettings, bool)`
 
-GetDataOk returns a tuple with the Data field if it's non-nil, zero value otherwise
+GetSettingsOk returns a tuple with the Settings field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetData
+### SetSettings
 
-`func (o *Integrations) SetData(v []Integration)`
+`func (o *Integrations) SetSettings(v []IntegrationsSettings)`
 
-SetData sets Data field to given value.
+SetSettings sets Settings field to given value.
 
-### HasData
+### HasSettings
 
-`func (o *Integrations) HasData() bool`
+`func (o *Integrations) HasSettings() bool`
 
-HasData returns a boolean if a field has been set.
+HasSettings returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

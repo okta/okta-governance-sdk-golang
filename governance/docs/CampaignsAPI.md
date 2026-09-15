@@ -35,7 +35,7 @@ import (
 )
 
 func main() {
-	campaignMutable := *openapiclient.NewCampaignMutable("Name_example", *openapiclient.NewScheduleSettingsMutable(openapiclient.schedule-type("ONE_OFF"), time.Now(), float32(123), "TimeZone_example"), *openapiclient.NewResourceSettingsMutable(openapiclient.campaign-resource-type("GROUP")), *openapiclient.NewReviewerSettingsMutable(openapiclient.campaign-reviewer-type("USER")), *openapiclient.NewRemediationSettings(openapiclient.approved-remediation-action("NO_ACTION"), openapiclient.revoked-remediation-action("NO_ACTION"), openapiclient.no-response-remediation-action("NO_ACTION"))) // CampaignMutable | Specifies the characteristics of a single campaign
+	campaignMutable := *openapiclient.NewCampaignMutable("Name_example", *openapiclient.NewScheduleSettingsMutable(openapiclient.schedule-type("ONE_OFF"), time.Now(), float32(123), "TimeZone_example"), *openapiclient.NewResourceSettingsMutable(), *openapiclient.NewReviewerSettingsMutable(openapiclient.campaign-reviewer-type("USER")), *openapiclient.NewRemediationSettings(openapiclient.approved-remediation-action("NO_ACTION"), openapiclient.revoked-remediation-action("NO_ACTION"), openapiclient.no-response-remediation-action("NO_ACTION"))) // CampaignMutable | Specifies the characteristics of a single campaign
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -101,7 +101,7 @@ import (
 )
 
 func main() {
-	campaignId := "campaignId_example" // string | The `id` of the campaign
+	campaignId := "campaignId_example" // string | Unique identifier for the campaign
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -119,7 +119,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**campaignId** | **string** | The &#x60;id&#x60; of the campaign | 
+**campaignId** | **string** | Unique identifier for the campaign | 
 
 ### Other Parameters
 
@@ -169,7 +169,7 @@ import (
 )
 
 func main() {
-	campaignId := "campaignId_example" // string | The `id` of the campaign
+	campaignId := "campaignId_example" // string | Unique identifier for the campaign
 	campaignEndSkipRemediation := *openapiclient.NewCampaignEndSkipRemediation() // CampaignEndSkipRemediation | Ends a campaign with the option to skip remediation. (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -188,7 +188,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**campaignId** | **string** | The &#x60;id&#x60; of the campaign | 
+**campaignId** | **string** | Unique identifier for the campaign | 
 
 ### Other Parameters
 
@@ -239,7 +239,7 @@ import (
 )
 
 func main() {
-	campaignId := "campaignId_example" // string | The `id` of the campaign
+	campaignId := "campaignId_example" // string | Unique identifier for the campaign
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -259,7 +259,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**campaignId** | **string** | The &#x60;id&#x60; of the campaign | 
+**campaignId** | **string** | Unique identifier for the campaign | 
 
 ### Other Parameters
 
@@ -309,7 +309,7 @@ import (
 )
 
 func main() {
-	campaignId := "campaignId_example" // string | The `id` of the campaign
+	campaignId := "campaignId_example" // string | Unique identifier for the campaign
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -327,7 +327,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**campaignId** | **string** | The &#x60;id&#x60; of the campaign | 
+**campaignId** | **string** | Unique identifier for the campaign | 
 
 ### Other Parameters
 
@@ -377,8 +377,8 @@ import (
 )
 
 func main() {
-	filter := "name%20eq%20%22Sales%20Review%22" // string | Apply various filters by using supported campaign filtering properties.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding)  (optional)
-	after := "00u68w6vzKLultXS97g6" // string | The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request. (optional)
+	filter := "name eq "Sales Review"" // string | Apply various filters by using supported campaign filtering properties.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding)  (optional)
+	after := "00u68w6vzKLultXS97g6" // string | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination). (optional)
 	limit := int32(56) // int32 | The maximum number of records returned in a response (optional) (default to 20)
 	orderBy := []string{"Inner_example"} // []string | Apply an ordering of campaigns by specifying a supported campaign property name with `%20asc` or `%20desc` suffix.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding)  (optional) (default to ["created asc"])
 
@@ -406,7 +406,7 @@ Other parameters are passed through a pointer to a apiListCampaignsRequest struc
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **filter** | **string** | Apply various filters by using supported campaign filtering properties.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding)  | 
- **after** | **string** | The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request. | 
+ **after** | **string** | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination). | 
  **limit** | **int32** | The maximum number of records returned in a response | [default to 20]
  **orderBy** | **[]string** | Apply an ordering of campaigns by specifying a supported campaign property name with &#x60;%20asc&#x60; or &#x60;%20desc&#x60; suffix.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding)  | [default to [&quot;created asc&quot;]]
 

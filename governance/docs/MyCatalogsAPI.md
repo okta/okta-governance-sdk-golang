@@ -33,7 +33,7 @@ import (
 )
 
 func main() {
-	entryId := "entryId_example" // string | The ID of the catalog entry
+	entryId := "entryId_example" // string | Unique identifier for the catalog entry
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -53,7 +53,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**entryId** | **string** | The ID of the catalog entry | 
+**entryId** | **string** | Unique identifier for the catalog entry | 
 
 ### Other Parameters
 
@@ -103,8 +103,8 @@ import (
 )
 
 func main() {
-	entryId := "entryId_example" // string | The ID of the catalog entry
-	userId := "00ucvnr9rbONeZdRp1d7" // string | The `id` of the user
+	entryId := "entryId_example" // string | Unique identifier for the catalog entry
+	userId := "00ucvnr9rbONeZdRp1d7" // string | Unique identifier for the user
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -124,8 +124,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**entryId** | **string** | The ID of the catalog entry | 
-**userId** | **string** | The &#x60;id&#x60; of the user | 
+**entryId** | **string** | Unique identifier for the catalog entry | 
+**userId** | **string** | Unique identifier for the user | 
 
 ### Other Parameters
 
@@ -176,7 +176,7 @@ import (
 )
 
 func main() {
-	entryId := "entryId_example" // string | The ID of the catalog entry
+	entryId := "entryId_example" // string | Unique identifier for the catalog entry
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -196,7 +196,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**entryId** | **string** | The ID of the catalog entry | 
+**entryId** | **string** | Unique identifier for the catalog entry | 
 
 ### Other Parameters
 
@@ -318,9 +318,9 @@ import (
 )
 
 func main() {
-	entryId := "entryId_example" // string | The ID of the catalog entry
+	entryId := "entryId_example" // string | Unique identifier for the catalog entry
 	filter := "firstName sw "John" OR lastName sw "John"" // string | A required filter expression that returns users based on the `firstName` or `lastName` properties. This [filter](https://developer.okta.com/docs/api/#filter) expression supports the `sw` [operator](https://developer.okta.com/docs/api/#operators).  **Note:** Query parameter percent encoding is required. See [Special characters]( https://developer.okta.com/docs/api/#special-characters ). 
-	after := "00u68w6vzKLultXS97g6" // string | The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request. (optional)
+	after := "00u68w6vzKLultXS97g6" // string | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination). (optional)
 	limit := int32(56) // int32 | The maximum number of records returned in a response (optional) (default to 20)
 
 	configuration := openapiclient.NewConfiguration()
@@ -341,7 +341,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**entryId** | **string** | The ID of the catalog entry | 
+**entryId** | **string** | Unique identifier for the catalog entry | 
 
 ### Other Parameters
 
@@ -352,7 +352,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **filter** | **string** | A required filter expression that returns users based on the &#x60;firstName&#x60; or &#x60;lastName&#x60; properties. This [filter](https://developer.okta.com/docs/api/#filter) expression supports the &#x60;sw&#x60; [operator](https://developer.okta.com/docs/api/#operators).  **Note:** Query parameter percent encoding is required. See [Special characters]( https://developer.okta.com/docs/api/#special-characters ).  | 
- **after** | **string** | The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request. | 
+ **after** | **string** | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination). | 
  **limit** | **int32** | The maximum number of records returned in a response | [default to 20]
 
 ### Return type

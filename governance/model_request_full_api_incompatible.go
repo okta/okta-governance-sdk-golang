@@ -58,7 +58,7 @@ type RequestFullApiIncompatible struct {
 	RequestStatus    RequestRequestStatus `json:"requestStatus"`
 	// The date the request was resolved. The property may transition from having a value to null if the request is reopened.
 	Resolved NullableTime `json:"resolved"`
-	// Field values provided when adding the request.  If a request type has required requesterFields, they must be provided when the request is created.  Non-required fields may be omitted when creating the request.
+	// Field values provided when adding the request.  If a request type has required `requesterFields`, they must be provided when the request is created.  Non-required fields may be omitted when creating the request.
 	RequesterFieldValues []FieldValue `json:"requesterFieldValues"`
 	AdditionalProperties map[string]interface{}
 }
@@ -510,8 +510,6 @@ func (o *RequestFullApiIncompatible) UnmarshalJSON(data []byte) (err error) {
 	if err != nil {
 		return err
 	}
-
-	*o = RequestFullApiIncompatible(varRequestFullApiIncompatible)
 
 	*o = RequestFullApiIncompatible(varRequestFullApiIncompatible)
 

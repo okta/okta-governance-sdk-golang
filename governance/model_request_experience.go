@@ -28,7 +28,7 @@ import (
 	"fmt"
 )
 
-// RequestExperience the model 'RequestExperience'
+// RequestExperience The request experience supported in the org
 type RequestExperience string
 
 // List of request-experience

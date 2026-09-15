@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## CreateMyRequestV2
 
-> RequestFull2 CreateMyRequestV2(ctx, entryId).MyRequestCreatable(myRequestCreatable).Execute()
+> MyRequestFull CreateMyRequestV2(ctx, entryId).MyRequestCreatable(myRequestCreatable).Execute()
 
 Create a request
 
@@ -30,7 +30,7 @@ import (
 )
 
 func main() {
-	entryId := "entryId_example" // string | The ID of the catalog entry
+	entryId := "entryId_example" // string | Unique identifier for the catalog entry
 	myRequestCreatable := *openapiclient.NewMyRequestCreatable() // MyRequestCreatable | Creates a resource access request for a given user.  Use this operation to create access requests managed by access request conditions.  If `requestedBy` and `requestedFor` aren't the same, then you must also enable the [`requestOnBehalfOfSettings`](https://developer.okta.com/docs/api/iga/openapi/governance.requests.admin.v2/tag/Request-Settings/#tag/Request-Settings/operation/updateResourceRequestSettingsV2!path=requestOnBehalfOfSettings&t=request) parameter in the access request settings. See [Update the resource request settings](https://developer.okta.com/docs/api/iga/openapi/governance.requests.admin.v2/tag/Request-Settings/#tag/Request-Settings/operation/updateResourceRequestSettingsV2).  Include the following information in the payload:  - The Okta user ID for the user who requires access. Add the user ID in the `requestedFor.externalId` parameter. - The catalog entry ID of the resource required by the user. Add the catalog ID in the `requested.entryId` parameter. - If the request conditions include requester input fields, add field information in the `requesterFieldValues` array. See [Retrieve the request fields](https://developer.okta.com/docs/api/iga/openapi/governance.requests.admin.v2/tag/Catalogs/#tag/Catalogs/operation/getCatalogEntryRequestFieldsV2). - Optional: The user ID of the person submitting the request. By default, this value is the admin user ID requesting this operation and doesn't need to be provided. However, to add a different Okta user ID for the request, include the `requestedBy.externalId` parameter in the request body. 
 
 	configuration := openapiclient.NewConfiguration()
@@ -40,7 +40,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MyRequestsAPI.CreateMyRequestV2``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateMyRequestV2`: RequestFull2
+	// response from `CreateMyRequestV2`: MyRequestFull
 	fmt.Fprintf(os.Stdout, "Response from `MyRequestsAPI.CreateMyRequestV2`: %v\n", resp)
 }
 ```
@@ -51,7 +51,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**entryId** | **string** | The ID of the catalog entry | 
+**entryId** | **string** | Unique identifier for the catalog entry | 
 
 ### Other Parameters
 
@@ -65,7 +65,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RequestFull2**](RequestFull2.md)
+[**MyRequestFull**](MyRequestFull.md)
 
 ### Authorization
 
@@ -83,7 +83,7 @@ Name | Type | Description  | Notes
 
 ## GetMyRequestV2
 
-> RequestFull2 GetMyRequestV2(ctx, entryId, requestId).Execute()
+> MyRequestFull GetMyRequestV2(ctx, entryId, requestId).Execute()
 
 Retrieve my request
 
@@ -102,8 +102,8 @@ import (
 )
 
 func main() {
-	entryId := "entryId_example" // string | The ID of the catalog entry
-	requestId := "requestId_example" // string | The `id` of the request
+	entryId := "entryId_example" // string | Unique identifier for the catalog entry
+	requestId := "requestId_example" // string | Unique identifier for the Resource-Centric Access Requests (RCAR) request
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -112,7 +112,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `MyRequestsAPI.GetMyRequestV2``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetMyRequestV2`: RequestFull2
+	// response from `GetMyRequestV2`: MyRequestFull
 	fmt.Fprintf(os.Stdout, "Response from `MyRequestsAPI.GetMyRequestV2`: %v\n", resp)
 }
 ```
@@ -123,8 +123,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**entryId** | **string** | The ID of the catalog entry | 
-**requestId** | **string** | The &#x60;id&#x60; of the request | 
+**entryId** | **string** | Unique identifier for the catalog entry | 
+**requestId** | **string** | Unique identifier for the Resource-Centric Access Requests (RCAR) request | 
 
 ### Other Parameters
 
@@ -138,7 +138,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RequestFull2**](RequestFull2.md)
+[**MyRequestFull**](MyRequestFull.md)
 
 ### Authorization
 

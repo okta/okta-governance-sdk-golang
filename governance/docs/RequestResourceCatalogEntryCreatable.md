@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** |  | 
-**EntryId** | **string** | The ID of the resource catalog entry | 
+**EntryId** | **string** | Unique identifier of the resource catalog entry | 
 
 ## Methods
 

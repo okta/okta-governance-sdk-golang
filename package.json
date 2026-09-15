@@ -1,0 +1,8 @@
+{
+  "name": "okta-governance-sdk-golang",
+  "private": true,
+  "description": "OpenAPI Generator tooling for okta-governance-sdk-golang",
+  "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.39.0"
+  }
+}

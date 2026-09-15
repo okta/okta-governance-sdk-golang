@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ParentResourceOrn** | Pointer to **string** | The Okta resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for [supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources). | [optional] 
+**ParentResourceOrn** | Pointer to **string** | The Okta resource in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)  See the ORN format for [supported resources](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).  | [optional] 
 **Parent** | Pointer to [**TargetResource**](TargetResource.md) |  | [optional] 
-**Values** | Pointer to [**[]EntitlementValueFull**](EntitlementValueFull.md) | Collection of entitlement values. | [optional] 
-**TargetPrincipalOrn** | Pointer to **string** | The Okta user, in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format. | [optional] 
+**Values** | Pointer to [**[]EntitlementValueFull**](EntitlementValueFull.md) | Collection of entitlement values | [optional] 
+**TargetPrincipalOrn** | Pointer to **string** | The Okta user in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format | [optional] 
 **TargetPrincipal** | Pointer to [**TargetPrincipalFull**](TargetPrincipalFull.md) |  | [optional] 
 **Id** | Pointer to **string** | The &#x60;id&#x60; property of an entitlement | [optional] 
 **Name** | Pointer to **string** | The display name for an entitlement property | [optional] 
 **ExternalValue** | Pointer to **string** | The value of an entitlement property | [optional] 
 **Description** | Pointer to **string** | The description of an entitlement property | [optional] 
-**MultiValue** | Pointer to **bool** | Indicate if the entitlement property can hold multiple values. If this property is &#x60;true&#x60;, then the &#x60;dataType&#x60; property is set to  &#x60;array&#x60;. | [optional] 
+**MultiValue** | Pointer to **bool** | Indicates if the entitlement property can hold multiple values. If this property is &#x60;true&#x60;, then the &#x60;dataType&#x60; property is set to &#x60;array&#x60;. | [optional] 
 **Required** | Pointer to **bool** | The property that determines if the entitlement property is a required attribute | [optional] 
 **DataType** | Pointer to [**EntitlementPropertyDatatype**](EntitlementPropertyDatatype.md) |  | [optional] 
 

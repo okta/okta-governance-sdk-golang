@@ -4,20 +4,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**GrantType** | **string** | Base grant type for assigning entitlements driven by policy | 
+**GrantType** | **string** | Additive grant type for assigning specific entitlement and respective value(s). | 
 **EntitlementBundleId** | **string** | The entitlement bundle &#x60;id&#x60;  | 
 **TargetPrincipal** | [**TargetPrincipal**](TargetPrincipal.md) |  | 
 **ScheduleSettings** | Pointer to [**ScheduleSettingsWriteable**](ScheduleSettingsWriteable.md) |  | [optional] 
 **Action** | Pointer to [**GrantAction**](GrantAction.md) |  | [optional] [default to GRANTACTION_ALLOW]
 **Actor** | Pointer to [**GrantActor**](GrantActor.md) |  | [optional] [default to GRANTACTOR_API]
 **Target** | [**TargetResource**](TargetResource.md) |  | 
-**Entitlements** | Pointer to [**[]EntitlementCreatable**](EntitlementCreatable.md) | Collection of entitlements and associated value identifiers | [optional] 
+**Entitlements** | [**[]EntitlementCreatable**](EntitlementCreatable.md) | Collection of entitlements and associated value identifiers | 
 
 ## Methods
 
 ### NewGrantCreatable
 
-`func NewGrantCreatable(grantType string, entitlementBundleId string, targetPrincipal TargetPrincipal, target TargetResource, ) *GrantCreatable`
+`func NewGrantCreatable(grantType string, entitlementBundleId string, targetPrincipal TargetPrincipal, target TargetResource, entitlements []EntitlementCreatable, ) *GrantCreatable`
 
 NewGrantCreatable instantiates a new GrantCreatable object
 This constructor will assign default values to properties that have it defined,
@@ -206,11 +206,6 @@ and a boolean to check if the value has been set.
 
 SetEntitlements sets Entitlements field to given value.
 
-### HasEntitlements
-
-`func (o *GrantCreatable) HasEntitlements() bool`
-
-HasEntitlements returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

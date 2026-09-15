@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **RequestSubmissionType** | **string** |  | 
 **Error** | Pointer to [**[]RiskSettingsError**](RiskSettingsError.md) |  | [optional] 
-**ApprovalSequenceId** | **string** | The ID of the approval sequence | 
+**ApprovalSequenceId** | **string** | Unique identifier for the approval sequence | 
 **AccessDurationSettings** | Pointer to [**AccessDurationSettingsFull**](AccessDurationSettingsFull.md) |  | [optional] 
 
 ## Methods

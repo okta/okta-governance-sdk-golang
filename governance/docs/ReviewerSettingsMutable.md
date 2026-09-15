@@ -9,12 +9,13 @@ Name | Type | Description | Notes
 **ReviewerScopeExpression** | Pointer to **string** | Required when &#x60;reviewerSettings.type&#x60; is &#x60;REVIEWER_EXPRESSION&#x60;.  The Okta-specific user expression to fetch the reviewers from a connected identity source:  * If a user is found with the provided expression, that user is assigned as the reviewer. * If a user isn&#39;t found with the provided expression, the &#x60;reviewerSettings.fallBackReviewerId&#x60; user is assigned as the reviewer. * See [Okta Expression Language (EL)](https://developer.okta.com/docs/reference/okta-expression-language/#okta-user-profile) to build the expression base on user profile attributes.  | [optional] 
 **FallBackReviewerId** | Pointer to **string** | Required when reviewer setting &#x60;type&#x60; is &#x60;REVIEWER_EXPRESSION&#x60; or &#x60;RESOURCE_OWNER&#x60;. The fallback reviewer is assigned as the reviewer if:  * reviewer setting &#x60;reviewerScopeExpression&#x60; fails to identify reviewers, or * reviewers aren&#39;t identified through resource owners  | [optional] 
 **ReviewerGroupId** | Pointer to **string** | Required when &#x60;reviewerSettings.type&#x60; is &#x60;GROUP&#x60;.  The &#x60;id&#x60; of the Okta group: * All members of the specified group are assigned as reviewers. * Use this reviewer group assignment if you can&#39;t use &#x60;reviewerId&#x60; or &#x60;reviewerScopeExpression&#x60;. * If the Okta group has more than 10 members when the campaign launches, only 10 members are randomly selected as reviewers. * If the Okta group has only one member, then that member is assigned as the reviewer for all reviews, and &#x60;reviewerType&#x60; is set to &#x60;USER&#x60; for those reviews.  | [optional] 
-**IsSelfReviewDisabled** | Pointer to **bool** | If &#x60;true&#x60;, users can&#39;t review their own review items.  &gt; **Note:** This field is deprecated. Use [&#39;selfReviewDisabled&#39;](/openapi/governance.api/tag/Campaigns/#tag/Campaigns/operation/createCampaign!path&#x3D;reviewerSettings/selfReviewDisabled&amp;t&#x3D;request)  | [optional] 
-**SelfReviewDisabled** | Pointer to **bool** | If true, users won&#39;t be able to review their own review items.  This property is required to be &#x60;true&#x60; for resource-centric campaigns when the Okta Admin Console is one of the resources.  | [optional] 
-**JustificationRequired** | Pointer to **bool** | If true, a justification is required when review items are approved or revoked.  This property must be &#x60;true&#x60; for resource-centric campaigns that have the Okta Admin Console as one of the resources.  | [optional] 
+**IsSelfReviewDisabled** | Pointer to **bool** | If &#x60;true&#x60;, users can&#39;t review their own review items.  &gt; **Note:** This field is deprecated. Use [&#39;selfReviewDisabled&#39;](/iga/openapi/governance-production-reference/campaigns/createcampaign#campaigns/createcampaign/t&#x3D;request&amp;path&#x3D;reviewersettings/selfreviewdisabled)  | [optional] 
+**SelfReviewDisabled** | Pointer to **bool** | If &#x60;true&#x60;, users can&#39;t review their own review items  | [optional] 
+**JustificationRequired** | Pointer to **bool** | If true, a justification is required when review items are approved or revoked.  This property must be &#x60;true&#x60; for resource campaigns that have the Okta Admin Console as one of the resources. &gt; **Note:** Use the &#x60;justificationRequirement&#x60; property to control review justification for all new campaigns instead of &#x60;justificationRequired&#x60;. This property provides you with more control over your review justification settings. | [optional] 
 **BulkDecisionDisabled** | Pointer to **bool** | If true, bulk actions are disabled for approving or revoking review items.  | [optional] 
 **ReassignmentDisabled** | Pointer to **bool** | If true, reassignment is disabled for reviewers.  | [optional] 
 **ReviewerLevels** | Pointer to [**[]ReviewerLevelSettingsMutable**](ReviewerLevelSettingsMutable.md) | Defines the reviewer level in a campaign. A campaign can have a maximum of two reviewer levels.  | [optional] 
+**JustificationRequirement** | Pointer to [**JustificationRequirement**](JustificationRequirement.md) |  | [optional] 
 
 ## Methods
 
@@ -304,6 +305,31 @@ SetReviewerLevels sets ReviewerLevels field to given value.
 `func (o *ReviewerSettingsMutable) HasReviewerLevels() bool`
 
 HasReviewerLevels returns a boolean if a field has been set.
+
+### GetJustificationRequirement
+
+`func (o *ReviewerSettingsMutable) GetJustificationRequirement() JustificationRequirement`
+
+GetJustificationRequirement returns the JustificationRequirement field if non-nil, zero value otherwise.
+
+### GetJustificationRequirementOk
+
+`func (o *ReviewerSettingsMutable) GetJustificationRequirementOk() (*JustificationRequirement, bool)`
+
+GetJustificationRequirementOk returns a tuple with the JustificationRequirement field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetJustificationRequirement
+
+`func (o *ReviewerSettingsMutable) SetJustificationRequirement(v JustificationRequirement)`
+
+SetJustificationRequirement sets JustificationRequirement field to given value.
+
+### HasJustificationRequirement
+
+`func (o *ReviewerSettingsMutable) HasJustificationRequirement() bool`
+
+HasJustificationRequirement returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

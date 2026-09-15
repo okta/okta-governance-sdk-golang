@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ResourceId** | **string** | An Okta app ID.  See [list apps](https://developer.okta.com/docs/reference/api/apps/#list-applications) endpoint for reference on how to retrieve app ids.  | 
+**ResourceId** | **string** | An Okta app ID  See [List all apps](https://developer.okta.com/docs/api/openapi/okta-management/management/tags/application/other/listapplications) endpoint for more information on how to retrieve app IDs.  | 
 
 ## Methods
 

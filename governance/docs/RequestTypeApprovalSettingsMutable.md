@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** | When there are multiple approvals, an approval is not actionable until the previous approval has been approved. A denial will terminate the request and no subsequent approvals will be made actionable.  | 
-**Approvals** | [**[]RequestTypeApprovalWritable**](RequestTypeApprovalWritable.md) | What approval(s) are required to grant access?  All specified approvals are considered required in order to fulfill an access request.  At least one approval must be specified for a request type. The maximum number of approvals is 5.  Approvals are serial.  When a request type has two approvals, and a user creates a request using that request type, then only the first approval will be immediately actionable by an approver.  After an approver has made a decision for that approval, then the second approval will be actionable by its approver.  The approval type of &#x60;RESOURCE_OWNER&#x60; is only supported for resource type of &#x60;GROUP&#x60;  | 
+**Type** | **string** | Multiple approvals defined in a serial sequence:   * An approval isn&#39;t actionable until the previous approval is approved.   * An approval denial terminates the request and no subsequent approvals are actionable. | 
+**Approvals** | [**[]RequestTypeApprovalWritable**](RequestTypeApprovalWritable.md) | The &#x60;SERIAL&#x60; approvals required to grant access:  * All specified approvals are considered required in order to fulfill an access request. * At least one approval must be specified for a request type. * When a request type has two approvals:   * Only the first approval is immediately actionable by an approver in the request.   * After an approver has made a decision for the first approval, then the second approval is actionable. * The approval type of &#x60;RESOURCE_OWNER&#x60; is supported for apps, entitlement bundles, and associated groups from the resource requested.  | 
 
 ## Methods
 

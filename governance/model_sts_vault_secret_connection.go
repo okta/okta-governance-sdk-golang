@@ -34,11 +34,11 @@ var _ MappedNullable = &StsVaultSecretConnection{}
 // StsVaultSecretConnection STS connection to a vaulted secret
 type StsVaultSecretConnection struct {
 	// Type of connection authentication method
-	ConnectionType string                         `json:"connectionType"`
-	Secret         ManagedConnectionVaultedSecret `json:"secret"`
-	// Unique identifier for the managed connection
+	ConnectionType string                          `json:"connectionType"`
+	Secret         ResourceConnectionVaultedSecret `json:"secret"`
+	// Unique identifier for the resource connection
 	Id *string `json:"id,omitempty"`
-	// The [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) of the managed connection
+	// The [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) of the resource connection
 	Orn *string `json:"orn,omitempty"`
 	// The status of the connection
 	Status               *string `json:"status,omitempty"`
@@ -51,7 +51,7 @@ type _StsVaultSecretConnection StsVaultSecretConnection
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewStsVaultSecretConnection(connectionType string, secret ManagedConnectionVaultedSecret) *StsVaultSecretConnection {
+func NewStsVaultSecretConnection(connectionType string, secret ResourceConnectionVaultedSecret) *StsVaultSecretConnection {
 	this := StsVaultSecretConnection{}
 	return &this
 }
@@ -89,9 +89,9 @@ func (o *StsVaultSecretConnection) SetConnectionType(v string) {
 }
 
 // GetSecret returns the Secret field value
-func (o *StsVaultSecretConnection) GetSecret() ManagedConnectionVaultedSecret {
+func (o *StsVaultSecretConnection) GetSecret() ResourceConnectionVaultedSecret {
 	if o == nil {
-		var ret ManagedConnectionVaultedSecret
+		var ret ResourceConnectionVaultedSecret
 		return ret
 	}
 
@@ -100,7 +100,7 @@ func (o *StsVaultSecretConnection) GetSecret() ManagedConnectionVaultedSecret {
 
 // GetSecretOk returns a tuple with the Secret field value
 // and a boolean to check if the value has been set.
-func (o *StsVaultSecretConnection) GetSecretOk() (*ManagedConnectionVaultedSecret, bool) {
+func (o *StsVaultSecretConnection) GetSecretOk() (*ResourceConnectionVaultedSecret, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -108,7 +108,7 @@ func (o *StsVaultSecretConnection) GetSecretOk() (*ManagedConnectionVaultedSecre
 }
 
 // SetSecret sets field value
-func (o *StsVaultSecretConnection) SetSecret(v ManagedConnectionVaultedSecret) {
+func (o *StsVaultSecretConnection) SetSecret(v ResourceConnectionVaultedSecret) {
 	o.Secret = v
 }
 

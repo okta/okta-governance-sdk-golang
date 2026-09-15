@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | Pointer to [**[]RequestSequence**](RequestSequence.md) | All request sequences | [optional] 
+**Data** | Pointer to [**[]RequestSequence**](RequestSequence.md) | All resource request sequences (approval sequences) | [optional] 
 **Links** | Pointer to [**RequestSequencesListLinks**](RequestSequencesListLinks.md) |  | [optional] 
 
 ## Methods

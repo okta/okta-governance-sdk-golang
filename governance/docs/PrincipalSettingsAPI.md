@@ -29,7 +29,7 @@ import (
 )
 
 func main() {
-	targetPrincipalId := "targetPrincipalId_example" // string | The `id` of the resource in Okta ID format or [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format
+	targetPrincipalId := "targetPrincipalId_example" // string | Unique identifier for the target principal in Okta ID format or [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format
 	principalSettingsPatchable := *openapiclient.NewPrincipalSettingsPatchable() // PrincipalSettingsPatchable | 
 
 	configuration := openapiclient.NewConfiguration()
@@ -50,7 +50,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**targetPrincipalId** | **string** | The &#x60;id&#x60; of the resource in Okta ID format or [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format | 
+**targetPrincipalId** | **string** | Unique identifier for the target principal in Okta ID format or [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format | 
 
 ### Other Parameters
 

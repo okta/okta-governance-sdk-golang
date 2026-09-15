@@ -45,7 +45,7 @@ type ReviewsAPI interface {
 
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param reviewId The `id` of the review
+			@param reviewId Unique identifier for the review
 			@return ApiGetReviewRequest
 	*/
 	GetReview(ctx context.Context, reviewId string) ApiGetReviewRequest
@@ -57,33 +57,15 @@ type ReviewsAPI interface {
 	/*
 			ListReviews List all reviews
 
-			Lists reviews for your organization.
+			Lists reviews in your org:
 
-		You can return a subset of reviews if a filter expression (`?filter=`) is provided.
+		* Reviews exist only for campaigns that have been launched with a status of `ACTIVE` or `COMPLETED`.
+		* If a review hasn't been reviewed (`decision` is `UNREVIEWED`), then the `decided` property is null.
+		* If remediation isn't done on a review, then the `remediationStatus` property is null.
 
-		Supported filters are:
+		This operation supports pagination. Use the `after` and `limit` query parameters to page through the list, and follow the `Link` response header to retrieve the next page of results.
 
-		- `campaignId`: string
-		- `principalId`: string
-		- `reviewerId`: string
-		- `decision`: string (APPROVE, REVOKE, UNREVIEWED)
-		- `resourceId`: string (`GroupId` or `AppId`)
-		- `reviewerType`: string (`USER` or `GROUP` or `RESOURCE_OWNER`)
-		- `reviewerLevel`: string (`FIRST` or `SECOND`)
-		- `entitlementValueId`: string
-		- `entitlementBundleId`: string
-
-		Pagination parameters are accepted, and standard link headers are in the response.
-
-		Reviews exist only for campaigns that have been launched with a status of `ACTIVE` or `COMPLETED`.
-		Also note that, if reviews are still `UNREVIEWED`, then the property `decided` would be null. If the remediation is not completed, then `remediationStatus` would be null too.
-
-		The order criteria (`orderBy`) applies to the following properties: `decided`, `decision`, `remediationStatus`, and `created`.
-
-		By default, results are sorted by `created`.
-
-		Note: Calling this endpoint without a filter would require fetching a large amount of data. If your org has a large number of campaigns and reviews,
-		the request might time out or fail. To ensure reliable performance, we strongly recommend that you fetch data on a per-campaign basis using the provided filters.
+		> **Note**: Requesting a list of reviews without a filter impacts performance. If your org has a large number of campaigns and reviews, the request might time out or fail. Okta recommends that you list reviews on a per-campaign basis, using the `filter` query parameter.
 
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -120,7 +102,7 @@ type ReviewsAPI interface {
 
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param campaignId The `id` of the campaign
+			@param campaignId Unique identifier for the campaign
 			@return ApiReassignReviewsRequest
 	*/
 	ReassignReviews(ctx context.Context, campaignId string) ApiReassignReviewsRequest
@@ -153,7 +135,7 @@ More information is returned than the abbreviated representation in a List revie
 Also note that, if reviews are still `UNREVIEWED`, then the property `decided` would be null. If the remediation is not completed, then `remediationStatus` would be null too.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param reviewId The `id` of the review
+	@param reviewId Unique identifier for the review
 	@return ApiGetReviewRequest
 */
 func (a *ReviewsAPIService) GetReview(ctx context.Context, reviewId string) ApiGetReviewRequest {
@@ -336,13 +318,13 @@ type ApiListReviewsRequest struct {
 	retryCount int32
 }
 
-// Apply various filters by using supported review filtering properties.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding)
+// A [filter](https://developer.okta.com/docs/api/#filter) expression that filters a collection of reviews in the response. The filter expression supports the &#x60;eq&#x60; [operator](https://developer.okta.com/docs/api/#operators) and the following properties: * &#x60;campaignId&#x60; * &#x60;principalId&#x60; (corresponds to &#x60;principalProfile.id&#x60;) * &#x60;reviewerId&#x60; (corresponds to &#x60;reviewerProfile.id&#x60;) * &#x60;decision&#x60; * &#x60;resourceId&#x60; * &#x60;reviewerType&#x60; * &#x60;reviewerLevel&#x60; (corresponds to &#x60;currentReviewerLevel&#x60;) * &#x60;entitlementValueId&#x60; (corresponds to &#x60;entitlementValue.id&#x60;) * &#x60;entitlementBundleId&#x60; (corresponds to &#x60;entitlementBundle.id&#x60;)  &gt; **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding).
 func (r ApiListReviewsRequest) Filter(filter string) ApiListReviewsRequest {
 	r.filter = &filter
 	return r
 }
 
-// The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request.
+// Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination).
 func (r ApiListReviewsRequest) After(after string) ApiListReviewsRequest {
 	r.after = &after
 	return r
@@ -354,7 +336,7 @@ func (r ApiListReviewsRequest) Limit(limit int32) ApiListReviewsRequest {
 	return r
 }
 
-// A field by which results can be sorted. For now, sorting by a single field is supported.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding)
+// Specifies a property to sort the results. The following properties are supported: - &#x60;decided&#x60; - &#x60;decision&#x60; - &#x60;remediationStatus&#x60; - &#x60;created&#x60;  Append &#x60;desc&#x60; or &#x60;asc&#x60; to indicate the sorting direction.  By default, the results are sorted by &#x60;created&#x60; in ascending order (&#x60;created asc&#x60;).  &gt; **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding).
 func (r ApiListReviewsRequest) OrderBy(orderBy []string) ApiListReviewsRequest {
 	r.orderBy = &orderBy
 	return r
@@ -367,33 +349,15 @@ func (r ApiListReviewsRequest) Execute() (*ReviewList, *APIResponse, error) {
 /*
 ListReviews List all reviews
 
-Lists reviews for your organization.
+Lists reviews in your org:
 
-You can return a subset of reviews if a filter expression (`?filter=`) is provided.
+* Reviews exist only for campaigns that have been launched with a status of `ACTIVE` or `COMPLETED`.
+* If a review hasn't been reviewed (`decision` is `UNREVIEWED`), then the `decided` property is null.
+* If remediation isn't done on a review, then the `remediationStatus` property is null.
 
-Supported filters are:
+This operation supports pagination. Use the `after` and `limit` query parameters to page through the list, and follow the `Link` response header to retrieve the next page of results.
 
-- `campaignId`: string
-- `principalId`: string
-- `reviewerId`: string
-- `decision`: string (APPROVE, REVOKE, UNREVIEWED)
-- `resourceId`: string (`GroupId` or `AppId`)
-- `reviewerType`: string (`USER` or `GROUP` or `RESOURCE_OWNER`)
-- `reviewerLevel`: string (`FIRST` or `SECOND`)
-- `entitlementValueId`: string
-- `entitlementBundleId`: string
-
-Pagination parameters are accepted, and standard link headers are in the response.
-
-Reviews exist only for campaigns that have been launched with a status of `ACTIVE` or `COMPLETED`.
-Also note that, if reviews are still `UNREVIEWED`, then the property `decided` would be null. If the remediation is not completed, then `remediationStatus` would be null too.
-
-The order criteria (`orderBy`) applies to the following properties: `decided`, `decision`, `remediationStatus`, and `created`.
-
-By default, results are sorted by `created`.
-
-Note: Calling this endpoint without a filter would require fetching a large amount of data. If your org has a large number of campaigns and reviews,
-the request might time out or fail. To ensure reliable performance, we strongly recommend that you fetch data on a per-campaign basis using the provided filters.
+> **Note**: Requesting a list of reviews without a filter impacts performance. If your org has a large number of campaigns and reviews, the request might time out or fail. Okta recommends that you list reviews on a per-campaign basis, using the `filter` query parameter.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiListReviewsRequest
@@ -608,7 +572,7 @@ To reassign a set of reviews, you must specify:
 - a `note` justifying the reassignment decision for the specified reviews
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param campaignId The `id` of the campaign
+	@param campaignId Unique identifier for the campaign
 	@return ApiReassignReviewsRequest
 */
 func (a *ReviewsAPIService) ReassignReviews(ctx context.Context, campaignId string) ApiReassignReviewsRequest {

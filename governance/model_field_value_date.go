@@ -37,7 +37,7 @@ type FieldValueDate struct {
 	Type FieldDateTimeType `json:"type"`
 	// Value provided by a user in ISO 8601 string format
 	Value NullableTime `json:"value"`
-	// A `read-only` field id.  Useful for specifying requesterFieldValues when adding a request.  The generated value is a UUID v4 from [RFC4122](https://www.ietf.org/rfc/rfc4122.txt).
+	// A `read-only` field ID.  This field is useful for specifying `requesterFieldValues` when adding a request.  The generated value is a UUID v4 from [RFC4122](https://www.ietf.org/rfc/rfc4122.txt).
 	Id string `json:"id"`
 	// Text to prompt the user with
 	Prompt string `json:"prompt"`

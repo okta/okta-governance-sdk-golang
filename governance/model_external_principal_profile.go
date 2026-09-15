@@ -35,9 +35,9 @@ var _ MappedNullable = &ExternalPrincipalProfile{}
 type ExternalPrincipalProfile struct {
 	// Okta user `id` or Okta group `id`
 	Id string `json:"id"`
-	// User name or Group Name
+	// User name or group name
 	Name string `json:"name"`
-	// Email of the resource owner, if applicable.
+	// Email of the resource owner, if applicable
 	Email    *string                           `json:"email,omitempty"`
 	Metadata *ExternalPrincipalProfileMetadata `json:"metadata,omitempty"`
 	// List of logo resources
@@ -297,8 +297,6 @@ func (o *ExternalPrincipalProfile) UnmarshalJSON(data []byte) (err error) {
 	if err != nil {
 		return err
 	}
-
-	*o = ExternalPrincipalProfile(varExternalPrincipalProfile)
 
 	*o = ExternalPrincipalProfile(varExternalPrincipalProfile)
 

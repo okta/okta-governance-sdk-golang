@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Status** | [**RequestTypeStatus**](RequestTypeStatus.md) |  | 
 **LastUpdateSource** | **string** |  | 
 **Links** | [**RequestTypeLinks**](RequestTypeLinks.md) |  | 
-**Name** | **string** | Writable unique key on Create. Not modifiable on update. | 
+**Name** | **string** | A user-defined unique key that&#39;s set during the create operation and can&#39;t be updated afterwards | 
 **Description** | **string** | Human readable description | 
 **Id** | **string** | Unique identifier for the object | 
 **CreatedBy** | **string** | The &#x60;id&#x60; of the Okta user who created the resource | [readonly] 

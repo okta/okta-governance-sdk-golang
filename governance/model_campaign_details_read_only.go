@@ -478,8 +478,6 @@ func (o *CampaignDetailsReadOnly) UnmarshalJSON(data []byte) (err error) {
 
 	*o = CampaignDetailsReadOnly(varCampaignDetailsReadOnly)
 
-	*o = CampaignDetailsReadOnly(varCampaignDetailsReadOnly)
-
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {

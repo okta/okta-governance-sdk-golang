@@ -61,10 +61,11 @@ type ReviewFull struct {
 	RiskRuleConflicts []RiskRuleConflicts       `json:"riskRuleConflicts,omitempty"`
 	DelegatorProfile  *PrincipalProfileEnriched `json:"delegatorProfile,omitempty"`
 	// Specifies if this review was delegated by the original reviewer based on their governance delegate settings
-	Delegated          *bool                   `json:"delegated,omitempty"`
-	AppServiceAccount  *ReviewerServiceAccount `json:"appServiceAccount,omitempty"`
-	OktaServiceAccount *ReviewerServiceAccount `json:"oktaServiceAccount,omitempty"`
-	Note               *Note                   `json:"note,omitempty"`
+	Delegated          *bool                      `json:"delegated,omitempty"`
+	AppServiceAccount  *ReviewerServiceAccount    `json:"appServiceAccount,omitempty"`
+	OktaServiceAccount *ReviewerServiceAccount    `json:"oktaServiceAccount,omitempty"`
+	AiAgentConnection  *ReviewerAiAgentConnection `json:"aiAgentConnection,omitempty"`
+	Note               *Note                      `json:"note,omitempty"`
 	// Applicable only for multi level campaign. Provides details about the reviewer and decisions (if any) made at each reviewer level is captured here.
 	AllReviewerLevels    []ReviewerLevelInfoFull `json:"allReviewerLevels,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -742,6 +743,38 @@ func (o *ReviewFull) SetOktaServiceAccount(v ReviewerServiceAccount) {
 	o.OktaServiceAccount = &v
 }
 
+// GetAiAgentConnection returns the AiAgentConnection field value if set, zero value otherwise.
+func (o *ReviewFull) GetAiAgentConnection() ReviewerAiAgentConnection {
+	if o == nil || IsNil(o.AiAgentConnection) {
+		var ret ReviewerAiAgentConnection
+		return ret
+	}
+	return *o.AiAgentConnection
+}
+
+// GetAiAgentConnectionOk returns a tuple with the AiAgentConnection field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ReviewFull) GetAiAgentConnectionOk() (*ReviewerAiAgentConnection, bool) {
+	if o == nil || IsNil(o.AiAgentConnection) {
+		return nil, false
+	}
+	return o.AiAgentConnection, true
+}
+
+// HasAiAgentConnection returns a boolean if a field has been set.
+func (o *ReviewFull) HasAiAgentConnection() bool {
+	if o != nil && !IsNil(o.AiAgentConnection) {
+		return true
+	}
+
+	return false
+}
+
+// SetAiAgentConnection gets a reference to the given ReviewerAiAgentConnection and assigns it to the AiAgentConnection field.
+func (o *ReviewFull) SetAiAgentConnection(v ReviewerAiAgentConnection) {
+	o.AiAgentConnection = &v
+}
+
 // GetNote returns the Note field value if set, zero value otherwise.
 func (o *ReviewFull) GetNote() Note {
 	if o == nil || IsNil(o.Note) {
@@ -861,6 +894,9 @@ func (o ReviewFull) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.OktaServiceAccount) {
 		toSerialize["oktaServiceAccount"] = o.OktaServiceAccount
 	}
+	if !IsNil(o.AiAgentConnection) {
+		toSerialize["aiAgentConnection"] = o.AiAgentConnection
+	}
 	if !IsNil(o.Note) {
 		toSerialize["note"] = o.Note
 	}
@@ -944,6 +980,7 @@ func (o *ReviewFull) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "delegated")
 		delete(additionalProperties, "appServiceAccount")
 		delete(additionalProperties, "oktaServiceAccount")
+		delete(additionalProperties, "aiAgentConnection")
 		delete(additionalProperties, "note")
 		delete(additionalProperties, "allReviewerLevels")
 		o.AdditionalProperties = additionalProperties

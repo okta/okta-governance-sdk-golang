@@ -28,7 +28,7 @@ import (
 	"fmt"
 )
 
-// RequestTypeApprovalSettingsMutable - There are two `approvalSettings` types. NONE: this request type doesn't need any approval. SERIAL: this request type needs at least one approval.
+// RequestTypeApprovalSettingsMutable - Specify one of the following `type` of approval settings:   | Type | Description |   |------|-------------|   | NONE | This request type doesn't need any approval. |   | SERIAL | This request type needs at least one approval. |
 type RequestTypeApprovalSettingsMutable struct {
 	RequestTypeApprovalSettingsNone           *RequestTypeApprovalSettingsNone
 	RequestTypeApprovalSettingsSerialWritable *RequestTypeApprovalSettingsSerialWritable

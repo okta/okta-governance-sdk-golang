@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ErrorSummary** | **string** | A more specific summary for the error containing the error cause. | 
+**ErrorSummary** | **string** | A more specific summary for the error that contains the error cause | 
 **Reason** | Pointer to **string** | An enumerated value to represent the reason why the error occurred. This enumeration allows codes to adapt to different conditions in which an error code can occur. | [optional] 
-**Location** | Pointer to **string** | A value that represents the key where the error cause occurred. This is used with &#x60;locationType&#x60; to give a holistic view of where the error cause occurred. For example, if &#x60;locationType&#x60; is body and the location is username and the reason was UNIQUE_CONSTRAINT, you can derive that the username was already taken. | [optional] 
-**LocationType** | Pointer to **string** | A value that represents where the error cause occurred. For example, in the body or header of the request. This value is not required for cases where the request is correct, but there was another reason why the error occurred (server-side state conflict, rate limit violation, and so on) | [optional] 
+**Location** | Pointer to **string** | A value that represents the key where the error cause occurred. This is used with &#x60;locationType&#x60; to give a holistic view of where the error cause occurred. For example, if &#x60;locationType&#x60; is &#x60;body&#x60;, &#x60;location&#x60; is &#x60;username&#x60;, and the &#x60;reason&#x60; was &#x60;UNIQUE_CONSTRAINT&#x60;, you can derive that the username was already taken. | [optional] 
+**LocationType** | Pointer to **string** | A value that represents where the error cause occurred. For example, in the body or header of the request. This value isn&#39;t required for cases where the request is correct, but there was another reason why the error occurred (server-side state conflict, rate limit violation, and so on). | [optional] 
 **Domain** | Pointer to **string** | A value that represents the domain of the service in which the error occurs. This value is used to isolate the error cause reason. | [optional] 
 
 ## Methods

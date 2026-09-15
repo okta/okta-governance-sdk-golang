@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Id** | Pointer to **string** | Unique identifier for an entitlement history entry | [optional] 
 **StartDate** | Pointer to **time.Time** | The start date and time when the entitlements became effective | [optional] 
 **EndDate** | Pointer to **time.Time** | The end date and time when the entitlements were superseded (if empty, the entitlements are currently effective) | [optional] 
 **Lifecycle** | Pointer to **string** | The current status of the entitlements for this history entry | [optional] 
@@ -27,6 +28,31 @@ will change when the set of required properties is changed
 NewEntitlementHistoryRecordWithDefaults instantiates a new EntitlementHistoryRecord object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetId
+
+`func (o *EntitlementHistoryRecord) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *EntitlementHistoryRecord) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *EntitlementHistoryRecord) SetId(v string)`
+
+SetId sets Id field to given value.
+
+### HasId
+
+`func (o *EntitlementHistoryRecord) HasId() bool`
+
+HasId returns a boolean if a field has been set.
 
 ### GetStartDate
 

@@ -35,6 +35,7 @@ type OrgSettings struct {
 	Delegates            *OrgSettingsDelegates    `json:"delegates,omitempty"`
 	GovernanceAI         *OrgSettingsGovernanceAI `json:"governanceAI,omitempty"`
 	Escalations          *OrgSettingsEscalations  `json:"escalations,omitempty"`
+	Integrations         *OrgSettingsIntegrations `json:"integrations,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -153,6 +154,38 @@ func (o *OrgSettings) SetEscalations(v OrgSettingsEscalations) {
 	o.Escalations = &v
 }
 
+// GetIntegrations returns the Integrations field value if set, zero value otherwise.
+func (o *OrgSettings) GetIntegrations() OrgSettingsIntegrations {
+	if o == nil || IsNil(o.Integrations) {
+		var ret OrgSettingsIntegrations
+		return ret
+	}
+	return *o.Integrations
+}
+
+// GetIntegrationsOk returns a tuple with the Integrations field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OrgSettings) GetIntegrationsOk() (*OrgSettingsIntegrations, bool) {
+	if o == nil || IsNil(o.Integrations) {
+		return nil, false
+	}
+	return o.Integrations, true
+}
+
+// HasIntegrations returns a boolean if a field has been set.
+func (o *OrgSettings) HasIntegrations() bool {
+	if o != nil && !IsNil(o.Integrations) {
+		return true
+	}
+
+	return false
+}
+
+// SetIntegrations gets a reference to the given OrgSettingsIntegrations and assigns it to the Integrations field.
+func (o *OrgSettings) SetIntegrations(v OrgSettingsIntegrations) {
+	o.Integrations = &v
+}
+
 func (o OrgSettings) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -171,6 +204,9 @@ func (o OrgSettings) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Escalations) {
 		toSerialize["escalations"] = o.Escalations
+	}
+	if !IsNil(o.Integrations) {
+		toSerialize["integrations"] = o.Integrations
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -197,6 +233,7 @@ func (o *OrgSettings) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "delegates")
 		delete(additionalProperties, "governanceAI")
 		delete(additionalProperties, "escalations")
+		delete(additionalProperties, "integrations")
 		o.AdditionalProperties = additionalProperties
 	}
 

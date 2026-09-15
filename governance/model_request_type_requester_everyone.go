@@ -34,7 +34,7 @@ var _ MappedNullable = &RequestTypeRequesterEveryone{}
 // RequestTypeRequesterEveryone A request where the requester may be any Okta user in the Okta organization.
 type RequestTypeRequesterEveryone struct {
 	Type string `json:"type"`
-	// A list of fields with which to gather input. The order of the field object controls the order with which the fields are presented to users.
+	// A list of fields to gather input. The order of the fields in the array controls the order that the fields are presented to users.
 	RequesterFields      []Field `json:"requesterFields,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

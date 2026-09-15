@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** | The access request team &#x60;id&#x60;.  | 
+**Id** | **string** | Unique identifier for the access request team  | 
 
 ## Methods
 

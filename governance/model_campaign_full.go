@@ -680,8 +680,6 @@ func (o *CampaignFull) UnmarshalJSON(data []byte) (err error) {
 
 	*o = CampaignFull(varCampaignFull)
 
-	*o = CampaignFull(varCampaignFull)
-
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {

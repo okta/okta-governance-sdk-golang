@@ -28,7 +28,7 @@ import (
 	"fmt"
 )
 
-// GrantType Type of grant
+// GrantType Type of grant. Reconciliation creates an `IMPORT` grant to record an entitlement that the app reported, but that Okta wasn't already governing.
 type GrantType string
 
 // List of grant-type
@@ -37,6 +37,7 @@ const (
 	GRANTTYPE_ENTITLEMENT_BUNDLE GrantType = "ENTITLEMENT-BUNDLE"
 	GRANTTYPE_POLICY             GrantType = "POLICY"
 	GRANTTYPE_ENTITLEMENT        GrantType = "ENTITLEMENT"
+	GRANTTYPE_IMPORT             GrantType = "IMPORT"
 )
 
 // All allowed values of GrantType enum
@@ -45,6 +46,7 @@ var AllowedGrantTypeEnumValues = []GrantType{
 	"ENTITLEMENT-BUNDLE",
 	"POLICY",
 	"ENTITLEMENT",
+	"IMPORT",
 }
 
 func (v *GrantType) UnmarshalJSON(src []byte) error {

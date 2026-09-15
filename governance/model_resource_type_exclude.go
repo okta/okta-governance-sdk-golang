@@ -35,12 +35,14 @@ type ResourceTypeExclude string
 const (
 	RESOURCETYPEEXCLUDE_GROUP       ResourceTypeExclude = "GROUP"
 	RESOURCETYPEEXCLUDE_APPLICATION ResourceTypeExclude = "APPLICATION"
+	RESOURCETYPEEXCLUDE_COLLECTION  ResourceTypeExclude = "COLLECTION"
 )
 
 // All allowed values of ResourceTypeExclude enum
 var AllowedResourceTypeExcludeEnumValues = []ResourceTypeExclude{
 	"GROUP",
 	"APPLICATION",
+	"COLLECTION",
 }
 
 func (v *ResourceTypeExclude) UnmarshalJSON(src []byte) error {

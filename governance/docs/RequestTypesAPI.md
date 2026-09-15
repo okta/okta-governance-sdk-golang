@@ -101,7 +101,7 @@ import (
 )
 
 func main() {
-	requestTypeId := "requestTypeId_example" // string | The `id` of the request type
+	requestTypeId := "requestTypeId_example" // string | Unique identifier for the request type
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -119,7 +119,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**requestTypeId** | **string** | The &#x60;id&#x60; of the request type | 
+**requestTypeId** | **string** | Unique identifier for the request type | 
 
 ### Other Parameters
 
@@ -169,7 +169,7 @@ import (
 )
 
 func main() {
-	requestTypeId := "requestTypeId_example" // string | The `id` of the request type
+	requestTypeId := "requestTypeId_example" // string | Unique identifier for the request type
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -189,7 +189,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**requestTypeId** | **string** | The &#x60;id&#x60; of the request type | 
+**requestTypeId** | **string** | Unique identifier for the request type | 
 
 ### Other Parameters
 
@@ -239,7 +239,7 @@ import (
 )
 
 func main() {
-	filter := "name%20eq%20%22Salesforce%20admins%22" // string | Apply various filters by using supported team filtering properties.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding)  (optional)
+	filter := "name eq "Salesforce admins"" // string | Apply various filters by using supported team filtering properties.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding)  (optional)
 	after := "after_example" // string | The after cursor provided by a prior request. (optional)
 	limit := int32(56) // int32 | The maximum number of records returned in a response (optional) (default to 20)
 
@@ -309,10 +309,10 @@ import (
 )
 
 func main() {
-	filter := "status%20eq%20%22ACTIVE%22" // string | Apply various filters by using supported request types filtering properties.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding)  (optional)
+	filter := "status eq "ACTIVE"" // string | Apply various filters by using supported request types filtering properties.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding)  (optional)
 	after := "after_example" // string | The after cursor provided by a prior request. (optional)
 	limit := int32(56) // int32 | The maximum number of records returned in a response (optional) (default to 20)
-	orderBy := "created%20desc" // string | Apply an ordering of request types by specifying a supported request type property name with `%20asc` or `%20desc` suffix.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding)  (optional)
+	orderBy := "created desc" // string | Apply an ordering of request types by specifying a supported request type property name with `%20asc` or `%20desc` suffix.  **Note:** Query parameter percent encoding is required. See [Percent-encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding)  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -381,7 +381,7 @@ import (
 )
 
 func main() {
-	requestTypeId := "requestTypeId_example" // string | The `id` of the request type
+	requestTypeId := "requestTypeId_example" // string | Unique identifier for the request type
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -401,7 +401,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**requestTypeId** | **string** | The &#x60;id&#x60; of the request type | 
+**requestTypeId** | **string** | Unique identifier for the request type | 
 
 ### Other Parameters
 
@@ -451,7 +451,7 @@ import (
 )
 
 func main() {
-	requestTypeId := "requestTypeId_example" // string | The `id` of the request type
+	requestTypeId := "requestTypeId_example" // string | Unique identifier for the request type
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -471,7 +471,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**requestTypeId** | **string** | The &#x60;id&#x60; of the request type | 
+**requestTypeId** | **string** | Unique identifier for the request type | 
 
 ### Other Parameters
 

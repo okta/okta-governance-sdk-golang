@@ -47,7 +47,7 @@ type MyCatalogsAPI interface {
 
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param entryId The ID of the catalog entry
+			@param entryId Unique identifier for the catalog entry
 			@return ApiGetMyCatalogEntryRequestFieldsV2Request
 	*/
 	GetMyCatalogEntryRequestFieldsV2(ctx context.Context, entryId string) ApiGetMyCatalogEntryRequestFieldsV2Request
@@ -69,8 +69,8 @@ type MyCatalogsAPI interface {
 
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param entryId The ID of the catalog entry
-			@param userId The `id` of the user
+			@param entryId Unique identifier for the catalog entry
+			@param userId Unique identifier for the user
 			@return ApiGetMyCatalogEntryUserRequestFieldsV2Request
 	*/
 	GetMyCatalogEntryUserRequestFieldsV2(ctx context.Context, entryId string, userId string) ApiGetMyCatalogEntryUserRequestFieldsV2Request
@@ -85,7 +85,7 @@ type MyCatalogsAPI interface {
 		Retrieves an entry from my catalog
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param entryId The ID of the catalog entry
+		@param entryId Unique identifier for the catalog entry
 		@return ApiGetMyEntryV2Request
 	*/
 	GetMyEntryV2(ctx context.Context, entryId string) ApiGetMyEntryV2Request
@@ -159,7 +159,7 @@ type MyCatalogsAPI interface {
 
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param entryId The ID of the catalog entry
+			@param entryId Unique identifier for the catalog entry
 			@return ApiListMyEntryUsersV2Request
 	*/
 	ListMyEntryUsersV2(ctx context.Context, entryId string) ApiListMyEntryUsersV2Request
@@ -194,7 +194,7 @@ Retrieves request fields for a catalog entry that you're allowed to request (as 
 * If the request can lead to any separation of duty conflicts, then the risk assessment (`metadata.riskAssessment`) is present. The risk assessment indicates whether the request submission is allowed or restricted, and includes rules that lead to the possible conflicts. If the request submission is allowed, then the request fields are determined by the associated approval sequence.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param entryId The ID of the catalog entry
+	@param entryId Unique identifier for the catalog entry
 	@return ApiGetMyCatalogEntryRequestFieldsV2Request
 */
 func (a *MyCatalogsAPIService) GetMyCatalogEntryRequestFieldsV2(ctx context.Context, entryId string) ApiGetMyCatalogEntryRequestFieldsV2Request {
@@ -347,8 +347,8 @@ The risk assessment indicates whether the request submission is allowed or restr
 If the request submission is allowed, then the request fields are determined by the associated approval sequence for the risk level.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param entryId The ID of the catalog entry
-	@param userId The `id` of the user
+	@param entryId Unique identifier for the catalog entry
+	@param userId Unique identifier for the user
 	@return ApiGetMyCatalogEntryUserRequestFieldsV2Request
 */
 func (a *MyCatalogsAPIService) GetMyCatalogEntryUserRequestFieldsV2(ctx context.Context, entryId string, userId string) ApiGetMyCatalogEntryUserRequestFieldsV2Request {
@@ -502,7 +502,7 @@ GetMyEntryV2 Retrieve my catalog entry
 Retrieves an entry from my catalog
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param entryId The ID of the catalog entry
+	@param entryId Unique identifier for the catalog entry
 	@return ApiGetMyEntryV2Request
 */
 func (a *MyCatalogsAPIService) GetMyEntryV2(ctx context.Context, entryId string) ApiGetMyEntryV2Request {
@@ -947,7 +947,7 @@ func (r ApiListMyEntryUsersV2Request) Filter(filter string) ApiListMyEntryUsersV
 	return r
 }
 
-// The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request.
+// Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination).
 func (r ApiListMyEntryUsersV2Request) After(after string) ApiListMyEntryUsersV2Request {
 	r.after = &after
 	return r
@@ -992,7 +992,7 @@ Request examples:
     ```
 
     @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-    @param entryId The ID of the catalog entry
+    @param entryId Unique identifier for the catalog entry
     @return ApiListMyEntryUsersV2Request
 */
 func (a *MyCatalogsAPIService) ListMyEntryUsersV2(ctx context.Context, entryId string) ApiListMyEntryUsersV2Request {

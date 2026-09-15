@@ -43,10 +43,10 @@ type ReviewerLevelSettingsMutable struct {
 	FallBackReviewerId *string `json:"fallBackReviewerId,omitempty"`
 	// Required when `reviewerSettings.reviewerLevels.type` is `GROUP`.  The `id` of the Okta group: * All members of the specified group are assigned as reviewers. * Use this reviewer group assignment to assign more than one reviewer if you can't use `reviewerId` or `reviewerScopeExpression`. * If the Okta group has more than 10 members when the campaign launches, only 10 members are randomly selected as reviewers. * If the Okta group has only one member, then that member is assigned as the reviewer for all reviews, and `reviewerType` is set to `USER` for those reviews.
 	ReviewerGroupId *string `json:"reviewerGroupId,omitempty"`
-	// If `true`, users can't review their own review items.  > **Note:** This field is deprecated. Use 'selfReviewDisabled'.
+	// If `true`, users can't review their own review items.  > **Note:** This field is deprecated. Use `selfReviewDisabled`.
 	// Deprecated
 	IsSelfReviewDisabled *bool `json:"isSelfReviewDisabled,omitempty"`
-	// If `true`, users can't review their own review items.  This property must be `true` for resource-centric campaigns when the Okta Admin Console is one of the resources.
+	// If `true`, users can't review their own review items
 	SelfReviewDisabled   *bool `json:"selfReviewDisabled,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

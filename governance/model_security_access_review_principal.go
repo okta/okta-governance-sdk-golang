@@ -33,16 +33,18 @@ var _ MappedNullable = &SecurityAccessReviewPrincipal{}
 
 // SecurityAccessReviewPrincipal struct for SecurityAccessReviewPrincipal
 type SecurityAccessReviewPrincipal struct {
-	// The Okta user `id`
+	// Okta user `id`
 	Id string `json:"id"`
-	// The Okta user's email address
+	// Okta user's email address
 	Email *string `json:"email,omitempty"`
-	// The Okta user's first name
+	// Okta user's first name
 	FirstName *string `json:"firstName,omitempty"`
-	// The Okta user's last name
+	// Okta user's last name
 	LastName *string `json:"lastName,omitempty"`
-	// The Okta user's login
-	Login  *string                `json:"login,omitempty"`
+	// Okta user's sign-in credentials, which is often their email address
+	Login *string `json:"login,omitempty"`
+	// Principal's name (populated if `type` is `AI_AGENT`)
+	Name   *string                `json:"name,omitempty"`
 	Status PrincipalProfileStatus `json:"status"`
 	Type   PrincipalProfileType   `json:"type"`
 	// The department of the Okta user
@@ -231,6 +233,38 @@ func (o *SecurityAccessReviewPrincipal) HasLogin() bool {
 // SetLogin gets a reference to the given string and assigns it to the Login field.
 func (o *SecurityAccessReviewPrincipal) SetLogin(v string) {
 	o.Login = &v
+}
+
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *SecurityAccessReviewPrincipal) GetName() string {
+	if o == nil || IsNil(o.Name) {
+		var ret string
+		return ret
+	}
+	return *o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SecurityAccessReviewPrincipal) GetNameOk() (*string, bool) {
+	if o == nil || IsNil(o.Name) {
+		return nil, false
+	}
+	return o.Name, true
+}
+
+// HasName returns a boolean if a field has been set.
+func (o *SecurityAccessReviewPrincipal) HasName() bool {
+	if o != nil && !IsNil(o.Name) {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *SecurityAccessReviewPrincipal) SetName(v string) {
+	o.Name = &v
 }
 
 // GetStatus returns the Status field value
@@ -528,6 +562,9 @@ func (o SecurityAccessReviewPrincipal) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Login) {
 		toSerialize["login"] = o.Login
 	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
 	toSerialize["status"] = o.Status
 	toSerialize["type"] = o.Type
 	if !IsNil(o.Department) {
@@ -601,6 +638,7 @@ func (o *SecurityAccessReviewPrincipal) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "firstName")
 		delete(additionalProperties, "lastName")
 		delete(additionalProperties, "login")
+		delete(additionalProperties, "name")
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "department")

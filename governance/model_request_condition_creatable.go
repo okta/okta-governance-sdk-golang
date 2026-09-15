@@ -36,7 +36,7 @@ type RequestConditionCreatable struct {
 	RequesterSettings      RequesterSettingsCreatableRequesterSettings     `json:"requesterSettings"`
 	AccessScopeSettings    AccessScopeSettingsCreatableAccessScopeSettings `json:"accessScopeSettings"`
 	AccessDurationSettings *AccessDurationSettingsCreatable                `json:"accessDurationSettings,omitempty"`
-	// The ID of the approval sequence
+	// Unique identifier for the approval sequence
 	ApprovalSequenceId string `json:"approvalSequenceId"`
 	// The priority of the condition. The smaller the number, the higher the priority. The highest priority is 0. A new condition will default to the lowest priority.
 	Priority *int32 `json:"priority,omitempty"`

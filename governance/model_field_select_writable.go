@@ -34,7 +34,7 @@ var _ MappedNullable = &FieldSelectWritable{}
 // FieldSelectWritable A select field
 type FieldSelectWritable struct {
 	Type FieldSelectType `json:"type"`
-	// The options available for the select input.
+	// The options available for the select input
 	Options []FieldOption `json:"options"`
 	// Text to prompt the user with
 	Prompt string `json:"prompt"`

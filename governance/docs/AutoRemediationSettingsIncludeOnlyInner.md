@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ResourceType** | Pointer to [**AutoRemediationResourceType**](AutoRemediationResourceType.md) |  | [optional] 
-**ResourceId** | Pointer to **string** | The resource ID of the target resource When &#x60;type &#x3D; GROUP&#x60;, it will point to the group ID.  | [optional] 
+**ResourceId** | Pointer to **string** | Unique identifier for the target resource. When &#x60;resourceType &#x3D; GROUP&#x60;, it points to the group &#x60;id&#x60;. | [optional] 
 
 ## Methods
 

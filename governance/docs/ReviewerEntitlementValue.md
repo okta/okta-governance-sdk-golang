@@ -5,7 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | The entitlement value id | 
-**Name** | **string** | The entitlement value name | 
+**Name** | **string** | The entitlement value display name | 
+**ExternalValue** | Pointer to **string** | The value of the entitlement property value | [optional] 
+**Entitlement** | Pointer to [**ReviewerEntitlement**](ReviewerEntitlement.md) |  | [optional] 
 
 ## Methods
 
@@ -65,6 +67,56 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
+
+### GetExternalValue
+
+`func (o *ReviewerEntitlementValue) GetExternalValue() string`
+
+GetExternalValue returns the ExternalValue field if non-nil, zero value otherwise.
+
+### GetExternalValueOk
+
+`func (o *ReviewerEntitlementValue) GetExternalValueOk() (*string, bool)`
+
+GetExternalValueOk returns a tuple with the ExternalValue field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExternalValue
+
+`func (o *ReviewerEntitlementValue) SetExternalValue(v string)`
+
+SetExternalValue sets ExternalValue field to given value.
+
+### HasExternalValue
+
+`func (o *ReviewerEntitlementValue) HasExternalValue() bool`
+
+HasExternalValue returns a boolean if a field has been set.
+
+### GetEntitlement
+
+`func (o *ReviewerEntitlementValue) GetEntitlement() ReviewerEntitlement`
+
+GetEntitlement returns the Entitlement field if non-nil, zero value otherwise.
+
+### GetEntitlementOk
+
+`func (o *ReviewerEntitlementValue) GetEntitlementOk() (*ReviewerEntitlement, bool)`
+
+GetEntitlementOk returns a tuple with the Entitlement field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEntitlement
+
+`func (o *ReviewerEntitlementValue) SetEntitlement(v ReviewerEntitlement)`
+
+SetEntitlement sets Entitlement field to given value.
+
+### HasEntitlement
+
+`func (o *ReviewerEntitlementValue) HasEntitlement() bool`
+
+HasEntitlement returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

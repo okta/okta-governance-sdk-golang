@@ -66,7 +66,7 @@ type RequestsAPI interface {
 
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param requestId The `id` of the request
+		@param requestId Unique identifier for the request
 		@return ApiCreateRequestMessageRequest
 	*/
 	CreateRequestMessage(ctx context.Context, requestId string) ApiCreateRequestMessageRequest
@@ -81,7 +81,7 @@ type RequestsAPI interface {
 
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param requestId The `id` of the request
+		@param requestId Unique identifier for the Resource-Centric Access Requests (RCAR) request
 		@return ApiCreateRequestMessageV2Request
 	*/
 	CreateRequestMessageV2(ctx context.Context, requestId string) ApiCreateRequestMessageV2Request
@@ -120,11 +120,11 @@ type RequestsAPI interface {
 
 			Retrieves the full representation of a specific request
 
-		More information is returned than the abbreviated representation in a [List all requests](/iga/openapi/governance.requests.admin.v1/tag/Requests/#tag/Requests/operation/listAllRequests) operation.
+		More information is returned than the abbreviated representation in a [List all requests](/iga/openapi/governance-production-requests-admin-v1-reference/requests/listallrequests) operation.
 
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param requestId The `id` of the request
+			@param requestId Unique identifier for the request
 			@return ApiGetRequestRequest
 	*/
 	GetRequest(ctx context.Context, requestId string) ApiGetRequestRequest
@@ -144,7 +144,7 @@ type RequestsAPI interface {
 
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param requestId The `id` of the request
+			@param requestId Unique identifier for the Resource-Centric Access Requests (RCAR) request
 			@return ApiGetRequestV2Request
 	*/
 	GetRequestV2(ctx context.Context, requestId string) ApiGetRequestV2Request
@@ -175,11 +175,9 @@ type RequestsAPI interface {
 	/*
 			ListAllRequestsV2 List all requests
 
-			Lists the requests made by users in your org
+			Lists the requests made by users in your org. Use this operation to retrieve all access requests managed by access request conditions.
 
-		You can use this endpoint to retrieve all access requests managed by access request conditions.
-
-		The `filter` parameter, a SCIM query string, supports the following attributes to narrow down the results:
+		Use the `filter` parameter to narrow down the results. This SCIM query string supports the following attributes:
 		- `status`: The status of the request. Possible values: `SUBMITTED`, `REJECTED`, `PENDING`, `APPROVED`, `DENIED`, `CANCELED`, `EXPIRED`
 		- `lastUpdated`: The last updated time of the request
 		- `requestedFor`: The Okta user ID for whom the request is made
@@ -435,7 +433,7 @@ CreateRequestMessage Create a Message for a Request
 Creates a message to add context to the request. Message will be authored by the authenticated user and display as "Sent via API".
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param requestId The `id` of the request
+	@param requestId Unique identifier for the request
 	@return ApiCreateRequestMessageRequest
 */
 func (a *RequestsAPIService) CreateRequestMessage(ctx context.Context, requestId string) ApiCreateRequestMessageRequest {
@@ -606,7 +604,7 @@ CreateRequestMessageV2 Create a request message
 Creates a message to add context to the Access requests using request conditions and sequences. The message appears in the **Requester** section of the Access Requests console, and the message is authored by the admin user ID calling the endpoint.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param requestId The `id` of the request
+	@param requestId Unique identifier for the Resource-Centric Access Requests (RCAR) request
 	@return ApiCreateRequestMessageV2Request
 */
 func (a *RequestsAPIService) CreateRequestMessageV2(ctx context.Context, requestId string) ApiCreateRequestMessageV2Request {
@@ -978,10 +976,10 @@ GetRequest Retrieve a request
 
 # Retrieves the full representation of a specific request
 
-More information is returned than the abbreviated representation in a [List all requests](/iga/openapi/governance.requests.admin.v1/tag/Requests/#tag/Requests/operation/listAllRequests) operation.
+More information is returned than the abbreviated representation in a [List all requests](/iga/openapi/governance-production-requests-admin-v1-reference/requests/listallrequests) operation.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param requestId The `id` of the request
+	@param requestId Unique identifier for the request
 	@return ApiGetRequestRequest
 */
 func (a *RequestsAPIService) GetRequest(ctx context.Context, requestId string) ApiGetRequestRequest {
@@ -1181,7 +1179,7 @@ You can use this endpoint to retrieve access requests managed by access request 
 More information is returned than the abbreviated representation in a List requests operation.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param requestId The `id` of the request
+	@param requestId Unique identifier for the Resource-Centric Access Requests (RCAR) request
 	@return ApiGetRequestV2Request
 */
 func (a *RequestsAPIService) GetRequestV2(ctx context.Context, requestId string) ApiGetRequestV2Request {
@@ -1617,11 +1615,9 @@ func (r ApiListAllRequestsV2Request) Execute() (*RequestList2, *APIResponse, err
 /*
 ListAllRequestsV2 List all requests
 
-# Lists the requests made by users in your org
+Lists the requests made by users in your org. Use this operation to retrieve all access requests managed by access request conditions.
 
-You can use this endpoint to retrieve all access requests managed by access request conditions.
-
-The `filter` parameter, a SCIM query string, supports the following attributes to narrow down the results:
+Use the `filter` parameter to narrow down the results. This SCIM query string supports the following attributes:
 - `status`: The status of the request. Possible values: `SUBMITTED`, `REJECTED`, `PENDING`, `APPROVED`, `DENIED`, `CANCELED`, `EXPIRED`
 - `lastUpdated`: The last updated time of the request
 - `requestedFor`: The Okta user ID for whom the request is made

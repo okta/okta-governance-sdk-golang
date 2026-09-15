@@ -34,11 +34,11 @@ var _ MappedNullable = &CriteriaCreatable{}
 type CriteriaCreatable struct {
 	// Name of the criteria
 	Name *string `json:"name,omitempty"`
-	// Attribute that the criteria applies to. Supported attribute: `principal.effective_grants`
+	// Attribute that the criteria applies to. For entitlement SOD rules use `principal.effective_grants`.
 	Attribute *string `json:"attribute,omitempty"`
 	// Operation performed on the criteria value
-	Operation            *string                 `json:"operation,omitempty"`
-	Value                *CriteriaValueCreatable `json:"value,omitempty"`
+	Operation            *string                             `json:"operation,omitempty"`
+	Value                *CriteriaValueCreatableEntitlements `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -158,9 +158,9 @@ func (o *CriteriaCreatable) SetOperation(v string) {
 }
 
 // GetValue returns the Value field value if set, zero value otherwise.
-func (o *CriteriaCreatable) GetValue() CriteriaValueCreatable {
+func (o *CriteriaCreatable) GetValue() CriteriaValueCreatableEntitlements {
 	if o == nil || IsNil(o.Value) {
-		var ret CriteriaValueCreatable
+		var ret CriteriaValueCreatableEntitlements
 		return ret
 	}
 	return *o.Value
@@ -168,7 +168,7 @@ func (o *CriteriaCreatable) GetValue() CriteriaValueCreatable {
 
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CriteriaCreatable) GetValueOk() (*CriteriaValueCreatable, bool) {
+func (o *CriteriaCreatable) GetValueOk() (*CriteriaValueCreatableEntitlements, bool) {
 	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
@@ -184,8 +184,8 @@ func (o *CriteriaCreatable) HasValue() bool {
 	return false
 }
 
-// SetValue gets a reference to the given CriteriaValueCreatable and assigns it to the Value field.
-func (o *CriteriaCreatable) SetValue(v CriteriaValueCreatable) {
+// SetValue gets a reference to the given CriteriaValueCreatableEntitlements and assigns it to the Value field.
+func (o *CriteriaCreatable) SetValue(v CriteriaValueCreatableEntitlements) {
 	o.Value = &v
 }
 

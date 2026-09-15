@@ -33,12 +33,14 @@ type PrincipalScopeType string
 
 // List of principal-scope-type
 const (
-	PRINCIPALSCOPETYPE_USERS PrincipalScopeType = "USERS"
+	PRINCIPALSCOPETYPE_USERS     PrincipalScopeType = "USERS"
+	PRINCIPALSCOPETYPE_AI_AGENTS PrincipalScopeType = "AI_AGENTS"
 )
 
 // All allowed values of PrincipalScopeType enum
 var AllowedPrincipalScopeTypeEnumValues = []PrincipalScopeType{
 	"USERS",
+	"AI_AGENTS",
 }
 
 func (v *PrincipalScopeType) UnmarshalJSON(src []byte) error {

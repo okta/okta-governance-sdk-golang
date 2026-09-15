@@ -34,6 +34,7 @@ var _ MappedNullable = &RequestFullApiCompatible{}
 
 // RequestFullApiCompatible Full representation of a Request resource.
 type RequestFullApiCompatible struct {
+	// Request approvals
 	Approvals []RequestApproval `json:"approvals"`
 	// A list of actions. Currently only supports one action per request.
 	Actions []RequestAction `json:"actions"`
@@ -61,7 +62,7 @@ type RequestFullApiCompatible struct {
 	RequestStatus    RequestRequestStatus `json:"requestStatus"`
 	// The date the request was resolved. The property may transition from having a value to null if the request is reopened.
 	Resolved NullableTime `json:"resolved"`
-	// Field values provided when adding the request.  If a request type has required requesterFields, they must be provided when the request is created.  Non-required fields may be omitted when creating the request.
+	// Field values provided when adding the request.  If a request type has required `requesterFields`, they must be provided when the request is created.  Non-required fields may be omitted when creating the request.
 	RequesterFieldValues []FieldValue `json:"requesterFieldValues"`
 	AdditionalProperties map[string]interface{}
 }
@@ -569,8 +570,6 @@ func (o *RequestFullApiCompatible) UnmarshalJSON(data []byte) (err error) {
 	if err != nil {
 		return err
 	}
-
-	*o = RequestFullApiCompatible(varRequestFullApiCompatible)
 
 	*o = RequestFullApiCompatible(varRequestFullApiCompatible)
 

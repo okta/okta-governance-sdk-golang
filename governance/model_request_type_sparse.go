@@ -37,7 +37,7 @@ type RequestTypeSparse struct {
 	Status           RequestTypeStatus `json:"status"`
 	LastUpdateSource string            `json:"lastUpdateSource"`
 	Links            RequestTypeLinks  `json:"_links"`
-	// Writable unique key on Create. Not modifiable on update.
+	// A user-defined unique key that's set during the create operation and can't be updated afterwards
 	Name string `json:"name"`
 	// Human readable description
 	Description string `json:"description"`

@@ -41,7 +41,7 @@ type EntitlementCreate struct {
 	ExternalValue string `json:"externalValue"`
 	// The description of an entitlement property
 	Description *string `json:"description,omitempty"`
-	// Indicate if the entitlement property can hold multiple values. If this property is `true`, then the `dataType` property is set to  `array`.
+	// Indicates if the entitlement property can hold multiple values. If this property is `true`, then the `dataType` property is set to `array`.
 	MultiValue           bool                        `json:"multiValue"`
 	DataType             EntitlementPropertyDatatype `json:"dataType"`
 	AdditionalProperties map[string]interface{}

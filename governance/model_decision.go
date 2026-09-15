@@ -28,7 +28,7 @@ import (
 	"fmt"
 )
 
-// Decision the model 'Decision'
+// Decision The decision for a review
 type Decision string
 
 // List of decision

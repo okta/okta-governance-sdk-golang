@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Message** | **string** | Server message with detailed content. | 
+**Message** | **string** | Server message with detailed content | 
 **Args** | Pointer to [**[]ServerMessageArgument**](ServerMessageArgument.md) | Dynamic arguments, used to construct the whole message, are supplied as an array of values. | [optional] 
 **MessageCode** | **string** | A unique message code. You can use the message code for additional processes, such as localization. | 
 

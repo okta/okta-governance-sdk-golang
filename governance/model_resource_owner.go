@@ -33,7 +33,7 @@ var _ MappedNullable = &ResourceOwner{}
 
 // ResourceOwner struct for ResourceOwner
 type ResourceOwner struct {
-	// The Okta resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for [supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
+	// The Okta resource in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)  See the ORN format for [supported resources](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
 	ParentResourceOrn *string `json:"parentResourceOrn,omitempty"`
 	// The principals that own the resource (users or groups)
 	Principals           []ResourceOwnerPrincipal `json:"principals,omitempty"`
@@ -203,8 +203,6 @@ func (o *ResourceOwner) UnmarshalJSON(data []byte) (err error) {
 	if err != nil {
 		return err
 	}
-
-	*o = ResourceOwner(varResourceOwner)
 
 	*o = ResourceOwner(varResourceOwner)
 

@@ -185,18 +185,6 @@ func (a *EntitlementSettingsAPIService) GetEntitlementSettingsExecute(r ApiGetEn
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ModelError
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
-				return localVarReturnValue, localAPIResponse, newErr
-			}
-			newErr.model = v
-			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
-			return localVarReturnValue, localAPIResponse, newErr
-		}
 		if localVarHTTPResponse.StatusCode == 401 {
 			var v ModelError
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
@@ -210,6 +198,18 @@ func (a *EntitlementSettingsAPIService) GetEntitlementSettingsExecute(r ApiGetEn
 			return localVarReturnValue, localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
+			var v ModelError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+				return localVarReturnValue, localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+			return localVarReturnValue, localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
 			var v ModelError
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
@@ -412,6 +412,18 @@ func (a *EntitlementSettingsAPIService) UpdateEntitlementSettingsExecute(r ApiUp
 			return localVarReturnValue, localAPIResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
+			var v ModelError
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+				return localVarReturnValue, localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+			return localVarReturnValue, localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
 			var v ModelError
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {

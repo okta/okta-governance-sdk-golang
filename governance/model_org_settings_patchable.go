@@ -32,9 +32,9 @@ var _ MappedNullable = &OrgSettingsPatchable{}
 
 // OrgSettingsPatchable struct for OrgSettingsPatchable
 type OrgSettingsPatchable struct {
-	Delegates            *OrgSettingsPatchableDelegates `json:"delegates,omitempty"`
-	GovernanceAI         *OrgSettingsGovernanceAI       `json:"governanceAI,omitempty"`
-	Escalations          *OrgSettingsEscalations        `json:"escalations,omitempty"`
+	Delegates            *OrgSettingsPatchableDelegates    `json:"delegates,omitempty"`
+	GovernanceAI         *OrgSettingsPatchableGovernanceAI `json:"governanceAI,omitempty"`
+	Escalations          *OrgSettingsEscalations           `json:"escalations,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -90,9 +90,9 @@ func (o *OrgSettingsPatchable) SetDelegates(v OrgSettingsPatchableDelegates) {
 }
 
 // GetGovernanceAI returns the GovernanceAI field value if set, zero value otherwise.
-func (o *OrgSettingsPatchable) GetGovernanceAI() OrgSettingsGovernanceAI {
+func (o *OrgSettingsPatchable) GetGovernanceAI() OrgSettingsPatchableGovernanceAI {
 	if o == nil || IsNil(o.GovernanceAI) {
-		var ret OrgSettingsGovernanceAI
+		var ret OrgSettingsPatchableGovernanceAI
 		return ret
 	}
 	return *o.GovernanceAI
@@ -100,7 +100,7 @@ func (o *OrgSettingsPatchable) GetGovernanceAI() OrgSettingsGovernanceAI {
 
 // GetGovernanceAIOk returns a tuple with the GovernanceAI field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *OrgSettingsPatchable) GetGovernanceAIOk() (*OrgSettingsGovernanceAI, bool) {
+func (o *OrgSettingsPatchable) GetGovernanceAIOk() (*OrgSettingsPatchableGovernanceAI, bool) {
 	if o == nil || IsNil(o.GovernanceAI) {
 		return nil, false
 	}
@@ -116,8 +116,8 @@ func (o *OrgSettingsPatchable) HasGovernanceAI() bool {
 	return false
 }
 
-// SetGovernanceAI gets a reference to the given OrgSettingsGovernanceAI and assigns it to the GovernanceAI field.
-func (o *OrgSettingsPatchable) SetGovernanceAI(v OrgSettingsGovernanceAI) {
+// SetGovernanceAI gets a reference to the given OrgSettingsPatchableGovernanceAI and assigns it to the GovernanceAI field.
+func (o *OrgSettingsPatchable) SetGovernanceAI(v OrgSettingsPatchableGovernanceAI) {
 	o.GovernanceAI = &v
 }
 

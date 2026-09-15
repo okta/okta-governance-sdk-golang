@@ -34,7 +34,7 @@ var _ MappedNullable = &RequestResourceCatalogEntryCreatable{}
 // RequestResourceCatalogEntryCreatable A representation of a requestable resource
 type RequestResourceCatalogEntryCreatable struct {
 	Type string `json:"type"`
-	// The ID of the resource catalog entry
+	// Unique identifier of the resource catalog entry
 	EntryId              string `json:"entryId"`
 	AdditionalProperties map[string]interface{}
 }

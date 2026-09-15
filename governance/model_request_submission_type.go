@@ -28,7 +28,7 @@ import (
 	"fmt"
 )
 
-// RequestSubmissionType Whether request submission is allowed or restricted in the risk settings.
+// RequestSubmissionType Whether a request submission is allowed or restricted in the risk settings
 type RequestSubmissionType string
 
 // List of request-submission-type

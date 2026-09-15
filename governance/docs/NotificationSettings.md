@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**NotifyReviewerWhenReviewAssigned** | Pointer to **bool** | A Boolean value to indicate whether a notification should be sent to the reviewer when actionable reviews are assigned. | [optional] [default to false]
-**NotifyReviewerAtCampaignEnd** | Pointer to **bool** | A Boolean value to indicate whether a notification should be sent to the reviewers when campaign has come to an end. | [optional] [default to false]
-**RemindersReviewerBeforeCampaignCloseInSecs** | Pointer to **[]int32** | Specifies, in seconds, the time a reminder is sent to reviewers before the campaign closes. You can send up to three notifications. For example, the following array, &#x60;[86400, 172800, 604800]&#x60;, sends reminder notifications 7 days, 2 days, and 1 day before the campaign closes. By default, reminders are sent 2 days and 1 day before the campaign closes. | [optional] [default to [86400,172800]]
-**NotifyReviewerWhenOverdue** | Pointer to **NullableBool** | A boolean value to indicate whether a notification should be sent to the reviewer when reviews are over due. | [optional] [default to false]
-**NotifyReviewerDuringMidpointOfReview** | Pointer to **NullableBool** | A boolean value to indicate whether a notification should be sent to the reviewer during the midpoint of the review process. | [optional] [default to false]
-**NotifyReviewPeriodEnd** | Pointer to **NullableBool** | Applicable for multi level campaigns. A boolean value to indicate whether a notification should be sent to the reviewer when a given reviewer level period is about to end. | [optional] [default to false]
+**NotifyReviewerWhenReviewAssigned** | Pointer to **bool** | A Boolean value to indicate whether a notification should be sent to the reviewer when actionable reviews are assigned | [optional] [default to false]
+**NotifyReviewerAtCampaignEnd** | Pointer to **bool** | A Boolean value to indicate whether a notification should be sent to the reviewers when the campaign has come to an end | [optional] [default to false]
+**RemindersReviewerBeforeCampaignCloseInSecs** | Pointer to **[]int32** | Specifies, in seconds, the time a reminder is sent to reviewers before the campaign closes. You can send up to three notifications For example, this array &#x60;[86400, 172800, 604800]&#x60; sends reminder notifications seven days, two days, and one day before the campaign closes. By default, reminders are sent two days and one day before the campaign closes. | [optional] [default to [86400,172800]]
+**NotifyReviewerWhenOverdue** | Pointer to **NullableBool** | A Boolean value to indicate whether a notification is sent to the reviewer when reviews are overdue | [optional] [default to false]
+**NotifyReviewerDuringMidpointOfReview** | Pointer to **NullableBool** | A Boolean value to indicate whether a notification should be sent to the reviewer during the midpoint of the review process | [optional] [default to false]
+**NotifyReviewPeriodEnd** | Pointer to **NullableBool** | Applicable for multi-level campaigns. A Boolean value to indicate whether a notification is sent to the reviewer when a given reviewer level period is about to end | [optional] [default to false]
 
 ## Methods
 

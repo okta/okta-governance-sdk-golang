@@ -33,7 +33,7 @@ var _ MappedNullable = &GroupsArrayFullInner{}
 
 // GroupsArrayFullInner struct for GroupsArrayFullInner
 type GroupsArrayFullInner struct {
-	// Okta group ID  > **Note:** See [List all groups](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Group/#tag/Group/operation/listGroups) for reference on how to retrieve group IDs.
+	// Okta group ID.  > **Note:** See [List all groups](https://developer.okta.com/docs/api/openapi/okta-management/management/group/listgroups) for more information on how to retrieve group IDs.
 	Id                   string `json:"id" validate:"regexp=00g[0-9a-zA-Z]+"`
 	AdditionalProperties map[string]interface{}
 }

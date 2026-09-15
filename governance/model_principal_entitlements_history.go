@@ -32,10 +32,10 @@ var _ MappedNullable = &PrincipalEntitlementsHistory{}
 
 // PrincipalEntitlementsHistory struct for PrincipalEntitlementsHistory
 type PrincipalEntitlementsHistory struct {
-	// The Okta resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for [supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
+	// The Okta resource in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)  See the ORN format for [supported resources](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
 	ResourceOrn *string         `json:"resourceOrn,omitempty"`
 	Resource    *TargetResource `json:"resource,omitempty"`
-	// The Okta user, in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format.
+	// The Okta user in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format
 	PrincipalOrn *string              `json:"principalOrn,omitempty"`
 	Principal    *TargetPrincipalFull `json:"principal,omitempty"`
 	// Principal entitlements history list

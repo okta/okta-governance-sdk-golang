@@ -4,7 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**PrincipalOrn** | **string** | The Okta user, in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format. | 
+**PrincipalOrn** | **string** | The Okta user in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format | 
+**ResourceOrnList** | Pointer to **[]string** | List of resources in ORN format. The resource can be a collection, a bundle, or an entitlement. The list must contain the same resource type. The maximum items in the list depends on the resource type: * Maximum list size for a collection is 1. * Maximum list size for a bundle is 1. * Maximum list size for entitlements is 20. | [optional] 
 **ResourceOrn** | Pointer to **string** | The &#x60;id&#x60; of the resource in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format. The resource can be a collection, a bundle, or an entitlement. | [optional] 
 
 ## Methods
@@ -45,6 +46,31 @@ and a boolean to check if the value has been set.
 
 SetPrincipalOrn sets PrincipalOrn field to given value.
 
+
+### GetResourceOrnList
+
+`func (o *PotentialRiskAssessmentRequest) GetResourceOrnList() []string`
+
+GetResourceOrnList returns the ResourceOrnList field if non-nil, zero value otherwise.
+
+### GetResourceOrnListOk
+
+`func (o *PotentialRiskAssessmentRequest) GetResourceOrnListOk() (*[]string, bool)`
+
+GetResourceOrnListOk returns a tuple with the ResourceOrnList field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetResourceOrnList
+
+`func (o *PotentialRiskAssessmentRequest) SetResourceOrnList(v []string)`
+
+SetResourceOrnList sets ResourceOrnList field to given value.
+
+### HasResourceOrnList
+
+`func (o *PotentialRiskAssessmentRequest) HasResourceOrnList() bool`
+
+HasResourceOrnList returns a boolean if a field has been set.
 
 ### GetResourceOrn
 

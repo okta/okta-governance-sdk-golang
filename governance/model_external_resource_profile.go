@@ -309,8 +309,6 @@ func (o *ExternalResourceProfile) UnmarshalJSON(data []byte) (err error) {
 
 	*o = ExternalResourceProfile(varExternalResourceProfile)
 
-	*o = ExternalResourceProfile(varExternalResourceProfile)
-
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {

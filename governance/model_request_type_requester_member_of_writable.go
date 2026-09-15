@@ -34,9 +34,9 @@ var _ MappedNullable = &RequestTypeRequesterMemberOfWritable{}
 // RequestTypeRequesterMemberOfWritable A request where the requester that must be a member of a particular Okta Group.
 type RequestTypeRequesterMemberOfWritable struct {
 	Type string `json:"type"`
-	// Okta groups the user persona must be a member of
+	// Okta groups that the user persona must be a member of
 	RequesterMemberOf []string `json:"requesterMemberOf"`
-	// A list of fields with which to gather input. The order of the field object controls the order with which the fields are presented to users.
+	// A list of fields with which to gather input. The order of the fields in the array controls the order that the fields are presented to users.
 	RequesterFields      []FieldWritable `json:"requesterFields,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

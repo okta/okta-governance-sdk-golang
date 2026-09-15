@@ -28,7 +28,7 @@ import (
 	"fmt"
 )
 
-// ApprovedRemediationAction Specifies the action by default if the reviewer approves access. `NO_ACTION` indicates there is no remediation action and the user retains access.
+// ApprovedRemediationAction Specifies the action by default if the reviewer approves access. `NO_ACTION` indicates that there's no remediation action and the user retains access.
 type ApprovedRemediationAction string
 
 // List of approved-remediation-action

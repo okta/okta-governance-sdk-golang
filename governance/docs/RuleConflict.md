@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**PrincipalOrn** | Pointer to **string** | The Okta user, in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format. | [optional] 
-**ResourceOrn** | Pointer to **string** | The Okta resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for [supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources). | [optional] 
-**RuleId** | Pointer to **string** | Unique identifier for rule object | [optional] 
-**RuleName** | Pointer to **string** | The name of a resource rule causing the conflict | [optional] 
+**PrincipalOrn** | Pointer to **string** | The Okta user in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format | [optional] 
+**ResourceOrn** | Pointer to **string** | The Okta resource in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)  See the ORN format for [supported resources](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).  | [optional] 
+**RuleId** | Pointer to **string** | Unique identifier for the rule object | [optional] 
+**RuleName** | Pointer to **string** | The name of the resource rule causing the conflict | [optional] 
 **Id** | Pointer to **string** | Unique identifier for the object | [optional] 
 **Description** | Pointer to **string** | Description for the risk rule | [optional] 
 **Type** | Pointer to **string** | Risk rule type | [optional] 

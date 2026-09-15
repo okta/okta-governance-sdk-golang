@@ -34,12 +34,12 @@ var _ MappedNullable = &StsServiceAccountConnection{}
 // StsServiceAccountConnection STS connection to a service account
 type StsServiceAccountConnection struct {
 	// Type of connection authentication method
-	ConnectionType string                          `json:"connectionType"`
-	App            ManagedConnectionAppInstance    `json:"app"`
-	ServiceAccount ManagedConnectionServiceAccount `json:"serviceAccount"`
-	// Unique identifier for the managed connection
+	ConnectionType string                           `json:"connectionType"`
+	App            ResourceConnectionAppInstance    `json:"app"`
+	ServiceAccount ResourceConnectionServiceAccount `json:"serviceAccount"`
+	// Unique identifier for the resource connection
 	Id *string `json:"id,omitempty"`
-	// The [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) of the managed connection
+	// The [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) of the resource connection
 	Orn *string `json:"orn,omitempty"`
 	// The status of the connection
 	Status               *string `json:"status,omitempty"`
@@ -52,7 +52,7 @@ type _StsServiceAccountConnection StsServiceAccountConnection
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewStsServiceAccountConnection(connectionType string, app ManagedConnectionAppInstance, serviceAccount ManagedConnectionServiceAccount) *StsServiceAccountConnection {
+func NewStsServiceAccountConnection(connectionType string, app ResourceConnectionAppInstance, serviceAccount ResourceConnectionServiceAccount) *StsServiceAccountConnection {
 	this := StsServiceAccountConnection{}
 	return &this
 }
@@ -90,9 +90,9 @@ func (o *StsServiceAccountConnection) SetConnectionType(v string) {
 }
 
 // GetApp returns the App field value
-func (o *StsServiceAccountConnection) GetApp() ManagedConnectionAppInstance {
+func (o *StsServiceAccountConnection) GetApp() ResourceConnectionAppInstance {
 	if o == nil {
-		var ret ManagedConnectionAppInstance
+		var ret ResourceConnectionAppInstance
 		return ret
 	}
 
@@ -101,7 +101,7 @@ func (o *StsServiceAccountConnection) GetApp() ManagedConnectionAppInstance {
 
 // GetAppOk returns a tuple with the App field value
 // and a boolean to check if the value has been set.
-func (o *StsServiceAccountConnection) GetAppOk() (*ManagedConnectionAppInstance, bool) {
+func (o *StsServiceAccountConnection) GetAppOk() (*ResourceConnectionAppInstance, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -109,14 +109,14 @@ func (o *StsServiceAccountConnection) GetAppOk() (*ManagedConnectionAppInstance,
 }
 
 // SetApp sets field value
-func (o *StsServiceAccountConnection) SetApp(v ManagedConnectionAppInstance) {
+func (o *StsServiceAccountConnection) SetApp(v ResourceConnectionAppInstance) {
 	o.App = v
 }
 
 // GetServiceAccount returns the ServiceAccount field value
-func (o *StsServiceAccountConnection) GetServiceAccount() ManagedConnectionServiceAccount {
+func (o *StsServiceAccountConnection) GetServiceAccount() ResourceConnectionServiceAccount {
 	if o == nil {
-		var ret ManagedConnectionServiceAccount
+		var ret ResourceConnectionServiceAccount
 		return ret
 	}
 
@@ -125,7 +125,7 @@ func (o *StsServiceAccountConnection) GetServiceAccount() ManagedConnectionServi
 
 // GetServiceAccountOk returns a tuple with the ServiceAccount field value
 // and a boolean to check if the value has been set.
-func (o *StsServiceAccountConnection) GetServiceAccountOk() (*ManagedConnectionServiceAccount, bool) {
+func (o *StsServiceAccountConnection) GetServiceAccountOk() (*ResourceConnectionServiceAccount, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -133,7 +133,7 @@ func (o *StsServiceAccountConnection) GetServiceAccountOk() (*ManagedConnectionS
 }
 
 // SetServiceAccount sets field value
-func (o *StsServiceAccountConnection) SetServiceAccount(v ManagedConnectionServiceAccount) {
+func (o *StsServiceAccountConnection) SetServiceAccount(v ResourceConnectionServiceAccount) {
 	o.ServiceAccount = v
 }
 

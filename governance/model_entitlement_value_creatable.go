@@ -30,7 +30,7 @@ import (
 // checks if the EntitlementValueCreatable type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &EntitlementValueCreatable{}
 
-// EntitlementValueCreatable Entitlement value id
+// EntitlementValueCreatable Entitlement value ID
 type EntitlementValueCreatable struct {
 	// The `id` of the entitlement value
 	Id                   *string `json:"id,omitempty"`

@@ -113,6 +113,24 @@ Class | Method | HTTP request | Description
 *CollectionsAPI* | [**ReplaceCollection**](docs/CollectionsAPI.md#replacecollection) | **Put** /governance/api/v1/collections/{collectionId} | Replace a resource collection
 *CollectionsAPI* | [**ReplaceCollectionResource**](docs/CollectionsAPI.md#replacecollectionresource) | **Put** /governance/api/v1/collections/{collectionId}/resources/{resourceId} | Replace a collection resource
 *CollectionsAPI* | [**UpdatePrincipalAssignment**](docs/CollectionsAPI.md#updateprincipalassignment) | **Patch** /governance/api/v1/collections/{collectionId}/assignments/{assignmentId} | Update a principal assignment
+*CollectionsV2API* | [**AddResourcesToCollectionV2**](docs/CollectionsV2API.md#addresourcestocollectionv2) | **Post** /governance/api/v2/collections/{collectionId}/resources | Add the resources to a collection
+*CollectionsV2API* | [**AssignCollectionV2**](docs/CollectionsV2API.md#assigncollectionv2) | **Post** /governance/api/v2/collections/{collectionId}/assignments | Assign a collection to principals
+*CollectionsV2API* | [**CreateCollectionV2**](docs/CollectionsV2API.md#createcollectionv2) | **Post** /governance/api/v2/collections | Create a resource collection
+*CollectionsV2API* | [**DeleteCollectionResourceV2**](docs/CollectionsV2API.md#deletecollectionresourcev2) | **Delete** /governance/api/v2/collections/{collectionId}/resources/{resourceId} | Delete a collection resource
+*CollectionsV2API* | [**DeleteCollectionV2**](docs/CollectionsV2API.md#deletecollectionv2) | **Delete** /governance/api/v2/collections/{collectionId} | Delete a collection
+*CollectionsV2API* | [**DeletePrincipalAssignmentV2**](docs/CollectionsV2API.md#deleteprincipalassignmentv2) | **Delete** /governance/api/v2/collections/{collectionId}/assignments/{assignmentId} | Delete a principal assignment
+*CollectionsV2API* | [**GetCollectionResourceV2**](docs/CollectionsV2API.md#getcollectionresourcev2) | **Get** /governance/api/v2/collections/{collectionId}/resources/{resourceId} | Retrieve a collection resource
+*CollectionsV2API* | [**GetCollectionV2**](docs/CollectionsV2API.md#getcollectionv2) | **Get** /governance/api/v2/collections/{collectionId} | Retrieve a resource collection
+*CollectionsV2API* | [**GetUnassignedUsersV2**](docs/CollectionsV2API.md#getunassignedusersv2) | **Get** /governance/api/v2/collections/{collectionId}/catalog/users | Retrieve the unassigned users
+*CollectionsV2API* | [**ListCollectionAssignmentsV2**](docs/CollectionsV2API.md#listcollectionassignmentsv2) | **Get** /governance/api/v2/collections/{collectionId}/assignments | List all assignments for a collection
+*CollectionsV2API* | [**ListCollectionResourceEntitlementsV2**](docs/CollectionsV2API.md#listcollectionresourceentitlementsv2) | **Get** /governance/api/v2/collections/{collectionId}/resources/{resourceId}/entitlements | List all entitlements for a collection resource
+*CollectionsV2API* | [**ListCollectionResourcesV2**](docs/CollectionsV2API.md#listcollectionresourcesv2) | **Get** /governance/api/v2/collections/{collectionId}/resources | List all collection resources
+*CollectionsV2API* | [**ListCollectionsAssignmentsV2**](docs/CollectionsV2API.md#listcollectionsassignmentsv2) | **Get** /governance/api/v2/collections/assignments | List all assignments for all collections
+*CollectionsV2API* | [**ListCollectionsV2**](docs/CollectionsV2API.md#listcollectionsv2) | **Get** /governance/api/v2/collections | List all resource collections
+*CollectionsV2API* | [**ReplaceCollectionResourceV2**](docs/CollectionsV2API.md#replacecollectionresourcev2) | **Put** /governance/api/v2/collections/{collectionId}/resources/{resourceId} | Replace a collection resource
+*CollectionsV2API* | [**ReplaceCollectionV2**](docs/CollectionsV2API.md#replacecollectionv2) | **Put** /governance/api/v2/collections/{collectionId} | Replace a resource collection
+*CollectionsV2API* | [**RetrieveCollectionAssignmentOriginsV2**](docs/CollectionsV2API.md#retrievecollectionassignmentoriginsv2) | **Post** /governance/api/v2/collections/assignments/origins | Retrieve the collection origins for a batch of assignments
+*CollectionsV2API* | [**UpdatePrincipalAssignmentV2**](docs/CollectionsV2API.md#updateprincipalassignmentv2) | **Patch** /governance/api/v2/collections/{collectionId}/assignments/{assignmentId} | Update a principal assignment
 *DelegatesAPI* | [**ListDelegateAppointments**](docs/DelegatesAPI.md#listdelegateappointments) | **Get** /governance/api/v1/delegates | List all delegate appointments
 *EntitlementBundlesAPI* | [**CreateEntitlementBundle**](docs/EntitlementBundlesAPI.md#createentitlementbundle) | **Post** /governance/api/v1/entitlement-bundles | Create an entitlement bundle
 *EntitlementBundlesAPI* | [**DeleteEntitlementBundle**](docs/EntitlementBundlesAPI.md#deleteentitlementbundle) | **Delete** /governance/api/v1/entitlement-bundles/{entitlementBundleId} | Delete an entitlement bundle
@@ -143,7 +161,11 @@ Class | Method | HTTP request | Description
 *LabelsAPI* | [**ListLabels**](docs/LabelsAPI.md#listlabels) | **Get** /governance/api/v1/labels | List all labels
 *LabelsAPI* | [**RemoveResourceLabels**](docs/LabelsAPI.md#removeresourcelabels) | **Post** /governance/api/v1/resource-labels/unassign | Remove the labels from resources
 *LabelsAPI* | [**UpdateLabel**](docs/LabelsAPI.md#updatelabel) | **Patch** /governance/api/v1/labels/{labelId} | Update a label
-*MyAccessCertificationReviewsAPI* | [**ListMyManagedConnections**](docs/MyAccessCertificationReviewsAPI.md#listmymanagedconnections) | **Get** /governance/api/v1/my/campaigns/{campaignId}/reviews/{reviewId}/agent-managed-connections/{agentId} | List all managed connections for my review
+*MyAccessCertificationReviewsAPI* | [**GetCampaignBulkDecisionsJobStatus**](docs/MyAccessCertificationReviewsAPI.md#getcampaignbulkdecisionsjobstatus) | **Get** /governance/api/v1/my/campaigns/{campaignId}/reviews/bulk-decisions/jobs/{jobId} | Retrieve the status of a bulk-review submission
+*MyAccessCertificationReviewsAPI* | [**ListCampaignReviews**](docs/MyAccessCertificationReviewsAPI.md#listcampaignreviews) | **Get** /governance/api/v1/my/campaigns/{campaignId}/reviews | List my reviews for a campaign
+*MyAccessCertificationReviewsAPI* | [**ListMyResourceConnections**](docs/MyAccessCertificationReviewsAPI.md#listmyresourceconnections) | **Get** /governance/api/v1/my/campaigns/{campaignId}/reviews/{reviewId}/agent-resource-connections/{agentId} | List all resource connections for my review
+*MyAccessCertificationReviewsAPI* | [**SubmitCampaignBulkDecisions**](docs/MyAccessCertificationReviewsAPI.md#submitcampaignbulkdecisions) | **Post** /governance/api/v1/my/campaigns/{campaignId}/reviews/bulk-decisions | Submit a bulk-review decision
+*MyAccessCertificationReviewsAPI* | [**SubmitMyCampaignReviewActions**](docs/MyAccessCertificationReviewsAPI.md#submitmycampaignreviewactions) | **Post** /governance/api/v1/my/campaigns/{campaignId}/reviews/actions | Submit my review actions
 *MyCatalogsAPI* | [**GetMyCatalogEntryRequestFieldsV2**](docs/MyCatalogsAPI.md#getmycatalogentryrequestfieldsv2) | **Get** /governance/api/v2/my/catalogs/default/entries/{entryId}/request-fields | Retrieve the request fields for my catalog entry
 *MyCatalogsAPI* | [**GetMyCatalogEntryUserRequestFieldsV2**](docs/MyCatalogsAPI.md#getmycatalogentryuserrequestfieldsv2) | **Get** /governance/api/v2/my/catalogs/default/entries/{entryId}/users/{userId}/request-fields | Retrieve the entry request fields for a user
 *MyCatalogsAPI* | [**GetMyEntryV2**](docs/MyCatalogsAPI.md#getmyentryv2) | **Get** /governance/api/v2/my/catalogs/default/entries/{entryId} | Retrieve my catalog entry
@@ -168,7 +190,16 @@ Class | Method | HTTP request | Description
 *MySettingsAPI* | [**GetMySettings**](docs/MySettingsAPI.md#getmysettings) | **Get** /governance/api/v1/my/settings | Retrieve my settings
 *MySettingsAPI* | [**ListMyDelegateUsers**](docs/MySettingsAPI.md#listmydelegateusers) | **Get** /governance/api/v1/my/settings/delegate/users | List my eligible delegates
 *MySettingsAPI* | [**UpdateMySettings**](docs/MySettingsAPI.md#updatemysettings) | **Patch** /governance/api/v1/my/settings | Update my settings
+*MyTasksAPI* | [**GetMyTaskV2**](docs/MyTasksAPI.md#getmytaskv2) | **Get** /governance/api/v2/my/tasks/{taskId} | Retrieve my task
+*MyTasksAPI* | [**ListAllMyTasksV2**](docs/MyTasksAPI.md#listallmytasksv2) | **Get** /governance/api/v2/my/tasks | List all my tasks
+*MyTasksAPI* | [**ResolveMyTaskV2**](docs/MyTasksAPI.md#resolvemytaskv2) | **Post** /governance/api/v2/my/tasks/{taskId}/resolve | Resolve my task
+*OperationsAPI* | [**GetOperation**](docs/OperationsAPI.md#getoperation) | **Get** /governance/api/v1/operations/{operationId} | Retrieve an operation
+*OrgGovernanceSettingsAPI* | [**CreateOrgIntegration**](docs/OrgGovernanceSettingsAPI.md#createorgintegration) | **Post** /governance/api/v1/settings/integrations | Create an org integration
+*OrgGovernanceSettingsAPI* | [**DeleteOrgIntegration**](docs/OrgGovernanceSettingsAPI.md#deleteorgintegration) | **Delete** /governance/api/v1/settings/integrations/{integrationId} | Delete an org integration
+*OrgGovernanceSettingsAPI* | [**GetOrgCertificationSettings**](docs/OrgGovernanceSettingsAPI.md#getorgcertificationsettings) | **Get** /governance/api/v1/settings/certification | Retrieve the org certification settings
 *OrgGovernanceSettingsAPI* | [**GetOrgSettings**](docs/OrgGovernanceSettingsAPI.md#getorgsettings) | **Get** /governance/api/v1/settings | Retrieve the org settings
+*OrgGovernanceSettingsAPI* | [**ListOrgIntegrations**](docs/OrgGovernanceSettingsAPI.md#listorgintegrations) | **Get** /governance/api/v1/settings/integrations | List all org integrations
+*OrgGovernanceSettingsAPI* | [**UpdateOrgCertificationSettings**](docs/OrgGovernanceSettingsAPI.md#updateorgcertificationsettings) | **Patch** /governance/api/v1/settings/certification | Update the org certification settings
 *OrgGovernanceSettingsAPI* | [**UpdateOrgSettings**](docs/OrgGovernanceSettingsAPI.md#updateorgsettings) | **Patch** /governance/api/v1/settings | Update the org settings
 *PrincipalAccessAPI* | [**GetPrincipalAccess**](docs/PrincipalAccessAPI.md#getprincipalaccess) | **Get** /governance/api/v1/principal-access | Retrieve the principal access for a resource
 *PrincipalAccessV2API* | [**RevokePrincipalAccess**](docs/PrincipalAccessV2API.md#revokeprincipalaccess) | **Post** /governance/api/v2/revoke-principal-access | Revoke a principal&#39;s access
@@ -186,9 +217,9 @@ Class | Method | HTTP request | Description
 *RequestSequencesAPI* | [**DeleteRequestSequenceV2**](docs/RequestSequencesAPI.md#deleterequestsequencev2) | **Delete** /governance/api/v2/request-sequences/{sequenceId} | Delete a request sequence
 *RequestSequencesAPI* | [**GetResourceRequestSequenceV2**](docs/RequestSequencesAPI.md#getresourcerequestsequencev2) | **Get** /governance/api/v2/resources/{resourceId}/request-sequences/{sequenceId} | Retrieve a resource request sequence
 *RequestSequencesAPI* | [**ListResourceRequestSequencesV2**](docs/RequestSequencesAPI.md#listresourcerequestsequencesv2) | **Get** /governance/api/v2/resources/{resourceId}/request-sequences | List all resource request sequences
-*RequestSettingsAPI* | [**GetOrgRequestSettingsV2**](docs/RequestSettingsAPI.md#getorgrequestsettingsv2) | **Get** /governance/api/v2/request-settings | Retrieve the request settings for the organization
-*RequestSettingsAPI* | [**GetRequestSettingsV2**](docs/RequestSettingsAPI.md#getrequestsettingsv2) | **Get** /governance/api/v2/resources/{resourceId}/request-settings | Retrieve the request settings for a resource
-*RequestSettingsAPI* | [**UpdateOrgRequestSettingsV2**](docs/RequestSettingsAPI.md#updateorgrequestsettingsv2) | **Patch** /governance/api/v2/request-settings | Update the request settings for the organization
+*RequestSettingsAPI* | [**GetOrgRequestSettingsV2**](docs/RequestSettingsAPI.md#getorgrequestsettingsv2) | **Get** /governance/api/v2/request-settings | Retrieve the org request settings
+*RequestSettingsAPI* | [**GetRequestSettingsV2**](docs/RequestSettingsAPI.md#getrequestsettingsv2) | **Get** /governance/api/v2/resources/{resourceId}/request-settings | Retrieve the resource request settings
+*RequestSettingsAPI* | [**UpdateOrgRequestSettingsV2**](docs/RequestSettingsAPI.md#updateorgrequestsettingsv2) | **Patch** /governance/api/v2/request-settings | Update the org request settings
 *RequestSettingsAPI* | [**UpdateResourceRequestSettingsV2**](docs/RequestSettingsAPI.md#updateresourcerequestsettingsv2) | **Patch** /governance/api/v2/resources/{resourceId}/request-settings | Update the resource request settings
 *RequestTypesAPI* | [**CreateRequestType**](docs/RequestTypesAPI.md#createrequesttype) | **Post** /governance/api/v1/request-types | Create a request type
 *RequestTypesAPI* | [**DeleteRequestType**](docs/RequestTypesAPI.md#deleterequesttype) | **Delete** /governance/api/v1/request-types/{requestTypeId} | Delete a request type
@@ -206,7 +237,7 @@ Class | Method | HTTP request | Description
 *RequestsAPI* | [**ListAllRequests**](docs/RequestsAPI.md#listallrequests) | **Get** /governance/api/v1/requests | List all requests
 *RequestsAPI* | [**ListAllRequestsV2**](docs/RequestsAPI.md#listallrequestsv2) | **Get** /governance/api/v2/requests | List all requests
 *ResourceOwnersAPI* | [**ConfigureResourceOwners**](docs/ResourceOwnersAPI.md#configureresourceowners) | **Post** /governance/api/v1/resource-owners | Configure the resource owners
-*ResourceOwnersAPI* | [**ListResourceOwnerCatalogResources**](docs/ResourceOwnersAPI.md#listresourceownercatalogresources) | **Get** /governance/api/v1/resource-owners/catalog/resources | List all resources without owners
+*ResourceOwnersAPI* | [**ListResourceOwnerCatalogResources**](docs/ResourceOwnersAPI.md#listresourceownercatalogresources) | **Get** /governance/api/v1/resource-owners/catalog/resources | List all unowned resources
 *ResourceOwnersAPI* | [**ListResourceOwners**](docs/ResourceOwnersAPI.md#listresourceowners) | **Get** /governance/api/v1/resource-owners | List all resources with owners
 *ResourceOwnersAPI* | [**UpdateResourceOwners**](docs/ResourceOwnersAPI.md#updateresourceowners) | **Patch** /governance/api/v1/resource-owners | Update a resource owner
 *ReviewsAPI* | [**GetReview**](docs/ReviewsAPI.md#getreview) | **Get** /governance/api/v1/reviews/{reviewId} | Retrieve a review
@@ -234,10 +265,15 @@ Class | Method | HTTP request | Description
 *SecurityAccessReviewsAPI* | [**ListSecurityAccessReviewSubAccesses**](docs/SecurityAccessReviewsAPI.md#listsecurityaccessreviewsubaccesses) | **Get** /governance/api/v2/security-access-reviews/{securityAccessReviewId}/accesses/{securityAccessReviewAccessId}/sub-accesses | List the sub-access items for an access item
 *SecurityAccessReviewsAPI* | [**ListSecurityAccessReviews**](docs/SecurityAccessReviewsAPI.md#listsecurityaccessreviews) | **Get** /governance/api/v2/security-access-reviews | List all security access reviews
 *SecurityAccessReviewsAPI* | [**UpdateSecurityAccessReview**](docs/SecurityAccessReviewsAPI.md#updatesecurityaccessreview) | **Patch** /governance/api/v2/security-access-reviews/{securityAccessReviewId} | Update a security access review
+*TasksAPI* | [**GetTaskV2**](docs/TasksAPI.md#gettaskv2) | **Get** /governance/api/v2/tasks/{taskId} | Retrieve a task
+*TasksAPI* | [**ListAllTasksV2**](docs/TasksAPI.md#listalltasksv2) | **Get** /governance/api/v2/tasks | List all tasks
+*TasksAPI* | [**ResolveTaskV2**](docs/TasksAPI.md#resolvetaskv2) | **Post** /governance/api/v2/tasks/{taskId}/resolve | Resolve a task
+*TasksAPI* | [**UpdateTaskV2**](docs/TasksAPI.md#updatetaskv2) | **Patch** /governance/api/v2/tasks/{taskId} | Update a task
 
 
 ## Documentation For Models
 
+ - [AccessDuration](docs/AccessDuration.md)
  - [AccessDurationSettingsAdminFixedDuration](docs/AccessDurationSettingsAdminFixedDuration.md)
  - [AccessDurationSettingsCreatable](docs/AccessDurationSettingsCreatable.md)
  - [AccessDurationSettingsFull](docs/AccessDurationSettingsFull.md)
@@ -252,6 +288,7 @@ Class | Method | HTTP request | Description
  - [AccessScopeSettingsFullAccessScopeSettings](docs/AccessScopeSettingsFullAccessScopeSettings.md)
  - [AccessScopeSettingsType](docs/AccessScopeSettingsType.md)
  - [AccessScopeType](docs/AccessScopeType.md)
+ - [AiAgentConnectedResourceType](docs/AiAgentConnectedResourceType.md)
  - [AiMessage](docs/AiMessage.md)
  - [AiMessageErrorsInner](docs/AiMessageErrorsInner.md)
  - [AiSummaryStreamSseMessage](docs/AiSummaryStreamSseMessage.md)
@@ -274,6 +311,7 @@ Class | Method | HTTP request | Description
  - [AssignmentProperties](docs/AssignmentProperties.md)
  - [AssignmentResourceLabelsResult](docs/AssignmentResourceLabelsResult.md)
  - [AssignmentType](docs/AssignmentType.md)
+ - [AuthorizationServerScopeCondition](docs/AuthorizationServerScopeCondition.md)
  - [AutoRemediationResourceType](docs/AutoRemediationResourceType.md)
  - [AutoRemediationSettings](docs/AutoRemediationSettings.md)
  - [AutoRemediationSettingsIncludeOnlyInner](docs/AutoRemediationSettingsIncludeOnlyInner.md)
@@ -281,6 +319,15 @@ Class | Method | HTTP request | Description
  - [BaseFieldReadable](docs/BaseFieldReadable.md)
  - [BaseFieldValue](docs/BaseFieldValue.md)
  - [BaseFieldWritable](docs/BaseFieldWritable.md)
+ - [BulkReviewCriteriaGovAnalyzerMutable](docs/BulkReviewCriteriaGovAnalyzerMutable.md)
+ - [BulkReviewCriteriaType](docs/BulkReviewCriteriaType.md)
+ - [BulkReviewDecision](docs/BulkReviewDecision.md)
+ - [BulkReviewDecisionStatusType](docs/BulkReviewDecisionStatusType.md)
+ - [BulkReviewSubmissionCriteriaMutable](docs/BulkReviewSubmissionCriteriaMutable.md)
+ - [BulkReviewSubmissionDetails](docs/BulkReviewSubmissionDetails.md)
+ - [BulkReviewSubmissionJobDetails](docs/BulkReviewSubmissionJobDetails.md)
+ - [BulkReviewSubmissionLinks](docs/BulkReviewSubmissionLinks.md)
+ - [BulkReviewSubmissionMutable](docs/BulkReviewSubmissionMutable.md)
  - [Bundle](docs/Bundle.md)
  - [BundleWritableStandardProperties](docs/BundleWritableStandardProperties.md)
  - [CampaignDetailsReadOnly](docs/CampaignDetailsReadOnly.md)
@@ -301,23 +348,44 @@ Class | Method | HTTP request | Description
  - [CatalogEntryRequestFields](docs/CatalogEntryRequestFields.md)
  - [CatalogEntryRequestFieldsMetadata](docs/CatalogEntryRequestFieldsMetadata.md)
  - [ClientCredentialPrincipal](docs/ClientCredentialPrincipal.md)
+ - [CollectionAssignmentOrigin](docs/CollectionAssignmentOrigin.md)
+ - [CollectionAssignmentOriginCollection](docs/CollectionAssignmentOriginCollection.md)
+ - [CollectionAssignmentOriginsRequest](docs/CollectionAssignmentOriginsRequest.md)
+ - [CollectionAssignmentOriginsResponse](docs/CollectionAssignmentOriginsResponse.md)
  - [CollectionCounts](docs/CollectionCounts.md)
  - [CollectionCountsResourceCounts](docs/CollectionCountsResourceCounts.md)
+ - [CollectionCountsV2](docs/CollectionCountsV2.md)
  - [CollectionCreatable](docs/CollectionCreatable.md)
  - [CollectionFull](docs/CollectionFull.md)
+ - [CollectionFullV2](docs/CollectionFullV2.md)
+ - [CollectionFullWithFilterContextV2](docs/CollectionFullWithFilterContextV2.md)
  - [CollectionInfoSparse](docs/CollectionInfoSparse.md)
  - [CollectionLinks](docs/CollectionLinks.md)
  - [CollectionMetadata](docs/CollectionMetadata.md)
+ - [CollectionPrincipalAssignment](docs/CollectionPrincipalAssignment.md)
  - [CollectionPropertiesWritable](docs/CollectionPropertiesWritable.md)
+ - [CollectionPushGroup](docs/CollectionPushGroup.md)
+ - [CollectionResourceAppWithEntitlements](docs/CollectionResourceAppWithEntitlements.md)
+ - [CollectionResourceConfiguration](docs/CollectionResourceConfiguration.md)
+ - [CollectionResourceCounts](docs/CollectionResourceCounts.md)
  - [CollectionResourceCreatable](docs/CollectionResourceCreatable.md)
+ - [CollectionResourceCreatableV2](docs/CollectionResourceCreatableV2.md)
+ - [CollectionResourceEntitlementsList](docs/CollectionResourceEntitlementsList.md)
  - [CollectionResourceFull](docs/CollectionResourceFull.md)
+ - [CollectionResourceFullV2](docs/CollectionResourceFullV2.md)
  - [CollectionResourceLinks](docs/CollectionResourceLinks.md)
+ - [CollectionResourceLinksV2](docs/CollectionResourceLinksV2.md)
  - [CollectionResourcePropertiesReadOnly](docs/CollectionResourcePropertiesReadOnly.md)
+ - [CollectionResourcePropertiesReadOnlyV2](docs/CollectionResourcePropertiesReadOnlyV2.md)
  - [CollectionResourcePropertiesWritable](docs/CollectionResourcePropertiesWritable.md)
+ - [CollectionResourcePropertiesWritableV2](docs/CollectionResourcePropertiesWritableV2.md)
+ - [CollectionResourceRelationship](docs/CollectionResourceRelationship.md)
  - [CollectionResourceUpdatable](docs/CollectionResourceUpdatable.md)
  - [CollectionResourcesList](docs/CollectionResourcesList.md)
+ - [CollectionResourcesListV2](docs/CollectionResourcesListV2.md)
  - [CollectionUpdatable](docs/CollectionUpdatable.md)
  - [CollectionsList](docs/CollectionsList.md)
+ - [CollectionsListV2](docs/CollectionsListV2.md)
  - [CompatibleResourceTypes](docs/CompatibleResourceTypes.md)
  - [ConflictCriteria](docs/ConflictCriteria.md)
  - [ConflictCriteriaCreatable](docs/ConflictCriteriaCreatable.md)
@@ -325,8 +393,8 @@ Class | Method | HTTP request | Description
  - [CreateRiskRuleRequest](docs/CreateRiskRuleRequest.md)
  - [Criteria](docs/Criteria.md)
  - [CriteriaCreatable](docs/CriteriaCreatable.md)
- - [CriteriaValue](docs/CriteriaValue.md)
- - [CriteriaValueCreatable](docs/CriteriaValueCreatable.md)
+ - [CriteriaValueCreatableEntitlements](docs/CriteriaValueCreatableEntitlements.md)
+ - [CriteriaValueEntitlements](docs/CriteriaValueEntitlements.md)
  - [CustomAuthorizationServer](docs/CustomAuthorizationServer.md)
  - [Decision](docs/Decision.md)
  - [DelegateAppointment](docs/DelegateAppointment.md)
@@ -336,9 +404,12 @@ Class | Method | HTTP request | Description
  - [DelegateAppointmentListLinks](docs/DelegateAppointmentListLinks.md)
  - [DelegatePatchable](docs/DelegatePatchable.md)
  - [DelegateReadonly](docs/DelegateReadonly.md)
+ - [DelegateScope](docs/DelegateScope.md)
+ - [DelegateSettingsUser](docs/DelegateSettingsUser.md)
  - [DelegateUser](docs/DelegateUser.md)
  - [DelegateUsersList](docs/DelegateUsersList.md)
  - [DelegatesPatchable](docs/DelegatesPatchable.md)
+ - [EmbeddedItem](docs/EmbeddedItem.md)
  - [EntitlementAccessDetailsObject](docs/EntitlementAccessDetailsObject.md)
  - [EntitlementBundleAccessScopeSettings](docs/EntitlementBundleAccessScopeSettings.md)
  - [EntitlementBundleCreatable](docs/EntitlementBundleCreatable.md)
@@ -357,6 +428,15 @@ Class | Method | HTTP request | Description
  - [EntitlementCreatable](docs/EntitlementCreatable.md)
  - [EntitlementCreate](docs/EntitlementCreate.md)
  - [EntitlementDetail](docs/EntitlementDetail.md)
+ - [EntitlementDriftAffectedGrantSource](docs/EntitlementDriftAffectedGrantSource.md)
+ - [EntitlementDriftEntitlementReference](docs/EntitlementDriftEntitlementReference.md)
+ - [EntitlementDriftFull](docs/EntitlementDriftFull.md)
+ - [EntitlementDriftLinks](docs/EntitlementDriftLinks.md)
+ - [EntitlementDriftListLinks](docs/EntitlementDriftListLinks.md)
+ - [EntitlementDriftResolution](docs/EntitlementDriftResolution.md)
+ - [EntitlementDriftStatus](docs/EntitlementDriftStatus.md)
+ - [EntitlementDriftType](docs/EntitlementDriftType.md)
+ - [EntitlementDriftsList](docs/EntitlementDriftsList.md)
  - [EntitlementFull](docs/EntitlementFull.md)
  - [EntitlementHistoryRecord](docs/EntitlementHistoryRecord.md)
  - [EntitlementLink](docs/EntitlementLink.md)
@@ -366,21 +446,40 @@ Class | Method | HTTP request | Description
  - [EntitlementPatchOperation](docs/EntitlementPatchOperation.md)
  - [EntitlementPropertyDatatype](docs/EntitlementPropertyDatatype.md)
  - [EntitlementPropertyFull](docs/EntitlementPropertyFull.md)
+ - [EntitlementReconciliationConditionsFullInner](docs/EntitlementReconciliationConditionsFullInner.md)
+ - [EntitlementReconciliationConditionsWritableInner](docs/EntitlementReconciliationConditionsWritableInner.md)
+ - [EntitlementReconciliationConfigFull](docs/EntitlementReconciliationConfigFull.md)
+ - [EntitlementReconciliationConfigLinks](docs/EntitlementReconciliationConfigLinks.md)
+ - [EntitlementReconciliationConfigWritable](docs/EntitlementReconciliationConfigWritable.md)
+ - [EntitlementReconciliationDirectionFull](docs/EntitlementReconciliationDirectionFull.md)
+ - [EntitlementReconciliationDirectionWritable](docs/EntitlementReconciliationDirectionWritable.md)
+ - [EntitlementReconciliationEntitlementConditionFull](docs/EntitlementReconciliationEntitlementConditionFull.md)
+ - [EntitlementReconciliationEntitlementConditionValueFull](docs/EntitlementReconciliationEntitlementConditionValueFull.md)
+ - [EntitlementReconciliationEntitlementConditionValueWritable](docs/EntitlementReconciliationEntitlementConditionValueWritable.md)
+ - [EntitlementReconciliationEntitlementConditionWritable](docs/EntitlementReconciliationEntitlementConditionWritable.md)
+ - [EntitlementReconciliationLabelConditionFull](docs/EntitlementReconciliationLabelConditionFull.md)
+ - [EntitlementReconciliationLabelConditionValueFull](docs/EntitlementReconciliationLabelConditionValueFull.md)
+ - [EntitlementReconciliationLabelConditionValueWritable](docs/EntitlementReconciliationLabelConditionValueWritable.md)
+ - [EntitlementReconciliationLabelConditionWritable](docs/EntitlementReconciliationLabelConditionWritable.md)
  - [EntitlementSettingsFull](docs/EntitlementSettingsFull.md)
  - [EntitlementSettingsRequestStatus](docs/EntitlementSettingsRequestStatus.md)
  - [EntitlementSettingsResponseStatus](docs/EntitlementSettingsResponseStatus.md)
  - [EntitlementSettingsUpdatable](docs/EntitlementSettingsUpdatable.md)
+ - [EntitlementUpdatable](docs/EntitlementUpdatable.md)
  - [EntitlementValue](docs/EntitlementValue.md)
  - [EntitlementValue2](docs/EntitlementValue2.md)
  - [EntitlementValueChanged](docs/EntitlementValueChanged.md)
  - [EntitlementValueCreatable](docs/EntitlementValueCreatable.md)
  - [EntitlementValueFull](docs/EntitlementValueFull.md)
  - [EntitlementValuePatchOp](docs/EntitlementValuePatchOp.md)
+ - [EntitlementValueUpdatable](docs/EntitlementValueUpdatable.md)
  - [EntitlementValueWithParent](docs/EntitlementValueWithParent.md)
  - [EntitlementValueWritableProperties](docs/EntitlementValueWritableProperties.md)
  - [EntitlementValuesList](docs/EntitlementValuesList.md)
  - [EntitlementValuesPatchOperation](docs/EntitlementValuesPatchOperation.md)
  - [EntitlementValuesPatchOperationValue](docs/EntitlementValuesPatchOperationValue.md)
+ - [EntitlementWithValues](docs/EntitlementWithValues.md)
+ - [EntitlementWithValuesAllOfLinks](docs/EntitlementWithValuesAllOfLinks.md)
  - [EntitlementWritableProperties](docs/EntitlementWritableProperties.md)
  - [EntitlementsFullWithParent](docs/EntitlementsFullWithParent.md)
  - [EntitlementsInner](docs/EntitlementsInner.md)
@@ -413,6 +512,7 @@ Class | Method | HTTP request | Description
  - [FieldValueWritable](docs/FieldValueWritable.md)
  - [FieldValueWritableAllowedValues](docs/FieldValueWritableAllowedValues.md)
  - [FieldWritable](docs/FieldWritable.md)
+ - [FilterTypeEnum](docs/FilterTypeEnum.md)
  - [GetGrant200Response](docs/GetGrant200Response.md)
  - [GovernanceLabelValuesInner](docs/GovernanceLabelValuesInner.md)
  - [Grant](docs/Grant.md)
@@ -428,10 +528,19 @@ Class | Method | HTTP request | Description
  - [GrantMethod](docs/GrantMethod.md)
  - [GrantObject](docs/GrantObject.md)
  - [GrantPatch](docs/GrantPatch.md)
+ - [GrantPrincipalAccessRequest](docs/GrantPrincipalAccessRequest.md)
+ - [GrantPrincipalAccessResponse](docs/GrantPrincipalAccessResponse.md)
+ - [GrantPrincipalAccessResponseLinks](docs/GrantPrincipalAccessResponseLinks.md)
+ - [GrantPrincipalAccessResponseLinksPrincipalAccess](docs/GrantPrincipalAccessResponseLinksPrincipalAccess.md)
+ - [GrantPrincipalEntitlementData](docs/GrantPrincipalEntitlementData.md)
+ - [GrantPrincipalEntitlementDataBundle](docs/GrantPrincipalEntitlementDataBundle.md)
+ - [GrantPrincipalEntitlementDataEntitlement](docs/GrantPrincipalEntitlementDataEntitlement.md)
+ - [GrantPrincipalEntitlementGroup](docs/GrantPrincipalEntitlementGroup.md)
  - [GrantStatus](docs/GrantStatus.md)
  - [GrantType](docs/GrantType.md)
  - [GrantTypeBundleWriteable](docs/GrantTypeBundleWriteable.md)
  - [GrantTypeCustomWriteable](docs/GrantTypeCustomWriteable.md)
+ - [GrantTypeEntitlementWriteable](docs/GrantTypeEntitlementWriteable.md)
  - [GrantTypePolicyWriteable](docs/GrantTypePolicyWriteable.md)
  - [GrantedEntitlementValue](docs/GrantedEntitlementValue.md)
  - [GrantedEntitlements](docs/GrantedEntitlements.md)
@@ -439,15 +548,23 @@ Class | Method | HTTP request | Description
  - [GrantsListWithEntitlements](docs/GrantsListWithEntitlements.md)
  - [GroupAccessScopeSettings](docs/GroupAccessScopeSettings.md)
  - [GroupType](docs/GroupType.md)
- - [GroupsArrayCreatableInner](docs/GroupsArrayCreatableInner.md)
  - [GroupsArrayFullInner](docs/GroupsArrayFullInner.md)
+ - [GroupsArrayRequesterSettingsCreatableInner](docs/GroupsArrayRequesterSettingsCreatableInner.md)
  - [GroupsRequesterSettings](docs/GroupsRequesterSettings.md)
+ - [IdentityAssertionA2aServerConnection](docs/IdentityAssertionA2aServerConnection.md)
  - [IdentityAssertionCustomAsConnection](docs/IdentityAssertionCustomAsConnection.md)
- - [Integration](docs/Integration.md)
+ - [IndirectAccess](docs/IndirectAccess.md)
+ - [IndirectAccessList](docs/IndirectAccessList.md)
  - [IntegrationCreatable](docs/IntegrationCreatable.md)
+ - [IntegrationFull](docs/IntegrationFull.md)
+ - [IntegrationLinks](docs/IntegrationLinks.md)
+ - [IntegrationReadable](docs/IntegrationReadable.md)
  - [IntegrationStatus](docs/IntegrationStatus.md)
  - [IntegrationType](docs/IntegrationType.md)
  - [Integrations](docs/Integrations.md)
+ - [IntegrationsReadable](docs/IntegrationsReadable.md)
+ - [IntegrationsSettings](docs/IntegrationsSettings.md)
+ - [JustificationRequirement](docs/JustificationRequirement.md)
  - [Label](docs/Label.md)
  - [LabelCreate](docs/LabelCreate.md)
  - [LabelMetadata](docs/LabelMetadata.md)
@@ -457,7 +574,6 @@ Class | Method | HTTP request | Description
  - [LabelValuePatchOp](docs/LabelValuePatchOp.md)
  - [LabelValueUpdate](docs/LabelValueUpdate.md)
  - [Link](docs/Link.md)
- - [LinkNext](docs/LinkNext.md)
  - [LinkSelf](docs/LinkSelf.md)
  - [ListAssignedPrincipals](docs/ListAssignedPrincipals.md)
  - [ListCatalogUsers](docs/ListCatalogUsers.md)
@@ -467,28 +583,33 @@ Class | Method | HTTP request | Description
  - [ListMetadata](docs/ListMetadata.md)
  - [ListResourceLabels](docs/ListResourceLabels.md)
  - [ListRiskRuleResponse](docs/ListRiskRuleResponse.md)
- - [ManagedConnectionAppInstance](docs/ManagedConnectionAppInstance.md)
- - [ManagedConnectionServiceAccount](docs/ManagedConnectionServiceAccount.md)
- - [ManagedConnectionVaultedSecret](docs/ManagedConnectionVaultedSecret.md)
  - [ModelError](docs/ModelError.md)
- - [MyManagedConnection](docs/MyManagedConnection.md)
- - [MyManagedConnectionCommon](docs/MyManagedConnectionCommon.md)
- - [MyManagedConnections](docs/MyManagedConnections.md)
- - [MyManagedConnectionsLinks](docs/MyManagedConnectionsLinks.md)
  - [MyRequestCreatable](docs/MyRequestCreatable.md)
+ - [MyRequestFull](docs/MyRequestFull.md)
+ - [MyResourceConnection](docs/MyResourceConnection.md)
+ - [MyResourceConnectionCommon](docs/MyResourceConnectionCommon.md)
+ - [MyResourceConnections](docs/MyResourceConnections.md)
+ - [MyResourceConnectionsLinks](docs/MyResourceConnectionsLinks.md)
  - [MySettings](docs/MySettings.md)
  - [MySettingsDelegates](docs/MySettingsDelegates.md)
  - [MySettingsGet](docs/MySettingsGet.md)
  - [MySettingsGetDelegateReadonly](docs/MySettingsGetDelegateReadonly.md)
+ - [MySettingsGetDelegateReadonlyDelegate](docs/MySettingsGetDelegateReadonlyDelegate.md)
  - [MySettingsGetDelegates](docs/MySettingsGetDelegates.md)
  - [MySettingsPatchable](docs/MySettingsPatchable.md)
  - [NoResponseRemediationAction](docs/NoResponseRemediationAction.md)
  - [Note](docs/Note.md)
  - [NotificationSettings](docs/NotificationSettings.md)
+ - [NotificationsSettings](docs/NotificationsSettings.md)
  - [OktaApplicationResource](docs/OktaApplicationResource.md)
  - [OktaEntitlementBundleResource](docs/OktaEntitlementBundleResource.md)
  - [OktaGroupResource](docs/OktaGroupResource.md)
  - [OktaResourceReadable](docs/OktaResourceReadable.md)
+ - [Operation](docs/Operation.md)
+ - [OperationLinks](docs/OperationLinks.md)
+ - [OperationStatus](docs/OperationStatus.md)
+ - [OrgCertificationSettings](docs/OrgCertificationSettings.md)
+ - [OrgCertificationSettingsPatchable](docs/OrgCertificationSettingsPatchable.md)
  - [OrgRequestSettings](docs/OrgRequestSettings.md)
  - [OrgRequestSettingsPatchable](docs/OrgRequestSettingsPatchable.md)
  - [OrgSettings](docs/OrgSettings.md)
@@ -497,10 +618,14 @@ Class | Method | HTTP request | Description
  - [OrgSettingsEscalations](docs/OrgSettingsEscalations.md)
  - [OrgSettingsEscalationsAccessRequests](docs/OrgSettingsEscalationsAccessRequests.md)
  - [OrgSettingsGovernanceAI](docs/OrgSettingsGovernanceAI.md)
+ - [OrgSettingsGovernanceAIGovernanceAnalyzer](docs/OrgSettingsGovernanceAIGovernanceAnalyzer.md)
  - [OrgSettingsGovernanceAISecurityAccessReview](docs/OrgSettingsGovernanceAISecurityAccessReview.md)
+ - [OrgSettingsIntegrations](docs/OrgSettingsIntegrations.md)
+ - [OrgSettingsIntegrationsSupportedInner](docs/OrgSettingsIntegrationsSupportedInner.md)
  - [OrgSettingsPatchable](docs/OrgSettingsPatchable.md)
  - [OrgSettingsPatchableDelegates](docs/OrgSettingsPatchableDelegates.md)
  - [OrgSettingsPatchableDelegatesEnduser](docs/OrgSettingsPatchableDelegatesEnduser.md)
+ - [OrgSettingsPatchableGovernanceAI](docs/OrgSettingsPatchableGovernanceAI.md)
  - [PaginationLinks](docs/PaginationLinks.md)
  - [PatchLabelOperation](docs/PatchLabelOperation.md)
  - [PatchLabelValueOperation](docs/PatchLabelValueOperation.md)
@@ -512,10 +637,15 @@ Class | Method | HTTP request | Description
  - [PrincipalAccessPolicyEnableResponse](docs/PrincipalAccessPolicyEnableResponse.md)
  - [PrincipalAssignmentType](docs/PrincipalAssignmentType.md)
  - [PrincipalEntitlement](docs/PrincipalEntitlement.md)
+ - [PrincipalEntitlementRow](docs/PrincipalEntitlementRow.md)
+ - [PrincipalEntitlementRowResourceAsset](docs/PrincipalEntitlementRowResourceAsset.md)
+ - [PrincipalEntitlementValue](docs/PrincipalEntitlementValue.md)
+ - [PrincipalEntitlementValuesList](docs/PrincipalEntitlementValuesList.md)
  - [PrincipalEntitlementsChange](docs/PrincipalEntitlementsChange.md)
  - [PrincipalEntitlementsChangeLinks](docs/PrincipalEntitlementsChangeLinks.md)
  - [PrincipalEntitlementsHistory](docs/PrincipalEntitlementsHistory.md)
  - [PrincipalEntitlementsList](docs/PrincipalEntitlementsList.md)
+ - [PrincipalEntitlementsList2](docs/PrincipalEntitlementsList2.md)
  - [PrincipalEntitlementsListLinks](docs/PrincipalEntitlementsListLinks.md)
  - [PrincipalProfile](docs/PrincipalProfile.md)
  - [PrincipalProfileEnriched](docs/PrincipalProfileEnriched.md)
@@ -528,6 +658,7 @@ Class | Method | HTTP request | Description
  - [PrincipalSettingsPatchable](docs/PrincipalSettingsPatchable.md)
  - [PrincipalType](docs/PrincipalType.md)
  - [ProvisioningStatus](docs/ProvisioningStatus.md)
+ - [PushGroupFull](docs/PushGroupFull.md)
  - [RcarEntriesLinks](docs/RcarEntriesLinks.md)
  - [RcarEntriesListV2](docs/RcarEntriesListV2.md)
  - [RcarEntry](docs/RcarEntry.md)
@@ -536,8 +667,11 @@ Class | Method | HTTP request | Description
  - [RcarEntryGet](docs/RcarEntryGet.md)
  - [RcarEntryLinks](docs/RcarEntryLinks.md)
  - [ReadOnlyStandardProperties](docs/ReadOnlyStandardProperties.md)
+ - [ReconciliationDirectionAction](docs/ReconciliationDirectionAction.md)
+ - [ReconciliationMode](docs/ReconciliationMode.md)
  - [RecurrenceDefinitionMutable](docs/RecurrenceDefinitionMutable.md)
  - [RecurrenceRepeatOnType](docs/RecurrenceRepeatOnType.md)
+ - [RelatedApp](docs/RelatedApp.md)
  - [RemediationSettings](docs/RemediationSettings.md)
  - [RemediationStatus](docs/RemediationStatus.md)
  - [ReportingSettingsMutable](docs/ReportingSettingsMutable.md)
@@ -549,6 +683,8 @@ Class | Method | HTTP request | Description
  - [RequestApproval2](docs/RequestApproval2.md)
  - [RequestApprovalCompleted](docs/RequestApprovalCompleted.md)
  - [RequestApprovalDecision](docs/RequestApprovalDecision.md)
+ - [RequestApprovalInsightsGenerateSuccess](docs/RequestApprovalInsightsGenerateSuccess.md)
+ - [RequestApprovalInsightsLinks](docs/RequestApprovalInsightsLinks.md)
  - [RequestApprovalPending](docs/RequestApprovalPending.md)
  - [RequestApprovalStatus](docs/RequestApprovalStatus.md)
  - [RequestConditionCreatable](docs/RequestConditionCreatable.md)
@@ -568,13 +704,21 @@ Class | Method | HTTP request | Description
  - [RequestDecisionCreatable](docs/RequestDecisionCreatable.md)
  - [RequestExperience](docs/RequestExperience.md)
  - [RequestField](docs/RequestField.md)
+ - [RequestFieldChoice](docs/RequestFieldChoice.md)
+ - [RequestFieldChoicesList](docs/RequestFieldChoicesList.md)
+ - [RequestFieldChoicesListLinks](docs/RequestFieldChoicesListLinks.md)
+ - [RequestFieldChoicesQueryBody](docs/RequestFieldChoicesQueryBody.md)
  - [RequestFieldType](docs/RequestFieldType.md)
  - [RequestFieldValue](docs/RequestFieldValue.md)
+ - [RequestFieldValuesMapValue](docs/RequestFieldValuesMapValue.md)
+ - [RequestFieldsQueryBody](docs/RequestFieldsQueryBody.md)
  - [RequestFull](docs/RequestFull.md)
  - [RequestFull2](docs/RequestFull2.md)
  - [RequestFullApiCompatible](docs/RequestFullApiCompatible.md)
  - [RequestFullApiIncompatible](docs/RequestFullApiIncompatible.md)
+ - [RequestFullCommon](docs/RequestFullCommon.md)
  - [RequestGrantStatus](docs/RequestGrantStatus.md)
+ - [RequestIntegrations](docs/RequestIntegrations.md)
  - [RequestLinks](docs/RequestLinks.md)
  - [RequestLinks2](docs/RequestLinks2.md)
  - [RequestList](docs/RequestList.md)
@@ -602,6 +746,7 @@ Class | Method | HTTP request | Description
  - [RequestSparse](docs/RequestSparse.md)
  - [RequestSparse2](docs/RequestSparse2.md)
  - [RequestStatus](docs/RequestStatus.md)
+ - [RequestStatusPatchable](docs/RequestStatusPatchable.md)
  - [RequestSubmissionFull](docs/RequestSubmissionFull.md)
  - [RequestSubmissionType](docs/RequestSubmissionType.md)
  - [RequestTypeApproval](docs/RequestTypeApproval.md)
@@ -642,6 +787,8 @@ Class | Method | HTTP request | Description
  - [RequestTypeStatus](docs/RequestTypeStatus.md)
  - [RequestTypesList](docs/RequestTypesList.md)
  - [RequestTypesListLinks](docs/RequestTypesListLinks.md)
+ - [RequestUpdate](docs/RequestUpdate.md)
+ - [RequestUpdate2](docs/RequestUpdate2.md)
  - [Requested](docs/Requested.md)
  - [RequesterSettings](docs/RequesterSettings.md)
  - [RequesterSettingsCreatableGroupsRequesterSettings](docs/RequesterSettingsCreatableGroupsRequesterSettings.md)
@@ -654,8 +801,35 @@ Class | Method | HTTP request | Description
  - [RequestersMember](docs/RequestersMember.md)
  - [RequestersMembersPatchOperation](docs/RequestersMembersPatchOperation.md)
  - [RequestersReplacePatch](docs/RequestersReplacePatch.md)
+ - [ResolveMyTaskV2Request](docs/ResolveMyTaskV2Request.md)
+ - [ResolveTaskV2Request](docs/ResolveTaskV2Request.md)
+ - [Resource](docs/Resource.md)
+ - [ResourceAllOfEmbedded](docs/ResourceAllOfEmbedded.md)
+ - [ResourceAllOfLogos](docs/ResourceAllOfLogos.md)
+ - [ResourceAsset](docs/ResourceAsset.md)
+ - [ResourceAssetAncestor](docs/ResourceAssetAncestor.md)
+ - [ResourceAssetLinks](docs/ResourceAssetLinks.md)
+ - [ResourceAssetType](docs/ResourceAssetType.md)
+ - [ResourceAssetTypeLinks](docs/ResourceAssetTypeLinks.md)
+ - [ResourceAssetTypeSparse](docs/ResourceAssetTypeSparse.md)
+ - [ResourceAssetTypesList](docs/ResourceAssetTypesList.md)
+ - [ResourceAssetUpdatable](docs/ResourceAssetUpdatable.md)
+ - [ResourceAssetWithHierarchyContext](docs/ResourceAssetWithHierarchyContext.md)
+ - [ResourceAssetsLinks](docs/ResourceAssetsLinks.md)
+ - [ResourceAssetsList](docs/ResourceAssetsList.md)
+ - [ResourceCatalogVisibility](docs/ResourceCatalogVisibility.md)
+ - [ResourceCatalogVisibilityTarget](docs/ResourceCatalogVisibilityTarget.md)
+ - [ResourceCatalogVisibilityType](docs/ResourceCatalogVisibilityType.md)
+ - [ResourceConnectionA2aServer](docs/ResourceConnectionA2aServer.md)
+ - [ResourceConnectionAppInstance](docs/ResourceConnectionAppInstance.md)
+ - [ResourceConnectionServiceAccount](docs/ResourceConnectionServiceAccount.md)
+ - [ResourceConnectionVaultedSecret](docs/ResourceConnectionVaultedSecret.md)
  - [ResourceDefaultAccessScopeSettings](docs/ResourceDefaultAccessScopeSettings.md)
  - [ResourceGrantLinks](docs/ResourceGrantLinks.md)
+ - [ResourceInventoryFilterOption](docs/ResourceInventoryFilterOption.md)
+ - [ResourceInventoryFilterOptionsList](docs/ResourceInventoryFilterOptionsList.md)
+ - [ResourceInventoryList](docs/ResourceInventoryList.md)
+ - [ResourceInventoryStats](docs/ResourceInventoryStats.md)
  - [ResourceLabel](docs/ResourceLabel.md)
  - [ResourceOwner](docs/ResourceOwner.md)
  - [ResourceOwnerPrincipal](docs/ResourceOwnerPrincipal.md)
@@ -668,15 +842,23 @@ Class | Method | HTTP request | Description
  - [ResourceOwnersResponse](docs/ResourceOwnersResponse.md)
  - [ResourceOwnersUpdatable](docs/ResourceOwnersUpdatable.md)
  - [ResourceProfile](docs/ResourceProfile.md)
+ - [ResourceProfileV2](docs/ResourceProfileV2.md)
  - [ResourceRequestSettingsPatchable](docs/ResourceRequestSettingsPatchable.md)
  - [ResourceSettingsMutable](docs/ResourceSettingsMutable.md)
  - [ResourceSettingsMutableExcludedResourcesInner](docs/ResourceSettingsMutableExcludedResourcesInner.md)
+ - [ResourceStats](docs/ResourceStats.md)
+ - [ResourceStatusEnum](docs/ResourceStatusEnum.md)
+ - [ResourceTargetType](docs/ResourceTargetType.md)
  - [ResourceType](docs/ResourceType.md)
  - [ResourceType2](docs/ResourceType2.md)
  - [ResourceType3](docs/ResourceType3.md)
+ - [ResourceTypeEnum](docs/ResourceTypeEnum.md)
  - [ResourceTypeExclude](docs/ResourceTypeExclude.md)
+ - [ReviewAction](docs/ReviewAction.md)
+ - [ReviewActionItem](docs/ReviewActionItem.md)
  - [ReviewEntitlement](docs/ReviewEntitlement.md)
  - [ReviewFull](docs/ReviewFull.md)
+ - [ReviewItemsActionMutable](docs/ReviewItemsActionMutable.md)
  - [ReviewLinks](docs/ReviewLinks.md)
  - [ReviewList](docs/ReviewList.md)
  - [ReviewListLinks](docs/ReviewListLinks.md)
@@ -685,6 +867,16 @@ Class | Method | HTTP request | Description
  - [ReviewReassignList](docs/ReviewReassignList.md)
  - [ReviewReassignListLinks](docs/ReviewReassignListLinks.md)
  - [ReviewSparse](docs/ReviewSparse.md)
+ - [ReviewerAiAgentConnectedResource](docs/ReviewerAiAgentConnectedResource.md)
+ - [ReviewerAiAgentConnectedResourceApiServer](docs/ReviewerAiAgentConnectedResourceApiServer.md)
+ - [ReviewerAiAgentConnectedResourceApp](docs/ReviewerAiAgentConnectedResourceApp.md)
+ - [ReviewerAiAgentConnectedResourceAuthorizationServer](docs/ReviewerAiAgentConnectedResourceAuthorizationServer.md)
+ - [ReviewerAiAgentConnectedResourceMcpServer](docs/ReviewerAiAgentConnectedResourceMcpServer.md)
+ - [ReviewerAiAgentConnectedResourceSecret](docs/ReviewerAiAgentConnectedResourceSecret.md)
+ - [ReviewerAiAgentConnectedResourceServiceAccount](docs/ReviewerAiAgentConnectedResourceServiceAccount.md)
+ - [ReviewerAiAgentConnectedResourceServiceAccountApp](docs/ReviewerAiAgentConnectedResourceServiceAccountApp.md)
+ - [ReviewerAiAgentConnection](docs/ReviewerAiAgentConnection.md)
+ - [ReviewerEntitlement](docs/ReviewerEntitlement.md)
  - [ReviewerEntitlementBundle](docs/ReviewerEntitlementBundle.md)
  - [ReviewerEntitlementValue](docs/ReviewerEntitlementValue.md)
  - [ReviewerGroupProfile](docs/ReviewerGroupProfile.md)
@@ -698,6 +890,7 @@ Class | Method | HTTP request | Description
  - [ReviewerType](docs/ReviewerType.md)
  - [ReviewersReviewerType](docs/ReviewersReviewerType.md)
  - [ReviewsReassign](docs/ReviewsReassign.md)
+ - [RevokeExternalUserEntitlementCreatable](docs/RevokeExternalUserEntitlementCreatable.md)
  - [RevokePrincipalAccessCreatable](docs/RevokePrincipalAccessCreatable.md)
  - [RevokePrincipalAccessResourceLinks](docs/RevokePrincipalAccessResourceLinks.md)
  - [RevokePrincipalAccessResourceLinksLinks](docs/RevokePrincipalAccessResourceLinksLinks.md)
@@ -734,6 +927,8 @@ Class | Method | HTTP request | Description
  - [ScheduleSettingsReadOnly](docs/ScheduleSettingsReadOnly.md)
  - [ScheduleSettingsWriteable](docs/ScheduleSettingsWriteable.md)
  - [ScheduleType](docs/ScheduleType.md)
+ - [ScopedEntitlementItem](docs/ScopedEntitlementItem.md)
+ - [ScopedEntitlementResourceAsset](docs/ScopedEntitlementResourceAsset.md)
  - [SecurityAccessReview](docs/SecurityAccessReview.md)
  - [SecurityAccessReviewAccessItem](docs/SecurityAccessReviewAccessItem.md)
  - [SecurityAccessReviewAccessItemAppInfo](docs/SecurityAccessReviewAccessItemAppInfo.md)
@@ -787,7 +982,14 @@ Class | Method | HTTP request | Description
  - [ServerMessage](docs/ServerMessage.md)
  - [ServerMessageArgument](docs/ServerMessageArgument.md)
  - [ServerMessageArgumentType](docs/ServerMessageArgumentType.md)
+ - [SlackIntegrationSettings](docs/SlackIntegrationSettings.md)
+ - [SlackNotificationSettings](docs/SlackNotificationSettings.md)
  - [StandardGrantPropertiesWriteable](docs/StandardGrantPropertiesWriteable.md)
+ - [StsAccessTokenConnection](docs/StsAccessTokenConnection.md)
+ - [StsAccessTokenResource](docs/StsAccessTokenResource.md)
+ - [StsAccessTokenResourceApiServer](docs/StsAccessTokenResourceApiServer.md)
+ - [StsAccessTokenResourceAppInstance](docs/StsAccessTokenResourceAppInstance.md)
+ - [StsAccessTokenResourceMcpServer](docs/StsAccessTokenResourceMcpServer.md)
  - [StsServiceAccountConnection](docs/StsServiceAccountConnection.md)
  - [StsVaultSecretConnection](docs/StsVaultSecretConnection.md)
  - [TargetGovernanceLabel](docs/TargetGovernanceLabel.md)
@@ -795,6 +997,14 @@ Class | Method | HTTP request | Description
  - [TargetPrincipalFull](docs/TargetPrincipalFull.md)
  - [TargetResource](docs/TargetResource.md)
  - [TargetResourcesRequestInner](docs/TargetResourcesRequestInner.md)
+ - [TaskAssignees](docs/TaskAssignees.md)
+ - [TaskCompletedBy](docs/TaskCompletedBy.md)
+ - [TaskFull](docs/TaskFull.md)
+ - [TaskList](docs/TaskList.md)
+ - [TaskListLinks](docs/TaskListLinks.md)
+ - [TaskSparse](docs/TaskSparse.md)
+ - [TaskStatus](docs/TaskStatus.md)
+ - [TaskType](docs/TaskType.md)
  - [Team](docs/Team.md)
  - [TeamsArrayCreatableInner](docs/TeamsArrayCreatableInner.md)
  - [TeamsArrayFullInner](docs/TeamsArrayFullInner.md)
@@ -802,6 +1012,7 @@ Class | Method | HTTP request | Description
  - [TeamsListLinks](docs/TeamsListLinks.md)
  - [TeamsRequesterSettings](docs/TeamsRequesterSettings.md)
  - [UpdateRiskRuleRequest](docs/UpdateRiskRuleRequest.md)
+ - [UpdateTaskV2Request](docs/UpdateTaskV2Request.md)
  - [ValidAccessDetail](docs/ValidAccessDetail.md)
  - [ValidAccessDurationSettingsDetails](docs/ValidAccessDurationSettingsDetails.md)
  - [ValidAccessDurationType](docs/ValidAccessDurationType.md)
@@ -825,34 +1036,38 @@ Class | Method | HTTP request | Description
 - **Authorization URL**: /oauth2/v1/authorize
 - **Scopes**: 
  - **okta.governance.accessCertifications.manage**: Allows the app to create and manage Access Certification Campaigns
- - **okta.governance.accessCertifications.read**: Allows the app to read information about Access Certification Campaigns and Reviews in your Okta organization
+ - **okta.governance.accessCertifications.read**: Allows the app to read information about Access Certification Campaigns and Reviews in your Okta org
  - **okta.governance.accessRequests.manage**: Allows the app to create and manage V1 Access Requests, Request Types, and Teams
- - **okta.governance.accessRequests.read**: Allows the app to read information about V1 Access Requests, Request Types, and Teams in your Okta organization
- - **okta.governance.entitlements.read**: Allows the app to read information about Entitlements, Entitlement bundles and Grant
- - **okta.governance.entitlements.manage**: Allows the app to create and manage Entitlements, Entitlement bundles and Grants
- - **okta.accessRequests.catalog.read**: Allows the app to read information about Access Request Catalogs in your Okta organization
+ - **okta.governance.accessRequests.read**: Allows the app to read information about V1 Access Requests, Request Types, and Teams in your Okta org
+ - **okta.governance.entitlements.read**: Allows the app to read information about Entitlements, Entitlement bundles, and Grants
+ - **okta.governance.entitlements.manage**: Allows the app to create and manage Entitlements, Entitlement bundles, and Grants
+ - **okta.accessRequests.catalog.read**: Allows the app to read information about Access Request Catalogs in your Okta org
  - **okta.accessRequests.condition.manage**: Allows the app to create and manage Conditions for the Access Request Resource Catalog
  - **okta.accessRequests.condition.read**: Allows the app to read information about Conditions for the Access Request Resource Catalog
  - **okta.accessRequests.request.manage**: Allows the app to create and manage V2 Access Requests through the Access Request Resource Catalog
  - **okta.accessRequests.request.read**: Allows the app to read information about V2 Access Requests created through the Access Requests Resource Catalog
  - **okta.governance.collections.manage**: Allows the app to create and manage collections
  - **okta.governance.collections.read**: Allows the app to read information about collections in your Okta org
+ - **okta.governance.operations.read**: Allows the app to read information about asynchronous operations in your Okta org
  - **okta.governance.riskRule.manage**: Allows the app to create and manage rules
- - **okta.governance.riskRule.read**: Allows the app to read information about rules in your Okta organization
+ - **okta.governance.riskRule.read**: Allows the app to read information about rules in your Okta org
  - **okta.governance.resourceOwner.manage**: Allows the app to create and manage resource owners
- - **okta.governance.resourceOwner.read**: Allows the app to read information about resource owners in your Okta organization
+ - **okta.governance.resourceOwner.read**: Allows the app to read information about resource owners in your Okta org
  - **okta.governance.labels.manage**: Allows the user to create and manage labels
- - **okta.governance.labels.read**: Allows the user to read information about labels in your Okta organization
+ - **okta.governance.labels.read**: Allows the user to read information about labels in your Okta org
  - **okta.governance.securityAccessReviews.admin.manage**: Allows the admin app to create and manage security access reviews
  - **okta.governance.securityAccessReviews.admin.read**: Allows the admin app to read information about security access reviews
- - **okta.governance.securityAccessReviews.endUser.manage**: Allows the end user app to create and manage security access reviews
- - **okta.governance.securityAccessReviews.endUser.read**: Allows the end user to read information about security access reviews
- - **okta.governance.principalSettings.manage**: Allows the app to create and manage governance settings for any user in your Okta organization
- - **okta.governance.principalSettings.read**: Allows the app to read information about governance settings for any user in your Okta organization
- - **okta.governance.settings.manage**: Allows the app to create and manage governance settings for the Okta organization
- - **okta.governance.settings.read**: Allows the app to read information about governance settings for the Okta organization
- - **okta.governance.delegates.read**: Allows the app to read information about delegates in your Okta organization
+ - **okta.governance.securityAccessReviews.endUser.manage**: Allows the end-user app to create and manage security access reviews
+ - **okta.governance.securityAccessReviews.endUser.read**: Allows the end-user app to read information about security access reviews
+ - **okta.governance.principalSettings.manage**: Allows the app to create and manage governance settings for any user in your Okta org
+ - **okta.governance.principalSettings.read**: Allows the app to read information about governance settings for any user in your Okta org
+ - **okta.governance.settings.manage**: Allows the app to create and manage governance settings for your Okta org
+ - **okta.governance.settings.read**: Allows the app to read information about governance settings for your Okta org
+ - **okta.governance.delegates.read**: Allows the app to read information about delegates in your Okta org
  - **okta.governance.reviewer.read**: Allows the end user to read information about access certification reviews assigned to them
+ - **okta.governance.reviewer.manage**: Allows the end user to manage access certification reviews assigned to them
+ - **okta.accessRequests.tasks.manage**: Allows the user to manage tasks for access requests in your Okta org
+ - **okta.accessRequests.tasks.read**: Allows the user to read information about tasks for access requests in your Okta org
 
 Example
 

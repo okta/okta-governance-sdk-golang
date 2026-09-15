@@ -100,7 +100,7 @@ import (
 )
 
 func main() {
-	ruleId := "ruleId_example" // string | The `id` of the risk rule
+	ruleId := "ruleId_example" // string | Unique identifier for the risk rule
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -118,7 +118,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ruleId** | **string** | The &#x60;id&#x60; of the risk rule | 
+**ruleId** | **string** | Unique identifier for the risk rule | 
 
 ### Other Parameters
 
@@ -168,7 +168,7 @@ import (
 )
 
 func main() {
-	potentialRiskAssessmentRequest := *openapiclient.NewPotentialRiskAssessmentRequest("orn:okta:directory:00o8rk36Bp5eZKOrw0g4:users:00u1ktfFMZ5HNoj7k0g4") // PotentialRiskAssessmentRequest | Description of the requested access resource by user.
+	potentialRiskAssessmentRequest := *openapiclient.NewPotentialRiskAssessmentRequest("orn:okta:directory:00o8rk36Bp5eZKOrw0g4:users:00u1ktfFMZ5HNoj7k0g4") // PotentialRiskAssessmentRequest | Risk assessment request parameters. You must specify either one of the following parameters:  * `resourceOrn` * `resourceOrnList`  Okta recommends that you use the `resourceOrnList` parameter.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -193,7 +193,7 @@ Other parameters are passed through a pointer to a apiGeneratePotentialRiskAsses
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **potentialRiskAssessmentRequest** | [**PotentialRiskAssessmentRequest**](PotentialRiskAssessmentRequest.md) | Description of the requested access resource by user. | 
+ **potentialRiskAssessmentRequest** | [**PotentialRiskAssessmentRequest**](PotentialRiskAssessmentRequest.md) | Risk assessment request parameters. You must specify either one of the following parameters:  * &#x60;resourceOrn&#x60; * &#x60;resourceOrnList&#x60;  Okta recommends that you use the &#x60;resourceOrnList&#x60; parameter. | 
 
 ### Return type
 
@@ -234,7 +234,7 @@ import (
 )
 
 func main() {
-	ruleId := "ruleId_example" // string | The `id` of the risk rule
+	ruleId := "ruleId_example" // string | Unique identifier for the risk rule
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -254,7 +254,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ruleId** | **string** | The &#x60;id&#x60; of the risk rule | 
+**ruleId** | **string** | Unique identifier for the risk rule | 
 
 ### Other Parameters
 
@@ -305,8 +305,8 @@ import (
 
 func main() {
 	limit := int32(56) // int32 | The maximum number of records returned in a response (optional) (default to 20)
-	after := "00u68w6vzKLultXS97g6" // string | The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request. (optional)
-	filter := "name sw "Process"" // string | A filter expression that returns entries based on the `resourceOrn` and `name` properties and supports the following operators: *  `eq` operator for the `resourceOrn` property *  `sw` and `co` operator for the `name` property  > **Note:** Query parameter percent encoding is required. See [Special characters](https://developer.okta.com/docs/api/#special-characters).  (optional)
+	after := "00u68w6vzKLultXS97g6" // string | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination). (optional)
+	filter := "name sw "Process"" // string | A filter expression that returns entries based on the `resourceOrn` and `name` properties and supports the following operators: *  `eq` operator for the `resourceOrn` property *  `sw` and `co` operator for the `name` property  > **Note:** Query parameter percent encoding is required. See [Special characters](https://developer.okta.com/docs/api/#special-characters). (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -332,8 +332,8 @@ Other parameters are passed through a pointer to a apiListRiskRulesRequest struc
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **limit** | **int32** | The maximum number of records returned in a response | [default to 20]
- **after** | **string** | The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request. | 
- **filter** | **string** | A filter expression that returns entries based on the &#x60;resourceOrn&#x60; and &#x60;name&#x60; properties and supports the following operators: *  &#x60;eq&#x60; operator for the &#x60;resourceOrn&#x60; property *  &#x60;sw&#x60; and &#x60;co&#x60; operator for the &#x60;name&#x60; property  &gt; **Note:** Query parameter percent encoding is required. See [Special characters](https://developer.okta.com/docs/api/#special-characters).  | 
+ **after** | **string** | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination). | 
+ **filter** | **string** | A filter expression that returns entries based on the &#x60;resourceOrn&#x60; and &#x60;name&#x60; properties and supports the following operators: *  &#x60;eq&#x60; operator for the &#x60;resourceOrn&#x60; property *  &#x60;sw&#x60; and &#x60;co&#x60; operator for the &#x60;name&#x60; property  &gt; **Note:** Query parameter percent encoding is required. See [Special characters](https://developer.okta.com/docs/api/#special-characters). | 
 
 ### Return type
 
@@ -374,7 +374,7 @@ import (
 )
 
 func main() {
-	ruleId := "ruleId_example" // string | The `id` of the risk rule
+	ruleId := "ruleId_example" // string | Unique identifier for the risk rule
 	updateRiskRuleRequest := *openapiclient.NewUpdateRiskRuleRequest("Id_example") // UpdateRiskRuleRequest | The updatable attributes of a risk rule
 
 	configuration := openapiclient.NewConfiguration()
@@ -395,7 +395,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**ruleId** | **string** | The &#x60;id&#x60; of the risk rule | 
+**ruleId** | **string** | Unique identifier for the risk rule | 
 
 ### Other Parameters
 

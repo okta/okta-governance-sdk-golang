@@ -22,6 +22,7 @@ Name | Type | Description | Notes
 **Delegated** | Pointer to **bool** | Specifies if this review was delegated by the original reviewer based on their governance delegate settings | [optional] 
 **AppServiceAccount** | Pointer to [**ReviewerServiceAccount**](ReviewerServiceAccount.md) |  | [optional] 
 **OktaServiceAccount** | Pointer to [**ReviewerServiceAccount**](ReviewerServiceAccount.md) |  | [optional] 
+**AiAgentConnection** | Pointer to [**ReviewerAiAgentConnection**](ReviewerAiAgentConnection.md) |  | [optional] 
 
 ## Methods
 
@@ -466,6 +467,31 @@ SetOktaServiceAccount sets OktaServiceAccount field to given value.
 `func (o *ReviewMinimalReadOnlyFields) HasOktaServiceAccount() bool`
 
 HasOktaServiceAccount returns a boolean if a field has been set.
+
+### GetAiAgentConnection
+
+`func (o *ReviewMinimalReadOnlyFields) GetAiAgentConnection() ReviewerAiAgentConnection`
+
+GetAiAgentConnection returns the AiAgentConnection field if non-nil, zero value otherwise.
+
+### GetAiAgentConnectionOk
+
+`func (o *ReviewMinimalReadOnlyFields) GetAiAgentConnectionOk() (*ReviewerAiAgentConnection, bool)`
+
+GetAiAgentConnectionOk returns a tuple with the AiAgentConnection field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAiAgentConnection
+
+`func (o *ReviewMinimalReadOnlyFields) SetAiAgentConnection(v ReviewerAiAgentConnection)`
+
+SetAiAgentConnection sets AiAgentConnection field to given value.
+
+### HasAiAgentConnection
+
+`func (o *ReviewMinimalReadOnlyFields) HasAiAgentConnection() bool`
+
+HasAiAgentConnection returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

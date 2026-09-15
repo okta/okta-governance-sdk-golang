@@ -30,10 +30,10 @@ import (
 // checks if the AutoRemediationSettingsIncludeOnlyInner type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &AutoRemediationSettingsIncludeOnlyInner{}
 
-// AutoRemediationSettingsIncludeOnlyInner Represents a list of resources that will be automatically remediated
+// AutoRemediationSettingsIncludeOnlyInner Represents a list of resources that are automatically remediated
 type AutoRemediationSettingsIncludeOnlyInner struct {
 	ResourceType *AutoRemediationResourceType `json:"resourceType,omitempty"`
-	// The resource ID of the target resource When `type = GROUP`, it will point to the group ID.
+	// Unique identifier for the target resource. When `resourceType = GROUP`, it points to the group `id`.
 	ResourceId           *string `json:"resourceId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

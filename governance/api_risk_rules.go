@@ -55,7 +55,7 @@ type RiskRulesAPI interface {
 		Deletes a risk rule
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param ruleId The `id` of the risk rule
+		@param ruleId Unique identifier for the risk rule
 		@return ApiDeleteRiskRuleRequest
 	*/
 	DeleteRiskRule(ctx context.Context, ruleId string) ApiDeleteRiskRuleRequest
@@ -83,7 +83,7 @@ type RiskRulesAPI interface {
 		Retrieves a risk rule
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param ruleId The `id` of the risk rule
+		@param ruleId Unique identifier for the risk rule
 		@return ApiGetRiskRuleRequest
 	*/
 	GetRiskRule(ctx context.Context, ruleId string) ApiGetRiskRuleRequest
@@ -112,7 +112,7 @@ type RiskRulesAPI interface {
 		Replaces a risk rule
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param ruleId The `id` of the risk rule
+		@param ruleId Unique identifier for the risk rule
 		@return ApiReplaceRiskRuleRequest
 	*/
 	ReplaceRiskRule(ctx context.Context, ruleId string) ApiReplaceRiskRuleRequest
@@ -339,7 +339,7 @@ DeleteRiskRule Delete a risk rule
 Deletes a risk rule
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param ruleId The `id` of the risk rule
+	@param ruleId Unique identifier for the risk rule
 	@return ApiDeleteRiskRuleRequest
 */
 func (a *RiskRulesAPIService) DeleteRiskRule(ctx context.Context, ruleId string) ApiDeleteRiskRuleRequest {
@@ -506,7 +506,7 @@ type ApiGeneratePotentialRiskAssessmentsRequest struct {
 	retryCount                     int32
 }
 
-// Description of the requested access resource by user.
+// Risk assessment request parameters. You must specify either one of the following parameters:  * &#x60;resourceOrn&#x60; * &#x60;resourceOrnList&#x60;  Okta recommends that you use the &#x60;resourceOrnList&#x60; parameter.
 func (r ApiGeneratePotentialRiskAssessmentsRequest) PotentialRiskAssessmentRequest(potentialRiskAssessmentRequest PotentialRiskAssessmentRequest) ApiGeneratePotentialRiskAssessmentsRequest {
 	r.potentialRiskAssessmentRequest = &potentialRiskAssessmentRequest
 	return r
@@ -714,7 +714,7 @@ GetRiskRule Retrieve a risk rule
 Retrieves a risk rule
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param ruleId The `id` of the risk rule
+	@param ruleId Unique identifier for the risk rule
 	@return ApiGetRiskRuleRequest
 */
 func (a *RiskRulesAPIService) GetRiskRule(ctx context.Context, ruleId string) ApiGetRiskRuleRequest {
@@ -902,7 +902,7 @@ func (r ApiListRiskRulesRequest) Limit(limit int32) ApiListRiskRulesRequest {
 	return r
 }
 
-// The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request.
+// Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination).
 func (r ApiListRiskRulesRequest) After(after string) ApiListRiskRulesRequest {
 	r.after = &after
 	return r
@@ -1127,7 +1127,7 @@ ReplaceRiskRule Replace a risk rule
 Replaces a risk rule
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param ruleId The `id` of the risk rule
+	@param ruleId Unique identifier for the risk rule
 	@return ApiReplaceRiskRuleRequest
 */
 func (a *RiskRulesAPIService) ReplaceRiskRule(ctx context.Context, ruleId string) ApiReplaceRiskRuleRequest {

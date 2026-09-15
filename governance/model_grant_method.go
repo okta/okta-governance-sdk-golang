@@ -38,6 +38,7 @@ const (
 	GRANTMETHOD_ADMIN          GrantMethod = "ADMIN"
 	GRANTMETHOD_API            GrantMethod = "API"
 	GRANTMETHOD_NONE           GrantMethod = "NONE"
+	GRANTMETHOD_IMPORT         GrantMethod = "IMPORT"
 )
 
 // All allowed values of GrantMethod enum
@@ -47,6 +48,7 @@ var AllowedGrantMethodEnumValues = []GrantMethod{
 	"ADMIN",
 	"API",
 	"NONE",
+	"IMPORT",
 }
 
 func (v *GrantMethod) UnmarshalJSON(src []byte) error {

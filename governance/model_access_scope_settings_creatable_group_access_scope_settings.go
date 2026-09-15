@@ -32,12 +32,12 @@ import (
 // checks if the AccessScopeSettingsCreatableGroupAccessScopeSettings type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &AccessScopeSettingsCreatableGroupAccessScopeSettings{}
 
-// AccessScopeSettingsCreatableGroupAccessScopeSettings Access scope settings that resource permissions are groups.
+// AccessScopeSettingsCreatableGroupAccessScopeSettings Access scope settings where resource permissions are groups.
 type AccessScopeSettingsCreatableGroupAccessScopeSettings struct {
 	// Request for access to groups
 	Type string `json:"type"`
-	// List of requestable groups  > **Note:** Both standard Okta groups and AD-sourced groups are supported in Access Requests. > Standard Okta groups have the `okta:user_group` value, whereas AD-sourced groups have the `okta:windows_security_principal` value in their `objectClass` property.
-	Groups []GroupsArrayCreatableInner `json:"groups"`
+	// List of requestable groups. You can specify a maximum of 500 groups as the access scope for each condition.  > **Note:** Both standard Okta groups and AD-sourced groups are supported in Access Requests. > Standard Okta groups have the `okta:user_group` value, whereas AD-sourced groups have the `okta:windows_security_principal` value in their [`objectClass` property](https://developer.okta.com/docs/api/openapi/okta-management/management/tags/group/other/getgroup#other/getgroup/t=response&c=200&path=objectclass).
+	Groups []GroupsArrayRequesterSettingsCreatableInner `json:"groups"`
 }
 
 type _AccessScopeSettingsCreatableGroupAccessScopeSettings AccessScopeSettingsCreatableGroupAccessScopeSettings
@@ -46,7 +46,7 @@ type _AccessScopeSettingsCreatableGroupAccessScopeSettings AccessScopeSettingsCr
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAccessScopeSettingsCreatableGroupAccessScopeSettings(type_ string, groups []GroupsArrayCreatableInner) *AccessScopeSettingsCreatableGroupAccessScopeSettings {
+func NewAccessScopeSettingsCreatableGroupAccessScopeSettings(type_ string, groups []GroupsArrayRequesterSettingsCreatableInner) *AccessScopeSettingsCreatableGroupAccessScopeSettings {
 	this := AccessScopeSettingsCreatableGroupAccessScopeSettings{}
 	this.Type = type_
 	this.Groups = groups
@@ -86,9 +86,9 @@ func (o *AccessScopeSettingsCreatableGroupAccessScopeSettings) SetType(v string)
 }
 
 // GetGroups returns the Groups field value
-func (o *AccessScopeSettingsCreatableGroupAccessScopeSettings) GetGroups() []GroupsArrayCreatableInner {
+func (o *AccessScopeSettingsCreatableGroupAccessScopeSettings) GetGroups() []GroupsArrayRequesterSettingsCreatableInner {
 	if o == nil {
-		var ret []GroupsArrayCreatableInner
+		var ret []GroupsArrayRequesterSettingsCreatableInner
 		return ret
 	}
 
@@ -97,7 +97,7 @@ func (o *AccessScopeSettingsCreatableGroupAccessScopeSettings) GetGroups() []Gro
 
 // GetGroupsOk returns a tuple with the Groups field value
 // and a boolean to check if the value has been set.
-func (o *AccessScopeSettingsCreatableGroupAccessScopeSettings) GetGroupsOk() ([]GroupsArrayCreatableInner, bool) {
+func (o *AccessScopeSettingsCreatableGroupAccessScopeSettings) GetGroupsOk() ([]GroupsArrayRequesterSettingsCreatableInner, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -105,7 +105,7 @@ func (o *AccessScopeSettingsCreatableGroupAccessScopeSettings) GetGroupsOk() ([]
 }
 
 // SetGroups sets field value
-func (o *AccessScopeSettingsCreatableGroupAccessScopeSettings) SetGroups(v []GroupsArrayCreatableInner) {
+func (o *AccessScopeSettingsCreatableGroupAccessScopeSettings) SetGroups(v []GroupsArrayRequesterSettingsCreatableInner) {
 	o.Groups = v
 }
 

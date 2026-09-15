@@ -43,7 +43,7 @@ type Link struct {
 	Type *string `json:"type,omitempty"`
 	// Deprecated
 	Method *string `json:"method,omitempty"`
-	// Indicates whether the link object's `href` property is a URI template.
+	// Indicates whether the link object's `href` property is a URI template
 	Templated *bool `json:"templated,omitempty"`
 	// Link hints
 	Hints *map[string][]string `json:"hints,omitempty"`

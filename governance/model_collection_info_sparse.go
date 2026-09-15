@@ -33,9 +33,9 @@ var _ MappedNullable = &CollectionInfoSparse{}
 
 // CollectionInfoSparse struct for CollectionInfoSparse
 type CollectionInfoSparse struct {
-	// collection id
+	// Unique identifier of the collection
 	Id string `json:"id"`
-	// name of the collection
+	// Name of the collection
 	Name                 string `json:"name"`
 	AdditionalProperties map[string]interface{}
 }

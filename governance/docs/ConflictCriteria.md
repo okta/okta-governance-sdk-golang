@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**And** | Pointer to [**[]Criteria**](Criteria.md) | A conflict occurs when the logical AND evaluation of the two criteria is true | [optional] 
+**And** | Pointer to [**[]Criteria**](Criteria.md) | A conflict occurs when two criteria evaluate to true in a logical &#x60;AND&#x60; evaluation. The criteria are evaluated in order, and the first criterion that evaluates to false causes the entire &#x60;AND&#x60; evaluation to be false. If both criteria evaluate to true, then a conflict is detected. | [optional] 
 
 ## Methods
 

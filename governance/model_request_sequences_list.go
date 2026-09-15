@@ -32,7 +32,7 @@ var _ MappedNullable = &RequestSequencesList{}
 
 // RequestSequencesList struct for RequestSequencesList
 type RequestSequencesList struct {
-	// All request sequences
+	// All resource request sequences (approval sequences)
 	Data                 []RequestSequence          `json:"data,omitempty"`
 	Links                *RequestSequencesListLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}

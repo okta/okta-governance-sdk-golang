@@ -36,11 +36,11 @@ type ValidAccessDurationSettingsDetails struct {
 	SupportedTypes []ValidAccessDurationType `json:"supportedTypes,omitempty"`
 	// Whether `accessDurationSetting` must be included in the request conditions or risk settings for the specified resource.
 	Required *bool `json:"required,omitempty"`
-	// The minimum and maximum values allowed in `accessDurationSettings.duration` expression for a request condition or risk settings, when that expression contains day units. For example: `P5D` is valid, and `P91D` is not.
+	// The maximum number of days allowed from the `accessDurationSettings.duration` day expression for a request condition or risk settings, such as `P30D`. For example, if `accessDurationSettings.duration` is `P365D`, then the maximum number of days for this request is `365`.
 	MaximumDays *float32 `json:"maximumDays,omitempty"`
 	// The minimum and maximum values allowed in `accessDurationSettings.duration` expression for a request condition or risk settings, when that expression contains hour units. For example: `P5H` is valid, and `P73H` is not.
 	MaximumHours *float32 `json:"maximumHours,omitempty"`
-	// The minimum and maximum values allowed in `accessDurationSettings.duration` expression for a request condition or risk settings, when that expression contains week units. For example: `P5W` is valid, and `P13W` is not.
+	// The maximum number of weeks allowed from the `accessDurationSettings.duration` week expression for request condition or risk settings, such as `P3W`. For example, if `accessDurationSettings.duration` is `P52W`, then the maximum number of weeks is `52`.
 	MaximumWeeks         *float32 `json:"maximumWeeks,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** | When custom modifications to a Request Type cannot be modeled with the SERIAL request type. | 
+**Type** | **string** | &#x60;CUSTOM&#x60; is set for request types created through the Okta Access Requests app that aren&#39;t accurately represented by the &#x60;SERIAL&#x60; request type model.  | 
 
 ## Methods
 

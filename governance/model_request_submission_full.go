@@ -58,7 +58,7 @@ type RequestSubmissionFull struct {
 	RequestedBy  ClientCredentialPrincipal `json:"requestedBy"`
 	RequestedFor TargetPrincipal           `json:"requestedFor"`
 	Requested    Requested                 `json:"requested"`
-	// How long the requester retains access after their request is approved and fulfilled.  Specified in [ISO 8601 duration format](https://en.wikipedia.org/wiki/ISO_8601#Durations).  #### Known limitation  Only single time unit ISO 8601 duration formats (D, H, M) are supported, for units (days, hours, minutes).  ##### Supported  | Unit       | Example | | ---------- | ------- | | D, days    | P40D    | | H, hours   | PT65H   | | M, minutes | PT90M   |  > **Note:** Mixes of units, as well as month/year/week designations, are not supported. For example, `P40DT65H`, `P40M`, `P1W` and `P1Y` are not supported.
+	// How long the requester retains access after their request is approved and fulfilled.  Specified in [ISO 8601 duration format](https://en.wikipedia.org/wiki/ISO_8601#Durations).  #### Known limitation  Only single time unit ISO 8601 duration formats (D, H, M) are supported for units (days, hours, minutes).  ##### Supported  | Unit       | Example | | ---------- | ------- | | D, days    | P40D    | | H, hours   | PT65H   | | M, minutes | PT90M   |  > **Note:** Mixes of units, as well as month/year/week designations, aren't supported. For example, `P40DT65H`, `P40M`, `P1W`, and `P1Y` aren't supported.
 	AccessDuration NullableString `json:"accessDuration,omitempty"`
 	// The date the granted access is scheduled for recovation. Only set if request.accessDuration exists, and request.grantStatus is GRANTED.
 	RevocationScheduled NullableTime `json:"revocationScheduled,omitempty"`

@@ -4,8 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | [**CampaignResourceType**](CampaignResourceType.md) |  | 
-**TargetResources** | Pointer to [**[]TargetResourcesRequestInner**](TargetResourcesRequestInner.md) |  Specific resources that are included in the access certification campaign:  * If &#x60;resourceSettings.targetResources.resourceType&#x60; is &#x60;APPLICATION&#x60; and the app is enabled with entitlement management, you can also review entitlements and entitlement bundles:     * Review all entitlements and bundles by setting &#x60;resourceSettings.targetResources.includeAllEntitlementsAndBundles&#x60; to &#x60;true&#x60; (&#x60;false&#x60; is set by default).     * Restrict the review to non-policy entitlement grants by setting &#x60;resourceSettings.onlyIncludeOutOfPolicyEntitlements&#x60; to &#x60;true&#x60; (&#x60;false&#x60; is set by default).     * If &#x60;resourceSettings.targetResources.includeAllEntitlementsAndBundles&#x60; is &#x60;false&#x60;, then you must specify a list of &#x60;resourceSettings.targetResources.entitlementBundles&#x60; and/or &#x60;resourceSettings.targetResources.entitlements&#x60;. * If &#x60;resourceSettings.type&#x60; is &#x60;OKTA_SERVICE_ACCOUNT&#x60;, then specify &#x60;OKTA_SERVICE_ACCOUNT&#x60; as &#x60;resourceSettings.targetResources.resourceType&#x60;, and &#x60;resourceId&#x60; as the ID of the Okta service account. * If &#x60;resourceSettings.type&#x60; is &#x60;APP_SERVICE_ACCOUNT&#x60;, then specify &#x60;APPLICATION&#x60; as the &#x60;resourceSettings.targetResources.resourceType&#x60;, &#x60;resourceSettings.targetResources.resourceId&#x60; as the ID of the Okta app instance, and add service account IDs into &#x60;resourceSettings.targetResources.appServiceAccounts&#x60;.  | [optional] 
+**Type** | Pointer to [**CampaignResourceType**](CampaignResourceType.md) |  | [optional] 
+**TargetTypes** | Pointer to [**[]ResourceTargetType**](ResourceTargetType.md) | Include the list of resource types to be certified in this campaign. * Identity campaigns (&#x60;campaignType&#x3D;USER&#x60;) support more than one resource type in the list. * Resource campaigns support one resource type per campaign. See examples for details. | [optional] 
+**TargetResources** | Pointer to [**[]TargetResourcesRequestInner**](TargetResourcesRequestInner.md) |  Specific resources that are included in the access certification campaign:  * If &#x60;resourceSettings.targetResources.resourceType&#x60; is &#x60;APPLICATION&#x60; and the app is enabled with entitlement management, you can also review entitlements and entitlement bundles:     * Review all entitlements and bundles by setting &#x60;resourceSettings.targetResources.includeAllEntitlementsAndBundles&#x60; to &#x60;true&#x60; (&#x60;false&#x60; is set by default).     * Restrict the review to non-policy entitlement grants by setting &#x60;resourceSettings.onlyIncludeOutOfPolicyEntitlements&#x60; to &#x60;true&#x60; (&#x60;false&#x60; is set by default).     * If &#x60;resourceSettings.targetResources.includeAllEntitlementsAndBundles&#x60; is &#x60;false&#x60;, then you must specify a list of &#x60;resourceSettings.targetResources.entitlementBundles&#x60; and/or &#x60;resourceSettings.targetResources.entitlements&#x60;. * If &#x60;resourceSettings.targetTypes&#x60; includes &#x60;OKTA_SERVICE_ACCOUNT&#x60;, then specify &#x60;OKTA_SERVICE_ACCOUNT&#x60; as &#x60;resourceSettings.targetResources.resourceType&#x60;, and &#x60;resourceId&#x60; as the ID of the Okta service account. * If &#x60;resourceSettings.targetTypes&#x60; includes &#x60;APP_SERVICE_ACCOUNT&#x60;, then specify &#x60;APPLICATION&#x60; as the &#x60;resourceSettings.targetResources.resourceType&#x60;, &#x60;resourceSettings.targetResources.resourceId&#x60; as the ID of the Okta app instance, and add service account IDs into &#x60;resourceSettings.targetResources.appServiceAccounts&#x60;.  | [optional] 
 **ExcludedResources** | Pointer to [**[]ResourceSettingsMutableExcludedResourcesInner**](ResourceSettingsMutableExcludedResourcesInner.md) | Only applicable if &#x60;campaignType&#x60; is &#x60;USER&#x60;.  A list of resources that are excluded from the review. | [optional] 
 **IndividuallyAssignedAppsOnly** | Pointer to **bool** | Only applicable if &#x60;campaignType&#x60; is &#x60;USER&#x60;.  If &#x60;true&#x60;, only include individually assigned apps. | [optional] 
 **IndividuallyAssignedGroupsOnly** | Pointer to **bool** | Only applicable if &#x60;campaignType&#x60; is &#x60;USER&#x60;.  If &#x60;true&#x60;, only include individually assigned groups. | [optional] 
@@ -18,7 +19,7 @@ Name | Type | Description | Notes
 
 ### NewResourceSettingsMutable
 
-`func NewResourceSettingsMutable(type_ CampaignResourceType, ) *ResourceSettingsMutable`
+`func NewResourceSettingsMutable() *ResourceSettingsMutable`
 
 NewResourceSettingsMutable instantiates a new ResourceSettingsMutable object
 This constructor will assign default values to properties that have it defined,
@@ -52,6 +53,36 @@ and a boolean to check if the value has been set.
 
 SetType sets Type field to given value.
 
+### HasType
+
+`func (o *ResourceSettingsMutable) HasType() bool`
+
+HasType returns a boolean if a field has been set.
+
+### GetTargetTypes
+
+`func (o *ResourceSettingsMutable) GetTargetTypes() []ResourceTargetType`
+
+GetTargetTypes returns the TargetTypes field if non-nil, zero value otherwise.
+
+### GetTargetTypesOk
+
+`func (o *ResourceSettingsMutable) GetTargetTypesOk() (*[]ResourceTargetType, bool)`
+
+GetTargetTypesOk returns a tuple with the TargetTypes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTargetTypes
+
+`func (o *ResourceSettingsMutable) SetTargetTypes(v []ResourceTargetType)`
+
+SetTargetTypes sets TargetTypes field to given value.
+
+### HasTargetTypes
+
+`func (o *ResourceSettingsMutable) HasTargetTypes() bool`
+
+HasTargetTypes returns a boolean if a field has been set.
 
 ### GetTargetResources
 

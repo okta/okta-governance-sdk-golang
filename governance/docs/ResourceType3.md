@@ -5,6 +5,8 @@
 
 * `APPLICATION` (value: `"APPLICATION"`)
 
+* `COLLECTION` (value: `"COLLECTION"`)
+
 * `REQUEST_TYPE` (value: `"REQUEST_TYPE"`)
 
 

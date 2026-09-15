@@ -33,9 +33,9 @@ var _ MappedNullable = &PrincipalAccessPolicyEnableResponse{}
 
 // PrincipalAccessPolicyEnableResponse Principal access policy enable
 type PrincipalAccessPolicyEnableResponse struct {
-	// The Okta user, in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format.
+	// The Okta user in [ORN](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn) format
 	PrincipalOrn string `json:"principalOrn"`
-	// The Okta resource, in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn).  See the ORN format for [supported resouces](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
+	// The Okta resource in [ORN format](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#okta-resource-name-orn)  See the ORN format for [supported resources](https://developer.okta.com/docs/api/openapi/okta-management/guides/roles/#supported-resources).
 	ResourceOrn    string                `json:"resourceOrn"`
 	AccessDuration *AssignmentProperties `json:"accessDuration,omitempty"`
 	// Collection of entitlements with associated values

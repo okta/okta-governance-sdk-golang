@@ -74,7 +74,7 @@ type LabelsAPI interface {
 		> **Note:** You can only delete a label key if there are no associated label values assigned to any resources.
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param labelId The ID of the label
+			@param labelId Unique identifier for the label
 			@return ApiDeleteLabelRequest
 	*/
 	DeleteLabel(ctx context.Context, labelId string) ApiDeleteLabelRequest
@@ -88,7 +88,7 @@ type LabelsAPI interface {
 		Retrieves a single label
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param labelId The ID of the label
+		@param labelId Unique identifier for the label
 		@return ApiGetLabelRequest
 	*/
 	GetLabel(ctx context.Context, labelId string) ApiGetLabelRequest
@@ -150,7 +150,7 @@ type LabelsAPI interface {
 		Updates the properties of a label
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param labelId The ID of the label
+		@param labelId Unique identifier for the label
 		@return ApiUpdateLabelRequest
 	*/
 	UpdateLabel(ctx context.Context, labelId string) ApiUpdateLabelRequest
@@ -579,7 +579,7 @@ DeleteLabel Delete a label
 > **Note:** You can only delete a label key if there are no associated label values assigned to any resources.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param labelId The ID of the label
+	@param labelId Unique identifier for the label
 	@return ApiDeleteLabelRequest
 */
 func (a *LabelsAPIService) DeleteLabel(ctx context.Context, labelId string) ApiDeleteLabelRequest {
@@ -744,7 +744,7 @@ GetLabel Retrieve a label
 Retrieves a single label
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param labelId The ID of the label
+	@param labelId Unique identifier for the label
 	@return ApiGetLabelRequest
 */
 func (a *LabelsAPIService) GetLabel(ctx context.Context, labelId string) ApiGetLabelRequest {
@@ -938,7 +938,7 @@ func (r ApiListLabelResourcesRequest) Limit(limit int32) ApiListLabelResourcesRe
 	return r
 }
 
-// The [pagination](https://developer.okta.com/docs/api/#pagination) cursor that points to the last record of the previous request.
+// Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the standard link headers. See [pagination](https://developer.okta.com/docs/api/#pagination).
 func (r ApiListLabelResourcesRequest) After(after string) ApiListLabelResourcesRequest {
 	r.after = &after
 	return r
@@ -1519,7 +1519,7 @@ UpdateLabel Update a label
 Updates the properties of a label
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param labelId The ID of the label
+	@param labelId Unique identifier for the label
 	@return ApiUpdateLabelRequest
 */
 func (a *LabelsAPIService) UpdateLabel(ctx context.Context, labelId string) ApiUpdateLabelRequest {

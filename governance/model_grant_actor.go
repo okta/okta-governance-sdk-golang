@@ -28,7 +28,7 @@ import (
 	"fmt"
 )
 
-// GrantActor The actor sending the grant request
+// GrantActor The flow that triggered the grant request
 type GrantActor string
 
 // List of grant-actor

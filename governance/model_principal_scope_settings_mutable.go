@@ -31,14 +31,14 @@ import (
 // checks if the PrincipalScopeSettingsMutable type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &PrincipalScopeSettingsMutable{}
 
-// PrincipalScopeSettingsMutable User scope specific settings. If all the users of a resource under review are not part of the scope of certification, provide the scope of the user by means of a user expression.
+// PrincipalScopeSettingsMutable The principal identity scope for campaigns. * For resource campaigns (when `campaignType` is `RESOURCE`), if all users aren't part of the certification scope, then provide the scope of the users with a user expression in `userScopeExpression`. * For identity campaigns (when `campaignType` is `USER`), you must specify either `userIds`, `groupIds`, `userScopeExpression`, or `aiAgentIds` properties to define the scope of identities for the campaign. * If you specify `userScopeExpression`, it must be a valid Okta expression that evaluates to a list of users. * If you specify `userIds`, `groupIds`, or `aiAgentIds`, the campaign includes only those principal identities.
 type PrincipalScopeSettingsMutable struct {
 	Type PrincipalScopeType `json:"type"`
 	// The Okta expression language user expression on the `resourceSettings` to include users in the campaign.
 	UserScopeExpression *string `json:"userScopeExpression,omitempty"`
 	// An array of Okta user IDs excluded from access certification or the campaign. This field is optional. A maximum of 50 users can be specified in the array.
 	ExcludedUserIds []string `json:"excludedUserIds,omitempty"`
-	// An array of Okta user IDs included from access certification or the campaign. `userIds`, `groupIds` or `userScopeExpression` is required if campaign type is `USER`. A maximum of 100 users can be specified in the array.
+	// An array of Okta user IDs included from access certification or the campaign. This list is required if `campaignType` is `USER` and you want to certify user access. A maximum of 100 users can be specified in the array.
 	UserIds []string `json:"userIds,omitempty"`
 	// An array of Okta group IDs included from access certification or the campaign. `userIds`, `groupIds` or `userScopeExpression` is required if campaign type is `USER`. A maximum of 5 groups can be specified in the array.
 	GroupIds []string `json:"groupIds,omitempty"`
@@ -47,7 +47,9 @@ type PrincipalScopeSettingsMutable struct {
 	PredefinedInactiveUsersScope *PredefinedInactiveUsersScopeSettings `json:"predefinedInactiveUsersScope,omitempty"`
 	// If set to `true`, only includes users that have at least one SOD conflict that was caused due to entitlement(s) within Campaign scope
 	OnlyIncludeUsersWithSODConflicts *bool `json:"onlyIncludeUsersWithSODConflicts,omitempty"`
-	AdditionalProperties             map[string]interface{}
+	// A list of Okta registered AI agent IDs included in the campaign. This list is required if `campaignType` is `USER` and you want to certify AI agents. You can specify up to a maximum of 100 AI agent IDs.
+	AiAgentIds           []string `json:"aiAgentIds,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _PrincipalScopeSettingsMutable PrincipalScopeSettingsMutable
@@ -320,6 +322,39 @@ func (o *PrincipalScopeSettingsMutable) SetOnlyIncludeUsersWithSODConflicts(v bo
 	o.OnlyIncludeUsersWithSODConflicts = &v
 }
 
+// GetAiAgentIds returns the AiAgentIds field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *PrincipalScopeSettingsMutable) GetAiAgentIds() []string {
+	if o == nil {
+		var ret []string
+		return ret
+	}
+	return o.AiAgentIds
+}
+
+// GetAiAgentIdsOk returns a tuple with the AiAgentIds field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *PrincipalScopeSettingsMutable) GetAiAgentIdsOk() ([]string, bool) {
+	if o == nil || IsNil(o.AiAgentIds) {
+		return nil, false
+	}
+	return o.AiAgentIds, true
+}
+
+// HasAiAgentIds returns a boolean if a field has been set.
+func (o *PrincipalScopeSettingsMutable) HasAiAgentIds() bool {
+	if o != nil && !IsNil(o.AiAgentIds) {
+		return true
+	}
+
+	return false
+}
+
+// SetAiAgentIds gets a reference to the given []string and assigns it to the AiAgentIds field.
+func (o *PrincipalScopeSettingsMutable) SetAiAgentIds(v []string) {
+	o.AiAgentIds = v
+}
+
 func (o PrincipalScopeSettingsMutable) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -351,6 +386,9 @@ func (o PrincipalScopeSettingsMutable) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.OnlyIncludeUsersWithSODConflicts) {
 		toSerialize["onlyIncludeUsersWithSODConflicts"] = o.OnlyIncludeUsersWithSODConflicts
+	}
+	if o.AiAgentIds != nil {
+		toSerialize["aiAgentIds"] = o.AiAgentIds
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -403,6 +441,7 @@ func (o *PrincipalScopeSettingsMutable) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "includeOnlyActiveUsers")
 		delete(additionalProperties, "predefinedInactiveUsersScope")
 		delete(additionalProperties, "onlyIncludeUsersWithSODConflicts")
+		delete(additionalProperties, "aiAgentIds")
 		o.AdditionalProperties = additionalProperties
 	}
 

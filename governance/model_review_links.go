@@ -33,8 +33,8 @@ var _ MappedNullable = &ReviewLinks{}
 
 // ReviewLinks Links available on a single review representation
 type ReviewLinks struct {
-	Self                 Link `json:"self"`
-	ReassignReview       Link `json:"reassignReview"`
+	Self                 Link  `json:"self"`
+	ReassignReview       *Link `json:"reassignReview,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -44,10 +44,9 @@ type _ReviewLinks ReviewLinks
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewReviewLinks(self Link, reassignReview Link) *ReviewLinks {
+func NewReviewLinks(self Link) *ReviewLinks {
 	this := ReviewLinks{}
 	this.Self = self
-	this.ReassignReview = reassignReview
 	return &this
 }
 
@@ -83,28 +82,36 @@ func (o *ReviewLinks) SetSelf(v Link) {
 	o.Self = v
 }
 
-// GetReassignReview returns the ReassignReview field value
+// GetReassignReview returns the ReassignReview field value if set, zero value otherwise.
 func (o *ReviewLinks) GetReassignReview() Link {
-	if o == nil {
+	if o == nil || IsNil(o.ReassignReview) {
 		var ret Link
 		return ret
 	}
-
-	return o.ReassignReview
+	return *o.ReassignReview
 }
 
-// GetReassignReviewOk returns a tuple with the ReassignReview field value
+// GetReassignReviewOk returns a tuple with the ReassignReview field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReviewLinks) GetReassignReviewOk() (*Link, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.ReassignReview) {
 		return nil, false
 	}
-	return &o.ReassignReview, true
+	return o.ReassignReview, true
 }
 
-// SetReassignReview sets field value
+// HasReassignReview returns a boolean if a field has been set.
+func (o *ReviewLinks) HasReassignReview() bool {
+	if o != nil && !IsNil(o.ReassignReview) {
+		return true
+	}
+
+	return false
+}
+
+// SetReassignReview gets a reference to the given Link and assigns it to the ReassignReview field.
 func (o *ReviewLinks) SetReassignReview(v Link) {
-	o.ReassignReview = v
+	o.ReassignReview = &v
 }
 
 func (o ReviewLinks) MarshalJSON() ([]byte, error) {
@@ -118,7 +125,9 @@ func (o ReviewLinks) MarshalJSON() ([]byte, error) {
 func (o ReviewLinks) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["self"] = o.Self
-	toSerialize["reassignReview"] = o.ReassignReview
+	if !IsNil(o.ReassignReview) {
+		toSerialize["reassignReview"] = o.ReassignReview
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -133,7 +142,6 @@ func (o *ReviewLinks) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"self",
-		"reassignReview",
 	}
 
 	allProperties := make(map[string]interface{})

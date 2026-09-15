@@ -31,13 +31,13 @@ import (
 // checks if the AiMessage type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &AiMessage{}
 
-// AiMessage An AI-generated summary is presented as a long text string, and sometimes multiple paragraphs If an AI summary fails to generate, an array of errors is returned with possible steps to correct the failure.
+// AiMessage An AI-generated summary is presented as a long text string and sometimes multiple paragraphs. If an AI summary fails to generate, an array of errors is returned with possible steps to correct the failure.
 type AiMessage struct {
 	// Generated summary message
 	Message string `json:"message"`
 	// Generated summary message as a delta (for streaming)
 	DeltaMessage *string `json:"deltaMessage,omitempty"`
-	// Whenever summary generation has resulted in an error or blocked, the array of errors will detail the reasons.
+	// Whenever summary generation has resulted in an error or blocked, the array of errors details the reasons
 	Errors               []AiMessageErrorsInner `json:"errors,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

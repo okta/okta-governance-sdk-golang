@@ -28,7 +28,7 @@ import (
 	"fmt"
 )
 
-// ProvisioningStatus The org provisioning status in Access Requests
+// ProvisioningStatus The Access Requests provisioning status in the org
 type ProvisioningStatus string
 
 // List of provisioning-status

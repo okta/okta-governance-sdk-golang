@@ -69,7 +69,7 @@ var (
 )
 
 const (
-	VERSION                   = "1.1.0"
+	VERSION                   = "1.0.1"
 	AccessTokenCacheKey       = "OKTA_ACCESS_TOKEN"
 	DpopAccessTokenNonce      = "DPOP_OKTA_ACCESS_TOKEN_NONCE"
 	DpopAccessTokenPrivateKey = "DPOP_OKTA_ACCESS_TOKEN_PRIVATE_KEY"
@@ -101,6 +101,8 @@ type OktaGovernanceAPIClient struct {
 
 	CollectionsAPI CollectionsAPI
 
+	CollectionsV2API CollectionsV2API
+
 	DelegatesAPI DelegatesAPI
 
 	EntitlementBundlesAPI EntitlementBundlesAPI
@@ -122,6 +124,10 @@ type OktaGovernanceAPIClient struct {
 	MySecurityAccessReviewsAPI MySecurityAccessReviewsAPI
 
 	MySettingsAPI MySettingsAPI
+
+	MyTasksAPI MyTasksAPI
+
+	OperationsAPI OperationsAPI
 
 	OrgGovernanceSettingsAPI OrgGovernanceSettingsAPI
 
@@ -150,6 +156,8 @@ type OktaGovernanceAPIClient struct {
 	RiskRulesAPI RiskRulesAPI
 
 	SecurityAccessReviewsAPI SecurityAccessReviewsAPI
+
+	TasksAPI TasksAPI
 }
 
 type service struct {
@@ -748,6 +756,7 @@ func NewAPIClient(cfg *okta.Configuration) *OktaGovernanceAPIClient {
 	c.CampaignsAPI = (*CampaignsAPIService)(&c.common)
 	c.CatalogsAPI = (*CatalogsAPIService)(&c.common)
 	c.CollectionsAPI = (*CollectionsAPIService)(&c.common)
+	c.CollectionsV2API = (*CollectionsV2APIService)(&c.common)
 	c.DelegatesAPI = (*DelegatesAPIService)(&c.common)
 	c.EntitlementBundlesAPI = (*EntitlementBundlesAPIService)(&c.common)
 	c.EntitlementSettingsAPI = (*EntitlementSettingsAPIService)(&c.common)
@@ -759,6 +768,8 @@ func NewAPIClient(cfg *okta.Configuration) *OktaGovernanceAPIClient {
 	c.MyRequestsAPI = (*MyRequestsAPIService)(&c.common)
 	c.MySecurityAccessReviewsAPI = (*MySecurityAccessReviewsAPIService)(&c.common)
 	c.MySettingsAPI = (*MySettingsAPIService)(&c.common)
+	c.MyTasksAPI = (*MyTasksAPIService)(&c.common)
+	c.OperationsAPI = (*OperationsAPIService)(&c.common)
 	c.OrgGovernanceSettingsAPI = (*OrgGovernanceSettingsAPIService)(&c.common)
 	c.PrincipalAccessAPI = (*PrincipalAccessAPIService)(&c.common)
 	c.PrincipalAccessV2API = (*PrincipalAccessV2APIService)(&c.common)
@@ -773,6 +784,7 @@ func NewAPIClient(cfg *okta.Configuration) *OktaGovernanceAPIClient {
 	c.ReviewsAPI = (*ReviewsAPIService)(&c.common)
 	c.RiskRulesAPI = (*RiskRulesAPIService)(&c.common)
 	c.SecurityAccessReviewsAPI = (*SecurityAccessReviewsAPIService)(&c.common)
+	c.TasksAPI = (*TasksAPIService)(&c.common)
 
 	c.IdaasClient = okta.NewAPIClient(cfg)
 

@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Values** | [**[]GrantedEntitlementValue**](GrantedEntitlementValue.md) |  | 
+**Values** | [**[]GrantedEntitlementValue**](GrantedEntitlementValue.md) | The entitlement values granted to the principal | 
 **Id** | **string** | The &#x60;id&#x60; property of an entitlement | 
 **Name** | **string** | The display name for an entitlement property | 
 **ExternalValue** | **string** | The value of an entitlement property | 
 **Description** | Pointer to **string** | The description of an entitlement property | [optional] 
-**MultiValue** | **bool** | Indicate if the entitlement property can hold multiple values. If this property is &#x60;true&#x60;, then the &#x60;dataType&#x60; property is set to  &#x60;array&#x60;. | 
+**MultiValue** | **bool** | Indicates if the entitlement property can hold multiple values. If this property is &#x60;true&#x60;, then the &#x60;dataType&#x60; property is set to &#x60;array&#x60;. | 
 **Required** | **bool** | The property that determines if the entitlement property is a required attribute | 
 **DataType** | [**EntitlementPropertyDatatype**](EntitlementPropertyDatatype.md) |  | 
 

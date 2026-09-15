@@ -9,11 +9,11 @@ require (
 	github.com/go-jose/go-jose/v4 v4.1.3
 	github.com/google/uuid v1.6.0
 	github.com/lestrrat-go/jwx v1.2.31
-	github.com/okta/okta-sdk-golang/v6 v6.0.2
+	github.com/okta/okta-sdk-golang/v6 v6.1.7
 	github.com/patrickmn/go-cache v2.1.0+incompatible
 	github.com/stretchr/testify v1.11.1
 	golang.org/x/oauth2 v0.32.0
-	gopkg.in/dnaeon/go-vcr.v4 v4.0.6
+	gopkg.in/dnaeon/go-vcr.v4 v4.0.7
 )
 
 require (
@@ -33,7 +33,7 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/segmentio/asm v1.2.1 // indirect
-	go.yaml.in/yaml/v4 v4.0.0-rc.3 // indirect
+	go.yaml.in/yaml/v4 v4.0.0-rc.6 // indirect
 	golang.org/x/crypto v0.43.0 // indirect
 	golang.org/x/sys v0.37.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect

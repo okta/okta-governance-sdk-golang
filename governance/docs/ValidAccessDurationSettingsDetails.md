@@ -6,9 +6,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **SupportedTypes** | Pointer to [**[]ValidAccessDurationType**](ValidAccessDurationType.md) | Access duration settings that are eligible to be added to a request condition or risk settings for the specified resource. | [optional] 
 **Required** | Pointer to **bool** | Whether &#x60;accessDurationSetting&#x60; must be included in the request conditions or risk settings for the specified resource. | [optional] 
-**MaximumDays** | Pointer to **float32** | The minimum and maximum values allowed in &#x60;accessDurationSettings.duration&#x60; expression for a request condition or risk settings, when that expression contains day units. For example: &#x60;P5D&#x60; is valid, and &#x60;P91D&#x60; is not.  | [optional] 
+**MaximumDays** | Pointer to **float32** | The maximum number of days allowed from the &#x60;accessDurationSettings.duration&#x60; day expression for a request condition or risk settings, such as &#x60;P30D&#x60;. For example, if &#x60;accessDurationSettings.duration&#x60; is &#x60;P365D&#x60;, then the maximum number of days for this request is &#x60;365&#x60;.  | [optional] 
 **MaximumHours** | Pointer to **float32** | The minimum and maximum values allowed in &#x60;accessDurationSettings.duration&#x60; expression for a request condition or risk settings, when that expression contains hour units. For example: &#x60;P5H&#x60; is valid, and &#x60;P73H&#x60; is not.  | [optional] 
-**MaximumWeeks** | Pointer to **float32** | The minimum and maximum values allowed in &#x60;accessDurationSettings.duration&#x60; expression for a request condition or risk settings, when that expression contains week units. For example: &#x60;P5W&#x60; is valid, and &#x60;P13W&#x60; is not.  | [optional] 
+**MaximumWeeks** | Pointer to **float32** | The maximum number of weeks allowed from the &#x60;accessDurationSettings.duration&#x60; week expression for request condition or risk settings, such as &#x60;P3W&#x60;. For example, if &#x60;accessDurationSettings.duration&#x60; is &#x60;P52W&#x60;, then the maximum number of weeks is &#x60;52&#x60;.  | [optional] 
 
 ## Methods
 

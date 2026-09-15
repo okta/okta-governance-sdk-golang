@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **IncludeOnly** | Pointer to [**[]AutoRemediationSettingsIncludeOnlyInner**](AutoRemediationSettingsIncludeOnlyInner.md) | An array of resources to be automatically remediated | [optional] 
-**IncludeAllIndirectAssignments** | Pointer to **bool** | If &#x60;includeAllIndirectAssignments&#x60; is set to &#x60;true&#x60;, the user&#39;s access to all groups that can assign the user to the application(s) will be removed during remediation. Only app assignments through groups can be automatically remediated. **Note:** You can only specify either  &#x60;includeAllIndirectAssignments&#x60; or &#x60;includeOnly&#x60;.  | [optional] 
+**IncludeAllIndirectAssignments** | Pointer to **bool** | If &#x60;includeAllIndirectAssignments&#x60; is set to &#x60;true&#x60;, the user&#39;s access to all groups that can assign the user to the app(s) is removed during remediation. Only app assignments through groups can be automatically remediated. &gt; **Note:** You can specify only &#x60;includeAllIndirectAssignments&#x60; or &#x60;includeOnly&#x60;. | [optional] 
 
 ## Methods
 

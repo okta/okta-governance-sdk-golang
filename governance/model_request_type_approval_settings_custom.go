@@ -33,7 +33,7 @@ var _ MappedNullable = &RequestTypeApprovalSettingsCustom{}
 
 // RequestTypeApprovalSettingsCustom Approval settings which are not represented in the API accurately. Often the case when lastUpdatedSource is 'WEB'.
 type RequestTypeApprovalSettingsCustom struct {
-	// When custom modifications to a Request Type cannot be modeled with the SERIAL request type.
+	// `CUSTOM` is set for request types created through the Okta Access Requests app that aren't accurately represented by the `SERIAL` request type model.
 	Type                 string `json:"type"`
 	AdditionalProperties map[string]interface{}
 }

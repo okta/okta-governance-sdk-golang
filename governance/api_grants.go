@@ -57,7 +57,7 @@ type GrantsAPI interface {
 		Retrieves the full detail of a specific grant
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param grantId The `id` of the grant
+		@param grantId Unique identifier for the grant
 		@return ApiGetGrantRequest
 	*/
 	GetGrant(ctx context.Context, grantId string) ApiGetGrantRequest
@@ -97,7 +97,7 @@ type GrantsAPI interface {
 
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param grantId The `id` of the grant
+			@param grantId Unique identifier for the grant
 			@return ApiReplaceGrantRequest
 	*/
 	ReplaceGrant(ctx context.Context, grantId string) ApiReplaceGrantRequest
@@ -115,7 +115,7 @@ type GrantsAPI interface {
 
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param grantId The `id` of the grant
+			@param grantId Unique identifier for the grant
 			@return ApiUpdateGrantRequest
 	*/
 	UpdateGrant(ctx context.Context, grantId string) ApiUpdateGrantRequest
@@ -350,7 +350,7 @@ GetGrant Retrieve a grant
 Retrieves the full detail of a specific grant
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param grantId The `id` of the grant
+	@param grantId Unique identifier for the grant
 	@return ApiGetGrantRequest
 */
 func (a *GrantsAPIService) GetGrant(ctx context.Context, grantId string) ApiGetGrantRequest {
@@ -814,7 +814,7 @@ You can only replace objects in the `entitlements` array for a grant with the `C
 This may result in changes to principal entitlements.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param grantId The `id` of the grant
+	@param grantId Unique identifier for the grant
 	@return ApiReplaceGrantRequest
 */
 func (a *GrantsAPIService) ReplaceGrant(ctx context.Context, grantId string) ApiReplaceGrantRequest {
@@ -1018,7 +1018,7 @@ Updates a grant expiry date.
 You can only update the `scheduleSettings.expirationDate` property for a grant.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param grantId The `id` of the grant
+	@param grantId Unique identifier for the grant
 	@return ApiUpdateGrantRequest
 */
 func (a *GrantsAPIService) UpdateGrant(ctx context.Context, grantId string) ApiUpdateGrantRequest {

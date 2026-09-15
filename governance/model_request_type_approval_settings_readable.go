@@ -28,7 +28,7 @@ import (
 	"fmt"
 )
 
-// RequestTypeApprovalSettingsReadable - struct for RequestTypeApprovalSettingsReadable
+// RequestTypeApprovalSettingsReadable - Approval settings for the request type
 type RequestTypeApprovalSettingsReadable struct {
 	RequestTypeApprovalSettingsCustom *RequestTypeApprovalSettingsCustom
 	RequestTypeApprovalSettingsNone   *RequestTypeApprovalSettingsNone

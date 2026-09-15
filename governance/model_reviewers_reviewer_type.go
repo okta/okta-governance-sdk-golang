@@ -28,7 +28,7 @@ import (
 	"fmt"
 )
 
-// ReviewersReviewerType Identifies the kind of reviewer for Access Certification.
+// ReviewersReviewerType Identifies the reviewer type for the access certification. Reviewers can be `USER`, `GROUP`, or `RESOURCE_OWNER`.
 type ReviewersReviewerType string
 
 // List of reviewers-reviewer-type

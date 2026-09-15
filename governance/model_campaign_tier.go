@@ -28,7 +28,7 @@ import (
 	"fmt"
 )
 
-// CampaignTier Indicates the minimum required SKU to manage the campaign.
+// CampaignTier Indicates the minimum required SKU to manage the campaign
 type CampaignTier string
 
 // List of campaign-tier

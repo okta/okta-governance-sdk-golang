@@ -32,7 +32,7 @@ var _ MappedNullable = &ConflictCriteria{}
 
 // ConflictCriteria Conflict criteria for the risk rule
 type ConflictCriteria struct {
-	// A conflict occurs when the logical AND evaluation of the two criteria is true
+	// A conflict occurs when two criteria evaluate to true in a logical `AND` evaluation. The criteria are evaluated in order, and the first criterion that evaluates to false causes the entire `AND` evaluation to be false. If both criteria evaluate to true, then a conflict is detected.
 	And                  []Criteria `json:"and,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

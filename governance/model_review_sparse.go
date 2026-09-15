@@ -34,7 +34,6 @@ var _ MappedNullable = &ReviewSparse{}
 
 // ReviewSparse Sparse representation of a Review resource
 type ReviewSparse struct {
-	Links ReviewLinks `json:"_links"`
 	// Unique identifier for the object
 	Id string `json:"id"`
 	// The `id` of the Okta user who created the resource
@@ -45,6 +44,7 @@ type ReviewSparse struct {
 	LastUpdated time.Time `json:"lastUpdated"`
 	// The `id` of the Okta user who last updated the object
 	LastUpdatedBy        string                     `json:"lastUpdatedBy"`
+	Links                ReviewLinks                `json:"_links"`
 	CampaignId           string                     `json:"campaignId"`
 	ResourceId           string                     `json:"resourceId"`
 	EntitlementValue     *ReviewerEntitlementValue  `json:"entitlementValue,omitempty"`
@@ -61,9 +61,10 @@ type ReviewSparse struct {
 	RiskRuleConflicts []RiskRuleConflicts       `json:"riskRuleConflicts,omitempty"`
 	DelegatorProfile  *PrincipalProfileEnriched `json:"delegatorProfile,omitempty"`
 	// Specifies if this review was delegated by the original reviewer based on their governance delegate settings
-	Delegated            *bool                   `json:"delegated,omitempty"`
-	AppServiceAccount    *ReviewerServiceAccount `json:"appServiceAccount,omitempty"`
-	OktaServiceAccount   *ReviewerServiceAccount `json:"oktaServiceAccount,omitempty"`
+	Delegated            *bool                      `json:"delegated,omitempty"`
+	AppServiceAccount    *ReviewerServiceAccount    `json:"appServiceAccount,omitempty"`
+	OktaServiceAccount   *ReviewerServiceAccount    `json:"oktaServiceAccount,omitempty"`
+	AiAgentConnection    *ReviewerAiAgentConnection `json:"aiAgentConnection,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -73,7 +74,7 @@ type _ReviewSparse ReviewSparse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewReviewSparse(links ReviewLinks, id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, campaignId string, resourceId string, decision Decision, remediationStatus RemediationStatus, principalProfile PrincipalProfileEnriched, reviewerType ReviewersReviewerType) *ReviewSparse {
+func NewReviewSparse(id string, createdBy string, created time.Time, lastUpdated time.Time, lastUpdatedBy string, links ReviewLinks, campaignId string, resourceId string, decision Decision, remediationStatus RemediationStatus, principalProfile PrincipalProfileEnriched, reviewerType ReviewersReviewerType) *ReviewSparse {
 	this := ReviewSparse{}
 	this.Id = id
 	this.CreatedBy = createdBy
@@ -96,30 +97,6 @@ func NewReviewSparse(links ReviewLinks, id string, createdBy string, created tim
 func NewReviewSparseWithDefaults() *ReviewSparse {
 	this := ReviewSparse{}
 	return &this
-}
-
-// GetLinks returns the Links field value
-func (o *ReviewSparse) GetLinks() ReviewLinks {
-	if o == nil {
-		var ret ReviewLinks
-		return ret
-	}
-
-	return o.Links
-}
-
-// GetLinksOk returns a tuple with the Links field value
-// and a boolean to check if the value has been set.
-func (o *ReviewSparse) GetLinksOk() (*ReviewLinks, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Links, true
-}
-
-// SetLinks sets field value
-func (o *ReviewSparse) SetLinks(v ReviewLinks) {
-	o.Links = v
 }
 
 // GetId returns the Id field value
@@ -240,6 +217,30 @@ func (o *ReviewSparse) GetLastUpdatedByOk() (*string, bool) {
 // SetLastUpdatedBy sets field value
 func (o *ReviewSparse) SetLastUpdatedBy(v string) {
 	o.LastUpdatedBy = v
+}
+
+// GetLinks returns the Links field value
+func (o *ReviewSparse) GetLinks() ReviewLinks {
+	if o == nil {
+		var ret ReviewLinks
+		return ret
+	}
+
+	return o.Links
+}
+
+// GetLinksOk returns a tuple with the Links field value
+// and a boolean to check if the value has been set.
+func (o *ReviewSparse) GetLinksOk() (*ReviewLinks, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Links, true
+}
+
+// SetLinks sets field value
+func (o *ReviewSparse) SetLinks(v ReviewLinks) {
+	o.Links = v
 }
 
 // GetCampaignId returns the CampaignId field value
@@ -739,6 +740,38 @@ func (o *ReviewSparse) SetOktaServiceAccount(v ReviewerServiceAccount) {
 	o.OktaServiceAccount = &v
 }
 
+// GetAiAgentConnection returns the AiAgentConnection field value if set, zero value otherwise.
+func (o *ReviewSparse) GetAiAgentConnection() ReviewerAiAgentConnection {
+	if o == nil || IsNil(o.AiAgentConnection) {
+		var ret ReviewerAiAgentConnection
+		return ret
+	}
+	return *o.AiAgentConnection
+}
+
+// GetAiAgentConnectionOk returns a tuple with the AiAgentConnection field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ReviewSparse) GetAiAgentConnectionOk() (*ReviewerAiAgentConnection, bool) {
+	if o == nil || IsNil(o.AiAgentConnection) {
+		return nil, false
+	}
+	return o.AiAgentConnection, true
+}
+
+// HasAiAgentConnection returns a boolean if a field has been set.
+func (o *ReviewSparse) HasAiAgentConnection() bool {
+	if o != nil && !IsNil(o.AiAgentConnection) {
+		return true
+	}
+
+	return false
+}
+
+// SetAiAgentConnection gets a reference to the given ReviewerAiAgentConnection and assigns it to the AiAgentConnection field.
+func (o *ReviewSparse) SetAiAgentConnection(v ReviewerAiAgentConnection) {
+	o.AiAgentConnection = &v
+}
+
 func (o ReviewSparse) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -749,12 +782,12 @@ func (o ReviewSparse) MarshalJSON() ([]byte, error) {
 
 func (o ReviewSparse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["_links"] = o.Links
 	toSerialize["id"] = o.Id
 	toSerialize["createdBy"] = o.CreatedBy
 	toSerialize["created"] = o.Created
 	toSerialize["lastUpdated"] = o.LastUpdated
 	toSerialize["lastUpdatedBy"] = o.LastUpdatedBy
+	toSerialize["_links"] = o.Links
 	toSerialize["campaignId"] = o.CampaignId
 	toSerialize["resourceId"] = o.ResourceId
 	if !IsNil(o.EntitlementValue) {
@@ -794,6 +827,9 @@ func (o ReviewSparse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.OktaServiceAccount) {
 		toSerialize["oktaServiceAccount"] = o.OktaServiceAccount
 	}
+	if !IsNil(o.AiAgentConnection) {
+		toSerialize["aiAgentConnection"] = o.AiAgentConnection
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -807,12 +843,12 @@ func (o *ReviewSparse) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"_links",
 		"id",
 		"createdBy",
 		"created",
 		"lastUpdated",
 		"lastUpdatedBy",
+		"_links",
 		"campaignId",
 		"resourceId",
 		"decision",
@@ -848,12 +884,12 @@ func (o *ReviewSparse) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "_links")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "createdBy")
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "lastUpdated")
 		delete(additionalProperties, "lastUpdatedBy")
+		delete(additionalProperties, "_links")
 		delete(additionalProperties, "campaignId")
 		delete(additionalProperties, "resourceId")
 		delete(additionalProperties, "entitlementValue")
@@ -871,6 +907,7 @@ func (o *ReviewSparse) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "delegated")
 		delete(additionalProperties, "appServiceAccount")
 		delete(additionalProperties, "oktaServiceAccount")
+		delete(additionalProperties, "aiAgentConnection")
 		o.AdditionalProperties = additionalProperties
 	}
 
