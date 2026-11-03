@@ -6,7 +6,7 @@ toolchain go1.24.2
 
 require (
 	github.com/cenkalti/backoff/v4 v4.3.0
-	github.com/go-jose/go-jose/v4 v4.1.3
+	github.com/go-jose/go-jose/v4 v4.1.6
 	github.com/google/uuid v1.6.0
 	github.com/lestrrat-go/jwx v1.2.31
 	github.com/okta/okta-sdk-golang/v6 v6.1.7
