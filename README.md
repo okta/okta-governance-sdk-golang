@@ -50,10 +50,10 @@ If you run into problems using the SDK, you can
 To install the Okta Golang SDK in your project:
 - Create a module file by running `go mod init`
     - You can skip this step if you already use `go mod`
-- Run `go get github.com/okta/okta-governance-sdk-golang/v1@latest`. This will add
+- Run `go get github.com/okta/okta-governance-sdk-golang/v2@latest`. This will add
   the SDK to your `go.mod` file.
 - Import the package in your project with `import
-   "github.com/okta/okta-governance-sdk-golang/v1/governance"`
+   "github.com/okta/okta-governance-sdk-golang/v2/governance"`
 
 ### You'll also need
 

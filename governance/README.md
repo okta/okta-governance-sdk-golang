@@ -30,7 +30,7 @@ go get golang.org/x/net/context
 Put the package under your project folder and add the following in import:
 
 ```golang
-import governance "github.com/okta/okta-governance-sdk-golang"
+import governance "github.com/okta/okta-governance-sdk-golang/v2/governance"
 ```
 
 To use a proxy, set the environment variable `HTTP_PROXY` or use configuration in okta.Configuration.Okta.Client.Proxy.
@@ -1034,7 +1034,7 @@ Class | Method | HTTP request | Description
 - **Type**: OAuth
 - **Flow**: accessCode
 - **Authorization URL**: /oauth2/v1/authorize
-- **Scopes**: 
+- **Scopes**:
  - **okta.governance.accessCertifications.manage**: Allows the app to create and manage Access Certification Campaigns
  - **okta.governance.accessCertifications.read**: Allows the app to read information about Access Certification Campaigns and Reviews in your Okta org
  - **okta.governance.accessRequests.manage**: Allows the app to create and manage V1 Access Requests, Request Types, and Teams
