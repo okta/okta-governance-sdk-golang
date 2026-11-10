@@ -1,9 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## v2.0.1
+
+- Fixed the Go module path to include the `/v2` major version suffix (`github.com/okta/okta-governance-sdk-golang/v2`). v2.0.0 could not be installed with `go get`. Thanks,
+  [@exitcode0](https://github.com/exitcode0) and [@aditya-okta](https://github.com/aditya-okta).
+
 ## v2.0.0
 
-Regenerated the SDK from an updated OpenAPI spec. This release includes breaking changes — see below. Thanks [@pranav-okta](https://github.com/pranav-okta)
+- Regenerated the SDK from an updated OpenAPI spec. This release includes breaking changes — see below. Thanks [@pranav-okta](https://github.com/pranav-okta)
 
 ### Breaking changes
 
