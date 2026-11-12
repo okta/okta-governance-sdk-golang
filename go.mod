@@ -1,4 +1,4 @@
-module github.com/okta/okta-governance-sdk-golang
+module github.com/okta/okta-governance-sdk-golang/v2
 
 go 1.24.0
 

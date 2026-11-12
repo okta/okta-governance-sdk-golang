@@ -2,8 +2,6 @@ package governance
 
 import (
 	"testing"
-
-	apiClient "github.com/okta/okta-governance-sdk-golang"
 )
 
 func TestEntitlementsAPIService_GetPrincipalEntitlements(t *testing.T) {
