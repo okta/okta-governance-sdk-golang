@@ -211,6 +211,32 @@ func TestCampaignDetailsReadOnly_HasRequiredFields(t *testing.T) {
 }
 
 // =============================================================================
+// CampaignStatus Enum Contract Tests
+// Campaign Staging adds statuses that GA campaign APIs can return. Decoding a
+// campaign in any of these states must not fail.
+// =============================================================================
+
+func TestCampaignStatus_ParseStagingValues(t *testing.T) {
+	statuses := []CampaignStatus{
+		CAMPAIGNSTATUS_STAGING_ELIGIBLE,
+		CAMPAIGNSTATUS_STAGING_IN_PROGRESS,
+		CAMPAIGNSTATUS_STAGING_READY,
+		CAMPAIGNSTATUS_STAGING_FAILED,
+		CAMPAIGNSTATUS_STAGING_OUTDATED,
+	}
+
+	for _, want := range statuses {
+		t.Run(string(want), func(t *testing.T) {
+			var got CampaignStatus
+			err := json.Unmarshal([]byte(`"`+string(want)+`"`), &got)
+			require.NoError(t, err, "Failed to parse CampaignStatus")
+			assert.Equal(t, want, got)
+			assert.True(t, got.IsValid())
+		})
+	}
+}
+
+// =============================================================================
 // OrgSettings Model Contract Tests
 // =============================================================================
 

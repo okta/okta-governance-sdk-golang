@@ -34902,6 +34902,11 @@ components:
         - COMPLETED
         - DELETED
         - ERROR
+        - STAGING_ELIGIBLE
+        - STAGING_IN_PROGRESS
+        - STAGING_READY
+        - STAGING_FAILED
+        - STAGING_OUTDATED
     campaign-read-only-fields:
       type: object
       x-okta-ignore-redocly-rules-for-sdk: true
