@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## v2.0.2
+- Fixes unmarshalling error due to additional campaign staging values.
+
 ## v2.0.1
 
 - Fixed the Go module path to include the `/v2` major version suffix (`github.com/okta/okta-governance-sdk-golang/v2`). v2.0.0 could not be installed with `go get`. Thanks,

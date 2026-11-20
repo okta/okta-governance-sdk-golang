@@ -10,7 +10,7 @@ additionalProperties:
   enumClassPrefix: true
   generateInterfaces: true
   packageName: governance
-  packageVersion: 2.0.1
+  packageVersion: 2.0.2
   useOneOfDiscriminatorLookup: true
   disallowAdditionalPropertiesIfNotPresent: false
 files:
