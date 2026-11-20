@@ -33,12 +33,17 @@ type CampaignStatus string
 
 // List of campaign-status
 const (
-	CAMPAIGNSTATUS_SCHEDULED CampaignStatus = "SCHEDULED"
-	CAMPAIGNSTATUS_LAUNCHING CampaignStatus = "LAUNCHING"
-	CAMPAIGNSTATUS_ACTIVE    CampaignStatus = "ACTIVE"
-	CAMPAIGNSTATUS_COMPLETED CampaignStatus = "COMPLETED"
-	CAMPAIGNSTATUS_DELETED   CampaignStatus = "DELETED"
-	CAMPAIGNSTATUS_ERROR     CampaignStatus = "ERROR"
+	CAMPAIGNSTATUS_SCHEDULED           CampaignStatus = "SCHEDULED"
+	CAMPAIGNSTATUS_LAUNCHING           CampaignStatus = "LAUNCHING"
+	CAMPAIGNSTATUS_ACTIVE              CampaignStatus = "ACTIVE"
+	CAMPAIGNSTATUS_COMPLETED           CampaignStatus = "COMPLETED"
+	CAMPAIGNSTATUS_DELETED             CampaignStatus = "DELETED"
+	CAMPAIGNSTATUS_ERROR               CampaignStatus = "ERROR"
+	CAMPAIGNSTATUS_STAGING_ELIGIBLE    CampaignStatus = "STAGING_ELIGIBLE"
+	CAMPAIGNSTATUS_STAGING_IN_PROGRESS CampaignStatus = "STAGING_IN_PROGRESS"
+	CAMPAIGNSTATUS_STAGING_READY       CampaignStatus = "STAGING_READY"
+	CAMPAIGNSTATUS_STAGING_FAILED      CampaignStatus = "STAGING_FAILED"
+	CAMPAIGNSTATUS_STAGING_OUTDATED    CampaignStatus = "STAGING_OUTDATED"
 )
 
 // All allowed values of CampaignStatus enum
@@ -49,6 +54,11 @@ var AllowedCampaignStatusEnumValues = []CampaignStatus{
 	"COMPLETED",
 	"DELETED",
 	"ERROR",
+	"STAGING_ELIGIBLE",
+	"STAGING_IN_PROGRESS",
+	"STAGING_READY",
+	"STAGING_FAILED",
+	"STAGING_OUTDATED",
 }
 
 func (v *CampaignStatus) UnmarshalJSON(src []byte) error {

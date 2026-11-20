@@ -54211,6 +54211,11 @@ components:
       - COMPLETED
       - DELETED
       - ERROR
+      - STAGING_ELIGIBLE
+      - STAGING_IN_PROGRESS
+      - STAGING_READY
+      - STAGING_FAILED
+      - STAGING_OUTDATED
       type: string
     campaign-read-only-fields:
       description: Read-only attributes
